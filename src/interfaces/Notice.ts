@@ -3,6 +3,7 @@ export interface Notice {
   category: string;
   site_id: number;
   title: string;
+  contents: string;
   url: string;
   date: string;
 }

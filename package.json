@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node ./src/index.ts"
+    "start": "ts-node  -r tsconfig-paths/register ./src/index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "puppeteer": "^7.1.0"
+    "puppeteer": "^7.1.0",
+    "tsconfig-paths": "^3.9.0"
   }
 }

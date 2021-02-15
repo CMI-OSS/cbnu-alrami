@@ -4,9 +4,6 @@ import { SiteScript, Notice } from "@src/interfaces";
 class NoticeCrawler {
   cralwer: Page | null = null;
   siteScriptList: SiteScript[] = [];
-  constructor() {
-    this.init();
-  }
 
   // 크롤러 초기화
   async init() {
@@ -46,15 +43,29 @@ class NoticeCrawler {
     this.cralwer = page;
   }
 
-  async craweling(site: SiteScript) {
-    
+  async start(siteScriptList: SiteScript[]) {
+    await this.init();
+
+    this.siteScriptList = siteScriptList;
+
+    for (const site of siteScriptList) {
+      await this.crawling(site);
+    }
+  }
+
+  async crawling(site: SiteScript) {
+    // console.log(site)
+
     // 공지사항 목록 크롤링
     const noticeList = await this.getNoticeList(site);
 
     // 공지사항별 목록 크롤링
-    noticeList.forEach(async (notice: Notice) => {
+    for (const notice of noticeList) {
       notice.contents = await this.getDetail(site, notice);
-    });
+      console.log(notice);
+    }
+
+    console.log(noticeList);
 
     // 데이터베이스 저장
 
@@ -62,9 +73,10 @@ class NoticeCrawler {
   }
 
   async getNoticeList(site: SiteScript): Promise<Notice[]> {
+    console.log(site);
     try {
       if (this.cralwer === null) {
-        throw Error("getNoticeList - 크롤러 없음");
+        throw Error("크롤러 없음");
       }
       // 공지사항 목록 페이지로 이동
       await this.cralwer.goto(site.url);
@@ -76,17 +88,15 @@ class NoticeCrawler {
       await this.cralwer.evaluate(site.getData.toString());
 
       // 공지사항 목록 가져오기
-      const notice_list: Notice[] = await this.cralwer.evaluate(
-        `return getData()`
-      );
+      const notice_list: Notice[] = await this.cralwer.evaluate(`getData()`);
 
       if (notice_list.length == 0) {
-        throw Error("getNoticeList - 공지사항 목록 크롤링 실패");
+        throw Error("공지사항 목록 크롤링 실패");
       }
 
       return notice_list;
     } catch (error) {
-      console.error(site.name + " " + error);
+      console.error(`[${site.site_id}/getDetail]` + error);
       throw error;
     }
   }
@@ -94,30 +104,28 @@ class NoticeCrawler {
   async getDetail(site: SiteScript, notice: Notice): Promise<string> {
     try {
       if (this.cralwer === null) {
-        throw Error("getNoticeList - 크롤러 없음");
+        throw new Error("크롤러 없음");
       }
 
       // 공지사항 상세 페이지로 이동
       await this.cralwer.goto(notice.url);
 
       // 10초정도 기다려주기
-      await this.cralwer.waitForTimeout(10000);
+      await this.cralwer.waitForTimeout(5000);
 
       // 공지사항 내용 스크립트 주입
       await this.cralwer.evaluate(site.getContentsHtml.toString());
 
       // 공지사항 내용 가져오기
-      const contents: string = await this.cralwer.evaluate(
-        `return getContentsHtml()`
-      );
+      const contents: string = await this.cralwer.evaluate(`getContentsHtml()`);
 
       if (contents === "") {
-        throw Error("getDetail - 공지사항 내용 크롤링 실패");
+        throw new Error("공지사항 내용 크롤링 실패");
       }
 
       return contents;
     } catch (error) {
-      console.error(site.name + " " + error);
+      console.error(`[${site.site_id}/getDetail]` + " " + error);
       throw error;
     }
   }

@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^8.2.0",
+    "mongoose": "^5.11.16",
     "puppeteer": "^7.1.0",
     "tsconfig-paths": "^3.9.0"
   }

@@ -110,7 +110,7 @@ class NoticeCrawler {
       // 공지사항 상세 페이지로 이동
       await this.cralwer.goto(notice.url);
 
-      // 10초정도 기다려주기
+      // 5초정도 기다려주기
       await this.cralwer.waitForTimeout(5000);
 
       // 공지사항 내용 스크립트 주입

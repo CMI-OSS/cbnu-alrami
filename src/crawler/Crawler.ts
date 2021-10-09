@@ -9,6 +9,8 @@ const WINDOW_SIZE = {
   HEIGHT: 1080,
 };
 
+const SCENARIO_DELAY = 1000;
+
 abstract class Crawler<T> {
   cralwer: Page | null = null;
   queue: Queue<Scenario<T>>;
@@ -82,18 +84,12 @@ abstract class Crawler<T> {
   }
 
   async run() {
-    if (this.cralwer && this.loadedScript) {
-      const scenario = this.queue.pop();
-      if (scenario === null) {
-        // 시나리오 큐가 비었음
-        setTimeout(() => {
-          this.run();
-        }, 1000);
-        return;
-      }
-      scenario.state = SCENARIO_STATE.RUNNING;
+    const scenario = this.queue.front();
 
+    if (this.cralwer && this.loadedScript && scenario) {
+      scenario.state = SCENARIO_STATE.RUNNING;
       try {
+        this.queue.pop();
         await this.crawling(scenario);
         scenario.state = SCENARIO_STATE.STOPPED;
       } catch (error) {
@@ -104,7 +100,7 @@ abstract class Crawler<T> {
 
     setTimeout(() => {
       this.run();
-    }, 1000);
+    }, SCENARIO_DELAY);
   }
 
   // Override

@@ -9,11 +9,11 @@ export default class Queue<T> {
   length = 0;
 
   front() {
-    if (this.isEmpty()) {
+    if (this.isEmpty() || this.head === null) {
       return null;
     }
 
-    return this.head;
+    return this.head.data;
   }
 
   isEmpty() {

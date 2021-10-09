@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import mongoDB from "@src/db";
-import NoticeCrawler from "@src/components/NoticeCrawler";
+import NoticeCrawler from "@src/crawler/NoticeCrawler";
 import { getSiteScriptList } from "@src/utils/siteScript";
 
 dotenv.config()

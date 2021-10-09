@@ -1,6 +1,7 @@
 import puppeteer, { Page } from "puppeteer";
 import { isDev, Queue } from "@src/common";
 import { Scenario, SCENARIO_STATE } from "./Scenario";
+import { stringify } from "javascript-stringify";
 
 const WINDOW_SIZE = {
   WIDTH: 1920,
@@ -55,6 +56,16 @@ abstract class Crawler<T> {
     }
 
     this.cralwer = page;
+  }
+
+  async evaluateScript(script: T) {
+    if (this.cralwer === null) return;
+
+    const stringScript = `
+    const script = ${stringify(script)}
+  `;
+
+    await this.cralwer.evaluate(stringScript);
   }
 
   async run() {

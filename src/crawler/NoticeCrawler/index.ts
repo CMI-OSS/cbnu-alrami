@@ -1,7 +1,6 @@
 import Crawler from "@src/crawler/Crawler";
 import { Notice, NoticeScript } from "@src/interfaces";
 import { Scenario } from "../Scenario";
-import { stringify } from "javascript-stringify";
 const test = require("./scripts/경영대학/경영정보학과.js");
 
 class NoticeCrawler extends Crawler<NoticeScript> {
@@ -47,14 +46,8 @@ class NoticeCrawler extends Crawler<NoticeScript> {
       // 10초정도 기다려주기
       await this.cralwer.waitForTimeout(10000);
 
-      const stringScript = `
-        const script = ${stringify(noticeScript)}
-      `;
-
-      console.log(stringScript);
-
       // 스크립트 주입
-      await this.cralwer.evaluate(stringScript);
+      this.evaluateScript(noticeScript);
 
       // 공지사항 목록 가져오기
       const notice_list: Notice[] = await this.cralwer.evaluate(
@@ -83,20 +76,18 @@ class NoticeCrawler extends Crawler<NoticeScript> {
 
       const { jsScript: noticeScript } = scenario;
 
+      if (noticeScript === undefined) {
+        throw Error("스크립트 없음");
+      }
+
       // 공지사항 상세 페이지로 이동
       await this.cralwer.goto(notice.url);
 
       // 5초정도 기다려주기
       await this.cralwer.waitForTimeout(5000);
 
-      const stringScript = `
-        const script = ${stringify(noticeScript)}
-      `;
-
-      console.log(stringScript);
-
       // 스크립트 주입
-      await this.cralwer.evaluate(stringScript);
+      await this.evaluateScript(noticeScript);
 
       // 공지사항 내용 가져오기
       const contents: string = await this.cralwer.evaluate(

@@ -1,12 +1,10 @@
 import Crawler from "@src/crawler/Crawler";
 import { Notice, NoticeScript } from "@src/interfaces";
 import { Scenario } from "../Scenario";
-const test = require("./scripts/경영대학/경영정보학과.js");
 
 class NoticeCrawler extends Crawler<NoticeScript> {
   constructor() {
-    super();
-    this.queue.push(new Scenario(test));
+    super(__dirname + "/scripts");
   }
 
   async crawling(scenario: Scenario<NoticeScript>) {

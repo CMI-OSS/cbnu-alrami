@@ -2,6 +2,7 @@ import puppeteer, { Page } from "puppeteer";
 import { isDev, Queue } from "@src/common";
 import { Scenario, SCENARIO_STATE } from "./Scenario";
 import { stringify } from "javascript-stringify";
+const find = require("find");
 
 const WINDOW_SIZE = {
   WIDTH: 1920,
@@ -11,10 +12,22 @@ const WINDOW_SIZE = {
 abstract class Crawler<T> {
   cralwer: Page | null = null;
   queue: Queue<Scenario<T>>;
+  loadedScript: boolean = false;
 
-  constructor() {
+  constructor(scriptPath: string) {
     this.init();
     this.queue = new Queue<Scenario<T>>();
+    this.loadScript(scriptPath);
+  }
+
+  loadScript(scriptPath: string) {
+    find.file(/\.js$/, scriptPath, (paths: string[]) => {
+      for (const path of paths) {
+        const script = require(path);
+        this.queue.push(new Scenario(script));
+      }
+      this.loadedScript = true;
+    });
   }
 
   // 크롤러 초기화
@@ -69,7 +82,7 @@ abstract class Crawler<T> {
   }
 
   async run() {
-    if (this.cralwer) {
+    if (this.cralwer && this.loadedScript) {
       const scenario = this.queue.pop();
       if (scenario === null) {
         // 시나리오 큐가 비었음

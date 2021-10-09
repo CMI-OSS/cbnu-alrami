@@ -1,2 +1,2 @@
 export { Notice } from "./Notice";
-export { SiteScript } from "./SiteScript";
+export { NoticeScript } from "./NoticeScript";

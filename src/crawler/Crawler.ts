@@ -1,19 +1,19 @@
 import puppeteer, { Page } from "puppeteer";
 import { isDev, Queue } from "@src/common";
-import { Script } from "./Script";
+import { Scenario, SCENARIO_STATE } from "./Scenario";
 
 const WINDOW_SIZE = {
   WIDTH: 1920,
   HEIGHT: 1080,
 };
 
-class Crawler {
+abstract class Crawler<T> {
   cralwer: Page | null = null;
-  queue: Queue<Script>;
+  queue: Queue<Scenario<T>>;
 
   constructor() {
     this.init();
-    this.queue = new Queue<Script>();
+    this.queue = new Queue<Scenario<T>>();
   }
 
   // 크롤러 초기화
@@ -56,6 +56,35 @@ class Crawler {
 
     this.cralwer = page;
   }
+
+  async run() {
+    if (this.cralwer) {
+      const scenario = this.queue.pop();
+      if (scenario === null) {
+        // 시나리오 큐가 비었음
+        setTimeout(() => {
+          this.run();
+        }, 1000);
+        return;
+      }
+      scenario.state = SCENARIO_STATE.RUNNING;
+
+      try {
+        await this.crawling(scenario);
+        scenario.state = SCENARIO_STATE.STOPPED;
+      } catch (error) {
+        scenario.state = SCENARIO_STATE.ERROR;
+        // 에러처리
+      }
+    }
+
+    setTimeout(() => {
+      this.run();
+    }, 1000);
+  }
+
+  // Override
+  abstract crawling(script: Scenario<T>): void;
 }
 
 export default Crawler;

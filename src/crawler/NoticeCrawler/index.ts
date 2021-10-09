@@ -1,26 +1,24 @@
 import Crawler from "@src/crawler/Crawler";
-import { SiteScript, Notice } from "@src/interfaces";
+import { Notice, NoticeScript } from "@src/interfaces";
+import { Scenario } from "../Scenario";
+import { stringify } from "javascript-stringify";
+const test = require("./scripts/경영대학/경영정보학과.js");
 
-class NoticeCrawler extends Crawler {
-  siteScriptList: SiteScript[] = [];
-
-  async start(siteScriptList: SiteScript[]) {
-    this.siteScriptList = siteScriptList;
-
-    // for (const site of siteScriptList) {
-    //   await this.crawling(site);
-    // }
+class NoticeCrawler extends Crawler<NoticeScript> {
+  constructor() {
+    super();
+    this.queue.push(new Scenario(test));
   }
 
-  async crawling(site: SiteScript) {
-    // console.log(site)
-
+  async crawling(scenario: Scenario<NoticeScript>) {
     // 공지사항 목록 크롤링
-    const noticeList = await this.getNoticeList(site);
+    const noticeList = await this.getNoticeList(scenario);
+
+    console.log(noticeList);
 
     // 공지사항별 목록 크롤링
     for (const notice of noticeList) {
-      notice.contents = await this.getDetail(site, notice);
+      notice.contents = await this.getDetail(scenario, notice);
       console.log(notice);
     }
 
@@ -31,23 +29,37 @@ class NoticeCrawler extends Crawler {
     // 사용자에게 알림
   }
 
-  async getNoticeList(site: SiteScript): Promise<Notice[]> {
-    console.log(site);
+  async getNoticeList(scenario: Scenario<NoticeScript>): Promise<Notice[]> {
     try {
       if (this.cralwer === null) {
         throw Error("크롤러 없음");
       }
+
+      const { jsScript: noticeScript } = scenario;
+
+      if (noticeScript === undefined) {
+        throw Error("스크립트 없음");
+      }
+
       // 공지사항 목록 페이지로 이동
-      await this.cralwer.goto(site.url);
+      await this.cralwer.goto(noticeScript.url);
 
       // 10초정도 기다려주기
       await this.cralwer.waitForTimeout(10000);
 
-      // 공지사항 목록 스크립트 주입
-      await this.cralwer.evaluate(site.getData.toString());
+      const stringScript = `
+        const script = ${stringify(noticeScript)}
+      `;
+
+      console.log(stringScript);
+
+      // 스크립트 주입
+      await this.cralwer.evaluate(stringScript);
 
       // 공지사항 목록 가져오기
-      const notice_list: Notice[] = await this.cralwer.evaluate(`getData()`);
+      const notice_list: Notice[] = await this.cralwer.evaluate(
+        `script.getNoticeList()`
+      );
 
       if (notice_list.length == 0) {
         throw Error("공지사항 목록 크롤링 실패");
@@ -55,16 +67,21 @@ class NoticeCrawler extends Crawler {
 
       return notice_list;
     } catch (error) {
-      console.error(`[${site.site_id}/getDetail]` + error);
+      // console.error(`[${site.site_id}/getDetail]` + error);
       throw error;
     }
   }
 
-  async getDetail(site: SiteScript, notice: Notice): Promise<string> {
+  async getDetail(
+    scenario: Scenario<NoticeScript>,
+    notice: Notice
+  ): Promise<string> {
     try {
       if (this.cralwer === null) {
         throw new Error("크롤러 없음");
       }
+
+      const { jsScript: noticeScript } = scenario;
 
       // 공지사항 상세 페이지로 이동
       await this.cralwer.goto(notice.url);
@@ -72,11 +89,19 @@ class NoticeCrawler extends Crawler {
       // 5초정도 기다려주기
       await this.cralwer.waitForTimeout(5000);
 
-      // 공지사항 내용 스크립트 주입
-      await this.cralwer.evaluate(site.getContentsHtml.toString());
+      const stringScript = `
+        const script = ${stringify(noticeScript)}
+      `;
+
+      console.log(stringScript);
+
+      // 스크립트 주입
+      await this.cralwer.evaluate(stringScript);
 
       // 공지사항 내용 가져오기
-      const contents: string = await this.cralwer.evaluate(`getContentsHtml()`);
+      const contents: string = await this.cralwer.evaluate(
+        `script.getContentsHtml()`
+      );
 
       if (contents === "") {
         throw new Error("공지사항 내용 크롤링 실패");
@@ -84,7 +109,7 @@ class NoticeCrawler extends Crawler {
 
       return contents;
     } catch (error) {
-      console.error(`[${site.site_id}/getDetail]` + " " + error);
+      // console.error(`[${site.site_id}/getDetail]` + " " + error);
       throw error;
     }
   }

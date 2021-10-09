@@ -4,6 +4,8 @@ export interface NoticeScript {
   site_id: number;
   site: string;
   category: string;
+  waitNoticeListSelector: string;
+  waitNoticeContentsSelector: string;
   getNoticeList: Function;
   getContentsHtml: Function;
 }

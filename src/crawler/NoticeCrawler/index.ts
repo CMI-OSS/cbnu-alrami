@@ -40,16 +40,10 @@ class NoticeCrawler extends Crawler<NoticeScript> {
         throw Error("스크립트 없음");
       }
 
-      // 공지사항 목록 페이지로 이동
       await this.cralwer.goto(noticeScript.url);
+      await this.cralwer.waitForSelector(noticeScript.waitNoticeListSelector);
+      await this.evaluateScript(noticeScript);
 
-      // 10초정도 기다려주기
-      await this.cralwer.waitForTimeout(10000);
-
-      // 스크립트 주입
-      this.evaluateScript(noticeScript);
-
-      // 공지사항 목록 가져오기
       const notice_list: Notice[] = await this.cralwer.evaluate(
         `script.getNoticeList()`
       );
@@ -80,16 +74,12 @@ class NoticeCrawler extends Crawler<NoticeScript> {
         throw Error("스크립트 없음");
       }
 
-      // 공지사항 상세 페이지로 이동
       await this.cralwer.goto(notice.url);
-
-      // 5초정도 기다려주기
-      await this.cralwer.waitForTimeout(5000);
-
-      // 스크립트 주입
+      await this.cralwer.waitForSelector(
+        noticeScript.waitNoticeContentsSelector
+      );
       await this.evaluateScript(noticeScript);
 
-      // 공지사항 내용 가져오기
       const contents: string = await this.cralwer.evaluate(
         `script.getContentsHtml()`
       );

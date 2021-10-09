@@ -1,56 +1,15 @@
-import puppeteer, { Browser, Page } from "puppeteer";
+import Crawler from "@src/crawler/Crawler";
 import { SiteScript, Notice } from "@src/interfaces";
 
-class NoticeCrawler {
-  cralwer: Page | null = null;
+class NoticeCrawler extends Crawler {
   siteScriptList: SiteScript[] = [];
 
-  // 크롤러 초기화
-  async init() {
-    const browser = await puppeteer.launch({
-      headless: false,
-      args: [`--window-size=${1920},${1080}`],
-    });
-
-    // 페이지 생성
-    const page = await browser.newPage();
-
-    await page.setRequestInterception(true);
-
-    // 페이지 기본설정
-    await page.setViewport({
-      width: 1920,
-      height: 1080,
-      deviceScaleFactor: 1,
-    });
-
-    // 다이어로그 메시지 무시
-    page.on("dialog", async (dialog) => {
-      await dialog.dismiss();
-    });
-
-    // 필요없는 리소스 무쉬
-    page.on("request", (request) => {
-      if (
-        ["image", "stylesheet", "font"].indexOf(request.resourceType()) !== -1
-      ) {
-        request.abort();
-      } else {
-        request.continue();
-      }
-    });
-
-    this.cralwer = page;
-  }
-
   async start(siteScriptList: SiteScript[]) {
-    await this.init();
-
     this.siteScriptList = siteScriptList;
 
-    for (const site of siteScriptList) {
-      await this.crawling(site);
-    }
+    // for (const site of siteScriptList) {
+    //   await this.crawling(site);
+    // }
   }
 
   async crawling(site: SiteScript) {

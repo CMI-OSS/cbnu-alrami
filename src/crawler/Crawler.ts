@@ -1,5 +1,6 @@
 import puppeteer, { Page } from "puppeteer";
-import isDev from "@src/utils/isDev";
+import { isDev, Queue } from "@src/common";
+import { Script } from "./Script";
 
 const WINDOW_SIZE = {
   WIDTH: 1920,
@@ -8,9 +9,11 @@ const WINDOW_SIZE = {
 
 class Crawler {
   cralwer: Page | null = null;
+  queue: Queue<Script>;
 
   constructor() {
     this.init();
+    this.queue = new Queue<Script>();
   }
 
   // 크롤러 초기화

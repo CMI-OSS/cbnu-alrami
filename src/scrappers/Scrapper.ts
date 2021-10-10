@@ -2,7 +2,7 @@ import puppeteer, { Page } from "puppeteer";
 import { isDev, Queue } from "@src/common";
 import { Scenario, SCENARIO_STATE } from "./Scenario";
 import { stringify } from "javascript-stringify";
-const find = require("find");
+import find from "find";
 
 const WINDOW_SIZE = {
   WIDTH: 1920,
@@ -32,7 +32,6 @@ abstract class Scrapper<T> {
     });
   }
 
-  // 크롤러 초기화
   async init() {
     const browser = await puppeteer.launch({
       headless: false,

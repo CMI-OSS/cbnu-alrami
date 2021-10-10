@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/find": "^0.2.1",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "find": "^0.3.0",

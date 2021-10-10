@@ -11,7 +11,7 @@ const WINDOW_SIZE = {
 
 const SCENARIO_DELAY = 1000;
 
-abstract class Crawler<T> {
+abstract class Scrapper<T> {
   cralwer: Page | null = null;
   queue: Queue<Scenario<T>>;
   loadedScript: boolean = false;
@@ -90,7 +90,7 @@ abstract class Crawler<T> {
       scenario.state = SCENARIO_STATE.RUNNING;
       try {
         this.queue.pop();
-        await this.crawling(scenario);
+        await this.scrapping(scenario);
         scenario.state = SCENARIO_STATE.STOPPED;
       } catch (error) {
         scenario.state = SCENARIO_STATE.ERROR;
@@ -104,7 +104,7 @@ abstract class Crawler<T> {
   }
 
   // Override
-  abstract crawling(script: Scenario<T>): void;
+  abstract scrapping(script: Scenario<T>): void;
 }
 
-export default Crawler;
+export default Scrapper;

@@ -1,19 +1,17 @@
-import Crawler from "@src/crawler/Crawler";
+import Scrapper from "@src/scrappers/Scrapper";
 import { Notice, NoticeScript } from "@src/interfaces";
 import { Scenario } from "../Scenario";
 
-class NoticeCrawler extends Crawler<NoticeScript> {
+class NoticeScrapper extends Scrapper<NoticeScript> {
   constructor() {
     super(__dirname + "/scripts");
   }
 
-  async crawling(scenario: Scenario<NoticeScript>) {
-    // 공지사항 목록 크롤링
+  async scrapping(scenario: Scenario<NoticeScript>) {
     const noticeList = await this.getNoticeList(scenario);
 
     console.log(noticeList);
 
-    // 공지사항별 목록 크롤링
     for (const notice of noticeList) {
       notice.contents = await this.getDetail(scenario, notice);
       console.log(notice);
@@ -94,4 +92,4 @@ class NoticeCrawler extends Crawler<NoticeScript> {
   }
 }
 
-export default new NoticeCrawler();
+export default new NoticeScrapper();

@@ -1,12 +1,12 @@
 import dotenv from "dotenv";
 // import mongoDB from "@src/db";
-import NoticeScrapper from "@src/scrappers/NoticeScrapper";
+import CalendarScrapper from "@src/scrappers/CalendarScrapper";
 
 dotenv.config();
 // mongoDB();
 
 async function main() {
-  NoticeScrapper.run();
+  CalendarScrapper.run();
 }
 
 main();

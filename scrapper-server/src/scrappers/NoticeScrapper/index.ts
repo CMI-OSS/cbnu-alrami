@@ -1,10 +1,10 @@
-import Scrapper from '@src/scrappers/Scrapper';
-import { Notice, NoticeScript } from '@src/interfaces';
-import { Scenario } from '../Scenario';
+import Scrapper from "@src/scrappers/Scrapper";
+import { Notice, NoticeScript } from "@src/interfaces";
+import { Scenario } from "../Scenario";
 
 class NoticeScrapper extends Scrapper<NoticeScript> {
   constructor() {
-    super(__dirname + '/scripts');
+    super(__dirname + "/scripts");
   }
 
   async scrapping(scenario: Scenario<NoticeScript>) {
@@ -24,13 +24,13 @@ class NoticeScrapper extends Scrapper<NoticeScript> {
   async getNoticeList(scenario: Scenario<NoticeScript>): Promise<Notice[]> {
     try {
       if (this.cralwer === null) {
-        throw Error('크롤러 없음');
+        throw Error("크롤러 없음");
       }
 
       const { jsScript: noticeScript } = scenario;
 
       if (noticeScript === undefined) {
-        throw Error('스크립트 없음');
+        throw Error("스크립트 없음");
       }
 
       await this.cralwer.goto(noticeScript.url);
@@ -42,7 +42,7 @@ class NoticeScrapper extends Scrapper<NoticeScript> {
       );
 
       if (notice_list.length == 0) {
-        throw Error('공지사항 목록 크롤링 실패');
+        throw Error("공지사항 목록 크롤링 실패");
       }
 
       return notice_list;
@@ -57,13 +57,13 @@ class NoticeScrapper extends Scrapper<NoticeScript> {
     notice: Notice,
   ): Promise<string> {
     if (this.cralwer === null) {
-      throw new Error('크롤러 없음');
+      throw new Error("크롤러 없음");
     }
 
     const { jsScript: noticeScript } = scenario;
 
     if (noticeScript === undefined) {
-      throw Error('스크립트 없음');
+      throw Error("스크립트 없음");
     }
 
     try {
@@ -77,13 +77,13 @@ class NoticeScrapper extends Scrapper<NoticeScript> {
         `script.getContentsHtml()`,
       );
 
-      if (contents === '') {
-        throw new Error('공지사항 내용 크롤링 실패');
+      if (contents === "") {
+        throw new Error("공지사항 내용 크롤링 실패");
       }
 
       return contents;
     } catch (error) {
-      console.error(`[${notice.url}/getContents]` + ' ' + error);
+      console.error(`[${notice.url}/getContents]` + " " + error);
       throw error;
     }
   }

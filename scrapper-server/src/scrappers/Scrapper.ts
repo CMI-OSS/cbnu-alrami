@@ -1,8 +1,8 @@
-import puppeteer, { Page } from 'puppeteer';
-import { isDev, Queue } from '@src/common';
-import { Scenario, SCENARIO_STATE } from './Scenario';
-import { stringify } from 'javascript-stringify';
-import find from 'find';
+import puppeteer, { Page } from "puppeteer";
+import { isDev, Queue } from "@src/common";
+import { Scenario, SCENARIO_STATE } from "./Scenario";
+import { stringify } from "javascript-stringify";
+import find from "find";
 
 const WINDOW_SIZE = {
   WIDTH: 1920,
@@ -50,7 +50,7 @@ abstract class Scrapper<T> {
     });
 
     // 다이어로그 메시지 무시
-    page.on('dialog', async (dialog) => {
+    page.on("dialog", async (dialog) => {
       await dialog.dismiss();
     });
 
@@ -58,9 +58,9 @@ abstract class Scrapper<T> {
       // 필요없는 리소스 무쉬
       await page.setRequestInterception(true);
 
-      page.on('request', (request) => {
+      page.on("request", (request) => {
         if (
-          ['image', 'stylesheet', 'font'].indexOf(request.resourceType()) !== -1
+          ["image", "stylesheet", "font"].indexOf(request.resourceType()) !== -1
         ) {
           request.abort();
         } else {

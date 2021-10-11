@@ -1,23 +1,20 @@
-import Scrapper from "@src/scrappers/Scrapper";
-import { Notice, NoticeScript } from "@src/interfaces";
-import { Scenario } from "../Scenario";
+import Scrapper from '@src/scrappers/Scrapper';
+import { Notice, NoticeScript } from '@src/interfaces';
+import { Scenario } from '../Scenario';
 
 class NoticeScrapper extends Scrapper<NoticeScript> {
   constructor() {
-    super(__dirname + "/scripts");
+    super(__dirname + '/scripts');
   }
 
   async scrapping(scenario: Scenario<NoticeScript>) {
     const noticeList = await this.getNoticeList(scenario);
 
-    console.log(noticeList);
-
     for (const notice of noticeList) {
-      notice.contents = await this.getDetail(scenario, notice);
-      console.log(notice);
+      notice.contents = await this.getContents(scenario, notice);
     }
 
-    console.log(noticeList);
+    // console.log(noticeList);
 
     // 데이터베이스 저장
 
@@ -27,13 +24,13 @@ class NoticeScrapper extends Scrapper<NoticeScript> {
   async getNoticeList(scenario: Scenario<NoticeScript>): Promise<Notice[]> {
     try {
       if (this.cralwer === null) {
-        throw Error("크롤러 없음");
+        throw Error('크롤러 없음');
       }
 
       const { jsScript: noticeScript } = scenario;
 
       if (noticeScript === undefined) {
-        throw Error("스크립트 없음");
+        throw Error('스크립트 없음');
       }
 
       await this.cralwer.goto(noticeScript.url);
@@ -41,11 +38,11 @@ class NoticeScrapper extends Scrapper<NoticeScript> {
       await this.evaluateScript(noticeScript);
 
       const notice_list: Notice[] = await this.cralwer.evaluate(
-        `script.getNoticeList()`
+        `script.getNoticeList()`,
       );
 
       if (notice_list.length == 0) {
-        throw Error("공지사항 목록 크롤링 실패");
+        throw Error('공지사항 목록 크롤링 실패');
       }
 
       return notice_list;
@@ -55,38 +52,38 @@ class NoticeScrapper extends Scrapper<NoticeScript> {
     }
   }
 
-  async getDetail(
+  async getContents(
     scenario: Scenario<NoticeScript>,
-    notice: Notice
+    notice: Notice,
   ): Promise<string> {
+    if (this.cralwer === null) {
+      throw new Error('크롤러 없음');
+    }
+
+    const { jsScript: noticeScript } = scenario;
+
+    if (noticeScript === undefined) {
+      throw Error('스크립트 없음');
+    }
+
     try {
-      if (this.cralwer === null) {
-        throw new Error("크롤러 없음");
-      }
-
-      const { jsScript: noticeScript } = scenario;
-
-      if (noticeScript === undefined) {
-        throw Error("스크립트 없음");
-      }
-
       await this.cralwer.goto(notice.url);
       await this.cralwer.waitForSelector(
-        noticeScript.waitNoticeContentsSelector
+        noticeScript.waitNoticeContentsSelector,
       );
       await this.evaluateScript(noticeScript);
 
       const contents: string = await this.cralwer.evaluate(
-        `script.getContentsHtml()`
+        `script.getContentsHtml()`,
       );
 
-      if (contents === "") {
-        throw new Error("공지사항 내용 크롤링 실패");
+      if (contents === '') {
+        throw new Error('공지사항 내용 크롤링 실패');
       }
 
       return contents;
     } catch (error) {
-      // console.error(`[${site.site_id}/getDetail]` + " " + error);
+      console.error(`[${notice.url}/getContents]` + ' ' + error);
       throw error;
     }
   }

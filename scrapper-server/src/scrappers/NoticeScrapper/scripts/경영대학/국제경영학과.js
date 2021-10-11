@@ -1,7 +1,7 @@
 const script = {
-  url: 'http://mis.chungbuk.ac.kr/master.php?pg_idx=7',
-  site_id: 10101,
-  site: '경영정보학과',
+  url: 'http://ib.chungbuk.ac.kr/master.php?pg_idx=33',
+  site_id: 10301,
+  site: '국제경영학과',
   category: '학부공지',
   waitNoticeListSelector: '.bbs_body>#rows',
   waitNoticeContentsSelector: '#bbs_contnets > div.rd_body.row',

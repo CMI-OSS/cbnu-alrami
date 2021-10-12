@@ -21,15 +21,15 @@ class CalendarScrapper extends Scrapper<CalendarScript> {
 
     const refinedData = [];
 
-    for (let i = 0; i < calendarScript.years.length; i++) {
-      await this.cralwer.goto(calendarScript.url + calendarScript.years[i].key);
+    for (let i = 0; i < calendarScript.scripts.length; i++) {
+      await this.cralwer.goto(calendarScript.url + calendarScript.scripts[i].key);
       await this.cralwer.waitForSelector(calendarScript.waitCalendarSelector);
       await this.evaluateScript(calendarScript);
-      const data = await this.cralwer.evaluate("script.getSchedules()");
-      for (let j = 0; j < data.length; j++) {
+      const mockData = await this.cralwer.evaluate("script.getSchedules()");
+      for (let j = 0; j < mockData.length; j++) {
         refinedData.push({
-          ...ArrayToDate(calendarScript.years[i].year, data[j][0]),
-          content: data[j][1],
+          ...ArrayToDate(calendarScript.scripts[i].year, mockData[j][0]),
+          content: mockData[j][1],
         });
       }
     }

@@ -85,8 +85,6 @@ abstract class Scrapper<T> {
   async run() {
     const scenario = this.queue.front();
 
-    console.log(scenario)
-
     if (this.cralwer && this.loadedScript && scenario) {
       scenario.state = SCENARIO_STATE.RUNNING;
       try {

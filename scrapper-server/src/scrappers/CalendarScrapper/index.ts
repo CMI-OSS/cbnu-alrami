@@ -19,13 +19,19 @@ class CalendarScrapper extends Scrapper<CalendarScript> {
       throw Error("스크립트 없음");
     }
 
-    await this.cralwer.goto(calendarScript.url);
-    await this.cralwer.waitForSelector(calendarScript.waitCalendarSelector);
-    await this.evaluateScript(calendarScript);
-    const data = await this.cralwer.evaluate("script.getSchedules()");
     const refinedData = [];
-    for (let i = 0; i < data.length; i++) {
-      refinedData.push({ ...ArrayToDate(data[i][0]), content: data[i][1] });
+
+    for (let i = 0; i < calendarScript.years.length; i++) {
+      await this.cralwer.goto(calendarScript.url + calendarScript.years[i].key);
+      await this.cralwer.waitForSelector(calendarScript.waitCalendarSelector);
+      await this.evaluateScript(calendarScript);
+      const data = await this.cralwer.evaluate("script.getSchedules()");
+      for (let j = 0; j < data.length; j++) {
+        refinedData.push({
+          ...ArrayToDate(calendarScript.years[i].year, data[j][0]),
+          content: data[j][1],
+        });
+      }
     }
     console.log(refinedData);
   }

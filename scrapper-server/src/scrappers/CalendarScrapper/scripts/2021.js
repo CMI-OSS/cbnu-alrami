@@ -1,25 +1,21 @@
 const script = {
   url: "https://www.chungbuk.ac.kr/site/www/sub.do?key=1804",
+  waitCalendarSelector:
+    "#contents > div.academic_calendar > ul > li > div:nth-child(2) > div:nth-child(1) > ul > li",
   getSchedules: function () {
     const data = [];
-    const year = document.querySelectorAll(
-      `#contents > div.academic_calendar > ul > li`
+    const content = document.querySelectorAll(
+      `#contents > div.academic_calendar > ul > li > div:nth-child(2) > div:nth-child(1) > ul > li`
     );
-    for (let i = 0; i < year.length; i++) {
-      const monthData = [];
-      const month = year[i].querySelectorAll(
-        "div:nth-child(2) > div:nth-child(1) > ul > li"
-      );
-      for (let j = 0; j < month.length; j++) {
-        let date = month[j].querySelector("span").textContent;
-        let content = month[j].textContent;
-        content = content.slice(date.length, content.length);
-        date = date.slice(1, date.length - 1);
-        monthData.push([date, content]);
-      }
-      data.push(monthData);
+    for (let i = 0; i < content.length; i++) {
+      let date = content[i].querySelector("span").textContent;
+      let text = content[i].textContent;
+      text = text.slice(date.length, text.length);
+      date = date.replace(/[^0-9]/g, ".").replace(/\.{2,}/g, ".");
+      date = date.slice(1, date.length - 1).split(".");
+      data.push([date, text]);
     }
-    return data.flat();
+    return data;
   },
 };
 

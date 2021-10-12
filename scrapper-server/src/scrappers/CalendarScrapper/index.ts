@@ -1,6 +1,7 @@
 import Scrapper from "@src/scrappers/Scrapper";
 import { CalendarScript } from "@src/interfaces";
 import { Scenario } from "../Scenario";
+import ArrayToDate from "./ArrayToDate";
 
 class CalendarScrapper extends Scrapper<CalendarScript> {
   constructor() {
@@ -19,9 +20,14 @@ class CalendarScrapper extends Scrapper<CalendarScript> {
     }
 
     await this.cralwer.goto(calendarScript.url);
+    await this.cralwer.waitForSelector(calendarScript.waitCalendarSelector);
     await this.evaluateScript(calendarScript);
     const data = await this.cralwer.evaluate("script.getSchedules()");
-    console.log(data);
+    const refinedData = [];
+    for (let i = 0; i < data.length; i++) {
+      refinedData.push({ ...ArrayToDate(data[i][0]), content: data[i][1] });
+    }
+    console.log(refinedData);
   }
 }
 

@@ -2,7 +2,7 @@ import Scrapper from "@src/scrappers/Scrapper";
 import { CafeteriaScript } from "@src/interfaces";
 import { Scenario } from "../Scenario";
 import find from "find";
-import { WeekMenu } from "@src/interfaces/cafeteria/WeekMenu";
+import { DateMenu } from "@src/interfaces/cafeteria/DateMenu";
 class CafeteriaScrapper extends Scrapper<CafeteriaScript> {
   constructor() {
     super(__dirname + "/scripts");
@@ -18,7 +18,7 @@ class CafeteriaScrapper extends Scrapper<CafeteriaScript> {
     });
   }
 
-  async scrapping(scenario: Scenario<CafeteriaScript>): Promise<WeekMenu> {
+  async scrapping(scenario: Scenario<CafeteriaScript>): Promise<DateMenu[]> {
     if (this.cralwer === null) {
       throw Error("크롤러 없음");
     }
@@ -33,6 +33,7 @@ class CafeteriaScrapper extends Scrapper<CafeteriaScript> {
     await this.cralwer.waitForSelector(cafeteriaScript.waitSelector);
     await this.evaluateScript(cafeteriaScript);
     const menus = await this.cralwer.evaluate(`script.getMenus()`);
+    console.log(menus);
     return menus;
   }
 }

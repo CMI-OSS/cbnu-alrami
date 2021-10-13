@@ -1,3 +1,5 @@
+//몽고DB용
+
 interface Menu {
   //T: 식당 종류
   date: Date;

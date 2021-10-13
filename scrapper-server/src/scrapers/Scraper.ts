@@ -26,15 +26,15 @@ abstract class Scraper<T> {
   queue: Queue<Scenario<T>>;
   loadedScript: boolean = false;
   browser?: puppeteer.Browser;
+  scriptPath: string;
 
   constructor(scriptPath: string) {
-    this.init();
     this.queue = new Queue<Scenario<T>>();
-    this.loadScript(scriptPath);
+    this.scriptPath = scriptPath;
   }
 
-  loadScript(scriptPath: string) {
-    find.file(/\.js$/, scriptPath, (paths: string[]) => {
+  loadScript() {
+    find.file(/\.js$/, this.scriptPath, (paths: string[]) => {
       for (const path of paths) {
         const script = require(path);
         this.queue.push(new Scenario(script));
@@ -43,7 +43,26 @@ abstract class Scraper<T> {
     });
   }
 
-  async init() {
+  async start() {
+    await this.initScraper();
+    this.loadScript();
+    this.run();
+  }
+
+  async stop() {
+    this.state = SCRAPER_STATE.STOPPED;
+    this.scraper = null;
+    this.browser?.close();
+    this.queue.reset();
+    this.loadedScript = false;
+  }
+
+  async restart() {
+    this.stop();
+    this.start();
+  }
+
+  async initScraper() {
     this.state = SCRAPER_STATE.WAIT;
 
     this.browser = await puppeteer.launch({
@@ -99,9 +118,7 @@ abstract class Scraper<T> {
     this.state = SCRAPER_STATE.RUNNING;
 
     if (this.loadedScript && this.queue.isEmpty()) {
-      this.state = SCRAPER_STATE.STOPPED;
-      this.scraper = null;
-      this.browser?.close();
+      this.stop();
       return;
     }
 

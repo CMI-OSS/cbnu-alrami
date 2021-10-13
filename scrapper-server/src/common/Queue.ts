@@ -8,6 +8,12 @@ export default class Queue<T> {
   tail: QueueNode<T> | null = null;
   length = 0;
 
+  reset() {
+    this.length = 0;
+    this.head = null;
+    this.tail = null;
+  }
+
   front() {
     if (this.isEmpty() || this.head === null) {
       return null;

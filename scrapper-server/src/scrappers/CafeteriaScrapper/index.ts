@@ -1,13 +1,14 @@
 import Scrapper from "@src/scrappers/Scrapper";
 import { CafeteriaScript } from "@src/interfaces";
 import { Scenario } from "../Scenario";
-
+import find from "find";
+import { Menu } from "@src/interfaces/Menu";
 class CafeteriaScrapper extends Scrapper<CafeteriaScript> {
   constructor() {
     super(__dirname + "/scripts");
   }
 
-  async scrapping(scenario: Scenario<CafeteriaScript>) {
+  async scrapping(scenario: Scenario<CafeteriaScript>): Promise<Menu[]> {
     if (this.cralwer === null) {
       throw Error("크롤러 없음");
     }
@@ -21,9 +22,9 @@ class CafeteriaScrapper extends Scrapper<CafeteriaScript> {
     await this.cralwer.goto(cafeteriaScript.url);
     await this.cralwer.waitForSelector(cafeteriaScript.waitSelector);
     await this.evaluateScript(cafeteriaScript);
-    await this.cralwer.evaluate(`script.selectCafetera()`);
     const menus = await this.cralwer.evaluate(`script.getMenus()`);
     console.log(menus);
+    return menus;
   }
 }
 

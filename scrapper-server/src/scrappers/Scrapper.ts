@@ -93,7 +93,7 @@ abstract class Scrapper<T> {
         scenario.state = SCENARIO_STATE.STOPPED;
       } catch (error) {
         scenario.state = SCENARIO_STATE.ERROR;
-        // 에러처리
+        console.log(error);
       }
     }
 

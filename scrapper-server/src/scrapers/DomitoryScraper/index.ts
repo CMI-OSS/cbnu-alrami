@@ -1,9 +1,9 @@
-import Scrapper from "../Scrapper";
+import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 import { DomitoryScript } from "@src/interfaces/DomitoryScript";
 import { DomitoryFood } from "@src/interfaces/DomitoryFood";
 
-class DomitoryScrapper extends Scrapper<DomitoryScript> {
+class DomitoryScraper extends Scraper<DomitoryScript> {
   constructor() {
     super(__dirname + "/scripts");
   }
@@ -14,25 +14,25 @@ class DomitoryScrapper extends Scrapper<DomitoryScript> {
   }
 
   async getFoodList(
-    scenario: Scenario<DomitoryScript>
+    scenario: Scenario<DomitoryScript>,
   ): Promise<DomitoryFood[]> {
     try {
       const { jsScript } = scenario;
 
-      if (!this.cralwer) throw Error("크롤러 없음");
+      if (!this.scraper) throw Error("크롤러 없음");
       if (!jsScript) throw Error("스크립트 없음.");
 
       let allFoodList = [];
 
       for (let i = 0; i < jsScript.domitories.length; i++) {
-        await this.cralwer.goto(
-          jsScript.baseUrl + jsScript.domitories[i].typeQuery
+        await this.scraper.goto(
+          jsScript.baseUrl + jsScript.domitories[i].typeQuery,
         );
-        await this.cralwer.waitForSelector(jsScript.waitMainTableSelector);
+        await this.scraper.waitForSelector(jsScript.waitMainTableSelector);
         await this.evaluateScript(jsScript);
 
-        const foodList = await this.cralwer.evaluate(
-          `script.getFoodList(${i})`
+        const foodList = await this.scraper.evaluate(
+          `script.getFoodList(${i})`,
         );
         allFoodList.push(...foodList);
       }
@@ -46,4 +46,4 @@ class DomitoryScrapper extends Scrapper<DomitoryScript> {
   }
 }
 
-export default new DomitoryScrapper();
+export default new DomitoryScraper();

@@ -11,8 +11,8 @@ const WINDOW_SIZE = {
 
 const SCENARIO_DELAY = 1000;
 
-abstract class Scrapper<T> {
-  cralwer: Page | null = null;
+abstract class Scraper<T> {
+  scraper: Page | null = null;
   queue: Queue<Scenario<T>>;
   loadedScript: boolean = false;
 
@@ -69,23 +69,23 @@ abstract class Scrapper<T> {
       });
     }
 
-    this.cralwer = page;
+    this.scraper = page;
   }
 
   async evaluateScript(script: T) {
-    if (this.cralwer === null) return;
+    if (this.scraper === null) return;
 
     const stringScript = `
     const script = ${stringify(script)}
   `;
 
-    await this.cralwer.evaluate(stringScript);
+    await this.scraper.evaluate(stringScript);
   }
 
   async run() {
     const scenario = this.queue.front();
 
-    if (this.cralwer && this.loadedScript && scenario) {
+    if (this.scraper && this.loadedScript && scenario) {
       scenario.state = SCENARIO_STATE.RUNNING;
       try {
         this.queue.pop();
@@ -106,4 +106,4 @@ abstract class Scrapper<T> {
   abstract scrapping(script: Scenario<T>): void;
 }
 
-export default Scrapper;
+export default Scraper;

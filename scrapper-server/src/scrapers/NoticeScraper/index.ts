@@ -1,8 +1,8 @@
-import Scrapper from "@src/scrappers/Scrapper";
+import Scraper from "../Scraper";
 import { Notice, NoticeScript } from "@src/interfaces";
 import { Scenario } from "../Scenario";
 
-class NoticeScrapper extends Scrapper<NoticeScript> {
+class NoticeScraper extends Scraper<NoticeScript> {
   constructor() {
     super(__dirname + "/scripts");
   }
@@ -23,7 +23,7 @@ class NoticeScrapper extends Scrapper<NoticeScript> {
 
   async getNoticeList(scenario: Scenario<NoticeScript>): Promise<Notice[]> {
     try {
-      if (this.cralwer === null) {
+      if (this.scraper === null) {
         throw Error("크롤러 없음");
       }
 
@@ -33,11 +33,11 @@ class NoticeScrapper extends Scrapper<NoticeScript> {
         throw Error("스크립트 없음");
       }
 
-      await this.cralwer.goto(noticeScript.url);
-      await this.cralwer.waitForSelector(noticeScript.waitNoticeListSelector);
+      await this.scraper.goto(noticeScript.url);
+      await this.scraper.waitForSelector(noticeScript.waitNoticeListSelector);
       await this.evaluateScript(noticeScript);
 
-      const notice_list: Notice[] = await this.cralwer.evaluate(
+      const notice_list: Notice[] = await this.scraper.evaluate(
         `script.getNoticeList()`,
       );
 
@@ -56,7 +56,7 @@ class NoticeScrapper extends Scrapper<NoticeScript> {
     scenario: Scenario<NoticeScript>,
     notice: Notice,
   ): Promise<string> {
-    if (this.cralwer === null) {
+    if (this.scraper === null) {
       throw new Error("크롤러 없음");
     }
 
@@ -67,13 +67,13 @@ class NoticeScrapper extends Scrapper<NoticeScript> {
     }
 
     try {
-      await this.cralwer.goto(notice.url);
-      await this.cralwer.waitForSelector(
+      await this.scraper.goto(notice.url);
+      await this.scraper.waitForSelector(
         noticeScript.waitNoticeContentsSelector,
       );
       await this.evaluateScript(noticeScript);
 
-      const contents: string = await this.cralwer.evaluate(
+      const contents: string = await this.scraper.evaluate(
         `script.getContentsHtml()`,
       );
 
@@ -89,4 +89,4 @@ class NoticeScrapper extends Scrapper<NoticeScript> {
   }
 }
 
-export default new NoticeScrapper();
+export default new NoticeScraper();

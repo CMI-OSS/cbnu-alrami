@@ -9,9 +9,19 @@ const WINDOW_SIZE = {
   HEIGHT: 1080,
 };
 
+export const SCRAPER_STATE = {
+  WAIT: "WAIT",
+  RUNNING: "RUNNING",
+  STOPPED: "STOPPED",
+  ERROR: "ERROR",
+} as const;
+
+type SCRAPER_STATE = typeof SCRAPER_STATE[keyof typeof SCRAPER_STATE];
+
 const SCENARIO_DELAY = 1000;
 
 abstract class Scraper<T> {
+  state: SCRAPER_STATE = SCRAPER_STATE.STOPPED;
   scraper: Page | null = null;
   queue: Queue<Scenario<T>>;
   loadedScript: boolean = false;

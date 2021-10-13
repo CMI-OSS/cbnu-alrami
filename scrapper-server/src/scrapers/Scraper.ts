@@ -25,6 +25,7 @@ abstract class Scraper<T> {
   scraper: Page | null = null;
   queue: Queue<Scenario<T>>;
   loadedScript: boolean = false;
+  browser?: puppeteer.Browser;
 
   constructor(scriptPath: string) {
     this.init();
@@ -43,12 +44,14 @@ abstract class Scraper<T> {
   }
 
   async init() {
-    const browser = await puppeteer.launch({
+    this.state = SCRAPER_STATE.WAIT;
+
+    this.browser = await puppeteer.launch({
       headless: false,
       args: [`--window-size=${WINDOW_SIZE.WIDTH},${WINDOW_SIZE.HEIGHT}`],
     });
 
-    const pages = await browser.pages();
+    const pages = await this.browser.pages();
 
     const page = pages[0];
 
@@ -93,6 +96,15 @@ abstract class Scraper<T> {
   }
 
   async run() {
+    this.state = SCRAPER_STATE.RUNNING;
+
+    if (this.loadedScript && this.queue.isEmpty()) {
+      this.state = SCRAPER_STATE.STOPPED;
+      this.scraper = null;
+      this.browser?.close();
+      return;
+    }
+
     const scenario = this.queue.front();
 
     if (this.scraper && this.loadedScript && scenario) {

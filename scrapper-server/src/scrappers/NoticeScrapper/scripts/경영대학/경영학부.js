@@ -1,14 +1,14 @@
 const script = {
-  url: "http://mis.chungbuk.ac.kr/master.php?pg_idx=7",
-  site_id: 10101,
-  site: "경영정보학과",
-  category: "학부공지",
+  url: "http://biz.chungbuk.ac.kr/?pg_idx=7",
+  site_id: 10201,
+  site: "경영학부",
+  category: "대학공지",
   waitNoticeListSelector: ".bbs_body>#rows",
   waitNoticeContentsSelector: "#bbs_contnets > div.rd_body.row",
   getNoticeList: function () {
     var list = document.querySelectorAll(".bbs_body>#rows");
-    const notices = [];
     let i = 0;
+    const notices = [];
     while (i < list.length) {
       let td = list[i].querySelectorAll("div");
       notices.push({

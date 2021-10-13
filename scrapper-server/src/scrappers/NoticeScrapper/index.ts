@@ -10,14 +10,11 @@ class NoticeScrapper extends Scrapper<NoticeScript> {
   async scrapping(scenario: Scenario<NoticeScript>) {
     const noticeList = await this.getNoticeList(scenario);
 
-    console.log(noticeList);
-
     for (const notice of noticeList) {
-      notice.contents = await this.getDetail(scenario, notice);
-      console.log(notice);
+      notice.contents = await this.getContents(scenario, notice);
     }
 
-    console.log(noticeList);
+    // console.log(noticeList);
 
     // 데이터베이스 저장
 
@@ -41,7 +38,7 @@ class NoticeScrapper extends Scrapper<NoticeScript> {
       await this.evaluateScript(noticeScript);
 
       const notice_list: Notice[] = await this.cralwer.evaluate(
-        `script.getNoticeList()`
+        `script.getNoticeList()`,
       );
 
       if (notice_list.length == 0) {
@@ -55,29 +52,29 @@ class NoticeScrapper extends Scrapper<NoticeScript> {
     }
   }
 
-  async getDetail(
+  async getContents(
     scenario: Scenario<NoticeScript>,
-    notice: Notice
+    notice: Notice,
   ): Promise<string> {
+    if (this.cralwer === null) {
+      throw new Error("크롤러 없음");
+    }
+
+    const { jsScript: noticeScript } = scenario;
+
+    if (noticeScript === undefined) {
+      throw Error("스크립트 없음");
+    }
+
     try {
-      if (this.cralwer === null) {
-        throw new Error("크롤러 없음");
-      }
-
-      const { jsScript: noticeScript } = scenario;
-
-      if (noticeScript === undefined) {
-        throw Error("스크립트 없음");
-      }
-
       await this.cralwer.goto(notice.url);
       await this.cralwer.waitForSelector(
-        noticeScript.waitNoticeContentsSelector
+        noticeScript.waitNoticeContentsSelector,
       );
       await this.evaluateScript(noticeScript);
 
       const contents: string = await this.cralwer.evaluate(
-        `script.getContentsHtml()`
+        `script.getContentsHtml()`,
       );
 
       if (contents === "") {
@@ -86,7 +83,7 @@ class NoticeScrapper extends Scrapper<NoticeScript> {
 
       return contents;
     } catch (error) {
-      // console.error(`[${site.site_id}/getDetail]` + " " + error);
+      console.error(`[${notice.url}/getContents]` + " " + error);
       throw error;
     }
   }

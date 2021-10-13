@@ -9,7 +9,7 @@ class CalendarScraper extends Scraper<CalendarScript> {
   }
 
   async scrapping(scenario: Scenario<CalendarScript>) {
-    if (this.cralwer === null) {
+    if (this.scraper === null) {
       throw Error("크롤러 없음");
     }
 
@@ -22,12 +22,12 @@ class CalendarScraper extends Scraper<CalendarScript> {
     const refinedData = [];
 
     for (let i = 0; i < calendarScript.scripts.length; i++) {
-      await this.cralwer.goto(
+      await this.scraper.goto(
         calendarScript.url + calendarScript.scripts[i].key,
       );
-      await this.cralwer.waitForSelector(calendarScript.waitCalendarSelector);
+      await this.scraper.waitForSelector(calendarScript.waitCalendarSelector);
       await this.evaluateScript(calendarScript);
-      const mockData = await this.cralwer.evaluate("script.getSchedules()");
+      const mockData = await this.scraper.evaluate("script.getSchedules()");
       for (let j = 0; j < mockData.length; j++) {
         refinedData.push({
           ...ArrayToDate(calendarScript.scripts[i].year, mockData[j][0]),

@@ -19,19 +19,19 @@ class DomitoryScraper extends Scraper<DomitoryScript> {
     try {
       const { jsScript } = scenario;
 
-      if (!this.cralwer) throw Error("크롤러 없음");
+      if (!this.scraper) throw Error("크롤러 없음");
       if (!jsScript) throw Error("스크립트 없음.");
 
       let allFoodList = [];
 
       for (let i = 0; i < jsScript.domitories.length; i++) {
-        await this.cralwer.goto(
+        await this.scraper.goto(
           jsScript.baseUrl + jsScript.domitories[i].typeQuery,
         );
-        await this.cralwer.waitForSelector(jsScript.waitMainTableSelector);
+        await this.scraper.waitForSelector(jsScript.waitMainTableSelector);
         await this.evaluateScript(jsScript);
 
-        const foodList = await this.cralwer.evaluate(
+        const foodList = await this.scraper.evaluate(
           `script.getFoodList(${i})`,
         );
         allFoodList.push(...foodList);

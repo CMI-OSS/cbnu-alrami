@@ -9,7 +9,7 @@ class CafeteriaScraper extends Scraper<CafeteriaScript> {
   }
 
   async scrapping(scenario: Scenario<CafeteriaScript>): Promise<Menu[]> {
-    if (this.cralwer === null) {
+    if (this.scraper === null) {
       throw Error("크롤러 없음");
     }
 
@@ -19,10 +19,10 @@ class CafeteriaScraper extends Scraper<CafeteriaScript> {
       throw Error("스크립트 없음");
     }
 
-    await this.cralwer.goto(cafeteriaScript.url);
-    await this.cralwer.waitForSelector(cafeteriaScript.waitSelector);
+    await this.scraper.goto(cafeteriaScript.url);
+    await this.scraper.waitForSelector(cafeteriaScript.waitSelector);
     await this.evaluateScript(cafeteriaScript);
-    const menus = await this.cralwer.evaluate(`script.getMenus()`);
+    const menus = await this.scraper.evaluate(`script.getMenus()`);
     console.log(menus);
     return menus;
   }

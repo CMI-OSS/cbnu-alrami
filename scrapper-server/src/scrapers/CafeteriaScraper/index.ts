@@ -1,9 +1,9 @@
-import Scrapper from "@src/scrappers/Scrapper";
+import Scraper from "../Scraper";
 import { CafeteriaScript } from "@src/interfaces";
 import { Scenario } from "../Scenario";
-import find from "find";
 import { Menu } from "@src/interfaces/Menu";
-class CafeteriaScrapper extends Scrapper<CafeteriaScript> {
+
+class CafeteriaScraper extends Scraper<CafeteriaScript> {
   constructor() {
     super(__dirname + "/scripts");
   }
@@ -28,4 +28,4 @@ class CafeteriaScrapper extends Scrapper<CafeteriaScript> {
   }
 }
 
-export default new CafeteriaScrapper();
+export default new CafeteriaScraper();

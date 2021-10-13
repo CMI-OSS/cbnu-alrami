@@ -1,8 +1,8 @@
-import Scrapper from "@src/scrappers/Scrapper";
+import Scraper from "../Scraper";
 import { Notice, NoticeScript } from "@src/interfaces";
 import { Scenario } from "../Scenario";
 
-class NoticeScrapper extends Scrapper<NoticeScript> {
+class NoticeScraper extends Scraper<NoticeScript> {
   constructor() {
     super(__dirname + "/scripts");
   }
@@ -89,4 +89,4 @@ class NoticeScrapper extends Scrapper<NoticeScript> {
   }
 }
 
-export default new NoticeScrapper();
+export default new NoticeScraper();

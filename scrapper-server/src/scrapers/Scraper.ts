@@ -11,7 +11,7 @@ const WINDOW_SIZE = {
 
 const SCENARIO_DELAY = 1000;
 
-abstract class Scrapper<T> {
+abstract class Scraper<T> {
   cralwer: Page | null = null;
   queue: Queue<Scenario<T>>;
   loadedScript: boolean = false;
@@ -106,4 +106,4 @@ abstract class Scrapper<T> {
   abstract scrapping(script: Scenario<T>): void;
 }
 
-export default Scrapper;
+export default Scraper;

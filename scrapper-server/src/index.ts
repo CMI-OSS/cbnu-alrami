@@ -1,18 +1,18 @@
 import dotenv from "dotenv";
 // import mongoDB from "@src/db";
-import CalendarScrapper from "@src/scrappers/CalendarScrapper";
-import NoticeScrapper from "@src/scrappers/NoticeScrapper";
-import DomitoryScrapper from "@src/scrappers/DomitoryScrapper";
-import CafeteriaScrapper from "@src/scrappers/CafeteriaScrapper";
+import CalendarScraper from "@src/scrapers/CalendarScraper";
+import NoticeScraper from "@src/scrapers/NoticeScraper";
+import DomitoryScraper from "@src/scrapers/DomitoryScraper";
+import CafeteriaScraper from "@src/scrapers/CafeteriaScraper";
 
 dotenv.config();
 // mongoDB();
 
 async function main() {
-  NoticeScrapper.run();
-  CalendarScrapper.run();
-  DomitoryScrapper.run();
-  CafeteriaScrapper.run();
+  NoticeScraper.run();
+  CalendarScraper.run();
+  DomitoryScraper.run();
+  CafeteriaScraper.run();
 }
 
 main();

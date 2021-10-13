@@ -1,9 +1,9 @@
-import Scrapper from "@src/scrappers/Scrapper";
+import Scraper from "@src/scrapers/Scraper";
 import { CalendarScript } from "@src/interfaces";
 import { Scenario } from "../Scenario";
 import ArrayToDate from "./ArrayToDate";
 
-class CalendarScrapper extends Scrapper<CalendarScript> {
+class CalendarScraper extends Scraper<CalendarScript> {
   constructor() {
     super(__dirname + "/scripts");
   }
@@ -22,7 +22,9 @@ class CalendarScrapper extends Scrapper<CalendarScript> {
     const refinedData = [];
 
     for (let i = 0; i < calendarScript.scripts.length; i++) {
-      await this.cralwer.goto(calendarScript.url + calendarScript.scripts[i].key);
+      await this.cralwer.goto(
+        calendarScript.url + calendarScript.scripts[i].key,
+      );
       await this.cralwer.waitForSelector(calendarScript.waitCalendarSelector);
       await this.evaluateScript(calendarScript);
       const mockData = await this.cralwer.evaluate("script.getSchedules()");
@@ -37,4 +39,4 @@ class CalendarScrapper extends Scrapper<CalendarScript> {
   }
 }
 
-export default new CalendarScrapper();
+export default new CalendarScraper();

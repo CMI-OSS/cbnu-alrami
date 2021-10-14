@@ -1,6 +1,6 @@
 const script = {
   url: "https://www.chungbuk.ac.kr/site/www/sub.do?key=",
-  scripts: [
+  years: [
     {
       year: 2020,
       key: "1728",

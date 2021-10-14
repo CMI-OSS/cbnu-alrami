@@ -1,6 +1,6 @@
 const script = {
   url: "https://www.chungbuk.ac.kr/site/www/sub.do?key=",
-  scripts: [
+  years: [
     {
       year: 2020,
       key: "1728",
@@ -15,7 +15,7 @@ const script = {
   getSchedules: function () {
     const data = [];
     const content = document.querySelectorAll(
-      `#contents > div.academic_calendar > ul > li > div:nth-child(2) > div:nth-child(1) > ul > li`
+      `#contents > div.academic_calendar > ul > li > div:nth-child(2) > div:nth-child(1) > ul > li`,
     );
     for (let i = 0; i < content.length; i++) {
       let date = content[i].querySelector("span").textContent;

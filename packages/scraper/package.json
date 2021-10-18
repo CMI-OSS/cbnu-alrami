@@ -1,0 +1,38 @@
+{
+  "name": "scraper",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "nohgijin <ynda11111@naver.com>",
+  "homepage": "https://github.com/CMI-OSS/cbnu-alrami#readme",
+  "license": "ISC",
+  "main": "lib/scraper.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CMI-OSS/cbnu-alrami.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "start": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register ./src/index.ts",
+    "dev": "cross-env NODE_ENV=development ts-node -r tsconfig-paths/register ./src/index.ts"
+  },
+  "bugs": {
+    "url": "https://github.com/CMI-OSS/cbnu-alrami/issues"
+  },
+  "dependencies": {
+    "@types/find": "^0.2.1",
+    "cross-env": "^7.0.3",
+    "dotenv": "^10.0.0",
+    "find": "^0.3.0",
+    "javascript-stringify": "^2.1.0",
+    "mongoose": "^6.0.11",
+    "puppeteer": "^10.4.0",
+    "tsconfig-paths": "^3.11.0"
+  }
+}

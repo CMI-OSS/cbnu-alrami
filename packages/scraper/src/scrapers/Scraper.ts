@@ -1,5 +1,5 @@
 import puppeteer, { Page } from "puppeteer";
-import { isDev, Queue } from "@src/common";
+import { isDev, Queue } from "@scraper/common";
 import { Scenario, SCENARIO_STATE } from "./Scenario";
 import { stringify } from "javascript-stringify";
 import find from "find";

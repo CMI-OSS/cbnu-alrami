@@ -1,7 +1,7 @@
 import Scraper from "../Scraper";
-import { CafeteriaScript } from "@src/interfaces";
+import { CafeteriaScript } from "@scraper/interfaces";
 import { Scenario } from "../Scenario";
-import { Menu } from "@src/interfaces/Menu";
+import { Menu } from "@scraper/interfaces/Menu";
 
 class CafeteriaScraper extends Scraper<CafeteriaScript> {
   constructor() {

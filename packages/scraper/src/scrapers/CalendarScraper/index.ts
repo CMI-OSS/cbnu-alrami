@@ -1,5 +1,5 @@
-import Scraper from "@src/scrapers/Scraper";
-import { CalendarScript } from "@src/interfaces";
+import Scraper from "@scraper/scrapers/Scraper";
+import { CalendarScript } from "@scraper/interfaces";
 import { Scenario } from "../Scenario";
 import ArrayToDate from "./ArrayToDate";
 

@@ -24,7 +24,6 @@ abstract class Scraper<T> {
   state: SCRAPER_STATE = SCRAPER_STATE.STOPPED;
   scraper: Page | null = null;
   queue: Queue<Scenario<T>>;
-  loadedScript: boolean = false;
   browser?: puppeteer.Browser;
   scriptPath: string;
 
@@ -33,20 +32,21 @@ abstract class Scraper<T> {
     this.scriptPath = scriptPath;
   }
 
-  loadScript() {
-    find.file(/\.js$/, this.scriptPath, (paths: string[]) => {
-      for (const path of paths) {
-        const script = require(path);
-        this.queue.push(new Scenario(script));
-      }
-      this.loadedScript = true;
+  loadScripts(): Promise<Array<T>> {
+    return new Promise((resolve, _) => {
+      const scripts: Array<T> = [];
+      find.file(/\.js$/, this.scriptPath, (paths: string[]) => {
+        for (const path of paths) {
+          const script = require(path);
+          scripts.push(script);
+        }
+        resolve(scripts);
+      });
     });
   }
 
-  async start() {
-    await this.initScraper();
-    this.loadScript();
-    this.run();
+  appendScenario(scenario: Scenario<T>) {
+    this.queue.push(scenario);
   }
 
   async stop() {
@@ -54,7 +54,6 @@ abstract class Scraper<T> {
     this.scraper = null;
     this.browser?.close();
     this.queue.reset();
-    this.loadedScript = false;
   }
 
   async restart() {
@@ -117,14 +116,20 @@ abstract class Scraper<T> {
   async run() {
     this.state = SCRAPER_STATE.RUNNING;
 
-    if (this.loadedScript && this.queue.isEmpty()) {
+    if (this.scraper === null) {
+      await this.initScraper();
+      await this.run();
+      return;
+    }
+
+    if (this.queue.isEmpty()) {
       this.stop();
       return;
     }
 
     const scenario = this.queue.front();
 
-    if (this.scraper && this.loadedScript && scenario) {
+    if (scenario) {
       scenario.state = SCENARIO_STATE.RUNNING;
       try {
         this.queue.pop();
@@ -143,6 +148,9 @@ abstract class Scraper<T> {
 
   // Override
   abstract scrapping(script: Scenario<T>): void;
+
+  // Override
+  abstract start(): void;
 }
 
 export default Scraper;

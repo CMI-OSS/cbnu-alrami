@@ -11,8 +11,10 @@ const WINDOW_SIZE = {
 
 export const SCRAPER_STATE = {
   WAIT: "WAIT",
+  PAUSE: "PAUSE",
   RUNNING: "RUNNING",
   STOPPED: "STOPPED",
+  RESUME: "RESUME",
   ERROR: "ERROR",
 } as const;
 
@@ -46,6 +48,7 @@ abstract class Scraper<T> {
   }
 
   appendScenario(scenario: Scenario<T>) {
+    scenario.state = SCENARIO_STATE.WAIT;
     this.queue.push(scenario);
   }
 
@@ -61,11 +64,19 @@ abstract class Scraper<T> {
     this.start();
   }
 
+  async pause() {
+    this.state = SCRAPER_STATE.PAUSE;
+  }
+
+  async resume() {
+    this.state = SCRAPER_STATE.RESUME;
+  }
+
   async initScraper() {
     this.state = SCRAPER_STATE.WAIT;
 
     this.browser = await puppeteer.launch({
-      headless: false,
+      headless: !isDev,
       args: [`--window-size=${WINDOW_SIZE.WIDTH},${WINDOW_SIZE.HEIGHT}`],
     });
 
@@ -114,12 +125,13 @@ abstract class Scraper<T> {
   }
 
   async run() {
-    this.state = SCRAPER_STATE.RUNNING;
+    if (this.state === SCRAPER_STATE.PAUSE) {
+      setTimeout(() => this.run(), SCENARIO_DELAY);
+      return;
+    }
 
     if (this.scraper === null) {
       await this.initScraper();
-      await this.run();
-      return;
     }
 
     if (this.queue.isEmpty()) {
@@ -130,6 +142,7 @@ abstract class Scraper<T> {
     const scenario = this.queue.front();
 
     if (scenario) {
+      this.state = SCRAPER_STATE.RUNNING;
       scenario.state = SCENARIO_STATE.RUNNING;
       try {
         this.queue.pop();
@@ -141,9 +154,7 @@ abstract class Scraper<T> {
       }
     }
 
-    setTimeout(() => {
-      this.run();
-    }, SCENARIO_DELAY);
+    setTimeout(() => this.run(), SCENARIO_DELAY);
   }
 
   // Override

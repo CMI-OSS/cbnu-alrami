@@ -18,6 +18,6 @@
     "start:scraper": "lerna run --scope scraper start",
     "dev:scraper": "lerna run --scope scraper dev",
     "start:server": "lerna run --scope server start",
-    "dev:server": "lerna run --scope server dev"
+    "dev:server": "lerna run --scope server dev --stream"
   }
 }

@@ -18,7 +18,6 @@
     "url": "git+https://github.com/CMI-OSS/cbnu-alrami.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1",
     "start": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register ./src/index.ts",
     "dev": "cross-env NODE_ENV=development ts-node -r tsconfig-paths/register ./src/index.ts"
   },

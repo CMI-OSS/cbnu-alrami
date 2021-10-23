@@ -1,9 +1,9 @@
 import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
-import connectionHandler from "./socket_handlers/connection.js";
-import sampleHandler from "./socket_handlers/sample.js";
-import globalRouter from "./routers/global.js";
+import connectionHandler from "./socket_handlers/connection";
+import sampleHandler from "./socket_handlers/sample";
+import globalRouter from "./routers/global";
 
 const PORT = 3000;
 const IO_OPTIONS = {

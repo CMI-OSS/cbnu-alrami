@@ -8,6 +8,15 @@ class DomitoryScraper extends Scraper<DomitoryScript> {
     super(__dirname + "/scripts");
   }
 
+  async start() {
+    const scripts = await this.loadScripts();
+
+    for (const script of scripts) {
+      this.appendScenario(new Scenario(script));
+    }
+
+    this.run();
+  }
   async scrapping(scenario: Scenario<DomitoryScript>) {
     const foodList = await this.getFoodList(scenario);
     console.log(foodList);

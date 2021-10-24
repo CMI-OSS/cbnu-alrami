@@ -11,8 +11,10 @@ const WINDOW_SIZE = {
 
 export const SCRAPER_STATE = {
   WAIT: "WAIT",
+  PAUSE: "PAUSE",
   RUNNING: "RUNNING",
   STOPPED: "STOPPED",
+  RESUME: "RESUME",
   ERROR: "ERROR",
 } as const;
 
@@ -24,7 +26,6 @@ abstract class Scraper<T> {
   state: SCRAPER_STATE = SCRAPER_STATE.STOPPED;
   scraper: Page | null = null;
   queue: Queue<Scenario<T>>;
-  loadedScript: boolean = false;
   browser?: puppeteer.Browser;
   scriptPath: string;
 
@@ -33,20 +34,22 @@ abstract class Scraper<T> {
     this.scriptPath = scriptPath;
   }
 
-  loadScript() {
-    find.file(/\.js$/, this.scriptPath, (paths: string[]) => {
-      for (const path of paths) {
-        const script = require(path);
-        this.queue.push(new Scenario(script));
-      }
-      this.loadedScript = true;
+  loadScripts(): Promise<Array<T>> {
+    return new Promise((resolve, _) => {
+      const scripts: Array<T> = [];
+      find.file(/\.js$/, this.scriptPath, (paths: string[]) => {
+        for (const path of paths) {
+          const script = require(path);
+          scripts.push(script);
+        }
+        resolve(scripts);
+      });
     });
   }
 
-  async start() {
-    await this.initScraper();
-    this.loadScript();
-    this.run();
+  appendScenario(scenario: Scenario<T>) {
+    scenario.state = SCENARIO_STATE.WAIT;
+    this.queue.push(scenario);
   }
 
   async stop() {
@@ -54,7 +57,6 @@ abstract class Scraper<T> {
     this.scraper = null;
     this.browser?.close();
     this.queue.reset();
-    this.loadedScript = false;
   }
 
   async restart() {
@@ -62,11 +64,19 @@ abstract class Scraper<T> {
     this.start();
   }
 
+  async pause() {
+    this.state = SCRAPER_STATE.PAUSE;
+  }
+
+  async resume() {
+    this.state = SCRAPER_STATE.RESUME;
+  }
+
   async initScraper() {
     this.state = SCRAPER_STATE.WAIT;
 
     this.browser = await puppeteer.launch({
-      headless: false,
+      headless: !isDev,
       args: [`--window-size=${WINDOW_SIZE.WIDTH},${WINDOW_SIZE.HEIGHT}`],
     });
 
@@ -115,16 +125,24 @@ abstract class Scraper<T> {
   }
 
   async run() {
-    this.state = SCRAPER_STATE.RUNNING;
+    if (this.state === SCRAPER_STATE.PAUSE) {
+      setTimeout(() => this.run(), SCENARIO_DELAY);
+      return;
+    }
 
-    if (this.loadedScript && this.queue.isEmpty()) {
+    if (this.scraper === null) {
+      await this.initScraper();
+    }
+
+    if (this.queue.isEmpty()) {
       this.stop();
       return;
     }
 
     const scenario = this.queue.front();
 
-    if (this.scraper && this.loadedScript && scenario) {
+    if (scenario) {
+      this.state = SCRAPER_STATE.RUNNING;
       scenario.state = SCENARIO_STATE.RUNNING;
       try {
         this.queue.pop();
@@ -136,13 +154,14 @@ abstract class Scraper<T> {
       }
     }
 
-    setTimeout(() => {
-      this.run();
-    }, SCENARIO_DELAY);
+    setTimeout(() => this.run(), SCENARIO_DELAY);
   }
 
   // Override
   abstract scrapping(script: Scenario<T>): void;
+
+  // Override
+  abstract start(): void;
 }
 
 export default Scraper;

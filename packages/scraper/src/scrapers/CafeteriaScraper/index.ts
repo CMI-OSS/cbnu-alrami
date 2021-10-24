@@ -8,6 +8,15 @@ class CafeteriaScraper extends Scraper<CafeteriaScript> {
     super(__dirname + "/scripts");
   }
 
+  async start() {
+    const scripts = await this.loadScripts();
+
+    for (const script of scripts) {
+      this.appendScenario(new Scenario(script));
+    }
+
+    this.run();
+  }
   async scrapping(scenario: Scenario<CafeteriaScript>): Promise<Menu[]> {
     if (this.scraper === null) {
       throw Error("크롤러 없음");

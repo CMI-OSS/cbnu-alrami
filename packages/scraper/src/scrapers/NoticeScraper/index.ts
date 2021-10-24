@@ -7,6 +7,16 @@ class NoticeScraper extends Scraper<NoticeScript> {
     super(__dirname + "/scripts");
   }
 
+  async start() {
+    const scripts = await this.loadScripts();
+
+    for (const script of scripts) {
+      this.appendScenario(new Scenario(script));
+    }
+
+    this.run();
+  }
+
   async scrapping(scenario: Scenario<NoticeScript>) {
     const noticeList = await this.getNoticeList(scenario);
 

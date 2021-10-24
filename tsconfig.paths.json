@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "paths": {
+      "@scraper/*": ["./scraper/src/*"],
+      "@server/*": ["./server/src/*"]
+    }
+  }
+}

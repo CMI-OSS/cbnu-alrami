@@ -1,4 +1,6 @@
-const connectionHandler = (socket) => {
+import { Socket } from "socket.io";
+
+const connectionHandler = (socket: Socket) => {
   if (socket) {
     console.log("User connected.");
   }

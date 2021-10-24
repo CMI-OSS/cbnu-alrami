@@ -12,11 +12,11 @@
   },
   "scripts": {
     "start:admin": "lerna run --scope admin start",
-    "dev:admin": "lerna run --scope admin dev",
+    "dev:admin": "lerna run --scope admin dev --stream",
     "start:mobile": "lerna run --scope mobile start",
-    "dev:mobile": "lerna run --scope mobile dev",
+    "dev:mobile": "lerna run --scope mobile dev --stream",
     "start:scraper": "lerna run --scope scraper start",
-    "dev:scraper": "lerna run --scope scraper dev",
+    "dev:scraper": "lerna run --scope scraper dev --stream",
     "start:server": "lerna run --scope server start",
     "dev:server": "lerna run --scope server dev --stream"
   }

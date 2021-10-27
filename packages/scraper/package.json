@@ -26,12 +26,17 @@
   },
   "dependencies": {
     "@types/find": "^0.2.1",
+    "axios": "^0.24.0",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "find": "^0.3.0",
     "javascript-stringify": "^2.1.0",
     "mongoose": "^6.0.11",
     "puppeteer": "^10.4.0",
-    "tsconfig-paths": "^3.11.0"
+    "redux": "^4.1.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.3.0",
+    "tsconfig-paths": "^3.11.0",
+    "typesafe-actions": "^5.1.0"
   }
 }

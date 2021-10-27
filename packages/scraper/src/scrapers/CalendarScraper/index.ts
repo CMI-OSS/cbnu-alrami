@@ -2,6 +2,8 @@ import Scraper from "@scraper/scrapers/Scraper";
 import { CalendarScript } from "@scraper/interfaces";
 import { Scenario } from "../Scenario";
 import ArrayToDate from "./ArrayToDate";
+import store from "../../common/store";
+import { success_calender } from "../../actions/CalenderAction";
 
 class CalendarScraper extends Scraper<CalendarScript> {
   constructor() {
@@ -26,6 +28,7 @@ class CalendarScraper extends Scraper<CalendarScript> {
     const { jsScript: calendarScript } = scenario;
 
     if (calendarScript === undefined) {
+      // store.dispatch(success_calender());
       throw Error("스크립트 없음");
     }
 

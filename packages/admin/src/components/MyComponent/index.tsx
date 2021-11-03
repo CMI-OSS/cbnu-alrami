@@ -1,5 +1,5 @@
-import styles from './styles.module.scss';
+import style from "./style";
 
 export default function MyComponent() {
-  return <div className={styles.my_component}>MyComponent</div>;
+  return <div className={style()}>MyComponent</div>;
 }

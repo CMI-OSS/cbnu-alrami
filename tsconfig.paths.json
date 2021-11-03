@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./packages",
     "paths": {
+      "@admin/*": ["./admin/src/*"],
       "@scraper/*": ["./scraper/src/*"],
       "@server/*": ["./server/src/*"]
     }

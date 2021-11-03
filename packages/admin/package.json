@@ -17,16 +17,17 @@
     "url": "git+https://github.com/CMI-OSS/cbnu-alrami.git"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=production PORT=8080 react-scripts start",
-    "dev": "cross-env NODE_ENV=development PORT=8080 react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "cross-env NODE_ENV=production PORT=8080 craco start",
+    "dev": "cross-env NODE_ENV=development PORT=8080 craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "bugs": {
     "url": "https://github.com/CMI-OSS/cbnu-alrami/issues"
   },
   "dependencies": {
+    "@craco/craco": "^6.4.0",
     "@emotion/css": "^11.5.0",
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
@@ -44,6 +45,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
+    "craco-alias": "^3.0.1",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",

@@ -1,10 +1,9 @@
-import MyComponent from '../components/MyComponent';
+import { ScenarioCardList } from "@admin/components/Scenario";
 
 export default function Home() {
   return (
     <>
-      <h1>Home</h1>
-      <MyComponent />
+      <ScenarioCardList />
     </>
   );
 }

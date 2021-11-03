@@ -1,13 +1,18 @@
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Home from './pages/Home';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Global } from "@emotion/react";
+import Home from "./pages/Home";
+import getGlobalStyle from "./globalStyle";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/" component={Home} />
-      </Switch>
-    </BrowserRouter>
+    <>
+      <Global styles={getGlobalStyle()} />
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" component={Home} />
+        </Switch>
+      </BrowserRouter>
+    </>
   );
 }
 

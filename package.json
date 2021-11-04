@@ -13,6 +13,7 @@
   "scripts": {
     "start:admin": "lerna run --scope admin start",
     "dev:admin": "lerna run --scope admin dev --stream",
+    "build:admin": "lerna run --scope admin build",
     "start:mobile": "lerna run --scope mobile start",
     "dev:mobile": "lerna run --scope mobile dev --stream",
     "start:scraper": "lerna run --scope scraper start",

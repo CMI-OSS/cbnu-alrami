@@ -1,25 +1,25 @@
 import {
-  CalenderAction,
-  CalenderState,
-} from "../interfaces/ActionInterfaces/CalenderInterface";
-import { SUCCESS_CALENDER, FAIL_CALENDER } from "@src/actions/types";
+  CalendarAction,
+  CalendarState,
+} from "../interfaces/ActionInterfaces/CalendarInterface";
+import { SUCCESS_CALENDAR, FAIL_CALENDAR } from "../actions/types";
 
-const initialState: CalenderState = { "calender/success": false };
+const initialState: CalendarState = { "calendar/success": false };
 
-export default function Calender(
-  state: CalenderState = initialState,
-  action: CalenderAction,
+export default function calendar(
+  state: CalendarState = initialState,
+  action: CalendarAction,
 ) {
   switch (action.type) {
-    case SUCCESS_CALENDER:
+    case SUCCESS_CALENDAR:
       return {
         ...state,
-        "calender/success": true,
+        "calendar/success": true,
       };
-    case FAIL_CALENDER:
+    case FAIL_CALENDAR:
       return {
         ...state,
-        "calender/success": false,
+        "calendar/success": false,
       };
     default:
       return state;

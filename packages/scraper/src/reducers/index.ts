@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import Calender from "./CalendarReducer";
+import Calendar from "./CalendarReducer";
 
 const rootReducer = combineReducers({
-  Calender,
+  Calendar,
 });
 
 export default rootReducer;

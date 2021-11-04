@@ -1,10 +1,9 @@
 ---
 name: Feature
 about: Suggest an idea for this project
-title: "[FEAT]"
+title: ""
 labels: feature
-assignees: ''
-
+assignees: ""
 ---
 
 ## 📌 개요

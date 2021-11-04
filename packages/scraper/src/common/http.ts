@@ -1,8 +1,8 @@
-import axios from'axios'
+import axios from "axios";
 
 export default axios.create({
-    baseURL: 'https://api.github.com/users/kingyong9169',
-    headers: {
-        'Content-type':'application/json',
-    }
-})
+  baseURL: "서버 URL",
+  headers: {
+    "Content-type": "application/json",
+  },
+});

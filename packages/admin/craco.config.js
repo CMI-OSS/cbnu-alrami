@@ -2,6 +2,17 @@
 const alias = require("../../craco.alias");
 
 module.exports = {
+  babel: {
+    plugins: [
+      [
+        "@emotion",
+        {
+          autoLabel: "always",
+          labelFormat: "[local]",
+        },
+      ],
+    ],
+  },
   webpack: {
     alias,
     configure: (webpackConfig) => {

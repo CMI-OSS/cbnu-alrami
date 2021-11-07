@@ -3,10 +3,12 @@ import Card from "../Card";
 import getStyle from "./style";
 
 export default function ScenarioCardList() {
+  const style = getStyle();
+
   return (
-    <div className={getStyle()}>
+    <div className={style.scenarioCardList}>
       {noticeScenariosMocks.map((scenario) => (
-        <Card className="card" scenario={scenario} />
+        <Card className={style.card} scenario={scenario} />
       ))}
     </div>
   );

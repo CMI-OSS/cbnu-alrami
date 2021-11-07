@@ -1,5 +1,5 @@
 import { Element } from "@shared/types";
-import cx from "classnames/bind";
+import { cx } from "@emotion/css";
 import getStyle from "./style";
 
 interface ScenarioCardProps {
@@ -17,14 +17,15 @@ export default function ScenarioCard({
   scenario,
 }: ScenarioCardProps & Element) {
   const { title, subTitle, status, tags } = scenario;
+  const style = getStyle();
 
   return (
-    <div className={cx(getStyle(), className)}>
-      <div className="title">{title}</div>
-      <div className="sub_title">{subTitle}</div>
-      <div className="status">{status}</div>
+    <div className={cx(style.scenarioCard, className)}>
+      <div className={style.title}>{title}</div>
+      <div>{subTitle}</div>
+      <div>{status}</div>
       {tags.map((tag) => (
-        <span className="tag">{tag}</span>
+        <span className={style.tag}>{tag}</span>
       ))}
     </div>
   );

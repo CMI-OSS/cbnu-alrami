@@ -1,5 +1,5 @@
-const palette = {
+const colors = {
   $black: "#111111",
 };
 
-export { palette };
+export { colors };

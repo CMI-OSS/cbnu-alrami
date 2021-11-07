@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { palette } from "@shared/styles";
+import { colors } from "@shared/styles";
 import { cssHash } from "@admin/utils/hash";
 
 export default () => {
@@ -8,7 +8,7 @@ export default () => {
 
   const scenarioCard = css`
     padding: 10px;
-    border: 1px solid ${palette.$black};
+    border: 1px solid ${colors.$black};
 
     .${title} {
       font-size: 1.4rem;

@@ -1,7 +1,7 @@
 ---
 name: Setting
 about: 프로젝트 설정 관련
-title: "[SETTING]"
+title: ""
 labels: setting
 assignees: ''
 

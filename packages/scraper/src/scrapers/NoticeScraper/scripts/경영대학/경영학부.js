@@ -3,10 +3,10 @@ const script = {
   site_id: 10201,
   site: "경영학부",
   category: "대학공지",
-  waitNoticeListSelector: ".bbs_body>#rows",
-  waitNoticeContentsSelector: "#bbs_contnets > div.rd_body.row",
+  noticeListSelector: ".bbs_body>#rows",
+  noticeContentsSelector: "#bbs_contnets > div.rd_body.row",
   getNoticeList: function () {
-    var list = document.querySelectorAll(".bbs_body>#rows");
+    var list = document.querySelectorAll(this.noticeListSelector);
     let i = 0;
     const notices = [];
     while (i < list.length) {
@@ -27,7 +27,7 @@ const script = {
     // 첨부파일 제거
     if (document.querySelector("#attachedList"))
       document.querySelector("#attachedList").remove();
-    return document.querySelector("#bbs_contnets > div.rd_body.row").outerHTML;
+    return document.querySelector(this.noticeContentsSelector).outerHTML;
   },
 };
 

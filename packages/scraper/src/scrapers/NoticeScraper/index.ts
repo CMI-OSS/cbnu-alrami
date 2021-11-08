@@ -44,7 +44,7 @@ class NoticeScraper extends Scraper<NoticeScript> {
       }
 
       await this.scraper.goto(noticeScript.url);
-      await this.scraper.waitForSelector(noticeScript.waitNoticeListSelector);
+      await this.scraper.waitForSelector(noticeScript.noticeListSelector);
       await this.evaluateScript(noticeScript);
 
       const notice_list: Notice[] = await this.scraper.evaluate(
@@ -79,7 +79,7 @@ class NoticeScraper extends Scraper<NoticeScript> {
     try {
       await this.scraper.goto(notice.url);
       await this.scraper.waitForSelector(
-        noticeScript.waitNoticeContentsSelector,
+        noticeScript.noticeContentsSelector,
       );
       await this.evaluateScript(noticeScript);
 

@@ -3,10 +3,10 @@ const script = {
   site_id: 10301,
   site: "국제경영학과",
   category: "학부공지",
-  waitNoticeListSelector: ".bbs_body>#rows",
-  waitNoticeContentsSelector: "#bbs_contnets > div.rd_body.row",
+  noticeListSelector: ".bbs_body>#rows",
+  noticeContentsSelector: "#bbs_contnets > div.rd_body.row",
   getNoticeList: function () {
-    var list = document.querySelectorAll(".bbs_body>#rows");
+    var list = document.querySelectorAll(this.noticeListSelector);
     const notices = [];
     let i = 0;
     while (i < list.length) {
@@ -27,7 +27,7 @@ const script = {
     // 첨부파일 제거
     if (document.querySelector("#attachedList"))
       document.querySelector("#attachedList").remove();
-    return document.querySelector("#bbs_contnets > div.rd_body.row").outerHTML;
+    return document.querySelector(this.noticeContentsSelector).outerHTML;
   },
 };
 

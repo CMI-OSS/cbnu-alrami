@@ -1,6 +1,6 @@
 import { noticeScenariosMocks } from "@admin/__mocks__";
 import Card from "../Card";
-// import getStyle from "./style";
+import getStyle from "./style";
 
 export default function ScenarioCardList() {
   const style = getStyle();

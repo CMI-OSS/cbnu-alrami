@@ -2,8 +2,10 @@
   "compilerOptions": {
     "baseUrl": "./packages",
     "paths": {
+      "@admin/*": ["./admin/src/*"],
       "@scraper/*": ["./scraper/src/*"],
-      "@server/*": ["./server/src/*"]
+      "@server/*": ["./server/src/*"],
+      "@shared/*": ["./shared/src/*"],
     }
   }
 }

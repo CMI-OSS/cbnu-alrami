@@ -1,7 +1,7 @@
 const script = {
-  url: "https://vmp.cbnu.ac.kr/dsoft/vmp/index.html?pg_idx=40",
-  site_id: 70101,
-  site: "수의예과",
+  url: "http://pharm.chungbuk.ac.kr/app/index.html?pg_idx=21",
+  site_id: 80101,
+  site: "약학대학",
   category: "공지사항",
   noticeListSelector: "#data_list > tbody >tr",
   noticeContentsSelector: ".rd_body",
@@ -24,7 +24,7 @@ const script = {
           category: this.category,
           site_id: this.site_id,
           title: td[1].querySelector("a").innerText.trim(),
-          url: `https://vmp.cbnu.ac.kr/dsoft/vmp/index.html?mod=view&pg_idx=40&pidx=${number}`,
+          url: `${this.url}&pidx=${number}`,
           date: td[3].innerText.trim(),
         };
       })

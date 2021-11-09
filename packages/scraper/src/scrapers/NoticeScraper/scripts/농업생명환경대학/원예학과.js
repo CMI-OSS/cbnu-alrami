@@ -9,8 +9,8 @@ const script = {
   getNoticeList: function () {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list).map((item) => {
-      const div = item.querySelectorAll("div");
-      return {
+        const td = list[i].querySelectorAll("td");
+        return {
         site: this.site,
         category: this.category,
         site_id: this.site_id,

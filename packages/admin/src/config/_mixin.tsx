@@ -7,9 +7,9 @@ const sizes = {
 };
 
 export const fontSize = {
-  smallFontSize: '9px',
-  normalFontSize: '12px',
-  largeFontSize: '15px',
+  smallFontSize: "9px",
+  normalFontSize: "12px",
+  largeFontSize: "15px",
 };
 
 const customMediaQuery = (maxWidth: number) =>

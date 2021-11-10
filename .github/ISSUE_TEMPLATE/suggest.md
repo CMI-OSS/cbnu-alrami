@@ -3,8 +3,7 @@ name: Suggest
 about: 무엇이든 제안하세요~
 title: "[제안]"
 labels: 제안
-assignees: ''
-
+assignees: ""
 ---
 
 ## 💁‍♀️ 제안 사항

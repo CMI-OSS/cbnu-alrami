@@ -3,8 +3,7 @@ name: Question
 about: 무엇이든 질문하세요~
 title: "[질문]"
 labels: 질문
-assignees: ''
-
+assignees: ""
 ---
 
 ## 🙋‍♀️ 질문 내용

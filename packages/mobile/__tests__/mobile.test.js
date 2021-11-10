@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const mobile = require('..');
+const mobile = require("..");
 
-describe('mobile', () => {
-    it('needs tests');
+describe("mobile", () => {
+  it("needs tests");
 });

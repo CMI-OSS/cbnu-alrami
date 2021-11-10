@@ -21,7 +21,8 @@
     "dev": "cross-env NODE_ENV=development PORT=8080 craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint ."
   },
   "bugs": {
     "url": "https://github.com/CMI-OSS/cbnu-alrami/issues"
@@ -51,8 +52,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "eslint-plugin-jsx-a11y": "^6.4.1"
   }
 }

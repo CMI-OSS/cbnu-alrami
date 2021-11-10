@@ -3,8 +3,7 @@ name: Don't worry alone
 about: 같이 고민해요
 title: "[고민]"
 labels: 고민
-assignees: ''
-
+assignees: ""
 ---
 
 ## 🤔 무엇이 고민인가요?

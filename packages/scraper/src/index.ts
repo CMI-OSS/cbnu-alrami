@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
-import CalendarScraper from "@scraper/scrapers/CalendarScraper";
-import NoticeScraper from "@scraper/scrapers/NoticeScraper";
-import DomitoryScraper from "@scraper/scrapers/DomitoryScraper";
-import CafeteriaScraper from "@scraper/scrapers/CafeteriaScraper";
+import CalendarScraper from "./scrapers/CalendarScraper";
+import NoticeScraper from "./scrapers/NoticeScraper";
+import DomitoryScraper from "./scrapers/DomitoryScraper";
+import CafeteriaScraper from "./scrapers/CafeteriaScraper";
 
 dotenv.config();
 // mongoDB();

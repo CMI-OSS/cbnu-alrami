@@ -1,6 +1,6 @@
 import { CalendarAction } from "../../interfaces/ActionInterfaces/CalendarInterface";
-import Scraper from "@scraper/scrapers/Scraper";
-import { CalendarScript } from "@scraper/interfaces";
+import Scraper from "../../scrapers/Scraper";
+import { CalendarScript } from "../../interfaces";
 import { Scenario } from "../Scenario";
 import ArrayToDate from "./ArrayToDate";
 import store from "../../common/store";

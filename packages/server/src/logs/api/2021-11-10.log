@@ -1,0 +1,523 @@
+[2021-11-10 14:51:15][ERROR]:::uncaughtException: ENOENT: no such file or directory, stat 'restaurant'
+Error: ENOENT: no such file or directory, stat 'restaurant'
+    at statSync (fs.js:1127:3)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:18:32
+    at Array.filter (<anonymous>)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:18:8
+    at Array.forEach (<anonymous>)
+    at Object.<anonymous> (D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:14:4)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1374:12)
+[2021-11-10 14:51:52][ERROR]:::uncaughtException: Router.use() requires a middleware function but got a Object
+TypeError: Router.use() requires a middleware function but got a Object
+    at Function.use (D:\codes\cbnu-alrami\node_modules\express\lib\router\index.js:458:13)
+    at Function.<anonymous> (D:\codes\cbnu-alrami\node_modules\express\lib\application.js:220:21)
+    at Array.forEach (<anonymous>)
+    at Function.use (D:\codes\cbnu-alrami\node_modules\express\lib\application.js:217:7)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:20:11
+    at Array.forEach (<anonymous>)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:19:8
+    at Array.forEach (<anonymous>)
+    at Object.<anonymous> (D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:14:4)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+[2021-11-10 14:52:46][ERROR]:::uncaughtException: Router.use() requires a middleware function but got a Object
+TypeError: Router.use() requires a middleware function but got a Object
+    at Function.use (D:\codes\cbnu-alrami\node_modules\express\lib\router\index.js:458:13)
+    at Function.<anonymous> (D:\codes\cbnu-alrami\node_modules\express\lib\application.js:220:21)
+    at Array.forEach (<anonymous>)
+    at Function.use (D:\codes\cbnu-alrami\node_modules\express\lib\application.js:217:7)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:20:11
+    at Array.forEach (<anonymous>)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:19:8
+    at Array.forEach (<anonymous>)
+    at Object.<anonymous> (D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:14:4)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+[2021-11-10 15:00:29][ERROR]:::uncaughtException: ⨯ Unable to compile TypeScript:
+[96mroutes/api/v1/restaurant/index.ts[0m:[93m2[0m:[93m34[0m - [91merror[0m[90m TS7016: [0mCould not find a declaration file for module './controller'. 'D:/codes/cbnu-alrami/packages/server/src/routes/api/v1/restaurant/controller.js' implicitly has an 'any' type.
+
+[7m2[0m import { createRestaurant } from './controller';
+[7m [0m [91m                                 ~~~~~~~~~~~~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96mroutes/api/v1/restaurant/index.ts[0m:[93m2[0m:[93m34[0m - [91merror[0m[90m TS7016: [0mCould not find a declaration file for module './controller'. 'D:/codes/cbnu-alrami/packages/server/src/routes/api/v1/restaurant/controller.js' implicitly has an 'any' type.
+
+[7m2[0m import { createRestaurant } from './controller';
+[7m [0m [91m                                 ~~~~~~~~~~~~~~[0m
+
+    at createTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:750:12)
+    at reportTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:754:19)
+    at getOutput (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:941:36)
+    at Object.compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1243:30)
+    at Module.m._compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1370:30)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:14)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+[2021-11-10 15:01:07][ERROR]:::uncaughtException: Cannot use import statement outside a module
+D:\codes\cbnu-alrami\packages\server\src\routes\api\v1\restaurant\index.js:1
+import Router from 'express';
+^^^^^^
+
+SyntaxError: Cannot use import statement outside a module
+    at wrapSafe (internal/modules/cjs/loader.js:1001:16)
+    at Module._compile (internal/modules/cjs/loader.js:1049:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:14)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:92:18)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:20:26
+    at Array.forEach (<anonymous>)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:19:8
+[2021-11-10 15:01:30][ERROR]:::uncaughtException: Cannot use import statement outside a module
+D:\codes\cbnu-alrami\packages\server\src\routes\api\v1\restaurant\index.js:1
+import {Router} from 'express';
+^^^^^^
+
+SyntaxError: Cannot use import statement outside a module
+    at wrapSafe (internal/modules/cjs/loader.js:1001:16)
+    at Module._compile (internal/modules/cjs/loader.js:1049:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:14)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:92:18)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:20:26
+    at Array.forEach (<anonymous>)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:19:8
+[2021-11-10 15:02:23][ERROR]:::uncaughtException: Cannot use import statement outside a module
+D:\codes\cbnu-alrami\packages\server\src\routes\api\v1\restaurant\index.js:2
+import { createRestaurant } from './controller';
+^^^^^^
+
+SyntaxError: Cannot use import statement outside a module
+    at wrapSafe (internal/modules/cjs/loader.js:1001:16)
+    at Module._compile (internal/modules/cjs/loader.js:1049:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:14)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:92:18)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:20:26
+    at Array.forEach (<anonymous>)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:19:8
+[2021-11-10 15:02:46][ERROR]:::uncaughtException: Unexpected token 'export'
+D:\codes\cbnu-alrami\packages\server\src\routes\api\v1\restaurant\index.js:9
+export default router;
+^^^^^^
+
+SyntaxError: Unexpected token 'export'
+    at wrapSafe (internal/modules/cjs/loader.js:1001:16)
+    at Module._compile (internal/modules/cjs/loader.js:1049:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:14)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:92:18)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:20:26
+    at Array.forEach (<anonymous>)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:19:8
+[2021-11-10 15:03:46][ERROR]:::uncaughtException: ⨯ Unable to compile TypeScript:
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m2[0m:[93m24[0m - [91merror[0m[90m TS7016: [0mCould not find a declaration file for module '../../../../../../shared/src/database/models'. 'D:/codes/cbnu-alrami/packages/shared/src/database/models/index.js' implicitly has an 'any' type.
+
+[7m2[0m import restaurant from '../../../../../../shared/src/database/models';
+[7m [0m [91m                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m40[0m - [91merror[0m[90m TS7006: [0mParameter 'req' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res,next)=>{
+[7m [0m [91m                                       ~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m44[0m - [91merror[0m[90m TS7006: [0mParameter 'res' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res,next)=>{
+[7m [0m [91m                                           ~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m48[0m - [91merror[0m[90m TS7006: [0mParameter 'next' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res,next)=>{
+[7m [0m [91m                                               ~~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m2[0m:[93m24[0m - [91merror[0m[90m TS7016: [0mCould not find a declaration file for module '../../../../../../shared/src/database/models'. 'D:/codes/cbnu-alrami/packages/shared/src/database/models/index.js' implicitly has an 'any' type.
+
+[7m2[0m import restaurant from '../../../../../../shared/src/database/models';
+[7m [0m [91m                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m40[0m - [91merror[0m[90m TS7006: [0mParameter 'req' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res,next)=>{
+[7m [0m [91m                                       ~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m44[0m - [91merror[0m[90m TS7006: [0mParameter 'res' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res,next)=>{
+[7m [0m [91m                                           ~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m48[0m - [91merror[0m[90m TS7006: [0mParameter 'next' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res,next)=>{
+[7m [0m [91m                                               ~~~~[0m
+
+    at createTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:750:12)
+    at reportTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:754:19)
+    at getOutput (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:941:36)
+    at Object.compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1243:30)
+    at Module.m._compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1370:30)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:14)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+[2021-11-10 15:06:37][ERROR]:::uncaughtException: ⨯ Unable to compile TypeScript:
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m2[0m:[93m24[0m - [91merror[0m[90m TS7016: [0mCould not find a declaration file for module '../../../../../../shared/src/database/models'. 'D:/codes/cbnu-alrami/packages/shared/src/database/models/index.js' implicitly has an 'any' type.
+
+[7m2[0m import restaurant from '../../../../../../shared/src/database/models';
+[7m [0m [91m                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m40[0m - [91merror[0m[90m TS7006: [0mParameter 'req' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res,next)=>{
+[7m [0m [91m                                       ~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m44[0m - [91merror[0m[90m TS7006: [0mParameter 'res' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res,next)=>{
+[7m [0m [91m                                           ~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m48[0m - [91merror[0m[90m TS7006: [0mParameter 'next' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res,next)=>{
+[7m [0m [91m                                               ~~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m2[0m:[93m24[0m - [91merror[0m[90m TS7016: [0mCould not find a declaration file for module '../../../../../../shared/src/database/models'. 'D:/codes/cbnu-alrami/packages/shared/src/database/models/index.js' implicitly has an 'any' type.
+
+[7m2[0m import restaurant from '../../../../../../shared/src/database/models';
+[7m [0m [91m                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m40[0m - [91merror[0m[90m TS7006: [0mParameter 'req' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res,next)=>{
+[7m [0m [91m                                       ~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m44[0m - [91merror[0m[90m TS7006: [0mParameter 'res' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res,next)=>{
+[7m [0m [91m                                           ~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m48[0m - [91merror[0m[90m TS7006: [0mParameter 'next' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res,next)=>{
+[7m [0m [91m                                               ~~~~[0m
+
+    at createTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:750:12)
+    at reportTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:754:19)
+    at getOutput (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:941:36)
+    at Object.compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1243:30)
+    at Module.m._compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1370:30)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:14)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+[2021-11-10 15:07:33][ERROR]:::uncaughtException: ⨯ Unable to compile TypeScript:
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m2[0m:[93m24[0m - [91merror[0m[90m TS7016: [0mCould not find a declaration file for module '../../../../../../shared/src/database/models'. 'D:/codes/cbnu-alrami/packages/shared/src/database/models/index.js' implicitly has an 'any' type.
+
+[7m2[0m import restaurant from '../../../../../../shared/src/database/models';
+[7m [0m [91m                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m40[0m - [91merror[0m[90m TS7006: [0mParameter 'req' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res,next)=>{
+[7m [0m [91m                                       ~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m44[0m - [91merror[0m[90m TS7006: [0mParameter 'res' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res,next)=>{
+[7m [0m [91m                                           ~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m48[0m - [91merror[0m[90m TS7006: [0mParameter 'next' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res,next)=>{
+[7m [0m [91m                                               ~~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m2[0m:[93m24[0m - [91merror[0m[90m TS7016: [0mCould not find a declaration file for module '../../../../../../shared/src/database/models'. 'D:/codes/cbnu-alrami/packages/shared/src/database/models/index.js' implicitly has an 'any' type.
+
+[7m2[0m import restaurant from '../../../../../../shared/src/database/models';
+[7m [0m [91m                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m40[0m - [91merror[0m[90m TS7006: [0mParameter 'req' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res,next)=>{
+[7m [0m [91m                                       ~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m44[0m - [91merror[0m[90m TS7006: [0mParameter 'res' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res,next)=>{
+[7m [0m [91m                                           ~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m48[0m - [91merror[0m[90m TS7006: [0mParameter 'next' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res,next)=>{
+[7m [0m [91m                                               ~~~~[0m
+
+    at createTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:750:12)
+    at reportTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:754:19)
+    at getOutput (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:941:36)
+    at Object.compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1243:30)
+    at Module.m._compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1370:30)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:14)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+[2021-11-10 15:07:47][ERROR]:::uncaughtException: ⨯ Unable to compile TypeScript:
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m2[0m:[93m24[0m - [91merror[0m[90m TS7016: [0mCould not find a declaration file for module '../../../../../../shared/src/database/models'. 'D:/codes/cbnu-alrami/packages/shared/src/database/models/index.js' implicitly has an 'any' type.
+
+[7m2[0m import restaurant from '../../../../../../shared/src/database/models';
+[7m [0m [91m                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m40[0m - [91merror[0m[90m TS7006: [0mParameter 'req' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res)=>{
+[7m [0m [91m                                       ~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m44[0m - [91merror[0m[90m TS7006: [0mParameter 'res' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res)=>{
+[7m [0m [91m                                           ~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m2[0m:[93m24[0m - [91merror[0m[90m TS7016: [0mCould not find a declaration file for module '../../../../../../shared/src/database/models'. 'D:/codes/cbnu-alrami/packages/shared/src/database/models/index.js' implicitly has an 'any' type.
+
+[7m2[0m import restaurant from '../../../../../../shared/src/database/models';
+[7m [0m [91m                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m40[0m - [91merror[0m[90m TS7006: [0mParameter 'req' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res)=>{
+[7m [0m [91m                                       ~~~[0m
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m5[0m:[93m44[0m - [91merror[0m[90m TS7006: [0mParameter 'res' implicitly has an 'any' type.
+
+[7m5[0m export const createRestaurant = async (req,res)=>{
+[7m [0m [91m                                           ~~~[0m
+
+    at createTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:750:12)
+    at reportTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:754:19)
+    at getOutput (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:941:36)
+    at Object.compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1243:30)
+    at Module.m._compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1370:30)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:14)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+[2021-11-10 15:12:12][ERROR]:::uncaughtException: ⨯ Unable to compile TypeScript:
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m2[0m:[93m24[0m - [91merror[0m[90m TS7016: [0mCould not find a declaration file for module '../../../../../../shared/src/database/models'. 'D:/codes/cbnu-alrami/packages/shared/src/database/models/index.js' implicitly has an 'any' type.
+
+[7m2[0m import restaurant from "../../../../../../shared/src/database/models";
+[7m [0m [91m                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m2[0m:[93m24[0m - [91merror[0m[90m TS7016: [0mCould not find a declaration file for module '../../../../../../shared/src/database/models'. 'D:/codes/cbnu-alrami/packages/shared/src/database/models/index.js' implicitly has an 'any' type.
+
+[7m2[0m import restaurant from "../../../../../../shared/src/database/models";
+[7m [0m [91m                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+    at createTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:750:12)
+    at reportTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:754:19)
+    at getOutput (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:941:36)
+    at Object.compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1243:30)
+    at Module.m._compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1370:30)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:14)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+[2021-11-10 15:23:30][ERROR]:::uncaughtException: ⨯ Unable to compile TypeScript:
+[96m../../shared/src/database/models/index.ts[0m:[93m19[0m:[93m1[0m - [91merror[0m[90m TS2304: [0mCannot find name 'fs'.
+
+[7m19[0m fs.readdirSync(__dirname)
+[7m  [0m [91m~~[0m
+[96m../../shared/src/database/models/index.ts[0m:[93m20[0m:[93m12[0m - [91merror[0m[90m TS7006: [0mParameter 'dir' implicitly has an 'any' type.
+
+[7m20[0m   .filter((dir) => dir.startsWith("@"))
+[7m  [0m [91m           ~~~[0m
+[96m../../shared/src/database/models/index.ts[0m:[93m21[0m:[93m13[0m - [91merror[0m[90m TS7006: [0mParameter 'dir' implicitly has an 'any' type.
+
+[7m21[0m   .forEach((dir) => {
+[7m  [0m [91m            ~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96m../../shared/src/database/models/index.ts[0m:[93m19[0m:[93m1[0m - [91merror[0m[90m TS2304: [0mCannot find name 'fs'.
+
+[7m19[0m fs.readdirSync(__dirname)
+[7m  [0m [91m~~[0m
+[96m../../shared/src/database/models/index.ts[0m:[93m20[0m:[93m12[0m - [91merror[0m[90m TS7006: [0mParameter 'dir' implicitly has an 'any' type.
+
+[7m20[0m   .filter((dir) => dir.startsWith("@"))
+[7m  [0m [91m           ~~~[0m
+[96m../../shared/src/database/models/index.ts[0m:[93m21[0m:[93m13[0m - [91merror[0m[90m TS7006: [0mParameter 'dir' implicitly has an 'any' type.
+
+[7m21[0m   .forEach((dir) => {
+[7m  [0m [91m            ~~~[0m
+
+    at createTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:750:12)
+    at reportTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:754:19)
+    at getOutput (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:941:36)
+    at Object.compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1243:30)
+    at Module.m._compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1370:30)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:14)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+[2021-11-10 15:24:25][ERROR]:::uncaughtException: ⨯ Unable to compile TypeScript:
+[96m../../shared/src/database/models/index.ts[0m:[93m19[0m:[93m1[0m - [91merror[0m[90m TS2304: [0mCannot find name 'fs'.
+
+[7m19[0m fs.readdirSync(__dirname)
+[7m  [0m [91m~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96m../../shared/src/database/models/index.ts[0m:[93m19[0m:[93m1[0m - [91merror[0m[90m TS2304: [0mCannot find name 'fs'.
+
+[7m19[0m fs.readdirSync(__dirname)
+[7m  [0m [91m~~[0m
+
+    at createTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:750:12)
+    at reportTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:754:19)
+    at getOutput (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:941:36)
+    at Object.compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1243:30)
+    at Module.m._compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1370:30)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:14)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+[2021-11-10 15:24:52][ERROR]:::uncaughtException: Cannot find module 'path/posix'
+Require stack:
+- D:\codes\cbnu-alrami\packages\shared\src\database\models\index.ts
+- D:\codes\cbnu-alrami\packages\server\src\routes\api\v1\restaurant\controller.ts
+- D:\codes\cbnu-alrami\packages\server\src\routes\api\v1\restaurant\index.ts
+- D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts
+- D:\codes\cbnu-alrami\packages\server\src\app.ts
+- D:\codes\cbnu-alrami\packages\server\src\index.ts
+Error: Cannot find module 'path/posix'
+Require stack:
+- D:\codes\cbnu-alrami\packages\shared\src\database\models\index.ts
+- D:\codes\cbnu-alrami\packages\server\src\routes\api\v1\restaurant\controller.ts
+- D:\codes\cbnu-alrami\packages\server\src\routes\api\v1\restaurant\index.ts
+- D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts
+- D:\codes\cbnu-alrami\packages\server\src\app.ts
+- D:\codes\cbnu-alrami\packages\server\src\index.ts
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue [as _resolveFilename] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\node_modules\@cspotcode\source-map-support\source-map-support.js:679:30)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:92:18)
+    at Object.<anonymous> (D:\codes\cbnu-alrami\packages\shared\src\database\models\index.ts:4:1)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1374:12)
+[2021-11-10 15:25:04][ERROR]:::uncaughtException: Please install mysql2 package manually
+Error: Please install mysql2 package manually
+    at ConnectionManager._loadDialectModule (D:\codes\cbnu-alrami\node_modules\sequelize\lib\dialects\abstract\connection-manager.js:81:15)
+    at new ConnectionManager (D:\codes\cbnu-alrami\node_modules\sequelize\lib\dialects\mysql\connection-manager.js:25:21)
+    at new MysqlDialect (D:\codes\cbnu-alrami\node_modules\sequelize\lib\dialects\mysql\index.js:15:30)
+    at new Sequelize (D:\codes\cbnu-alrami\node_modules\sequelize\lib\sequelize.js:340:20)
+    at Object.<anonymous> (D:\codes\cbnu-alrami\packages\shared\src\database\models\index.ts:12:19)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+[2021-11-10 15:27:00][ERROR]:::uncaughtException: Cannot find module 'D:\codes\cbnu-alrami\packages\shared\src\database\models\restaurant.js'
+Require stack:
+- D:\codes\cbnu-alrami\packages\shared\src\database\models\index.ts
+- D:\codes\cbnu-alrami\packages\server\src\routes\api\v1\restaurant\controller.ts
+- D:\codes\cbnu-alrami\packages\server\src\routes\api\v1\restaurant\index.ts
+- D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts
+- D:\codes\cbnu-alrami\packages\server\src\app.ts
+- D:\codes\cbnu-alrami\packages\server\src\index.ts
+Error: Cannot find module 'D:\codes\cbnu-alrami\packages\shared\src\database\models\restaurant.js'
+Require stack:
+- D:\codes\cbnu-alrami\packages\shared\src\database\models\index.ts
+- D:\codes\cbnu-alrami\packages\server\src\routes\api\v1\restaurant\controller.ts
+- D:\codes\cbnu-alrami\packages\server\src\routes\api\v1\restaurant\index.ts
+- D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts
+- D:\codes\cbnu-alrami\packages\server\src\app.ts
+- D:\codes\cbnu-alrami\packages\server\src\index.ts
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue [as _resolveFilename] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\node_modules\@cspotcode\source-map-support\source-map-support.js:679:30)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:92:18)
+    at D:\codes\cbnu-alrami\packages\shared\src\database\models\index.ts:32:23
+    at Array.forEach (<anonymous>)
+    at D:\codes\cbnu-alrami\packages\shared\src\database\models\index.ts:31:8
+    at Array.forEach (<anonymous>)
+    at Object.<anonymous> (D:\codes\cbnu-alrami\packages\shared\src\database\models\index.ts:21:4)
+[2021-11-10 15:28:50][ERROR]:::uncaughtException: Router.use() requires a middleware function but got a Object
+TypeError: Router.use() requires a middleware function but got a Object
+    at Function.use (D:\codes\cbnu-alrami\node_modules\express\lib\router\index.js:458:13)
+    at Function.<anonymous> (D:\codes\cbnu-alrami\node_modules\express\lib\application.js:220:21)
+    at Array.forEach (<anonymous>)
+    at Function.use (D:\codes\cbnu-alrami\node_modules\express\lib\application.js:217:7)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:20:11
+    at Array.forEach (<anonymous>)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:19:8
+    at Array.forEach (<anonymous>)
+    at Object.<anonymous> (D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:14:4)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+[2021-11-10 17:19:35][ERROR]:::uncaughtException: Router.use() requires a middleware function but got a Object
+TypeError: Router.use() requires a middleware function but got a Object
+    at Function.use (D:\codes\cbnu-alrami\node_modules\express\lib\router\index.js:458:13)
+    at Function.<anonymous> (D:\codes\cbnu-alrami\node_modules\express\lib\application.js:220:21)
+    at Array.forEach (<anonymous>)
+    at Function.use (D:\codes\cbnu-alrami\node_modules\express\lib\application.js:217:7)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:21:11
+    at Array.forEach (<anonymous>)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:20:8
+    at Array.forEach (<anonymous>)
+    at Object.<anonymous> (D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:14:4)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+[2021-11-10 17:19:47][ERROR]:::uncaughtException: Router.use() requires a middleware function but got a Object
+TypeError: Router.use() requires a middleware function but got a Object
+    at Function.use (D:\codes\cbnu-alrami\node_modules\express\lib\router\index.js:458:13)
+    at Function.<anonymous> (D:\codes\cbnu-alrami\node_modules\express\lib\application.js:220:21)
+    at Array.forEach (<anonymous>)
+    at Function.use (D:\codes\cbnu-alrami\node_modules\express\lib\application.js:217:7)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:22:11
+    at Array.forEach (<anonymous>)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:20:8
+    at Array.forEach (<anonymous>)
+    at Object.<anonymous> (D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:14:4)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+[2021-11-10 17:19:59][ERROR]:::uncaughtException: Router.use() requires a middleware function but got a Object
+TypeError: Router.use() requires a middleware function but got a Object
+    at Function.use (D:\codes\cbnu-alrami\node_modules\express\lib\router\index.js:458:13)
+    at Function.<anonymous> (D:\codes\cbnu-alrami\node_modules\express\lib\application.js:220:21)
+    at Array.forEach (<anonymous>)
+    at Function.use (D:\codes\cbnu-alrami\node_modules\express\lib\application.js:217:7)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:22:11
+    at Array.forEach (<anonymous>)
+    at D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:20:8
+    at Array.forEach (<anonymous>)
+    at Object.<anonymous> (D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts:14:4)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+[2021-11-10 17:21:45][DEBUG]:::restaurant API Loaded!
+[2021-11-10 17:21:45][ERROR]:::uncaughtException: self._addDefaultMeta is not a function
+TypeError: self._addDefaultMeta is not a function
+    at Server.DerivedLogger.<computed> (D:\codes\cbnu-alrami\node_modules\winston\lib\winston\create-logger.js:80:14)
+    at Server.emit (events.js:375:28)
+    at Server.emit (domain.js:470:12)
+    at emitErrorNT (net.js:1347:8)
+    at processTicksAndRejections (internal/process/task_queues.js:82:21)
+[2021-11-10 17:23:02][DEBUG]:::restaurant API Loaded!
+[2021-11-10 17:23:02][ERROR]:::uncaughtException: self._addDefaultMeta is not a function
+TypeError: self._addDefaultMeta is not a function
+    at Server.DerivedLogger.<computed> (D:\codes\cbnu-alrami\node_modules\winston\lib\winston\create-logger.js:80:14)
+    at Server.emit (events.js:375:28)
+    at Server.emit (domain.js:470:12)
+    at emitErrorNT (net.js:1347:8)
+    at processTicksAndRejections (internal/process/task_queues.js:82:21)
+[2021-11-10 17:28:44][DEBUG]:::restaurant API Loaded!
+[2021-11-10 17:28:44][ERROR]:::uncaughtException: listen EACCES: permission denied 0.0.0.0:3000
+Error: listen EACCES: permission denied 0.0.0.0:3000
+    at Server.setupListenHandle [as _listen2] (net.js:1303:21)
+    at listenInCluster (net.js:1368:12)
+    at Server.listen (net.js:1454:7)
+    at Object.<anonymous> (D:\codes\cbnu-alrami\packages\server\src\index.ts:31:8)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:14)
+[2021-11-10 17:29:06][DEBUG]:::restaurant API Loaded!
+[2021-11-10 17:29:06][DEBUG]:::Server running on ::4123

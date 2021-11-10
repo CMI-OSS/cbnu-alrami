@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { colors } from "@shared/styles";
 
 export default () => css`
   /* http://meyerweb.com/eric/tools/css/reset/
@@ -110,6 +111,7 @@ export default () => css`
   }
   body {
     line-height: 1;
+    background-color: ${colors.$grey};
   }
   ol,
   ul {

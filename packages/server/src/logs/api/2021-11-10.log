@@ -521,3 +521,5 @@ Error: listen EACCES: permission denied 0.0.0.0:3000
     at Function.Module._load (internal/modules/cjs/loader.js:790:14)
 [2021-11-10 17:29:06][DEBUG]:::restaurant API Loaded!
 [2021-11-10 17:29:06][DEBUG]:::Server running on ::4123
+[2021-11-10 17:42:26][DEBUG]:::restaurant API Loaded!
+[2021-11-10 17:42:27][DEBUG]:::Server running on ::4123

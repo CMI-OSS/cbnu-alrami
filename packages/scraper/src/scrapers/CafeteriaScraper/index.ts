@@ -2,7 +2,7 @@ import Scraper from "../Scraper";
 import { CafeteriaScript } from "@scraper/interfaces";
 import { Scenario } from "../Scenario";
 import { Menu } from "@scraper/interfaces/Menu";
-// const axios = require("axios");
+import axios from "axios";
 class CafeteriaScraper extends Scraper<CafeteriaScript> {
   constructor() {
     super(__dirname + "/scripts");
@@ -32,9 +32,9 @@ class CafeteriaScraper extends Scraper<CafeteriaScript> {
     await this.scraper.waitForSelector(cafeteriaScript.waitSelector);
     await this.evaluateScript(cafeteriaScript);
     const menus = await this.scraper.evaluate(`script.getMenus()`);
-    // await axios.post("https://localhost:4123/api/v1/restaurant", {
-    //   body: menus,
-    // });
+    await axios.post("https://localhost:4123/api/v1/restaurant", {
+       body: menus,
+     });
     console.log(menus);
     return menus;
   }

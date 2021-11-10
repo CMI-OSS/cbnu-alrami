@@ -18,11 +18,11 @@
     "url": "https://github.com/CMI-OSS/cbnu-alrami/issues"
   },
   "dependencies": {
+    "@types/morgan": "^1.9.3",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mariadb": "^2.5.5",
-    "morgan": "^1.10.0",
     "sequelize": "^6.9.0",
     "sequelize-cli": "^6.3.0",
     "socket.io": "^4.3.1",

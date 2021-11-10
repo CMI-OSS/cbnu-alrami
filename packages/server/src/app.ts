@@ -1,11 +1,11 @@
 import express from "express";
 import cors from "cors";
-const morgan =require("morgan"); 
+const morgan = require("morgan");
 import logger from "./utils/logger";
 import apiRouter from "./routes/api";
 const app = express();
 
-app.use(morgan('dev', { stream:logger.stream }));
+app.use(morgan("dev", { stream: logger.stream }));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

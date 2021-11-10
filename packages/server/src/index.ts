@@ -4,7 +4,7 @@ import { Server } from "socket.io";
 import logger from "./utils/logger";
 import connectionHandler from "./socket_handlers/connection";
 import sampleHandler from "./socket_handlers/sample";
-import { AddressInfo } from "net";
+const db = require("../../shared/src/database/models");
 
 const PORT = 4123;
 const IO_OPTIONS = {
@@ -33,4 +33,13 @@ server.listen(PORT);
 server.on("listening", () => {
   const addr: any = server.address();
   logger.debug(`Server running on ${addr.address}${addr.port}`);
+  db.sequelize
+    .sync()
+    .then(() => {
+      console.log(" DB 연결 성공");
+    })
+    .catch((err: any) => {
+      console.log("연결 실패");
+      console.log(err);
+    });
 });

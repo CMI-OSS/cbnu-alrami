@@ -4,6 +4,6 @@ import { createRestaurant } from './controller';
 const router = Router();
 
 
-router.post('/restaurant', createRestaurant);
+router.post('/', createRestaurant);
 
 module.exports = router;

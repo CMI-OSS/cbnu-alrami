@@ -14,11 +14,10 @@ readdirSync(__dirname)
   .forEach((dir) => {
     
     const r = Router();
-    const path = join(__dirname, dir); //버전 폴더 경로
+    const path = join(__dirname, dir); //버전 폴더 경로 api/v1
     readdirSync(path) //버전폴더 하위 폴더들
       .filter((dir) => statSync(join(path, dir)).isDirectory())
       .forEach((dir) => {
-        console.log(join(path, dir))
         r.use(`/${dir}`, require(join(path, dir)));
         logger.debug(`${dir} API Loaded!`);
       }); //r라우터에 일괄 추가

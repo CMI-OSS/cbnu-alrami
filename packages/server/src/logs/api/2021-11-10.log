@@ -523,3 +523,175 @@ Error: listen EACCES: permission denied 0.0.0.0:3000
 [2021-11-10 17:29:06][DEBUG]:::Server running on ::4123
 [2021-11-10 17:42:26][DEBUG]:::restaurant API Loaded!
 [2021-11-10 17:42:27][DEBUG]:::Server running on ::4123
+[2021-11-10 20:51:33][DEBUG]:::restaurant API Loaded!
+[2021-11-10 20:51:33][DEBUG]:::Server running on ::4123
+[2021-11-10 20:52:58][DEBUG]:::restaurant API Loaded!
+[2021-11-10 20:52:58][DEBUG]:::Server running on ::4123
+[2021-11-10 21:00:13][ERROR]:::uncaughtException: ⨯ Unable to compile TypeScript:
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m10[0m:[93m15[0m - [91merror[0m[90m TS2304: [0mCannot find name 'db'.
+
+[7m10[0m   console.log(db);
+[7m  [0m [91m              ~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m10[0m:[93m15[0m - [91merror[0m[90m TS2304: [0mCannot find name 'db'.
+
+[7m10[0m   console.log(db);
+[7m  [0m [91m              ~~[0m
+
+    at createTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:750:12)
+    at reportTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:754:19)
+    at getOutput (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:941:36)
+    at Object.compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1243:30)
+    at Module.m._compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1370:30)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:14)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+[2021-11-10 21:00:24][DEBUG]:::restaurant API Loaded!
+[2021-11-10 21:00:24][DEBUG]:::Server running on ::4123
+[2021-11-10 21:07:10][DEBUG]:::restaurant API Loaded!
+[2021-11-10 21:07:10][DEBUG]:::Server running on ::4123
+[2021-11-10 21:10:13][DEBUG]:::restaurant API Loaded!
+[2021-11-10 21:10:13][DEBUG]:::Server running on ::4123
+[2021-11-10 21:10:41][ERROR]:::uncaughtException: ⨯ Unable to compile TypeScript:
+[96m../../shared/src/database/models/index.ts[0m:[93m34[0m:[93m8[0m - [91merror[0m[90m TS2339: [0mProperty 'forEach' does not exist on type 'void'.
+
+[7m34[0m       .forEach((file: string) => {
+[7m  [0m [91m       ~~~~~~~[0m
+[96m../../shared/src/database/models/index.ts[0m:[93m28[0m:[93m28[0m - [91merror[0m[90m TS1005: [0m')' expected.
+
+[7m28[0m           console.log(path);
+[7m  [0m [91m                           ~[0m
+[96m../../shared/src/database/models/index.ts[0m:[93m32[0m:[93m9[0m - [91merror[0m[90m TS1128: [0mDeclaration or statement expected.
+
+[7m32[0m         );
+[7m  [0m [91m        ~[0m
+[96m../../shared/src/database/models/index.ts[0m:[93m40[0m:[93m3[0m - [91merror[0m[90m TS1128: [0mDeclaration or statement expected.
+
+[7m40[0m   });
+[7m  [0m [91m  ~[0m
+[96m../../shared/src/database/models/index.ts[0m:[93m40[0m:[93m4[0m - [91merror[0m[90m TS1128: [0mDeclaration or statement expected.
+
+[7m40[0m   });
+[7m  [0m [91m   ~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96m../../shared/src/database/models/index.ts[0m:[93m34[0m:[93m8[0m - [91merror[0m[90m TS2339: [0mProperty 'forEach' does not exist on type 'void'.
+
+[7m34[0m       .forEach((file: string) => {
+[7m  [0m [91m       ~~~~~~~[0m
+[96m../../shared/src/database/models/index.ts[0m:[93m28[0m:[93m28[0m - [91merror[0m[90m TS1005: [0m')' expected.
+
+[7m28[0m           console.log(path);
+[7m  [0m [91m                           ~[0m
+[96m../../shared/src/database/models/index.ts[0m:[93m32[0m:[93m9[0m - [91merror[0m[90m TS1128: [0mDeclaration or statement expected.
+
+[7m32[0m         );
+[7m  [0m [91m        ~[0m
+[96m../../shared/src/database/models/index.ts[0m:[93m40[0m:[93m3[0m - [91merror[0m[90m TS1128: [0mDeclaration or statement expected.
+
+[7m40[0m   });
+[7m  [0m [91m  ~[0m
+[96m../../shared/src/database/models/index.ts[0m:[93m40[0m:[93m4[0m - [91merror[0m[90m TS1128: [0mDeclaration or statement expected.
+
+[7m40[0m   });
+[7m  [0m [91m   ~[0m
+
+    at createTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:750:12)
+    at reportTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:754:19)
+    at getOutput (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:941:36)
+    at Object.compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1243:30)
+    at Module.m._compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1370:30)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:14)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+[2021-11-10 21:11:08][DEBUG]:::restaurant API Loaded!
+[2021-11-10 21:11:08][DEBUG]:::Server running on ::4123
+[2021-11-10 21:11:21][DEBUG]:::restaurant API Loaded!
+[2021-11-10 21:11:21][DEBUG]:::Server running on ::4123
+[2021-11-10 21:11:47][DEBUG]:::restaurant API Loaded!
+[2021-11-10 21:11:47][DEBUG]:::Server running on ::4123
+[2021-11-10 21:12:11][DEBUG]:::restaurant API Loaded!
+[2021-11-10 21:12:11][DEBUG]:::Server running on ::4123
+[2021-11-10 21:12:38][DEBUG]:::restaurant API Loaded!
+[2021-11-10 21:12:38][DEBUG]:::Server running on ::4123
+[2021-11-10 21:13:02][DEBUG]:::restaurant API Loaded!
+[2021-11-10 21:13:02][DEBUG]:::Server running on ::4123
+[2021-11-10 21:13:20][DEBUG]:::restaurant API Loaded!
+[2021-11-10 21:13:20][DEBUG]:::Server running on ::4123
+[2021-11-10 21:13:47][DEBUG]:::restaurant API Loaded!
+[2021-11-10 21:13:47][DEBUG]:::Server running on ::4123
+[2021-11-10 21:14:04][DEBUG]:::restaurant API Loaded!
+[2021-11-10 21:14:04][DEBUG]:::Server running on ::4123
+[2021-11-10 21:14:18][ERROR]:::uncaughtException: Cannot find module 'D:\codes\cbnu-alrami\packages\shared\src\database\models\restaurant.ts'
+Require stack:
+- D:\codes\cbnu-alrami\packages\shared\src\database\models\index.ts
+- D:\codes\cbnu-alrami\packages\server\src\routes\api\v1\restaurant\controller.ts
+- D:\codes\cbnu-alrami\packages\server\src\routes\api\v1\restaurant\index.ts
+- D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts
+- D:\codes\cbnu-alrami\packages\server\src\app.ts
+- D:\codes\cbnu-alrami\packages\server\src\index.ts
+Error: Cannot find module 'D:\codes\cbnu-alrami\packages\shared\src\database\models\restaurant.ts'
+Require stack:
+- D:\codes\cbnu-alrami\packages\shared\src\database\models\index.ts
+- D:\codes\cbnu-alrami\packages\server\src\routes\api\v1\restaurant\controller.ts
+- D:\codes\cbnu-alrami\packages\server\src\routes\api\v1\restaurant\index.ts
+- D:\codes\cbnu-alrami\packages\server\src\routes\api\index.ts
+- D:\codes\cbnu-alrami\packages\server\src\app.ts
+- D:\codes\cbnu-alrami\packages\server\src\index.ts
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue [as _resolveFilename] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\node_modules\@cspotcode\source-map-support\source-map-support.js:679:30)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:92:18)
+    at D:\codes\cbnu-alrami\packages\shared\src\database\models\index.ts:30:23
+    at Array.forEach (<anonymous>)
+    at D:\codes\cbnu-alrami\packages\shared\src\database\models\index.ts:29:8
+    at Array.forEach (<anonymous>)
+    at Object.<anonymous> (D:\codes\cbnu-alrami\packages\shared\src\database\models\index.ts:22:4)
+[2021-11-10 21:14:40][ERROR]:::uncaughtException: require(...) is not a function
+TypeError: require(...) is not a function
+    at D:\codes\cbnu-alrami\packages\shared\src\database\models\index.ts:30:48
+    at Array.forEach (<anonymous>)
+    at D:\codes\cbnu-alrami\packages\shared\src\database\models\index.ts:29:8
+    at Array.forEach (<anonymous>)
+    at Object.<anonymous> (D:\codes\cbnu-alrami\packages\shared\src\database\models\index.ts:22:4)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+[2021-11-10 21:15:08][DEBUG]:::restaurant API Loaded!
+[2021-11-10 21:15:08][DEBUG]:::Server running on ::4123
+[2021-11-10 21:20:20][DEBUG]:::restaurant API Loaded!
+[2021-11-10 21:20:20][DEBUG]:::Server running on ::4123
+[2021-11-10 21:22:13][DEBUG]:::restaurant API Loaded!
+[2021-11-10 21:22:13][DEBUG]:::Server running on ::4123
+[2021-11-10 21:25:05][DEBUG]:::restaurant API Loaded!
+[2021-11-10 21:25:05][DEBUG]:::Server running on ::4123
+[2021-11-10 22:02:32][ERROR]:::uncaughtException: ⨯ Unable to compile TypeScript:
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m2[0m:[93m81[0m - [91merror[0m[90m TS1161: [0mUnterminated regular expression literal.
+
+[7m2[0m const { Restaurant } = require("../../../../../../shared/src/database/models");/
+[7m [0m [91m                                                                                [0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96mroutes/api/v1/restaurant/controller.ts[0m:[93m2[0m:[93m81[0m - [91merror[0m[90m TS1161: [0mUnterminated regular expression literal.
+
+[7m2[0m const { Restaurant } = require("../../../../../../shared/src/database/models");/
+[7m [0m [91m                                                                                [0m
+
+    at createTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:750:12)
+    at reportTSError (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:754:19)
+    at getOutput (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:941:36)
+    at Object.compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1243:30)
+    at Module.m._compile (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1370:30)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\JHC\AppData\Roaming\npm\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:14)
+    at Module.require (internal/modules/cjs/loader.js:974:19)

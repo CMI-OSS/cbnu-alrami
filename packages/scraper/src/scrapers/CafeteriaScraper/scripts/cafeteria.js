@@ -15,6 +15,7 @@ const script = {
       const nums = v.match(/(\d{4})년 (\d{1,2})월 (\d{1,2})일/);
       return new Date(nums[1], nums[2], nums[3]);
     });
+    const days = ['일','월','화','수','목','금','토'];
     // weekmenu.startDay = new Date(dates[0]);
     // weekmenu.endDay = new Date(dates[1]);
     const startDay = new Date(dates[0]);
@@ -74,8 +75,8 @@ const script = {
           const row = {
             restaurant_name,
             food_name: $menu.mainMenu + " " + $menu.menus.join(" "),
-            date: `${startDay.getFullYear()}-${(startDay.getMonth()+1).toString().length == 1 ? '0'+(startDay.getMonth()+1).toString() : (startDay.getMonth()+1).toString()}-${(startDay.getDate() + day).toString().length == 1 ? '0'+(startDay.getDate() + day).toString() : (startDay.getDate() + day).toString()}`
-            ,
+            date: `${startDay.getFullYear()}-${(startDay.getMonth()+1).toString().length == 1 ? '0'+(startDay.getMonth()+1).toString() : (startDay.getMonth()+1).toString()}-${(startDay.getDate() + day).toString().length == 1 ? '0'+(startDay.getDate() + day).toString() : (startDay.getDate() + day).toString()}`            ,
+            day: days[startDay.getDay()],
             time
           };
           /*const row = {
@@ -95,7 +96,7 @@ const script = {
       }
     }
 
-    console.log(res);
+    console.log(res.date);
     return res;
   },
 };

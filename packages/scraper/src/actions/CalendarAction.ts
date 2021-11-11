@@ -2,7 +2,7 @@ import { CalendarAction } from "../interfaces/ActionInterfaces/CalendarInterface
 import { RootState } from "../reducers";
 import { SUCCESS_CALENDAR, FAIL_CALENDAR } from "./types";
 import { ThunkAction } from "redux-thunk";
-import http from "../common/http";
+import http from "../common/http.ts-help";
 
 export function successCalendar(): ThunkAction<
   void,

@@ -8,9 +8,9 @@ dotenv.config();
 // mongoDB();
 
 async function main() {
-  NoticeScraper.start();
-  CalendarScraper.start();
-  DomitoryScraper.start();
+  // NoticeScraper.start();
+  // CalendarScraper.start();
+  // DomitoryScraper.start();
   CafeteriaScraper.start();
 }
 

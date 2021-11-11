@@ -1,0 +1,6 @@
+###
+POST http://localhost:4123/api/v1/restaurant
+
+{
+
+}

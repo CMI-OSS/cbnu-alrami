@@ -1,10 +1,22 @@
-import { Model } from "sequelize";
+import { Model, Sequelize, DataTypes, Optional } from "sequelize";
 
-const model = (sequelize, DataTypes) => {
-  class restaurant extends Model {
-    static associate(models) {}
-  }
-  restaurant.init(
+interface RestaurantAttributes {
+  restaurant_name: string;
+  food_name: string;
+  date: Date;
+  day: string;
+  time: string;
+}
+
+interface RestaurantCreationAttributes
+  extends Optional<RestaurantAttributes, "restaurant_name"> {}
+
+export interface RestaurantInstance
+  extends Model<RestaurantAttributes, RestaurantCreationAttributes>,
+    RestaurantAttributes {} //타임스탬프 등 추가
+const model = (sequelize: Sequelize, DataTypes: any) => {
+  const Restaurant = sequelize.define<RestaurantInstance>(
+    "restaurant",
     {
       restaurant_name: {
         primaryKey: true,
@@ -29,14 +41,12 @@ const model = (sequelize, DataTypes) => {
       },
     },
     {
-      sequelize,
-      modelName: "restaurant",
+      modelName: "Restaurant",
       freezeTableName: true,
       timestamps: false,
     },
   );
-  return restaurant;
+  return Restaurant;
 };
 
-
-export default model;
+module.exports = model;

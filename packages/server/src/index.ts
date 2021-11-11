@@ -4,7 +4,7 @@ import { Server } from "socket.io";
 import logger from "./utils/logger";
 import connectionHandler from "./socket_handlers/connection";
 import sampleHandler from "./socket_handlers/sample";
-const db = require("../../shared/src/database/models");
+import db from "../../shared/src/database/models";
 
 const PORT = 4123;
 const IO_OPTIONS = {

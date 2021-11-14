@@ -31,4 +31,4 @@ const script = {
   },
 };
 
-module.exports = { ...고고미술사학과, script };
+module.exports = { ...고고미술사학과, ...script };

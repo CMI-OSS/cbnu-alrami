@@ -7,4 +7,4 @@ const script = {
   category: "공지사항",
 };
 
-module.exports = { ...물리학과, script };
+module.exports = { ...물리학과, ...script };

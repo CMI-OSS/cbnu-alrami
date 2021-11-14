@@ -1,12 +1,27 @@
-const 건축공학과 = require("./건축공학과");
-
 const script = {
-  url: "http://cbnuarchi.cbnu.ac.kr/index.php?mid=cbnuarchi_sub06",
+  url: "http://cbnuarchi.cbnu.ac.kr/bbs/board.php?bo_table=news&sca=%EB%89%B4%EC%8A%A4",
   site_id: 20201,
   site: "건축학과",
   category: "공지사항",
-  noticeContentsSelector:
-    "#content > div.bd.hover_effect > div.rd.rd_nav_style2.clear > div.rd_body.clear > article",
+  noticeListSelector: "#bo_list > div > ul:nth-child(2) > li",
+  noticeContentsSelector: "#bo_v_con",
+  getNoticeList: function () {
+    const list = document.querySelectorAll(this.noticeListSelector);
+    return Array.from(list).map((item) => {
+      const row = item.querySelectorAll("a > span");
+      return {
+        site: this.site,
+        category: this.category,
+        site_id: this.site_id,
+        title: row[1].innerText.trim(),
+        url: item.querySelector("a").href.trim(),
+        date: row[3].innerText.trim(),
+      };
+    });
+  },
+  getContentsHtml: function () {
+    return document.querySelector(this.noticeContentsSelector).outerHTML;
+  },
 };
 
-module.exports = { ...건축공학과, ...script };
+module.exports = script;

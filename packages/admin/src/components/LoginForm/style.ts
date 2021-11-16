@@ -99,10 +99,6 @@ export default () => {
         z-index: 5;
       }
 
-      ${".pwBox:hover"} {
-        border: 2px solid ${colors.$cbnu};
-      }
-
       .${submit} {
         border: none;
         height: 70px;

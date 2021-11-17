@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+script
+.env
+react-app-env.d.ts
+build
+**/scripts/*
+packages/scraper
+packages/server

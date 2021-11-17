@@ -36,7 +36,8 @@
     "dev:scraper": "lerna run --scope scraper dev --stream",
     "start:server": "lerna run --scope server start",
     "dev:server": "lerna run --scope server dev --stream",
-    "lint": "lerna run lint && yarn prettier --check . --ignore-path .gitignore",
+    "lint": "yarn eslint .",
+    "lint:fix": "yarn eslint --fix .",
     "format": "yarn prettier --write . --ignore-path .gitignore",
     "lerna": "lerna",
     "convert": "lerna link convert"

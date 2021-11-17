@@ -5,12 +5,13 @@ import { cssHash } from "@admin/utils/hash";
 export default () => {
   const title = cssHash();
   const form = cssHash();
-  const id = cssHash();
   const idBox = cssHash();
-  const password = cssHash();
   const pwBox = cssHash();
-  const isFocus = cssHash();
+  const box = cssHash();
+  const input = cssHash();
+  const focus = cssHash();
   const icon = cssHash();
+  const lock = cssHash();
   const unLock = cssHash();
   const submit = cssHash();
   const message = cssHash();
@@ -23,102 +24,97 @@ export default () => {
     height: 100vh;
 
     .${title} {
-      color: ${colors.$cbnu};
+      margin: auto auto 30px auto;
+      color: ${colors.$primary};
       font-size: 3rem;
       font-weight: bold;
-      margin: auto auto 30px auto;
     }
+
     .${form} {
-      width: 500px;
-      margin: 0 auto 30px auto;
-      border: 1px solid ${colors.$grayLine};
-      border-radius: 7px;
-      box-shadow: 0 2px 6px 0 rgb(68 68 68 / 8%);
       display: flex;
       flex-direction: column;
+      width: 500px;
+      margin: 0 auto 30px auto;
+      border: 1px solid ${colors.$gray.$400};
+      border-radius: 7px;
+      box-shadow: 0 2px 6px 0 rgb(68 68 68 / 8%);
 
-      .${icon} {
+      .${lock}, .${icon} {
         margin: auto 10px;
+        color: ${colors.$gray.$400};
         font-size: 1.2rem;
-        color: ${colors.$grayLine};
       }
 
       .${idBox} {
-        display: flex;
-        height: 50px;
-        border: 1px solid ${colors.$grayLine};
-        border-radius: 7px 7px 0 0;
-        padding: 2px 5px;
         margin: 30px 30px 0px 30px;
-        box-shadow: 0 2px 6px 0 rgb(68 68 68 / 8%);
-
-        .${id} {
-          outline: none;
-          border: none;
-          width: 300px;
-          font-size: 1.2rem;
-        }
+        border-radius: 7px 7px 0 0;
       }
 
       .${pwBox} {
+        margin: -1px 30px 30px 30px;
+        border-radius: 0 0 7px 7px;
+      }
+
+      .${box} {
         display: flex;
         height: 50px;
-        border: 1px solid ${colors.$grayLine};
-        border-radius: 0 0 7px 7px;
         padding: 2px 5px;
-        margin: -1px 30px 30px 30px;
+        border: 1px solid ${colors.$gray.$400};
         box-shadow: 0 2px 6px 0 rgb(68 68 68 / 8%);
 
         .${lockBox} {
           margin: 0;
           padding: 0;
-          background-color: transparent;
           border: 0;
           outline: 0;
+          background-color: transparent;
 
           .${unLock} {
             margin: auto 10px;
+            color: ${colors.$primary};
             font-size: 1.2rem;
-            color: ${colors.$cbnu};
           }
+
           & :hover {
-            color: ${colors.$cbnu};
+            color: ${colors.$primary};
           }
         }
 
-        .${password} {
-          outline: none;
-          border: none;
+        .${input} {
           width: 300px;
+          border: none;
+          outline: none;
           font-size: 1.2rem;
         }
       }
 
-      .${isFocus} {
-        border: 2px solid ${colors.$cbnu};
+      .${focus} {
         z-index: 5;
+        padding: 2px 4px;
+        border: 2px solid ${colors.$primary};
       }
 
       .${submit} {
-        border: none;
         height: 70px;
-        background-color: ${colors.$cbnu};
-        color: white;
         padding: 2px 5px;
         margin: 30px;
-        font-size: 1.5rem;
+        border: none;
         border-radius: 7px;
         box-shadow: 0 2px 6px 0 rgb(68 68 68 / 8%);
+        background-color: ${colors.$primary};
+        color: white;
+        font-size: 1.5rem;
       }
 
       .${message} {
         height: 19px;
-        font-size: 1.2rem;
         margin: 0 30px;
-        color: ${colors.$cbnu};
+        color: ${colors.$primary};
+        font-size: 1.2rem;
         font-weight: bold;
       }
     }
+
     .${img} {
       width: 400px;
       margin: 0 auto auto auto;
@@ -130,13 +126,14 @@ export default () => {
     loginForm,
     form,
     idBox,
-    id,
     pwBox,
-    isFocus,
+    box,
+    input,
+    focus,
     icon,
+    lock,
     unLock,
     lockBox,
-    password,
     submit,
     message,
     img,

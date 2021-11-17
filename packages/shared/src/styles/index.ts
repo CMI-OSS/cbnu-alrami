@@ -1,7 +1,9 @@
 const colors = {
   $black: "#111111",
-  $cbnu: "#862D4E",
-  $grayLine: "#c6c6c6",
+  $primary: "#862D4E",
+  $gray: {
+    $400: "#BDBDBD",
+  },
 };
 
 export { colors };

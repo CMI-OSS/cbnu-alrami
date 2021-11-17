@@ -12,9 +12,9 @@ interface FormProps {
 
 export default function LoginForm() {
   const [message, setMessage] = useState("");
-  const [classNameId, setClassNameId] = useState(false);
-  const [classNamePw, setClassNamePw] = useState(false);
-  const [lock, setLock] = useState(true);
+  const [isClassNameId, setClassNameId] = useState(false);
+  const [isClassNamePw, setClassNamePw] = useState(false);
+  const [isLock, setLock] = useState(true);
 
   const {
     register,
@@ -41,7 +41,7 @@ export default function LoginForm() {
     <main className={style.loginForm}>
       <span className={style.title}>CMI 관리자</span>
       <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
-        <div className={cx(style.idBox, { [style.isFocus]: classNameId })}>
+        <div className={cx(style.idBox, { [style.isFocus]: isClassNameId })}>
           <IoPersonOutline className={style.icon} />
           <input
             className={style.id}
@@ -53,23 +53,23 @@ export default function LoginForm() {
             ref={id.ref}
           />
         </div>
-        <div className={cx(style.pwBox, { [style.isFocus]: classNamePw })}>
+        <div className={cx(style.pwBox, { [style.isFocus]: isClassNamePw })}>
           <button
             className={style.lockBox}
             type="button"
             onClick={() => {
-              if (lock) setLock(false);
+              if (isLock) setLock(false);
               else setLock(true);
             }}
           >
-            {lock ? (
+            {isLock ? (
               <AiOutlineLock className={style.icon} />
             ) : (
               <AiOutlineUnlock className={style.unLock} />
             )}
           </button>
           <input
-            type={lock ? "password" : "text"}
+            type={isLock ? "password" : "text"}
             className={style.password}
             placeholder="비밀번호"
             name={password.name}

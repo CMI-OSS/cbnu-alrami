@@ -9,7 +9,7 @@ export default () => {
   const idBox = cssHash();
   const password = cssHash();
   const pwBox = cssHash();
-  const focus = cssHash();
+  const isFocus = cssHash();
   const icon = cssHash();
   const unLock = cssHash();
   const submit = cssHash();
@@ -94,7 +94,7 @@ export default () => {
         }
       }
 
-      .${focus} {
+      .${isFocus} {
         border: 2px solid ${colors.$cbnu};
         z-index: 5;
       }
@@ -132,7 +132,7 @@ export default () => {
     idBox,
     id,
     pwBox,
-    focus,
+    isFocus,
     icon,
     unLock,
     lockBox,

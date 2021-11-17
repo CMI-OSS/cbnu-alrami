@@ -38,14 +38,10 @@ export default function LoginForm() {
   }, [errors.id, errors.password]);
 
   return (
-    <main className={cx(style.loginForm)}>
+    <main className={style.loginForm}>
       <span className={style.title}>CMI 관리자</span>
       <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
-        <div
-          className={
-            classNameId ? `${style.idBox} ${style.focus}` : `${style.idBox}`
-          }
-        >
+        <div className={cx(style.idBox, { [style.isFocus]: classNameId })}>
           <IoPersonOutline className={style.icon} />
           <input
             className={style.id}
@@ -57,11 +53,7 @@ export default function LoginForm() {
             ref={id.ref}
           />
         </div>
-        <div
-          className={
-            classNamePw ? `${style.pwBox} ${style.focus}` : `${style.pwBox}`
-          }
-        >
+        <div className={cx(style.pwBox, { [style.isFocus]: classNamePw })}>
           <button
             className={style.lockBox}
             type="button"

@@ -31,17 +31,22 @@ export default function LoginForm() {
   const password = register("password", { required: true });
 
   useEffect(() => {
-    if (errors.id) setMessage("아이디를 입력해주세요.");
-    else if (errors.password) setMessage("비밀번호를 입력해주세요.");
-    else setMessage("");
-    console.log(errors);
+    if (errors.id) {
+      setMessage("아이디를 입력해주세요.");
+      return;
+    }
+    if (errors.password) {
+      setMessage("비밀번호를 입력해주세요.");
+      return;
+    }
+    setMessage("");
   }, [errors.id, errors.password]);
 
   return (
     <main className={style.loginForm}>
       <span className={style.title}>CMI 관리자</span>
       <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
-        <div className={cx(style.idBox, { [style.isFocus]: isClassNameId })}>
+        <div className={cx(style.idBox, { [style.focus]: isClassNameId })}>
           <IoPersonOutline className={style.icon} />
           <input
             className={style.id}
@@ -53,14 +58,11 @@ export default function LoginForm() {
             ref={id.ref}
           />
         </div>
-        <div className={cx(style.pwBox, { [style.isFocus]: isClassNamePw })}>
+        <div className={cx(style.pwBox, { [style.focus]: isClassNamePw })}>
           <button
             className={style.lockBox}
             type="button"
-            onClick={() => {
-              if (isLock) setLock(false);
-              else setLock(true);
-            }}
+            onClick={() => setLock(!isLock)}
           >
             {isLock ? (
               <AiOutlineLock className={style.icon} />

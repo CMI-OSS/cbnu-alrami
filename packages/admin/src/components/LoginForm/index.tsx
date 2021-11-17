@@ -5,10 +5,10 @@ import { AiOutlineLock, AiOutlineUnlock } from "react-icons/ai";
 import { IoPersonOutline } from "react-icons/io5";
 import getStyle from "./style";
 
-interface FormProps {
+type Props = {
   inputId: string;
   inputPw: string;
-}
+};
 
 export default function LoginForm() {
   const [message, setMessage] = useState("");
@@ -21,11 +21,6 @@ export default function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const style = getStyle();
-
-  const onSubmit = (data: FormProps) => {
-    console.log(data);
-  };
 
   const id = register("id", { required: true });
   const password = register("password", { required: true });
@@ -42,14 +37,24 @@ export default function LoginForm() {
     setMessage("");
   }, [errors.id, errors.password]);
 
+  const style = getStyle();
+
+  const onSubmit = (data: Props) => {
+    console.log(data);
+  };
+
   return (
     <main className={style.loginForm}>
       <span className={style.title}>CMI 관리자</span>
       <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
-        <div className={cx(style.idBox, { [style.focus]: isClassNameId })}>
+        <div
+          className={cx(style.box, style.idBox, {
+            [style.focus]: isClassNameId,
+          })}
+        >
           <IoPersonOutline className={style.icon} />
           <input
-            className={style.id}
+            className={style.input}
             placeholder="아이디"
             name={id.name}
             onChange={id.onChange}
@@ -58,21 +63,25 @@ export default function LoginForm() {
             ref={id.ref}
           />
         </div>
-        <div className={cx(style.pwBox, { [style.focus]: isClassNamePw })}>
+        <div
+          className={cx(style.box, style.pwBox, {
+            [style.focus]: isClassNamePw,
+          })}
+        >
           <button
             className={style.lockBox}
             type="button"
             onClick={() => setLock(!isLock)}
           >
             {isLock ? (
-              <AiOutlineLock className={style.icon} />
+              <AiOutlineLock className={style.lock} />
             ) : (
               <AiOutlineUnlock className={style.unLock} />
             )}
           </button>
           <input
             type={isLock ? "password" : "text"}
-            className={style.password}
+            className={style.input}
             placeholder="비밀번호"
             name={password.name}
             onChange={password.onChange}

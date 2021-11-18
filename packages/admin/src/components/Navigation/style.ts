@@ -10,50 +10,48 @@ export default () => {
   const logo = cssHash();
 
   const Navigation = css`
-    background-color: ${colors.$white};
     position: fixed;
     top: 0;
     left: 0;
-    width: 200px;
+    width: 13rem;
     height: 100vh;
+    z-index: 1;
+    background-color: ${colors.$white};
 
     .${sideNavUl} {
-        margin: 20px 0 0 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: left;
-        width: 100%
-        height: 100%
+      display: flex;
+      flex-direction: column;
+      margin: 2rem 0 0 2rem;
+      align-items: left;
     }
 
     .${sideNavLi} {
-        margin: 20px 0 0 0;
-        font-size: 1.3rem;
+      margin-top: 1.5rem;
+      font-size: 1.3rem;
     }
 
     .${logo} {
-        font-weight: bold;
-        font-size: 1.3rem;
+      font-size: 1.3rem;
+      font-weight: bold;
     }
 
     .${insideBtn} {
-        cursor: pointer;
-        border: none;
-        background-color: transparent;
-        font-size: 1.2rem;
-        font-weight: 200;
+      font-size: 1.2rem;
+      font-weight: 200;
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
     }
 
     .${insideBtn}:hover {
-        font-weight: 600;
-        color: ${colors.$darkNavy};
+      font-weight: 600;
+      color: ${colors.$darkNavy};
     }
 
     .${activated} {
-        font-weight: 600;
-        color: ${colors.$darkNavy};
+      font-weight: 600;
+      color: ${colors.$darkNavy};
     }
-
   `;
 
   return { Navigation, activated, sideNavUl, sideNavLi, logo, insideBtn };

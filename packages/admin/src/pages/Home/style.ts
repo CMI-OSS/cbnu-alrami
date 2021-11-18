@@ -5,14 +5,12 @@ export default () => {
   const mainTitle = cssHash();
 
   const main = css`
-    margin-left: 200px;
+    margin-left: 13rem;
 
     .${mainTitle} {
-      font-weight: 400;
+      margin: 8rem 0 5rem 3rem;
       font-size: 3rem;
-      margin-left: 5%;
-      margin-top: 15vh;
-      margin-bottom: 10vh;
+      font-weight: 400;
     }
   `;
 

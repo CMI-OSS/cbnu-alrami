@@ -12,74 +12,83 @@ export default () => {
   const green = cssHash();
 
   const scenarioCard = css`
-    position: relative;
-    padding: 20px;
-    box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
-    border-radius: 12px;
-    width: 300px;
-    min-height: 230px;
-    background-color: ${colors.$white};
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: flex-start;
     flex: none;
+    width: 19rem;
+    min-height: 15rem;
+    padding: 1.5rem;
+    box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
+      rgba(17, 17, 26, 0.1) 0px 0px 8px;
+    border-radius: 1rem;
+    background-color: ${colors.$white};
 
     :hover {
-      outline: 2px solid ${colors.$lightBlue};
+      outline: 0.2rem solid ${colors.$lightBlue};
       cursor: pointer;
     }
-    
+
     .${title} {
+      margin-bottom: 0.7rem;
       font-size: 1.4rem;
-      color: ${colors.$darkNavy};
       font-weight: bold;
-      margin-bottom: 5px;
+      color: ${colors.$darkNavy};
     }
 
     .${tag} {
+      margin-top: 0.5rem;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.9rem;
+      border-radius: 0.5rem;
       background-color: ${colors.$lightBlue};
       color: ${colors.$white};
-      margin-top: 10px;
-      padding: 7px 10px;
-      font-size: 0.9rem;
-      border-radius: 10px;
     }
 
     .${red} {
-      width: 15px;
-      height: 15px;
-      border-radius: 15px;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 1rem;
       background-color: ${colors.$googleRed};
     }
 
     .${yellow} {
-      width: 15px;
-      height: 15px;
-      border-radius: 15px;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 1rem;
       background-color: ${colors.$googleYellow};
     }
 
     .${green} {
-      width: 15px;
-      height: 15px;
-      border-radius: 15px;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 1rem;
       background-color: ${colors.$googleGreen};
     }
 
     .${statusText} {
-      font-size: 14px;
+      margin-right: 0.3rem;
+      font-size: 0.9rem;
       color: ${colors.$darkGrey};
-      margin-right: 5px;
     }
 
     .${statusContainer} {
-      position: absolute;
       display: flex;
+      position: absolute;
+      right: 1rem;
       align-items: center;
-      right: 20px;
     }
-
   `;
 
-  return { scenarioCard, title, tag, statusText, statusContainer, red, yellow, green };
+  return {
+    scenarioCard,
+    title,
+    tag,
+    statusText,
+    statusContainer,
+    red,
+    yellow,
+    green,
+  };
 };

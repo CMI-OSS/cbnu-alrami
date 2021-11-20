@@ -1,20 +1,20 @@
-import { menuContext, sidebarMenus } from "@admin/utils/menuContext";
+import { MenuContext, MenuConfig } from "@admin/utils/menuContext";
 import { noticeScenariosMocks, noticeGroupsMocks } from "@admin/__mocks__";
-import { scenarioConfig } from "@shared/types";
+import { ScenarioConfig } from "@shared/types";
 import { useContext } from "react";
 import Card from "../Card";
 import getStyle from "./style";
 
 export default function ScenarioCardList() {
+  const { status } = useContext(MenuContext);
   const style = getStyle();
-  const { status } = useContext(menuContext);
 
-  const filterScenario = (scenarios: scenarioConfig[], group: string) => {
+  const filterScenario = (scenarios: ScenarioConfig[], group: string) => {
     const scenarioGroup = scenarios.filter(
       (scenario) => scenario.group === group,
     );
     const viewScenario = scenarioGroup.filter((scenario) => {
-      const isAll = status === sidebarMenus[0];
+      const isAll = status === MenuConfig.all;
       const isSameStatus = scenario.status === status;
       return isAll || isSameStatus;
     });
@@ -33,7 +33,7 @@ export default function ScenarioCardList() {
                 <Card
                   className={style.card}
                   scenario={scenario}
-                  key={scenario.titleText}
+                  key={scenario.title}
                 />
               ))}
             </div>

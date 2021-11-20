@@ -1,15 +1,24 @@
 const scenarios = [
   {
     id: 1,
-    titleText: "소프트웨어학과",
+    title: "소프트웨어학과",
     subTitle: "공지사항",
-    tags: ["전자정보대학", "관리 요망", "테스트 태그", "많은", "태그가", "있을 때", "이렇게", "보입니다"],
+    tags: [
+      "전자정보대학",
+      "관리 요망",
+      "테스트 태그",
+      "많은",
+      "태그가",
+      "있을 때",
+      "이렇게",
+      "보입니다",
+    ],
     group: "전자정보대학",
     status: "실행중",
   },
   {
     id: 2,
-    titleText: "컴퓨터공학과",
+    title: "컴퓨터공학과",
     subTitle: "공지사항",
     tags: ["전자정보대학"],
     group: "전자정보대학",
@@ -17,7 +26,7 @@ const scenarios = [
   },
   {
     id: 3,
-    titleText: "정보통신학과",
+    title: "정보통신학과",
     subTitle: "공지사항",
     tags: ["전자정보대학"],
     group: "전자정보대학",
@@ -25,7 +34,7 @@ const scenarios = [
   },
   {
     id: 4,
-    titleText: "전자공학부",
+    title: "전자공학부",
     subTitle: "공지사항",
     tags: ["전자정보대학"],
     group: "전자정보대학",
@@ -33,7 +42,7 @@ const scenarios = [
   },
   {
     id: 5,
-    titleText: "전기공학부",
+    title: "전기공학부",
     subTitle: "공지사항",
     tags: ["전자정보대학"],
     group: "전자정보대학",
@@ -41,7 +50,7 @@ const scenarios = [
   },
   {
     id: 6,
-    titleText: "지능로봇공학과",
+    title: "지능로봇공학과",
     subTitle: "공지사항",
     tags: ["전자정보대학"],
     group: "전자정보대학",
@@ -49,7 +58,7 @@ const scenarios = [
   },
   {
     id: 7,
-    titleText: "심리학과",
+    title: "심리학과",
     subTitle: "공지사항",
     tags: ["사회과학대학"],
     group: "사회과학대학",
@@ -57,7 +66,7 @@ const scenarios = [
   },
   {
     id: 8,
-    titleText: "사회학과",
+    title: "사회학과",
     subTitle: "공지사항",
     tags: ["사회과학대학"],
     group: "사회과학대학",
@@ -65,7 +74,7 @@ const scenarios = [
   },
   {
     id: 9,
-    titleText: "정치외교학과",
+    title: "정치외교학과",
     subTitle: "공지사항",
     tags: ["사회과학대학"],
     group: "사회과학대학",
@@ -73,7 +82,7 @@ const scenarios = [
   },
   {
     id: 10,
-    titleText: "철학과",
+    title: "철학과",
     subTitle: "공지사항",
     tags: ["인문대학"],
     group: "인문대학",

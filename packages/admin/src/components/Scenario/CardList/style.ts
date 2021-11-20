@@ -12,18 +12,17 @@ export default () => {
       justify-content: left;
       flex-wrap: wrap;
       align-items: flex-start;
-      margin: 5%;
+      margin: 3rem;
     }
 
     .${card} {
-      margin-left: 2%;
-      margin-right: 2%;
-      margin-top: 20px;
+      margin-left: 2rem;
+      margin-top: 2rem;
     }
 
     .${groupTitle} {
-      font-size: 30px;
-      margin-left: 5%;
+      font-size: 2rem;
+      margin-left: 3rem;
     }
   `;
 

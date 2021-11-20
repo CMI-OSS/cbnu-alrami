@@ -2,11 +2,11 @@ export type Element = {
   className?: string;
 };
 
-export interface scenarioConfig {
+export type ScenarioConfig = {
   id: number;
-  titleText: string;
+  title: string;
   subTitle: string;
   status: string;
   group: string;
   tags: string[];
-}
+};

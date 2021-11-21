@@ -19,6 +19,7 @@ export default () => {
   const lockBox = cssHash();
 
   const loginForm = css`
+    background-color: white;
     display: flex;
     flex-direction: column;
     height: 100vh;

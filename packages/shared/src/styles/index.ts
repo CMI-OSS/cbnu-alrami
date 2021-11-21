@@ -1,5 +1,9 @@
 const colors = {
   $black: "#111111",
+  $primary: "#862D4E",
+  $gray: {
+    $400: "#BDBDBD",
+  },
   $white: "#ffffff",
   $lightBlue: "#0052CC",
   $googleRed: "#E24134",

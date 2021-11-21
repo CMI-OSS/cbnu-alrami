@@ -12,8 +12,8 @@ type Props = {
 
 export default function LoginForm() {
   const [message, setMessage] = useState("");
-  const [isClassNameId, setClassNameId] = useState(false);
-  const [isClassNamePw, setClassNamePw] = useState(false);
+  const [isFocusId, setFocusId] = useState(false);
+  const [isFocusPw, setFocusPw] = useState(false);
   const [isLock, setLock] = useState(true);
 
   const {
@@ -49,7 +49,7 @@ export default function LoginForm() {
       <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
         <div
           className={cx(style.box, style.idBox, {
-            [style.focus]: isClassNameId,
+            [style.focus]: isFocusId,
           })}
         >
           <IoPersonOutline className={style.icon} />
@@ -58,14 +58,14 @@ export default function LoginForm() {
             placeholder="아이디"
             name={id.name}
             onChange={id.onChange}
-            onFocus={() => setClassNameId(true)}
-            onBlur={() => setClassNameId(false)}
+            onFocus={() => setFocusId(true)}
+            onBlur={() => setFocusId(false)}
             ref={id.ref}
           />
         </div>
         <div
           className={cx(style.box, style.pwBox, {
-            [style.focus]: isClassNamePw,
+            [style.focus]: isFocusPw,
           })}
         >
           <button
@@ -85,8 +85,8 @@ export default function LoginForm() {
             placeholder="비밀번호"
             name={password.name}
             onChange={password.onChange}
-            onFocus={() => setClassNamePw(true)}
-            onBlur={() => setClassNamePw(false)}
+            onFocus={() => setFocusPw(true)}
+            onBlur={() => setFocusPw(false)}
             ref={password.ref}
           />
         </div>

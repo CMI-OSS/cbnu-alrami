@@ -1,8 +1,8 @@
 import { css } from "@emotion/css";
-import { cssHash } from "@admin/utils/hash";
+import { hashClassNames } from "@admin/utils/hash";
 
 export default () => {
-  const mainTitle = cssHash();
+  const { mainTitle } = hashClassNames(["mainTitle"]);
 
   const main = css`
     margin-left: 13rem;

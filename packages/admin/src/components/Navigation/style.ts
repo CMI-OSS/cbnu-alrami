@@ -1,13 +1,15 @@
 import { css } from "@emotion/css";
 import { colors } from "@shared/styles";
-import { cssHash } from "@admin/utils/hash";
+import { hashClassNames } from "@admin/utils/hash";
 
 export default () => {
-  const activated = cssHash();
-  const sideNavUl = cssHash();
-  const sideNavLi = cssHash();
-  const insideBtn = cssHash();
-  const logo = cssHash();
+  const { activated, sideNavUl, sideNavLi, insideBtn, logo } = hashClassNames([
+    "activated",
+    "sideNavUl",
+    "sideNavLi",
+    "insideBtn",
+    "logo",
+  ]);
 
   const Navigation = css`
     position: fixed;
@@ -41,11 +43,11 @@ export default () => {
       cursor: pointer;
       border: none;
       background-color: transparent;
-    }
 
-    .${insideBtn}:hover {
-      font-weight: 600;
-      color: ${colors.$darkNavy};
+      &:hover {
+        font-weight: 600;
+        color: ${colors.$darkNavy};
+      }
     }
 
     .${activated} {

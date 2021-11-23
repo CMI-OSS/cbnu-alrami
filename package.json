@@ -22,6 +22,7 @@
     "husky": "4",
     "lerna": "^4.0.0",
     "prettier": "^2.4.1",
+    "prettier-eslint-cli": "^5.0.1",
     "ts-node": "^10.3.0",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.4.4"
@@ -38,7 +39,7 @@
     "dev:server": "lerna run --scope server dev --stream",
     "lint": "yarn eslint .",
     "lint:fix": "yarn eslint --fix .",
-    "format": "yarn prettier --write . --ignore-path .gitignore",
+    "format": "yarn prettier-eslint --write \"**/*.js\" \"**/*.ts\" \"**/*.jsx\" \"**/*.tsx\" --ignore-path .gitignore",
     "lerna": "lerna",
     "convert": "lerna link convert"
   },

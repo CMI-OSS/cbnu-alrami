@@ -40,13 +40,22 @@ async function checkOverlapped() {
   console.log("No Similar scripts");
 }
 
+const startTargetStie = "ALL"; // "ALL" or "학과명" e.g. "전기공학부"
+
 async function checkNoticeList() {
   await NoticeScraper.initScraper();
   NoticeScraper.pause();
 
   const scripts = await loadScripts(__dirname);
+  let start = false;
 
   for (const target of scripts) {
+    if (startTargetStie === "ALL" || target.site === startTargetStie) {
+      start = true;
+    }
+
+    if (!start) continue;
+
     try {
       const scenario = new Scenario(target);
       const notices = await NoticeScraper.getNoticeList(scenario);
@@ -59,8 +68,10 @@ async function checkNoticeList() {
       throw Error(`[${target.site}] 공지사항 리스트 스크래핑 fail`);
     }
 
-    await wait(1000);
+    await wait(500);
   }
+
+  NoticeScraper.stop();
 }
 
 checkOverlapped();

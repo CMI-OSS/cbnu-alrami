@@ -1,5 +1,5 @@
 const script = {
-  url: "http://consumer.cbnu.ac.kr/main/sub.html?pageCode=25",
+  url: "http://consumer.cbnu.ac.kr/main/sub.html?pageCode=39",
   site_id: 60101,
   site: "소비자학과",
   category: "학과공지사항",

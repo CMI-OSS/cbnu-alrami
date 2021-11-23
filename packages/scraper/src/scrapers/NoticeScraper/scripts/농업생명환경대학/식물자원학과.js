@@ -19,6 +19,10 @@ const script = {
       };
     });
   },
+  getContentsHtml: function () {
+    // FIXME: 첨부된 파일 지워야됨
+    return document.querySelector(this.noticeContentsSelector).outerHTML;
+  },
 };
 
 module.exports = script;

@@ -1,10 +1,10 @@
 const script = {
-  url: "https://hrd.cbnu.ac.kr/board/board_list.asp?groupno=1&listno=1",
+  url: "http://hrd.chungbuk.ac.kr/board/board_list.asp?groupno=1&listno=1",
   site_id: 140601,
   site: "취업지원본부",
   category: "공지사항",
-  noticeListSelector: ".adm_table tr",
-  noticeContentsSelector: ".board_content",
+  noticeListSelector: "#content tbody tr[align='center']",
+  noticeContentsSelector: "#frm1 > table",
   getNoticeList: function () {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list)
@@ -25,8 +25,17 @@ const script = {
       .filter(Boolean);
   },
   getContentsHtml: function () {
-    return document.querySelector(this.noticeContentsSelector).outerHTML;
+    const len = document.querySelectorAll(
+      `${this.noticeContentsSelector} > tbody > tr > td > div:nth-child(1) > table > tbody > tr`,
+    ).length;
+
+    return document.querySelector(
+      `${
+        this.noticeContentsSelector
+      } > tbody > tr > td > div:nth-child(1) > table > tbody > tr:nth-child(${
+        len < 10 ? 4 : 5
+      })`,
+    ).outerHTML;
   },
 };
-
 module.exports = script;

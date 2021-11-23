@@ -5,6 +5,7 @@ const script = {
   site_id: 130401,
   site: "정보통신공학부",
   category: "공지사항",
+  noticeListSelector: `#content1 > div.section.clear > table:nth-child(6) > tbody > tr`,
 };
 
 module.exports = { ...전기공학부, ...script };

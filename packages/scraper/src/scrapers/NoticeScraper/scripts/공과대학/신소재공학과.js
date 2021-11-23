@@ -1,4 +1,4 @@
-const 건축학과 = require("./건축학과");
+const 건축공학과 = require("./건축공학과");
 
 const script = {
   url: "http://material.cbnu.ac.kr/index.php?mid=material_sub04",
@@ -8,4 +8,4 @@ const script = {
   noticeListSelector: "#bd_550_0 > div.bd_lst_wrp > table > tbody > tr",
 };
 
-module.exports = { ...건축학과, ...script };
+module.exports = { ...건축공학과, ...script };

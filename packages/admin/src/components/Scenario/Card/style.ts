@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { colors } from "@shared/styles";
+import { colors } from "@shared/styles/color";
 import { hashClassNames } from "@admin/utils/hash";
 
 export default () => {

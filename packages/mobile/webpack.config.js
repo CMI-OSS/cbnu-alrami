@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -19,11 +20,11 @@ module.exports = {
   },
   devtool: "eval-cheap-source-map",
   resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx"],
-  },
-  output: {
-    path: path.join(__dirname, "/dist"),
-    filename: "bundle.js",
+    extensions: [".tsx", ".ts", ".js"],
+    alias: {
+      src: path.resolve(__dirname, "./src"),
+      extensions: [".js", ".ts", ".tsx"],
+    },
   },
   module: {
     rules: [

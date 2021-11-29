@@ -1,5 +1,5 @@
 function App() {
-  return <>모바일</>;
+  return <div>jjj</div>;
 }
 
 export default App;

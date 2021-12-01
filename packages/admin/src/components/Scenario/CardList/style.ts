@@ -1,20 +1,33 @@
 import { css } from "@emotion/css";
-import { cssHash } from "@admin/utils/hash";
+import { hashClassNames } from "@admin/utils/hash";
 
 export default () => {
-  const card = cssHash();
+  const hashedStyle = hashClassNames([
+    "scenarioCardList",
+    "card",
+    "groupTitle",
+  ]);
+  const { scenarioCardList, card, groupTitle } = hashedStyle;
 
-  const scenarioCardList = css`
-    display: flex;
-    flex-wrap: wrap;
+  const groupContainer = css`
+    .${scenarioCardList} {
+      display: flex;
+      justify-content: left;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      margin: 3rem;
+    }
 
     .${card} {
-      width: 18%;
-      margin-left: 1%;
-      margin-right: 1%;
-      margin-top: 10px;
+      margin-left: 2rem;
+      margin-top: 2rem;
+    }
+
+    .${groupTitle} {
+      font-size: 2rem;
+      margin-left: 3rem;
     }
   `;
 
-  return { scenarioCardList, card };
+  return { groupContainer, scenarioCardList, card, groupTitle };
 };

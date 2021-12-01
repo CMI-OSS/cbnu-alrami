@@ -1,1 +1,4 @@
-export { default as noticeScenariosMocks } from "./noticeScenarios";
+import noticeGroupsMocks from "./noticeGroups";
+import noticeScenariosMocks from "./noticeScenarios";
+
+export { noticeScenariosMocks, noticeGroupsMocks };

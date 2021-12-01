@@ -1,10 +1,13 @@
 import { css } from "@emotion/css";
-import { cssHash } from "@admin/utils/hash";
+import { hashClassNames } from "@admin/utils/hash";
 
 export default () => {
-  const scenarioCardList = cssHash();
-  const card = cssHash();
-  const groupTitle = cssHash();
+  const hashedStyle = hashClassNames([
+    "scenarioCardList",
+    "card",
+    "groupTitle",
+  ]);
+  const { scenarioCardList, card, groupTitle } = hashedStyle;
 
   const groupContainer = css`
     .${scenarioCardList} {

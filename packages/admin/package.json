@@ -57,6 +57,7 @@
     ]
   },
   "devDependencies": {
+    "@emotion/babel-plugin": "^11.3.0",
     "eslint-plugin-jsx-a11y": "^6.4.1"
   }
 }

@@ -1,22 +1,39 @@
 import { css } from "@emotion/css";
-import { colors } from "@shared/styles";
-import { cssHash } from "@admin/utils/hash";
+import { colors } from "@shared/styles/color";
+import { hashClassNames } from "@admin/utils/hash";
 
 export default () => {
-  const title = cssHash();
-  const form = cssHash();
-  const idBox = cssHash();
-  const pwBox = cssHash();
-  const box = cssHash();
-  const input = cssHash();
-  const focus = cssHash();
-  const icon = cssHash();
-  const lock = cssHash();
-  const unLock = cssHash();
-  const submit = cssHash();
-  const message = cssHash();
-  const img = cssHash();
-  const lockBox = cssHash();
+  const {
+    title,
+    form,
+    idBox,
+    pwBox,
+    box,
+    input,
+    focus,
+    icon,
+    lock,
+    unLock,
+    submit,
+    message,
+    img,
+    lockBox,
+  } = hashClassNames([
+    "title",
+    "form",
+    "idBox",
+    "pwBox",
+    "box",
+    "input",
+    "focus",
+    "icon",
+    "lock",
+    "unLock",
+    "submit",
+    "message",
+    "img",
+    "lockBox",
+  ]);
 
   const loginForm = css`
     background-color: white;

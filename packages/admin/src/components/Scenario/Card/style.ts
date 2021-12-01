@@ -1,15 +1,18 @@
 import { css } from "@emotion/css";
-import { colors } from "@shared/styles";
-import { cssHash } from "@admin/utils/hash";
+import { colors } from "@shared/styles/color";
+import { hashClassNames } from "@admin/utils/hash";
 
 export default () => {
-  const title = cssHash();
-  const tag = cssHash();
-  const statusText = cssHash();
-  const statusContainer = cssHash();
-  const red = cssHash();
-  const yellow = cssHash();
-  const green = cssHash();
+  const { title, tag, statusText, statusContainer, red, yellow, green } =
+    hashClassNames([
+      "title",
+      "tag",
+      "statusText",
+      "statusContainer",
+      "red",
+      "yellow",
+      "green",
+    ]);
 
   const scenarioCard = css`
     display: flex;

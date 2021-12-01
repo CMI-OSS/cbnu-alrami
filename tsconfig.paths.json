@@ -5,7 +5,7 @@
       "@admin/*": ["./admin/src/*"],
       "@scraper/*": ["./scraper/src/*"],
       "@server/*": ["./server/src/*"],
-      "@shared/*": ["./shared/src/*"],
+      "@shared/*": ["./shared/src/*"]
     }
   }
 }

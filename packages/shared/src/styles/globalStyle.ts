@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { colors } from "@shared/styles";
+import { colors } from "./color";
 
 export default () => css`
   /* http://meyerweb.com/eric/tools/css/reset/

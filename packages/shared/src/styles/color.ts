@@ -1,10 +1,10 @@
 const colors = {
-  $black: "#111111",
+  $black: "#222",
   $primary: "#862D4E",
   $gray: {
     $400: "#BDBDBD",
   },
-  $white: "#ffffff",
+  $white: "#fff",
   $lightBlue: "#0052CC",
   $googleRed: "#E24134",
   $googleYellow: "#F3B606",

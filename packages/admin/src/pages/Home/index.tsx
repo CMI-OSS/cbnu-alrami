@@ -9,7 +9,7 @@ import {
 import getStyle from "./style";
 
 export default function Home() {
-  const [status, setStatus] = useState(MenuConfig.all);
+  const [ status, setStatus ] = useState(MenuConfig.all);
   const style = getStyle();
 
   const contextObj: MenuContextConfig = {

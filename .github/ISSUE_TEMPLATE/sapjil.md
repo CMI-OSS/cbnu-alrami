@@ -3,8 +3,7 @@ name: Sapjil
 about: 삽질 하고 있는 내용 공유
 title: "[삽질]"
 labels: 삽질
-assignees: ''
-
+assignees: ""
 ---
 
 ## 🤷 삽질 내용

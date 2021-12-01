@@ -2,7 +2,7 @@ import { css } from "@emotion/css";
 import { hashClassNames } from "@admin/utils/hash";
 
 export default () => {
-  const { mainTitle } = hashClassNames(["mainTitle"]);
+  const { mainTitle } = hashClassNames([ "mainTitle" ]);
 
   const main = css`
     margin-left: 13rem;

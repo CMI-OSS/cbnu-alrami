@@ -11,10 +11,10 @@ type Props = {
 };
 
 export default function LoginForm() {
-  const [message, setMessage] = useState("");
-  const [isFocusId, setFocusId] = useState(false);
-  const [isFocusPw, setFocusPw] = useState(false);
-  const [isLock, setLock] = useState(true);
+  const [ message, setMessage ] = useState("");
+  const [ isFocusId, setFocusId ] = useState(false);
+  const [ isFocusPw, setFocusPw ] = useState(false);
+  const [ isLock, setLock ] = useState(true);
 
   const {
     register,
@@ -35,7 +35,7 @@ export default function LoginForm() {
       return;
     }
     setMessage("");
-  }, [errors.id, errors.password]);
+  }, [ errors.id, errors.password ]);
 
   const style = getStyle();
 

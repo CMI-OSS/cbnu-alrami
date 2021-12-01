@@ -21,7 +21,7 @@ const script = {
     const res = [];
     for (let cafeteria = 0; cafeteria < 3; cafeteria++) {
       const tbody = document.querySelector(
-        `#tab${cafeteria + 1} > #menu-table > table > tbody`
+        `#tab${cafeteria + 1} > #menu-table > table > tbody`,
       );
       const trNodes = tbody.querySelectorAll(`tr`);
       for (let kind = 0; kind < trNodes.length; kind++) {
@@ -43,10 +43,10 @@ const script = {
             //date: new Date(startDay.getFullYear(), startDay.getMonth(), startDay.getDate()+day),
             mainMenu: $div.querySelector(`h6`).innerText,
             menus: Array.from($div.querySelectorAll(`div > li`)).map(
-              (v) => v.innerText
+              (v) => v.innerText,
             ),
             price: Array.from($div.querySelectorAll(`div > span`)).map(
-              (v) => +v.innerText.replace(/,/, "")
+              (v) => +v.innerText.replace(/,/, ""),
             ),
           };
           //$dateMenu.menuOfToday.push($menu);
@@ -74,9 +74,16 @@ const script = {
           const row = {
             restaurant_name,
             food_name: $menu.mainMenu + " " + $menu.menus.join(" "),
-            date: `${startDay.getFullYear()}-${(startDay.getMonth()+1).toString().length == 1 ? '0'+(startDay.getMonth()+1).toString() : (startDay.getMonth()+1).toString()}-${(startDay.getDate() + day).toString().length == 1 ? '0'+(startDay.getDate() + day).toString() : (startDay.getDate() + day).toString()}`
-            ,
-            time
+            date: `${startDay.getFullYear()}-${
+              (startDay.getMonth() + 1).toString().length == 1
+                ? "0" + (startDay.getMonth() + 1).toString()
+                : (startDay.getMonth() + 1).toString()
+            }-${
+              (startDay.getDate() + day).toString().length == 1
+                ? "0" + (startDay.getDate() + day).toString()
+                : (startDay.getDate() + day).toString()
+            }`,
+            time,
           };
           /*const row = {
             cafeteria,

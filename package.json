@@ -5,11 +5,9 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@types/node": "^16.11.1",
-    "lerna": "^4.0.0",
-    "ts-node": "^10.3.0",
-    "typescript": "^4.4.4",
     "@emotion/babel-plugin": "^11.3.0",
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.11.1",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "craco-alias": "^3.0.1",
@@ -21,7 +19,13 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "prettier": "^2.4.1"
+    "husky": "4",
+    "lerna": "^4.0.0",
+    "prettier": "^2.4.1",
+    "prettier-eslint-cli": "^5.0.1",
+    "ts-node": "^10.3.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.4.4"
   },
   "scripts": {
     "start:admin": "lerna run --scope admin start",
@@ -33,6 +37,23 @@
     "start:scraper": "lerna run --scope scraper start",
     "dev:scraper": "lerna run --scope scraper dev --stream",
     "start:server": "lerna run --scope server start",
-    "dev:server": "lerna run --scope server dev --stream"
+    "dev:server": "lerna run --scope server dev --stream",
+    "lint": "yarn eslint .",
+    "lint:fix": "yarn eslint --fix .",
+    "format": "yarn prettier-eslint --write \"**/*.js\" \"**/*.ts\" \"**/*.jsx\" \"**/*.tsx\" --ignore-path .gitignore",
+    "lerna": "lerna",
+    "convert": "lerna link convert"
+  },
+  "dependencies": {
+    "admin": "file:packages/admin",
+    "mobile": "file:packages/mobile",
+    "scraper": "file:packages/scraper",
+    "server": "file:packages/server",
+    "shared": "file:packages/shared"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
   }
 }

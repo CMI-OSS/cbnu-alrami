@@ -3,8 +3,7 @@ name: Setting
 about: 프로젝트 설정 관련
 title: ""
 labels: setting
-assignees: ''
-
+assignees: ""
 ---
 
 ## ✨ What?

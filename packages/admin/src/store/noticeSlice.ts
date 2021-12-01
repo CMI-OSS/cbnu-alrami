@@ -60,7 +60,8 @@ export const noticeSlice = createSlice({
       });
     },
   },
-  extraReducers: { // 액션을 따로 정의한 함수에 대한 리듀서를 정의 ex) thunk함수
+  extraReducers: {
+    // 액션을 따로 정의한 함수에 대한 리듀서를 정의 ex) thunk함수
     [getScraper.pending.type]: (state, action) => {
       // 호출 전
       state.forEach((script) => {
@@ -88,3 +89,5 @@ export const noticeSlice = createSlice({
     },
   },
 });
+
+export const { addScenario } = noticeSlice.actions; // addScenario 라는 리듀서를 반환

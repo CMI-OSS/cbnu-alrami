@@ -8,7 +8,7 @@ export default () => {
     margin-left: 13rem;
 
     .${mainTitle} {
-      margin: 8rem 0 5rem 3rem;
+      margin: 8rem 0 2rem 3rem;
       font-size: 3rem;
       font-weight: 400;
     }

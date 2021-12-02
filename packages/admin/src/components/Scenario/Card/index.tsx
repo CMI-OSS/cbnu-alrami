@@ -1,5 +1,5 @@
 import { Element, ScenarioConfig } from "@shared/types";
-import { MenuConfig } from "@admin/utils/menuContext";
+import { StatusConfig } from "@admin/utils/statusContext";
 import { cx } from "@emotion/css";
 import getStyle from "./style";
 
@@ -9,14 +9,15 @@ type Props = {
 
 export default function ScenarioCard({ className, scenario }: Props & Element) {
   const { title, subTitle, status, tags } = scenario;
+  const { running, waiting } = StatusConfig;
   const style = getStyle();
   let statusColor = "";
 
   switch (status) {
-    case MenuConfig.running:
+    case running:
       statusColor = style.green;
       break;
-    case MenuConfig.waiting:
+    case waiting:
       statusColor = style.yellow;
       break;
     default:

@@ -21,7 +21,7 @@ export default () => {
     align-items: flex-start;
     flex: none;
     width: 19rem;
-    min-height: 15rem;
+    min-height: 9rem;
     padding: 1.5rem;
     box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
       rgba(17, 17, 26, 0.1) 0px 0px 8px;

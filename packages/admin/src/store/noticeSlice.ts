@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import http from "@admin/common/http";
+import axios from "@admin/common/axios";
 
 const name = "noticeScraper"; // 액션 타입 문자열의 prefix로 들어간다. ex) "noticeScraper/changeScenario"
 
@@ -7,7 +7,7 @@ const getScraper = createAsyncThunk(
   `${name}/getScraper`, // 액션 이름을 정의합니다.
   async (title: string, thunkAPI) => {
     try {
-      const response = await http.get(title);
+      const response = await axios.get(title);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err);

@@ -8,17 +8,15 @@ import { store } from "./store";
 
 function App() {
   return (
-    <>
-      <Provider store={store}>
-        <Global styles={getGlobalStyle()} />
-        <BrowserRouter>
-          <Switch>
-            <Route path="/login" component={Login} />
-            <Route exact path="/" component={Home} />
-          </Switch>
-        </BrowserRouter>
-      </Provider>
-    </>
+    <Provider store={store}>
+      <Global styles={getGlobalStyle()} />
+      <BrowserRouter>
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route exact path="/" component={Home} />
+        </Switch>
+      </BrowserRouter>
+    </Provider>
   );
 }
 

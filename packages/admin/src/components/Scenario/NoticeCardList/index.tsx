@@ -1,12 +1,12 @@
-import { StatusConfig } from "@admin/utils/statusContext";
-import { noticeGroupsMocks } from "@admin/__mocks__";
+import { Status } from "@admin/utils/statusContext";
+import { noticeGroupsMockData } from "@admin/__mockData__";
 import { ScenarioConfig } from "@shared/types";
-import Card from "../Card";
+import Card from "../ScenarioCard";
 
 type Props = {
   group: string;
-  data: ScenarioConfig[];
-  status: StatusConfig;
+  scenario: ScenarioConfig[];
+  status: Status;
   style: {
     groupContainer: string;
     scenarioCardList: string;
@@ -15,9 +15,9 @@ type Props = {
   };
 };
 
-export default function CardListContainer({
+export default function NoticeCardList({
   group,
-  data,
+  scenario,
   status,
   style,
 }: Props) {
@@ -30,20 +30,20 @@ export default function CardListContainer({
 
   return (
     <>
-      {noticeGroupsMocks
+      {noticeGroupsMockData
         .filter((item) => {
           if (group === "모두보기") return true;
           return item === group;
         })
         .map((group) => {
-          const viewScenario = filterScenario(data, group);
+          const viewScenario = filterScenario(scenario, group);
           return (
             <div className={style.groupContainer} key={group}>
               <h2 className={style.groupTitle}>{group}</h2>
               <div className={style.scenarioCardList}>
                 {viewScenario
                   .filter((scenario) => {
-                    if (status === StatusConfig.all) return true;
+                    if (status === Status.All) return true;
                     return scenario.status === status;
                   })
                   .map((scenario) => (

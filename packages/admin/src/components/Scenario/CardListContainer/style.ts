@@ -26,6 +26,7 @@ export default () => {
     .${groupTitle} {
       font-size: 2rem;
       margin-left: 3rem;
+      margin-top: 2rem;
     }
   `;
 

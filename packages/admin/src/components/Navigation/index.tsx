@@ -1,16 +1,16 @@
 import { useContext } from "react";
-import { MenuContext, MenuConfig } from "@admin/utils/menuContext";
+import { Scrapers, ScraperContext } from "@admin/utils/scraperContext";
 import { cx } from "@emotion/css";
 import getStyle from "./style";
 
 export default function Natigation() {
-  const { status, setContext } = useContext(MenuContext);
+  const { scraper, setScraper } = useContext(ScraperContext);
   const style = getStyle();
   const sidebarMenus = [
-    MenuConfig.all,
-    MenuConfig.running,
-    MenuConfig.waiting,
-    MenuConfig.error,
+    Scrapers.Notice,
+    Scrapers.StudentRestaurant,
+    Scrapers.DomitoryRestaurant,
+    Scrapers.CollegeSchedule,
   ];
 
   return (
@@ -21,9 +21,9 @@ export default function Natigation() {
           <li key={item} className={style.sideNavLi}>
             <button
               type="button"
-              onClick={() => setContext(item)}
+              onClick={() => setScraper(item)}
               className={cx(style.insideBtn, {
-                [style.activated]: item === status,
+                [style.activated]: item === scraper,
               })}
             >
               {item}

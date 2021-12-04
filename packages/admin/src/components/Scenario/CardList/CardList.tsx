@@ -1,10 +1,10 @@
-import { StatusConfig } from "@admin/utils/statusContext";
+import { Status } from "@admin/utils/statusContext";
 import { ScenarioConfig } from "@shared/types";
-import Card from "../Card";
+import Card from "../ScenarioCard";
 
 type Props = {
-  data: ScenarioConfig[];
-  status: StatusConfig;
+  scenario: ScenarioConfig[];
+  status: Status;
   style: {
     groupContainer: string;
     scenarioCardList: string;
@@ -13,13 +13,13 @@ type Props = {
   };
 };
 
-function CardList({ style, data, status }: Props) {
+function CardList({ style, scenario, status }: Props) {
   return (
     <div className={style.groupContainer}>
       <div className={style.scenarioCardList}>
-        {data
+        {scenario
           .filter((scenario) => {
-            if (status === StatusConfig.all) return true;
+            if (status === Status.All) return true;
             return scenario.status === status;
           })
           .map((scenario) => (

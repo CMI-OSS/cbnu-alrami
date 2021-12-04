@@ -2,17 +2,30 @@ import { css } from "@emotion/css";
 import { colors } from "@shared/styles/color";
 import { hashClassNames } from "@admin/utils/hash";
 
-export default () => {
-  const { title, tag, statusText, statusContainer, red, yellow, green } =
-    hashClassNames([
-      "title",
-      "tag",
-      "statusText",
-      "statusContainer",
-      "red",
-      "yellow",
-      "green",
-    ]);
+export enum Colors {
+  Green = "Green",
+  Yellow = "Yellow",
+  Red = "Red",
+}
+
+interface Props {
+  statusColor: Colors;
+}
+
+const colorSelector = (color: Colors) => {
+  if (color === Colors.Green) return colors.$googleGreen;
+  if (color === Colors.Yellow) return colors.$googleYellow;
+  return colors.$googleRed;
+};
+
+export default ({ statusColor }: Props) => {
+  const { title, tag, statusText, statusContainer, color } = hashClassNames([
+    "title",
+    "tag",
+    "statusText",
+    "statusContainer",
+    "color",
+  ]);
 
   const scenarioCard = css`
     display: flex;
@@ -49,25 +62,11 @@ export default () => {
       color: ${colors.$white};
     }
 
-    .${red} {
+    .${color} {
       width: 1rem;
       height: 1rem;
       border-radius: 1rem;
-      background-color: ${colors.$googleRed};
-    }
-
-    .${yellow} {
-      width: 1rem;
-      height: 1rem;
-      border-radius: 1rem;
-      background-color: ${colors.$googleYellow};
-    }
-
-    .${green} {
-      width: 1rem;
-      height: 1rem;
-      border-radius: 1rem;
-      background-color: ${colors.$googleGreen};
+      background-color: ${colorSelector(statusColor)};
     }
 
     .${statusText} {
@@ -90,8 +89,6 @@ export default () => {
     tag,
     statusText,
     statusContainer,
-    red,
-    yellow,
-    green,
+    color,
   };
 };

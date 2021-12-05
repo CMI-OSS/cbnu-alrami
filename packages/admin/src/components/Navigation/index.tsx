@@ -1,8 +1,7 @@
 import { Scrapers } from "@admin/store/scraperEnum";
-import { useAppDispatch } from "@admin/store";
+import { useAppDispatch, useAppSelector } from "@admin/store";
 import { setScraper, view } from "@admin/store/viewSlice";
 import { cx } from "@emotion/css";
-import { useAppSelector } from "../../store";
 import getStyle from "./style";
 
 export default function Natigation() {

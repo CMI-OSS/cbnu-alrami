@@ -1,7 +1,5 @@
 import NoticeCardList from "@admin/components/Scenario/NoticeCardList";
-import { GroupContext } from "@admin/utils/groupContext";
-import { Scrapers, ScraperContext } from "@admin/utils/scraperContext";
-import { StatusContext } from "@admin/utils/statusContext";
+import { Scrapers } from "@admin/utils/scraperContext";
 import { ScenarioConfig } from "@shared/types";
 import {
   noticeScenariosMockData,
@@ -9,16 +7,16 @@ import {
   domitoryRestaurantScenariosMockData,
   colleageScheduleMockData,
 } from "@admin/__mockData__";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useAppSelector } from "@admin/store";
+import { view } from "@admin/store/viewSlice";
 import CardList from "../CardList/CardList";
 import getStyle from "./style";
 
 export default function CardListContainer() {
   const [ isNoticeScraper, setIsNoticeScraper ] = useState(false);
   const [ scenario, setScenario ] = useState<ScenarioConfig[]>([]);
-  const { group } = useContext(GroupContext);
-  const { scraper } = useContext(ScraperContext);
-  const { status } = useContext(StatusContext);
+  const { scraper, group, status } = useAppSelector(view);
 
   useEffect(() => {
     if (scraper === Scrapers.Notice) {
@@ -40,7 +38,7 @@ export default function CardListContainer() {
       setIsNoticeScraper(false);
       setScenario(colleageScheduleMockData);
     }
-  }, [ scenario, isNoticeScraper ]);
+  }, [ scenario, isNoticeScraper, scraper ]);
 
   const style = getStyle();
 

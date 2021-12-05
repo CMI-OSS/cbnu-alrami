@@ -1,40 +1,41 @@
-import { Status, StatusContext } from "@admin/utils/statusContext";
-import { ChangeEvent, useContext } from "react";
+import { Status } from "@admin/utils/statusContext";
+import { ChangeEvent } from "react";
 import { noticeGroupsMockData } from "@admin/__mockData__";
-import { GroupContext } from "@admin/utils/groupContext";
-import { Scrapers, ScraperContext } from "@admin/utils/scraperContext";
+import { Scrapers } from "@admin/utils/scraperContext";
+import { useAppDispatch, useAppSelector } from "@admin/store";
+import { setGroup, setStatus, view } from "@admin/store/viewSlice";
 import getStyle from "./style";
 
 export default function Selector() {
-  const { setGroup } = useContext(GroupContext);
-  const { scraper } = useContext(ScraperContext);
-  const { setStatus } = useContext(StatusContext);
+  const { scraper } = useAppSelector(view);
+
+  const dispatch = useAppDispatch();
 
   const style = getStyle();
 
   const handleGroupChange = ({
     target: { value },
   }: ChangeEvent<HTMLSelectElement>) => {
-    setGroup(value);
+    dispatch(setGroup(value));
   };
 
   const handleStatusChange = ({
     target: { value },
   }: ChangeEvent<HTMLSelectElement>) => {
     if (value === Status.All) {
-      setStatus(Status.All);
+      dispatch(setStatus(Status.All));
       return;
     }
     if (value === Status.Running) {
-      setStatus(Status.Running);
+      dispatch(setStatus(Status.Running));
       return;
     }
     if (value === Status.Waiting) {
-      setStatus(Status.Waiting);
+      dispatch(setStatus(Status.Waiting));
       return;
     }
     if (value === Status.Error) {
-      setStatus(Status.Error);
+      dispatch(setStatus(Status.Error));
     }
   };
 

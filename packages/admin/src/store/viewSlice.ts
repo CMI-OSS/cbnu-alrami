@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "@admin/common/axios";
-import { Scrapers } from "@admin/utils/scraperContext";
-import { Status } from "../utils/statusContext";
+import { Scrapers } from "./scraperEnum";
+import { Status } from "./statusEnum";
 import { RootState } from ".";
 
 const name = "view";

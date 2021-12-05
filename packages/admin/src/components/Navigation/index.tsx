@@ -1,4 +1,4 @@
-import { Scrapers } from "@admin/utils/scraperContext";
+import { Scrapers } from "@admin/store/scraperEnum";
 import { useAppDispatch } from "@admin/store";
 import { setScraper, view } from "@admin/store/viewSlice";
 import { cx } from "@emotion/css";

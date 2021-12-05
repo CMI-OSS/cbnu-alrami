@@ -1,5 +1,5 @@
 import NoticeCardList from "@admin/components/Scenario/NoticeCardList";
-import { Scrapers } from "@admin/utils/scraperContext";
+import { Scrapers } from "@admin/store/scraperEnum";
 import { ScenarioConfig } from "@shared/types";
 import {
   noticeScenariosMockData,

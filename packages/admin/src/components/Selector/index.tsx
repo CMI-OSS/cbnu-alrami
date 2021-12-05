@@ -1,7 +1,7 @@
-import { Status } from "@admin/utils/statusContext";
+import { Status } from "@admin/store/statusEnum";
 import { ChangeEvent } from "react";
 import { noticeGroupsMockData } from "@admin/__mockData__";
-import { Scrapers } from "@admin/utils/scraperContext";
+import { Scrapers } from "@admin/store/scraperEnum";
 import { useAppDispatch, useAppSelector } from "@admin/store";
 import { setGroup, setStatus, view } from "@admin/store/viewSlice";
 import getStyle from "./style";

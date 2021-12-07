@@ -1,7 +1,7 @@
-import { Status } from "@admin/store/statusEnum";
+import { StatusType } from "@admin/store/statusType";
 import { ChangeEvent } from "react";
 import { noticeGroupsMockData } from "@admin/__mockData__";
-import { Scrapers } from "@admin/store/scraperEnum";
+import { ScraperType } from "@admin/store/scraperType";
 import { useAppDispatch, useAppSelector } from "@admin/store";
 import { setGroup, setStatus, view } from "@admin/store/viewSlice";
 import getStyle from "./style";
@@ -22,26 +22,26 @@ export default function Selector() {
   const handleStatusChange = ({
     target: { value },
   }: ChangeEvent<HTMLSelectElement>) => {
-    if (value === Status.All) {
-      dispatch(setStatus(Status.All));
+    if (value === StatusType.All) {
+      dispatch(setStatus(StatusType.All));
       return;
     }
-    if (value === Status.Running) {
-      dispatch(setStatus(Status.Running));
+    if (value === StatusType.Running) {
+      dispatch(setStatus(StatusType.Running));
       return;
     }
-    if (value === Status.Waiting) {
-      dispatch(setStatus(Status.Waiting));
+    if (value === StatusType.Waiting) {
+      dispatch(setStatus(StatusType.Waiting));
       return;
     }
-    if (value === Status.Error) {
-      dispatch(setStatus(Status.Error));
+    if (value === StatusType.Error) {
+      dispatch(setStatus(StatusType.Error));
     }
   };
 
   return (
     <ul className={style.selectorContainer}>
-      {scraper === Scrapers.Notice && (
+      {scraper === ScraperType.Notice && (
         <li>
           <label htmlFor="groupSelector">
             그룹 필터
@@ -70,10 +70,10 @@ export default function Selector() {
             className={style.selector}
             id="statusSelector"
           >
-            <option value={Status.All}>{Status.All}</option>
-            <option value={Status.Running}>{Status.Running}</option>
-            <option value={Status.Waiting}>{Status.Waiting}</option>
-            <option value={Status.Error}>{Status.Error}</option>
+            <option value={StatusType.All}>{StatusType.All}</option>
+            <option value={StatusType.Running}>{StatusType.Running}</option>
+            <option value={StatusType.Waiting}>{StatusType.Waiting}</option>
+            <option value={StatusType.Error}>{StatusType.Error}</option>
           </select>
         </label>
       </li>

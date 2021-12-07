@@ -1,4 +1,4 @@
-import { Scrapers } from "@admin/store/scraperEnum";
+import { ScraperType } from "@admin/store/scraperType";
 import { useAppDispatch, useAppSelector } from "@admin/store";
 import { setScraper, view } from "@admin/store/viewSlice";
 import { cx } from "@emotion/css";
@@ -10,10 +10,10 @@ export default function Natigation() {
 
   const style = getStyle();
   const sidebarMenus = [
-    Scrapers.Notice,
-    Scrapers.StudentRestaurant,
-    Scrapers.DomitoryRestaurant,
-    Scrapers.CollegeSchedule,
+    ScraperType.Notice,
+    ScraperType.StudentRestaurant,
+    ScraperType.DomitoryRestaurant,
+    ScraperType.CollegeSchedule,
   ];
 
   return (

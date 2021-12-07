@@ -1,35 +1,35 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "@admin/common/axios";
-import { Scrapers } from "./scraperEnum";
-import { Status } from "./statusEnum";
+import { ScraperType } from "./scraperType";
+import { StatusType } from "./statusType";
 import { RootState } from ".";
 
 const name = "view";
 
 type Props = {
-  scraper: Scrapers;
+  scraper: ScraperType;
   group: string;
-  status: Status;
+  status: StatusType;
 };
 
 const initialState: Props = {
-  scraper: Scrapers.Notice,
+  scraper: ScraperType.Notice,
   group: "모두보기",
-  status: Status.All,
+  status: StatusType.All,
 };
 
 export const viewSlice = createSlice({
   name,
   initialState,
   reducers: {
-    setScraper: (state, action: PayloadAction<Scrapers>) => {
+    setScraper: (state, action: PayloadAction<ScraperType>) => {
       state.scraper = action.payload;
     },
     setGroup: (state, action: PayloadAction<string>) => {
       state.group = action.payload;
     },
-    setStatus: (state, action: PayloadAction<Status>) => {
+    setStatus: (state, action: PayloadAction<StatusType>) => {
       state.status = action.payload;
     },
   },

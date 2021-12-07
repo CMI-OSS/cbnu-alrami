@@ -1,5 +1,5 @@
 import NoticeCardList from "@admin/components/Scenario/NoticeCardList";
-import { Scrapers } from "@admin/store/scraperEnum";
+import { ScraperType } from "@admin/store/scraperType";
 import { ScenarioConfig } from "@shared/types";
 import {
   noticeScenariosMockData,
@@ -10,7 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { useAppSelector } from "@admin/store";
 import { view } from "@admin/store/viewSlice";
-import CardList from "../CardList/CardList";
+import CardList from "../CardList";
 import getStyle from "./style";
 
 export default function CardListContainer() {
@@ -19,22 +19,22 @@ export default function CardListContainer() {
   const { scraper, group, status } = useAppSelector(view);
 
   useEffect(() => {
-    if (scraper === Scrapers.Notice) {
+    if (scraper === ScraperType.Notice) {
       setIsNoticeScraper(true);
       setScenario(noticeScenariosMockData);
       return;
     }
-    if (scraper === Scrapers.StudentRestaurant) {
+    if (scraper === ScraperType.StudentRestaurant) {
       setIsNoticeScraper(false);
       setScenario(studentRestaurantScenariosMockData);
       return;
     }
-    if (scraper === Scrapers.DomitoryRestaurant) {
+    if (scraper === ScraperType.DomitoryRestaurant) {
       setIsNoticeScraper(false);
       setScenario(domitoryRestaurantScenariosMockData);
       return;
     }
-    if (scraper === Scrapers.CollegeSchedule) {
+    if (scraper === ScraperType.CollegeSchedule) {
       setIsNoticeScraper(false);
       setScenario(colleageScheduleMockData);
     }

@@ -1,10 +1,10 @@
-import { Status } from "@admin/store/statusEnum";
+import { StatusType } from "@admin/store/statusType";
 import { ScenarioConfig } from "@shared/types";
 import Card from "../ScenarioCard";
 
 type Props = {
   scenario: ScenarioConfig[];
-  status: Status;
+  status: StatusType;
   style: {
     groupContainer: string;
     scenarioCardList: string;
@@ -19,7 +19,7 @@ function CardList({ style, scenario, status }: Props) {
       <div className={style.scenarioCardList}>
         {scenario
           .filter((scenario) => {
-            if (status === Status.All) return true;
+            if (status === StatusType.All) return true;
             return scenario.status === status;
           })
           .map((scenario) => (

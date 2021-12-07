@@ -1,9 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require("path");
 
-
-console.log(path.resolve(__dirname, "../shared/src/"))
-
 module.exports = {
   babel: {
     plugins: [

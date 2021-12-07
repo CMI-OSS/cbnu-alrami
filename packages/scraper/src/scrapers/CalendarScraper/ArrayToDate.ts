@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 export default function ArrayToDate(year: number, arr: string) {
   const validDate = (i: number) => {
     return arr[i].length === 1 ? 0 + arr[i] : arr[i];

@@ -5,7 +5,9 @@ interface QueueNode<T> {
 
 export default class Queue<T> {
   head: QueueNode<T> | null = null;
+
   tail: QueueNode<T> | null = null;
+
   length = 0;
 
   reset() {
@@ -51,7 +53,7 @@ export default class Queue<T> {
     if (this.isEmpty() || this.head === null) {
       return null;
     }
-    var node = this.head;
+    const node = this.head;
     this.head = this.head.next;
     this.length -= 1;
 

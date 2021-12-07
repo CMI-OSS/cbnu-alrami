@@ -1,8 +1,13 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-restricted-syntax */
 import puppeteer, { Page } from "puppeteer";
 import { isDev, Queue } from "@scraper/common";
-import { Scenario, SCENARIO_STATE } from "./Scenario";
 import { stringify } from "javascript-stringify";
 import find from "find";
+import { Scenario, SCENARIO_STATE } from "./Scenario";
 
 const WINDOW_SIZE = {
   WIDTH: 1920,
@@ -24,9 +29,13 @@ const SCENARIO_DELAY = 1000;
 
 abstract class Scraper<T> {
   state: SCRAPER_STATE = SCRAPER_STATE.STOPPED;
+
   scraper: Page | null = null;
+
   queue: Queue<Scenario<T>>;
+
   browser?: puppeteer.Browser;
+
   scriptPath: string;
 
   constructor(scriptPath: string) {
@@ -77,7 +86,7 @@ abstract class Scraper<T> {
 
     this.browser = await puppeteer.launch({
       headless: !isDev,
-      args: [`--window-size=${WINDOW_SIZE.WIDTH},${WINDOW_SIZE.HEIGHT}`],
+      args: [ `--window-size=${WINDOW_SIZE.WIDTH},${WINDOW_SIZE.HEIGHT}` ],
     });
 
     const pages = await this.browser.pages();
@@ -102,7 +111,7 @@ abstract class Scraper<T> {
 
       page.on("request", (request) => {
         if (
-          ["image", "stylesheet", "font"].indexOf(request.resourceType()) !== -1
+          [ "image", "stylesheet", "font" ].indexOf(request.resourceType()) !== -1
         ) {
           request.abort();
         } else {

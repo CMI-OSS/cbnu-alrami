@@ -1,22 +1,23 @@
-import Scraper from "../Scraper";
 import { CafeteriaScript } from "@scraper/interfaces";
-import { Scenario } from "../Scenario";
 import { Menu } from "@scraper/interfaces/Menu";
+import Scraper from "../Scraper";
+import { Scenario } from "../Scenario";
 
 class CafeteriaScraper extends Scraper<CafeteriaScript> {
   constructor() {
-    super(__dirname + "/scripts");
+    super(`${__dirname}/scripts`);
   }
 
   async start() {
     const scripts = await this.loadScripts();
 
-    for (const script of scripts) {
+    scripts.forEach((script) => {
       this.appendScenario(new Scenario(script));
-    }
+    });
 
     this.run();
   }
+
   async scrapping(scenario: Scenario<CafeteriaScript>): Promise<Menu[]> {
     if (this.scraper === null) {
       throw Error("크롤러 없음");

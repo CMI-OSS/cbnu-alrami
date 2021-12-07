@@ -1,28 +1,31 @@
-import Scraper from "../Scraper";
 import { Notice, NoticeScript } from "@scraper/interfaces";
+import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 
 class NoticeScraper extends Scraper<NoticeScript> {
   constructor() {
-    super(__dirname + "/scripts");
+    super(`${__dirname}/scripts`);
   }
 
   async start() {
     const scripts = await this.loadScripts();
 
-    for (const script of scripts) {
+    scripts.forEach((script) => {
       this.appendScenario(new Scenario(script));
-    }
+    });
 
     this.run();
   }
 
   async scrapping(scenario: Scenario<NoticeScript>) {
-    const noticeList = await this.getNoticeList(scenario);
-
-    for (const notice of noticeList) {
-      notice.contents = await this.getContents(scenario, notice);
-    }
+    const noticeList = (await this.getNoticeList(scenario)).map(
+      async (notice) => {
+        return {
+          ...notice,
+          contents: await this.getContents(scenario, notice),
+        };
+      },
+    );
 
     // console.log(noticeList);
 
@@ -32,6 +35,7 @@ class NoticeScraper extends Scraper<NoticeScript> {
   }
 
   async getNoticeList(scenario: Scenario<NoticeScript>): Promise<Notice[]> {
+    // eslint-disable-next-line no-useless-catch
     try {
       if (this.scraper === null) {
         throw Error("크롤러 없음");
@@ -49,15 +53,15 @@ class NoticeScraper extends Scraper<NoticeScript> {
       });
       await this.evaluateScript(noticeScript);
 
-      const notice_list: Notice[] = await this.scraper.evaluate(
+      const noticeList: Notice[] = await this.scraper.evaluate(
         `script.getNoticeList()`,
       );
 
-      if (notice_list.length == 0) {
+      if (noticeList.length === 0) {
         throw Error("공지사항 목록 크롤링 실패");
       }
 
-      return notice_list;
+      return noticeList;
     } catch (error) {
       // console.error(`[${site.site_id}/getDetail]` + error);
       throw error;
@@ -93,7 +97,7 @@ class NoticeScraper extends Scraper<NoticeScript> {
 
       return contents;
     } catch (error) {
-      console.error(`[${notice.url}/getContents]` + " " + error);
+      console.error(`${`[${notice.url}/getContents]`}${error}`);
       throw error;
     }
   }

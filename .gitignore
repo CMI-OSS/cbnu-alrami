@@ -5,3 +5,4 @@ script
 react-app-env.d.ts
 build
 dist
+yarn-error.log

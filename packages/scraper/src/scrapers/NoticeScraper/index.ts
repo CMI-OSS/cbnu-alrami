@@ -1,5 +1,5 @@
 import Scraper from "../Scraper";
-import { Notice, NoticeScript } from "@scraper/interfaces";
+import { Notice, NoticeScript } from "src/interfaces";
 import { Scenario } from "../Scenario";
 
 class NoticeScraper extends Scraper<NoticeScript> {

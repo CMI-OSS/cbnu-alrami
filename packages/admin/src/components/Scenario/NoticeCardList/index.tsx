@@ -1,5 +1,5 @@
-import { Status } from "@admin/utils/statusContext";
-import { noticeGroupsMockData } from "@admin/__mockData__";
+import { Status } from "src/utils/statusContext";
+import { noticeGroupsMockData } from "src/__mockData__";
 import { ScenarioConfig } from "@shared/types";
 import Card from "../ScenarioCard";
 

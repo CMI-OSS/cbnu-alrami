@@ -56,9 +56,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@emotion/babel-plugin": "^11.3.0",
-    "eslint-plugin-jsx-a11y": "^6.4.1"
   }
 }

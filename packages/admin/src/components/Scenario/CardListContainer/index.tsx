@@ -1,14 +1,14 @@
-import NoticeCardList from "@admin/components/Scenario/NoticeCardList";
-import { GroupContext } from "@admin/utils/groupContext";
-import { Scrapers, ScraperContext } from "@admin/utils/scraperContext";
-import { StatusContext } from "@admin/utils/statusContext";
+import NoticeCardList from "src/components/Scenario/NoticeCardList";
+import { GroupContext } from "src/utils/groupContext";
+import { Scrapers, ScraperContext } from "src/utils/scraperContext";
+import { StatusContext } from "src/utils/statusContext";
 import { ScenarioConfig } from "@shared/types";
 import {
   noticeScenariosMockData,
   studentRestaurantScenariosMockData,
   domitoryRestaurantScenariosMockData,
   colleageScheduleMockData,
-} from "@admin/__mockData__";
+} from "src/__mockData__";
 import { useContext, useEffect, useState } from "react";
 import CardList from "../CardList/CardList";
 import getStyle from "./style";

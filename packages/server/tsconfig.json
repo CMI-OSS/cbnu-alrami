@@ -1,6 +1,10 @@
 {
-  "extends": "../../tsconfig.paths.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["./src/*"],
+      "@shared/*": ["../shared/src/*"]
+    },
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Basic Options */

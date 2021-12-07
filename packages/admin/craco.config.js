@@ -1,5 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const alias = require("../../craco.alias");
+const path = require("path");
+
+
+console.log(path.resolve(__dirname, "../shared/src/"))
 
 module.exports = {
   babel: {
@@ -14,7 +17,10 @@ module.exports = {
     ],
   },
   webpack: {
-    alias,
+    alias: {
+      src: path.resolve(__dirname, "./src/"),
+      "@shared": path.resolve(__dirname, "../shared/src/"),
+    },
     configure: (webpackConfig) => {
       const scopePluginIndex = webpackConfig.resolve.plugins.findIndex(
         ({ constructor }) =>

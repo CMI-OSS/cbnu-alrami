@@ -1,6 +1,6 @@
 import { css } from "@emotion/css";
 import { colors } from "@shared/styles/color";
-import { hashClassNames } from "@admin/utils/hash";
+import { hashClassNames } from "src/utils/hash";
 
 export default () => {
   const {

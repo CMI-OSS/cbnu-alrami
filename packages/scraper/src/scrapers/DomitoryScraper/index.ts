@@ -1,7 +1,7 @@
 import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
-import { DomitoryScript } from "@scraper/interfaces/DomitoryScript";
-import { DomitoryFood } from "@scraper/interfaces/DomitoryFood";
+import { DomitoryScript } from "src/interfaces/DomitoryScript";
+import { DomitoryFood } from "src/interfaces/DomitoryFood";
 
 class DomitoryScraper extends Scraper<DomitoryScript> {
   constructor() {

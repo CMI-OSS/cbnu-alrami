@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { CardListContainer } from "@admin/components/Scenario";
-import Navigation from "@admin/components/Navigation";
-import { ScraperContext, Scrapers } from "@admin/utils/scraperContext";
-import { GroupContext } from "@admin/utils/groupContext";
-import Selector from "@admin/components/Selector";
-import { Status, StatusContext } from "@admin/utils/statusContext";
+import { CardListContainer } from "src/components/Scenario";
+import Navigation from "src/components/Navigation";
+import { ScraperContext, Scrapers } from "src/utils/scraperContext";
+import { GroupContext } from "src/utils/groupContext";
+import Selector from "src/components/Selector";
+import { Status, StatusContext } from "src/utils/statusContext";
 import getStyle from "./style";
 
 export default function Home() {

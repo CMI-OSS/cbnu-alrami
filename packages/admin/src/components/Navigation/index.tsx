@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Scrapers, ScraperContext } from "@admin/utils/scraperContext";
+import { Scrapers, ScraperContext } from "src/utils/scraperContext";
 import { cx } from "@emotion/css";
 import getStyle from "./style";
 

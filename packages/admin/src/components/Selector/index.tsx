@@ -1,8 +1,8 @@
-import { Status, StatusContext } from "@admin/utils/statusContext";
+import { Status, StatusContext } from "src/utils/statusContext";
 import { ChangeEvent, useContext } from "react";
-import { noticeGroupsMockData } from "@admin/__mockData__";
-import { GroupContext } from "@admin/utils/groupContext";
-import { Scrapers, ScraperContext } from "@admin/utils/scraperContext";
+import { noticeGroupsMockData } from "src/__mockData__";
+import { GroupContext } from "src/utils/groupContext";
+import { Scrapers, ScraperContext } from "src/utils/scraperContext";
 import getStyle from "./style";
 
 export default function Selector() {

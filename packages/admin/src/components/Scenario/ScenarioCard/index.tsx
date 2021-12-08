@@ -1,5 +1,5 @@
 import { Element, ScenarioConfig } from "@shared/types";
-import { StatusType } from "@admin/store/statusType";
+import { StatusType } from "src/store/statusType";
 import { cx } from "@emotion/css";
 import { useEffect, useState } from "react";
 import getStyle, { Colors } from "./style";

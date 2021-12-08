@@ -1,5 +1,5 @@
-import { StatusType } from "@admin/store/statusType";
-import { noticeGroupsMockData } from "@admin/__mockData__";
+import { StatusType } from "src/store/statusType";
+import { noticeGroupsMockData } from "src/__mockData__";
 import { ScenarioConfig } from "@shared/types";
 import Card from "../ScenarioCard";
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-await-in-loop */
-import Scraper from "@scraper/scrapers/Scraper";
-import { CalendarScript } from "@scraper/interfaces";
+import Scraper from "src/scrapers/Scraper";
+import { CalendarScript } from "src/interfaces";
 import { CalendarAction } from "../../interfaces/ActionInterfaces/CalendarInterface";
 import { Scenario } from "../Scenario";
 import ArrayToDate from "./ArrayToDate";

@@ -4,7 +4,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-restricted-syntax */
 import puppeteer, { Page } from "puppeteer";
-import { isDev, Queue } from "@scraper/common";
+import { isDev, Queue } from "src/common";
 import { stringify } from "javascript-stringify";
 import find from "find";
 import { Scenario, SCENARIO_STATE } from "./Scenario";

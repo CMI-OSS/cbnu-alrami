@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "@admin/common/axios";
+import axios from "src/common/axios";
 import { ScraperType } from "./scraperType";
 import { StatusType } from "./statusType";
 import { RootState } from ".";

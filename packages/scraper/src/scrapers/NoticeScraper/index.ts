@@ -1,4 +1,4 @@
-import { Notice, NoticeScript } from "@scraper/interfaces";
+import { Notice, NoticeScript } from "src/interfaces";
 import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 

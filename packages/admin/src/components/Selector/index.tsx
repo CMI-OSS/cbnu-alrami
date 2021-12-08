@@ -1,9 +1,9 @@
-import { StatusType } from "@admin/store/statusType";
+import { StatusType } from "src/store/statusType";
 import { ChangeEvent } from "react";
-import { noticeGroupsMockData } from "@admin/__mockData__";
-import { ScraperType } from "@admin/store/scraperType";
-import { useAppDispatch, useAppSelector } from "@admin/store";
-import { setGroup, setStatus, view } from "@admin/store/viewSlice";
+import { noticeGroupsMockData } from "src/__mockData__";
+import { ScraperType } from "src/store/scraperType";
+import { useAppDispatch, useAppSelector } from "src/store";
+import { setGroup, setStatus, view } from "src/store/viewSlice";
 import getStyle from "./style";
 
 export default function Selector() {

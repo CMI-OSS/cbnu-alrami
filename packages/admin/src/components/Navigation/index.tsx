@@ -1,6 +1,6 @@
-import { ScraperType } from "@admin/store/scraperType";
-import { useAppDispatch, useAppSelector } from "@admin/store";
-import { setScraper, view } from "@admin/store/viewSlice";
+import { ScraperType } from "src/store/scraperType";
+import { useAppDispatch, useAppSelector } from "src/store";
+import { setScraper, view } from "src/store/viewSlice";
 import { cx } from "@emotion/css";
 import getStyle from "./style";
 

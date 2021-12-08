@@ -1,8 +1,8 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-useless-catch */
-import { DomitoryScript } from "@scraper/interfaces/DomitoryScript";
-import { DomitoryFood } from "@scraper/interfaces/DomitoryFood";
+import { DomitoryScript } from "src/interfaces/DomitoryScript";
+import { DomitoryFood } from "src/interfaces/DomitoryFood";
 import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 

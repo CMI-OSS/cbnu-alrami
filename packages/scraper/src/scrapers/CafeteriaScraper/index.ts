@@ -1,5 +1,5 @@
-import { CafeteriaScript } from "@scraper/interfaces";
-import { Menu } from "@scraper/interfaces/Menu";
+import { CafeteriaScript } from "src/interfaces";
+import { Menu } from "src/interfaces/Menu";
 import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 

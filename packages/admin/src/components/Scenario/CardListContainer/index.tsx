@@ -1,15 +1,15 @@
-import NoticeCardList from "@admin/components/Scenario/NoticeCardList";
-import { ScraperType } from "@admin/store/scraperType";
+import NoticeCardList from "src/components/Scenario/NoticeCardList";
+import { ScraperType } from "src/store/scraperType";
 import { ScenarioConfig } from "@shared/types";
 import {
   noticeScenariosMockData,
   studentRestaurantScenariosMockData,
   domitoryRestaurantScenariosMockData,
   colleageScheduleMockData,
-} from "@admin/__mockData__";
+} from "src/__mockData__";
 import { useEffect, useState } from "react";
-import { useAppSelector } from "@admin/store";
-import { view } from "@admin/store/viewSlice";
+import { useAppSelector } from "src/store";
+import { view } from "src/store/viewSlice";
 import CardList from "../CardList";
 import getStyle from "./style";
 

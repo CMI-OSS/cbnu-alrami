@@ -1,8 +1,8 @@
-import { CardListContainer } from "@admin/components/Scenario";
-import Navigation from "@admin/components/Navigation";
-import Selector from "@admin/components/Selector";
-import { useAppSelector } from "@admin/store";
-import { view } from "@admin/store/viewSlice";
+import { CardListContainer } from "src/components/Scenario";
+import Navigation from "src/components/Navigation";
+import Selector from "src/components/Selector";
+import { useAppSelector } from "src/store";
+import { view } from "src/store/viewSlice";
 import getStyle from "./style";
 
 export default function Home() {

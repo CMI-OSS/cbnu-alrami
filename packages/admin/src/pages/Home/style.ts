@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { hashClassNames } from "@admin/utils/hash";
+import { hashClassNames } from "src/utils/hash";
 
 export default () => {
   const { mainTitle } = hashClassNames([ "mainTitle" ]);

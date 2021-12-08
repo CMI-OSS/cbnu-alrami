@@ -1,6 +1,6 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Global } from "@emotion/react";
-import Home from "@admin/pages/Home";
+import Home from "src/pages/Home";
 import { Provider } from "react-redux";
 import getGlobalStyle from "@shared/styles/globalStyle";
 import Login from "./pages/Login";

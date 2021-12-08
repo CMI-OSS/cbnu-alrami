@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "@admin/common/axios";
+import axios from "src/common/axios";
 
 const name = "noticeScraper"; // 액션 타입 문자열의 prefix로 들어간다. ex) "noticeScraper/changeScenario"
 

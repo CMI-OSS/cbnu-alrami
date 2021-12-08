@@ -1,4 +1,4 @@
-import { StatusType } from "@admin/store/statusType";
+import { StatusType } from "src/store/statusType";
 import { ScenarioConfig } from "@shared/types";
 import Card from "../ScenarioCard";
 

@@ -6,5 +6,4 @@ react-app-env.d.ts
 build
 dist
 **/scripts/*
-packages/scraper
 packages/server

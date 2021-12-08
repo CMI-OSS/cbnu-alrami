@@ -1,7 +1,5 @@
 import NoticeCardList from "src/components/Scenario/NoticeCardList";
-import { GroupContext } from "src/utils/groupContext";
-import { Scrapers, ScraperContext } from "src/utils/scraperContext";
-import { StatusContext } from "src/utils/statusContext";
+import { ScraperType } from "src/store/scraperType";
 import { ScenarioConfig } from "@shared/types";
 import {
   noticeScenariosMockData,
@@ -9,38 +7,38 @@ import {
   domitoryRestaurantScenariosMockData,
   colleageScheduleMockData,
 } from "src/__mockData__";
-import { useContext, useEffect, useState } from "react";
-import CardList from "../CardList/CardList";
+import { useEffect, useState } from "react";
+import { useAppSelector } from "src/store";
+import { view } from "src/store/viewSlice";
+import CardList from "../CardList";
 import getStyle from "./style";
 
 export default function CardListContainer() {
   const [ isNoticeScraper, setIsNoticeScraper ] = useState(false);
   const [ scenario, setScenario ] = useState<ScenarioConfig[]>([]);
-  const { group } = useContext(GroupContext);
-  const { scraper } = useContext(ScraperContext);
-  const { status } = useContext(StatusContext);
+  const { scraper, group, status } = useAppSelector(view);
 
   useEffect(() => {
-    if (scraper === Scrapers.Notice) {
+    if (scraper === ScraperType.Notice) {
       setIsNoticeScraper(true);
       setScenario(noticeScenariosMockData);
       return;
     }
-    if (scraper === Scrapers.StudentRestaurant) {
+    if (scraper === ScraperType.StudentRestaurant) {
       setIsNoticeScraper(false);
       setScenario(studentRestaurantScenariosMockData);
       return;
     }
-    if (scraper === Scrapers.DomitoryRestaurant) {
+    if (scraper === ScraperType.DomitoryRestaurant) {
       setIsNoticeScraper(false);
       setScenario(domitoryRestaurantScenariosMockData);
       return;
     }
-    if (scraper === Scrapers.CollegeSchedule) {
+    if (scraper === ScraperType.CollegeSchedule) {
       setIsNoticeScraper(false);
       setScenario(colleageScheduleMockData);
     }
-  }, [ scenario, isNoticeScraper ]);
+  }, [ scenario, isNoticeScraper, scraper ]);
 
   const style = getStyle();
 

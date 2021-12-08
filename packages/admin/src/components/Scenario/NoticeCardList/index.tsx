@@ -1,4 +1,4 @@
-import { Status } from "src/utils/statusContext";
+import { StatusType } from "src/store/statusType";
 import { noticeGroupsMockData } from "src/__mockData__";
 import { ScenarioConfig } from "@shared/types";
 import Card from "../ScenarioCard";
@@ -6,7 +6,7 @@ import Card from "../ScenarioCard";
 type Props = {
   group: string;
   scenario: ScenarioConfig[];
-  status: Status;
+  status: StatusType;
   style: {
     groupContainer: string;
     scenarioCardList: string;
@@ -43,7 +43,7 @@ export default function NoticeCardList({
               <div className={style.scenarioCardList}>
                 {viewScenario
                   .filter((scenario) => {
-                    if (status === Status.All) return true;
+                    if (status === StatusType.All) return true;
                     return scenario.status === status;
                   })
                   .map((scenario) => (

@@ -1,22 +1,26 @@
-import Scraper from "../Scraper";
-import { Scenario } from "../Scenario";
+/* eslint-disable no-plusplus */
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-useless-catch */
 import { DomitoryScript } from "src/interfaces/DomitoryScript";
 import { DomitoryFood } from "src/interfaces/DomitoryFood";
+import Scraper from "../Scraper";
+import { Scenario } from "../Scenario";
 
 class DomitoryScraper extends Scraper<DomitoryScript> {
   constructor() {
-    super(__dirname + "/scripts");
+    super(`${__dirname}/scripts`);
   }
 
   async start() {
     const scripts = await this.loadScripts();
 
-    for (const script of scripts) {
+    scripts.forEach((script) => {
       this.appendScenario(new Scenario(script));
-    }
+    });
 
     this.run();
   }
+
   async scrapping(scenario: Scenario<DomitoryScript>) {
     const foodList = await this.getFoodList(scenario);
     console.log(foodList);
@@ -31,7 +35,7 @@ class DomitoryScraper extends Scraper<DomitoryScript> {
       if (!this.scraper) throw Error("크롤러 없음");
       if (!jsScript) throw Error("스크립트 없음.");
 
-      let allFoodList = [];
+      const allFoodList = [];
 
       for (let i = 0; i < jsScript.domitories.length; i++) {
         await this.scraper.goto(

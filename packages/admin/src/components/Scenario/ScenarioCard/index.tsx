@@ -1,5 +1,5 @@
 import { Element, ScenarioConfig } from "@shared/types";
-import { Status } from "src/utils/statusContext";
+import { StatusType } from "src/store/statusType";
 import { cx } from "@emotion/css";
 import { useEffect, useState } from "react";
 import getStyle, { Colors } from "./style";
@@ -15,15 +15,15 @@ export default function ScenarioCard({ className, scenario }: Props & Element) {
   const style = getStyle({ statusColor: color });
 
   useEffect(() => {
-    if (status === Status.Running) {
+    if (status === StatusType.Running) {
       setColor(Colors.Green);
       return;
     }
-    if (status === Status.Waiting) {
+    if (status === StatusType.Waiting) {
       setColor(Colors.Yellow);
       return;
     }
-    if (status === Status.Error) {
+    if (status === StatusType.Error) {
       setColor(Colors.Red);
     }
   }, [ status ]);

@@ -1,6 +1,8 @@
-import { CalendarAction } from "../../interfaces/ActionInterfaces/CalendarInterface";
+/* eslint-disable no-plusplus */
+/* eslint-disable no-await-in-loop */
 import Scraper from "src/scrapers/Scraper";
 import { CalendarScript } from "src/interfaces";
+import { CalendarAction } from "../../interfaces/ActionInterfaces/CalendarInterface";
 import { Scenario } from "../Scenario";
 import ArrayToDate from "./ArrayToDate";
 import store from "../../common/store";
@@ -8,15 +10,15 @@ import { successCalendar } from "../../actions/CalendarAction";
 
 class CalendarScraper extends Scraper<CalendarScript> {
   constructor() {
-    super(__dirname + "/scripts");
+    super(`${__dirname}/scripts`);
   }
 
   async start() {
     const scripts = await this.loadScripts();
 
-    for (const script of scripts) {
+    scripts.forEach((script) => {
       this.appendScenario(new Scenario(script));
-    }
+    });
 
     this.run();
   }

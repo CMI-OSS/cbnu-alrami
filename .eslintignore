@@ -5,5 +5,4 @@ script
 react-app-env.d.ts
 build
 **/scripts/*
-packages/scraper
 packages/server

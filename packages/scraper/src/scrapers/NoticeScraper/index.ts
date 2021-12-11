@@ -1,4 +1,4 @@
-import { Notice, NoticeScript } from "src/interfaces";
+import { Notice, NoticeScript } from "src/types";
 import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 

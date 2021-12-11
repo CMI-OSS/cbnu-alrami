@@ -1,5 +1,5 @@
-import { CafeteriaScript } from "src/interfaces";
-import { Menu } from "src/interfaces/Menu";
+import { CafeteriaScript } from "src/types";
+import { Menu } from "src/types/Menu";
 import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 

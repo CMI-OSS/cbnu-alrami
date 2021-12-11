@@ -1,6 +1,6 @@
 import find from "find";
 import NoticeScraper from "../index";
-import { NoticeScript } from "src/interfaces";
+import { NoticeScript } from "src/types";
 import { Scenario } from "../../Scenario";
 
 function loadScripts(scriptPath: string): Promise<Array<NoticeScript>> {

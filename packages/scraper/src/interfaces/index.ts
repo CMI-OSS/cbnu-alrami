@@ -1,6 +1,6 @@
-export { Notice } from "./Notice";
-export { NoticeScript } from "./NoticeScript";
+export type { Notice } from "./Notice";
+export type { NoticeScript } from "./NoticeScript";
 
-export { Calendar } from "./Calendar";
-export { CalendarScript } from "./CalendarScript";
-export { CafeteriaScript } from "./CafeteriaScript";
+export type { Calendar } from "./Calendar";
+export type { CalendarScript } from "./CalendarScript";
+export type { CafeteriaScript } from "./CafeteriaScript";

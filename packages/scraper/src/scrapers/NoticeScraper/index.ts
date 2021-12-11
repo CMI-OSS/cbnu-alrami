@@ -1,4 +1,7 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
 import { Notice, NoticeScript } from "src/types";
+import { createNotice } from "src/db/notice";
 import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 
@@ -18,18 +21,14 @@ class NoticeScraper extends Scraper<NoticeScript> {
   }
 
   async scrapping(scenario: Scenario<NoticeScript>) {
-    const noticeList = (await this.getNoticeList(scenario)).map(
-      async (notice) => {
-        return {
-          ...notice,
-          contents: await this.getContents(scenario, notice),
-        };
-      },
-    );
+    const noticeList = await this.getNoticeList(scenario);
 
-    // console.log(noticeList);
-
-    // 데이터베이스 저장
+    for (const notice of noticeList) {
+      await createNotice({
+        ...notice,
+        contents: await this.getContents(scenario, notice),
+      });
+    }
 
     // 사용자에게 알림
   }
@@ -97,7 +96,7 @@ class NoticeScraper extends Scraper<NoticeScript> {
 
       return contents;
     } catch (error) {
-      console.error(`${`[${notice.url}/getContents]`}${error}`);
+      console.error(`${`[${notice.url} getContents]`}${error}`);
       throw error;
     }
   }

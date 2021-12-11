@@ -9,13 +9,16 @@ export async function createNotice({
   contents,
   date,
 }: Notice) {
-  const sql = format("INSERT INTO notice SET ?", {
-    site_id,
-    title,
-    url,
-    contents,
-    date,
-  });
+  const sql = format(
+    `INSERT INTO notice SET ? ON DUPLICATE KEY UPDATE site_id=${site_id}, url='${url}';`,
+    {
+      site_id,
+      title,
+      url,
+      contents,
+      date,
+    },
+  );
 
   try {
     const result = await db.query(sql);

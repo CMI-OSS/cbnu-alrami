@@ -28,6 +28,7 @@ class NoticeScraper extends Scraper<NoticeScript> {
         ...notice,
         contents: await this.getContents(scenario, notice),
       });
+      await this.scraper?.waitForTimeout(1000);
     }
 
     // 사용자에게 알림

@@ -1,5 +1,3 @@
-/* eslint-disable no-await-in-loop */
-/* eslint-disable no-restricted-syntax */
 import { Notice, NoticeScript } from "src/types";
 import { createNotice } from "src/db/notice";
 import Scraper from "../Scraper";

@@ -1,6 +1,4 @@
-/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-plusplus */
-/* eslint-disable no-await-in-loop */
 /* eslint-disable no-useless-catch */
 import { DomitoryScript } from "src/types/DomitoryScript";
 import { DomitoryFood } from "src/types/DomitoryFood";

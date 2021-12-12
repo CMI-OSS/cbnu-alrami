@@ -13,7 +13,7 @@ const script = {
     const dateStrings = range.match(/(\d{4}년 \d{1,2}월 \d{1,2}일)/gm);
     const dates = dateStrings.map((v) => {
       const nums = v.match(/(\d{4})년 (\d{1,2})월 (\d{1,2})일/);
-      return new Date(nums[1], nums[2], nums[3]);
+      return new Date(nums[1], nums[2] - 1, nums[3]);
     });
     // weekmenu.startDay = new Date(dates[0]);
     // weekmenu.endDay = new Date(dates[1]);

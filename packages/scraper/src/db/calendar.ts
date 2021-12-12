@@ -3,7 +3,8 @@ import db from "src/db";
 import { Calendar } from "src/types/Calendar";
 
 export async function createSchedule(schedule: Calendar) {
-  const sql = format(`INSERT IGNORE INTO schedule SET ? `, schedule);
+  const sql = format(`INSERT IGNORE INTO schedule SET ? `, [ schedule ]);
+
 
   try {
     const result = await db.query(sql);

@@ -4,7 +4,7 @@ import { Menu } from "src/types/Menu";
 
 export async function createMenu(menu: Menu) {
   const sql = format(
-    `INSERT INTO restaurant SET ? ON DUPLICATE KEY UPDATE date=${menu.date}, time='${menu.time}';`,
+    `INSERT INTO restaurant SET ? ON DUPLICATE KEY UPDATE date='${menu.date}', time=${menu.time};`,
     menu,
   );
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
-/* eslint-disable no-await-in-loop */
 import Scraper from "src/scrapers/Scraper";
-import { CalendarScript } from "src/types";
+import { Calendar, CalendarScript } from "src/types";
+import { createSchedule } from "src/db/calendar";
 import { Scenario } from "../Scenario";
 import ArrayToDate from "./ArrayToDate";
 
@@ -44,6 +44,10 @@ class CalendarScraper extends Scraper<CalendarScript> {
           content: mockData[j][1],
         });
       }
+    }
+
+    for (const schedule of refinedData) {
+      await createSchedule(schedule as Calendar);
     }
   }
 }

@@ -48,7 +48,7 @@ const script = {
           food_name: foodNameString,
           date,
           day,
-          time: this.timeIndex[foodTime],
+          time: Number(this.timeIndex[foodTime]),
         });
       }
     }

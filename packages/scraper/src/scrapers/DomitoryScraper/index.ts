@@ -1,8 +1,10 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-useless-catch */
 import { DomitoryScript } from "src/types/DomitoryScript";
 import { DomitoryFood } from "src/types/DomitoryFood";
+import { createMenu } from "src/db/restaurant";
 import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 
@@ -23,7 +25,10 @@ class DomitoryScraper extends Scraper<DomitoryScript> {
 
   async scrapping(scenario: Scenario<DomitoryScript>) {
     const foodList = await this.getFoodList(scenario);
-    console.log(foodList);
+
+    for (const menu of foodList) {
+      await createMenu(menu);
+    }
   }
 
   async getFoodList(

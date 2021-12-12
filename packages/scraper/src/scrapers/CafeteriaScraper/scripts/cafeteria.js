@@ -83,6 +83,7 @@ const script = {
                 ? "0" + (startDay.getDate() + day).toString()
                 : (startDay.getDate() + day).toString()
             }`,
+            day: ["월", "화", "수", "목", "금"][day],
             time,
           };
           /*const row = {

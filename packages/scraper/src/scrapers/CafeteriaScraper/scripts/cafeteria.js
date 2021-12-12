@@ -65,10 +65,10 @@ const script = {
           let time;
           switch ($dateMenu.time) {
             case "점심식사":
-              time = 1;
+              time = 2;
               break;
             case "저녁식사":
-              time = 2;
+              time = 3;
               break;
           }
           const row = {

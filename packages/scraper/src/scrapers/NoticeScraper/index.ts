@@ -1,5 +1,5 @@
 import { Notice, NoticeScript } from "src/types";
-import { createNotice } from "src/db/notice";
+import { createNotice, hasNotice } from "src/db/notice";
 import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 
@@ -22,11 +22,13 @@ class NoticeScraper extends Scraper<NoticeScript> {
     const noticeList = await this.getNoticeList(scenario);
 
     for (const notice of noticeList) {
-      await createNotice({
-        ...notice,
-        contents: await this.getContents(scenario, notice),
-      });
-      await this.scraper?.waitForTimeout(1000);
+      if (!(await hasNotice(notice))) {
+        await createNotice({
+          ...notice,
+          contents: await this.getContents(scenario, notice),
+        });
+        await this.scraper?.waitForTimeout(1000);
+      }
     }
 
     // 사용자에게 알림

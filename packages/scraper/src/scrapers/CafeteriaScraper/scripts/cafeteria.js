@@ -53,13 +53,13 @@ const script = {
           let restaurant_name;
           switch (cafeteria) {
             case 0:
-              restaurant_name = "한빛 식당";
+              restaurant_name = "한빛식당";
               break;
             case 1:
-              restaurant_name = "별빛 식당";
+              restaurant_name = "별빛식당";
               break;
             case 2:
-              restaurant_name = "은하수 식당";
+              restaurant_name = "은하수식당";
               break;
           }
           let time;

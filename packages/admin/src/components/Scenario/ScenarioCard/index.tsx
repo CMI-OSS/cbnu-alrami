@@ -15,16 +15,20 @@ export default function ScenarioCard({ className, scenario }: Props & Element) {
   const style = getStyle({ statusColor: color });
 
   useEffect(() => {
-    if (status === StatusType.Running) {
+    if (status === StatusType.Clean) {
       setColor(Colors.Green);
       return;
     }
-    if (status === StatusType.Waiting) {
+    if (status === StatusType.Warning) {
       setColor(Colors.Yellow);
       return;
     }
     if (status === StatusType.Error) {
       setColor(Colors.Red);
+      return;
+    }
+    if (status === StatusType.Excluded) {
+      setColor(Colors.Gray);
     }
   }, [ status ]);
 

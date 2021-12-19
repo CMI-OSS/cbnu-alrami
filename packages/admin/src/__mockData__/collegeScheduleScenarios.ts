@@ -2,7 +2,7 @@ const scenarios = [
   {
     id: 1,
     title: "학사일정",
-    status: "실행중",
+    status: "clean",
     tags: [ "테스트 태그" ],
   },
 ];

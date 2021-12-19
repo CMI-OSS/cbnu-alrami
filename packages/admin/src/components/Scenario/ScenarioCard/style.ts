@@ -6,6 +6,7 @@ export enum Colors {
   Green = "Green",
   Yellow = "Yellow",
   Red = "Red",
+  Gray = "Gray",
 }
 
 interface Props {
@@ -15,7 +16,8 @@ interface Props {
 const colorSelector = (color: Colors) => {
   if (color === Colors.Green) return colors.$googleGreen;
   if (color === Colors.Yellow) return colors.$googleYellow;
-  return colors.$googleRed;
+  if (color === Colors.Red) return colors.$googleRed;
+  return colors.$darkGrey;
 };
 
 export default ({ statusColor }: Props) => {

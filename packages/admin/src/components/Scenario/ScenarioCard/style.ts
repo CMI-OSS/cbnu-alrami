@@ -17,7 +17,7 @@ const colorSelector = (color: Colors) => {
   if (color === Colors.Green) return colors.$googleGreen;
   if (color === Colors.Yellow) return colors.$googleYellow;
   if (color === Colors.Red) return colors.$googleRed;
-  return colors.$darkGrey;
+  return colors.$gray.$500;
 };
 
 export default ({ statusColor }: Props) => {
@@ -74,7 +74,7 @@ export default ({ statusColor }: Props) => {
     .${statusText} {
       margin-right: 0.3rem;
       font-size: 0.9rem;
-      color: ${colors.$darkGrey};
+      color: ${colors.$gray.$500};
     }
 
     .${statusContainer} {

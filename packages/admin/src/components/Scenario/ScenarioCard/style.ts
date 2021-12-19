@@ -42,7 +42,7 @@ export default ({ statusColor }: Props) => {
     background-color: ${colors.$white};
 
     :hover {
-      outline: 0.2rem solid ${colors.$lightBlue};
+      box-shadow: 0 0 0 0.2rem ${colors.$lightBlue};
       cursor: pointer;
     }
 

@@ -132,6 +132,12 @@ export default () => css`
     border-collapse: collapse;
     border-spacing: 0;
   }
+  select {
+    appearance: none;
+  }
+  select:focus {
+    outline: none;
+  }
   * {
     box-sizing: border-box;
   }

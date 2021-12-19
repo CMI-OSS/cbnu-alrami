@@ -40,14 +40,14 @@ export default function Selector() {
   };
 
   return (
-    <ul className={style.selectorContainer}>
+    <ul className={style.selectContainer}>
       {scraper === ScraperType.Notice && (
         <li>
-          <label htmlFor="groupSelector">
+          <label htmlFor="groupSelector" className={style.label}>
             그룹 필터
             <select
               onChange={handleGroupChange}
-              className={style.selector}
+              className={style.select}
               id="groupSelector"
             >
               <option value="모두보기" key="모두보기">
@@ -67,7 +67,7 @@ export default function Selector() {
           상태 필터
           <select
             onChange={handleStatusChange}
-            className={style.selector}
+            className={style.select}
             id="statusSelector"
           >
             <option value={StatusType.All}>{StatusType.All}</option>

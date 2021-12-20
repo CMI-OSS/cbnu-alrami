@@ -1,3 +1,4 @@
+import { ScenarioFilter } from "src/components/Scenario";
 import getStyle from "./style";
 
 export enum ScraperType {
@@ -17,7 +18,7 @@ export default function Scraper({ type }: Props) {
   return (
     <main className={style.main}>
       <h1 className={style.mainTitle}>{type} 스크래퍼 관리보드</h1>
-      {/* <Selector /> */}
+      <ScenarioFilter isNotice={type === ScraperType.Notice} />
       {/* <Scraper /> */}
     </main>
   );

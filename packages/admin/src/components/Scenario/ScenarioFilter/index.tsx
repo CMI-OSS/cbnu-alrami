@@ -1,51 +1,38 @@
 import { StatusType } from "src/store/statusType";
 import { ChangeEvent } from "react";
 import { noticeGroupsMockData } from "src/__mockData__";
-import { ScraperType } from "src/store/scraperType";
-import { useAppDispatch, useAppSelector } from "src/store";
-import { setGroup, setStatus, view } from "src/store/viewSlice";
+import { useLocation, useHistory } from "react-router-dom";
+import queryString from "query-string";
 import getStyle from "./style";
 
-export default function Selector() {
-  const { scraper } = useAppSelector(view);
+interface Props {
+  isNotice: boolean;
+}
 
-  const dispatch = useAppDispatch();
-
+export default function ScenarioFilter({ isNotice }: Props) {
   const style = getStyle();
+  const history = useHistory();
+  const location = useLocation();
+
+  const getQueryParams = () => queryString.parse(location.search);
 
   const handleGroupChange = ({
     target: { value },
   }: ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setGroup(value));
+    const query = queryString.stringify({ ...getQueryParams(), group: value });
+    history.push(`${location.pathname}?${query}`);
   };
 
   const handleStatusChange = ({
     target: { value },
   }: ChangeEvent<HTMLSelectElement>) => {
-    if (value === StatusType.All) {
-      dispatch(setStatus(StatusType.All));
-      return;
-    }
-    if (value === StatusType.Clean) {
-      dispatch(setStatus(StatusType.Clean));
-      return;
-    }
-    if (value === StatusType.Warning) {
-      dispatch(setStatus(StatusType.Warning));
-      return;
-    }
-    if (value === StatusType.Error) {
-      dispatch(setStatus(StatusType.Error));
-      return;
-    }
-    if (value === StatusType.Excluded) {
-      dispatch(setStatus(StatusType.Excluded));
-    }
+    const query = queryString.stringify({ ...getQueryParams(), state: value });
+    history.push(`${location.pathname}?${query}`);
   };
 
   return (
     <ul className={style.selectContainer}>
-      {scraper === ScraperType.Notice && (
+      {isNotice && (
         <li>
           <label htmlFor="groupSelector" className={style.label}>
             그룹 필터

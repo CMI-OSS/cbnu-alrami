@@ -3,5 +3,5 @@ export interface DomitoryFood {
   food_name: string;
   date: string;
   day: string;
-  time: string;
+  time: number;
 }

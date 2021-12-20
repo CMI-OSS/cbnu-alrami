@@ -1,12 +1,9 @@
 /* eslint-disable no-plusplus */
-/* eslint-disable no-await-in-loop */
 import Scraper from "src/scrapers/Scraper";
-import { CalendarScript } from "src/interfaces";
-import { CalendarAction } from "../../interfaces/ActionInterfaces/CalendarInterface";
+import { Calendar, CalendarScript } from "src/types";
+import { createSchedule } from "src/db/calendar";
 import { Scenario } from "../Scenario";
 import ArrayToDate from "./ArrayToDate";
-import store from "../../common/store";
-import { successCalendar } from "../../actions/CalendarAction";
 
 class CalendarScraper extends Scraper<CalendarScript> {
   constructor() {
@@ -48,11 +45,10 @@ class CalendarScraper extends Scraper<CalendarScript> {
         });
       }
     }
-    console.log(refinedData);
-    store // thunk 테스트용
-      .dispatch<any>(successCalendar())
-      .then((data: Promise<CalendarAction>) => console.log(data))
-      .catch((e: Promise<Error>) => console.log(e));
+
+    for (const schedule of refinedData) {
+      await createSchedule(schedule as Calendar);
+    }
   }
 }
 

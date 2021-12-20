@@ -1,4 +1,5 @@
-import { Notice, NoticeScript } from "src/interfaces";
+import { Notice, NoticeScript } from "src/types";
+import { createNotice, hasNotice } from "src/db/notice";
 import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 
@@ -18,18 +19,17 @@ class NoticeScraper extends Scraper<NoticeScript> {
   }
 
   async scrapping(scenario: Scenario<NoticeScript>) {
-    const noticeList = (await this.getNoticeList(scenario)).map(
-      async (notice) => {
-        return {
+    const noticeList = await this.getNoticeList(scenario);
+
+    for (const notice of noticeList) {
+      if (!(await hasNotice(notice))) {
+        await createNotice({
           ...notice,
           contents: await this.getContents(scenario, notice),
-        };
-      },
-    );
-
-    // console.log(noticeList);
-
-    // 데이터베이스 저장
+        });
+        await this.scraper?.waitForTimeout(1000);
+      }
+    }
 
     // 사용자에게 알림
   }
@@ -97,7 +97,7 @@ class NoticeScraper extends Scraper<NoticeScript> {
 
       return contents;
     } catch (error) {
-      console.error(`${`[${notice.url}/getContents]`}${error}`);
+      console.error(`${`[${notice.url} getContents]`}${error}`);
       throw error;
     }
   }

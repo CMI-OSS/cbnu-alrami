@@ -13,7 +13,7 @@ const script = {
     const dateStrings = range.match(/(\d{4}년 \d{1,2}월 \d{1,2}일)/gm);
     const dates = dateStrings.map((v) => {
       const nums = v.match(/(\d{4})년 (\d{1,2})월 (\d{1,2})일/);
-      return new Date(nums[1], nums[2], nums[3]);
+      return new Date(nums[1], nums[2] - 1, nums[3]);
     });
     // weekmenu.startDay = new Date(dates[0]);
     // weekmenu.endDay = new Date(dates[1]);
@@ -53,22 +53,22 @@ const script = {
           let restaurant_name;
           switch (cafeteria) {
             case 0:
-              restaurant_name = "한빛 식당";
+              restaurant_name = "한빛식당";
               break;
             case 1:
-              restaurant_name = "별빛 식당";
+              restaurant_name = "별빛식당";
               break;
             case 2:
-              restaurant_name = "은하수 식당";
+              restaurant_name = "은하수식당";
               break;
           }
           let time;
           switch ($dateMenu.time) {
             case "점심식사":
-              time = 1;
+              time = 2;
               break;
             case "저녁식사":
-              time = 2;
+              time = 3;
               break;
           }
           const row = {
@@ -83,6 +83,7 @@ const script = {
                 ? "0" + (startDay.getDate() + day).toString()
                 : (startDay.getDate() + day).toString()
             }`,
+            day: ["월", "화", "수", "목", "금"][day],
             time,
           };
           /*const row = {

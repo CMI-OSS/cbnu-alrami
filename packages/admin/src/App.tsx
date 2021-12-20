@@ -1,6 +1,6 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Global } from "@emotion/react";
-import Home from "src/pages/Home";
+import ScraperPage from "src/pages/ScraperPage";
 import { Provider } from "react-redux";
 import getGlobalStyle from "@shared/styles/globalStyle";
 import getAdminStyle from "src/adminStyle";
@@ -14,8 +14,8 @@ function App() {
       <Global styles={getAdminStyle()} />
       <BrowserRouter>
         <Switch>
-          <Route path="/login" component={Login} />
-          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route path="/scraper" component={ScraperPage} />
         </Switch>
       </BrowserRouter>
     </Provider>

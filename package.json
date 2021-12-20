@@ -46,6 +46,7 @@
     "start:admin": "lerna run --scope admin start",
     "dev:admin": "lerna run --scope admin dev --stream",
     "build:admin": "lerna run --scope admin build",
+    "analyze:admin": "lerna run --scope admin build -- --analyze",
     "start:mobile": "lerna run --scope mobile start",
     "dev:mobile": "lerna run --scope mobile dev --stream",
     "build:mobile": "lerna run --scope mobile build --stream",

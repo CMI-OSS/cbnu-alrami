@@ -3,19 +3,19 @@ const scenarios = [
     id: 1,
     title: "개성재",
     tags: [ "테스트 태그" ],
-    status: "실행중",
+    status: "clean",
   },
   {
     id: 2,
     title: "양진재",
     tags: [ "테스트 태그" ],
-    status: "대기중",
+    status: "warning",
   },
   {
     id: 3,
     title: "양성재",
     tags: [ "테스트 태그" ],
-    status: "장애",
+    status: "error",
   },
 ];
 

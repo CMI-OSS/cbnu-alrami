@@ -14,7 +14,7 @@ const scenarios = [
       "보입니다",
     ],
     group: "전자정보대학",
-    status: "실행중",
+    status: "clean",
   },
   {
     id: 2,
@@ -22,7 +22,7 @@ const scenarios = [
     subTitle: "공지사항",
     tags: [ "전자정보대학" ],
     group: "전자정보대학",
-    status: "대기중",
+    status: "excluded",
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const scenarios = [
     subTitle: "공지사항",
     tags: [ "전자정보대학" ],
     group: "전자정보대학",
-    status: "장애",
+    status: "warning",
   },
   {
     id: 4,
@@ -38,7 +38,7 @@ const scenarios = [
     subTitle: "공지사항",
     tags: [ "전자정보대학" ],
     group: "전자정보대학",
-    status: "장애",
+    status: "error",
   },
   {
     id: 5,
@@ -46,7 +46,7 @@ const scenarios = [
     subTitle: "공지사항",
     tags: [ "전자정보대학" ],
     group: "전자정보대학",
-    status: "장애",
+    status: "error",
   },
   {
     id: 6,
@@ -54,7 +54,7 @@ const scenarios = [
     subTitle: "공지사항",
     tags: [ "전자정보대학" ],
     group: "전자정보대학",
-    status: "장애",
+    status: "error",
   },
   {
     id: 7,
@@ -62,7 +62,7 @@ const scenarios = [
     subTitle: "공지사항",
     tags: [ "사회과학대학" ],
     group: "사회과학대학",
-    status: "실행중",
+    status: "clean",
   },
   {
     id: 8,
@@ -70,7 +70,7 @@ const scenarios = [
     subTitle: "공지사항",
     tags: [ "사회과학대학" ],
     group: "사회과학대학",
-    status: "장애",
+    status: "error",
   },
   {
     id: 9,
@@ -78,7 +78,7 @@ const scenarios = [
     subTitle: "공지사항",
     tags: [ "사회과학대학" ],
     group: "사회과학대학",
-    status: "장애",
+    status: "error",
   },
   {
     id: 10,
@@ -86,7 +86,7 @@ const scenarios = [
     subTitle: "공지사항",
     tags: [ "인문대학" ],
     group: "인문대학",
-    status: "실행중",
+    status: "clean",
   },
 ];
 

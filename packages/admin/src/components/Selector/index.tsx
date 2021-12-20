@@ -26,16 +26,20 @@ export default function Selector() {
       dispatch(setStatus(StatusType.All));
       return;
     }
-    if (value === StatusType.Running) {
-      dispatch(setStatus(StatusType.Running));
+    if (value === StatusType.Clean) {
+      dispatch(setStatus(StatusType.Clean));
       return;
     }
-    if (value === StatusType.Waiting) {
-      dispatch(setStatus(StatusType.Waiting));
+    if (value === StatusType.Warning) {
+      dispatch(setStatus(StatusType.Warning));
       return;
     }
     if (value === StatusType.Error) {
       dispatch(setStatus(StatusType.Error));
+      return;
+    }
+    if (value === StatusType.Excluded) {
+      dispatch(setStatus(StatusType.Excluded));
     }
   };
 
@@ -71,9 +75,10 @@ export default function Selector() {
             id="statusSelector"
           >
             <option value={StatusType.All}>{StatusType.All}</option>
-            <option value={StatusType.Running}>{StatusType.Running}</option>
-            <option value={StatusType.Waiting}>{StatusType.Waiting}</option>
+            <option value={StatusType.Clean}>{StatusType.Clean}</option>
+            <option value={StatusType.Warning}>{StatusType.Warning}</option>
             <option value={StatusType.Error}>{StatusType.Error}</option>
+            <option value={StatusType.Excluded}>{StatusType.Excluded}</option>
           </select>
         </label>
       </li>

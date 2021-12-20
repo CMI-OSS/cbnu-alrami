@@ -111,7 +111,7 @@ export default () => css`
   }
   body {
     line-height: 1;
-    background-color: ${colors.$grey};
+    background-color: ${colors.$gray.$300};
   }
   ol,
   ul {

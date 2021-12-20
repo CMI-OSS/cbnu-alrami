@@ -4,7 +4,9 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+const isAnalyze = process.argv.includes('--analyze');
+const prod = process.env.NODE_ENV || 'production';
 
 module.exports = {
   devServer: {
@@ -14,14 +16,15 @@ module.exports = {
     open: true,
   },
   entry: {
-    main: "./src/index.tsx",
+    main: "./src/index",
   },
   output: {
-    filename: "[name].bundle.js",
-    chunkFilename: '[name].[hash].bundle.js',
+    filename: "[name].[chunkhash:8].bundle.js",
+    chunkFilename: '[name].[chunkhash:8].bundle.js',
     path: path.resolve(__dirname, "./build"),
+    clean: true
   },
-  devtool: "eval-cheap-source-map",
+  devtool:  prod? 'cheap-source-map': 'eval-cheap-source-map',
   resolve: {
     extensions: [ ".tsx", ".ts", ".js" ],
     alias: {
@@ -51,21 +54,12 @@ module.exports = {
       },
     ],
   },
-  performance: {
-    hints: false,
-    maxEntrypointSize: 512000,
-    maxAssetSize: 512000
-  },
-  optimization: {
-    minimizer: 
-     [ new OptimizeCSSAssetsPlugin() ]
-  },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new BundleAnalyzerPlugin()
+  ...isAnalyze? [ new BundleAnalyzerPlugin() ] : [],
+  new webpack.HotModuleReplacementPlugin(),
   ],
 };

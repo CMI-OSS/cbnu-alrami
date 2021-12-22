@@ -1,9 +1,9 @@
-import { ScenarioConfig } from "@shared/types";
+import { ScenarioType } from "@shared/types";
 import Card from "../ScenarioCard";
 import getStyle from "./style";
 
 type Props = {
-  scenarios: ScenarioConfig[];
+  scenarios: ScenarioType[];
 };
 
 function ScenarioList({ scenarios }: Props) {

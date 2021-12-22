@@ -1,32 +1,24 @@
-/* eslint-disable react/require-default-props */
-import { StatusType } from "src/store/statusType";
-import { ScenarioConfig } from "@shared/types";
+import { ScenarioType } from "@shared/types";
+import useQuery from "src/hooks/useQuery";
+import { getScnarioGroups } from "src/lib/scenario";
 import getStyle from "./style";
 import ScenarioList from "../ScenarioList";
 
 interface Props {
-  scenarios: ScenarioConfig[];
-  status?: StatusType;
+  scenarios: ScenarioType[];
 }
 
-function ScenarioGroupList({ scenarios, status = StatusType.All }: Props) {
+function ScenarioGroupList({ scenarios }: Props) {
+  const query = useQuery();
   const style = getStyle();
-
-  const getGroups = () => {
-    const groupSet = new Set<string>();
-    scenarios.forEach((scenario) => {
-      if (scenario.group) {
-        groupSet.add(scenario.group);
-      }
-    });
-    return Array.from(groupSet.keys());
-  };
+  const stateQuery = query.get("state") || "all";
+  const groupQuery = query.get("group") || "all";
 
   const getFilteredScenarios = (group?: string) => {
     return scenarios
       .filter((scenario) => {
-        if (status === StatusType.All) return true;
-        return scenario.status === status;
+        if (stateQuery === "all") return true;
+        return scenario.state === stateQuery;
       })
       .filter((scenario) => {
         if (!group) return true;
@@ -34,19 +26,23 @@ function ScenarioGroupList({ scenarios, status = StatusType.All }: Props) {
       });
   };
 
-  if (getGroups().length === 0)
+  if (getScnarioGroups(scenarios).length === 0)
     return <ScenarioList scenarios={getFilteredScenarios()} />;
 
   return (
     <>
-      {getGroups().map((group) => {
-        return (
-          <div className={style.groupContainer} key={group}>
-            <h2 className={style.groupTitle}>{group}</h2>
-            <ScenarioList scenarios={getFilteredScenarios(group)} />
-          </div>
-        );
-      })}
+      {getScnarioGroups(scenarios)
+        .filter((group) => groupQuery === "all" || groupQuery === group)
+        .map((group) => {
+          const scenarios = getFilteredScenarios(group);
+          if (scenarios.length === 0) return <></>;
+          return (
+            <div className={style.groupContainer} key={group}>
+              <h2 className={style.groupTitle}>{group}</h2>
+              <ScenarioList scenarios={scenarios} />
+            </div>
+          );
+        })}
     </>
   );
 }

@@ -4,14 +4,9 @@ import mockDomitoryRestaurantScenarios from "src/__mockData__/domitoryRestaurant
 import mockStudentScenarios from "src/__mockData__/studentRestaurantScenarios";
 import mockCollegeScheduleScenarios from "src/__mockData__/collegeScheduleScenarios";
 
+import { ScraperType } from "@shared/types";
+import { getScraperLabel } from "src/lib/scraper";
 import getStyle from "./style";
-
-export enum ScraperType {
-  Notice = "notice",
-  StudentCafeteria = "학생 식당",
-  DomitoryCafeteria = "기숙사 식당",
-  CollegeSchedule = "학사 일정",
-}
 
 interface Props {
   type: ScraperType;
@@ -21,18 +16,19 @@ export default function Scraper({ type }: Props) {
   const style = getStyle();
 
   const getMockScenarios = () => {
-    if (type === ScraperType.Notice) return mockNoticeScenarios;
-    if (type === ScraperType.DomitoryCafeteria)
-      return mockDomitoryRestaurantScenarios;
-    if (type === ScraperType.StudentCafeteria) return mockStudentScenarios;
+    if (type === "notice") return mockNoticeScenarios;
+    if (type === "domitoryCafeteria") return mockDomitoryRestaurantScenarios;
+    if (type === "studentCafeteria") return mockStudentScenarios;
 
     return mockCollegeScheduleScenarios;
   };
 
   return (
     <main className={style.main}>
-      <h1 className={style.mainTitle}>{type} 스크래퍼 관리보드</h1>
-      <ScenarioFilter isNotice={type === ScraperType.Notice} />
+      <h1 className={style.mainTitle}>
+        {getScraperLabel(type)} 스크래퍼 관리보드
+      </h1>
+      <ScenarioFilter isNotice={type === "notice"} />
       <ScenarioGroupList scenarios={getMockScenarios()} />
     </main>
   );

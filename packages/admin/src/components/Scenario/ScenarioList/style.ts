@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { hashClassNames } from "src/utils/hash";
+import { hashClassNames } from "src/lib/hash";
 
 export default () => {
   const hashedStyle = hashClassNames([ "card" ]);

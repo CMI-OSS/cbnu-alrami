@@ -1,6 +1,6 @@
 import { Route, RouteComponentProps } from "react-router-dom";
 import Navigation from "src/components/Navigation";
-import Scraper, { ScraperType } from "src/components/Scraper";
+import Scraper from "src/components/Scraper";
 
 export default function ScraperPage({ match }: RouteComponentProps) {
   return (
@@ -9,22 +9,22 @@ export default function ScraperPage({ match }: RouteComponentProps) {
       <Route
         exact
         path={`${match.path}/notice`}
-        render={() => <Scraper type={ScraperType.Notice} />}
+        render={() => <Scraper type="notice" />}
       />
       <Route
         exact
         path={`${match.path}/student`}
-        component={() => <Scraper type={ScraperType.StudentCafeteria} />}
+        component={() => <Scraper type="studentCafeteria" />}
       />
       <Route
         exact
         path={`${match.path}/domitory`}
-        component={() => <Scraper type={ScraperType.DomitoryCafeteria} />}
+        component={() => <Scraper type="domitoryCafeteria" />}
       />
       <Route
         exact
         path={`${match.path}/schedule`}
-        component={() => <Scraper type={ScraperType.CollegeSchedule} />}
+        component={() => <Scraper type="collegeSchedule" />}
       />
     </>
   );

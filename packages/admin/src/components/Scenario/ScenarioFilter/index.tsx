@@ -1,8 +1,9 @@
-import { StatusType } from "src/store/statusType";
 import { ChangeEvent } from "react";
-import { noticeGroupsMockData } from "src/__mockData__";
 import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
+import useQuery from "src/hooks/useQuery";
+import { getScnarioGroups } from "src/lib/scenario";
+import scenarios from "src/__mockData__/noticeScenarios";
 import getStyle from "./style";
 
 interface Props {
@@ -13,6 +14,7 @@ export default function ScenarioFilter({ isNotice }: Props) {
   const style = getStyle();
   const history = useHistory();
   const location = useLocation();
+  const query = useQuery();
 
   const getQueryParams = () => queryString.parse(location.search);
 
@@ -40,11 +42,12 @@ export default function ScenarioFilter({ isNotice }: Props) {
               onChange={handleGroupChange}
               className={style.select}
               id="groupSelector"
+              value={query.get("group") || "all"}
             >
-              <option value="모두보기" key="모두보기">
+              <option value="all" key="all">
                 모두
               </option>
-              {noticeGroupsMockData.map((group) => (
+              {getScnarioGroups(scenarios).map((group) => (
                 <option value={group} key={group}>
                   {group}
                 </option>
@@ -60,12 +63,13 @@ export default function ScenarioFilter({ isNotice }: Props) {
             onChange={handleStatusChange}
             className={style.select}
             id="statusSelector"
+            value={query.get("state") || "all"}
           >
-            <option value={StatusType.All}>{StatusType.All}</option>
-            <option value={StatusType.Clean}>{StatusType.Clean}</option>
-            <option value={StatusType.Warning}>{StatusType.Warning}</option>
-            <option value={StatusType.Error}>{StatusType.Error}</option>
-            <option value={StatusType.Excluded}>{StatusType.Excluded}</option>
+            <option value="all">전체</option>
+            <option value="clean">원활</option>
+            <option value="warning">경고</option>
+            <option value="error">장애</option>
+            <option value="excluded">배제</option>
           </select>
         </label>
       </li>

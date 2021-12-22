@@ -1,36 +1,29 @@
-import { Element, ScenarioConfig } from "@shared/types";
-import { StatusType } from "src/store/statusType";
+import { Element, ScenarioType, ScenarioStateType } from "@shared/types";
 import { cx } from "@emotion/css";
-import { useEffect, useState } from "react";
-import getStyle, { Colors } from "./style";
+import getStyle, { ColorType } from "./style";
 
 type Props = {
-  scenario: ScenarioConfig;
+  scenario: ScenarioType;
 };
 
 export default function ScenarioCard({ className, scenario }: Props & Element) {
-  const { title, subTitle, tags, status } = scenario;
-  const [ color, setColor ] = useState(Colors.Green);
+  const { title, subTitle, tags, state } = scenario;
 
-  const style = getStyle({ statusColor: color });
+  const colorMap = new Map<ScenarioStateType, ColorType>([
+    [ "clean", "green" ],
+    [ "warning", "yellow" ],
+    [ "error", "red" ],
+    [ "excluded", "green" ],
+  ]);
 
-  useEffect(() => {
-    if (status === StatusType.Clean) {
-      setColor(Colors.Green);
-      return;
-    }
-    if (status === StatusType.Warning) {
-      setColor(Colors.Yellow);
-      return;
-    }
-    if (status === StatusType.Error) {
-      setColor(Colors.Red);
-      return;
-    }
-    if (status === StatusType.Excluded) {
-      setColor(Colors.Gray);
-    }
-  }, [ status ]);
+  const stateLabelMap = new Map<ScenarioStateType, string>([
+    [ "clean", "원활" ],
+    [ "warning", "경고" ],
+    [ "error", "장애" ],
+    [ "excluded", "배제" ],
+  ]);
+
+  const style = getStyle({ stateColor: colorMap.get(state) || "green" });
 
   return (
     <div className={cx(style.scenarioCard, className)}>
@@ -40,7 +33,7 @@ export default function ScenarioCard({ className, scenario }: Props & Element) {
         <span className={style.tag} key={tagText}>{`# ${tagText}`}</span>
       ))}
       <div className={style.statusContainer}>
-        <span className={style.statusText}>{status}</span>
+        <span className={style.statusText}>{stateLabelMap.get(state)}</span>
         <div className={style.color}></div>
       </div>
     </div>

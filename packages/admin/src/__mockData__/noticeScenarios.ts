@@ -1,4 +1,6 @@
-const scenarios = [
+import { ScenarioType } from "@shared/types";
+
+const scenarios: ScenarioType[] = [
   {
     id: 1,
     title: "소프트웨어학과",
@@ -14,7 +16,7 @@ const scenarios = [
       "보입니다",
     ],
     group: "전자정보대학",
-    status: "clean",
+    state: "clean",
   },
   {
     id: 2,
@@ -22,7 +24,7 @@ const scenarios = [
     subTitle: "공지사항",
     tags: [ "전자정보대학" ],
     group: "전자정보대학",
-    status: "excluded",
+    state: "excluded",
   },
   {
     id: 3,
@@ -30,7 +32,7 @@ const scenarios = [
     subTitle: "공지사항",
     tags: [ "전자정보대학" ],
     group: "전자정보대학",
-    status: "warning",
+    state: "warning",
   },
   {
     id: 4,
@@ -38,7 +40,7 @@ const scenarios = [
     subTitle: "공지사항",
     tags: [ "전자정보대학" ],
     group: "전자정보대학",
-    status: "error",
+    state: "error",
   },
   {
     id: 5,
@@ -46,7 +48,7 @@ const scenarios = [
     subTitle: "공지사항",
     tags: [ "전자정보대학" ],
     group: "전자정보대학",
-    status: "error",
+    state: "error",
   },
   {
     id: 6,
@@ -54,7 +56,7 @@ const scenarios = [
     subTitle: "공지사항",
     tags: [ "전자정보대학" ],
     group: "전자정보대학",
-    status: "error",
+    state: "error",
   },
   {
     id: 7,
@@ -62,7 +64,7 @@ const scenarios = [
     subTitle: "공지사항",
     tags: [ "사회과학대학" ],
     group: "사회과학대학",
-    status: "clean",
+    state: "clean",
   },
   {
     id: 8,
@@ -70,7 +72,7 @@ const scenarios = [
     subTitle: "공지사항",
     tags: [ "사회과학대학" ],
     group: "사회과학대학",
-    status: "error",
+    state: "error",
   },
   {
     id: 9,
@@ -78,7 +80,7 @@ const scenarios = [
     subTitle: "공지사항",
     tags: [ "사회과학대학" ],
     group: "사회과학대학",
-    status: "error",
+    state: "error",
   },
   {
     id: 10,
@@ -86,7 +88,7 @@ const scenarios = [
     subTitle: "공지사항",
     tags: [ "인문대학" ],
     group: "인문대학",
-    status: "clean",
+    state: "clean",
   },
 ];
 

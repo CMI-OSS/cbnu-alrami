@@ -1,26 +1,23 @@
 import { css } from "@emotion/css";
 import { colors } from "@shared/styles/color";
-import { hashClassNames } from "src/utils/hash";
+import { hashClassNames } from "src/lib/hash";
 
-export enum Colors {
-  Green = "Green",
-  Yellow = "Yellow",
-  Red = "Red",
-  Gray = "Gray",
-}
+export type ColorType = "green" | "yellow" | "red" | "gray";
 
 interface Props {
-  statusColor: Colors;
+  stateColor: ColorType;
 }
 
-const colorSelector = (color: Colors) => {
-  if (color === Colors.Green) return colors.$googleGreen;
-  if (color === Colors.Yellow) return colors.$googleYellow;
-  if (color === Colors.Red) return colors.$googleRed;
-  return colors.$gray.$500;
+const colorSelector = (color: ColorType) => {
+  if (color === "green") return colors.$googleGreen;
+  if (color === "yellow") return colors.$googleYellow;
+  if (color === "red") return colors.$googleRed;
+  if (color === "gray") return colors.$gray.$500;
+
+  return "";
 };
 
-export default ({ statusColor }: Props) => {
+export default ({ stateColor }: Props) => {
   const { title, tag, statusText, statusContainer, color } = hashClassNames([
     "title",
     "tag",
@@ -68,7 +65,7 @@ export default ({ statusColor }: Props) => {
       width: 1rem;
       height: 1rem;
       border-radius: 1rem;
-      background-color: ${colorSelector(statusColor)};
+      background-color: ${colorSelector(stateColor)};
     }
 
     .${statusText} {

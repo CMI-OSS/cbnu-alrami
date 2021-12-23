@@ -19,7 +19,8 @@
   "scripts": {
     "dev": "webpack-dev-server --mode development",
     "build": "webpack --progress --mode production",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "analyze": "yarn build --analyze"
   },
   "bugs": {
     "url": "https://github.com/CMI-OSS/cbnu-alrami/issues"

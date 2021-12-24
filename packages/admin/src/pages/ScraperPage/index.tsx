@@ -14,17 +14,17 @@ export default function ScraperPage({ match }: RouteComponentProps) {
       <Route
         exact
         path={`${match.path}/student`}
-        component={() => <Scraper type="studentCafeteria" />}
+        render={() => <Scraper type="studentCafeteria" />}
       />
       <Route
         exact
         path={`${match.path}/domitory`}
-        component={() => <Scraper type="domitoryCafeteria" />}
+        render={() => <Scraper type="domitoryCafeteria" />}
       />
       <Route
         exact
         path={`${match.path}/schedule`}
-        component={() => <Scraper type="collegeSchedule" />}
+        render={() => <Scraper type="collegeSchedule" />}
       />
     </>
   );

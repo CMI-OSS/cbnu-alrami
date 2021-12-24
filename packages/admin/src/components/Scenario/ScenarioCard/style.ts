@@ -18,11 +18,11 @@ const colorSelector = (color: ColorType) => {
 };
 
 export default ({ stateColor }: Props) => {
-  const { title, tag, statusText, statusContainer, color } = hashClassNames([
+  const { title, tag, stateText, stateContainer, color } = hashClassNames([
     "title",
     "tag",
-    "statusText",
-    "statusContainer",
+    "stateText",
+    "stateContainer",
     "color",
   ]);
 
@@ -68,13 +68,13 @@ export default ({ stateColor }: Props) => {
       background-color: ${colorSelector(stateColor)};
     }
 
-    .${statusText} {
+    .${stateText} {
       margin-right: 0.3rem;
       font-size: 0.9rem;
       color: ${colors.$gray.$500};
     }
 
-    .${statusContainer} {
+    .${stateContainer} {
       display: flex;
       position: absolute;
       right: 1rem;
@@ -86,8 +86,8 @@ export default ({ stateColor }: Props) => {
     scenarioCard,
     title,
     tag,
-    statusText,
-    statusContainer,
+    stateText,
+    stateContainer,
     color,
   };
 };

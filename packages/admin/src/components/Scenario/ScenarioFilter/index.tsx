@@ -25,7 +25,7 @@ export default function ScenarioFilter({ isNotice }: Props) {
     history.push(`${location.pathname}?${query}`);
   };
 
-  const handleStatusChange = ({
+  const handleStateChange = ({
     target: { value },
   }: ChangeEvent<HTMLSelectElement>) => {
     const query = queryString.stringify({ ...getQueryParams(), state: value });
@@ -57,12 +57,12 @@ export default function ScenarioFilter({ isNotice }: Props) {
         </li>
       )}
       <li>
-        <label htmlFor="statusSelector">
+        <label htmlFor="stateSelector">
           상태 필터
           <select
-            onChange={handleStatusChange}
+            onChange={handleStateChange}
             className={style.select}
-            id="statusSelector"
+            id="stateSelector"
             value={query.get("state") || "all"}
           >
             <option value="all">전체</option>

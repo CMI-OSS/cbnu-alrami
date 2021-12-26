@@ -3,7 +3,7 @@ import getStyle from "./style";
 
 export default function Natigation() {
   const style = getStyle();
-  const menus = [
+  const MENUS = [
     {
       path: "/scraper/notice",
       label: "공지사항",
@@ -26,7 +26,7 @@ export default function Natigation() {
     <nav className={style.Navigation}>
       <ul className={style.sideNavUl}>
         <li className={style.logo}>CMI</li>
-        {menus.map(({ path, label }) => (
+        {MENUS.map(({ path, label }) => (
           <NavLink
             key={path}
             to={path}

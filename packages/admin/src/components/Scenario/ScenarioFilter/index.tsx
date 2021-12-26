@@ -2,7 +2,7 @@ import { ChangeEvent } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
 import useQuery from "src/hooks/useQuery";
-import { getScnarioGroups } from "src/lib/scenario";
+import { getScenarioGroups } from "src/lib/scenario";
 import scenarios from "src/__mockData__/noticeScenarios";
 import getStyle from "./style";
 
@@ -47,7 +47,7 @@ export default function ScenarioFilter({ isNotice }: Props) {
               <option value="all" key="all">
                 모두
               </option>
-              {getScnarioGroups(scenarios).map((group) => (
+              {getScenarioGroups(scenarios).map((group) => (
                 <option value={group} key={group}>
                   {group}
                 </option>

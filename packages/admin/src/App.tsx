@@ -4,7 +4,7 @@ import ScraperPage from "src/pages/ScraperPage";
 import { Provider } from "react-redux";
 import getGlobalStyle from "@shared/styles/globalStyle";
 import getAdminStyle from "src/adminStyle";
-import Login from "./pages/Login";
+import LoginPage from "./pages/Login";
 import { store } from "./store";
 
 function App() {
@@ -14,9 +14,8 @@ function App() {
       <Global styles={getAdminStyle()} />
       <BrowserRouter>
         <Switch>
-          <Route exact path="/login" component={Login} />
-          <Route path="/scraper" component={ScraperPage} />
-          <Route path="/" component={ScraperPage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route path={[ "/", "/scraper" ]} component={ScraperPage} />
         </Switch>
       </BrowserRouter>
     </Provider>

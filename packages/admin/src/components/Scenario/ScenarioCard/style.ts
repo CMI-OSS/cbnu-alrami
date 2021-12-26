@@ -14,7 +14,7 @@ const colorSelector = (color: ColorType) => {
   if (color === "red") return colors.$googleRed;
   if (color === "gray") return colors.$gray.$500;
 
-  return "";
+  return colors.$black;
 };
 
 export default ({ stateColor }: Props) => {

@@ -9,16 +9,17 @@ import { getScraperLabel } from "src/lib/scraper";
 import getStyle from "./style";
 
 interface Props {
-  type: ScraperType;
+  scraperType: ScraperType;
 }
 
-export default function Scraper({ type }: Props) {
+export default function Scraper({ scraperType }: Props) {
   const style = getStyle();
 
   const getMockScenarios = () => {
-    if (type === "notice") return mockNoticeScenarios;
-    if (type === "domitoryCafeteria") return mockDomitoryRestaurantScenarios;
-    if (type === "studentCafeteria") return mockStudentScenarios;
+    if (scraperType === "notice") return mockNoticeScenarios;
+    if (scraperType === "domitoryCafeteria")
+      return mockDomitoryRestaurantScenarios;
+    if (scraperType === "studentCafeteria") return mockStudentScenarios;
 
     return mockCollegeScheduleScenarios;
   };
@@ -26,9 +27,9 @@ export default function Scraper({ type }: Props) {
   return (
     <main className={style.main}>
       <h1 className={style.mainTitle}>
-        {getScraperLabel(type)} 스크래퍼 관리보드
+        {getScraperLabel(scraperType)} 스크래퍼 관리보드
       </h1>
-      <ScenarioFilter isNotice={type === "notice"} />
+      <ScenarioFilter isNotice={scraperType === "notice"} />
       <ScenarioGroupList scenarios={getMockScenarios()} />
     </main>
   );

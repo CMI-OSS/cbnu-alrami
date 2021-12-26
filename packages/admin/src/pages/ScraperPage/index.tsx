@@ -1,30 +1,30 @@
-import { Route, RouteComponentProps } from "react-router-dom";
+import { Route } from "react-router-dom";
 import Navigation from "src/components/Navigation";
 import Scraper from "src/components/Scraper";
 
-export default function ScraperPage({ match }: RouteComponentProps) {
+export default function ScraperPage() {
   return (
     <>
       <Navigation />
       <Route
         exact
-        path={`${match.path}/notice`}
-        render={() => <Scraper type="notice" />}
+        path="/scraper/notice"
+        render={() => <Scraper scraperType="notice" />}
       />
       <Route
         exact
-        path={`${match.path}/student`}
-        render={() => <Scraper type="studentCafeteria" />}
+        path="/scraper/student"
+        render={() => <Scraper scraperType="studentCafeteria" />}
       />
       <Route
         exact
-        path={`${match.path}/domitory`}
-        render={() => <Scraper type="domitoryCafeteria" />}
+        path="/scraper/domitory"
+        render={() => <Scraper scraperType="domitoryCafeteria" />}
       />
       <Route
         exact
-        path={`${match.path}/schedule`}
-        render={() => <Scraper type="collegeSchedule" />}
+        path="/scraper/schedule"
+        render={() => <Scraper scraperType="collegeSchedule" />}
       />
     </>
   );

@@ -1,6 +1,6 @@
 import { ScenarioType } from "@shared/types";
 import useQuery from "src/hooks/useQuery";
-import { getScnarioGroups } from "src/lib/scenario";
+import { getScenarioGroups } from "src/lib/scenario";
 import getStyle from "./style";
 import ScenarioList from "../ScenarioList";
 
@@ -26,12 +26,12 @@ function ScenarioGroupList({ scenarios }: Props) {
       });
   };
 
-  if (getScnarioGroups(scenarios).length === 0)
+  if (getScenarioGroups(scenarios).length === 0)
     return <ScenarioList scenarios={getFilteredScenarios()} />;
 
   return (
     <>
-      {getScnarioGroups(scenarios)
+      {getScenarioGroups(scenarios)
         .filter((group) => groupQuery === "all" || groupQuery === group)
         .map((group) => {
           const scenarios = getFilteredScenarios(group);

@@ -27,7 +27,6 @@ export default () => {
     }
 
     .${sideNavLi} {
-      all: unset;
       margin-left: 0.2rem;
       margin-top: 1.5rem;
       font-size: 1.2rem;

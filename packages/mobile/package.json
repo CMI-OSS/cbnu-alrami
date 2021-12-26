@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --mode development",
-    "build": "webpack --progress --mode production"
+    "build": "webpack --progress --mode production",
+    "analyze": "yarn build --analyze"
   },
   "dependencies": {
     "react": "^17.0.2",

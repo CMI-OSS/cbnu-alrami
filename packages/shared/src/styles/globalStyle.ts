@@ -141,4 +141,8 @@ export default () => css`
   * {
     box-sizing: border-box;
   }
+
+  a {
+    all: unset;
+  }
 `;

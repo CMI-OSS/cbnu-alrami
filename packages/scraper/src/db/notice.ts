@@ -44,4 +44,3 @@ export async function hasNotice({ site_id, title, url }: Notice) {
     throw error;
   }
 }
-

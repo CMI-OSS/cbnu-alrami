@@ -1,13 +1,12 @@
 import { css } from "@emotion/css";
 import { colors } from "@shared/styles/color";
-import { hashClassNames } from "src/utils/hash";
+import { hashClassNames } from "src/lib/hash";
 
 export default () => {
-  const { activated, sideNavUl, sideNavLi, insideBtn, logo } = hashClassNames([
+  const { activated, sideNavUl, sideNavLi, logo } = hashClassNames([
     "activated",
     "sideNavUl",
     "sideNavLi",
-    "insideBtn",
     "logo",
   ]);
 
@@ -28,20 +27,11 @@ export default () => {
     }
 
     .${sideNavLi} {
+      margin-left: 0.2rem;
       margin-top: 1.5rem;
-      font-size: 1.3rem;
-    }
-
-    .${logo} {
-      font-size: 1.3rem;
-      font-weight: bold;
-    }
-
-    .${insideBtn} {
       font-size: 1.2rem;
       font-weight: 200;
       cursor: pointer;
-      border: none;
       background-color: transparent;
 
       &:hover {
@@ -50,11 +40,16 @@ export default () => {
       }
     }
 
+    .${logo} {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
     .${activated} {
       font-weight: 600;
       color: ${colors.$darkNavy};
     }
   `;
 
-  return { Navigation, activated, sideNavUl, sideNavLi, logo, insideBtn };
+  return { Navigation, activated, sideNavUl, sideNavLi, logo };
 };

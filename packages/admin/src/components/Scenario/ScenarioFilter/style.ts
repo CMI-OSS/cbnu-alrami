@@ -1,6 +1,6 @@
 import { css } from "@emotion/css";
 import { colors } from "@shared/styles/color";
-import { hashClassNames } from "src/utils/hash";
+import { hashClassNames } from "src/lib/hash";
 
 export default () => {
   const hashedStyle = hashClassNames([ "select", "label", "arrowIcon" ]);

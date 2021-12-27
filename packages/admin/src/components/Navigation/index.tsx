@@ -1,37 +1,40 @@
-import { ScraperType } from "src/store/scraperType";
-import { useAppDispatch, useAppSelector } from "src/store";
-import { setScraper, view } from "src/store/viewSlice";
-import { cx } from "@emotion/css";
+import { NavLink } from "react-router-dom";
 import getStyle from "./style";
 
 export default function Natigation() {
-  const { scraper } = useAppSelector(view);
-  const dispatch = useAppDispatch();
-
   const style = getStyle();
-  const sidebarMenus = [
-    ScraperType.Notice,
-    ScraperType.StudentRestaurant,
-    ScraperType.DomitoryRestaurant,
-    ScraperType.CollegeSchedule,
+  const MENUS = [
+    {
+      path: "/scraper/notice",
+      label: "공지사항",
+    },
+    {
+      path: "/scraper/student",
+      label: "학생 식당",
+    },
+    {
+      path: "/scraper/domitory",
+      label: "기숙사 식당",
+    },
+    {
+      path: "/scraper/schedule",
+      label: "학사일정",
+    },
   ];
 
   return (
     <nav className={style.Navigation}>
       <ul className={style.sideNavUl}>
         <li className={style.logo}>CMI</li>
-        {sidebarMenus.map((item) => (
-          <li key={item} className={style.sideNavLi}>
-            <button
-              type="button"
-              onClick={() => dispatch(setScraper(item))}
-              className={cx(style.insideBtn, {
-                [style.activated]: item === scraper,
-              })}
-            >
-              {item}
-            </button>
-          </li>
+        {MENUS.map(({ path, label }) => (
+          <NavLink
+            key={path}
+            to={path}
+            className={style.sideNavLi}
+            activeClassName={style.activated}
+          >
+            {label}
+          </NavLink>
         ))}
       </ul>
     </nav>

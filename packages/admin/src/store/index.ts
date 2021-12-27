@@ -1,12 +1,9 @@
 import { configureStore, MiddlewareArray } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import logger from "./loggerMiddleware";
-import { viewSlice } from "./viewSlice";
 
 export const store = configureStore({
-  reducer: {
-    view: viewSlice.reducer,
-  },
+  reducer: {},
   middleware: new MiddlewareArray().concat(logger),
   devTools: process.env.NODE_ENV !== "production",
 });

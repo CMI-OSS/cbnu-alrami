@@ -3,10 +3,10 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
-const isAnalyze = process.argv.includes('--analyze');
-const prod = process.env.NODE_ENV || 'production';
+const isAnalyze = process.argv.includes("--analyze");
+const prod = process.env.NODE_ENV || "production";
 
 module.exports = {
   devServer: {
@@ -19,12 +19,13 @@ module.exports = {
     main: "./src/index",
   },
   output: {
+    publicPath: "/",
     filename: "[name].[chunkhash:8].bundle.js",
-    chunkFilename: '[name].[chunkhash:8].bundle.js',
+    chunkFilename: "[name].[chunkhash:8].bundle.js",
     path: path.resolve(__dirname, "./build"),
-    clean: true
+    clean: true,
   },
-  devtool:  prod? 'cheap-source-map': 'eval-cheap-source-map',
+  devtool: prod ? "cheap-source-map" : "eval-cheap-source-map",
   resolve: {
     extensions: [ ".tsx", ".ts", ".js" ],
     alias: {
@@ -59,7 +60,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),
-  ...isAnalyze? [ new BundleAnalyzerPlugin() ] : [],
-  new webpack.HotModuleReplacementPlugin(),
+    ...(isAnalyze ? [ new BundleAnalyzerPlugin() ] : []),
+    new webpack.HotModuleReplacementPlugin(),
   ],
 };

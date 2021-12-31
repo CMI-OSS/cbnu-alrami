@@ -2,6 +2,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { Global } from "@emotion/react";
 import ScraperPage from "src/pages/ScraperPage";
 import { Provider } from "react-redux";
+import { hot } from "react-hot-loader";
 import getGlobalStyle from "@shared/styles/globalStyle";
 import getAdminStyle from "src/adminStyle";
 import LoginPage from "./pages/Login";
@@ -23,4 +24,4 @@ function App() {
   );
 }
 
-export default App;
+export default hot(module)(App);

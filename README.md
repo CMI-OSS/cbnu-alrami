@@ -15,3 +15,6 @@
 <img src="https://user-images.githubusercontent.com/49256790/143902573-6da748ac-40fa-4613-89cd-b582e31686f3.png" width="150px">
 </a>
 </p>
+
+## 프로젝트 세팅
+`yarn bootstrap` # 각 패키지의 모든 의존성이 설치됩니다

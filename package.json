@@ -60,8 +60,8 @@
     "lint": "yarn eslint .",
     "lint:fix": "yarn eslint --fix .",
     "format": "yarn prettier-eslint --write \"**/*.js\" \"**/*.ts\" \"**/*.jsx\" \"**/*.tsx\" --ignore-path .gitignore",
-    "lerna": "lerna",
-    "convert": "lerna link convert"
+    "convert": "lerna link convert",
+    "bootstrap": "lerna bootstrap"
   },
   "dependencies": {
     "admin": "file:packages/admin",

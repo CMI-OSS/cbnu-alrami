@@ -1,0 +1,6 @@
+@use "../../../assets/styles/mixin.scss" as *;
+
+.notice {
+  @include page-height;
+  overflow-y: auto;
+}

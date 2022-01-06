@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 const webpack = require("webpack");
@@ -41,8 +42,18 @@ module.exports = {
         use: ["babel-loader", "ts-loader"],
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        test: /\.s[ac]ss$/,
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader", options: { modules: true } },
+          {
+            loader: "sass-loader",
+            options: {
+              implementation: require("sass"),
+              webpackImporter: false,
+            },
+          },
+        ],
       },
       {
         test: /\.jfif$/,

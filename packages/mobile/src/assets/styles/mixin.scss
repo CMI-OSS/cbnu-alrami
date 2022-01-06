@@ -1,0 +1,5 @@
+@use "./variables.scss" as *;
+
+@mixin page-height {
+  height: calc(100vh - $footer-height);
+}

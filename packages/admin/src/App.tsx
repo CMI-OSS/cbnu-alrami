@@ -1,4 +1,4 @@
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Global } from "@emotion/react";
 import ScraperPage from "src/pages/ScraperPage";
 import { Provider } from "react-redux";
@@ -14,11 +14,11 @@ function App() {
       <Global styles={getGlobalStyle()} />
       <Global styles={getAdminStyle()} />
       <BrowserRouter>
-        <Switch>
-          <Route exact path="/login" component={LoginPage} />
-          <Route path="/scraper" component={ScraperPage} />
-          <Redirect to="/scraper/notice" />
-        </Switch>
+        <Routes>
+          <Route path="/login" element={<LoginPage/>} />
+          <Route path="/scraper/*" element={<ScraperPage/>}/>
+          <Route path="*" element={<Navigate to="/scraper/notice" />}/>
+        </Routes>
       </BrowserRouter>
     </Provider>
   );

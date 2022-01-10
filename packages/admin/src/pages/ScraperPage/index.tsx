@@ -1,31 +1,18 @@
-import { Route } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Navigation from "src/components/Navigation";
 import Scraper from "src/components/Scraper";
 
 export default function ScraperPage() {
+
+  const location = useLocation();
+  
   return (
     <>
       <Navigation />
-      <Route
-        exact
-        path="/scraper/notice"
-        render={() => <Scraper scraperType="notice" />}
-      />
-      <Route
-        exact
-        path="/scraper/student"
-        render={() => <Scraper scraperType="studentCafeteria" />}
-      />
-      <Route
-        exact
-        path="/scraper/domitory"
-        render={() => <Scraper scraperType="domitoryCafeteria" />}
-      />
-      <Route
-        exact
-        path="/scraper/schedule"
-        render={() => <Scraper scraperType="collegeSchedule" />}
-      />
+      {location.pathname === '/scraper/notice' && <Scraper scraperType="notice" />}
+      {location.pathname === '/scraper/student' && <Scraper scraperType="studentCafeteria" />}
+      {location.pathname === '/scraper/domitory' && <Scraper scraperType="domitoryCafeteria" />}
+      {location.pathname === '/scraper/schedule' && <Scraper scraperType="collegeSchedule" />}
     </>
   );
 }

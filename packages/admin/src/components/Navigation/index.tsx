@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import getStyle from "./style";
-import { cx } from "@emotion/css";
 
 export default function Natigation() {
   const style = getStyle();
@@ -31,7 +30,7 @@ export default function Natigation() {
           <NavLink
             key={path}
             to={path}
-            className={cx(style.sideNavLi, style.activated)}
+            className={({isActive}) => style.sideNavLi + (isActive? ` ${style.activated}` : "")}
           >
             {label}
           </NavLink>

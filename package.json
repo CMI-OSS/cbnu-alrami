@@ -44,6 +44,7 @@
     "webpack-dev-server": "^4.6.0"
   },
   "scripts": {
+    "preinstall": "yarn convert",
     "start:admin": "lerna run --scope admin start",
     "dev:admin": "lerna run --scope admin dev --stream",
     "build:admin": "lerna run --scope admin build",

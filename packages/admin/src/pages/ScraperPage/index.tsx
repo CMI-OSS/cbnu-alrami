@@ -1,4 +1,4 @@
-import { Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Navigation from "src/components/Navigation";
 import Scraper from "src/components/Scraper";
 
@@ -6,26 +6,12 @@ export default function ScraperPage() {
   return (
     <>
       <Navigation />
-      <Route
-        exact
-        path="/scraper/notice"
-        render={() => <Scraper scraperType="notice" />}
-      />
-      <Route
-        exact
-        path="/scraper/student"
-        render={() => <Scraper scraperType="studentCafeteria" />}
-      />
-      <Route
-        exact
-        path="/scraper/domitory"
-        render={() => <Scraper scraperType="domitoryCafeteria" />}
-      />
-      <Route
-        exact
-        path="/scraper/schedule"
-        render={() => <Scraper scraperType="collegeSchedule" />}
-      />
+      <Routes>
+        <Route path="/notice" element={<Scraper scraperType="notice" />} />
+        <Route path="/student" element={<Scraper scraperType="studentCafeteria" />} />
+        <Route path="/domitory" element={<Scraper scraperType="domitoryCafeteria" />} />
+        <Route path="/schedule" element={ <Scraper scraperType="collegeSchedule" />} />
+      </Routes>
     </>
   );
 }

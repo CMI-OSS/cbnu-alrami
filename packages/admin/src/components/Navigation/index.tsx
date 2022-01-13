@@ -30,8 +30,7 @@ export default function Natigation() {
           <NavLink
             key={path}
             to={path}
-            className={style.sideNavLi}
-            activeClassName={style.activated}
+            className={({isActive}) => style.sideNavLi + (isActive? ` ${style.activated}` : "")}
           >
             {label}
           </NavLink>

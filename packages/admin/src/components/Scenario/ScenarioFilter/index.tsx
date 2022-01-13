@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useNavigate} from "react-router-dom";
 import queryString from "query-string";
 import useQuery from "src/hooks/useQuery";
 import { getScenarioGroups } from "src/lib/scenario";
@@ -12,7 +12,7 @@ interface Props {
 
 export default function ScenarioFilter({ isNotice }: Props) {
   const style = getStyle();
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
   const query = useQuery();
 
@@ -22,14 +22,14 @@ export default function ScenarioFilter({ isNotice }: Props) {
     target: { value },
   }: ChangeEvent<HTMLSelectElement>) => {
     const query = queryString.stringify({ ...getQueryParams(), group: value });
-    history.push(`${location.pathname}?${query}`);
+    navigate(`${location.pathname}?${query}`);
   };
 
   const handleStateChange = ({
     target: { value },
   }: ChangeEvent<HTMLSelectElement>) => {
     const query = queryString.stringify({ ...getQueryParams(), state: value });
-    history.push(`${location.pathname}?${query}`);
+    navigate(`${location.pathname}?${query}`);
   };
 
   return (

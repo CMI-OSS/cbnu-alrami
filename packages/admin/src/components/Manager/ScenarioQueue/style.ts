@@ -17,7 +17,7 @@ export default () => {
     position: relative;
     width: 32rem;
     min-height: 16rem;
-    margin: 0 0 2rem 2rem;
+    margin: 0 7rem 2rem 0;
     padding: 1.5rem;
     box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
       rgba(17, 17, 26, 0.1) 0px 0px 8px;
@@ -33,11 +33,10 @@ export default () => {
       margin: auto 0;
       text-align: center;
       .${prev}, .${next} {
-        margin-top: 1.3rem;
         font-size: 1.3rem;
         color: ${colors.$gray.$400};
-        &:first-child {
-          margin-top: 0;
+        &:not(:first-child) {
+          margin-top: 1.3rem;
         }
       }
       .${current} {

@@ -12,10 +12,8 @@ export default () => {
   const excutionLog = css`
     display: flex;
     flex-direction: column;
-    position: relative;
     width: 43rem;
     min-height: 16rem;
-    margin: 0 0 2rem 7rem;
     padding: 1.5rem;
     box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
       rgba(17, 17, 26, 0.1) 0px 0px 8px;
@@ -33,7 +31,6 @@ export default () => {
       .${log} {
         margin: 0.1rem 0;
         font-size: 1rem;
-        line-break: auto;
       }
     }
   `;

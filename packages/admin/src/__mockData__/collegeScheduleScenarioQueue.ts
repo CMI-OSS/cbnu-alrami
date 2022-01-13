@@ -1,4 +1,4 @@
-import { ScenarioQueueType, ExcutionLogType } from "@shared/types";
+import { ScenarioQueueType, ExcutionLogType } from "src/types";
 
 const queue: ScenarioQueueType[] = [
   {
@@ -14,14 +14,14 @@ const queue: ScenarioQueueType[] = [
 ];
 
 const log: ExcutionLogType = {
-  scraper: "학사일정 목록",
-  result: "스크래핑 성공 및 종료",
+  scraperState: "running",
+  scenarioState: "clean",
+  scenarioResult: "success",
   commands: [
     "GITHUB_TOKEN Permissions",
     "Secret source: Actions",
     "Prepare workflow directory",
     "Prepare all required actions",
-    "Getting action download info",
     "Download action repository 'actions/checkout@v12' (SHA:ec3a7ce1137a93b817d10a272cb61118579)",
   ],
 };

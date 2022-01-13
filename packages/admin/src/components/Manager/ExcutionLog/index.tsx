@@ -1,4 +1,4 @@
-import { ExcutionLogType } from "@shared/types";
+import { ExcutionLogType } from "src/types";
 import getStyle from "./style";
 
 interface Props {

@@ -4,14 +4,14 @@ import { FaPlay, FaPause, FaStop } from "react-icons/fa";
 import { MdReplay } from "react-icons/md";
 
 import { cx } from "@emotion/css";
-import { ScenarioQueue, ExcutionLog } from "..";
-import Tooltip from "../../Tooltip";
 import {
   noticeScenarioQueue,
   studentScenarioQueue,
   domitoryScenarioQueue,
   scheduleScenarioQueue,
-} from "../../../__mockData__";
+} from "src/__mockData__";
+import { ScenarioQueue, ExcutionLog } from "..";
+import Tooltip from "../../Tooltip";
 import getStyle from "./style";
 
 interface matchProps {
@@ -19,14 +19,7 @@ interface matchProps {
 }
 
 export default function ScraperManager() {
-  const initialState = {
-    isPlay: false,
-    isPause: false,
-    isStop: false,
-    isReplay: false,
-  };
-
-  const [ buttonState, setButtonState ] = useState(initialState);
+  const [ scraperState, setScraperState ] = useState("");
   const match = useRouteMatch<matchProps>("/scraper/:scraperType");
   const scraperType = match?.params.scraperType;
   const style = getStyle();
@@ -40,43 +33,27 @@ export default function ScraperManager() {
   };
 
   const startScraping = () => {
-    if (!buttonState.isPlay)
-      setButtonState({
-        isPlay: true,
-        isPause: false,
-        isStop: false,
-        isReplay: false,
-      });
+    if (
+      !(
+        scraperState === "start" ||
+        scraperState === "stop" ||
+        scraperState === "restart"
+      )
+    )
+      setScraperState("start");
   };
 
   const pauseScraping = () => {
-    if (!buttonState.isPause)
-      setButtonState({
-        isPlay: false,
-        isPause: true,
-        isStop: false,
-        isReplay: false,
-      });
+    if (!(scraperState === "pause" || scraperState === "stop"))
+      setScraperState("pause");
   };
 
   const stopScraping = () => {
-    if (!buttonState.isStop)
-      setButtonState({
-        isPlay: true,
-        isPause: true,
-        isStop: true,
-        isReplay: false,
-      });
+    if (scraperState !== "stop") setScraperState("stop");
   };
 
   const restartScraping = () => {
-    if (!buttonState.isReplay)
-      setButtonState({
-        isPlay: true,
-        isPause: false,
-        isStop: false,
-        isReplay: true,
-      });
+    if (scraperState !== "restart") setScraperState("restart");
   };
 
   return (
@@ -87,7 +64,10 @@ export default function ScraperManager() {
           <button type="button" className={style.button}>
             <FaPlay
               className={cx(style.play, {
-                [style.disabled]: buttonState.isPlay,
+                [style.disabled]:
+                  scraperState === "start" ||
+                  scraperState === "stop" ||
+                  scraperState === "restart",
               })}
               onClick={startScraping}
             />
@@ -98,7 +78,8 @@ export default function ScraperManager() {
           <button type="button" className={style.button}>
             <FaPause
               className={cx(style.pause, {
-                [style.disabled]: buttonState.isPause,
+                [style.disabled]:
+                  scraperState === "pause" || scraperState === "stop",
               })}
               onClick={pauseScraping}
             />
@@ -108,7 +89,7 @@ export default function ScraperManager() {
           <button type="button" className={style.button}>
             <FaStop
               className={cx(style.stop, {
-                [style.disabled]: buttonState.isStop,
+                [style.disabled]: scraperState === "stop",
               })}
               onClick={stopScraping}
             />
@@ -118,7 +99,7 @@ export default function ScraperManager() {
           <button type="button" className={style.button}>
             <MdReplay
               className={cx(style.replay, {
-                [style.disabled]: buttonState.isReplay,
+                [style.disabled]: scraperState === "restart",
               })}
               onClick={restartScraping}
             />

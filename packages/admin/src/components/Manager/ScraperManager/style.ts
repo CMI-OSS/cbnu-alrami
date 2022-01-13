@@ -31,12 +31,12 @@ export default () => {
 
   const manager = css`
     max-width: 84rem;
-    margin: 0 3rem 4.5rem 3rem;
+    margin: 0 3rem 4.5rem;
 
     .${managerHeader} {
       display: flex;
       height: 2.3rem;
-      margin: 0 0 5rem 0;
+      margin-bottom: 5rem;
       .${managerTitle} {
         height: fit-content;
         font-size: 2.3rem;
@@ -63,7 +63,7 @@ export default () => {
             /* bottom: 100%;
             left: 50%; */
             min-width: 6rem;
-            width: fit-content;
+            /* width: fit-content; */
             padding: 0.5rem;
             border-radius: 6px;
             background-color: ${colors.$darkMode};
@@ -100,10 +100,10 @@ export default () => {
     }
     .${managerBox} {
       display: flex;
-      flex-direction: row;
       justify-content: left;
       flex-wrap: wrap;
       align-items: flex-start;
+      margin: 0 0 2rem 2rem;
     }
   `;
 

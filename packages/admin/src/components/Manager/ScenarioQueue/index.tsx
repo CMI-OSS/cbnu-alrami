@@ -1,4 +1,4 @@
-import { ScenarioQueueType } from "@shared/types";
+import { ScenarioQueueType } from "src/types";
 import getStyle from "./style";
 
 interface Props {

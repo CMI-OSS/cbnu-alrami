@@ -6,6 +6,7 @@ import mockCollegeScheduleScenarios from "src/__mockData__/collegeScheduleScenar
 
 import { ScraperType } from "@shared/types";
 import { getScraperLabel } from "src/lib/scraper";
+import { ScraperManager } from "../Manager";
 import getStyle from "./style";
 
 interface Props {
@@ -29,6 +30,8 @@ export default function Scraper({ scraperType }: Props) {
       <h1 className={style.mainTitle}>
         {getScraperLabel(scraperType)} 스크래퍼 관리보드
       </h1>
+      <ScraperManager />
+      <h2 className={style.scenarioTitle}>시나리오 그룹 리스트</h2>
       <ScenarioFilter isNotice={scraperType === "notice"} />
       <ScenarioGroupList scenarios={getMockScenarios()} />
     </main>

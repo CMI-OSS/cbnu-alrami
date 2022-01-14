@@ -12,6 +12,7 @@ const colors = {
   $googleYellow: "#F3B606",
   $googleGreen: "#31A350",
   $darkNavy: "#091E42",
+  $darkMode: "#292a2d",
 };
 
 export { colors };

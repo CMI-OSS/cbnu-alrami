@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useRouteMatch } from "react-router-dom";
 import { FaPlay, FaPause, FaStop } from "react-icons/fa";
 import { MdReplay } from "react-icons/md";
 
@@ -10,24 +9,23 @@ import {
   domitoryScenarioQueue,
   scheduleScenarioQueue,
 } from "src/__mockData__";
+import { ScraperType } from "@shared/types";
 import { ScenarioQueue, ExcutionLog } from "..";
 import Tooltip from "../../Tooltip";
 import getStyle from "./style";
 
-interface matchProps {
-  scraperType: string;
+interface Props {
+  scraperType: ScraperType;
 }
 
-export default function ScraperManager() {
+export default function ScraperManager({ scraperType }: Props) {
   const [ scraperState, setScraperState ] = useState("");
-  const match = useRouteMatch<matchProps>("/scraper/:scraperType");
-  const scraperType = match?.params.scraperType;
   const style = getStyle();
 
   const getMockScenarioQueue = () => {
     if (scraperType === "notice") return noticeScenarioQueue;
-    if (scraperType === "domitory") return domitoryScenarioQueue;
-    if (scraperType === "student") return studentScenarioQueue;
+    if (scraperType === "domitoryCafeteria") return domitoryScenarioQueue;
+    if (scraperType === "studentCafeteria") return studentScenarioQueue;
 
     return scheduleScenarioQueue;
   };

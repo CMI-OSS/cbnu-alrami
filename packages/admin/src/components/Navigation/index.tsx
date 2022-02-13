@@ -5,8 +5,7 @@ import getStyle from "./style";
 
 export default function Natigation() {
   const isLoginMatch = useMatch("/login");
-  const [ isBoardActive, setBoardActive ] = useState(false);
-  const [ isScraperActive, setScraperActive ] = useState(false);
+  const [ active, setActive ] = useState(-1);
   const style = getStyle();
   const SCRAPER_MENUS = [
     {
@@ -41,50 +40,38 @@ export default function Natigation() {
   return isLoginMatch ? (
     <></>
   ) : (
-    <>
-      <nav className={style.Navigation}>
-        <ul className={style.sideNavUl}>
-          <li className={style.logo}>CMI</li>
-          <ul>
-            {[ BOARD_MENUS, SCRAPER_MENUS ].map((menu, idx) => (
-              <li className={style.contentNavLi}>
-                <p className={style.detailLogo}>
-                  {!idx ? "게시판" : "스크래퍼"}
-                </p>
-                <ul
-                  className={cx(style.detailNavUl, {
-                    [style.contentsActivated]: !idx
-                      ? isBoardActive
-                      : isScraperActive,
-                  })}
-                >
-                  {menu.map(({ path, label }) => (
-                    <NavLink
-                      key={path}
-                      to={path}
-                      className={({ isActive }) => {
-                        if (!idx) {
-                          setBoardActive(true);
-                          setScraperActive(false);
-                        } else {
-                          setBoardActive(false);
-                          setScraperActive(true);
-                        }
-                        return (
-                          style.sideNavLi +
-                          (isActive ? ` ${style.activated}` : "")
-                        );
-                      }}
-                    >
-                      {label}
-                    </NavLink>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ul>
+    <nav className={style.Navigation}>
+      <ul className={style.sideNavUl}>
+        <li className={style.logo}>CMI</li>
+        <ul>
+          {[ BOARD_MENUS, SCRAPER_MENUS ].map((menu, idx) => (
+            <li className={style.contentNavLi}>
+              <p className={style.detailLogo}>{!idx ? "게시판" : "스크래퍼"}</p>
+              <ul
+                className={cx(style.detailNavUl, {
+                  [style.contentsActivated]: idx === active,
+                })}
+              >
+                {menu.map(({ path, label }) => (
+                  <NavLink
+                    key={path}
+                    to={path}
+                    className={({ isActive }) => {
+                      setActive(idx);
+                      return (
+                        style.sideNavLi +
+                        (isActive ? ` ${style.activated}` : "")
+                      );
+                    }}
+                  >
+                    {label}
+                  </NavLink>
+                ))}
+              </ul>
+            </li>
+          ))}
         </ul>
-      </nav>
-    </>
+      </ul>
+    </nav>
   );
 }

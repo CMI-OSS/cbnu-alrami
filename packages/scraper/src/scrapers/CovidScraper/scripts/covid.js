@@ -8,9 +8,9 @@ const script = {
     },
 
     getCovidDetailInfo: function () {
-        const allTables = document.querySelectorAll("table");
-        const targetTable = allTables[2];
-        const tableRows = targetTable.querySelectorAll("tr");
+        const tableRows = document
+            .querySelectorAll("table")[2]
+            .querySelectorAll("tr");
 
         const tableIndexOfPlaces = {
             bar: 1,
@@ -20,18 +20,19 @@ const script = {
             PCRoom: 7,
         }
 
-        let covidDetailInfo = {};
+        let rawStringInfo = {};
 
         Object.entries(tableIndexOfPlaces).forEach(([key, value]) => {
-            const availableTime = tableRows[value]
+            const rawString = tableRows[value]
                 .querySelectorAll("td")[1]
                 .querySelector("ul")
                 .querySelector("li")
                 .textContent;
-            covidDetailInfo[key] = availableTime;
+            
+            rawStringInfo[key] = rawString;
         });
 
-        return covidDetailInfo;
+        return rawStringInfo;
     }
 }
 

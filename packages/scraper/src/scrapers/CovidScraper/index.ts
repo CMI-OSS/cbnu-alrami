@@ -3,19 +3,26 @@
 import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 
-interface covidDetailInfo {
-  bar: 1;
-  karaoke: 2;
-  gym: 3;
-  restaurantAndCafe: 5;
-  PCRoom: 7;
+interface CovidDetailInfo {
+  typeOfPlace: string;
+  restrictionTime: number;
+  restrictionLiftTime: number;
+  additionalInfo: string | null;
 }
 
 interface CovidScript {
   HOMEPAGE_URL: string;
   DETAIL_PAGE_URL: string;
   getCovidNumber: () => string;
-  getCovidDetailInfo: () => covidDetailInfo;
+  getCovidDetailInfo: () => Array<CovidDetailInfo>;
+}
+
+interface RawStringInfo {
+  bar: string;
+  karaoke: string;
+  gym: string;
+  restaurantAndCafe: string;
+  PCRoom: string;
 }
 
 class CovidScraper extends Scraper<CovidScript> {
@@ -50,16 +57,37 @@ class CovidScraper extends Scraper<CovidScript> {
       await this.scraper.goto(jsScript.DETAIL_PAGE_URL);
       await this.evaluateScript(jsScript);
 
-      const covidDetailInfo = await this.scraper.evaluate(
+      const rawStringInfo: RawStringInfo = await this.scraper.evaluate(
         "script.getCovidDetailInfo()",
       );
 
+      const covidDetailInfoList: Array<CovidDetailInfo> = [];
+
+      Object.entries(rawStringInfo).forEach(([ key, value ]) => {
+        const resultsOfTimeInfo = value.match(
+          /(?<start>[0-9]{2}).*(?<end>[0-9]){2}/,
+        );
+        const resultsOfAdditionalInfo = value.match(/※(?<main>.*)/);
+
+        const covidDetailInfo = {
+          typeOfPlace: key,
+          restrictionTime: parseInt(resultsOfTimeInfo.groups.start, 10),
+          restrictionLiftTime: parseInt(resultsOfTimeInfo.groups.end, 10),
+          additionalInfo: resultsOfAdditionalInfo
+            ? resultsOfAdditionalInfo.groups.main.trim()
+            : null,
+        };
+
+        covidDetailInfoList.push(covidDetailInfo);
+      });
+
       if (!covidNumber) throw Error("Error!");
+      if (!covidDetailInfoList) throw Error("Error!");
 
       // eslint-disable-next-line no-console
       console.log(`청주시 확진자 수: ${covidNumber.slice(0, -1)}`);
       // eslint-disable-next-line no-console
-      console.log(covidDetailInfo);
+      console.log(covidDetailInfoList);
     } catch (error) {
       throw error;
     }

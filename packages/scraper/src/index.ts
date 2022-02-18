@@ -8,7 +8,7 @@ import { Server, Socket } from "socket.io";
 import { ScraperType } from "@shared/types";
 import { SocketMessageType } from "./types";
 
-const io = new Server(Number(process.env.SOCKET_SERVER_PORT) ?? 3000);
+const io = new Server(6000);
 
 const onSocketConnection = (socket: Socket) => {
   socket.on(SocketMessageType.START_SCRAPER, handleStartScraper);

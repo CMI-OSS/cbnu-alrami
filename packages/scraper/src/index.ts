@@ -8,13 +8,13 @@ import { Server, Socket } from "socket.io";
 import { ScraperType } from "@shared/types";
 import { SocketMessageType } from "./types";
 
-const io = new Server(6000);
+const io = new Server({ cors: { origin: "*" } });
 
 const onSocketConnection = (socket: Socket) => {
   socket.on(SocketMessageType.START_SCRAPER, handleStartScraper);
 };
 
-const handleStartScraper = ({ scraperType }: { scraperType: ScraperType }) => {
+const handleStartScraper = (scraperType: ScraperType) => {
   switch (scraperType) {
     case "notice":
       NoticeScraper.start();
@@ -35,3 +35,4 @@ const handleStartScraper = ({ scraperType }: { scraperType: ScraperType }) => {
 };
 
 io.on("connection", onSocketConnection);
+io.listen(8070);

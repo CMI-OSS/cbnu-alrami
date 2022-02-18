@@ -8,5 +8,7 @@ export interface SocketMessage<E, P> {
 export enum ScraperManageEvent {
   START_SCRAPER = "START_SCRAPER",
   STOP_SCRAPER = "STOP_SCRAPER",
+  PAUSE_SCRAPER = "PAUSE_SCRAPER",
+  RESTART_SCRAPER = "RESTART_SCRAPER",
 }
 export type ScraperManage = SocketMessage<ScraperManageEvent, ScraperType>;

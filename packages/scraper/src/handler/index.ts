@@ -17,16 +17,21 @@ const getScraper = (scraperType: ScraperType) => {
 const socketHandler = ({ event, payload }: SocketMessage<string, any>) => {
   if (event === ScraperManageEvent.START_SCRAPER) handleStartScraper(payload);
   if (event === ScraperManageEvent.STOP_SCRAPER) handleStopScraper(payload);
+  if (event === ScraperManageEvent.PAUSE_SCRAPER) handlePauseScraper(payload);
+  if (event === ScraperManageEvent.RESTART_SCRAPER)
+    handleRestartScraper(payload);
 };
 
-const handleStartScraper = (scraperType: ScraperType) => {
-  const scraper = getScraper(scraperType);
-  scraper.start();
-};
+const handleStartScraper = (scraperType: ScraperType) =>
+  getScraper(scraperType).start();
 
-const handleStopScraper = (scraperType: ScraperType) => {
-  const scraper = getScraper(scraperType);
-  scraper.stop();
-};
+const handleStopScraper = (scraperType: ScraperType) =>
+  getScraper(scraperType).stop();
+
+const handlePauseScraper = (scraperType: ScraperType) =>
+  getScraper(scraperType).pause();
+
+const handleRestartScraper = (scraperType: ScraperType) =>
+  getScraper(scraperType).restart();
 
 export { socketHandler };

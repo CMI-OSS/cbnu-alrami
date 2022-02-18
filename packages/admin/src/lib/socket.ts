@@ -25,3 +25,15 @@ export const stopScraper = (scraperType: ScraperType) =>
     event: ScraperManageEvent.STOP_SCRAPER,
     payload: scraperType,
   });
+
+export const pauseScraper = (scraperType: ScraperType) =>
+  emit<ScraperManage>({
+    event: ScraperManageEvent.PAUSE_SCRAPER,
+    payload: scraperType,
+  });
+
+export const restartScraper = (scraperType: ScraperType) =>
+  emit<ScraperManage>({
+    event: ScraperManageEvent.RESTART_SCRAPER,
+    payload: scraperType,
+  });

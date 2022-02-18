@@ -10,7 +10,12 @@ import {
   scheduleScenarioQueue,
 } from "src/__mockData__";
 import { ScraperType } from "@shared/types";
-import { startScraper, stopScraper } from "src/lib/socket";
+import {
+  pauseScraper,
+  restartScraper,
+  startScraper,
+  stopScraper,
+} from "src/lib/socket";
 import { ScenarioQueue, ExcutionLog } from "..";
 import Tooltip from "../../Tooltip";
 import getStyle from "./style";
@@ -33,28 +38,31 @@ export default function ScraperManager({ scraperType }: Props) {
 
   const startScraping = () => {
     if (
-      !(
-        scraperState === "start" ||
-        scraperState === "stop" ||
-        scraperState === "restart"
-      )
+      scraperState === "start" ||
+      scraperState === "stop" ||
+      scraperState === "restart"
     )
-      startScraper(scraperType);
+      return;
+    startScraper(scraperType);
     setScraperState("start");
   };
 
   const pauseScraping = () => {
-    if (!(scraperState === "pause" || scraperState === "stop"))
-      setScraperState("pause");
+    if (scraperState === "pause" || scraperState === "stop") return;
+    pauseScraper(scraperType);
+    setScraperState("pause");
   };
 
   const stopScraping = () => {
-    if (scraperState !== "stop") setScraperState("stop");
+    if (scraperState === "stop") return;
     stopScraper(scraperType);
+    setScraperState("stop");
   };
 
   const restartScraping = () => {
-    if (scraperState !== "restart") setScraperState("restart");
+    if (scraperState === "restart") return;
+    restartScraper(scraperType);
+    setScraperState("restar");
   };
 
   return (

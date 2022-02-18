@@ -11,14 +11,13 @@ class DomitoryScraper extends Scraper<DomitoryScript> {
     super(`${__dirname}/scripts`);
   }
 
-  async start() {
+  async initScript() {
     const scripts = await this.loadScripts();
 
     scripts.forEach((script) => {
       this.appendScenario(new Scenario(script));
     });
 
-    this.run();
   }
 
   async scrapping(scenario: Scenario<DomitoryScript>) {

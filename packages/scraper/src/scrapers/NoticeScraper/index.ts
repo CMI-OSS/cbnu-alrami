@@ -8,7 +8,7 @@ class NoticeScraper extends Scraper<NoticeScript> {
     super(`${__dirname}/scripts`);
   }
 
-  async start() {
+  async initScript() {
     const scripts = await this.loadScripts();
 
     scripts.forEach((script) => {

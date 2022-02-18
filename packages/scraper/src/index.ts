@@ -1,14 +1,8 @@
 import "src/common/env";
-import CalendarScraper from "src/scrapers/CalendarScraper";
 import NoticeScraper from "src/scrapers/NoticeScraper";
-import DomitoryScraper from "src/scrapers/DomitoryScraper";
-import CafeteriaScraper from "src/scrapers/CafeteriaScraper";
 
-async function main() {
-  NoticeScraper.start();
-  CalendarScraper.start();
-  DomitoryScraper.start();
-  CafeteriaScraper.start();
-}
+import { Server, Socket } from "socket.io";
+import { ScraperType } from "@shared/types";
+import { SocketMessageType } from "./types";
 
-main();
+const io = new Server(Number(process.env.SOCKET_SERVER_PORT) ?? 3000);

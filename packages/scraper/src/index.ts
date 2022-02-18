@@ -6,7 +6,7 @@ import DomitoryScraper from "src/scrapers/DomitoryScraper";
 
 import { Server, Socket } from "socket.io";
 import { ScraperType } from "@shared/types";
-import { SocketMessageType } from "./types";
+import { SocketMessageType } from "@shared/types/Socket";
 
 const io = new Server({ cors: { origin: "*" } });
 

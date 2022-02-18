@@ -1,5 +1,5 @@
+import { SocketMessageType } from "@shared/types/Socket";
 import { ScraperType } from "@shared/types";
-import { SocketMessageType } from "scraper/src/types/Socket";
 import { io } from "socket.io-client";
 
 const socket = io(

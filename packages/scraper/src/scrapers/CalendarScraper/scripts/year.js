@@ -9,6 +9,10 @@ const script = {
       year: 2021,
       key: "1804",
     },
+    {
+      year: 2022,
+      key: "1853",
+    },
   ],
   waitCalendarSelector:
     "#contents > div.academic_calendar > ul > li > div:nth-child(2) > div:nth-child(1) > ul > li",
@@ -18,6 +22,7 @@ const script = {
       `#contents > div.academic_calendar > ul > li > div:nth-child(2) > div:nth-child(1) > ul > li`,
     );
     for (let i = 0; i < content.length; i++) {
+      if (!content[i].querySelector("span")) continue;
       let date = content[i].querySelector("span").textContent;
       let text = content[i].textContent;
       text = text.slice(date.length, text.length);

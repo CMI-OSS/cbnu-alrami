@@ -10,7 +10,7 @@ import {
   scheduleScenarioQueue,
 } from "src/__mockData__";
 import { ScraperType } from "@shared/types";
-import { startScraper } from "src/lib/socket";
+import { startScraper, stopScraper } from "src/lib/socket";
 import { ScenarioQueue, ExcutionLog } from "..";
 import Tooltip from "../../Tooltip";
 import getStyle from "./style";
@@ -39,7 +39,7 @@ export default function ScraperManager({ scraperType }: Props) {
         scraperState === "restart"
       )
     )
-      startScraper("notice");
+      startScraper(scraperType);
     setScraperState("start");
   };
 
@@ -50,6 +50,7 @@ export default function ScraperManager({ scraperType }: Props) {
 
   const stopScraping = () => {
     if (scraperState !== "stop") setScraperState("stop");
+    stopScraper(scraperType);
   };
 
   const restartScraping = () => {

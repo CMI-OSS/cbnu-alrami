@@ -28,6 +28,15 @@ export default class Queue<T> {
     return this.length === 0;
   }
 
+  pushFront(data: T) {
+    const next = this.head;
+    this.head = {
+      data,
+      next,
+    };
+    this.length += 1;
+  }
+
   push(data: T) {
     if (this.head === null || this.tail === null) {
       this.head = {

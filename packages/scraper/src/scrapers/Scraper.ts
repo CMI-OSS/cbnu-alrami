@@ -29,6 +29,7 @@ abstract class Scraper<T> {
   state: SCRAPER_STATE = SCRAPER_STATE.STOPPED;
   scraper: Page | null = null;
   queue: Queue<Scenario<T>>;
+  currentScenario?: Scenario<T> | null;
   browser?: puppeteer.Browser;
   scriptPath: string;
 
@@ -81,6 +82,10 @@ abstract class Scraper<T> {
 
   async pause() {
     this.state = SCRAPER_STATE.PAUSE;
+    if (this.currentScenario) {
+      this.queue.pushFront(this.currentScenario);
+      this.currentScenario = null;
+    }
   }
 
   async initScraper() {
@@ -141,12 +146,12 @@ abstract class Scraper<T> {
       return;
     }
 
-    const scenario = this.queue.front();
+    this.currentScenario = this.queue.front();
 
-    if (scenario) {
+    if (this.currentScenario) {
       try {
         this.queue.pop();
-        await this.scrapping(scenario);
+        await this.scrapping(this.currentScenario);
       } catch (error) {
         console.error(error);
       }

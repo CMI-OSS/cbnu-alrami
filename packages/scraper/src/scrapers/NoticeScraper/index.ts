@@ -22,6 +22,7 @@ class NoticeScraper extends Scraper<NoticeScript> {
     const noticeList = await this.getNoticeList(scenario);
 
     for (const notice of noticeList) {
+      if (this.state !== "RUNNING") break;
       if (!(await hasNotice(notice))) {
         await createNotice({
           ...notice,

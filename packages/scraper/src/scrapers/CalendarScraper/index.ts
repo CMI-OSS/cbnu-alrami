@@ -1,11 +1,14 @@
 /* eslint-disable no-plusplus */
 import Scraper from "src/scrapers/Scraper";
+import { ScraperType } from "@shared/types";
 import { Calendar, CalendarScript } from "src/types";
 import { createSchedule } from "src/db/calendar";
 import { Scenario } from "../Scenario";
 import ArrayToDate from "./ArrayToDate";
 
 class CalendarScraper extends Scraper<CalendarScript> {
+  type: ScraperType = "collegeSchedule";
+
   constructor() {
     super(`${__dirname}/scripts`);
   }
@@ -16,7 +19,6 @@ class CalendarScraper extends Scraper<CalendarScript> {
     scripts.forEach((script) => {
       this.appendScenario(new Scenario(script));
     });
-
   }
 
   async scrapping(scenario: Scenario<CalendarScript>) {

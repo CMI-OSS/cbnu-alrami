@@ -1,9 +1,12 @@
 import { Notice, NoticeScript } from "src/types";
 import { createNotice, hasNotice } from "src/db/notice";
+import { ScraperState, ScraperType } from "@shared/types";
 import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 
 class NoticeScraper extends Scraper<NoticeScript> {
+  type: ScraperType = "notice";
+
   constructor() {
     super(`${__dirname}/scripts`);
   }
@@ -22,7 +25,7 @@ class NoticeScraper extends Scraper<NoticeScript> {
     const noticeList = await this.getNoticeList(scenario);
 
     for (const notice of noticeList) {
-      if (this.state !== "RUNNING") break;
+      if (this.state !== ScraperState.Running) break;
       if (!(await hasNotice(notice))) {
         await createNotice({
           ...notice,

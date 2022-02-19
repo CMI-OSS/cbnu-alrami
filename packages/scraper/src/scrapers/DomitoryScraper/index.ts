@@ -3,10 +3,13 @@
 import { DomitoryScript } from "src/types/DomitoryScript";
 import { DomitoryFood } from "src/types/DomitoryFood";
 import { createMenu } from "src/db/restaurant";
+import { ScraperType } from "@shared/types";
 import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 
 class DomitoryScraper extends Scraper<DomitoryScript> {
+  type: ScraperType = "domitoryCafeteria";
+
   constructor() {
     super(`${__dirname}/scripts`);
   }
@@ -17,7 +20,6 @@ class DomitoryScraper extends Scraper<DomitoryScript> {
     scripts.forEach((script) => {
       this.appendScenario(new Scenario(script));
     });
-
   }
 
   async scrapping(scenario: Scenario<DomitoryScript>) {

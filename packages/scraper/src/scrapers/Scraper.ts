@@ -5,7 +5,8 @@ import puppeteer, { Page } from "puppeteer";
 import { isDev, Queue } from "src/common";
 import { stringify } from "javascript-stringify";
 import find from "find";
-import { ScraperState } from "@shared/types/index";
+import { ScraperState, ScraperType } from "@shared/types";
+import { changeScraperState } from "src/socket/server";
 import { Scenario } from "./Scenario";
 
 const WINDOW_SIZE = {
@@ -16,6 +17,7 @@ const WINDOW_SIZE = {
 const SCENARIO_DELAY = 1000;
 
 abstract class Scraper<T> {
+  abstract type: ScraperType;
   state: ScraperState = ScraperState.Stopped;
   scraper: Page | null = null;
   queue: Queue<Scenario<T>>;
@@ -47,19 +49,19 @@ abstract class Scraper<T> {
 
   async start() {
     if (this.state === ScraperState.Pause) {
-      this.state = ScraperState.Running;
+      this.setScraperState(ScraperState.Running);
       this.run();
       return;
     }
 
     await this.initScraper();
     await this.initScript();
-    this.state = ScraperState.Running;
+    this.setScraperState(ScraperState.Running);
     this.run();
   }
 
   async stop() {
-    this.state = ScraperState.Stopped;
+    this.setScraperState(ScraperState.Stopped);
     this.scraper = null;
     this.browser?.close();
     this.queue.reset();
@@ -71,7 +73,7 @@ abstract class Scraper<T> {
   }
 
   async pause() {
-    this.state = ScraperState.Pause;
+    this.setScraperState(ScraperState.Pause);
     if (this.currentScenario) {
       this.queue.pushFront(this.currentScenario);
       this.currentScenario = null;
@@ -143,11 +145,16 @@ abstract class Scraper<T> {
         this.queue.pop();
         await this.scrapping(this.currentScenario);
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     }
 
     setTimeout(() => this.run(), SCENARIO_DELAY);
+  }
+
+  setScraperState(state: ScraperState) {
+    this.state = state;
+    changeScraperState(this.type, state);
   }
 
   abstract scrapping(script: Scenario<T>): void;

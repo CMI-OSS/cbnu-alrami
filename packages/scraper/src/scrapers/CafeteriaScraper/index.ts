@@ -1,10 +1,13 @@
 import { CafeteriaScript } from "src/types";
 import { Menu } from "src/types/Menu";
 import { createMenu } from "src/db/restaurant";
+import { ScraperType } from "@shared/types";
 import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 
 class CafeteriaScraper extends Scraper<CafeteriaScript> {
+  type: ScraperType = "studentCafeteria";
+
   constructor() {
     super(`${__dirname}/scripts`);
   }

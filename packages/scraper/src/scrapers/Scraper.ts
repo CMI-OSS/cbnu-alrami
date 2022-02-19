@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-restricted-syntax */
 import puppeteer, { Page } from "puppeteer";
 import { isDev, Queue } from "src/common";
 import { stringify } from "javascript-stringify";
 import find from "find";
+import { ScraperState } from "@shared/types/index";
 import { Scenario } from "./Scenario";
 
 const WINDOW_SIZE = {
@@ -14,19 +13,10 @@ const WINDOW_SIZE = {
   HEIGHT: 1080,
 };
 
-export const SCRAPER_STATE = {
-  RUNNING: "RUNNING",
-  PAUSE: "PAUSE",
-  STOPPED: "STOPPED",
-  ERROR: "ERROR",
-} as const;
-
-type SCRAPER_STATE = typeof SCRAPER_STATE[keyof typeof SCRAPER_STATE];
-
 const SCENARIO_DELAY = 1000;
 
 abstract class Scraper<T> {
-  state: SCRAPER_STATE = SCRAPER_STATE.STOPPED;
+  state: ScraperState = ScraperState.Stopped;
   scraper: Page | null = null;
   queue: Queue<Scenario<T>>;
   currentScenario?: Scenario<T> | null;
@@ -56,20 +46,20 @@ abstract class Scraper<T> {
   }
 
   async start() {
-    if (this.state === SCRAPER_STATE.PAUSE) {
-      this.state = SCRAPER_STATE.RUNNING;
+    if (this.state === ScraperState.Pause) {
+      this.state = ScraperState.Running;
       this.run();
       return;
     }
 
     await this.initScraper();
     await this.initScript();
-    this.state = SCRAPER_STATE.RUNNING;
+    this.state = ScraperState.Running;
     this.run();
   }
 
   async stop() {
-    this.state = SCRAPER_STATE.STOPPED;
+    this.state = ScraperState.Stopped;
     this.scraper = null;
     this.browser?.close();
     this.queue.reset();
@@ -81,7 +71,7 @@ abstract class Scraper<T> {
   }
 
   async pause() {
-    this.state = SCRAPER_STATE.PAUSE;
+    this.state = ScraperState.Pause;
     if (this.currentScenario) {
       this.queue.pushFront(this.currentScenario);
       this.currentScenario = null;
@@ -139,7 +129,7 @@ abstract class Scraper<T> {
   }
 
   async run() {
-    if (this.state !== SCRAPER_STATE.RUNNING) return;
+    if (this.state !== ScraperState.Running) return;
 
     if (this.queue.isEmpty()) {
       this.stop();

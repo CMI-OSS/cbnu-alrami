@@ -18,3 +18,10 @@ export type ScraperType =
   | "studentCafeteria"
   | "domitoryCafeteria"
   | "collegeSchedule";
+
+export enum ScraperState {
+  Running = "Running",
+  Pause = "Pause",
+  Stopped = "Stopped",
+  Error = "Error",
+}

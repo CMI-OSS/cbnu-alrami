@@ -7,6 +7,7 @@ export default function Natigation() {
   const isLoginMatch = useMatch("/login");
   const [ active, setActive ] = useState(-1);
   const style = getStyle();
+
   const SCRAPER_MENUS = [
     {
       path: "/scraper/notice",
@@ -45,7 +46,7 @@ export default function Natigation() {
         <li className={style.logo}>CMI</li>
         <ul>
           {[ BOARD_MENUS, SCRAPER_MENUS ].map((menu, idx) => (
-            <li className={style.contentNavLi}>
+            <li className={style.contentNavLi} key={`${menu}`}>
               <p className={style.detailLogo}>{!idx ? "게시판" : "스크래퍼"}</p>
               <ul
                 className={cx(style.detailNavUl, {
@@ -56,8 +57,8 @@ export default function Natigation() {
                   <NavLink
                     key={path}
                     to={path}
+                    onClick={() => setActive(idx)}
                     className={({ isActive }) => {
-                      setActive(idx);
                       return (
                         style.sideNavLi +
                         (isActive ? ` ${style.activated}` : "")

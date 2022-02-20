@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
-import { useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
-import useQuery from "src/hooks/useQuery";
+import { useQuery } from "src/hooks";
 import { getScenarioGroups } from "src/lib/scenario";
 import scenarios from "src/__mockData__/noticeScenarios";
 import getStyle from "./style";

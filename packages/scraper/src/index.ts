@@ -6,10 +6,10 @@ import CafeteriaScraper from "src/scrapers/CafeteriaScraper";
 import CovidScraper from "./scrapers/CovidScraper";
 
 async function main() {
-  // NoticeScraper.start();
-  // CalendarScraper.start();
-  // DomitoryScraper.start();
-  // CafeteriaScraper.start();
+  NoticeScraper.start();
+  CalendarScraper.start();
+  DomitoryScraper.start();
+  CafeteriaScraper.start();
   CovidScraper.start();
 }
 

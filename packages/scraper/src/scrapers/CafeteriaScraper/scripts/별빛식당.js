@@ -4,20 +4,13 @@ const script = {
   cafeteria: 1,
   restaurant_name: "별빛식당",
   getMenus: function () {
-    //주석처리 부분은 몽고DB용 구조
-    // const weekmenu = {
-    //   startDay: null,
-    //   endDay: null,
-    //   cafeteriaMenu: [],
-    // };
     const range = document.querySelector("#menu-type-title").innerText;
     const dateStrings = range.match(/(\d{4}년 \d{1,2}월 \d{1,2}일)/gm);
     const dates = dateStrings.map((v) => {
       const nums = v.match(/(\d{4})년 (\d{1,2})월 (\d{1,2})일/);
       return new Date(nums[1], nums[2] - 1, nums[3]);
     });
-    // weekmenu.startDay = new Date(dates[0]);
-    // weekmenu.endDay = new Date(dates[1]);
+
     const startDay = new Date(dates[0]);
     const res = [];
     const tbody = document.querySelector(
@@ -33,14 +26,12 @@ const script = {
             ? trNodes[kind - 1].querySelectorAll(`th`)[0].innerText
             : thNodes[0].innerText,
         time: kind == 1 ? thNodes[0].innerText : thNodes[1].innerText,
-        // menuOfToday: [],
       };
       const tdNodes = $tr.querySelectorAll(`td`);
       for (let day = 0; day < tdNodes.length; day++) {
         const $div = tdNodes[day].querySelector(`div > div`);
         if (!$div) continue;
         const $menu = {
-          //date: new Date(startDay.getFullYear(), startDay.getMonth(), startDay.getDate()+day),
           mainMenu: $div.querySelector(`h6`).innerText,
           menus: Array.from($div.querySelectorAll(`div > li`)).map(
             (v) => v.innerText,
@@ -49,7 +40,6 @@ const script = {
             (v) => +v.innerText.replace(/,/, ""),
           ),
         };
-        //$dateMenu.menuOfToday.push($menu);
         let time;
         switch ($dateMenu.time) {
           case "점심식사":
@@ -74,20 +64,9 @@ const script = {
           day: ["월", "화", "수", "목", "금"][day],
           time,
         };
-        /*const row = {
-              cafeteria,
-              date: new Date(
-                startDay.getFullYear(),
-                startDay.getMonth(),
-                startDay.getDate() + day
-              ),
-              ...$dateMenu,
-              ...$menu,
-            };*/
+
         res.push(row);
       }
-      // if(!Array.isArray(weekmenu.cafeteriaMenu[cafeteria]))weekmenu.cafeteriaMenu[cafeteria] = [];
-      // weekmenu.cafeteriaMenu[cafeteria][kind] = $dateMenu;
     }
 
     return res;

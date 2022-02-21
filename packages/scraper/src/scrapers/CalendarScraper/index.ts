@@ -17,7 +17,7 @@ class CalendarScraper extends Scraper<CalendarScript> {
     const scripts = await this.loadScripts();
 
     scripts.forEach((script) => {
-      this.appendScenario(new Scenario(script));
+      this.appendScenario(new Scenario(script.year.toString(), script));
     });
   }
 
@@ -34,17 +34,15 @@ class CalendarScraper extends Scraper<CalendarScript> {
 
     const refinedData = [];
 
-    for (let i = 0; i < calendarScript.years.length; i++) {
-      await this.scraper.goto(calendarScript.url + calendarScript.years[i].key);
-      await this.scraper.waitForSelector(calendarScript.waitCalendarSelector);
-      await this.evaluateScript(calendarScript);
-      const mockData = await this.scraper.evaluate("script.getSchedules()");
-      for (let j = 0; j < mockData.length; j++) {
-        refinedData.push({
-          ...ArrayToDate(calendarScript.years[i].year, mockData[j][0]),
-          content: mockData[j][1],
-        });
-      }
+    await this.scraper.goto(calendarScript.url);
+    await this.scraper.waitForSelector(calendarScript.waitCalendarSelector);
+    await this.evaluateScript(calendarScript);
+    const mockData = await this.scraper.evaluate("script.getSchedules()");
+    for (let j = 0; j < mockData.length; j++) {
+      refinedData.push({
+        ...ArrayToDate(calendarScript.year, mockData[j][0]),
+        content: mockData[j][1],
+      });
     }
 
     for (const schedule of refinedData) {

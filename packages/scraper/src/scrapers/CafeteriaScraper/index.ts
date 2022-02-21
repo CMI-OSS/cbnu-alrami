@@ -16,7 +16,7 @@ class CafeteriaScraper extends Scraper<CafeteriaScript> {
     const scripts = await this.loadScripts();
 
     scripts.forEach((script) => {
-      this.appendScenario(new Scenario(script));
+      this.appendScenario(new Scenario("b", script));
     });
   }
 

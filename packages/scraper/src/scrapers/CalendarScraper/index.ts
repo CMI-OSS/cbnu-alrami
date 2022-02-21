@@ -7,6 +7,7 @@ import { Scenario } from "../Scenario";
 import ArrayToDate from "./ArrayToDate";
 
 class CalendarScraper extends Scraper<CalendarScript> {
+  name = "학사 일정";
   type: ScraperType = "collegeSchedule";
 
   constructor() {
@@ -17,7 +18,7 @@ class CalendarScraper extends Scraper<CalendarScript> {
     const scripts = await this.loadScripts();
 
     scripts.forEach((script) => {
-      this.appendScenario(new Scenario(script.year.toString(), script));
+      this.appendScenario(new Scenario(String(script.year), script));
     });
   }
 

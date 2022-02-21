@@ -31,7 +31,10 @@ export default function ScraperManager({ scraperType }: Props) {
     ),
   );
 
-  const { state: scraperState } = scraper ?? { state: ScraperState.Stopped };
+  const { state: scraperState, logs } = scraper ?? {
+    state: ScraperState.Stopped,
+    logs: [],
+  };
 
   const style = getStyle();
 
@@ -118,7 +121,7 @@ export default function ScraperManager({ scraperType }: Props) {
       </article>
       <article className={style.managerBox}>
         <ScenarioQueue queue={getMockScenarioQueue().queue} />
-        <ExcutionLog log={getMockScenarioQueue().log} />
+        <ExcutionLog logs={logs} />
       </article>
     </section>
   );

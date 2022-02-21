@@ -6,6 +6,7 @@ import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 
 class CafeteriaScraper extends Scraper<CafeteriaScript> {
+  name = "학생식당";
   type: ScraperType = "studentCafeteria";
 
   constructor() {
@@ -16,7 +17,7 @@ class CafeteriaScraper extends Scraper<CafeteriaScript> {
     const scripts = await this.loadScripts();
 
     scripts.forEach((script) => {
-      this.appendScenario(new Scenario("b", script));
+      this.appendScenario(new Scenario(script.restaurant_name, script));
     });
   }
 

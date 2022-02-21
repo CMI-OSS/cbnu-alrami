@@ -1,4 +1,4 @@
-import { ScraperState, ScraperType } from "@shared/types";
+import { ScraperLog, ScraperState, ScraperType } from "@shared/types";
 
 export const SCRAPER_COMMAND_EVENT = {
   START_SCRAPER: "START_SCRAPER",
@@ -15,9 +15,15 @@ export const SCRAPER_CHANGE_EVENT = {
 export type SCRAPER_CHANGE_EVENT =
   typeof SCRAPER_CHANGE_EVENT[keyof typeof SCRAPER_CHANGE_EVENT];
 
+export const LOG_EVENT = {
+  LOG_EVENT: "LOG_EVENT",
+} as const;
+export type LOG_EVENT = typeof LOG_EVENT[keyof typeof LOG_EVENT];
+
 const SOCKET_EVENT = {
   ...SCRAPER_COMMAND_EVENT,
   ...SCRAPER_CHANGE_EVENT,
+  ...LOG_EVENT,
 } as const;
 
 type SOCKET_EVENT = typeof SOCKET_EVENT[keyof typeof SOCKET_EVENT];
@@ -31,13 +37,20 @@ export type ScraperCommandMessage = SocketMessage<
   ScraperType
 >;
 
+export type ScraperChangePayload = {
+  type: ScraperType;
+  state: ScraperState;
+};
 export type ScraperChangeStateMessage = SocketMessage<
   SCRAPER_CHANGE_EVENT,
-  {
-    type: ScraperType;
-    state: ScraperState;
-  }
+  ScraperChangePayload
 >;
+
+export type LogPayload = {
+  type: ScraperType;
+  log: ScraperLog;
+};
+export type LogMessage = SocketMessage<LOG_EVENT, LogPayload>;
 
 export function isScraperCommand(
   message: SocketMessage,
@@ -49,4 +62,8 @@ export function isScraperStateChange(
   message: SocketMessage,
 ): message is ScraperChangeStateMessage {
   return message.event === SCRAPER_CHANGE_EVENT.STATE_CHANGE;
+}
+
+export function isLog(message: SocketMessage): message is LogMessage {
+  return message.event === LOG_EVENT.LOG_EVENT;
 }

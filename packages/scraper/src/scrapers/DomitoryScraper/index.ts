@@ -8,6 +8,7 @@ import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 
 class DomitoryScraper extends Scraper<DomitoryScript> {
+  name = "기숙사 식단";
   type: ScraperType = "domitoryCafeteria";
 
   constructor() {

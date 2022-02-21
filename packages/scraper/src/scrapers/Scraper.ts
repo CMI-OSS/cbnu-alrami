@@ -5,8 +5,8 @@ import puppeteer, { Page } from "puppeteer";
 import { isDev, Queue } from "src/common";
 import { stringify } from "javascript-stringify";
 import find from "find";
-import { ScraperState, ScraperType } from "@shared/types";
-import { changeScraperState } from "src/socket/server";
+import { ScraperLog, ScraperState, ScraperType } from "@shared/types";
+import { changeScraperState, sendLog } from "src/socket/server";
 import { Scenario } from "./Scenario";
 
 const WINDOW_SIZE = {
@@ -17,6 +17,7 @@ const WINDOW_SIZE = {
 const SCENARIO_DELAY = 1000;
 
 abstract class Scraper<T> {
+  abstract name: string;
   abstract type: ScraperType;
   state: ScraperState = ScraperState.Stopped;
   scraper: Page | null = null;
@@ -24,6 +25,7 @@ abstract class Scraper<T> {
   currentScenario?: Scenario<T> | null;
   browser?: puppeteer.Browser;
   scriptPath: string;
+  logs: Array<ScraperLog> = [];
 
   constructor(scriptPath: string) {
     this.queue = new Queue<Scenario<T>>();
@@ -47,13 +49,26 @@ abstract class Scraper<T> {
     this.queue.push(scenario);
   }
 
+  log(log: ScraperLog) {
+    this.logs.push(log);
+    sendLog({ type: this.type, log });
+  }
+
   async start() {
     if (this.state === ScraperState.Pause) {
+      this.log({
+        prefix: "INFO",
+        message: `${this.name} 스크래퍼를 재개합니다`,
+      });
       this.setScraperState(ScraperState.Running);
       this.run();
       return;
     }
 
+    this.log({
+      prefix: "INFO",
+      message: `${this.name} 스크래퍼를 시작합니다`,
+    });
     await this.initScraper();
     await this.initScript();
     this.setScraperState(ScraperState.Running);
@@ -61,6 +76,11 @@ abstract class Scraper<T> {
   }
 
   async stop() {
+    this.log({
+      prefix: "INFO",
+      message: `${this.name} 스크래퍼를 정지합니다`,
+    });
+
     this.setScraperState(ScraperState.Stopped);
     this.scraper = null;
     this.browser?.close();
@@ -73,6 +93,10 @@ abstract class Scraper<T> {
   }
 
   async pause() {
+    this.log({
+      prefix: "INFO",
+      message: `${this.name} 스크래퍼를 중지합니다`,
+    });
     this.setScraperState(ScraperState.Pause);
     if (this.currentScenario) {
       this.queue.pushFront(this.currentScenario);
@@ -140,11 +164,24 @@ abstract class Scraper<T> {
 
     this.currentScenario = this.queue.front();
 
+    this.log({
+      prefix: "INFO",
+      message: `${this.currentScenario?.title} 시나리오의 스크립트를 실행합니다`,
+    });
+
     if (this.currentScenario) {
       try {
         this.queue.pop();
         await this.scrapping(this.currentScenario);
+        this.log({
+          prefix: "INFO",
+          message: `${this.currentScenario?.title} 시나리오의 스크립트가 성공적으로 실행되었습니다`,
+        });
       } catch (error) {
+        this.log({
+          prefix: "ERROR",
+          message: `${this.currentScenario?.title} 시나리오의 스크립트 실행도중 에러가 발생했습니다 \n ${error}`,
+        });
         console.log(error);
       }
     }

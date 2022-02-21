@@ -1,10 +1,13 @@
-import { ScraperState, ScraperType } from "@shared/types";
+import { ScraperLog, ScraperState, ScraperType } from "@shared/types";
 import {
+  LogMessage,
+  LogPayload,
   ScraperChangeStateMessage,
   SCRAPER_CHANGE_EVENT,
   SocketMessage,
 } from "@shared/types/Socket";
 import { Server, Socket } from "socket.io";
+import { LOG_EVENT } from "../../../shared/src/types/Socket";
 import { socketHandler } from "./handler";
 
 const io = new Server({ cors: { origin: "*" } });
@@ -27,4 +30,10 @@ export const changeScraperState = (type: ScraperType, state: ScraperState) =>
       type,
       state,
     },
+  });
+
+export const sendLog = (payload: LogPayload) =>
+  emit<LogMessage>({
+    event: LOG_EVENT.LOG_EVENT,
+    payload,
   });

@@ -1,11 +1,13 @@
 import {
+  isLog,
   isScraperStateChange,
+  LogMessage,
   ScraperChangeStateMessage,
   SocketMessage,
 } from "@shared/types/Socket";
 import { socket } from "../lib/socket";
 import { useAppDispatch } from "../store";
-import { changeState } from "../store/scraperSlice";
+import { appendLog, changeState } from "../store/scraperSlice";
 
 export default function useSocket() {
   const dispatch = useAppDispatch();
@@ -13,11 +15,16 @@ export default function useSocket() {
 
   const socketHandler = (message: SocketMessage) => {
     if (isScraperStateChange(message)) handleScraperChange(message);
+    if (isLog(message)) handleScraperLog(message);
   };
 
   const handleScraperChange = ({
     payload: scraper,
   }: ScraperChangeStateMessage) => {
     dispatch(changeState(scraper));
+  };
+
+  const handleScraperLog = ({ payload }: LogMessage) => {
+    dispatch(appendLog(payload));
   };
 }

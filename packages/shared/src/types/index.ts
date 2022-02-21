@@ -25,3 +25,8 @@ export enum ScraperState {
   Stopped = "Stopped",
   Error = "Error",
 }
+
+export interface ScraperLog {
+  prefix?: "INFO" | "WARN" | "ERROR";
+  message: string;
+}

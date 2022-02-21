@@ -5,6 +5,7 @@ import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 
 class NoticeScraper extends Scraper<NoticeScript> {
+  name = "공지사항";
   type: ScraperType = "notice";
 
   constructor() {

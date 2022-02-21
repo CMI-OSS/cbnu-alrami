@@ -2,12 +2,6 @@ import { FaPlay, FaPause, FaStop } from "react-icons/fa";
 import { MdReplay } from "react-icons/md";
 
 import { cx } from "@emotion/css";
-import {
-  noticeScenarioQueue,
-  studentScenarioQueue,
-  domitoryScenarioQueue,
-  scheduleScenarioQueue,
-} from "src/__mockData__";
 import { ScraperState, ScraperType } from "@shared/types";
 import {
   pauseScraper,
@@ -16,6 +10,7 @@ import {
   stopScraper,
 } from "src/lib/socket";
 import { useAppSelector } from "src/store";
+import { initialScraper } from "src/store/scraperSlice";
 import { ScenarioQueue, ExcutionLog } from "..";
 import Tooltip from "../../Tooltip";
 import getStyle from "./style";
@@ -25,26 +20,19 @@ interface Props {
 }
 
 export default function ScraperManager({ scraperType }: Props) {
-  const scraper = useAppSelector((state) =>
+  const {
+    state: scraperState,
+    logs,
+    prevScenario,
+    currentScenario,
+    nextScenario,
+  } = useAppSelector((state) =>
     state.scraperReducer.scrapers.find(
       (scraper) => scraper.type === scraperType,
     ),
-  );
-
-  const { state: scraperState, logs } = scraper ?? {
-    state: ScraperState.Stopped,
-    logs: [],
-  };
+  ) ?? initialScraper;
 
   const style = getStyle();
-
-  const getMockScenarioQueue = () => {
-    if (scraperType === "notice") return noticeScenarioQueue;
-    if (scraperType === "domitoryCafeteria") return domitoryScenarioQueue;
-    if (scraperType === "studentCafeteria") return studentScenarioQueue;
-
-    return scheduleScenarioQueue;
-  };
 
   const startScraping = () => {
     if (scraperState === ScraperState.Running) return;
@@ -120,7 +108,11 @@ export default function ScraperManager({ scraperType }: Props) {
         </div>
       </article>
       <article className={style.managerBox}>
-        <ScenarioQueue queue={getMockScenarioQueue().queue} />
+        <ScenarioQueue
+          prev={prevScenario}
+          current={currentScenario}
+          next={nextScenario}
+        />
         <ExcutionLog logs={logs} />
       </article>
     </section>

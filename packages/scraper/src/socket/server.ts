@@ -1,5 +1,8 @@
 import { ScraperState, ScraperType } from "@shared/types";
 import {
+  ChangeScenarioQueueMessage,
+  ChangeScenarioQueuePayload,
+  CHANGE_SCENARIO_QUEUE_EVENT,
   InitScraperMessage,
   INIT_SCRAPER_EVENT,
   LogMessage,
@@ -44,6 +47,15 @@ export const initScraper = (socket: Socket) => {
           scraper: {
             state: scraper.state,
             logs: scraper.logs,
+            prevScenario: {
+              title: scraper.prevScenario?.title ?? "",
+            },
+            currentScenario: {
+              title: scraper.currentScenario?.title ?? "",
+            },
+            nextScenario: {
+              title: scraper.nextScenario?.title ?? "",
+            },
           },
         },
       });
@@ -62,5 +74,11 @@ export const changeScraperState = (type: ScraperType, state: ScraperState) =>
 export const sendLog = (payload: LogPayload) =>
   emitAll<LogMessage>({
     event: LOG_EVENT.LOG_EVENT,
+    payload,
+  });
+
+export const changeScenarioQueue = (payload: ChangeScenarioQueuePayload) =>
+  emitAll<ChangeScenarioQueueMessage>({
+    event: CHANGE_SCENARIO_QUEUE_EVENT.CHANGE_SCENARIO_QUEUE_EVENT,
     payload,
   });

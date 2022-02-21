@@ -27,11 +27,19 @@ export const INIT_SCRAPER_EVENT = {
 export type INIT_SCRAPER_EVENT =
   typeof INIT_SCRAPER_EVENT[keyof typeof INIT_SCRAPER_EVENT];
 
+export const CHANGE_SCENARIO_QUEUE_EVENT = {
+  CHANGE_SCENARIO_QUEUE_EVENT: "CHANGE_SCENARIO_QUEUE_EVENT",
+};
+
+export type CHANGE_SCENARIO_QUEUE_EVENT =
+  typeof CHANGE_SCENARIO_QUEUE_EVENT[keyof typeof CHANGE_SCENARIO_QUEUE_EVENT];
+
 const SOCKET_EVENT = {
   ...SCRAPER_COMMAND_EVENT,
   ...SCRAPER_CHANGE_EVENT,
   ...LOG_EVENT,
   ...INIT_SCRAPER_EVENT,
+  ...CHANGE_SCENARIO_QUEUE_EVENT,
 } as const;
 
 type SOCKET_EVENT = typeof SOCKET_EVENT[keyof typeof SOCKET_EVENT];
@@ -65,11 +73,37 @@ export type InitScraperPayload = {
   scraper: {
     state: ScraperState;
     logs: Array<ScraperLog>;
+    prevScenario: {
+      title: string;
+    };
+    currentScenario: {
+      title: string;
+    };
+    nextScenario: {
+      title: string;
+    };
   };
 };
 export type InitScraperMessage = SocketMessage<
   INIT_SCRAPER_EVENT,
   InitScraperPayload
+>;
+
+export type ChangeScenarioQueuePayload = {
+  type: ScraperType;
+  prevScenario: {
+    title: string;
+  };
+  currentScenario: {
+    title: string;
+  };
+  nextScenario: {
+    title: string;
+  };
+};
+export type ChangeScenarioQueueMessage = SocketMessage<
+  CHANGE_SCENARIO_QUEUE_EVENT,
+  ChangeScenarioQueuePayload
 >;
 
 export function isScraperCommand(
@@ -92,4 +126,12 @@ export function isInitScraperMessage(
   message: SocketMessage,
 ): message is InitScraperMessage {
   return message.event === INIT_SCRAPER_EVENT.INIT_SCRAPER_EVENT;
+}
+
+export function isChangeScenarioQueue(
+  message: SocketMessage,
+): message is ChangeScenarioQueueMessage {
+  return (
+    message.event === CHANGE_SCENARIO_QUEUE_EVENT.CHANGE_SCENARIO_QUEUE_EVENT
+  );
 }

@@ -2,6 +2,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ScraperLog, ScraperState, ScraperType } from "@shared/types";
 import {
+  ChangeScenarioQueuePayload,
   InitScraperPayload,
   LogPayload,
   ScraperChangePayload,
@@ -13,18 +14,42 @@ interface Scraper {
   type: ScraperType;
   state: ScraperState;
   logs: Array<ScraperLog>;
+  prevScenario: {
+    title: string;
+  };
+  currentScenario: {
+    title: string;
+  };
+  nextScenario: {
+    title: string;
+  };
 }
 
 interface Props {
   scrapers: Array<Scraper>;
 }
 
+export const initialScraper: Scraper = {
+  type: "notice",
+  state: ScraperState.Stopped,
+  logs: [],
+  prevScenario: {
+    title: "",
+  },
+  currentScenario: {
+    title: "",
+  },
+  nextScenario: {
+    title: "",
+  },
+};
+
 const initialState: Props = {
   scrapers: [
-    { type: "notice", state: ScraperState.Stopped, logs: [] },
-    { type: "collegeSchedule", state: ScraperState.Stopped, logs: [] },
-    { type: "domitoryCafeteria", state: ScraperState.Stopped, logs: [] },
-    { type: "studentCafeteria", state: ScraperState.Stopped, logs: [] },
+    { ...initialScraper, type: "notice" },
+    { ...initialScraper, type: "collegeSchedule" },
+    { ...initialScraper, type: "domitoryCafeteria" },
+    { ...initialScraper, type: "studentCafeteria" },
   ],
 };
 
@@ -56,8 +81,21 @@ export const scraperSlice = createSlice({
         }
       });
     },
+    changeScenarioQueue: (
+      state,
+      action: PayloadAction<ChangeScenarioQueuePayload>,
+    ) => {
+      state.scrapers.forEach((scraper) => {
+        if (scraper.type === action.payload.type) {
+          scraper.prevScenario = action.payload.prevScenario;
+          scraper.currentScenario = action.payload.currentScenario;
+          scraper.nextScenario = action.payload.nextScenario;
+        }
+      });
+    },
   },
 });
 
-export const { init, changeState, appendLog } = scraperSlice.actions;
+export const { init, changeState, appendLog, changeScenarioQueue } =
+  scraperSlice.actions;
 export default scraperSlice.reducer;

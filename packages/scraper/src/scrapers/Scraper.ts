@@ -6,7 +6,11 @@ import { isDev, Queue } from "src/common";
 import { stringify } from "javascript-stringify";
 import find from "find";
 import { ScraperLog, ScraperState, ScraperType } from "@shared/types";
-import { changeScraperState, sendLog } from "src/socket/server";
+import {
+  changeScenarioQueue,
+  changeScraperState,
+  sendLog,
+} from "src/socket/server";
 import { Scenario } from "./Scenario";
 
 const WINDOW_SIZE = {
@@ -22,7 +26,9 @@ abstract class Scraper<T> {
   state: ScraperState = ScraperState.Stopped;
   scraper: Page | null = null;
   queue: Queue<Scenario<T>>;
+  prevScenario?: Scenario<T> | null;
   currentScenario?: Scenario<T> | null;
+  nextScenario?: Scenario<T> | null;
   browser?: puppeteer.Browser;
   scriptPath: string;
   logs: Array<ScraperLog> = [];
@@ -162,6 +168,7 @@ abstract class Scraper<T> {
       return;
     }
 
+    this.prevScenario = this.currentScenario;
     this.currentScenario = this.queue.front();
 
     this.log({
@@ -172,6 +179,19 @@ abstract class Scraper<T> {
     if (this.currentScenario) {
       try {
         this.queue.pop();
+        this.nextScenario = this.queue.front();
+        changeScenarioQueue({
+          type: this.type,
+          prevScenario: {
+            title: this.prevScenario?.title ?? "",
+          },
+          currentScenario: {
+            title: this.currentScenario?.title ?? "",
+          },
+          nextScenario: {
+            title: this.nextScenario?.title ?? "",
+          },
+        });
         await this.scrapping(this.currentScenario);
         this.log({
           prefix: "INFO",

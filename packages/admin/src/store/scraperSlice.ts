@@ -1,7 +1,11 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ScraperLog, ScraperState, ScraperType } from "@shared/types";
-import { LogPayload, ScraperChangePayload } from "@shared/types/Socket";
+import {
+  InitScraperPayload,
+  LogPayload,
+  ScraperChangePayload,
+} from "@shared/types/Socket";
 
 const name = "scraper";
 
@@ -28,6 +32,16 @@ export const scraperSlice = createSlice({
   name,
   initialState,
   reducers: {
+    init: (state, action: PayloadAction<InitScraperPayload>) => {
+      state.scrapers.forEach((scraper, index) => {
+        if (scraper.type === action.payload.type) {
+          state.scrapers[index] = {
+            type: scraper.type,
+            ...action.payload.scraper,
+          };
+        }
+      });
+    },
     changeState: (state, action: PayloadAction<ScraperChangePayload>) => {
       state.scrapers.forEach((scraper) => {
         if (scraper.type === action.payload.type) {
@@ -45,5 +59,5 @@ export const scraperSlice = createSlice({
   },
 });
 
-export const { changeState, appendLog } = scraperSlice.actions;
+export const { init, changeState, appendLog } = scraperSlice.actions;
 export default scraperSlice.reducer;

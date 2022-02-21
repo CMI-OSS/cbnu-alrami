@@ -11,7 +11,7 @@ export default function ExcutionLog({ logs }: Props) {
   const boxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    boxRef.current?.scrollIntoView(false);
+    boxRef.current?.scrollTo(0, boxRef.current.scrollHeight);
   }, [ logs ]);
 
   return (

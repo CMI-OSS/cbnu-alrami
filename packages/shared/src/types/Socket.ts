@@ -20,10 +20,18 @@ export const LOG_EVENT = {
 } as const;
 export type LOG_EVENT = typeof LOG_EVENT[keyof typeof LOG_EVENT];
 
+export const INIT_SCRAPER_EVENT = {
+  INIT_SCRAPER_EVENT: "INIT_SCRAPER_EVENT",
+};
+
+export type INIT_SCRAPER_EVENT =
+  typeof INIT_SCRAPER_EVENT[keyof typeof INIT_SCRAPER_EVENT];
+
 const SOCKET_EVENT = {
   ...SCRAPER_COMMAND_EVENT,
   ...SCRAPER_CHANGE_EVENT,
   ...LOG_EVENT,
+  ...INIT_SCRAPER_EVENT,
 } as const;
 
 type SOCKET_EVENT = typeof SOCKET_EVENT[keyof typeof SOCKET_EVENT];
@@ -52,6 +60,18 @@ export type LogPayload = {
 };
 export type LogMessage = SocketMessage<LOG_EVENT, LogPayload>;
 
+export type InitScraperPayload = {
+  type: ScraperType;
+  scraper: {
+    state: ScraperState;
+    logs: Array<ScraperLog>;
+  };
+};
+export type InitScraperMessage = SocketMessage<
+  INIT_SCRAPER_EVENT,
+  InitScraperPayload
+>;
+
 export function isScraperCommand(
   message: SocketMessage,
 ): message is ScraperCommandMessage {
@@ -66,4 +86,10 @@ export function isScraperStateChange(
 
 export function isLog(message: SocketMessage): message is LogMessage {
   return message.event === LOG_EVENT.LOG_EVENT;
+}
+
+export function isInitScraperMessage(
+  message: SocketMessage,
+): message is InitScraperMessage {
+  return message.event === INIT_SCRAPER_EVENT.INIT_SCRAPER_EVENT;
 }

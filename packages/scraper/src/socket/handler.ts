@@ -2,6 +2,7 @@ import NoticeScraper from "src/scrapers/NoticeScraper";
 import CalendarScrpaer from "src/scrapers/CalendarScraper";
 import CafeteriaScraper from "src/scrapers/CafeteriaScraper";
 import DomitoryScraper from "src/scrapers/DomitoryScraper";
+import CovidScraper from "src/scrapers/CovidScraper";
 import { ScraperType } from "@shared/types";
 import { SocketMessage } from "@shared/types/Socket/SocketMessage";
 import {
@@ -14,6 +15,7 @@ const getScraper = (scraperType: ScraperType) => {
   if (scraperType === "calendar") return CalendarScrpaer;
   if (scraperType === "domitory") return DomitoryScraper;
   if (scraperType === "cafeteria") return CafeteriaScraper;
+  if (scraperType === "covid") return CovidScraper;
 
   throw new Error(`Not found "${scraperType}" scraper `);
 };

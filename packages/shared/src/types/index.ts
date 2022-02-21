@@ -17,7 +17,8 @@ export type ScraperType =
   | "notice"
   | "cafeteria"
   | "domitory"
-  | "calendar";
+  | "calendar"
+  | "covid";
 
 export enum ScraperState {
   Running = "Running",

@@ -20,6 +20,10 @@ export default function Natigation() {
       path: "/scraper/calendar",
       label: "학사일정",
     },
+    {
+      path: "/scraper/covid",
+      label: "코로나",
+    },
   ];
 
   return (

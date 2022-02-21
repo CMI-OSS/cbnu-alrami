@@ -48,6 +48,7 @@ const initialState: Props = {
     { ...initialScraper, type: "calendar" },
     { ...initialScraper, type: "domitory" },
     { ...initialScraper, type: "cafeteria" },
+    { ...initialScraper, type: "covid" },
   ],
 };
 

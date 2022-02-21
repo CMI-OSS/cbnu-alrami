@@ -4,6 +4,7 @@ import NoticeScraper from "src/scrapers/NoticeScraper";
 import CalendarScrpaer from "src/scrapers/CalendarScraper";
 import CafeteriaScraper from "src/scrapers/CafeteriaScraper";
 import DomitoryScraper from "src/scrapers/DomitoryScraper";
+import CovidScraper from "src/scrapers/CovidScraper";
 import { SocketMessage } from "@shared/types/Socket/SocketMessage";
 import {
   InitScraperMessage,
@@ -44,29 +45,33 @@ function emitAll<T extends SocketMessage>({ event, payload }: T) {
 }
 
 export const sendInitScraper = (socket: Socket) => {
-  [ NoticeScraper, CalendarScrpaer, CafeteriaScraper, DomitoryScraper ].forEach(
-    (scraper) => {
-      emit<InitScraperMessage>(socket, {
-        event: INIT_SCRAPER_EVENT,
-        payload: {
-          type: scraper.type,
-          scraper: {
-            state: scraper.state,
-            logs: scraper.logs,
-            prevScenario: {
-              title: scraper.prevScenario?.title ?? "",
-            },
-            currentScenario: {
-              title: scraper.currentScenario?.title ?? "",
-            },
-            nextScenario: {
-              title: scraper.nextScenario?.title ?? "",
-            },
+  [
+    NoticeScraper,
+    CalendarScrpaer,
+    CafeteriaScraper,
+    DomitoryScraper,
+    CovidScraper,
+  ].forEach((scraper) => {
+    emit<InitScraperMessage>(socket, {
+      event: INIT_SCRAPER_EVENT,
+      payload: {
+        type: scraper.type,
+        scraper: {
+          state: scraper.state,
+          logs: scraper.logs,
+          prevScenario: {
+            title: scraper.prevScenario?.title ?? "",
+          },
+          currentScenario: {
+            title: scraper.currentScenario?.title ?? "",
+          },
+          nextScenario: {
+            title: scraper.nextScenario?.title ?? "",
           },
         },
-      });
-    },
-  );
+      },
+    });
+  });
 };
 export const sendChangeScraperState = (
   type: ScraperType,

@@ -11,6 +11,7 @@ export default function ScraperPage() {
         <Route path="/student" element={<Scraper scraperType="cafeteria" />} />
         <Route path="/domitory" element={<Scraper scraperType="domitory" />} />
         <Route path="/calendar" element={<Scraper scraperType="calendar" />} />
+        <Route path="/covid" element={<Scraper scraperType="covid" />} />
       </Routes>
     </>
   );

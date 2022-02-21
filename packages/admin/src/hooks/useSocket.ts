@@ -1,14 +1,20 @@
 import {
-  isInitScraperMessage,
-  isLog,
-  isScraperStateChange,
-  LogMessage,
-  ScraperChangeStateMessage,
-  SocketMessage,
-  InitScraperMessage,
-  isChangeScenarioQueue,
+  AppendLogMessage,
+  isAppendLogMessage,
+} from "@shared/types/Socket/AppendLog";
+import {
   ChangeScenarioQueueMessage,
-} from "@shared/types/Socket";
+  isChangeScenarioQueueMessage,
+} from "@shared/types/Socket/ChangeScenarioQueue";
+import {
+  ChangeScraperStateMessage,
+  isChangeScraperStateMessage,
+} from "@shared/types/Socket/ChangeScraperState";
+import {
+  InitScraperMessage,
+  isInitScraperMessage,
+} from "@shared/types/Socket/InitScraper";
+import { SocketMessage } from "@shared/types/Socket/SocketMessage";
 import { socket } from "../lib/socket";
 import { useAppDispatch } from "../store";
 import {
@@ -24,22 +30,23 @@ export default function useSocket() {
 
   const socketHandler = (message: SocketMessage) => {
     if (isInitScraperMessage(message)) handleInitScraper(message);
-    if (isScraperStateChange(message)) handleScraperChange(message);
-    if (isLog(message)) handleScraperLog(message);
-    if (isChangeScenarioQueue(message)) handleChangeScenarioQueue(message);
+    if (isChangeScraperStateMessage(message)) handleChangeScraperState(message);
+    if (isAppendLogMessage(message)) handleAppendLog(message);
+    if (isChangeScenarioQueueMessage(message))
+      handleChangeScenarioQueue(message);
   };
 
   const handleInitScraper = ({ payload }: InitScraperMessage) => {
     dispatch(init(payload));
   };
 
-  const handleScraperChange = ({
+  const handleChangeScraperState = ({
     payload: scraper,
-  }: ScraperChangeStateMessage) => {
+  }: ChangeScraperStateMessage) => {
     dispatch(changeState(scraper));
   };
 
-  const handleScraperLog = ({ payload }: LogMessage) => {
+  const handleAppendLog = ({ payload }: AppendLogMessage) => {
     dispatch(appendLog(payload));
   };
 

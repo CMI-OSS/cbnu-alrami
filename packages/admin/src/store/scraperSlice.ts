@@ -1,12 +1,10 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ScraperLog, ScraperState, ScraperType } from "@shared/types";
-import {
-  ChangeScenarioQueuePayload,
-  InitScraperPayload,
-  LogPayload,
-  ScraperChangePayload,
-} from "@shared/types/Socket";
+import { AppendLogPayload } from "@shared/types/Socket/AppendLog";
+import { ChangeScenarioQueuePayload } from "@shared/types/Socket/ChangeScenarioQueue";
+import { ChangeScraperStatePayload } from "@shared/types/Socket/ChangeScraperState";
+import { InitScraperPayload } from "@shared/types/Socket/InitScraper";
 
 const name = "scraper";
 
@@ -67,14 +65,14 @@ export const scraperSlice = createSlice({
         }
       });
     },
-    changeState: (state, action: PayloadAction<ScraperChangePayload>) => {
+    changeState: (state, action: PayloadAction<ChangeScraperStatePayload>) => {
       state.scrapers.forEach((scraper) => {
         if (scraper.type === action.payload.type) {
           scraper.state = action.payload.state;
         }
       });
     },
-    appendLog: (state, action: PayloadAction<LogPayload>) => {
+    appendLog: (state, action: PayloadAction<AppendLogPayload>) => {
       state.scrapers.forEach((scraper) => {
         if (scraper.type === action.payload.type) {
           scraper.logs.push(action.payload.log);

@@ -1,28 +1,34 @@
 import { ScraperState, ScraperType } from "@shared/types";
-import {
-  ChangeScenarioQueueMessage,
-  ChangeScenarioQueuePayload,
-  CHANGE_SCENARIO_QUEUE_EVENT,
-  InitScraperMessage,
-  INIT_SCRAPER_EVENT,
-  LogMessage,
-  LogPayload,
-  ScraperChangeStateMessage,
-  SCRAPER_CHANGE_EVENT,
-  SocketMessage,
-} from "@shared/types/Socket";
 import { Server, Socket } from "socket.io";
 import NoticeScraper from "src/scrapers/NoticeScraper";
 import CalendarScrpaer from "src/scrapers/CalendarScraper";
 import CafeteriaScraper from "src/scrapers/CafeteriaScraper";
 import DomitoryScraper from "src/scrapers/DomitoryScraper";
+import { SocketMessage } from "@shared/types/Socket/SocketMessage";
+import {
+  InitScraperMessage,
+  INIT_SCRAPER_EVENT,
+} from "@shared/types/Socket/InitScraper";
+import {
+  ChangeScraperStateMessage,
+  CHANGE_SCRAPER_STATE_EVENT,
+} from "@shared/types/Socket/ChangeScraperState";
+import {
+  AppendLogMessage,
+  AppendLogPayload,
+  APPEND_LOG_EVENT,
+} from "@shared/types/Socket/AppendLog";
+import {
+  ChangeScenarioQueueMessage,
+  ChangeScenarioQueuePayload,
+  CHANGE_SCENARIO_QUEUE_EVENT,
+} from "@shared/types/Socket/ChangeScenarioQueue";
 import { socketHandler } from "./handler";
-import { LOG_EVENT } from "../../../shared/src/types/Socket";
 
 const io = new Server({ cors: { origin: "*" } });
 
 const onSocketConnection = (socket: Socket) => {
-  initScraper(socket);
+  sendInitScraper(socket);
   socket.onAny((event, payload) => socketHandler({ event, payload }));
 };
 
@@ -37,11 +43,11 @@ function emitAll<T extends SocketMessage>({ event, payload }: T) {
   io.emit(event, payload);
 }
 
-export const initScraper = (socket: Socket) => {
+export const sendInitScraper = (socket: Socket) => {
   [ NoticeScraper, CalendarScrpaer, CafeteriaScraper, DomitoryScraper ].forEach(
     (scraper) => {
       emit<InitScraperMessage>(socket, {
-        event: INIT_SCRAPER_EVENT.INIT_SCRAPER_EVENT,
+        event: INIT_SCRAPER_EVENT,
         payload: {
           type: scraper.type,
           scraper: {
@@ -62,23 +68,26 @@ export const initScraper = (socket: Socket) => {
     },
   );
 };
-export const changeScraperState = (type: ScraperType, state: ScraperState) =>
-  emitAll<ScraperChangeStateMessage>({
-    event: SCRAPER_CHANGE_EVENT.STATE_CHANGE,
+export const sendChangeScraperState = (
+  type: ScraperType,
+  state: ScraperState,
+) =>
+  emitAll<ChangeScraperStateMessage>({
+    event: CHANGE_SCRAPER_STATE_EVENT,
     payload: {
       type,
       state,
     },
   });
 
-export const sendLog = (payload: LogPayload) =>
-  emitAll<LogMessage>({
-    event: LOG_EVENT.LOG_EVENT,
+export const sendAppendLog = (payload: AppendLogPayload) =>
+  emitAll<AppendLogMessage>({
+    event: APPEND_LOG_EVENT,
     payload,
   });
 
-export const changeScenarioQueue = (payload: ChangeScenarioQueuePayload) =>
+export const sendChangeScenarioQueue = (payload: ChangeScenarioQueuePayload) =>
   emitAll<ChangeScenarioQueueMessage>({
-    event: CHANGE_SCENARIO_QUEUE_EVENT.CHANGE_SCENARIO_QUEUE_EVENT,
+    event: CHANGE_SCENARIO_QUEUE_EVENT,
     payload,
   });

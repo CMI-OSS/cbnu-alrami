@@ -7,9 +7,9 @@ import { stringify } from "javascript-stringify";
 import find from "find";
 import { ScraperLog, ScraperState, ScraperType } from "@shared/types";
 import {
-  changeScenarioQueue,
-  changeScraperState,
-  sendLog,
+  sendChangeScenarioQueue,
+  sendChangeScraperState,
+  sendAppendLog,
 } from "src/socket/server";
 import { Scenario } from "./Scenario";
 
@@ -57,7 +57,7 @@ abstract class Scraper<T> {
 
   log(log: ScraperLog) {
     this.logs.push(log);
-    sendLog({ type: this.type, log });
+    sendAppendLog({ type: this.type, log });
   }
 
   async start() {
@@ -180,7 +180,7 @@ abstract class Scraper<T> {
       try {
         this.queue.pop();
         this.nextScenario = this.queue.front();
-        changeScenarioQueue({
+        sendChangeScenarioQueue({
           type: this.type,
           prevScenario: {
             title: this.prevScenario?.title ?? "",
@@ -211,7 +211,7 @@ abstract class Scraper<T> {
 
   setScraperState(state: ScraperState) {
     this.state = state;
-    changeScraperState(this.type, state);
+    sendChangeScraperState(this.type, state);
   }
 
   abstract scrapping(script: Scenario<T>): void;

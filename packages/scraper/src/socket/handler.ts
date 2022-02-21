@@ -1,13 +1,13 @@
-import {
-  isScraperCommand,
-  ScraperCommandMessage,
-  SocketMessage,
-} from "@shared/types/Socket";
 import NoticeScraper from "src/scrapers/NoticeScraper";
 import CalendarScrpaer from "src/scrapers/CalendarScraper";
 import CafeteriaScraper from "src/scrapers/CafeteriaScraper";
 import DomitoryScraper from "src/scrapers/DomitoryScraper";
 import { ScraperType } from "@shared/types";
+import { SocketMessage } from "@shared/types/Socket/SocketMessage";
+import {
+  CommandScraperMessage,
+  isCommandScraperMessage,
+} from "@shared/types/Socket/CommandScraper";
 
 const getScraper = (scraperType: ScraperType) => {
   if (scraperType === "notice") return NoticeScraper;
@@ -19,13 +19,13 @@ const getScraper = (scraperType: ScraperType) => {
 };
 
 const socketHandler = (message: SocketMessage) => {
-  if (isScraperCommand(message)) handleScraperCommand(message);
+  if (isCommandScraperMessage(message)) handleScraperCommand(message);
 };
 
 const handleScraperCommand = ({
   event,
   payload: scraperType,
-}: ScraperCommandMessage) => {
+}: CommandScraperMessage) => {
   const scraper = getScraper(scraperType);
   if (event === "START_SCRAPER") scraper.start();
   if (event === "STOP_SCRAPER") scraper.stop();

@@ -1,10 +1,10 @@
 import { ScraperType } from "@shared/types";
 import { io } from "socket.io-client";
+import { SocketMessage } from "@shared/types/Socket/SocketMessage";
 import {
-  ScraperCommandMessage,
-  SocketMessage,
-  SCRAPER_COMMAND_EVENT,
-} from "@shared/types/Socket";
+  CommandScraperMessage,
+  COMMAND_SCRAPER_EVENT,
+} from "@shared/types/Socket/CommandScraper";
 
 const socket = io(
   `${window.location.protocol}//${window.location.hostname}:8070`,
@@ -15,26 +15,26 @@ function emit<T extends SocketMessage>({ event, payload }: T) {
 }
 
 const startScraper = (scraperType: ScraperType) =>
-  emit<ScraperCommandMessage>({
-    event: SCRAPER_COMMAND_EVENT.START_SCRAPER,
+  emit<CommandScraperMessage>({
+    event: COMMAND_SCRAPER_EVENT.START_SCRAPER,
     payload: scraperType,
   });
 
 const stopScraper = (scraperType: ScraperType) =>
-  emit<ScraperCommandMessage>({
-    event: SCRAPER_COMMAND_EVENT.STOP_SCRAPER,
+  emit<CommandScraperMessage>({
+    event: COMMAND_SCRAPER_EVENT.STOP_SCRAPER,
     payload: scraperType,
   });
 
 const pauseScraper = (scraperType: ScraperType) =>
-  emit<ScraperCommandMessage>({
-    event: SCRAPER_COMMAND_EVENT.PAUSE_SCRAPER,
+  emit<CommandScraperMessage>({
+    event: COMMAND_SCRAPER_EVENT.PAUSE_SCRAPER,
     payload: scraperType,
   });
 
 const restartScraper = (scraperType: ScraperType) =>
-  emit<ScraperCommandMessage>({
-    event: SCRAPER_COMMAND_EVENT.RESTART_SCRAPER,
+  emit<CommandScraperMessage>({
+    event: COMMAND_SCRAPER_EVENT.RESTART_SCRAPER,
     payload: scraperType,
   });
 

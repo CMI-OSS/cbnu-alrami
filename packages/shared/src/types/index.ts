@@ -15,9 +15,9 @@ export type ScenarioType = {
 
 export type ScraperType =
   | "notice"
-  | "studentCafeteria"
-  | "domitoryCafeteria"
-  | "collegeSchedule";
+  | "cafeteria"
+  | "domitory"
+  | "calendar";
 
 export enum ScraperState {
   Running = "Running",

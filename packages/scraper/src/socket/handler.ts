@@ -11,9 +11,9 @@ import {
 
 const getScraper = (scraperType: ScraperType) => {
   if (scraperType === "notice") return NoticeScraper;
-  if (scraperType === "collegeSchedule") return CalendarScrpaer;
-  if (scraperType === "domitoryCafeteria") return DomitoryScraper;
-  if (scraperType === "studentCafeteria") return CafeteriaScraper;
+  if (scraperType === "calendar") return CalendarScrpaer;
+  if (scraperType === "domitory") return DomitoryScraper;
+  if (scraperType === "cafeteria") return CafeteriaScraper;
 
   throw new Error(`Not found "${scraperType}" scraper `);
 };

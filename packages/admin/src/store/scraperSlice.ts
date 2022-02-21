@@ -45,9 +45,9 @@ export const initialScraper: Scraper = {
 const initialState: Props = {
   scrapers: [
     { ...initialScraper, type: "notice" },
-    { ...initialScraper, type: "collegeSchedule" },
-    { ...initialScraper, type: "domitoryCafeteria" },
-    { ...initialScraper, type: "studentCafeteria" },
+    { ...initialScraper, type: "calendar" },
+    { ...initialScraper, type: "domitory" },
+    { ...initialScraper, type: "cafeteria" },
   ],
 };
 

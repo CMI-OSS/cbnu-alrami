@@ -17,7 +17,7 @@ export default function Natigation() {
       label: "기숙사 식당",
     },
     {
-      path: "/scraper/schedule",
+      path: "/scraper/calendar",
       label: "학사일정",
     },
   ];
@@ -30,7 +30,9 @@ export default function Natigation() {
           <NavLink
             key={path}
             to={path}
-            className={({isActive}) => style.sideNavLi + (isActive? ` ${style.activated}` : "")}
+            className={({ isActive }) =>
+              style.sideNavLi + (isActive ? ` ${style.activated}` : "")
+            }
           >
             {label}
           </NavLink>

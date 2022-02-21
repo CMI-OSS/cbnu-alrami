@@ -9,7 +9,7 @@ import { Scenario } from "../Scenario";
 
 class DomitoryScraper extends Scraper<DomitoryScript> {
   name = "기숙사 식단";
-  type: ScraperType = "domitoryCafeteria";
+  type: ScraperType = "domitory";
 
   constructor() {
     super(`${__dirname}/scripts`);

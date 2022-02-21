@@ -8,7 +8,7 @@ import ArrayToDate from "./ArrayToDate";
 
 class CalendarScraper extends Scraper<CalendarScript> {
   name = "학사 일정";
-  type: ScraperType = "collegeSchedule";
+  type: ScraperType = "calendar";
 
   constructor() {
     super(`${__dirname}/scripts`);

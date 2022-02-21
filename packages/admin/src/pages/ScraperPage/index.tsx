@@ -8,9 +8,9 @@ export default function ScraperPage() {
       <Navigation />
       <Routes>
         <Route path="/notice" element={<Scraper scraperType="notice" />} />
-        <Route path="/student" element={<Scraper scraperType="studentCafeteria" />} />
-        <Route path="/domitory" element={<Scraper scraperType="domitoryCafeteria" />} />
-        <Route path="/schedule" element={ <Scraper scraperType="collegeSchedule" />} />
+        <Route path="/student" element={<Scraper scraperType="cafeteria" />} />
+        <Route path="/domitory" element={<Scraper scraperType="domitory" />} />
+        <Route path="/calendar" element={<Scraper scraperType="calendar" />} />
       </Routes>
     </>
   );

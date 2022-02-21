@@ -7,7 +7,7 @@ import { Scenario } from "../Scenario";
 
 class CafeteriaScraper extends Scraper<CafeteriaScript> {
   name = "학생식당";
-  type: ScraperType = "studentCafeteria";
+  type: ScraperType = "cafeteria";
 
   constructor() {
     super(`${__dirname}/scripts`);

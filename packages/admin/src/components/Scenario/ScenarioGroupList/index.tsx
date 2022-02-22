@@ -1,5 +1,5 @@
 import { ScenarioType } from "@shared/types";
-import useQuery from "src/hooks/useQuery";
+import { useQuery } from "src/hooks";
 import { getScenarioGroups } from "src/lib/scenario";
 import getStyle from "./style";
 import ScenarioList from "../ScenarioList";

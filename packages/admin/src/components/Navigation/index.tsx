@@ -8,35 +8,41 @@ export default function Natigation() {
   const [ active, setActive ] = useState(-1);
   const style = getStyle();
 
-  const SCRAPER_MENUS = [
-    {
-      path: "/scraper/notice",
-      label: "공지사항",
-    },
-    {
-      path: "/scraper/student",
-      label: "학생 식당",
-    },
-    {
-      path: "/scraper/domitory",
-      label: "기숙사 식당",
-    },
-    {
-      path: "/scraper/schedule",
-      label: "학사일정",
-    },
-  ];
+  const SCRAPER_MENUS = {
+    label: "스크래퍼",
+    menus: [
+      {
+        path: "/scraper/notice",
+        label: "공지사항",
+      },
+      {
+        path: "/scraper/student",
+        label: "학생 식당",
+      },
+      {
+        path: "/scraper/domitory",
+        label: "기숙사 식당",
+      },
+      {
+        path: "/scraper/schedule",
+        label: "학사일정",
+      },
+    ],
+  };
 
-  const BOARD_MENUS = [
-    {
-      path: "/board/list",
-      label: "게시물 목록",
-    },
-    {
-      path: "/board/write",
-      label: "게시물 작성",
-    },
-  ];
+  const BOARD_MENUS = {
+    label: "게시판",
+    menus: [
+      {
+        path: "/board/list",
+        label: "게시물 목록",
+      },
+      {
+        path: "/board/write",
+        label: "게시물 작성",
+      },
+    ],
+  };
 
   return isLoginMatch ? (
     <></>
@@ -47,13 +53,13 @@ export default function Natigation() {
         <ul>
           {[ BOARD_MENUS, SCRAPER_MENUS ].map((menu, idx) => (
             <li className={style.contentNavLi} key={`${menu}`}>
-              <p className={style.detailLogo}>{!idx ? "게시판" : "스크래퍼"}</p>
+              <p className={style.detailLogo}>{menu.label}</p>
               <ul
                 className={cx(style.detailNavUl, {
                   [style.contentsActivated]: idx === active,
                 })}
               >
-                {menu.map(({ path, label }) => (
+                {menu.menus.map(({ path, label }) => (
                   <NavLink
                     key={path}
                     to={path}

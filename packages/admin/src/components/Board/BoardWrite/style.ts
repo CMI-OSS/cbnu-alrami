@@ -20,7 +20,7 @@ export default () => {
     padding: 3rem;
 
     .${warn} {
-      ::-webkit-input-placeholder {
+      ::placeholder {
         color: ${colors.$googleRed};
       }
     }

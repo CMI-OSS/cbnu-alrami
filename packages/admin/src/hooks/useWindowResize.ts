@@ -7,13 +7,13 @@ export default function useWindowResize() {
   useEffect(() => {
     window.addEventListener(
       "resize",
-      debounce(() => detectSize(), 50),
+      debounce(() => detectSize(), 100),
     );
 
     return () =>
       window.removeEventListener(
         "resize",
-        debounce(() => detectSize(), 50),
+        debounce(() => detectSize(), 100),
       );
   }, []);
   return size;

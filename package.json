@@ -65,10 +65,9 @@
     "bootstrap": "lerna bootstrap"
   },
   "dependencies": {
-    "admin": "file:packages/admin",
-    "mobile": "file:packages/mobile",
-    "scraper": "file:packages/scraper",
-    "server": "file:packages/server"
+    "admin": "file:packages\\admin",
+    "mobile": "file:packages\\mobile",
+    "scraper": "file:packages\\scraper"
   },
   "husky": {
     "hooks": {

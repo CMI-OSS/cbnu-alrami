@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "> TODO: description",
   "author": "vcho1958 <gusckd57@gmail.com>",
-  "private": true,
+  "private": false,
   "license": "ISC",
   "scripts": {
     "prebuild": "rimraf dist",

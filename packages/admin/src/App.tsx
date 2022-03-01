@@ -6,7 +6,9 @@ import { hot } from "react-hot-loader";
 import getGlobalStyle from "@shared/styles/globalStyle";
 import getAdminStyle from "src/adminStyle";
 import useSocket from "src/hooks/useSocket";
+import Navigation from "./components/Navigation";
 import LoginPage from "./pages/Login";
+import BoardPage from "./pages/BoardPage";
 import { store } from "./store";
 
 function App() {
@@ -17,8 +19,10 @@ function App() {
       <Global styles={getGlobalStyle()} />
       <Global styles={getAdminStyle()} />
       <BrowserRouter>
+        <Navigation />
         <Routes>
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/board/*" element={<BoardPage />} />
           <Route path="/scraper/*" element={<ScraperPage />} />
           <Route path="*" element={<Navigate to="/scraper/notice" />} />
         </Routes>

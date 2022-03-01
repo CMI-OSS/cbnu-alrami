@@ -3,11 +3,24 @@ import { colors } from "@shared/styles/color";
 import { hashClassNames } from "src/lib/hash";
 
 export default () => {
-  const { activated, sideNavUl, sideNavLi, logo } = hashClassNames([
+  const {
+    activated,
+    detailNavUl,
+    contentNavLi,
+    contentsActivated,
+    sideNavUl,
+    sideNavLi,
+    logo,
+    detailLogo,
+  } = hashClassNames([
     "activated",
+    "detailNavUl",
+    "contentNavLi",
+    "contentsActivated",
     "sideNavUl",
     "sideNavLi",
     "logo",
+    "detailLogo",
   ]);
 
   const Navigation = css`
@@ -24,6 +37,23 @@ export default () => {
       flex-direction: column;
       margin: 2rem 0 0 2rem;
       align-items: left;
+    }
+
+    .${detailNavUl} {
+      display: none;
+      flex-direction: column;
+      margin: 0 0 0 1rem;
+      align-items: left;
+    }
+
+    .${contentNavLi} {
+      &:hover .${detailNavUl} {
+        display: flex;
+      }
+    }
+
+    .${contentsActivated} {
+      display: flex;
     }
 
     .${sideNavLi} {
@@ -45,11 +75,28 @@ export default () => {
       font-weight: bold;
     }
 
+    .${detailLogo} {
+      margin: 1rem 0 0 0.5rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
     .${activated} {
       font-weight: 600;
       color: ${colors.$darkNavy};
     }
   `;
 
-  return { Navigation, activated, sideNavUl, sideNavLi, logo };
+  return {
+    Navigation,
+    activated,
+    detailNavUl,
+    contentNavLi,
+    contentsActivated,
+    sideNavUl,
+    sideNavLi,
+    logo,
+    detailLogo,
+  };
 };

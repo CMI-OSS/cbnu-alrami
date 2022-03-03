@@ -1,20 +1,16 @@
 import {
   AppendLogMessage,
   isAppendLogMessage,
-} from "@shared/types/Socket/AppendLog";
-import {
   ChangeScenarioQueueMessage,
   isChangeScenarioQueueMessage,
-} from "@shared/types/Socket/ChangeScenarioQueue";
-import {
   ChangeScraperStateMessage,
   isChangeScraperStateMessage,
-} from "@shared/types/Socket/ChangeScraperState";
-import {
   InitScraperMessage,
   isInitScraperMessage,
-} from "@shared/types/Socket/InitScraper";
-import { SocketMessage } from "@shared/types/Socket/SocketMessage";
+  SocketMessage,
+  SOCKET_EVENT,
+} from "@shared/types/Socket";
+
 import { socket } from "../lib/socket";
 import { useAppDispatch } from "../store";
 import {
@@ -26,7 +22,9 @@ import {
 
 export default function useSocket() {
   const dispatch = useAppDispatch();
-  socket.onAny((event, payload) => socketHandler({ event, payload }));
+  socket.onAny((event: SOCKET_EVENT, payload: any) =>
+    socketHandler({ event, payload }),
+  );
 
   const socketHandler = (message: SocketMessage) => {
     if (isInitScraperMessage(message)) handleInitScraper(message);

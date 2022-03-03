@@ -60,57 +60,7 @@ abstract class Scraper<T> {
     sendAppendLog({ type: this.type, log });
   }
 
-  async start() {
-    if (this.state === ScraperState.Pause) {
-      this.log({
-        prefix: "INFO",
-        message: `${this.name} 스크래퍼를 재개합니다`,
-      });
-      this.setScraperState(ScraperState.Running);
-      this.run();
-      return;
-    }
-
-    this.log({
-      prefix: "INFO",
-      message: `${this.name} 스크래퍼를 시작합니다`,
-    });
-    await this.initScraper();
-    await this.initScript();
-    this.setScraperState(ScraperState.Running);
-    this.run();
-  }
-
-  async stop() {
-    this.log({
-      prefix: "INFO",
-      message: `${this.name} 스크래퍼를 정지합니다`,
-    });
-
-    this.setScraperState(ScraperState.Stopped);
-    this.scraper = null;
-    this.browser?.close();
-    this.queue.reset();
-  }
-
-  async restart() {
-    this.stop();
-    this.start();
-  }
-
-  async pause() {
-    this.log({
-      prefix: "INFO",
-      message: `${this.name} 스크래퍼를 중지합니다`,
-    });
-    this.setScraperState(ScraperState.Pause);
-    if (this.currentScenario) {
-      this.queue.pushFront(this.currentScenario);
-      this.currentScenario = null;
-    }
-  }
-
-  async initScraper() {
+  async init() {
     this.browser = await puppeteer.launch({
       headless: !isDev,
       args: [ `--window-size=${WINDOW_SIZE.WIDTH},${WINDOW_SIZE.HEIGHT}` ],
@@ -148,6 +98,56 @@ abstract class Scraper<T> {
     }
 
     this.scraper = page;
+  }
+
+  async start() {
+    if (this.state === ScraperState.Pause) {
+      this.log({
+        prefix: "INFO",
+        message: `${this.name} 스크래퍼를 재개합니다`,
+      });
+      this.setScraperState(ScraperState.Running);
+      this.run();
+      return;
+    }
+
+    this.log({
+      prefix: "INFO",
+      message: `${this.name} 스크래퍼를 시작합니다`,
+    });
+    await this.init();
+    await this.initScript();
+    this.setScraperState(ScraperState.Running);
+    this.run();
+  }
+
+  async stop() {
+    this.log({
+      prefix: "INFO",
+      message: `${this.name} 스크래퍼를 정지합니다`,
+    });
+
+    this.setScraperState(ScraperState.Stopped);
+    this.scraper = null;
+    this.browser?.close();
+    this.queue.reset();
+  }
+
+  async restart() {
+    this.stop();
+    this.start();
+  }
+
+  async pause() {
+    this.log({
+      prefix: "INFO",
+      message: `${this.name} 스크래퍼를 중지합니다`,
+    });
+    this.setScraperState(ScraperState.Pause);
+    if (this.currentScenario) {
+      this.queue.pushFront(this.currentScenario);
+      this.currentScenario = null;
+    }
   }
 
   async evaluateScript(script: T) {

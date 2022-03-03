@@ -12,8 +12,8 @@ const SOCKET_EVENT = {
   APPEND_LOG_EVENT,
 } as const;
 
-type SOCKET_EVENT = typeof SOCKET_EVENT[keyof typeof SOCKET_EVENT];
-export interface SocketMessage<E = SOCKET_EVENT, P = any> {
+export type SOCKET_EVENT = typeof SOCKET_EVENT[keyof typeof SOCKET_EVENT];
+export type SocketMessage<E = SOCKET_EVENT, P = any> = {
   event: E;
   payload: P;
-}
+};

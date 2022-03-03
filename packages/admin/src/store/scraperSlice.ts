@@ -8,7 +8,7 @@ import { InitScraperPayload } from "@shared/types/Socket/InitScraper";
 
 const name = "scraper";
 
-interface Scraper {
+type Scraper = {
   type: ScraperType;
   state: ScraperState;
   logs: Array<ScraperLog>;
@@ -21,11 +21,11 @@ interface Scraper {
   nextScenario: {
     title: string;
   };
-}
+};
 
-interface Props {
+type Props = {
   scrapers: Array<Scraper>;
-}
+};
 
 export const initialScraper: Scraper = {
   type: "notice",

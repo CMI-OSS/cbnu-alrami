@@ -27,7 +27,7 @@ export enum ScraperState {
   Error = "Error",
 }
 
-export interface ScraperLog {
+export type ScraperLog = {
   prefix?: "INFO" | "WARN" | "ERROR";
   message: string;
-}
+};

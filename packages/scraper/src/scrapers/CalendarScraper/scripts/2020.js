@@ -1,15 +1,6 @@
 const script = {
-  url: "https://www.chungbuk.ac.kr/site/www/sub.do?key=",
-  years: [
-    {
-      year: 2020,
-      key: "1728",
-    },
-    {
-      year: 2021,
-      key: "1804",
-    },
-  ],
+  url: "https://www.chungbuk.ac.kr/site/www/sub.do?key=1728",
+  year: 2020,
   waitCalendarSelector:
     "#contents > div.academic_calendar > ul > li > div:nth-child(2) > div:nth-child(1) > ul > li",
   getSchedules: function () {
@@ -18,6 +9,7 @@ const script = {
       `#contents > div.academic_calendar > ul > li > div:nth-child(2) > div:nth-child(1) > ul > li`,
     );
     for (let i = 0; i < content.length; i++) {
+      if (!content[i].querySelector("span")) continue;
       let date = content[i].querySelector("span").textContent;
       let text = content[i].textContent;
       text = text.slice(date.length, text.length);

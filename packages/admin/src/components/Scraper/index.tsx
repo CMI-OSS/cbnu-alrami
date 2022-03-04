@@ -18,9 +18,8 @@ export default function Scraper({ scraperType }: Props) {
 
   const getMockScenarios = () => {
     if (scraperType === "notice") return mockNoticeScenarios;
-    if (scraperType === "domitoryCafeteria")
-      return mockDomitoryRestaurantScenarios;
-    if (scraperType === "studentCafeteria") return mockStudentScenarios;
+    if (scraperType === "domitory") return mockDomitoryRestaurantScenarios;
+    if (scraperType === "cafeteria") return mockStudentScenarios;
 
     return mockCollegeScheduleScenarios;
   };

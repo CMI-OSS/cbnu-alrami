@@ -21,8 +21,8 @@ export async function createNotice({
   ]);
 
   try {
-    const result = await db.query(sql);
-    return result;
+    // const result = await db.query(sql);
+    // return result;
   } catch (error) {
     console.error("[createNotice]", error);
     throw error;

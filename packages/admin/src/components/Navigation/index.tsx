@@ -24,7 +24,7 @@ export default function Natigation() {
         label: "기숙사 식당",
       },
       {
-        path: "/scraper/schedule",
+        path: "/scraper/calendar",
         label: "학사일정",
       },
     ],

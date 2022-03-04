@@ -1,15 +1,16 @@
-import { useState } from "react";
 import { FaPlay, FaPause, FaStop } from "react-icons/fa";
 import { MdReplay } from "react-icons/md";
 
 import { cx } from "@emotion/css";
+import { ScraperState, ScraperType } from "@shared/types";
 import {
-  noticeScenarioQueue,
-  studentScenarioQueue,
-  domitoryScenarioQueue,
-  scheduleScenarioQueue,
-} from "src/__mockData__";
-import { ScraperType } from "@shared/types";
+  pauseScraper,
+  restartScraper,
+  startScraper,
+  stopScraper,
+} from "src/lib/socket";
+import { useAppSelector } from "src/store";
+import { initialScraper } from "src/store/scraperSlice";
 import { ScenarioQueue, ExcutionLog } from "..";
 import Tooltip from "../../Tooltip";
 import getStyle from "./style";
@@ -19,39 +20,42 @@ interface Props {
 }
 
 export default function ScraperManager({ scraperType }: Props) {
-  const [ scraperState, setScraperState ] = useState("");
+  const {
+    state: scraperState,
+    logs,
+    prevScenario,
+    currentScenario,
+    nextScenario,
+  } = useAppSelector((state) =>
+    state.scraperReducer.scrapers.find(
+      (scraper) => scraper.type === scraperType,
+    ),
+  ) ?? initialScraper;
+
   const style = getStyle();
 
-  const getMockScenarioQueue = () => {
-    if (scraperType === "notice") return noticeScenarioQueue;
-    if (scraperType === "domitoryCafeteria") return domitoryScenarioQueue;
-    if (scraperType === "studentCafeteria") return studentScenarioQueue;
-
-    return scheduleScenarioQueue;
-  };
-
   const startScraping = () => {
-    if (
-      !(
-        scraperState === "start" ||
-        scraperState === "stop" ||
-        scraperState === "restart"
-      )
-    )
-      setScraperState("start");
+    if (scraperState === ScraperState.Running) return;
+    startScraper(scraperType);
   };
 
   const pauseScraping = () => {
-    if (!(scraperState === "pause" || scraperState === "stop"))
-      setScraperState("pause");
+    if (
+      scraperState === ScraperState.Pause ||
+      scraperState === ScraperState.Stopped
+    )
+      return;
+    pauseScraper(scraperType);
   };
 
   const stopScraping = () => {
-    if (scraperState !== "stop") setScraperState("stop");
+    if (scraperState === ScraperState.Stopped) return;
+    stopScraper(scraperType);
   };
 
   const restartScraping = () => {
-    if (scraperState !== "restart") setScraperState("restart");
+    if (scraperState === ScraperState.Stopped) return;
+    restartScraper(scraperType);
   };
 
   return (
@@ -62,10 +66,7 @@ export default function ScraperManager({ scraperType }: Props) {
           <button type="button" className={style.button}>
             <FaPlay
               className={cx(style.play, {
-                [style.disabled]:
-                  scraperState === "start" ||
-                  scraperState === "stop" ||
-                  scraperState === "restart",
+                [style.disabled]: scraperState === ScraperState.Running,
               })}
               onClick={startScraping}
             />
@@ -77,7 +78,8 @@ export default function ScraperManager({ scraperType }: Props) {
             <FaPause
               className={cx(style.pause, {
                 [style.disabled]:
-                  scraperState === "pause" || scraperState === "stop",
+                  scraperState === ScraperState.Pause ||
+                  scraperState === ScraperState.Stopped,
               })}
               onClick={pauseScraping}
             />
@@ -87,7 +89,7 @@ export default function ScraperManager({ scraperType }: Props) {
           <button type="button" className={style.button}>
             <FaStop
               className={cx(style.stop, {
-                [style.disabled]: scraperState === "stop",
+                [style.disabled]: scraperState === ScraperState.Stopped,
               })}
               onClick={stopScraping}
             />
@@ -97,7 +99,7 @@ export default function ScraperManager({ scraperType }: Props) {
           <button type="button" className={style.button}>
             <MdReplay
               className={cx(style.replay, {
-                [style.disabled]: scraperState === "restart",
+                [style.disabled]: scraperState === ScraperState.Stopped,
               })}
               onClick={restartScraping}
             />
@@ -106,8 +108,12 @@ export default function ScraperManager({ scraperType }: Props) {
         </div>
       </article>
       <article className={style.managerBox}>
-        <ScenarioQueue queue={getMockScenarioQueue().queue} />
-        <ExcutionLog log={getMockScenarioQueue().log} />
+        <ScenarioQueue
+          prev={prevScenario}
+          current={currentScenario}
+          next={nextScenario}
+        />
+        <ExcutionLog logs={logs} />
       </article>
     </section>
   );

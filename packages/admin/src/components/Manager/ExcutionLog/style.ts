@@ -13,7 +13,7 @@ export default () => {
     display: flex;
     flex-direction: column;
     width: 43rem;
-    min-height: 16rem;
+
     padding: 1.5rem;
     box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
       rgba(17, 17, 26, 0.1) 0px 0px 8px;
@@ -28,8 +28,10 @@ export default () => {
     }
     .${excutionBox} {
       margin: auto 0;
+      height: 10rem;
+      overflow-y: auto;
       .${log} {
-        margin: 0.1rem 0;
+        margin: 0.3rem 0;
         font-size: 1rem;
       }
     }

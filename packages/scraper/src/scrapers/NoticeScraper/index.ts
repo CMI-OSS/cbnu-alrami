@@ -1,18 +1,22 @@
 import { Notice, NoticeScript } from "src/types";
 import { createNotice, hasNotice } from "src/db/notice";
+import { ScraperState, ScraperType } from "@shared/types";
 import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 
 class NoticeScraper extends Scraper<NoticeScript> {
+  name = "공지사항";
+  type: ScraperType = "notice";
+
   constructor() {
     super(`${__dirname}/scripts`);
   }
 
-  async start() {
+  async initScript() {
     const scripts = await this.loadScripts();
 
     scripts.forEach((script) => {
-      this.appendScenario(new Scenario(script));
+      this.appendScenario(new Scenario(script.site, script));
     });
 
     this.run();
@@ -22,7 +26,12 @@ class NoticeScraper extends Scraper<NoticeScript> {
     const noticeList = await this.getNoticeList(scenario);
 
     for (const notice of noticeList) {
+      if (this.state !== ScraperState.Running) break;
       if (!(await hasNotice(notice))) {
+        this.log({
+          prefix: "INFO",
+          message: `${notice.title} 게시물의 내용을 스크래핑합니다`,
+        });
         await createNotice({
           ...notice,
           contents: await this.getContents(scenario, notice),
@@ -47,12 +56,30 @@ class NoticeScraper extends Scraper<NoticeScript> {
         throw Error("스크립트 없음");
       }
 
+      this.log({
+        prefix: "INFO",
+        message: `${noticeScript.url}로 이동합니다.`,
+      });
       await this.scraper.goto(noticeScript.url);
+
+      this.log({
+        prefix: "INFO",
+        message: `${noticeScript.noticeListSelector}를 기다립니다.`,
+      });
       await this.scraper.waitForSelector(noticeScript.noticeListSelector, {
         timeout: 3000,
       });
+
+      this.log({
+        prefix: "INFO",
+        message: `스크립트를 삽입합니다.`,
+      });
       await this.evaluateScript(noticeScript);
 
+      this.log({
+        prefix: "INFO",
+        message: `공지사항 목록을 가져옵니다.`,
+      });
       const noticeList: Notice[] = await this.scraper.evaluate(
         `script.getNoticeList()`,
       );
@@ -83,10 +110,25 @@ class NoticeScraper extends Scraper<NoticeScript> {
     }
 
     try {
+      this.log({ prefix: "INFO", message: `${notice.url}로 이동합니다` });
       await this.scraper.goto(notice.url);
+
+      this.log({
+        prefix: "INFO",
+        message: `${noticeScript.noticeContentsSelector}를 기다립니다`,
+      });
       await this.scraper.waitForSelector(noticeScript.noticeContentsSelector);
+
+      this.log({
+        prefix: "INFO",
+        message: `스크립트를 삽입합니다.`,
+      });
       await this.evaluateScript(noticeScript);
 
+      this.log({
+        prefix: "INFO",
+        message: `공지사항 내용을 가져옵니다`,
+      });
       const contents: string = await this.scraper.evaluate(
         `script.getContentsHtml()`,
       );

@@ -1,22 +1,24 @@
 import { CafeteriaScript } from "src/types";
 import { Menu } from "src/types/Menu";
 import { createMenu } from "src/db/restaurant";
+import { ScraperType } from "@shared/types";
 import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 
 class CafeteriaScraper extends Scraper<CafeteriaScript> {
+  name = "학생식당";
+  type: ScraperType = "cafeteria";
+
   constructor() {
     super(`${__dirname}/scripts`);
   }
 
-  async start() {
+  async initScript() {
     const scripts = await this.loadScripts();
 
     scripts.forEach((script) => {
-      this.appendScenario(new Scenario(script));
+      this.appendScenario(new Scenario(script.restaurant_name, script));
     });
-
-    this.run();
   }
 
   async scrapping(scenario: Scenario<CafeteriaScript>): Promise<Menu[]> {

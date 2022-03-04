@@ -2,21 +2,8 @@ const script = {
   baseUrl: "https://dorm.chungbuk.ac.kr/home/sub.php?menukey=20041&type=",
   site: "학생생활관",
   category: "식단",
-  domitories: [
-    {
-      name: "본관",
-      typeQuery: "1",
-    },
-    {
-      name: "양진재",
-      typeQuery: "2",
-    },
-    {
-      name: "양성재",
-      typeQuery: "3",
-    },
-  ],
-
+  domitory: "본관",
+  typeQuery: "1",
   timeIndex: {
     morning: "1",
     lunch: "2",
@@ -25,13 +12,13 @@ const script = {
 
   waitMainTableSelector: ".contTable_c.m_table_c.margin_t_30 > tbody",
 
-  getFoodList: function (domitoryIndex) {
+  getFoodList: function () {
     const mainTableBody = document.querySelector(this.waitMainTableSelector);
     const weekTableRows = mainTableBody.querySelectorAll("tr");
     // 본관: [월 ~ 금]
     // 양진재, 양성재: [일 ~ 토]
 
-    const restaurant_name = this.domitories[domitoryIndex].name;
+    const restaurant_name = this.domitory;
 
     let result = [];
 

@@ -15,6 +15,19 @@ export type ScenarioType = {
 
 export type ScraperType =
   | "notice"
-  | "studentCafeteria"
-  | "domitoryCafeteria"
-  | "collegeSchedule";
+  | "cafeteria"
+  | "domitory"
+  | "calendar"
+  | "covid";
+
+export enum ScraperState {
+  Running = "Running",
+  Pause = "Pause",
+  Stopped = "Stopped",
+  Error = "Error",
+}
+
+export type ScraperLog = {
+  prefix?: "INFO" | "WARN" | "ERROR";
+  message: string;
+};

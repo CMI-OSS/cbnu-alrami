@@ -7,7 +7,7 @@ export class ConfigService {
     this.configuration = getConfiguration(option);
   }
 
-  get(key:string):string|number{
+  get(key:string):Record<string,any>{
     return this.configuration[key];
   }
 }

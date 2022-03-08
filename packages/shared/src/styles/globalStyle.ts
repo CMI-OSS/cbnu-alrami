@@ -112,6 +112,9 @@ export default () => css`
   body {
     line-height: 1;
     background-color: ${colors.$gray.$300};
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
   }
   ol,
   ul {
@@ -144,5 +147,23 @@ export default () => css`
 
   a {
     all: unset;
+    color: inherit;
+    text-decoration: none;
+  }
+  img {
+    border: 0;
+    vertical-align: top;
+  }
+  em {
+    font-style: normal;
+  }
+  textarea {
+    appearance: none;
+    border: 0;
+    -webkit-overflow-scrolling: touch;
+  }
+  input {
+   appearance: none;
   }
 `;
+

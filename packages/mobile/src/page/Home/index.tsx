@@ -28,14 +28,14 @@ function Home() {
       </header>
       <div className={$.schedule}>
         {schedules.map((schedule) => (
-          <BorderBox height={101}>
+          <BorderBox height={90}>
             <p>{schedule}</p>
             <Arrow />
           </BorderBox>
         ))}
       </div>
       <div className={$["external-information"]}>
-        <BorderBox height={180} background="#EAF4FE">
+        <BorderBox height={160} background="#EAF4FE">
           <구름조금_낮 />
           <span>청주 날씨</span>
           <span className={$.important}>25도</span>
@@ -45,7 +45,7 @@ function Home() {
             기온별 옷차림
           </div>
         </BorderBox>
-        <BorderBox height={180} background="#F2F0FE">
+        <BorderBox height={160} background="#F2F0FE">
           <Covid />
           <span>확진자 수</span>
           <span className={$.important}>500,000</span>
@@ -59,8 +59,11 @@ function Home() {
       <div className={$.cafeteria}>
         <BorderBox height={180}>
           <div className={$.title}>
-            <p>본관 아침</p>
-            <Write />
+            <p>
+              본관 아침 <Write />
+            </p>
+
+            <p>7:30~9:00</p>
           </div>
           <Line />
           <div className={$.content}>

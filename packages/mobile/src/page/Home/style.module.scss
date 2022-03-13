@@ -6,8 +6,11 @@
         align-items: center;
         h1 {
             font-weight: 500;
-            font-size: 23px;
+            font-size: 21px;
             line-height: 33px;
+        }
+        span {
+            font-size: 14px;
         }
     }
     .schedule {
@@ -24,9 +27,9 @@
             min-width: 70%;
         }
         p {
-            line-height: 24px;
-            font-weight: 500;
             padding-right: 10px;
+            font-size: 14px;
+            line-height: 24px;
         }
     }
     .external-information {
@@ -55,7 +58,7 @@
                 stroke: #222;
             }
         }
-        .important{
+        .important {
             font-size: 18px;
             font-weight: 500;
         }
@@ -69,11 +72,15 @@
         }
         .title {
             display: flex;
-            font-weight: 500;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 16px;
-
             p {
                 margin-right: 5px;
+            }
+            p:last-child {
+                color: #707070;
+                font-size: 13px;
             }
         }
         .content {

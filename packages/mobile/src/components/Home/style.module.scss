@@ -63,4 +63,30 @@
 }        
 
     }
+    .cafeteria{
+      width:100%;  
+      margin-top:31px;
+      
+      >div{
+        padding:17px;
+      }
+      .title{
+          display: flex;
+          font-weight: 500;
+          p{
+              margin-right:5px;
+
+          }
+      }
+      .content{
+        margin-top:21px;
+          font-size: 11px;
+          line-height: 25px;
+      }
+
+    }
+
+    .notification{
+        margin-top:31px;
+    }
 }

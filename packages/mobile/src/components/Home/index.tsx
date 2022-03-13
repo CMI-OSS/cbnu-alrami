@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-pascal-case */
 import { Arrow } from "src/components/shared/icon/Arrow";
 import $ from "./style.module.scss";
-import { Setting, 구름조금_낮, Covid, Info } from "../shared/icon";
+import { Setting, 구름조금_낮, Covid, Info, Write, Line } from "../shared/icon";
 import BorderBox from "../shared/BorderBox";
 
 function Home() {
@@ -49,6 +49,22 @@ function Home() {
             <Arrow style={{ width: "7px", height: "7px", stroke: "#222" }} />
           </div>
         </BorderBox>
+      </div>
+      <div className={$.cafeteria}>
+        <BorderBox height={180} className={$["border-box"]}>
+          <div className={$.title}>
+            <p>본관 아침</p>
+            <Write />
+          </div>
+          <Line />
+          <div className={$.content}>
+            흰밥/우유(두유)/김치 단호박스프 고구마치즈롤까스 &소스 양상추샐러드
+            오리엔탈드레싱 시금치나물 에너지:1165Kcal 단백질:16g
+          </div>
+        </BorderBox>
+      </div>
+      <div className={$.notification}>
+        <BorderBox height={315} className={$["border-box"]}></BorderBox>
       </div>
     </section>
   );

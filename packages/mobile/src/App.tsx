@@ -8,6 +8,7 @@ import Home from "./components/Home";
 import Map from "./components/Map";
 import Notification from "./components/Notification";
 import Footer from "./components/shared/Footer";
+import DefaultPageTemplate from "./components/shared/DefaultPageTemplate";
 
 function App() {
   const routes = [
@@ -19,15 +20,17 @@ function App() {
   ];
 
   return (
-    <BrowserRouter>
-      <Footer />
-      <Routes>
-        {routes.map((route) => (
-          <Route key={route.id} path={route.path} element={route.element} />
-        ))}
-        <Route path="*" element={<Navigate replace to="/home" />} />
-      </Routes>
-    </BrowserRouter>
+    <DefaultPageTemplate>
+      <BrowserRouter>
+        <Footer />
+        <Routes>
+          {routes.map((route) => (
+            <Route key={route.id} path={route.path} element={route.element} />
+          ))}
+          <Route path="*" element={<Navigate replace to="/home" />} />
+        </Routes>
+      </BrowserRouter>
+    </DefaultPageTemplate>
   );
 }
 

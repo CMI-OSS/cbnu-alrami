@@ -5,14 +5,17 @@ import { Provider } from "react-redux";
 import { hot } from "react-hot-loader";
 import getGlobalStyle from "@shared/styles/globalStyle";
 import getAdminStyle from "src/adminStyle";
+import useSocket from "src/hooks/useSocket";
 import Navigation from "./components/Navigation";
 import LoginPage from "./pages/Login";
 import BoardPage from "./pages/BoardPage";
 import { store } from "./store";
 
 function App() {
+  useSocket();
+
   return (
-    <Provider store={store}>
+    <>
       <Global styles={getGlobalStyle()} />
       <Global styles={getAdminStyle()} />
       <BrowserRouter>
@@ -24,8 +27,16 @@ function App() {
           <Route path="*" element={<Navigate to="/scraper/notice" />} />
         </Routes>
       </BrowserRouter>
+    </>
+  );
+}
+
+function ProviderApp() {
+  return (
+    <Provider store={store}>
+      <App />
     </Provider>
   );
 }
 
-export default hot(module)(App);
+export default hot(module)(ProviderApp);

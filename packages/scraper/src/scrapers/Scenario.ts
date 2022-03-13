@@ -1,18 +1,9 @@
-export const SCENARIO_STATE = {
-  WAIT: "WAIT",
-  RUNNING: "RUNNING",
-  STOPPED: "STOPPED",
-  ERROR: "ERROR",
-} as const;
-
-type SCENARIO_STATE = typeof SCENARIO_STATE[keyof typeof SCENARIO_STATE];
-
 export class Scenario<T> {
-  state: SCENARIO_STATE = SCENARIO_STATE.STOPPED;
-
+  title = "";
   jsScript?: T;
 
-  constructor(jsScript: T) {
+  constructor(title: string, jsScript: T) {
+    this.title = title;
     this.jsScript = jsScript;
   }
 }

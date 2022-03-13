@@ -1,6 +1,9 @@
-function Calendar() {
+import type { StyleProps } from "src/type/props";
+
+function Calendar({ className, style }: StyleProps) {
   return (
     <svg
+      style={style}
       width="25"
       height="22"
       viewBox="0 0 25 22"

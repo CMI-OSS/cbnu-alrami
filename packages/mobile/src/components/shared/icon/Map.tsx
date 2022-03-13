@@ -1,6 +1,9 @@
-function Map() {
+import type { StyleProps } from "src/type/props";
+
+function Map({ className, style }: StyleProps) {
   return (
     <svg
+      style={{ color: "red" }}
       width="18"
       height="25"
       viewBox="0 0 18 25"

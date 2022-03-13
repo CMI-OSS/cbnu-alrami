@@ -1,6 +1,9 @@
-function Speaker() {
+import type { StyleProps } from "src/type/props";
+
+function Speaker({ className, style }: StyleProps) {
   return (
     <svg
+      style={style}
       width="24"
       height="22"
       viewBox="0 0 24 22"
@@ -8,14 +11,14 @@ function Speaker() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M7.27862 5.48245H1.46484V13.3746H7.64258L22.7278 19.0831V1L7.27862 5.48245Z"
+        d="M7.27862 5.64578H1.46484V13.538H7.64258L22.7278 19.2464V1.16333L7.27862 5.64578Z"
         stroke="#D6D6D6"
         strokeWidth="1.2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M5.55469 14.543V20.5387H9.64445V15.2709"
+        d="M5.55469 14.7063V20.7021H9.64445V15.4342"
         stroke="#D6D6D6"
         strokeWidth="1.2"
         strokeLinecap="round"

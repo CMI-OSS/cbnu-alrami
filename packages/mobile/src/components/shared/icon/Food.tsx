@@ -1,6 +1,9 @@
-function Food() {
+import type { StyleProps } from "src/type/props";
+
+function Food({ className, style }: StyleProps) {
   return (
     <svg
+      style={style}
       width="21"
       height="24"
       viewBox="0 0 21 24"

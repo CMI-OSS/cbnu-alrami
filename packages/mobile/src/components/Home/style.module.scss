@@ -1,0 +1,16 @@
+.home{
+    header{
+        display: flex;
+        padding:48px 0 43px 0;
+        justify-content: space-between;
+        align-items: center;
+        h1{
+            font-weight: 500;
+            font-size: 23px;
+            line-height: 33px;
+        }
+        span{
+            color:#9d9d9d;
+        }
+    }
+}

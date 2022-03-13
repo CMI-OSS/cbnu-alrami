@@ -1,16 +1,17 @@
 .home {
+    > div {
+        margin-bottom: 30px;
+    }
     header {
         display: flex;
-        padding: 48px 0 43px 0;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 30px;
+
         h1 {
             font-weight: 500;
             font-size: 21px;
             line-height: 33px;
-        }
-        span {
-            font-size: 14px;
         }
     }
     .schedule {
@@ -28,13 +29,11 @@
         }
         p {
             padding-right: 10px;
-            font-size: 14px;
             line-height: 24px;
         }
     }
-    .external-information {
+    .information {
         display: flex;
-        margin-top: 31px;
         font-size: 11px;
         div {
             display: flex;
@@ -52,10 +51,10 @@
             justify-content: center;
             svg {
                 margin-right: 4px;
-            }
 
-            svg path {
-                stroke: #222;
+                path {
+                    stroke: #222;
+                }
             }
         }
         .important {
@@ -65,7 +64,6 @@
     }
     .cafeteria {
         width: 100%;
-        margin-top: 31px;
 
         > div {
             padding: 17px;
@@ -85,12 +83,8 @@
         }
         .content {
             padding: 21px 20px 0px 0px;
-            font-size: 11px;
             line-height: 25px;
+            font-size: 12px;
         }
-    }
-
-    .notification {
-        margin-top: 31px;
     }
 }

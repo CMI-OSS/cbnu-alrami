@@ -1,13 +1,7 @@
 /* eslint-disable react/jsx-pascal-case */
 import { Arrow } from "src/components/atoms/icon/Arrow";
 import $ from "./style.module.scss";
-import {
-  Setting,
-  구름조금_낮,
-  Covid,
-  Info,
-  Write,
-} from "../../components/atoms/icon";
+import { Setting, 비, Covid, Info, Write } from "../../components/atoms/icon";
 import BorderBox from "../../components/atoms/BorderBox";
 import Line from "../../components/atoms/Line";
 
@@ -34,9 +28,9 @@ function Home() {
           </BorderBox>
         ))}
       </div>
-      <div className={$["external-information"]}>
+      <div className={$.information}>
         <BorderBox height={160} background="#EAF4FE">
-          <구름조금_낮 />
+          <비 style={{ width: "50px", height: "auto" }} />
           <span>청주 날씨</span>
           <span className={$.important}>25도</span>
           <span>구름 조금</span>

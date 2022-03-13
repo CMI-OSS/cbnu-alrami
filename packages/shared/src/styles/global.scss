@@ -110,6 +110,9 @@ body {
     position: relative;
     -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: -0.002em;
 }
 ol,
 ul {
@@ -159,4 +162,7 @@ textarea {
 }
 input {
     appearance: none;
+}
+::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
 }

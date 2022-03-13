@@ -1,6 +1,6 @@
-import { NavLink } from "react-router-dom";
 import $ from "./style.module.scss";
-import { Calendar, Food, Home, Map, Speaker } from "../icon";
+import { Calendar, Food, Home, Map, Speaker } from "../../atoms/icon";
+import NavigationLink from "../../atoms/NavigationLink";
 
 function Footer() {
   const routes = [
@@ -39,16 +39,7 @@ function Footer() {
   return (
     <footer className={$.footer}>
       {routes.map((route) => {
-        return (
-          <NavLink
-            key={route.id}
-            to={route.to}
-            className={({ isActive }) => (isActive ? $.active : "")}
-          >
-            <route.icon />
-            <p>{route.label}</p>
-          </NavLink>
-        );
+        return <NavigationLink key={route.id} route={route} />;
       })}
     </footer>
   );

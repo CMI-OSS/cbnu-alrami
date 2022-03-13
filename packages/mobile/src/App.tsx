@@ -2,13 +2,13 @@ import "@shared/styles/global.scss";
 import { hot } from "react-hot-loader";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Cafeteria from "./components/Cafeteria";
-import Calendar from "./components/Calendar";
-import Home from "./components/Home";
-import Map from "./components/Map";
-import Notification from "./components/Notification";
-import Footer from "./components/shared/Footer";
-import DefaultPageTemplate from "./components/shared/DefaultPageTemplate";
+import Cafeteria from "./page/Cafeteria";
+import Calendar from "./page/Calendar";
+import Home from "./page/Home";
+import Map from "./page/Map";
+import Notification from "./page/Notification";
+import Footer from "./components/molecules/Footer";
+import DefaultPageTemplate from "./components/templates/DefaultPageTemplate";
 
 function App() {
   const routes = [

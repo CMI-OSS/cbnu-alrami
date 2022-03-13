@@ -1,10 +1,22 @@
 /* eslint-disable react/jsx-pascal-case */
-import { Arrow } from "src/components/shared/icon/Arrow";
+import { Arrow } from "src/components/atoms/icon/Arrow";
 import $ from "./style.module.scss";
-import { Setting, 구름조금_낮, Covid, Info, Write, Line } from "../shared/icon";
-import BorderBox from "../shared/BorderBox";
+import {
+  Setting,
+  구름조금_낮,
+  Covid,
+  Info,
+  Write,
+} from "../../components/atoms/icon";
+import BorderBox from "../../components/atoms/BorderBox";
+import Line from "../../components/atoms/Line";
 
 function Home() {
+  const schedules = [
+    "중간고사",
+    "제목이 아주 긴 일정 제목이 아주 긴일정 제목이 아주 긴",
+    "출근싫어",
+  ];
   return (
     <section className={$.home}>
       <header>
@@ -15,34 +27,28 @@ function Home() {
         <Setting />
       </header>
       <div className={$.schedule}>
-        <BorderBox height={101}>
-          <p>중간고사</p>
-          <Arrow />
-        </BorderBox>
-        <BorderBox height={101}>
-          <p>제목이 아주 긴 일정 제목이 아주 긴일정 제목이 아주 긴</p>
-          <Arrow />
-        </BorderBox>
-        <BorderBox height={101}>
-          <p>중간고사</p>
-          <Arrow />
-        </BorderBox>
+        {schedules.map((schedule) => (
+          <BorderBox height={101}>
+            <p>{schedule}</p>
+            <Arrow />
+          </BorderBox>
+        ))}
       </div>
       <div className={$["external-information"]}>
-        <BorderBox height={180} style={{ background: "#EAF4FE" }}>
+        <BorderBox height={180} background="#EAF4FE">
           <구름조금_낮 />
           <span>청주 날씨</span>
-          <span style={{ fontSize: "18px", fontWeight: 500 }}>25도</span>
+          <span className={$.important}>25도</span>
           <span>구름 조금</span>
           <div className={$.more}>
             <Info style={{ width: "10px", height: "10px" }} />
             기온별 옷차림
           </div>
         </BorderBox>
-        <BorderBox height={180} style={{ background: "#F2F0FE" }}>
+        <BorderBox height={180} background="#F2F0FE">
           <Covid />
           <span>확진자 수</span>
-          <span style={{ fontSize: "18px", fontWeight: 500 }}>500,000</span>
+          <span className={$.important}>500,000</span>
           <span>+1,325</span>
           <div className={$.more}>
             더보기
@@ -51,7 +57,7 @@ function Home() {
         </BorderBox>
       </div>
       <div className={$.cafeteria}>
-        <BorderBox height={180} className={$["border-box"]}>
+        <BorderBox height={180}>
           <div className={$.title}>
             <p>본관 아침</p>
             <Write />
@@ -64,7 +70,7 @@ function Home() {
         </BorderBox>
       </div>
       <div className={$.notification}>
-        <BorderBox height={315} className={$["border-box"]}></BorderBox>
+        <BorderBox height={315}></BorderBox>
       </div>
     </section>
   );

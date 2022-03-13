@@ -31,4 +31,3 @@ export { 흐림 } from "./흐림";
 export { Covid } from "./Covid";
 export { Info } from "./Info";
 export { Write } from "./Write";
-export { Line } from "./Line";

@@ -8,6 +8,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[scss]": {
-    "editor.defaultFormatter": "sasa.vscode-sass-format"
+    "editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter"
   }
 }

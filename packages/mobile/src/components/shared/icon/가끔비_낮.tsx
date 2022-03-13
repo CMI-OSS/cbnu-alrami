@@ -1,6 +1,6 @@
 import type { StyleProps } from "src/type/props";
 
-function 가끔비({ className, style }: StyleProps) {
+function 가끔비_낮({ className, style }: StyleProps) {
   return (
     <svg
       {...{ className, style }}
@@ -59,4 +59,4 @@ function 가끔비({ className, style }: StyleProps) {
     </svg>
   );
 }
-export { 가끔비 };
+export { 가끔비_낮 };

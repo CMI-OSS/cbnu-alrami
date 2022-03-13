@@ -2,13 +2,12 @@ import type { DefaultProps } from "src/type/props";
 import $ from "./style.module.scss";
 
 type Props = {
-  width: number;
   height: number;
 } & DefaultProps;
 
-function BorderBox({ width, height, style, children }: Props) {
+function BorderBox({ className, height, style, children }: Props) {
   return (
-    <div className={$["border-box"]} style={{ width, height, ...style }}>
+    <div className={$["border-box"]} style={{ height, ...style }}>
       {children}
     </div>
   );

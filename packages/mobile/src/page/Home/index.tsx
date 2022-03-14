@@ -1,5 +1,7 @@
 /* eslint-disable react/jsx-pascal-case */
 import { Arrow } from "src/components/atoms/icon/Arrow";
+import Radio from "src/components/molecules/Radio";
+import RadioGroup from "src/components/molecules/RadioGroup";
 import $ from "./style.module.scss";
 import { Setting, 비, Covid, Info, Write } from "../../components/atoms/icon";
 import BorderBox from "../../components/atoms/BorderBox";
@@ -11,6 +13,15 @@ function Home() {
     "제목이 아주 긴 일정 제목이 아주 긴일정 제목이 아주 긴",
     "출근싫어",
   ];
+  const notifications = [
+    "2022학년도 정시 대학원(일반대학원) 석사과정",
+    "산업인공지능연구센터 연구원 채용 공고",
+    "2022학년도 정시 법무대학원 신입생 추가 모집 안내",
+    "2022학년도 정시 대학원(일반대학원) 석사과정",
+    "산업인공지능연구센터 연구원 채용 공고",
+    "산업인공지능연구센터 연구원 채용 공고",
+  ];
+
   return (
     <section className={$.home}>
       <header>
@@ -67,7 +78,25 @@ function Home() {
         </BorderBox>
       </div>
       <div className={$.notification}>
-        <BorderBox height={315}></BorderBox>
+        <BorderBox height={315}>
+          <RadioGroup>
+            <Radio
+              height={38}
+              width={108}
+              style={{ color: "#fff", marginRight: "15px" }}
+            >
+              인기공지
+            </Radio>
+            <Radio height={38} width={108} style={{ backgroundColor: "#fff" }}>
+              전체공지
+            </Radio>
+          </RadioGroup>
+          <div className={$.content}>
+            {notifications.map((notification) => (
+              <p>{notification}</p>
+            ))}
+          </div>
+        </BorderBox>
       </div>
     </section>
   );

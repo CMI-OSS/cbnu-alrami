@@ -74,6 +74,7 @@
             align-items: center;
             margin-bottom: 16px;
             p {
+                font-weight: 500;
                 margin-right: 5px;
             }
             p:last-child {
@@ -85,6 +86,19 @@
             padding: 21px 20px 0px 0px;
             line-height: 25px;
             font-size: 12px;
+        }
+    }
+    .notification {
+        > div {
+            padding: 24px 10px 10px 10px;
+        }
+
+        .content {
+            padding-left: 14px;
+            margin-top: 10px;
+            p {
+                line-height: 33px;
+            }
         }
     }
 }

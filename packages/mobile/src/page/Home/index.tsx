@@ -2,6 +2,7 @@
 import { Arrow } from "src/components/atoms/icon/Arrow";
 import Radio from "src/components/molecules/Radio";
 import RadioGroup from "src/components/molecules/RadioGroup";
+import Menu from "src/components/atoms/Menu";
 import $ from "./style.module.scss";
 import { Setting, 비, Covid, Info, Write } from "../../components/atoms/icon";
 import BorderBox from "../../components/atoms/BorderBox";
@@ -21,6 +22,7 @@ function Home() {
     "산업인공지능연구센터 연구원 채용 공고",
     "산업인공지능연구센터 연구원 채용 공고",
   ];
+  const menus = ["최신공지", "인기공지"];
 
   return (
     <section className={$.home}>
@@ -78,19 +80,8 @@ function Home() {
         </BorderBox>
       </div>
       <div className={$.notification}>
-        <BorderBox height={315}>
-          <RadioGroup>
-            <Radio
-              height={38}
-              width={108}
-              style={{ color: "#fff", marginRight: "15px" }}
-            >
-              인기공지
-            </Radio>
-            <Radio height={38} width={108} style={{ backgroundColor: "#fff" }}>
-              전체공지
-            </Radio>
-          </RadioGroup>
+        <BorderBox height={300}>
+          <Menu menus={menus} />
           <div className={$.content}>
             {notifications.map((notification) => (
               <p>{notification}</p>

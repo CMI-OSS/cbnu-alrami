@@ -4,7 +4,7 @@ import $ from "./style.module.scss";
 type Props = {
   route: {
     id: number;
-    icon: any;
+    icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
     label: string;
     to: string;
   };

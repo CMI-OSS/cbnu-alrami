@@ -22,13 +22,13 @@ function App() {
   return (
     <DefaultPageTemplate>
       <BrowserRouter>
-        <Footer />
         <Routes>
           {routes.map((route) => (
             <Route key={route.id} path={route.path} element={route.element} />
           ))}
           <Route path="*" element={<Navigate replace to="/home" />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </DefaultPageTemplate>
   );

@@ -2,6 +2,7 @@
 import { Arrow } from "src/components/atoms/icon/Arrow";
 import Radio from "src/components/molecules/Radio";
 import RadioGroup from "src/components/molecules/RadioGroup";
+import { Link } from "react-router-dom";
 import $ from "./style.module.scss";
 import { Setting, 비, Covid, Info, Write } from "../../components/atoms/icon";
 import BorderBox from "../../components/atoms/BorderBox";
@@ -55,20 +56,19 @@ function Home() {
           <span>확진자 수</span>
           <span className={$.important}>500,000</span>
           <span>+1,325</span>
-          <div className={$.more}>
+          <Link className={$.more} to="/covid">
             더보기
             <Arrow style={{ width: "7px", height: "7px", stroke: "#222" }} />
-          </div>
+          </Link>
         </BorderBox>
       </div>
       <div className={$.cafeteria}>
         <BorderBox height={180}>
           <div className={$.title}>
-            <p>
+            <span>
               본관 아침 <Write />
-            </p>
-
-            <p>7:30~9:00</p>
+            </span>
+            <span>7:30~9:00</span>
           </div>
           <Line />
           <div className={$.content}>

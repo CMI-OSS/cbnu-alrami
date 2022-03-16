@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "src/*": ["./src/*"],
-      "@shared/*": ["../shared/src/*"]
+      "@shared/*": ["../shared/src/*"],
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

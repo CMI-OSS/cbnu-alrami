@@ -1,7 +1,6 @@
 import { FaPlay, FaPause, FaStop } from "react-icons/fa";
 import { MdReplay } from "react-icons/md";
-
-import { cx } from "@emotion/css";
+import cx from "classnames";
 import { ScraperState, ScraperType } from "@shared/types";
 import {
   pauseScraper,
@@ -13,7 +12,7 @@ import { useAppSelector } from "src/store";
 import { initialScraper } from "src/store/scraperSlice";
 import { ScenarioQueue, ExcutionLog } from "..";
 import Tooltip from "../../Tooltip";
-import getStyle from "./style";
+import $ from "./style.module.scss";
 
 interface Props {
   scraperType: ScraperType;
@@ -31,8 +30,6 @@ export default function ScraperManager({ scraperType }: Props) {
       (scraper) => scraper.type === scraperType,
     ),
   ) ?? initialScraper;
-
-  const style = getStyle();
 
   const startScraping = () => {
     if (scraperState === ScraperState.Running) return;
@@ -59,55 +56,55 @@ export default function ScraperManager({ scraperType }: Props) {
   };
 
   return (
-    <section className={style.manager}>
-      <article className={style.managerHeader}>
-        <h2 className={style.managerTitle}>스크래퍼 관리</h2>
-        <div className={style.buttonBox}>
-          <button type="button" className={style.button}>
+    <section className={$.container}>
+      <article className={$.managerHeader}>
+        <h2>스크래퍼 관리</h2>
+        <div>
+          <button type="button">
             <FaPlay
-              className={cx(style.play, {
-                [style.disabled]: scraperState === ScraperState.Running,
+              className={cx($.play, {
+                [$.disabled]: scraperState === ScraperState.Running,
               })}
               onClick={startScraping}
             />
-            {/* <span className={style.tooltip}>스크래핑 시작</span> */}
-            <Tooltip content="스크래핑 시작" parent={style.button} />
+            {/* <span className={$.tooltip}>스크래핑 시작</span> */}
+            <Tooltip content="스크래핑 시작" parent={$.button} />
           </button>
 
-          <button type="button" className={style.button}>
+          <button type="button">
             <FaPause
-              className={cx(style.pause, {
-                [style.disabled]:
+              className={cx($.pause, {
+                [$.disabled]:
                   scraperState === ScraperState.Pause ||
                   scraperState === ScraperState.Stopped,
               })}
               onClick={pauseScraping}
             />
-            <span className={style.tooltip}>스크래핑 일시정지</span>
+            <span>스크래핑 일시정지</span>
           </button>
 
-          <button type="button" className={style.button}>
+          <button type="button">
             <FaStop
-              className={cx(style.stop, {
-                [style.disabled]: scraperState === ScraperState.Stopped,
+              className={cx($.stop, {
+                [$.disabled]: scraperState === ScraperState.Stopped,
               })}
               onClick={stopScraping}
             />
-            <span className={style.tooltip}>스크래핑 정지</span>
+            <span>스크래핑 정지</span>
           </button>
 
-          <button type="button" className={style.button}>
+          <button type="button">
             <MdReplay
-              className={cx(style.replay, {
-                [style.disabled]: scraperState === ScraperState.Stopped,
+              className={cx($.replay, {
+                [$.disabled]: scraperState === ScraperState.Stopped,
               })}
               onClick={restartScraping}
             />
-            <span className={style.tooltip}>스크래핑 다시시작</span>
+            <span>스크래핑 다시시작</span>
           </button>
         </div>
       </article>
-      <article className={style.managerBox}>
+      <article className={$.managerBox}>
         <ScenarioQueue
           prev={prevScenario}
           current={currentScenario}

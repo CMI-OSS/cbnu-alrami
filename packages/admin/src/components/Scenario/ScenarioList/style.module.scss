@@ -1,0 +1,12 @@
+.cardContainer {
+  display: flex;
+  justify-content: left;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin: 3rem;
+
+  .card {
+    margin-left: 2rem;
+    margin-top: 2rem;
+  }
+}

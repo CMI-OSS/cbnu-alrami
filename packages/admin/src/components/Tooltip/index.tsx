@@ -1,5 +1,5 @@
-import { cx } from "@emotion/css";
-import getStyle from "./style";
+import cx from "classnames";
+import $ from "./style.module.scss";
 
 interface Props {
   content: string;
@@ -7,8 +7,5 @@ interface Props {
 }
 
 export default function ScraperManager({ content, parent }: Props) {
-  const style = getStyle(parent);
-  return (
-    <span className={cx(style.tooltip, style.parentHover)}>{content}</span>
-  );
+  return <span className={cx($.tooltip, $.parentHover)}>{content}</span>;
 }

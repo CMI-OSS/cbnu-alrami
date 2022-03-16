@@ -7,15 +7,13 @@ import mockCollegeScheduleScenarios from "src/__mockData__/collegeScheduleScenar
 import { ScraperType } from "@shared/types";
 import { getScraperLabel } from "src/lib/scraper";
 import { ScraperManager } from "../Manager";
-import getStyle from "./style";
+import $ from "./style.module.scss";
 
 interface Props {
   scraperType: ScraperType;
 }
 
 export default function Scraper({ scraperType }: Props) {
-  const style = getStyle();
-
   const getMockScenarios = () => {
     if (scraperType === "notice") return mockNoticeScenarios;
     if (scraperType === "domitory") return mockDomitoryRestaurantScenarios;
@@ -25,12 +23,12 @@ export default function Scraper({ scraperType }: Props) {
   };
 
   return (
-    <main className={style.main}>
-      <h1 className={style.mainTitle}>
+    <main className={$.main}>
+      <h1 className={$.title}>
         {getScraperLabel(scraperType)} 스크래퍼 관리보드
       </h1>
       <ScraperManager scraperType={scraperType} />
-      <h2 className={style.scenarioTitle}>시나리오 그룹 리스트</h2>
+      <h2 className={$["sub-title"]}>시나리오 그룹 리스트</h2>
       <ScenarioFilter isNotice={scraperType === "notice"} />
       <ScenarioGroupList scenarios={getMockScenarios()} />
     </main>

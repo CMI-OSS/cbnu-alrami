@@ -1,18 +1,16 @@
 import { ScenarioType } from "@shared/types";
 import Card from "../ScenarioCard";
-import getStyle from "./style";
+import $ from "./style.module.scss";
 
 type Props = {
   scenarios: ScenarioType[];
 };
 
 function ScenarioList({ scenarios }: Props) {
-  const style = getStyle();
-
   return (
-    <div className={style.scenarioList}>
+    <div className={$.cardContainer}>
       {scenarios.map((scenario) => (
-        <Card className={style.card} scenario={scenario} key={scenario.title} />
+        <Card className={$.card} scenario={scenario} key={scenario.title} />
       ))}
     </div>
   );

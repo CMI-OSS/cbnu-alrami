@@ -14,7 +14,7 @@ export default function ExcutionLog({ logs }: Props) {
   }, [ logs ]);
 
   return (
-    <section className={$.logBox}>
+    <section className={$.container}>
       <h2>실행 로그</h2>
       <div>
         {logs.map((log, index) => (

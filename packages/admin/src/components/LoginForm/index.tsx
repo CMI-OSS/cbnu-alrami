@@ -46,7 +46,7 @@ export default function LoginForm() {
       <span>CMI 관리자</span>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div
-          className={cx($.idBox, {
+          className={cx($["id-box"], {
             [$.focus]: isFocusId,
           })}
         >
@@ -62,19 +62,19 @@ export default function LoginForm() {
           />
         </div>
         <div
-          className={cx($.pwBox, {
+          className={cx($["pw-box"], {
             [$.focus]: isFocusPw,
           })}
         >
           <button
-            className={$.lockBox}
+            className={$["lock-box"]}
             type="button"
             onClick={() => setLock(!isLock)}
           >
             {isLock ? (
               <AiOutlineLock className={cx($.icon, $.lock)} />
             ) : (
-              <AiOutlineUnlock className={cx($.icon, $.unLock)} />
+              <AiOutlineUnlock className={cx($.icon, $.unlock)} />
             )}
           </button>
           <input

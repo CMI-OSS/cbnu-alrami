@@ -8,7 +8,7 @@ type Props = {
 
 function ScenarioList({ scenarios }: Props) {
   return (
-    <div className={$.cardContainer}>
+    <div className={$.container}>
       {scenarios.map((scenario) => (
         <Card className={$.card} scenario={scenario} key={scenario.title} />
       ))}

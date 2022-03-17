@@ -57,7 +57,7 @@ export default function ScraperManager({ scraperType }: Props) {
 
   return (
     <section className={$.container}>
-      <article className={$.managerHeader}>
+      <article className={$["manager-header"]}>
         <h2>스크래퍼 관리</h2>
         <div>
           <button type="button">
@@ -104,7 +104,7 @@ export default function ScraperManager({ scraperType }: Props) {
           </button>
         </div>
       </article>
-      <article className={$.managerBox}>
+      <article className={$["manager-container"]}>
         <ScenarioQueue
           prev={prevScenario}
           current={currentScenario}

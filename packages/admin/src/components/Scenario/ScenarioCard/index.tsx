@@ -1,5 +1,5 @@
 import { Element, ScenarioType, ScenarioStateType } from "@shared/types";
-import cx from "classnames";
+import classnames from "classnames";
 import $ from "./style.module.scss";
 
 type Props = {
@@ -26,7 +26,7 @@ export default function ScenarioCard({ className, scenario }: Props & Element) {
   ]);
 
   return (
-    <div className={cx($.card, className)}>
+    <div className={classnames($.card, className)}>
       <h2>{title}</h2>
       <h3>{subTitle}</h3>
       {tags.map((tagText) => (

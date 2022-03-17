@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, useMatch } from "react-router-dom";
-import cx from "classnames";
+import classnames from "classnames";
 import $ from "./style.module.scss";
 
 export default function Natigation() {
@@ -60,7 +60,7 @@ export default function Natigation() {
                     to={path}
                     onClick={() => setActive(idx)}
                     className={({ isActive }) => {
-                      return cx(
+                      return classnames(
                         $["nav-link"],
                         isActive ? $["page-activated"] : "",
                       );

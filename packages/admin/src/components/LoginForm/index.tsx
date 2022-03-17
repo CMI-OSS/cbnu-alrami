@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import cx from "classnames";
+import classnames from "classnames";
 import { AiOutlineLock, AiOutlineUnlock } from "react-icons/ai";
 import { IoPersonOutline } from "react-icons/io5";
 import $ from "./style.module.scss";
@@ -46,7 +46,7 @@ export default function LoginForm() {
       <span>CMI 관리자</span>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div
-          className={cx($["id-box"], {
+          className={classnames($["id-box"], {
             [$.focus]: isFocusId,
           })}
         >
@@ -62,7 +62,7 @@ export default function LoginForm() {
           />
         </div>
         <div
-          className={cx($["pw-box"], {
+          className={classnames($["pw-box"], {
             [$.focus]: isFocusPw,
           })}
         >
@@ -72,9 +72,9 @@ export default function LoginForm() {
             onClick={() => setLock(!isLock)}
           >
             {isLock ? (
-              <AiOutlineLock className={cx($.icon, $.lock)} />
+              <AiOutlineLock className={classnames($.icon, $.lock)} />
             ) : (
-              <AiOutlineUnlock className={cx($.icon, $.unlock)} />
+              <AiOutlineUnlock className={classnames($.icon, $.unlock)} />
             )}
           </button>
           <input

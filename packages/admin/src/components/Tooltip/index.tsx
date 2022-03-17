@@ -1,4 +1,4 @@
-import cx from "classnames";
+import classnames from "classnames";
 import $ from "./style.module.scss";
 
 interface Props {
@@ -7,5 +7,7 @@ interface Props {
 }
 
 export default function ScraperManager({ content, parent }: Props) {
-  return <span className={cx($.tooltip, $.parentHover)}>{content}</span>;
+  return (
+    <span className={classnames($.tooltip, $.parentHover)}>{content}</span>
+  );
 }

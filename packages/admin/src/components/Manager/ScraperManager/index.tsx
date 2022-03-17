@@ -1,6 +1,6 @@
 import { FaPlay, FaPause, FaStop } from "react-icons/fa";
 import { MdReplay } from "react-icons/md";
-import cx from "classnames";
+import classnames from "classnames";
 import { ScraperState, ScraperType } from "@shared/types";
 import {
   pauseScraper,
@@ -62,7 +62,7 @@ export default function ScraperManager({ scraperType }: Props) {
         <div>
           <button type="button">
             <FaPlay
-              className={cx($.play, {
+              className={classnames($.play, {
                 [$.disabled]: scraperState === ScraperState.Running,
               })}
               onClick={startScraping}
@@ -73,7 +73,7 @@ export default function ScraperManager({ scraperType }: Props) {
 
           <button type="button">
             <FaPause
-              className={cx($.pause, {
+              className={classnames($.pause, {
                 [$.disabled]:
                   scraperState === ScraperState.Pause ||
                   scraperState === ScraperState.Stopped,
@@ -85,7 +85,7 @@ export default function ScraperManager({ scraperType }: Props) {
 
           <button type="button">
             <FaStop
-              className={cx($.stop, {
+              className={classnames($.stop, {
                 [$.disabled]: scraperState === ScraperState.Stopped,
               })}
               onClick={stopScraping}
@@ -95,7 +95,7 @@ export default function ScraperManager({ scraperType }: Props) {
 
           <button type="button">
             <MdReplay
-              className={cx($.replay, {
+              className={classnames($.replay, {
                 [$.disabled]: scraperState === ScraperState.Stopped,
               })}
               onClick={restartScraping}

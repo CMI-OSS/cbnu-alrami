@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import classnames from "classnames";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineLock, AiOutlineUnlock } from "react-icons/ai";
 import { IoPersonOutline } from "react-icons/io5";
 import $ from "./style.module.scss";
@@ -37,7 +37,8 @@ export default function LoginForm() {
     setMessage("");
   }, [ errors.id, errors.password ]);
 
-  const onSubmit = (data: Props) => {
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
   };
 

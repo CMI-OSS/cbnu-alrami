@@ -5,11 +5,6 @@ import { AiOutlineLock, AiOutlineUnlock } from "react-icons/ai";
 import { IoPersonOutline } from "react-icons/io5";
 import $ from "./style.module.scss";
 
-type Props = {
-  inputId: string;
-  inputPw: string;
-};
-
 export default function LoginForm() {
   const [ message, setMessage ] = useState("");
   const [ isFocusId, setFocusId ] = useState(false);
@@ -36,7 +31,6 @@ export default function LoginForm() {
     }
     setMessage("");
   }, [ errors.id, errors.password ]);
-
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);

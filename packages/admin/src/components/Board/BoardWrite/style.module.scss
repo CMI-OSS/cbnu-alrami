@@ -1,5 +1,10 @@
 @import "@shared/styles/color.scss";
 
+@mixin no-line {
+  border: none;
+  outline: none;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -7,10 +12,9 @@
   padding: 3rem;
 
   textarea {
+    @include no-line();
     width: 75%;
     resize: none;
-    outline: none;
-    border: none;
     background-color: transparent;
     color: $black;
     font-size: 2.75rem;
@@ -31,10 +35,9 @@
   }
 
   input {
+    @include no-line();
     width: 6.5rem;
     height: 2.3rem;
-    outline: none;
-    border: none;
     border-radius: 0.3rem;
     background-color: #005299;
     color: $white;

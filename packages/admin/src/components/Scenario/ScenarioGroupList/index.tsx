@@ -1,8 +1,8 @@
 import { ScenarioType } from "@shared/types";
 import { useQuery } from "src/hooks";
 import { getScenarioGroups } from "src/lib/scenario";
-import getStyle from "./style";
 import ScenarioList from "../ScenarioList";
+import $ from "./style.module.scss";
 
 interface Props {
   scenarios: ScenarioType[];
@@ -10,7 +10,6 @@ interface Props {
 
 function ScenarioGroupList({ scenarios }: Props) {
   const query = useQuery();
-  const style = getStyle();
   const stateQuery = query.get("state") || "all";
   const groupQuery = query.get("group") || "all";
 
@@ -37,8 +36,8 @@ function ScenarioGroupList({ scenarios }: Props) {
           const scenarios = getFilteredScenarios(group);
           if (scenarios.length === 0) return <></>;
           return (
-            <div className={style.groupContainer} key={group}>
-              <h2 className={style.groupTitle}>{group}</h2>
+            <div key={group}>
+              <h2 className={$.title}>{group}</h2>
               <ScenarioList scenarios={scenarios} />
             </div>
           );

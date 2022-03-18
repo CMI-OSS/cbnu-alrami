@@ -1,10 +1,12 @@
 import { Element, ScenarioType, ScenarioStateType } from "@shared/types";
-import { cx } from "@emotion/css";
-import getStyle, { ColorType } from "./style";
+import classnames from "classnames";
+import $ from "./style.module.scss";
 
 type Props = {
   scenario: ScenarioType;
 };
+
+type ColorType = "green" | "yellow" | "red" | "gray";
 
 export default function ScenarioCard({ className, scenario }: Props & Element) {
   const { title, subTitle, tags, state } = scenario;
@@ -13,7 +15,7 @@ export default function ScenarioCard({ className, scenario }: Props & Element) {
     [ "clean", "green" ],
     [ "warning", "yellow" ],
     [ "error", "red" ],
-    [ "excluded", "green" ],
+    [ "excluded", "gray" ],
   ]);
 
   const stateLabelMap = new Map<ScenarioStateType, string>([
@@ -23,18 +25,16 @@ export default function ScenarioCard({ className, scenario }: Props & Element) {
     [ "excluded", "배제" ],
   ]);
 
-  const style = getStyle({ stateColor: colorMap.get(state) || "green" });
-
   return (
-    <div className={cx(style.scenarioCard, className)}>
-      <h2 className={style.title}>{title}</h2>
+    <div className={classnames($.card, className)}>
+      <h2>{title}</h2>
       <h3>{subTitle}</h3>
       {tags.map((tagText) => (
-        <span className={style.tag} key={tagText}>{`# ${tagText}`}</span>
+        <span className={$.tag} key={tagText}>{`# ${tagText}`}</span>
       ))}
-      <div className={style.stateContainer}>
-        <span className={style.stateText}>{stateLabelMap.get(state)}</span>
-        <div className={style.color}></div>
+      <div className={$["status-container"]}>
+        <span>{stateLabelMap.get(state)}</span>
+        <div className={$[`${colorMap.get(state)}`]}></div>
       </div>
     </div>
   );

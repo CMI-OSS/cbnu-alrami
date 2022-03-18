@@ -1,13 +1,12 @@
 import { ScraperLog } from "@shared/types";
 import { useEffect, useRef } from "react";
-import getStyle from "./style";
+import $ from "./style.module.scss";
 
 interface Props {
   logs: Array<ScraperLog>;
 }
 
 export default function ExcutionLog({ logs }: Props) {
-  const style = getStyle();
   const boxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -15,12 +14,12 @@ export default function ExcutionLog({ logs }: Props) {
   }, [ logs ]);
 
   return (
-    <section className={style.excutionLog}>
-      <h2 className={style.excutionLogTitle}>실행 로그</h2>
-      <div className={style.excutionBox} ref={boxRef}>
+    <section className={$.container}>
+      <h2>실행 로그</h2>
+      <div>
         {logs.map((log, index) => (
           // eslint-disable-next-line react/no-array-index-key
-          <p key={index} className={style.log}>
+          <p key={index}>
             {log.prefix ? `[${log.prefix}]` : ""} {log.message}
           </p>
         ))}

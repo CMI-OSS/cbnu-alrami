@@ -1,0 +1,16 @@
+@import "@shared/styles/color.scss";
+
+.main {
+  margin-left: 13rem;
+
+  .title {
+    margin: 8rem 0 4rem 3rem;
+    font-size: 3rem;
+    font-weight: 400;
+  }
+
+  .sub-title {
+    margin: 0 0 1rem 3rem;
+    font-size: 2.3rem;
+  }
+}

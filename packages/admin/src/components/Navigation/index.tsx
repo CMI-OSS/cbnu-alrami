@@ -1,12 +1,11 @@
-import { cx } from "@emotion/css";
 import { useState } from "react";
 import { NavLink, useMatch } from "react-router-dom";
-import getStyle from "./style";
+import classnames from "classnames";
+import $ from "./style.module.scss";
 
 export default function Natigation() {
   const isLoginMatch = useMatch("/login");
   const [ active, setActive ] = useState(-1);
-  const style = getStyle();
 
   const SCRAPER_MENUS = {
     label: "스크래퍼",
@@ -47,27 +46,23 @@ export default function Natigation() {
   return isLoginMatch ? (
     <></>
   ) : (
-    <nav className={style.Navigation}>
-      <ul className={style.sideNavUl}>
-        <li className={style.logo}>CMI</li>
+    <nav className={$.navigation}>
+      <ul className={$["outer-ul"]}>
+        <li className={$.logo}>CMI</li>
         <ul>
           {[ BOARD_MENUS, SCRAPER_MENUS ].map((menu, idx) => (
-            <li className={style.contentNavLi} key={`${menu}`}>
-              <p className={style.detailLogo}>{menu.label}</p>
-              <ul
-                className={cx(style.detailNavUl, {
-                  [style.contentsActivated]: idx === active,
-                })}
-              >
+            <li key={`${menu}`}>
+              <p>{menu.label}</p>
+              <ul className={idx === active ? $["list-activated"] : ""}>
                 {menu.menus.map(({ path, label }) => (
                   <NavLink
                     key={path}
                     to={path}
                     onClick={() => setActive(idx)}
                     className={({ isActive }) => {
-                      return (
-                        style.sideNavLi +
-                        (isActive ? ` ${style.activated}` : "")
+                      return classnames(
+                        $["nav-link"],
+                        isActive ? $["page-activated"] : "",
                       );
                     }}
                   >

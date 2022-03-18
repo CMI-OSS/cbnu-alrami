@@ -1,8 +1,8 @@
-import { colors } from "@shared/styles/color";
+import "@shared/styles/global.scss";
 import { hot } from "react-hot-loader";
 
 function App() {
-  return <div>black: {colors.$black}</div>;
+  return <div>App</div>;
 }
 
 export default hot(module)(App);

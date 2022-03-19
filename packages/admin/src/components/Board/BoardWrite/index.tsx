@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useWindowResize } from "src/hooks/";
 // import { Checkbox } from "@shared/components";
-// import { boardKind } from "src/__mockData__";
+import { boardKind } from "src/__mockData__";
 import classNames from "classnames";
 import $ from "./style.module.scss";
 
@@ -57,7 +57,7 @@ export default function BoardWrite() {
 
   return (
     <form className={$.form} onSubmit={handleSubmit(onSubmit)}>
-      <header className={$.titleBox}>
+      <header>
         <textarea
           id="title"
           name={title.name}
@@ -69,13 +69,13 @@ export default function BoardWrite() {
             textRef.current = e;
           }}
         />
-        <hr className={$.horizonLine} />
+        <hr />
       </header>
 
       <section className={$.boardOption}>
         <div>
           <input
-            type="search"
+            type="text"
             list="boardList"
             id="boardType"
             name={boardType.name}
@@ -87,9 +87,9 @@ export default function BoardWrite() {
             ref={boardType.ref}
           />
           <datalist id="boardList">
-            {/* {boardKind.map(({ name }) => (
+            {boardKind.map(({ name }) => (
               <option key={name} value={name} aria-label={name} />
-            ))} */}
+            ))}
           </datalist>
         </div>
 
@@ -102,7 +102,7 @@ export default function BoardWrite() {
         /> */}
         {isReserve}
       </section>
-      <input type="submit" value="출간하기" />
+      <input className={$.submit} type="submit" value="출간하기" />
     </form>
   );
 }

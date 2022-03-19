@@ -34,7 +34,39 @@
     background-color: $dark-mode;
   }
 
-  input {
+  section > div {
+    display: flex;
+    .boardType {
+      &::-webkit-search-cancel-button {
+        display: none;
+      }
+      &::-webkit-calendar-picker-indicator {
+        display: none !important;
+      }
+    }
+  }
+
+  .option {
+    display: flex;
+    height: 2rem;
+    margin-right: 1rem;
+    padding: 0.5rem;
+    align-items: center;
+    border: none;
+    outline: none;
+    border-radius: 0.7rem;
+    background-color: $white;
+    font-size: 0.8rem;
+    cursor: pointer;
+    &:last-child {
+      margin-right: 0;
+    }
+    &:hover {
+      box-shadow: 0 0 0 0.1rem $light-blue;
+    }
+  }
+
+  .submit {
     @include no-line();
     width: 6.5rem;
     height: 2.3rem;

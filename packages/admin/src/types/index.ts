@@ -9,3 +9,8 @@ export type ScenarioQueueType = {
   title: string;
   turn: ScenarioTurnType;
 };
+
+export type BoardKindType = {
+  id: number;
+  name: string;
+}

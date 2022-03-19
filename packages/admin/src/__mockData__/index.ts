@@ -8,7 +8,7 @@ import studentScenarioQueue from "./studentRestaurantScenarioQueue";
 import domitoryScenarioQueue from "./domitoryRestarantScenarioQueue";
 import scheduleScenarioQueue from "./collegeScheduleScenarioQueue";
 
-// import boardKind from "./boardKind";
+import boardKind from "./boardKind";
 
 export {
   noticeScenariosMockData,
@@ -19,5 +19,5 @@ export {
   domitoryScenarioQueue,
   noticeScenarioQueue,
   studentScenarioQueue,
-  // boardKind,
+  boardKind,
 };

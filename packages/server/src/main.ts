@@ -10,8 +10,8 @@ async function bootstrap() {
   app.use(helmet());
   app.use(csurf());
   app.use(compression());
-  await app.listen(getConfiguration(process.env.NODE_ENV).http.port);
+  await app.listen(getConfiguration().http.port);
 
-  console.log(getConfiguration(process.env.NODE_ENV));
+  // console.log(getConfiguration());   //환경변수 로딩 확인 코드
 }
 bootstrap();

@@ -1,8 +1,18 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from './config/config.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import configuration from './config/configuration';
 @Module({
-  imports: [ConfigModule.register(process.env.NODE_ENV)],
+  imports: [    ConfigModule.forRoot({   
+    isGlobal: true,
+    load: [configuration],
+  }), 
+  TypeOrmModule.forRootAsync({
+    imports: [ConfigModule],
+    useFactory: async (config:ConfigService)=> config.get('db'),
+    inject: [ConfigService]
+  })],
   controllers: [],
-  providers: [],
+  providers: [ConfigService],
 })
 export class AppModule {}

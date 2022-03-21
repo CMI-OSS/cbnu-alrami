@@ -4,6 +4,7 @@ import { useWindowResize } from "src/hooks/";
 // import { Checkbox } from "@shared/components";
 import { boardKind } from "src/__mockData__";
 import classNames from "classnames";
+import Editor from "src/components/Editor";
 import $ from "./style.module.scss";
 
 export default function BoardWrite() {
@@ -102,6 +103,9 @@ export default function BoardWrite() {
         /> */}
         {isReserve}
       </section>
+
+      <Editor />
+
       <input className={$.submit} type="submit" value="출간하기" />
     </form>
   );

@@ -1,0 +1,86 @@
+@import "@shared/styles/color.scss";
+
+.editorContainer {
+  display: flex;
+  height: 40rem;
+  margin: 1rem 0;
+  background-color: $white;
+  .editor {
+    width: 50%;
+    div:nth-of-type(2) {
+      max-height: 37.36rem;
+      font-size: 1rem;
+      div:first-child {
+        height: 37.36rem;
+      }
+      strong {
+        font-weight: bold;
+      }
+      em {
+        font-style: italic;
+      }
+    }
+  }
+
+  section {
+    width: 50%;
+    overflow: auto;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-left: none;
+    font-size: 1rem;
+
+    blockquote {
+      border-left: 4px solid #ccc;
+      margin-bottom: 5px;
+      margin-top: 5px;
+      padding-left: 16px;
+    }
+    strong {
+      font-weight: bold;
+    }
+    em {
+      font-style: italic;
+    }
+
+    p[class="ql-align-left"],
+    span[class="ql-align-left"],
+    strong[class="ql-align-left"],
+    em[class="ql-align-left"] {
+      text-align: left;
+    }
+    p[class="ql-align-center"],
+    span[class="ql-align-center"],
+    strong[class="ql-align-center"],
+    em[class="ql-align-center"] {
+      text-align: center;
+    }
+    p[class="ql-align-right"],
+    span[class="ql-align-right"],
+    strong[class="ql-align-right"],
+    em[class="ql-align-right"] {
+      text-align: right;
+    }
+
+    p[class="ql-size-small"],
+    span[class="ql-size-small"],
+    strong[class="ql-size-small"],
+    em[class="ql-size-small"] {
+      font-size: 0.75em;
+    }
+
+    p[class="ql-size-large"],
+    span[class="ql-size-large"],
+    strong[class="ql-size-large"],
+    em[class="ql-size-large"] {
+      font-size: 1.5em;
+    }
+
+    p[class="ql-size-huge"],
+    span[class="ql-size-huge"],
+    strong[class="ql-size-huge"],
+    em[class="ql-size-huge"] {
+      font-size: 2.5em;
+    }
+  }
+}

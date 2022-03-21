@@ -8,11 +8,8 @@
   .editor {
     width: 50%;
     div:nth-of-type(2) {
-      max-height: 37.36rem;
+      max-height: 37.375rem;
       font-size: 1rem;
-      div:first-child {
-        height: 37.36rem;
-      }
       strong {
         font-weight: bold;
       }
@@ -24,7 +21,8 @@
 
   section {
     width: 50%;
-    overflow: auto;
+    overflow-x: auto;
+    line-height: 1.42;
     padding: 12px 15px;
     border: 1px solid #ccc;
     border-left: none;
@@ -42,19 +40,27 @@
     em {
       font-style: italic;
     }
+    a {
+      text-decoration: underline;
+      color: $light-blue;
+      cursor: pointer;
+    }
 
+    a[class="ql-align-left"],
     p[class="ql-align-left"],
     span[class="ql-align-left"],
     strong[class="ql-align-left"],
     em[class="ql-align-left"] {
       text-align: left;
     }
+    a[class="ql-align-center"],
     p[class="ql-align-center"],
     span[class="ql-align-center"],
     strong[class="ql-align-center"],
     em[class="ql-align-center"] {
       text-align: center;
     }
+    a[class="ql-align-right"],
     p[class="ql-align-right"],
     span[class="ql-align-right"],
     strong[class="ql-align-right"],
@@ -62,6 +68,7 @@
       text-align: right;
     }
 
+    a[class="ql-size-small"],
     p[class="ql-size-small"],
     span[class="ql-size-small"],
     strong[class="ql-size-small"],
@@ -69,6 +76,7 @@
       font-size: 0.75em;
     }
 
+    a[class="ql-size-large"],
     p[class="ql-size-large"],
     span[class="ql-size-large"],
     strong[class="ql-size-large"],
@@ -76,6 +84,7 @@
       font-size: 1.5em;
     }
 
+    a[class="ql-size-huge"],
     p[class="ql-size-huge"],
     span[class="ql-size-huge"],
     strong[class="ql-size-huge"],

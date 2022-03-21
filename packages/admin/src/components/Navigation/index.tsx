@@ -50,11 +50,11 @@ export default function Natigation() {
       <ul className={$["outer-ul"]}>
         <li className={$.logo}>CMI</li>
         <ul>
-          {[ BOARD_MENUS, SCRAPER_MENUS ].map((menu, idx) => (
-            <li key={`${menu}`}>
-              <p>{menu.label}</p>
+          {[ BOARD_MENUS, SCRAPER_MENUS ].map(({ label, menus }, idx) => (
+            <li key={`${menus}`}>
+              <p>{label}</p>
               <ul className={idx === active ? $["list-activated"] : ""}>
-                {menu.menus.map(({ path, label }) => (
+                {menus.map(({ path, label }) => (
                   <NavLink
                     key={path}
                     to={path}

@@ -19,7 +19,7 @@ export default function Editor() {
           [ { size: [ "small", false, "large", "huge" ] }, { color: [] } ],
           [ "bold", "italic", "underline", "strike", "blockquote" ],
           [ { list: "ordered" }, { list: "bullet" }, { align: [] } ],
-          [ "image" ],
+          [ "image", "link" ],
         ],
         handlers: {
           //   image: imageHandler, // Todo: 이미지 핸들러 선언

@@ -1,0 +1,104 @@
+.home {
+    > div {
+        margin-bottom: 30px;
+    }
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+
+        h1 {
+            font-weight: 500;
+            font-size: 21px;
+            line-height: 33px;
+        }
+    }
+    .schedule {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-left: 20px;
+            padding-right: 20px;
+            margin-right: 23px;
+            min-width: 70%;
+        }
+        p {
+            padding-right: 10px;
+            line-height: 24px;
+        }
+    }
+    .information {
+        display: flex;
+        font-size: 11px;
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            width: 100%;
+        }
+        div:first-child {
+            margin-right: 25px;
+        }
+        .more {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            svg {
+                margin-right: 4px;
+
+                path {
+                    stroke: #222;
+                }
+            }
+        }
+        .important {
+            font-size: 18px;
+            font-weight: 500;
+        }
+    }
+    .cafeteria {
+        width: 100%;
+
+        > div {
+            padding: 17px;
+        }
+        .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            p {
+                font-weight: 500;
+                margin-right: 5px;
+            }
+            p:last-child {
+                color: #707070;
+                font-size: 13px;
+            }
+        }
+        .content {
+            padding: 21px 20px 0px 0px;
+            line-height: 25px;
+            font-size: 12px;
+        }
+    }
+    .notification {
+        > div {
+            padding: 24px 10px 10px 10px;
+        }
+
+        .content {
+            padding-left: 14px;
+            margin-top: 10px;
+            p {
+                line-height: 33px;
+            }
+        }
+    }
+}

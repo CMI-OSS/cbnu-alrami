@@ -8,7 +8,7 @@ $footerLinkDistance: 20px;
 .place_wrap {
   position: fixed;
   bottom: $footerHeight + $footerLinkDistance + 61px + 17px;
-  right: 25px;
+  right: 26px;
   border-radius: 10px;
   padding: 10px 10px 10px 14px;
   background-color: #fff;
@@ -22,12 +22,23 @@ $footerLinkDistance: 20px;
   margin: 0 3px -1px 0;
 }
 
+.arrow {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: -1;
+
+  path {
+    stroke: #fff;
+  }
+}
+
 .link {
   position: fixed;
   width: 61px;
   height: 62px;
   bottom: $footerHeight + $footerLinkDistance;
-  right: 20px;
+  right: 15px;
   background-color: #d66d6e;
   border-radius: 50%;
 }

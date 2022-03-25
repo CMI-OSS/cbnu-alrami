@@ -8,8 +8,8 @@ type Props = {
 function Radio({ width, height, children, style }: Props) {
   return (
     <div className={$.radio} style={{ width, height, ...style }}>
-      <input type="radio" />
-      <label className={$["radio-label"]}>{children}</label>
+      <input type="radio" name="radio" />
+      <label htmlFor="radio" className={$["radio-label"]}>{children}</label>
     </div>
   );
 }

@@ -1,0 +1,19 @@
+@import "@shared/styles/color.scss";
+
+.filter {
+  display: flex;
+  margin-left: 3rem;
+
+  select {
+    height: 2rem;
+    padding: 0.5rem;
+    margin: 0 1rem;
+    border: none;
+    border-radius: 0.7rem;
+
+    &:hover {
+      box-shadow: 0 0 0 0.1rem $light-blue;
+      cursor: pointer;
+    }
+  }
+}

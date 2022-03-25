@@ -1,0 +1,52 @@
+@import "@shared/styles/color.scss";
+
+@mixin no-line {
+  border: none;
+  outline: none;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  margin-left: 13rem;
+  padding: 3rem;
+
+  textarea {
+    @include no-line();
+    width: 75%;
+    resize: none;
+    background-color: transparent;
+    color: $black;
+    font-size: 2.75rem;
+    font-weight: 500;
+    word-break: break-all;
+    cursor: pointer;
+  }
+
+  .warn::placeholder {
+    color: $google-red;
+  }
+
+  hr {
+    width: 5rem;
+    height: 0.5rem;
+    margin: 1.5rem 0;
+    background-color: $dark-mode;
+  }
+
+  input {
+    @include no-line();
+    width: 6.5rem;
+    height: 2.3rem;
+    border-radius: 0.3rem;
+    background-color: #005299;
+    color: $white;
+    font-size: 1.2rem;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $light-blue;
+    }
+  }
+}

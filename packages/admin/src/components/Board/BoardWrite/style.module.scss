@@ -14,6 +14,7 @@
   textarea {
     @include no-line();
     width: 75%;
+    height: fit-content;
     resize: none;
     background-color: transparent;
     color: $black;

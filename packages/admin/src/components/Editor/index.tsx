@@ -1,6 +1,7 @@
-import { useRef, useState, useMemo, useEffect } from "react";
+import { useRef, useState, useMemo, useEffect, useCallback } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { debounce } from "src/lib/debounce";
 import $ from "./style.module.scss";
 
 export default function Editor() {
@@ -31,6 +32,13 @@ export default function Editor() {
 
   // const imageHandler = () => {} // Todo: 이미지 핸들러 함수
 
+  const changeHandler = (v: string) => {
+    console.log(v);
+    setContents(v);
+  };
+
+  const handleInput = useMemo(() => debounce(changeHandler, 500), []);
+
   return (
     <main className={$.editorContainer}>
       <ReactQuill
@@ -41,7 +49,7 @@ export default function Editor() {
           }
         }}
         value={contents}
-        onChange={(v) => setContents(v)} // Todo: 디바운스
+        onChange={handleInput} // Todo: 디바운스
         modules={editorModules}
         theme="snow"
         placeholder="내용을 입력해주세요."

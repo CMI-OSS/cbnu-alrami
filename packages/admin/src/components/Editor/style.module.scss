@@ -2,13 +2,12 @@
 
 .editorContainer {
   display: flex;
-  height: 40rem;
   margin: 1rem 0;
   background-color: $white;
   .editor {
     width: 50%;
     div:nth-of-type(2) {
-      max-height: 37.375rem;
+      height: 36rem;
       font-size: 1rem;
       strong {
         font-weight: bold;

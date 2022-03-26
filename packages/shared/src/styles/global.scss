@@ -1,8 +1,5 @@
 @import "./color.scss";
-<<<<<<< HEAD
 @import "./font.scss";
-=======
->>>>>>> origin
 
 html,
 body,
@@ -84,22 +81,15 @@ summary,
 time,
 mark,
 audio,
-<<<<<<< HEAD
 video,
 button {
-=======
-video {
->>>>>>> origin
     margin: 0;
     padding: 0;
     border: 0;
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-<<<<<<< HEAD
     font-family: "Spoqa Han Sans Neo", "Sans-serif", serif;
-=======
->>>>>>> origin
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -121,12 +111,9 @@ body {
     position: relative;
     -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
-<<<<<<< HEAD
     font-size: 14px;
     line-height: 21px;
     letter-spacing: -0.002em;
-=======
->>>>>>> origin
 }
 ol,
 ul {

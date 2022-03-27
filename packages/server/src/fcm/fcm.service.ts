@@ -22,7 +22,7 @@ export class FcmService {
     });
   }
 
-  public send_notice(to: string, data: Data) {
+  public sendNotice(to: string, data: Data) {
     this.fcm.send(
       this.message(to, data, "com.jaryapp.myapplication3"),
       (err, res) => {
@@ -36,7 +36,7 @@ export class FcmService {
     );
   }
 
-  public send_notice_ios(to: string, data: Data) {
+  public sendNoticeIos(to: string, data: Data) {
     this.fcm.send(this.message(to, data, "com.cmi.cbnu-alrami"), (err, res) => {
       if (err) {
         console.log(err);

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { DefaultProps } from "src/type/props";
 import $ from "./style.module.scss";
 

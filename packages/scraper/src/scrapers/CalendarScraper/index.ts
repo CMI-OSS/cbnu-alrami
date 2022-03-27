@@ -1,23 +1,25 @@
 /* eslint-disable no-plusplus */
 import Scraper from "src/scrapers/Scraper";
+import { ScraperType } from "@shared/types";
 import { Calendar, CalendarScript } from "src/types";
 import { createSchedule } from "src/db/calendar";
 import { Scenario } from "../Scenario";
 import ArrayToDate from "./ArrayToDate";
 
 class CalendarScraper extends Scraper<CalendarScript> {
+  name = "학사 일정";
+  type: ScraperType = "calendar";
+
   constructor() {
     super(`${__dirname}/scripts`);
   }
 
-  async start() {
+  async initScript() {
     const scripts = await this.loadScripts();
 
     scripts.forEach((script) => {
-      this.appendScenario(new Scenario(script));
+      this.appendScenario(new Scenario(String(script.year), script));
     });
-
-    this.run();
   }
 
   async scrapping(scenario: Scenario<CalendarScript>) {
@@ -33,17 +35,15 @@ class CalendarScraper extends Scraper<CalendarScript> {
 
     const refinedData = [];
 
-    for (let i = 0; i < calendarScript.years.length; i++) {
-      await this.scraper.goto(calendarScript.url + calendarScript.years[i].key);
-      await this.scraper.waitForSelector(calendarScript.waitCalendarSelector);
-      await this.evaluateScript(calendarScript);
-      const mockData = await this.scraper.evaluate("script.getSchedules()");
-      for (let j = 0; j < mockData.length; j++) {
-        refinedData.push({
-          ...ArrayToDate(calendarScript.years[i].year, mockData[j][0]),
-          content: mockData[j][1],
-        });
-      }
+    await this.scraper.goto(calendarScript.url);
+    await this.scraper.waitForSelector(calendarScript.waitCalendarSelector);
+    await this.evaluateScript(calendarScript);
+    const mockData = await this.scraper.evaluate("script.getSchedules()");
+    for (let j = 0; j < mockData.length; j++) {
+      refinedData.push({
+        ...ArrayToDate(calendarScript.year, mockData[j][0]),
+        content: mockData[j][1],
+      });
     }
 
     for (const schedule of refinedData) {

@@ -1,11 +1,9 @@
-import { cx } from "@emotion/css";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { useWindowResize } from "src/hooks/";
-import getStyle from "./style";
+import $ from "./style.module.scss";
 
 export default function BoardWrite() {
-  const style = getStyle();
   const textRef = useRef<HTMLTextAreaElement | null>(null);
   const [ width ] = useWindowResize();
 
@@ -34,12 +32,12 @@ export default function BoardWrite() {
   }, []);
 
   return (
-    <form className={style.main} onSubmit={handleSubmit(onSubmit)}>
-      <section className={style.titleBox}>
+    <form className={$.form} onSubmit={handleSubmit(onSubmit)}>
+      <section>
         <textarea
           id="title"
           name={title.name}
-          className={cx(style.title, { [style.warn]: errors.title })}
+          className={errors.title ? $.warn : ""}
           placeholder="제목을 입력하세요."
           onChange={autoResizeTextArea}
           ref={(e) => {
@@ -47,10 +45,9 @@ export default function BoardWrite() {
             textRef.current = e;
           }}
         />
-        <hr className={style.horizonLine} />
+        <hr className={$.horizonLine} />
       </section>
-
-      <input className={style.submit} type="submit" value="출간하기" />
+      <input type="submit" value="출간하기" />
     </form>
   );
 }

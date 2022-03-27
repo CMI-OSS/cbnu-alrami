@@ -1,5 +1,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-useless-catch */
+import { ScraperType } from "@shared/types";
 import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 
@@ -26,15 +27,19 @@ interface RawStringInfo {
 }
 
 class CovidScraper extends Scraper<CovidScript> {
+  name = "코로나";
+  type: ScraperType = "covid";
   constructor() {
     super(`${__dirname}/scripts`);
   }
 
-  async start() {
+  async initScript() {
     const scripts = await this.loadScripts();
 
     scripts.forEach((script) => {
-      this.appendScenario(new Scenario(script));
+      this.appendScenario(
+        new Scenario("청주시 코로나바이러스-19 비상대책", script),
+      );
     });
 
     this.run();

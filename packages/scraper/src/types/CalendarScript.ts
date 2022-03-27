@@ -1,6 +1,6 @@
 export interface CalendarScript {
   url: string;
-  years: { year: number; key: string }[];
+  year: number;
   waitCalendarSelector: string;
   getSchedules: Function;
 }

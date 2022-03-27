@@ -4,14 +4,13 @@ import queryString from "query-string";
 import { useQuery } from "src/hooks";
 import { getScenarioGroups } from "src/lib/scenario";
 import scenarios from "src/__mockData__/noticeScenarios";
-import getStyle from "./style";
+import $ from "./style.module.scss";
 
 interface Props {
   isNotice: boolean;
 }
 
 export default function ScenarioFilter({ isNotice }: Props) {
-  const style = getStyle();
   const navigate = useNavigate();
   const location = useLocation();
   const query = useQuery();
@@ -33,14 +32,13 @@ export default function ScenarioFilter({ isNotice }: Props) {
   };
 
   return (
-    <ul className={style.selectContainer}>
+    <ul className={$.filter}>
       {isNotice && (
         <li>
-          <label htmlFor="groupSelector" className={style.label}>
+          <label htmlFor="groupSelector">
             그룹 필터
             <select
               onChange={handleGroupChange}
-              className={style.select}
               id="groupSelector"
               value={query.get("group") || "all"}
             >
@@ -61,7 +59,6 @@ export default function ScenarioFilter({ isNotice }: Props) {
           상태 필터
           <select
             onChange={handleStateChange}
-            className={style.select}
             id="stateSelector"
             value={query.get("state") || "all"}
           >

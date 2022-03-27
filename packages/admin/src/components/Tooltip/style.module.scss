@@ -1,0 +1,17 @@
+@import "@shared/styles/color.scss";
+
+.tooltip {
+  visibility: hidden;
+  z-index: 1;
+  position: absolute;
+  /* bottom: 100%;
+            left: 50%; */
+  min-width: 6rem;
+  width: fit-content;
+  padding: 0.5rem;
+  border-radius: 6px;
+  background-color: $dark-mode;
+  color: $white;
+  font-size: 0.8rem;
+  text-align: center;
+}

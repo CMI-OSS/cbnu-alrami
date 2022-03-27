@@ -3,22 +3,24 @@
 import { DomitoryScript } from "src/types/DomitoryScript";
 import { DomitoryFood } from "src/types/DomitoryFood";
 import { createMenu } from "src/db/restaurant";
+import { ScraperType } from "@shared/types";
 import Scraper from "../Scraper";
 import { Scenario } from "../Scenario";
 
 class DomitoryScraper extends Scraper<DomitoryScript> {
+  name = "기숙사 식단";
+  type: ScraperType = "domitory";
+
   constructor() {
     super(`${__dirname}/scripts`);
   }
 
-  async start() {
+  async initScript() {
     const scripts = await this.loadScripts();
 
-    scripts.forEach((script) => {
-      this.appendScenario(new Scenario(script));
-    });
-
-    this.run();
+    for (const script of scripts) {
+      this.appendScenario(new Scenario(script.domitory, script));
+    }
   }
 
   async scrapping(scenario: Scenario<DomitoryScript>) {
@@ -40,18 +42,12 @@ class DomitoryScraper extends Scraper<DomitoryScript> {
 
       const allFoodList = [];
 
-      for (let i = 0; i < jsScript.domitories.length; i++) {
-        await this.scraper.goto(
-          jsScript.baseUrl + jsScript.domitories[i].typeQuery,
-        );
-        await this.scraper.waitForSelector(jsScript.waitMainTableSelector);
-        await this.evaluateScript(jsScript);
+      await this.scraper.goto(jsScript.baseUrl + jsScript.typeQuery);
+      await this.scraper.waitForSelector(jsScript.waitMainTableSelector);
+      await this.evaluateScript(jsScript);
 
-        const foodList = await this.scraper.evaluate(
-          `script.getFoodList(${i})`,
-        );
-        allFoodList.push(...foodList);
-      }
+      const foodList = await this.scraper.evaluate(`script.getFoodList()`);
+      allFoodList.push(...foodList);
 
       if (allFoodList.length === 0) throw Error("학생생활관 식단 크롤링 실패");
 

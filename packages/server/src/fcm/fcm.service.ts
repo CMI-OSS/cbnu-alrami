@@ -4,13 +4,15 @@ import { Data } from "./fcm.interfaces";
 
 @Injectable()
 export class FcmService {
-  // private readonly serverKey;
+  private readonly serverKey;
   private readonly fcm;
-  private readonly message;
   constructor() {
     // this.serverKey = this.configService.get("serverKey");
     // this.fcm = new FCM(this.serverKey);
-    this.message = (to: string, data: Data, collapse_key: string) => ({
+  }
+
+  private message(to: string, data: Data, collapse_key: string) {
+    return {
       to,
       collapse_key,
       notification: {
@@ -19,7 +21,7 @@ export class FcmService {
         click_action: "Result3Activity",
       },
       data,
-    });
+    };
   }
 
   public sendNotice(to: string, data: Data) {

@@ -42,9 +42,8 @@ module.exports = {
         use: [ "babel-loader", "ts-loader" ],
       },
       {
-        test: /\.css$/,
-        exclude: "/node_modules/",
-        use: [ "style-loader", "css-loader" ],
+        test: /\.(sc|c)ss$/,
+        use: [ "style-loader", "css-loader", "sass-loader" ],
       },
       {
         test: /\.jfif$/,

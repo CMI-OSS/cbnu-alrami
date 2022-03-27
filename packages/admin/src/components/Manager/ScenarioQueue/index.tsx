@@ -1,4 +1,4 @@
-import getStyle from "./style";
+import $ from "./style.module.scss";
 
 interface Props {
   prev: {
@@ -13,15 +13,13 @@ interface Props {
 }
 
 export default function ScenarioQueue({ prev, current, next }: Props) {
-  const style = getStyle();
-
   return (
-    <article className={style.scenarioQueue}>
-      <h2 className={style.scenarioQueueTitle}>시나리오 큐</h2>
-      <div className={style.queue}>
-        <p className={style.prev}>{prev.title}</p>
-        <p className={style.current}>{current.title}</p>
-        <p className={style.next}>{next.title}</p>
+    <article className={$.container}>
+      <h2>시나리오 큐</h2>
+      <div>
+        <p>{prev.title}</p>
+        <p>{current.title}</p>
+        <p>{next.title}</p>
       </div>
     </article>
   );

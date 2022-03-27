@@ -6,3 +6,4 @@ react-app-env.d.ts
 build
 dist
 yarn-error.log
+dev.yaml

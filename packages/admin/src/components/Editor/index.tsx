@@ -32,12 +32,8 @@ export default function Editor() {
 
   // const imageHandler = () => {} // Todo: 이미지 핸들러 함수
 
-  const changeHandler = (v: string) => {
-    console.log(v);
-    setContents(v);
-  };
-
-  const handleInput = useMemo(() => debounce(changeHandler, 500), []);
+  const changeHandler = (v: string) => setContents(v);
+  const handleInput = useMemo(()=>debounce<string>(changeHandler, 200), []);
 
   return (
     <main className={$.editorContainer}>
@@ -49,7 +45,7 @@ export default function Editor() {
           }
         }}
         value={contents}
-        onChange={handleInput} // Todo: 디바운스
+        onChange={handleInput}
         modules={editorModules}
         theme="snow"
         placeholder="내용을 입력해주세요."

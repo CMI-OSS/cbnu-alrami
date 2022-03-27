@@ -41,8 +41,8 @@ module.exports = {
         use: ["babel-loader", "ts-loader"],
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        test: /\.(sc|c)ss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.jfif$/,

@@ -9,10 +9,3 @@ export type ScenarioQueueType = {
   title: string;
   turn: ScenarioTurnType;
 };
-
-export type ExcutionLogType = {
-  scraperState: string;
-  scenarioState: string;
-  scenarioResult: string;
-  commands?: string[];
-};

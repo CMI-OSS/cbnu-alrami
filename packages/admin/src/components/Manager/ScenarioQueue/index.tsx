@@ -1,22 +1,25 @@
-import { ScenarioQueueType } from "src/types";
-import getStyle from "./style";
+import $ from "./style.module.scss";
 
 interface Props {
-  queue: ScenarioQueueType[];
+  prev: {
+    title: string;
+  };
+  current: {
+    title: string;
+  };
+  next: {
+    title: string;
+  };
 }
 
-export default function ScenarioQueue({ queue }: Props) {
-  const style = getStyle();
-
+export default function ScenarioQueue({ prev, current, next }: Props) {
   return (
-    <article className={style.scenarioQueue}>
-      <h2 className={style.scenarioQueueTitle}>시나리오 큐</h2>
-      <div className={style.queue}>
-        {queue.map(({ turn, title }) => (
-          <p key={turn + title} className={style[`${turn}`]}>
-            {title}
-          </p>
-        ))}
+    <article className={$.container}>
+      <h2>시나리오 큐</h2>
+      <div>
+        <p>{prev.title}</p>
+        <p>{current.title}</p>
+        <p>{next.title}</p>
       </div>
     </article>
   );

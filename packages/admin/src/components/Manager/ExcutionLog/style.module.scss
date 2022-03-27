@@ -1,0 +1,30 @@
+@import "@shared/styles/color.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 43rem;
+  padding: 1.5rem;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 0px 8px;
+  border-radius: 1rem;
+  background-color: $white;
+
+  h2 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    font-weight: 500;
+    color: $dark-navy;
+  }
+
+  div {
+    margin: auto 0;
+    height: 10rem;
+    overflow-y: auto;
+
+    p {
+      margin: 0.3rem 0;
+      font-size: 1rem;
+    }
+  }
+}

@@ -1,42 +1,37 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-restricted-syntax */
 import puppeteer, { Page } from "puppeteer";
 import { isDev, Queue } from "src/common";
 import { stringify } from "javascript-stringify";
 import find from "find";
-import { Scenario, SCENARIO_STATE } from "./Scenario";
+import { ScraperLog, ScraperState, ScraperType } from "@shared/types";
+import {
+  sendChangeScenarioQueue,
+  sendChangeScraperState,
+  sendAppendLog,
+} from "src/socket/server";
+import { Scenario } from "./Scenario";
 
 const WINDOW_SIZE = {
   WIDTH: 1920,
   HEIGHT: 1080,
 };
 
-export const SCRAPER_STATE = {
-  WAIT: "WAIT",
-  PAUSE: "PAUSE",
-  RUNNING: "RUNNING",
-  STOPPED: "STOPPED",
-  RESUME: "RESUME",
-  ERROR: "ERROR",
-} as const;
-
-type SCRAPER_STATE = typeof SCRAPER_STATE[keyof typeof SCRAPER_STATE];
-
 const SCENARIO_DELAY = 1000;
 
 abstract class Scraper<T> {
-  state: SCRAPER_STATE = SCRAPER_STATE.STOPPED;
-
+  abstract name: string;
+  abstract type: ScraperType;
+  state: ScraperState = ScraperState.Stopped;
   scraper: Page | null = null;
-
   queue: Queue<Scenario<T>>;
-
+  prevScenario?: Scenario<T> | null;
+  currentScenario?: Scenario<T> | null;
+  nextScenario?: Scenario<T> | null;
   browser?: puppeteer.Browser;
-
   scriptPath: string;
+  logs: Array<ScraperLog> = [];
 
   constructor(scriptPath: string) {
     this.queue = new Queue<Scenario<T>>();
@@ -57,33 +52,15 @@ abstract class Scraper<T> {
   }
 
   appendScenario(scenario: Scenario<T>) {
-    scenario.state = SCENARIO_STATE.WAIT;
     this.queue.push(scenario);
   }
 
-  async stop() {
-    this.state = SCRAPER_STATE.STOPPED;
-    this.scraper = null;
-    this.browser?.close();
-    this.queue.reset();
+  log(log: ScraperLog) {
+    this.logs.push(log);
+    sendAppendLog({ type: this.type, log });
   }
 
-  async restart() {
-    this.stop();
-    this.start();
-  }
-
-  async pause() {
-    this.state = SCRAPER_STATE.PAUSE;
-  }
-
-  async resume() {
-    this.state = SCRAPER_STATE.RESUME;
-  }
-
-  async initScraper() {
-    this.state = SCRAPER_STATE.WAIT;
-
+  async init() {
     this.browser = await puppeteer.launch({
       headless: !isDev,
       args: [ `--window-size=${WINDOW_SIZE.WIDTH},${WINDOW_SIZE.HEIGHT}` ],
@@ -123,6 +100,56 @@ abstract class Scraper<T> {
     this.scraper = page;
   }
 
+  async start() {
+    if (this.state === ScraperState.Pause) {
+      this.log({
+        prefix: "INFO",
+        message: `${this.name} 스크래퍼를 재개합니다`,
+      });
+      this.setScraperState(ScraperState.Running);
+      this.run();
+      return;
+    }
+
+    this.log({
+      prefix: "INFO",
+      message: `${this.name} 스크래퍼를 시작합니다`,
+    });
+    await this.init();
+    await this.initScript();
+    this.setScraperState(ScraperState.Running);
+    this.run();
+  }
+
+  async stop() {
+    this.log({
+      prefix: "INFO",
+      message: `${this.name} 스크래퍼를 정지합니다`,
+    });
+
+    this.setScraperState(ScraperState.Stopped);
+    this.scraper = null;
+    this.browser?.close();
+    this.queue.reset();
+  }
+
+  async restart() {
+    this.stop();
+    this.start();
+  }
+
+  async pause() {
+    this.log({
+      prefix: "INFO",
+      message: `${this.name} 스크래퍼를 중지합니다`,
+    });
+    this.setScraperState(ScraperState.Pause);
+    if (this.currentScenario) {
+      this.queue.pushFront(this.currentScenario);
+      this.currentScenario = null;
+    }
+  }
+
   async evaluateScript(script: T) {
     if (this.scraper === null) return;
 
@@ -134,31 +161,47 @@ abstract class Scraper<T> {
   }
 
   async run() {
-    if (this.state === SCRAPER_STATE.PAUSE) {
-      setTimeout(() => this.run(), SCENARIO_DELAY);
-      return;
-    }
-
-    if (this.scraper === null) {
-      await this.initScraper();
-    }
+    if (this.state !== ScraperState.Running) return;
 
     if (this.queue.isEmpty()) {
       this.stop();
       return;
     }
 
-    const scenario = this.queue.front();
+    this.prevScenario = this.currentScenario;
+    this.currentScenario = this.queue.front();
 
-    if (scenario) {
-      this.state = SCRAPER_STATE.RUNNING;
-      scenario.state = SCENARIO_STATE.RUNNING;
+    this.log({
+      prefix: "INFO",
+      message: `${this.currentScenario?.title} 시나리오의 스크립트를 실행합니다`,
+    });
+
+    if (this.currentScenario) {
       try {
         this.queue.pop();
-        await this.scrapping(scenario);
-        scenario.state = SCENARIO_STATE.STOPPED;
+        this.nextScenario = this.queue.front();
+        sendChangeScenarioQueue({
+          type: this.type,
+          prevScenario: {
+            title: this.prevScenario?.title ?? "",
+          },
+          currentScenario: {
+            title: this.currentScenario?.title ?? "",
+          },
+          nextScenario: {
+            title: this.nextScenario?.title ?? "",
+          },
+        });
+        await this.scrapping(this.currentScenario);
+        this.log({
+          prefix: "INFO",
+          message: `${this.currentScenario?.title} 시나리오의 스크립트가 성공적으로 실행되었습니다`,
+        });
       } catch (error) {
-        scenario.state = SCENARIO_STATE.ERROR;
+        this.log({
+          prefix: "ERROR",
+          message: `${this.currentScenario?.title} 시나리오의 스크립트 실행도중 에러가 발생했습니다 \n ${error}`,
+        });
         console.log(error);
       }
     }
@@ -166,11 +209,14 @@ abstract class Scraper<T> {
     setTimeout(() => this.run(), SCENARIO_DELAY);
   }
 
-  // Override
+  setScraperState(state: ScraperState) {
+    this.state = state;
+    sendChangeScraperState(this.type, state);
+  }
+
   abstract scrapping(script: Scenario<T>): void;
 
-  // Override
-  abstract start(): void;
+  abstract initScript(): void;
 }
 
 export default Scraper;

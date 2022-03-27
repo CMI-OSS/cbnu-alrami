@@ -1,5 +1,7 @@
+@import "../../../../../shared/src/styles/global.scss";
+
 .default-page-template {
+    background: $background;
     padding: 40px 25px 60px 25px;
-    position: relative;
     overflow-y: auto;
 }

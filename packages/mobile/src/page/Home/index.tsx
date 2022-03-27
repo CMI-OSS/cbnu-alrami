@@ -1,9 +1,7 @@
 /* eslint-disable react/jsx-pascal-case */
 import { Arrow } from "src/components/atoms/icon/Arrow";
-import Radio from "src/components/molecules/Radio";
-import RadioGroup from "src/components/molecules/RadioGroup";
 import { Link } from "react-router-dom";
-import Menu from "src/components/atoms/Menu";
+import Menu from "src/components/atoms/Chip";
 import $ from "./style.module.scss";
 import { Setting, 비, Covid, Info, Write } from "../../components/atoms/icon";
 import BorderBox from "../../components/atoms/BorderBox";
@@ -81,7 +79,6 @@ function Home() {
       </div>
       <div className={$.notification}>
         <BorderBox height={300}>
-          <Menu menus={menus} />
           <div className={$.content}>
             {notifications.map((notification) => (
               <p>{notification}</p>

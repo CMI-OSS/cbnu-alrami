@@ -1,6 +1,11 @@
-import { Injectable } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from "@nestjs/common";
 import * as FCM from "fcm-node";
 import { Data } from "./fcm.interfaces";
+const _ = require("lodash");
 
 @Injectable()
 export class FcmService {
@@ -12,40 +17,61 @@ export class FcmService {
   }
 
   private message(to: string, data: Data, collapse_key: string) {
-    return {
-      to,
-      collapse_key,
-      notification: {
-        title: data.title,
-        body: data.body,
-        click_action: "Result3Activity",
-      },
-      data,
-    };
+    try {
+      const { title, body } = data;
+
+      if (_.isNil(title) || _.isNil(body)) {
+        throw new BadRequestException("Is empty!");
+      }
+
+      return {
+        to,
+        collapse_key,
+        notification: {
+          title: data.title,
+          body: data.body,
+          click_action: "Result3Activity",
+        },
+        data,
+      };
+    } catch (err) {
+      throw new InternalServerErrorException("Server error");
+    }
   }
 
   public sendNoticeAndroid(to: string, data: Data) {
-    this.fcm.send(
-      this.message(to, data, "com.jaryapp.myapplication3"),
-      (err, res) => {
-        if (err) {
-          console.log(err);
-          console.log("Something has gone wrong!");
-        } else {
-          console.log("Successfully sent with response: ", res);
-        }
-      },
-    );
+    try {
+      this.fcm.send(
+        this.message(to, data, "com.jaryapp.myapplication3"),
+        (err, res) => {
+          if (err) {
+            console.log(err);
+            console.log("Something has gone wrong!");
+          } else {
+            console.log("Successfully sent with response: ", res);
+          }
+        },
+      );
+    } catch (err) {
+      throw new InternalServerErrorException("Server error");
+    }
   }
 
   public sendNoticeIos(to: string, data: Data) {
-    this.fcm.send(this.message(to, data, "com.cmi.cbnu-alrami"), (err, res) => {
-      if (err) {
-        console.log(err);
-        console.log("Something has gone wrong!");
-      } else {
-        console.log("Successfully sent with response: ", res);
-      }
-    });
+    try {
+      this.fcm.send(
+        this.message(to, data, "com.cmi.cbnu-alrami"),
+        (err, res) => {
+          if (err) {
+            console.log(err);
+            console.log("Something has gone wrong!");
+          } else {
+            console.log("Successfully sent with response: ", res);
+          }
+        },
+      );
+    } catch (err) {
+      throw new InternalServerErrorException("Server error");
+    }
   }
 }

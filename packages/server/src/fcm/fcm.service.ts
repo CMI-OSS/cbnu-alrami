@@ -24,7 +24,7 @@ export class FcmService {
     };
   }
 
-  public sendNotice(to: string, data: Data) {
+  public sendNoticeAndroid(to: string, data: Data) {
     this.fcm.send(
       this.message(to, data, "com.jaryapp.myapplication3"),
       (err, res) => {

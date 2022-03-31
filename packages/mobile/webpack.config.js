@@ -41,15 +41,19 @@ module.exports = {
         use: ["babel-loader", "ts-loader"],
       },
       {
-        test: /\.(sc|c)ss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        test: /\.(png|svg)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "images/[name].[ext]?[hash]",
+            },
+          },
+        ],
       },
       {
-        test: /\.jfif$/,
-        loader: "file-loader",
-        options: {
-          name: "[name].[ext]",
-        },
+        test: /\.(sc|c)ss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
     ],
   },

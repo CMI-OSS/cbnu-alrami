@@ -31,7 +31,7 @@
     "html-webpack-plugin": "^5.5.0",
     "husky": "4",
     "lerna": "^4.0.0",
-    "prettier": "^2.4.1",
+    "prettier": "2.5.1",
     "prettier-eslint-cli": "^5.0.1",
     "react-hot-loader": "^4.13.0",
     "sass": "^1.49.9",

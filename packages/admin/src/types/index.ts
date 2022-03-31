@@ -10,7 +10,7 @@ export type ScenarioQueueType = {
   turn: ScenarioTurnType;
 };
 
-export type BoardKindType = {
+export type BoardCategoryType = {
   id: number;
   name: string;
 }

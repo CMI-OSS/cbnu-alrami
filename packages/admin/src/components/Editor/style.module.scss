@@ -1,11 +1,12 @@
 @import "@shared/styles/color.scss";
 
-.editorContainer {
+.editor-container {
   display: flex;
   margin: 1rem 0;
   background-color: $white;
   .editor {
-    width: 50%;
+    // width: 50%;
+    width: 100%;
     div:nth-of-type(2) {
       height: 36rem;
       font-size: 1rem;
@@ -20,7 +21,7 @@
 
   section {
     width: 50%;
-    overflow-x: auto;
+    overflow: auto;
     line-height: 1.42;
     padding: 12px 15px;
     border: 1px solid #ccc;

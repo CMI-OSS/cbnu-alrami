@@ -10,60 +10,53 @@
   flex-direction: column;
   margin-left: 13rem;
   padding: 3rem;
-
-  textarea {
-    @include no-line();
-    width: 75%;
-    height: fit-content;
-    resize: none;
-    background-color: transparent;
-    color: $black;
-    font-size: 2.75rem;
-    font-weight: 500;
-    word-break: break-all;
-    cursor: pointer;
-  }
-
-  .warn::placeholder {
-    color: $google-red;
-  }
-
-  hr {
-    width: 5rem;
-    height: 0.5rem;
-    margin: 1.5rem 0;
-    background-color: $dark-mode;
-  }
-
-  section > div {
-    display: flex;
-    .boardType {
-      &::-webkit-search-cancel-button {
-        display: none;
-      }
-      &::-webkit-calendar-picker-indicator {
-        display: none !important;
-      }
+  section {
+    width: 50%;
+    textarea {
+      @include no-line();
+      width: 100%;
+      height: fit-content;
+      resize: none;
+      background-color: transparent;
+      color: $black;
+      font-size: 2.75rem;
+      font-weight: 500;
+      word-break: break-all;
+      cursor: pointer;
     }
-  }
 
-  .option {
-    display: flex;
-    height: 2rem;
-    margin-right: 1rem;
-    padding: 0.5rem;
-    align-items: center;
-    border: none;
-    outline: none;
-    border-radius: 0.7rem;
-    background-color: $white;
-    font-size: 0.8rem;
-    cursor: pointer;
-    &:last-child {
-      margin-right: 0;
+    .warn::placeholder {
+      color: $google-red;
     }
-    &:hover {
-      box-shadow: 0 0 0 0.1rem $light-blue;
+
+    hr {
+      width: 5rem;
+      height: 0.5rem;
+      margin: 1.5rem 0;
+      background-color: $dark-mode;
+    }
+
+    .category {
+      display: flex;
+      width: fit-content;
+      height: 2rem;
+      align-items: center;
+      padding: 0 0.5rem;
+      border-radius: 0.7rem;
+      background-color: $white;
+      font-size: 1.4rem;
+      cursor: pointer;
+      input {
+        @include no-line();
+        font-size: 0.8rem;
+        cursor: pointer;
+        &::-webkit-calendar-picker-indicator {
+          display: none !important;
+        }
+      }
+      &:hover {
+        box-shadow: 0 0 0 0.1rem $light-blue;
+      }
     }
   }
 

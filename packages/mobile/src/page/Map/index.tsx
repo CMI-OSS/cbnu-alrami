@@ -1,17 +1,40 @@
+/* eslint-disable array-callback-return */
 import { useEffect } from "react";
 import $ from "./style.module.scss";
 import MenuButtonList from "../../components/molecules/MenuButtonList";
 import { PlaceMenu } from "../../components/atoms/icon/PlaceMenu";
 import { SmallPlaceMenu } from "../../components/atoms/icon/SmallPlaceMenu";
 import { PlaceArrow } from "../../components/atoms/icon/PlaceArrow";
+import { placeInfoList } from "../../__mocks__/placeInfoList";
+
+const makeMarker = (map: naver.maps.Map, position: naver.maps.LatLng) => {
+  return new naver.maps.Marker({
+    map,
+    position,
+  });
+};
 
 function Map() {
+  const CBNU_LATITUDE = 36.62903849870408;
+  const CBNU_LONGITUDE = 127.45635082700974;
+
   useEffect(() => {
     const initMap = () => {
       const map = new naver.maps.Map("map", {
-        center: new naver.maps.LatLng(36.6287079, 127.4583923),
+        center: new naver.maps.LatLng(CBNU_LATITUDE, CBNU_LONGITUDE),
         zoom: 18,
       });
+      placeInfoList.map((place, index) => {
+        const marker = makeMarker(
+          map,
+          new naver.maps.LatLng(place.lat, place.lng),
+        );
+        naver.maps.Event.addListener(marker, "click", (e) => {
+          map.panTo(e.coord, { duration: 300, easing: "easeOutCubic" });
+          e.domEvent.stopPropagation();
+        });
+      });
+      return map;
     };
     initMap();
   }, []);
@@ -20,6 +43,7 @@ function Map() {
     width: "100vw",
     height: "100vh",
   };
+
   return (
     <div id="map" style={mapStyle}>
       <MenuButtonList />

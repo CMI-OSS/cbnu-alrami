@@ -1,0 +1,53 @@
+$footerHeight: 65px;
+$footerLinkDistance: 20px;
+$linkHeight: 61px;
+$linkTooltipDistance: 17px;
+
+.wrap {
+  position: relative;
+}
+
+.place_wrap {
+  position: fixed;
+  bottom: $footerHeight + $footerLinkDistance + $linkHeight + $linkTooltipDistance;
+  right: 26px;
+  border-radius: 10px;
+  padding: 10px 10px 10px 14px;
+  background-color: #fff;
+  font-size: 12px;
+  letter-spacing: -0.02em;
+  line-height: 17px;
+  color: #707070;
+}
+
+.small_icon {
+  margin: 0 3px -1px 0;
+}
+
+.arrow {
+  position: absolute;
+  top: 30px;
+  right: 48px;
+  z-index: -1;
+
+  path {
+    stroke: #fff;
+  }
+}
+
+.link {
+  position: fixed;
+  width: 61px;
+  height: 62px;
+  bottom: $footerHeight + $footerLinkDistance;
+  right: 15px;
+  background-color: #d66d6e;
+  border-radius: 50%;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -15,6 +15,7 @@
     "react-router-dom": "^6.2.2"
   },
   "devDependencies": {
+    "@egjs/react-flicking": "^4.5.3",
     "classnames": "^2.3.1",
     "file-loader": "^6.2.0"
   }

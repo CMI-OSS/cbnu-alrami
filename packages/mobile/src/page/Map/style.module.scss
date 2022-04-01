@@ -1,5 +1,7 @@
 $footerHeight: 65px;
 $footerLinkDistance: 20px;
+$linkHeight: 61px;
+$linkTooltipDistance: 17px;
 
 .wrap {
   position: relative;
@@ -8,7 +10,7 @@ $footerLinkDistance: 20px;
 
 .place_wrap {
   position: fixed;
-  bottom: $footerHeight + $footerLinkDistance + 61px + 17px;
+  bottom: $footerHeight + $footerLinkDistance + $linkHeight + $linkTooltipDistance;
   right: 26px;
   border-radius: 10px;
   padding: 10px 10px 10px 14px;

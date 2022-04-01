@@ -1,11 +1,22 @@
-import { useState } from "react";
-import { NavLink, useMatch } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, useLocation, useMatch } from "react-router-dom";
 import classnames from "classnames";
+import { useAppSelector } from "src/store";
 import $ from "./style.module.scss";
 
-export default function Natigation() {
+export default function Navigation() {
   const isLoginMatch = useMatch("/login");
+  const { pathname } = useLocation();
   const [ active, setActive ] = useState(-1);
+  const boardState = useAppSelector((state) => state.boardReducer.board.write);
+
+  useEffect(() => {
+    menuArr.forEach(({ menus }, idx) =>
+      menus.forEach(({ path }) => {
+        if (pathname === path) setActive(idx);
+      }),
+    );
+  }, []);
 
   const SCRAPER_MENUS = {
     label: "스크래퍼",
@@ -42,6 +53,7 @@ export default function Natigation() {
       },
     ],
   };
+  const menuArr = [ BOARD_MENUS, SCRAPER_MENUS ];
 
   return isLoginMatch ? (
     <></>
@@ -50,7 +62,7 @@ export default function Natigation() {
       <ul className={$["outer-ul"]}>
         <li className={$.logo}>CMI</li>
         <ul>
-          {[ BOARD_MENUS, SCRAPER_MENUS ].map(({ label, menus }, idx) => (
+          {menuArr.map(({ label, menus }, idx) => (
             <li key={`${menus}`}>
               <p>{label}</p>
               <ul className={idx === active ? $["list-activated"] : ""}>
@@ -67,6 +79,10 @@ export default function Natigation() {
                     }}
                   >
                     {label}
+                    {label === "게시물 작성" &&
+                      Object.values(boardState).some(
+                        (x) => x !== "" && x !== "<p><br></p>",
+                      ) && <span>(작성중)</span>}
                   </NavLink>
                 ))}
               </ul>

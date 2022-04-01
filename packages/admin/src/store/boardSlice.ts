@@ -6,8 +6,8 @@ const name = "board";
 type Props = {
   board: {
     write: {
-      title: string;
-      boardKind: string;
+      boardTitle: string;
+      boardCategory: string;
       boardContent: string;
     };
   };
@@ -16,8 +16,8 @@ type Props = {
 const initialState: Props = {
   board: {
     write: {
-      title: "",
-      boardKind: "",
+      boardTitle: "",
+      boardCategory: "",
       boardContent: "",
     },
   },
@@ -30,8 +30,8 @@ export const boardSlice = createSlice({
     writeBoard: (
       state,
       action: PayloadAction<{
-        title?: string;
-        boardKind?: string;
+        boardTitle?: string;
+        boardCategory?: string;
         boardContent?: string;
       }>,
     ) => {

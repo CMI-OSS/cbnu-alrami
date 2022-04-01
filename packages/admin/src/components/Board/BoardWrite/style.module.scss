@@ -1,34 +1,30 @@
 @import "@shared/styles/color.scss";
+@import "src/styles/mixin.scss";
 
-@mixin no-line {
-  border: none;
-  outline: none;
-}
-
-.form {
+.boardWrite {
   display: flex;
-  flex-direction: column;
   margin-left: 13rem;
-  padding: 3rem;
-  section {
+
+  .title {
+    @include no-line();
+    width: 100%;
+    height: fit-content;
+    resize: none;
+    background-color: transparent;
+    color: $black;
+    font-size: 2.75rem;
+    font-weight: 500;
+    word-break: break-all;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
     width: 50%;
+    padding: 2.5rem;
     textarea {
-      @include no-line();
-      width: 100%;
-      height: fit-content;
-      resize: none;
-      background-color: transparent;
-      color: $black;
-      font-size: 2.75rem;
-      font-weight: 500;
-      word-break: break-all;
       cursor: pointer;
     }
-
-    .warn::placeholder {
-      color: $google-red;
-    }
-
     hr {
       width: 5rem;
       height: 0.5rem;
@@ -36,6 +32,9 @@
       background-color: $dark-mode;
     }
 
+    .warn::placeholder {
+      color: $google-red;
+    }
     .category {
       display: flex;
       width: fit-content;
@@ -58,21 +57,42 @@
         box-shadow: 0 0 0 0.1rem $light-blue;
       }
     }
+
+    .submit {
+      @include no-line();
+      width: 6.5rem;
+      height: 2.3rem;
+      border-radius: 0.3rem;
+      background-color: #005299;
+      color: $white;
+      font-size: 1.2rem;
+      font-weight: 500;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $light-blue;
+      }
+    }
   }
 
-  .submit {
-    @include no-line();
-    width: 6.5rem;
-    height: 2.3rem;
-    border-radius: 0.3rem;
-    background-color: #005299;
-    color: $white;
-    font-size: 1.2rem;
-    font-weight: 500;
-    cursor: pointer;
-
-    &:hover {
-      background-color: $light-blue;
+  section {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 50%;
+    padding: 2.5rem;
+    background-color: $white;
+    .title {
+      display: inline-block;
+      min-height: 5rem;
+      line-height: 1.2;
+      margin-bottom: 5rem;
+    }
+    div {
+      @include preview();
+      height: 40rem;
+      overflow: auto;
+      font-size: 1.1rem;
     }
   }
 }

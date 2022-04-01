@@ -7,24 +7,28 @@ import React, {
 } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useWindowResize } from "src/hooks/";
-import { boardCategory } from "src/__mockData__";
+import { boardCategories } from "src/__mockData__";
 import Editor from "src/components/Editor";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { writeBoard } from "src/store/boardSlice";
 import { debounce } from "src/lib/debounce";
+import classNames from "classnames";
 import $ from "./style.module.scss";
 
 export default function BoardWrite() {
-  const textRef = useRef<HTMLTextAreaElement | null>(null);
   const [ error, setError ] = useState({
     title: false,
-    boardKind: false,
+    category: false,
   });
-  const [ title, setTitle ] = useState("");
-  const [ boardKind, setBoardKind ] = useState("");
   const [ width ] = useWindowResize();
   const dispatch = useAppDispatch();
-  const boardState = useAppSelector((state) => state.boardReducer.board.write);
+  const { boardTitle, boardCategory, boardContent } = useAppSelector(
+    (state) => state.boardReducer.board.write,
+  );
+  const [ title, setTitle ] = useState(boardTitle);
+  const [ category, setCategory ] = useState(boardCategory);
+  const textRef = useRef<HTMLTextAreaElement | null>(null);
+  const preview = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     autoResizeTextArea();
@@ -32,21 +36,28 @@ export default function BoardWrite() {
   }, [ width ]);
 
   useEffect(() => {
-    dispatch(writeBoard({ title }));
+    dispatch(writeBoard({ boardTitle: title }));
   }, [ title ]);
 
   useEffect(() => {
-    dispatch(writeBoard({ boardKind }));
-  }, [ boardKind ]);
+    dispatch(writeBoard({ boardCategory: category }));
+  }, [ category ]);
+
+  useEffect(() => {
+    preview.current!.innerHTML = boardContent;
+  }, [ boardContent ]);
 
   useEffect(() => {
     if (
-      Object.values(boardState).every((x) => {
-        if (boardState.boardContent === "<p><br></p>") return false;
-        return x !== "";
-      })
+      Object.values(error).every((x) => x) &&
+      boardContent !== "<p><br></p>" &&
+      boardContent !== ""
     )
-      console.log({ title, boardKind, boardContent: boardState.boardContent }); // Todo: API communication
+      console.log({
+        boardTitle: title,
+        boardCategory: category,
+        boardContent,
+      }); // Todo: API communication
   }, [ error ]);
 
   const autoResizeTextArea = useCallback(() => {
@@ -55,6 +66,7 @@ export default function BoardWrite() {
   }, []);
 
   const handleTitle = useMemo(
+    // Todo: 함수 템플릿 만들기
     () =>
       debounce<React.ChangeEvent<HTMLTextAreaElement>>(
         (e: React.ChangeEvent<HTMLTextAreaElement>) => setTitle(e.target.value),
@@ -63,11 +75,11 @@ export default function BoardWrite() {
     [],
   );
 
-  const handleBoardKind = useMemo(
+  const handleType = useMemo(
+    // Todo: 함수 템플릿 만들기
     () =>
       debounce<React.ChangeEvent<HTMLInputElement>>(
-        (e: React.ChangeEvent<HTMLInputElement>) =>
-          setBoardKind(e.target.value),
+        (e: React.ChangeEvent<HTMLInputElement>) => setCategory(e.target.value),
         200,
       ),
     [],
@@ -77,18 +89,19 @@ export default function BoardWrite() {
     e.preventDefault();
     if (!title.length) error.title = true;
     else error.title = false;
-    if (!boardKind.length) error.boardKind = true;
-    else error.boardKind = false;
+    if (!category.length) error.category = true;
+    else error.category = false;
     setError({ ...error });
   };
 
   return (
-    <form className={$.form}>
-      <section>
+    <div className={$.boardWrite}>
+      <form>
         <header>
           <textarea
-            className={error.title ? $.warn : ""}
+            className={classNames($.title, { [$.warn]: error.title })}
             placeholder="제목을 입력하세요."
+            defaultValue={title}
             onChange={(e) => {
               handleTitle(e);
               autoResizeTextArea();
@@ -102,28 +115,33 @@ export default function BoardWrite() {
           <input
             type="text"
             list="boardList"
-            className={error.boardKind ? $.warn : ""}
+            className={error.category ? $.warn : ""}
             placeholder="게시판 선택, 검색"
+            defaultValue={category}
             onChange={(e) => {
-              handleBoardKind(e);
+              handleType(e);
             }}
             autoComplete="off"
           />
           <IoMdArrowDropdown />
           <datalist id="boardList">
-            {boardCategory.map(({ name }) => (
+            {boardCategories.map(({ name }) => (
               <option key={name} value={name} aria-label={name} />
             ))}
           </datalist>
         </div>
         <Editor />
+        <input
+          className={$.submit}
+          type="submit"
+          value="출간하기"
+          onClick={(e) => handleSubmit(e)}
+        />
+      </form>
+      <section>
+        <p className={$.title}>{title}</p>
+        <div ref={preview}></div>
       </section>
-      <input
-        className={$.submit}
-        type="submit"
-        value="출간하기"
-        onClick={(e) => handleSubmit(e)}
-      />
-    </form>
+    </div>
   );
 }

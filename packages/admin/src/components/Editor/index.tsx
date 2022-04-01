@@ -2,30 +2,25 @@ import classNames from "classnames";
 import { useRef, useState, useMemo, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useWindowResize } from "src/hooks";
 import { debounce } from "src/lib/debounce";
-import { useAppDispatch } from "src/store";
+import { useAppDispatch, useAppSelector } from "src/store";
 import { writeBoard } from "src/store/boardSlice";
 import $ from "./style.module.scss";
 
 export default function Editor() {
   const quillRef = useRef<ReactQuill>();
-  // const preview = useRef<HTMLDivElement | null>(null);
-  // const [ toolbarHeight, setToolbarHeight ] = useState(0);
-  // const [width] = useWindowResize();
   const dispatch = useAppDispatch();
-  const [ contents, setContents ] = useState("");
+  const { boardContent } = useAppSelector(
+    (state) => state.boardReducer.board.write,
+  );
+  const [ contents, setContents ] = useState(boardContent);
   const [ error, setError ] = useState(false);
 
   useEffect(() => {
     if (contents === "<p><br></p>") setError(true);
     else setError(false);
-    dispatch(writeBoard({ boardContent: contents }));
+    if (contents !== "") dispatch(writeBoard({ boardContent: contents }));
   }, [ contents ]);
-
-  // useEffect(() => {
-  //   setToolbarHeight(document.querySelector(".ql-toolbar")?.clientHeight ?? 64);
-  // }, [ width ]);
 
   const editorModules = useMemo(
     () => ({
@@ -50,28 +45,20 @@ export default function Editor() {
   const handleInput = useMemo(() => debounce<string>(changeHandler, 200), []);
 
   return (
-    <>
-      <main className={$["editor-container"]}>
-        <ReactQuill
-          className={classNames($.editor, { [$.warn]: error })}
-          ref={(element) => {
-            if (element !== null) {
-              quillRef.current = element;
-            }
-          }}
-          value={contents}
-          onChange={(v) => {
-            handleInput(v);
-          }}
-          modules={editorModules}
-          theme="snow"
-          placeholder="내용을 입력해주세요."
-        />
-        {/* <section
-          ref={preview}
-          style={{ height: `${578 + toolbarHeight}px` }}
-        ></section> */}
-      </main>
-    </>
+    <ReactQuill
+      className={classNames($.editor, { [$.warn]: error })}
+      ref={(element) => {
+        if (element !== null) {
+          quillRef.current = element;
+        }
+      }}
+      value={contents}
+      onChange={(v) => {
+        handleInput(v);
+      }}
+      modules={editorModules}
+      theme="snow"
+      placeholder="내용을 입력해주세요."
+    />
   );
 }

@@ -1,6 +1,6 @@
 import { BoardCategoryType } from "src/types";
 
-const boardCategory: BoardCategoryType[] = [
+const boardCategories: BoardCategoryType[] = [
   {
     id: 1,
     name: "소프트웨어학부 학생회",
@@ -27,4 +27,4 @@ const boardCategory: BoardCategoryType[] = [
   },
 ];
 
-export default boardCategory;
+export default boardCategories;

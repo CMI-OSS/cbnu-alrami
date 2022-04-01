@@ -1,0 +1,13 @@
+.wrap {
+  border: 0;
+  font-size: 12px;
+  line-height: 17px;
+  color: #363c44;
+  background-color: #fff;
+  border-radius: 100px;
+  padding: 4px 12px 5px 11px;
+
+  &:not(:first-child) {
+    margin-left: 11px;
+  }
+}

@@ -1,7 +1,5 @@
-'use strict';
+const server = require("..");
 
-const server = require('..');
-
-describe('server', () => {
-    it('needs tests');
+describe("server", () => {
+  it("needs tests");
 });

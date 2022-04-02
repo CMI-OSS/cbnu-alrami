@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import getConfiguration from './configuration';
+
 @Injectable()
 export class ConfigService {
   private readonly configuration

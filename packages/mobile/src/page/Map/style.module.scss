@@ -3,6 +3,11 @@ $footerLinkDistance: 20px;
 $linkHeight: 61px;
 $linkTooltipDistance: 17px;
 
+.map {
+  width: 100vw;
+  height: 100vh;
+}
+
 .wrap {
   position: relative;
   z-index: 100;

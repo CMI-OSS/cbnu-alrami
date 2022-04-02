@@ -1,4 +1,3 @@
-/* eslint-disable array-callback-return */
 import { useEffect } from "react";
 import $ from "./style.module.scss";
 import MenuButtonList from "../../components/molecules/MenuButtonList";
@@ -24,7 +23,7 @@ function Map() {
         center: new naver.maps.LatLng(CBNU_LATITUDE, CBNU_LONGITUDE),
         zoom: 18,
       });
-      placeInfoList.map((place, index) => {
+      placeInfoList.forEach((place) => {
         const marker = makeMarker(
           map,
           new naver.maps.LatLng(place.lat, place.lng),
@@ -39,13 +38,8 @@ function Map() {
     initMap();
   }, []);
 
-  const mapStyle = {
-    width: "100vw",
-    height: "100vh",
-  };
-
   return (
-    <div id="map" style={mapStyle}>
+    <div id="map" className={$.map}>
       <MenuButtonList />
       <div className={$.wrap}>
         <div className={$.place_wrap}>

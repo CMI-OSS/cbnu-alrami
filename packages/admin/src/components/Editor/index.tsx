@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import { useRef, useState, useMemo, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -14,11 +13,8 @@ export default function Editor() {
     (state) => state.boardReducer.board.write,
   );
   const [ contents, setContents ] = useState(boardContent);
-  const [ error, setError ] = useState(false);
 
   useEffect(() => {
-    if (contents === "<p><br></p>") setError(true);
-    else setError(false);
     if (contents !== "") dispatch(writeBoard({ boardContent: contents }));
   }, [ contents ]);
 
@@ -27,7 +23,7 @@ export default function Editor() {
       toolbar: {
         container: [
           [ { size: [ "small", false, "large", "huge" ] }, { color: [] } ],
-          [ "bold", "italic", "underline", "strike", "blockquote" ],
+          [ "bold", "italic", "underline", "strike" ],
           [ { list: "ordered" }, { list: "bullet" }, { align: [] } ],
           [ "image", "link" ],
         ],
@@ -42,11 +38,11 @@ export default function Editor() {
   // const imageHandler = () => {} // Todo: 이미지 핸들러 함수
 
   const changeHandler = (v: string) => setContents(v);
-  const handleInput = useMemo(() => debounce<string>(changeHandler, 200), []);
+  const handleInput = useMemo(() => debounce<string>(changeHandler, 300), []);
 
   return (
     <ReactQuill
-      className={classNames($.editor, { [$.warn]: error })}
+      className={$.editor}
       ref={(element) => {
         if (element !== null) {
           quillRef.current = element;

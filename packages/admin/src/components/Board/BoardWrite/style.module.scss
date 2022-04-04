@@ -24,9 +24,8 @@
   }
 
   .title {
-    @include no-line();
+    @include no-line;
     width: 100%;
-    height: fit-content;
     resize: none;
     background-color: transparent;
     color: $black;
@@ -44,7 +43,7 @@
       cursor: pointer;
     }
     hr {
-      @include no-line();
+      @include no-line;
       width: 5rem;
       height: 0.3rem;
       margin: 0;
@@ -66,15 +65,11 @@
       }
     }
     .category {
-      position: relative;
-      display: flex;
       width: fit-content;
-      align-items: center;
       border-radius: 0.7rem;
       background-color: $white;
-      cursor: pointer;
       input {
-        @include no-line();
+        @include no-line;
         min-height: 2rem;
         padding: 0 0.5rem;
         border-radius: 0.7rem;
@@ -95,7 +90,7 @@
     }
 
     .submit {
-      @include no-line();
+      @include no-line;
       width: 6.5rem;
       min-height: 2.3rem;
       border-radius: 0.3rem;
@@ -118,12 +113,11 @@
     padding: 2.5rem;
     background-color: $white;
     .title {
-      display: inline-block;
       line-height: 1.2;
       margin-bottom: 5rem;
     }
     div {
-      @include preview();
+      @include preview;
       font-size: 1.1rem;
       word-break: break-all;
     }

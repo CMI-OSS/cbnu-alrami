@@ -27,8 +27,8 @@ export default function BoardWrite() {
   const hintRef = useRef<HTMLSpanElement | null>(null);
   const handleTitle = useDebounceInput<string>(setTitle);
   const handleCategory = useDebounceInput<string>(setCategory);
-  const isContentExisting =
-    boardContent !== "<p><br></p>" && boardContent !== "";
+  const isContentExisting = boardContent !== "<p><br></p>";
+  const isNotInitialContent = boardContent !== "";
 
   useEffect(() => {
     autoResizeTextArea();
@@ -44,9 +44,7 @@ export default function BoardWrite() {
   }, [ category ]);
 
   useEffect(() => {
-    if (boardContent === "" || boardContent !== "<p><br></p>")
-      error.content = false;
-    else error.content = true;
+    error.content = !(!isNotInitialContent || isContentExisting);
     setError({ ...error });
     if (boardContent)
       if (previewRef.current) previewRef.current.innerHTML = boardContent;
@@ -56,7 +54,8 @@ export default function BoardWrite() {
     if (
       isSubmit &&
       Object.values(error).every((x) => !x) &&
-      isContentExisting
+      isContentExisting &&
+      isNotInitialContent
     ) {
       console.log({
         // Todo: API communication
@@ -77,12 +76,8 @@ export default function BoardWrite() {
 
   const handleSubmit = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     e.preventDefault();
-    if (!title.length) error.title = true;
-    else error.title = false;
-    if (!category.length) error.category = true;
-    else error.category = false;
-    if (isContentExisting) error.content = false;
-    else error.content = true;
+    error.title = !title.length;
+    error.category = !category.length;
     setError({ ...error });
     setIsSubmit(true);
   };
@@ -119,9 +114,8 @@ export default function BoardWrite() {
             autoComplete="off"
             onChange={(e) => {
               if (hintRef.current) {
-                if (e.target.value !== "")
-                  hintRef.current.style.visibility = "visible";
-                else hintRef.current.style.visibility = "hidden";
+                hintRef.current.style.visibility =
+                  e.target.value !== "" ? "visible" : "hidden";
               }
               handleCategory(e.target.value);
             }}
@@ -147,7 +141,7 @@ export default function BoardWrite() {
       </form>
 
       <section>
-        <h1 className={$.title}>{title}</h1>
+        <strong className={$.title}>{title}</strong>
         <div ref={previewRef}></div>
       </section>
     </div>

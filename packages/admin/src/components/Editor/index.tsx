@@ -1,7 +1,7 @@
 import { useRef, useState, useMemo, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { debounce } from "src/lib/debounce";
+import { useDebounceInput } from "src/hooks";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { writeBoard } from "src/store/boardSlice";
 import $ from "./style.module.scss";
@@ -13,6 +13,7 @@ export default function Editor() {
     (state) => state.boardReducer.board.write,
   );
   const [ contents, setContents ] = useState(boardContent);
+  const handleContents = useDebounceInput<string>(setContents);
 
   useEffect(() => {
     if (contents !== "") dispatch(writeBoard({ boardContent: contents }));
@@ -37,9 +38,6 @@ export default function Editor() {
 
   // const imageHandler = () => {} // Todo: 이미지 핸들러 함수
 
-  const changeHandler = (v: string) => setContents(v);
-  const handleInput = useMemo(() => debounce<string>(changeHandler, 300), []);
-
   return (
     <ReactQuill
       className={$.editor}
@@ -50,7 +48,7 @@ export default function Editor() {
       }}
       value={contents}
       onChange={(v) => {
-        handleInput(v);
+        handleContents(v);
       }}
       modules={editorModules}
       theme="snow"

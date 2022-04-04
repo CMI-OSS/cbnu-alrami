@@ -1,17 +1,10 @@
-import React, {
-  useEffect,
-  useRef,
-  useState,
-  useCallback,
-  useMemo,
-} from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
-import { useWindowResize } from "src/hooks/";
+import { useWindowResize, useDebounceInput } from "src/hooks/";
 import { boardCategories } from "src/__mockData__";
 import Editor from "src/components/Editor";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { writeBoard } from "src/store/boardSlice";
-import { debounce } from "src/lib/debounce";
 import classNames from "classnames";
 import $ from "./style.module.scss";
 
@@ -32,6 +25,8 @@ export default function BoardWrite() {
   const textRef = useRef<HTMLTextAreaElement | null>(null);
   const previewRef = useRef<HTMLDivElement | null>(null);
   const hintRef = useRef<HTMLSpanElement | null>(null);
+  const handleTitle = useDebounceInput<string>(setTitle);
+  const handleCategory = useDebounceInput<string>(setCategory);
   const isContentExisting =
     boardContent !== "<p><br></p>" && boardContent !== "";
 
@@ -80,26 +75,6 @@ export default function BoardWrite() {
     }
   }, []);
 
-  const handleTitle = useMemo(
-    // Todo: 함수 템플릿 만들기
-    () =>
-      debounce<React.ChangeEvent<HTMLTextAreaElement>>(
-        (e: React.ChangeEvent<HTMLTextAreaElement>) => setTitle(e.target.value),
-        300,
-      ),
-    [],
-  );
-
-  const handleType = useMemo(
-    // Todo: 함수 템플릿 만들기
-    () =>
-      debounce<React.ChangeEvent<HTMLInputElement>>(
-        (e: React.ChangeEvent<HTMLInputElement>) => setCategory(e.target.value),
-        300,
-      ),
-    [],
-  );
-
   const handleSubmit = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     e.preventDefault();
     if (!title.length) error.title = true;
@@ -121,7 +96,7 @@ export default function BoardWrite() {
             placeholder="제목을 입력하세요."
             defaultValue={title}
             onChange={(e) => {
-              handleTitle(e);
+              handleTitle(e.target.value);
               autoResizeTextArea();
             }}
             ref={textRef}
@@ -148,7 +123,7 @@ export default function BoardWrite() {
                   hintRef.current.style.visibility = "visible";
                 else hintRef.current.style.visibility = "hidden";
               }
-              handleType(e);
+              handleCategory(e.target.value);
             }}
           />
           <datalist id="boardList">

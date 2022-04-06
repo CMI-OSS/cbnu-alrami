@@ -129,6 +129,13 @@ q:after {
     content: "";
     content: none;
 }
+textarea,
+input,
+button,
+select,
+a{
+    cursor: pointer;
+}
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -142,7 +149,6 @@ select:focus {
 * {
     box-sizing: border-box;
 }
-
 a {
     all: unset;
     color: inherit;
@@ -157,11 +163,15 @@ em {
 }
 textarea {
     appearance: none;
+    padding: 0;
     border: 0;
     -webkit-overflow-scrolling: touch;
 }
 input {
     appearance: none;
+}
+hr {
+    margin: 0;
 }
 ::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/

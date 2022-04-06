@@ -1,18 +1,18 @@
-import { useRef, useState, useMemo, useEffect } from "react";
-import ReactQuill from "react-quill";
+import React, { useState, useMemo, useEffect } from "react";
 import "react-quill/dist/quill.snow.css";
 import { useDebounceInput } from "src/hooks";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { writeBoard } from "src/store/boardSlice";
 import $ from "./style.module.scss";
 
+const ReactQuill = React.lazy(() => import("react-quill"));
+
 export default function Editor() {
-  const quillRef = useRef<ReactQuill>();
   const dispatch = useAppDispatch();
   const { boardContent } = useAppSelector(
     (state) => state.boardReducer.board.write,
   );
-  const [ contents, setContents ] = useState(boardContent);
+  const [ contents, setContents ] = useState<string>(boardContent);
   const handleContents = useDebounceInput<string>(setContents);
 
   useEffect(() => {
@@ -41,11 +41,6 @@ export default function Editor() {
   return (
     <ReactQuill
       className={$.editor}
-      ref={(element) => {
-        if (element !== null) {
-          quillRef.current = element;
-        }
-      }}
       value={contents}
       onChange={(v) => {
         handleContents(v);

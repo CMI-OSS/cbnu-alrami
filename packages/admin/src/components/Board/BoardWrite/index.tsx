@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
-import { useWindowResize, useDebounceInput } from "src/hooks/";
+import { useWindowResize, useDebounceInput } from "src/hooks";
 import { boardCategories } from "src/__mockData__";
 import Editor from "src/components/Editor";
 import { useAppDispatch, useAppSelector } from "src/store";
@@ -19,9 +19,9 @@ export default function BoardWrite() {
     category: false,
     content: false,
   });
-  const [ title, setTitle ] = useState(boardTitle);
-  const [ category, setCategory ] = useState(boardCategory);
-  const [ isSubmit, setIsSubmit ] = useState(false);
+  const [ title, setTitle ] = useState<string>(boardTitle);
+  const [ category, setCategory ] = useState<string>(boardCategory);
+  const [ isSubmit, setIsSubmit ] = useState<boolean>(false);
   const textRef = useRef<HTMLTextAreaElement | null>(null);
   const previewRef = useRef<HTMLDivElement | null>(null);
   const hintRef = useRef<HTMLSpanElement | null>(null);
@@ -44,8 +44,10 @@ export default function BoardWrite() {
   }, [ category ]);
 
   useEffect(() => {
-    error.content = !(!isNotInitialContent || isContentExisting);
-    setError({ ...error });
+    setError({
+      ...error,
+      content: !(!isNotInitialContent || isContentExisting),
+    });
     if (boardContent)
       if (previewRef.current) previewRef.current.innerHTML = boardContent;
   }, [ boardContent ]);
@@ -76,9 +78,12 @@ export default function BoardWrite() {
 
   const handleSubmit = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     e.preventDefault();
-    error.title = !title.length;
-    error.category = !category.length;
-    setError({ ...error });
+    setError({
+      ...error,
+      title: !title.length,
+      category: !category.length,
+      content: !(isContentExisting && isNotInitialContent),
+    });
     setIsSubmit(true);
   };
 
@@ -94,6 +99,7 @@ export default function BoardWrite() {
               handleTitle(e.target.value);
               autoResizeTextArea();
             }}
+            style={{ minHeight: "105px" }}
             ref={textRef}
           />
           <hr />
@@ -108,14 +114,15 @@ export default function BoardWrite() {
             type="text"
             list="boardList"
             aria-describedby="category-hint"
-            className={error.category ? $.warn : ""}
+            className={classNames(error.category && $.warn)}
             placeholder="게시판 선택, 검색"
             defaultValue={category}
             autoComplete="off"
             onChange={(e) => {
               if (hintRef.current) {
-                hintRef.current.style.visibility =
-                  e.target.value !== "" ? "visible" : "hidden";
+                hintRef.current.style.visibility = e.target.value
+                  ? "visible"
+                  : "hidden";
               }
               handleCategory(e.target.value);
             }}

@@ -30,6 +30,7 @@ module.exports = {
     alias: {
       src: path.resolve(__dirname, "./src"),
       "@shared": path.resolve(__dirname, "../shared/src"),
+      "@components": path.resolve(__dirname, './src/components'),
       extensions: [".js", ".ts", ".tsx"],
     },
   },
@@ -41,15 +42,19 @@ module.exports = {
         use: ["babel-loader", "ts-loader"],
       },
       {
-        test: /\.(sc|c)ss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        test: /\.(png|svg)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "images/[name].[ext]?[hash]",
+            },
+          },
+        ],
       },
       {
-        test: /\.jfif$/,
-        loader: "file-loader",
-        options: {
-          name: "[name].[ext]",
-        },
+        test: /\.(sc|c)ss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
     ],
   },

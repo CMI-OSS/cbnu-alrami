@@ -3,7 +3,8 @@
     "baseUrl": ".",
     "paths": {
       "src/*": ["./src/*"],
-      "@shared/*": ["../shared/src/*"]
+      "@shared/*": ["../shared/src/*"],
+      "@components/*": ["./src/components/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -21,5 +22,5 @@
     "noEmit": false,
     "jsx": "react-jsx"
   },
-  "include": ["src"]
+  "include": ["src", "src/type/global.d.ts"]
 }

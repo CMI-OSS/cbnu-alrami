@@ -1,0 +1,20 @@
+.menu {
+    display: flex;
+    justify-content: center;
+
+    div {
+        padding: 10px 40px 10px 40px;
+        border-radius: 30px;
+    }
+
+    div:first-child {
+        background: #ce5455;
+        margin-right: 5px;
+        color: #fff;
+    }
+
+    div:last-child {
+        background: #eeeded;
+        margin-left: 5px;
+    }
+}

@@ -7,3 +7,4 @@ build
 dist
 yarn-error.log
 dev.yaml
+*.log

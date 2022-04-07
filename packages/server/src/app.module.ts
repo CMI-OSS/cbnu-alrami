@@ -1,10 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { UserModule } from "./user/user.module";
-import { AdminModule } from "./admin/admin.module";
-import { AuthModule } from "./auth/auth.module";
-import configuration from "./@config/configuration";
+import { FcmModule } from './fcm/fcm.module';
 
 @Module({
   imports: [
@@ -20,11 +17,7 @@ import configuration from "./@config/configuration";
       }),
       inject: [ ConfigService ],
     }),
-    UserModule,
-    AdminModule,
-    AuthModule,
+    FcmModule
   ],
-  controllers: [],
-  providers: [ ConfigService ],
 })
 export class AppModule {}

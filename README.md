@@ -16,5 +16,16 @@
 </a>
 </p>
 
-## 프로젝트 세팅
-`yarn bootstrap` # 각 패키지의 모든 의존성이 설치됩니다
+## Getting Started
+```sh
+$ git clone https://github.com/CMI-OSS/cbnu-alrami.git
+$ cd cbnu-alrami
+$ yarn or yarn install // 전체 의존성 모듈 설치
+$ yarn dev:{package_name} // 개발모드로 패키지 실행 ex) yarn dev:mobile
+$ yarn start:{package_name} // 프로덕션 모드로 패키지 실행 ex) yarn start:server
+```
+
+### 패키지별 의존성 모듈 설치
+```
+$ yarn workspace {package_name} add {의존성 모듈} // 패키지별 의존성 모듈 설치 ex) yarn workspace mobile add react
+```

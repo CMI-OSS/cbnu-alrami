@@ -4,6 +4,7 @@
     "paths": {
       "src/*": ["./src/*"],
       "@shared/*": ["../shared/src/*"],
+      "@components/*": ["./src/components/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

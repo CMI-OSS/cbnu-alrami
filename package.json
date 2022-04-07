@@ -62,8 +62,8 @@
     "lint": "yarn eslint .",
     "lint:fix": "yarn eslint --fix .",
     "format": "yarn prettier-eslint --write \"**/*.js\" \"**/*.ts\" \"**/*.jsx\" \"**/*.tsx\" --ignore-path .gitignore",
-    "convert": "lerna link convert",
-    "bootstrap": "lerna bootstrap"
+    "clean": "lerna clean -y && rm -rf ./node_modules",
+    "reinstall": "yarn clean && yarn install"
   },
   "husky": {
     "hooks": {

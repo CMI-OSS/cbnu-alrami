@@ -11,15 +11,14 @@ import {
 import * as FCM from "fcm-node";
 import { isNil } from "lodash";
 
-import {Data} from "./fcm.interfaces";
-
+import { Data } from "./fcm.interfaces";
 
 @Injectable()
 export class FcmService {
   private readonly serverKey;
   private readonly fcm;
   constructor() {
-    // this.serverKey = this.configService.get("isNilserverKey");
+    // this.serverKey = this.configService.get("serverKey");
     // this.fcm = new FCM(this.serverKey);
   }
 

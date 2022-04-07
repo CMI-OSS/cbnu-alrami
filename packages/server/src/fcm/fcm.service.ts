@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable camelcase */
 /* eslint-disable no-useless-constructor */
-  // eslint-disable-next-line class-methods-use-this
+// eslint-disable-next-line class-methods-use-this
 
 import {
   BadRequestException,

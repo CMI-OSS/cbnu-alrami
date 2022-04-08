@@ -8,7 +8,6 @@ import Home from "./page/Home";
 import Map from "./page/Map";
 import Notification from "./page/Notification";
 import Footer from "./components/molecules/Footer";
-import DefaultPageTemplate from "./components/templates/DefaultPageTemplate";
 
 function App() {
   const routes = [
@@ -20,17 +19,15 @@ function App() {
   ];
 
   return (
-    <DefaultPageTemplate>
-      <BrowserRouter>
-        <Routes>
-          {routes.map((route) => (
-            <Route key={route.id} path={route.path} element={route.element} />
-          ))}
-          <Route path="*" element={<Navigate replace to="/home" />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-    </DefaultPageTemplate>
+    <BrowserRouter>
+      <Routes>
+        {routes.map((route) => (
+          <Route key={route.id} path={route.path} element={route.element} />
+        ))}
+        <Route path="*" element={<Navigate replace to="/home" />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   );
 }
 

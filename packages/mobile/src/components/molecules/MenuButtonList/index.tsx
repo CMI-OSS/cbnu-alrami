@@ -1,5 +1,5 @@
 import Flicking from "@egjs/react-flicking";
-import MenuButton from "../../atoms/MenuButton";
+import MenuButton from "@components/atoms/MenuButton";
 import $ from "./style.module.scss";
 
 function MenuButtonList() {

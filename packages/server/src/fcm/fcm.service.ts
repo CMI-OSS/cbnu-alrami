@@ -1,11 +1,17 @@
+/* eslint-disable class-methods-use-this */
+/* eslint-disable camelcase */
+/* eslint-disable no-useless-constructor */
+// eslint-disable-next-line class-methods-use-this
+
 import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
 } from "@nestjs/common";
 import * as FCM from "fcm-node";
+import { isNil } from "lodash";
+
 import { Data } from "./fcm.interfaces";
-const _ = require("lodash");
 
 @Injectable()
 export class FcmService {
@@ -20,7 +26,7 @@ export class FcmService {
     try {
       const { title, body } = data;
 
-      if (_.isNil(title) || _.isNil(body)) {
+      if (isNil(title) || isNil(body)) {
         throw new BadRequestException("Is empty!");
       }
 

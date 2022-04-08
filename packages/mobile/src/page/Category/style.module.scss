@@ -1,0 +1,33 @@
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  height: 70px;
+}
+
+.link {
+  padding: 26px 22px 25px 21px;
+  display: block;
+  line-height: 0;
+}
+
+.title {
+  font-size: 18px;
+  padding: 24px 0 13px;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+  line-height: 23px;
+  color: #202020;
+}
+
+.button {
+  color: #aaa;
+  padding: 0 10px;
+  font-size: 14px;
+  line-height: 18px;
+  background-color: inherit;
+}

@@ -1,11 +1,10 @@
-import React, { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
+import ReactQuill from "react-quill"; // Todo : lazy loading
 import "react-quill/dist/quill.snow.css";
 import { useDebounceInput } from "src/hooks";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { writeBoard } from "src/store/boardSlice";
 import $ from "./style.module.scss";
-
-const ReactQuill = React.lazy(() => import("react-quill"));
 
 export default function Editor() {
   const dispatch = useAppDispatch();
@@ -42,7 +41,7 @@ export default function Editor() {
     <ReactQuill
       className={$.editor}
       value={contents}
-      onChange={(v) => {
+      onChange={(v: string) => {
         handleContents(v);
       }}
       modules={editorModules}

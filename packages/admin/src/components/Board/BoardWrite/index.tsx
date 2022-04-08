@@ -9,11 +9,10 @@ import classNames from "classnames";
 import $ from "./style.module.scss";
 
 export default function BoardWrite() {
-  const [ width ] = useWindowResize();
-  const dispatch = useAppDispatch();
   const { boardTitle, boardCategory, boardContent } = useAppSelector(
     (state) => state.boardReducer.board.write,
   );
+  const dispatch = useAppDispatch();
   const [ error, setError ] = useState({
     title: false,
     category: false,
@@ -21,10 +20,8 @@ export default function BoardWrite() {
   });
   const [ title, setTitle ] = useState<string>(boardTitle);
   const [ category, setCategory ] = useState<string>(boardCategory);
-  const [ isSubmit, setIsSubmit ] = useState<boolean>(false);
-  const textRef = useRef<HTMLTextAreaElement | null>(null);
-  const previewRef = useRef<HTMLDivElement | null>(null);
-  const hintRef = useRef<HTMLSpanElement | null>(null);
+  const refs = useRef<HTMLElement[]>([]);
+  const [ width ] = useWindowResize();
   const handleTitle = useDebounceInput<string>(setTitle);
   const handleCategory = useDebounceInput<string>(setCategory);
   const isContentExisting = boardContent !== "<p><br></p>";
@@ -49,42 +46,35 @@ export default function BoardWrite() {
       content: !(!isNotInitialContent || isContentExisting),
     });
     if (boardContent)
-      if (previewRef.current) previewRef.current.innerHTML = boardContent;
+      if (refs.current) refs.current[2].innerHTML = boardContent;
   }, [ boardContent ]);
 
-  useEffect(() => {
-    if (
-      isSubmit &&
-      Object.values(error).every((x) => !x) &&
-      isContentExisting &&
-      isNotInitialContent
-    ) {
-      console.log({
-        // Todo: API communication
-        boardTitle: title,
-        boardCategory: category,
-        boardContent,
-      });
-    }
-    setIsSubmit(false);
-  }, [ isSubmit ]);
-
   const autoResizeTextArea = useCallback(() => {
-    if (textRef.current) {
-      textRef.current.style.height = "auto";
-      textRef.current.style.height = `${textRef.current.scrollHeight}px`;
+    if (refs.current) {
+      refs.current[0].style.height = "auto";
+      refs.current[0].style.height = `${refs.current[0].scrollHeight}px`;
     }
   }, []);
 
   const handleSubmit = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     e.preventDefault();
-    setError({
-      ...error,
-      title: !title.length,
-      category: !category.length,
-      content: !(isContentExisting && isNotInitialContent),
+    const isTitleError = !title.length;
+    const isCategoryError = !category.length;
+    const isContentError = !(isContentExisting && isNotInitialContent);
+    if (isTitleError || isCategoryError || isContentError) {
+      setError({
+        title: isTitleError,
+        category: isCategoryError,
+        content: isContentError,
+      });
+      return;
+    }
+    console.log({
+      // Todo: API communication
+      boardTitle: title,
+      boardCategory: category,
+      boardContent,
     });
-    setIsSubmit(true);
   };
 
   return (
@@ -100,12 +90,20 @@ export default function BoardWrite() {
               autoResizeTextArea();
             }}
             style={{ minHeight: "105px" }}
-            ref={textRef}
+            ref={(elem) => {
+              refs.current[0] = elem as HTMLTextAreaElement;
+            }}
           />
           <hr />
         </header>
 
-        <span id="category-hint" className={$.hint} ref={hintRef}>
+        <span
+          id="category-hint"
+          className={$.hint}
+          ref={(elem) => {
+            refs.current[1] = elem as HTMLSpanElement;
+          }}
+        >
           <IoMdArrowDropdown />
           게시판 선택, 검색
         </span>
@@ -119,8 +117,8 @@ export default function BoardWrite() {
             defaultValue={category}
             autoComplete="off"
             onChange={(e) => {
-              if (hintRef.current) {
-                hintRef.current.style.visibility = e.target.value
+              if (refs.current) {
+                refs.current[1].style.visibility = e.target.value
                   ? "visible"
                   : "hidden";
               }
@@ -149,7 +147,11 @@ export default function BoardWrite() {
 
       <section>
         <strong className={$.title}>{title}</strong>
-        <div ref={previewRef}></div>
+        <div
+          ref={(elem) => {
+            refs.current[2] = elem as HTMLDivElement;
+          }}
+        ></div>
       </section>
     </div>
   );

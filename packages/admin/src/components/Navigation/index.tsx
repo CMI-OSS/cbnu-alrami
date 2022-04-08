@@ -47,11 +47,9 @@ export default function Navigation() {
   const navMenus = [ BOARD_MENUS, SCRAPER_MENUS ];
 
   useEffect(() => {
-    navMenus.forEach(({ menus }, idx) =>
-      menus.forEach(({ path }) => {
-        if (pathname === path) setActive(idx);
-      }),
-    );
+    navMenus.forEach(({ menus }, idx) => {
+      if (menus.find(({ path }) => path === pathname)) setActive(idx);
+    });
   }, []);
 
   return isLoginMatch ? (

@@ -8,6 +8,8 @@ import studentScenarioQueue from "./studentRestaurantScenarioQueue";
 import domitoryScenarioQueue from "./domitoryRestarantScenarioQueue";
 import scheduleScenarioQueue from "./collegeScheduleScenarioQueue";
 
+import boardCategories from "./boardCategories";
+
 export {
   noticeScenariosMockData,
   studentRestaurantScenariosMockData,
@@ -17,4 +19,5 @@ export {
   domitoryScenarioQueue,
   noticeScenarioQueue,
   studentScenarioQueue,
+  boardCategories,
 };

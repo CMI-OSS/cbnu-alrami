@@ -15,7 +15,7 @@
   background-color: $white;
 
   &:hover {
-    box-shadow: 0 0 0 0.2rem $light-blue;
+    box-shadow: 0 0 0 0.2rem $blue-200;
     cursor: pointer;
   }
 
@@ -31,7 +31,7 @@
     padding: 0.4rem 0.6rem;
     font-size: 0.9rem;
     border-radius: 0.5rem;
-    background-color: $light-blue;
+    background-color: $blue-200;
     color: $white;
   }
 

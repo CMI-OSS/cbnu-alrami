@@ -31,3 +31,7 @@ export type ScraperLog = {
   prefix?: "INFO" | "WARN" | "ERROR";
   message: string;
 };
+
+export type BoardType = {
+  name: string
+}

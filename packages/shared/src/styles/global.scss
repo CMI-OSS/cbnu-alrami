@@ -150,9 +150,9 @@ select:focus {
 }
 
 a {
-    all: unset;
     color: inherit;
     text-decoration: none;
+    cursor: pointer;
 }
 img {
     border: 0;

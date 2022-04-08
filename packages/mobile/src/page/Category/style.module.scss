@@ -1,3 +1,10 @@
+@import "@shared/styles/color.scss";
+
+@mixin hover-status($color, $decoration) {
+  color: $color;
+  text-decoration: $decoration;
+}
+
 .header {
   position: fixed;
   top: 0;
@@ -7,6 +14,7 @@
   display: flex;
   justify-content: space-between;
   height: 70px;
+  background-color: $white;
 }
 
 .link {
@@ -30,4 +38,47 @@
   font-size: 14px;
   line-height: 18px;
   background-color: inherit;
+}
+
+.menu {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 12px 21px 12px 13px;
+  background-color: $white;
+  border-top: 3px solid $background;
+}
+
+.list {
+  display: flex;
+}
+
+.menu_link {
+  display: block;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 8px;
+  color: #363636;
+
+  &:not(:first-child) {
+    margin-left: 16px;
+  }
+
+  &[aria-selected="true"] {
+    background-color: #d66d6e;
+    color: $white;
+    border-radius: 100px;
+
+    &:hover {
+      @include hover-status($white, none);
+    }
+  }
+
+  &[aria-selected="false"] {
+    &:hover {
+      @include hover-status(inherit, none);
+    }
+  }
 }

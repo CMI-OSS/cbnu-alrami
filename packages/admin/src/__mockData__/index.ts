@@ -10,6 +10,8 @@ import scheduleScenarioQueue from "./collegeScheduleScenarioQueue";
 
 import boardCategories from "./boardCategories";
 
+import admins from "./admins";
+
 export {
   noticeScenariosMockData,
   studentRestaurantScenariosMockData,
@@ -20,4 +22,5 @@ export {
   noticeScenarioQueue,
   studentScenarioQueue,
   boardCategories,
+  admins,
 };

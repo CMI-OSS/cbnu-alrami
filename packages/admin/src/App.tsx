@@ -6,6 +6,7 @@ import useSocket from "src/hooks/useSocket";
 import Navigation from "./components/Navigation";
 import LoginPage from "./pages/Login";
 import BoardPage from "./pages/BoardPage";
+import AdminManagementPage from "./pages/AdminManagementPage";
 import { store } from "./store";
 import "@shared/styles/global.scss";
 import "./admin.scss";
@@ -21,6 +22,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/board/*" element={<BoardPage />} />
           <Route path="/scraper/*" element={<ScraperPage />} />
+          <Route path="/manage/*" element={<AdminManagementPage />} />
           <Route path="*" element={<Navigate to="/scraper/notice" />} />
         </Routes>
       </BrowserRouter>

@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Authority } from 'src/@constants/enum';
+import { Authority } from 'src/@constants/enums';
 import { Admin } from 'src/@entities/admin.entity';
 import { UserService } from './user.service';
 
 const users: Array<Admin>=[
   {
     id: 1,
-    username: "guest",
+    loginId: "guest",
     password: "1234",
     nickname: "string",
     authority: Authority.Guest,
@@ -15,7 +15,7 @@ const users: Array<Admin>=[
   },
   {
     id: 2,
-    username: "super",
+    loginId: "super",
     password: "1234",
     nickname: "string",
     authority: Authority.Super,
@@ -24,7 +24,7 @@ const users: Array<Admin>=[
   },
   {
     id: 3,
-    username: "student_council",
+    loginId: "student_council",
     password: "1234",
     nickname: "string",
     authority: Authority.StudentCouncil,

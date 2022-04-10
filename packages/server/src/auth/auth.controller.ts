@@ -1,32 +1,39 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post, UseGuards } from '@nestjs/common';
 import { Admin } from 'src/@entities/admin.entity';
-import { AdminCredential } from './dto/adminCredential.dto';
-import { LoginDto } from './dto/adminLoginDto';
+import { AdminCreateDto } from 'src/admin/dto/adminCreateDto';
+import { LocalGuard } from 'src/@guard/local.guard';
+import { UserField } from 'src/@decorator/userField.decorator';
+import { JwtGuard } from 'src/@guard/jwt.guard';
+import { Public } from 'src/@decorator/public.decorator';
 import { TokenDto } from './dto/tokenDto';
-import { Request } from 'express';
-import { UserCreateDto } from 'src/user/dto/userCreateDto';
-import { UserLoginDto } from './dto/userLogin.dto';
+import { AuthService } from './auth.service';
+import { AdminCredential } from './dto/adminCredential.dto';
+
 @Controller('auth')
 export class AuthController {
   
-  @Post()
-  async join(@Body() userCreateDto:UserCreateDto):Promise<Admin>{
-    return new Admin();
+  // eslint-disable-next-line no-useless-constructor
+  constructor(@Inject(AuthService)private authService:AuthService){}
+
+  @Public()
+  @Post('admins/join')
+  async adminJoin(@Body() adminCreateDto: AdminCreateDto): Promise<Admin>{
+    return this.authService.join(adminCreateDto);
   }
 
-  @Post()
-  async adminLogin(@Body() loginDto:LoginDto):Promise<TokenDto>{
-    return new TokenDto();
+
+  @Public()
+  @UseGuards(LocalGuard)
+  @Post('admins/login')
+  async adminLogin(@UserField() user: AdminCredential):Promise<TokenDto> {
+    return this.authService.adminLogin(user);
   }
 
-  @Get()
-  async getMe(@Req() req:Request): Promise<AdminCredential>{
-    return new AdminCredential();
-  }
-
-  @Post()
-  async userLogin(@Body() userLoginDto:UserLoginDto):Promise<TokenDto>{
-    return new TokenDto();
+  @UseGuards(JwtGuard)
+  @Get('admins/me')
+  // eslint-disable-next-line class-methods-use-this
+  async getMe(@UserField() user: AdminCredential): Promise<AdminCredential>{
+    return user;
   }
 
 }

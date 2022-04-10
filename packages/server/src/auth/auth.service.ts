@@ -1,36 +1,61 @@
+/* eslint-disable no-useless-constructor */
+/* eslint-disable class-methods-use-this */
 import { Injectable } from '@nestjs/common';
 import { Admin } from 'src/@entities/admin.entity';
 import { AdminService } from 'src/admin/admin.service';
-import { AdminCreateDto } from 'src/admin/dto/adminDto';
-import { UserCreateDto } from 'src/user/dto/userCreateDto';
+import { AdminCreateDto } from 'src/admin/dto/adminCreateDto';
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
-import { AdminLoginDto, LoginDto } from './dto/adminLoginDto';
+import { JwtService } from '@nestjs/jwt';
+import { errors } from 'src/@error';
+import { AdminLoginDto } from './dto/adminLoginDto';
 import { TokenDto } from './dto/tokenDto';
-import { UserLoginDto } from './dto/userLogin.dto';
+import { AdminCredential } from './dto/adminCredential.dto';
+
+const { LOGIN_INFO_NOT_FOUND } = errors;
+
 @Injectable()
 export class AuthService {
-  constructor(private userService:UserService, private adminService:AdminService){}
+  constructor(private userService: UserService, private adminService: AdminService, private jwtService:JwtService) {}
 
   async join(adminCreateDto: AdminCreateDto): Promise<Admin>{
-    return new Admin();
+    const hashedPassword = bcrypt.hashSync(adminCreateDto.password, 2);
+    const createdAdmin = await this.adminService.create({...adminCreateDto, password:hashedPassword});
+    return createdAdmin;
   }
 
-  async adminLogin(adminLoginDto:AdminLoginDto):Promise<TokenDto>{
-    return new TokenDto();
+  async adminLogin(adminCredential:AdminCredential): Promise<TokenDto>{
+    const tokens: TokenDto = {
+      xAccessToken : this.jwtService.sign(adminCredential),
+      // xRefreshToken: this.jwtService.sign({ id:admin.id })
+    }
+    return tokens;
+  }
+
+  async validate({ loginId, password }: AdminLoginDto): Promise<AdminCredential>{
+    const { password: hashedPassword, ...admin } = await this.adminService.findOne({
+      select: 
+        [ 'id', 'authority', 'nickname', 'password' ]
+      ,
+      where: { loginId }
+    });
+    if (!admin || !this.matchPassword(password, hashedPassword)) throw LOGIN_INFO_NOT_FOUND;
+    return admin;
   }
   
-  async userLogin(userLoginDto:UserLoginDto):Promise<TokenDto>{
-    return new TokenDto();
-  }
+  // async userLogin({fcmToken}): Promise<TokenDto>{
+    
+  //   return new TokenDto();
+  // }
   
-  matchPassword(inputPassword:string, entityPassword:string): boolean{
+  matchPassword(inputPassword: string, entityPassword: string): boolean{
+    if (!bcrypt.compareSync(inputPassword, entityPassword)) return false;
     return true;
   }
 
-  modifyPassword(newPassword:string, entityPassword:string): boolean{
-    return true;
-  }
+  // modifyPassword(newPassword:string, entityPassword:string): boolean{
+  //   return true;
+  // }
 
 
 }

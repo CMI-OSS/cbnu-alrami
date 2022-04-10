@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { BoardModule } from "./board/board.module";
 import configuration from "./config/configuration";
 import { FcmModule } from './fcm/fcm.module';
 
@@ -18,7 +19,8 @@ import { FcmModule } from './fcm/fcm.module';
       }),
       inject: [ ConfigService ],
     }),
-    FcmModule
+    FcmModule,
+    BoardModule
   ],
 })
 export class AppModule {}

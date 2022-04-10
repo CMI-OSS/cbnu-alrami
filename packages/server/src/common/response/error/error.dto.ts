@@ -3,15 +3,15 @@ import { Exclude, Expose } from "class-transformer";
 export class Error {
     
     @Exclude()
-    private readonly _message: string
+    private readonly message: string
 
     public constructor(message: string) {
-        this._message = message;
+        this.message = message;
     }
 
     @Expose()
-    get message(): string {
-        return this._message;
+    get Message(): string {
+        return this.message;
     }
     
 }

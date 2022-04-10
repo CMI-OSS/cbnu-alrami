@@ -1,3 +1,3 @@
-export class BasicReponseDto {
+export abstract class BasicReponseDto {
     
 }

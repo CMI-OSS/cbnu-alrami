@@ -6,9 +6,10 @@ export class CommonResponseDto<T> extends BasicReponseDto{
     @Exclude()
     private readonly _data: T;
 
-    // public constructor(data: T) {
-    //     this._data = data;
-    // }
+    public constructor(data: T) {
+        super();
+        this._data = data;
+    }
 
     @Expose()
     get data(): T {

@@ -26,7 +26,6 @@
         outline: none;
         background-color: transparent;
         font-size: 2.3rem;
-        cursor: pointer;
 
         &:first-child {
           margin-left: 0;
@@ -65,7 +64,7 @@
         }
 
         .replay {
-          color: $light-blue;
+          color: $blue-200;
           transition: transform ease 0.5s;
 
           &:hover {

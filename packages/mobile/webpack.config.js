@@ -30,6 +30,7 @@ module.exports = {
     alias: {
       src: path.resolve(__dirname, "./src"),
       "@shared": path.resolve(__dirname, "../shared/src"),
+      "@components": path.resolve(__dirname, './src/components'),
       extensions: [".js", ".ts", ".tsx"],
     },
   },

@@ -1,52 +1,124 @@
 @import "@shared/styles/color.scss";
+@import "src/styles/mixin.scss";
 
-@mixin no-line {
-  border: none;
-  outline: none;
-}
-
-.form {
+.boardWrite {
   display: flex;
-  flex-direction: column;
+  height: 100vh;
   margin-left: 13rem;
-  padding: 3rem;
 
-  textarea {
-    @include no-line();
-    width: 75%;
+  @media screen and (max-width: 1024px) {
+    form {
+      width: 100%;
+    }
+    section {
+      display: none;
+    }
+  }
+  @media screen and (min-width: 1025px) {
+    form {
+      width: 50%;
+    }
+    section {
+      display: flex;
+    }
+  }
+
+  .title {
+    @include no-line;
+    width: 100%;
     resize: none;
     background-color: transparent;
     color: $black;
     font-size: 2.75rem;
     font-weight: 500;
     word-break: break-all;
-    cursor: pointer;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 2.5rem;
+    hr {
+      @include no-line;
+      width: 5rem;
+      height: 0.3rem;
+      margin: 1rem 0;
+      background-color: $dark-mode;
+    }
+
+    .warn::placeholder {
+      color: $google-red;
+    }
+    .hint {
+      display: flex;
+      visibility: hidden;
+      align-items: center;
+      font-size: 0.7rem;
+      color: $blue-300;
+      svg {
+        font-size: 1.2rem;
+      }
+    }
+    .category {
+      width: fit-content;
+      border-radius: 0.7rem;
+      background-color: $white;
+      input {
+        @include no-line;
+        min-height: 2rem;
+        padding: 0 0.5rem;
+        border-radius: 0.7rem;
+        font-size: 0.8rem;
+        
+        &::-webkit-textfield-decoration-container {
+          appearance: none;
+          -webkit-appearance: none;
+        }
+        // &::-webkit-calendar-picker-indicator { // Todo : remove !important
+        //   display: none !important;
+        // }
+      }
+    }
+
+    .content-error {
+      display: block;
+      min-height: 1.4rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: $google-red;
+    }
+
+    .submit {
+      @include no-line;
+      width: 6.5rem;
+      min-height: 2.3rem;
+      border-radius: 0.3rem;
+      background-color: #005299;
+      color: $white;
+      font-size: 1.2rem;
+      font-weight: 500;
+
+      &:hover {
+        background-color: $blue-200;
+      }
+    }
   }
 
-  .warn::placeholder {
-    color: $google-red;
-  }
-
-  hr {
-    width: 5rem;
-    height: 0.5rem;
-    margin: 1.5rem 0;
-    background-color: $dark-mode;
-  }
-
-  input {
-    @include no-line();
-    width: 6.5rem;
-    height: 2.3rem;
-    border-radius: 0.3rem;
-    background-color: #005299;
-    color: $white;
-    font-size: 1.2rem;
-    font-weight: 500;
-    cursor: pointer;
-
-    &:hover {
-      background-color: $light-blue;
+  section {
+    flex-direction: column;
+    width: 50%;
+    overflow-y: auto;
+    padding: 2.5rem;
+    background-color: $white;
+    .title {
+      line-height: 1.2;
+      margin-bottom: 5rem;
+    }
+    div {
+      @include preview;
+      font-size: 1.1rem;
+      word-break: break-all;
     }
   }
 }

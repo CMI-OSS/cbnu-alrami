@@ -1,0 +1,17 @@
+@import "@shared/styles/color.scss";
+
+.editor {
+  width: 100%;
+  margin: 1rem 0;
+  background-color: $white;
+  div:nth-of-type(2) {
+    height: 36rem;
+    font-size: 1rem;
+    strong {
+      font-weight: bold;
+    }
+    em {
+      font-style: italic;
+    }
+  }
+}

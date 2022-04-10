@@ -7,12 +7,11 @@ import { AdminCredential } from "src/auth/dto/adminCredential.dto";
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(private authService: AuthService) {
-    super({usernameField: 'loginId',passwordField: 'password'});
+    super({ usernameField: "loginId", passwordField: "password" });
   }
 
-  async validate(username: string, password: string): Promise<AdminCredential>{
+  async validate(username: string, password: string): Promise<AdminCredential> {
     const user = this.authService.validate({ loginId: username, password });
     return user;
   }
-
 }

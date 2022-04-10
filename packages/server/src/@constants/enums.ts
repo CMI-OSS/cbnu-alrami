@@ -1,8 +1,6 @@
-import { readFileSync } from "fs";
 
-export enum Authority{
-  Super= 'Super',
-  StudentCouncil = 'StudentCouncil',
-  Guest = 'Guest'
+export enum Authority {
+  Super = "Super",
+  StudentCouncil = "StudentCouncil",
+  Guest = "Guest",
 }
-

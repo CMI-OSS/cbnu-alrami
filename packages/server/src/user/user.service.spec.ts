@@ -1,9 +1,9 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { Authority } from 'src/@constants/enums';
-import { Admin } from 'src/@entities/admin.entity';
-import { UserService } from './user.service';
+import { Test, TestingModule } from "@nestjs/testing";
+import { Authority } from "src/@constants/enums";
+import { Admin } from "src/@entities/admin.entity";
+import { UserService } from "./user.service";
 
-const users: Array<Admin>=[
+const users: Array<Admin> = [
   {
     id: 1,
     loginId: "guest",
@@ -11,7 +11,7 @@ const users: Array<Admin>=[
     nickname: "string",
     authority: Authority.Guest,
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const users: Array<Admin>=[
     nickname: "string",
     authority: Authority.Super,
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     id: 3,
@@ -29,25 +29,24 @@ const users: Array<Admin>=[
     nickname: "string",
     authority: Authority.StudentCouncil,
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
-]
+];
 
-
-describe('UserService', () => {
+describe("UserService", () => {
   let service: UserService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UserService],
+      providers: [ UserService ],
     }).compile();
 
     service = module.get<UserService>(UserService);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(service).toBeDefined();
   });
 
-  it('')
+  it("");
 });

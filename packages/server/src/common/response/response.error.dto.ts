@@ -1,9 +1,10 @@
-import { Exclude, Expose } from "class-transformer";
-import { Error } from "./errorDto";
+import { Exclude, Expose, Type } from "class-transformer";
+import { Error } from "./error.dto";
 
 export class ErrorDto {
 
     @Exclude()
+    @Type(() => Error)
     private readonly _error: Error;
 
     public constructor(error: Error) {

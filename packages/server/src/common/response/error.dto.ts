@@ -1,6 +1,7 @@
 import { Exclude, Expose } from "class-transformer";
 
 export class Error {
+    
     @Exclude()
     private readonly _message: string
 

@@ -17,7 +17,7 @@ export class AuthController {
 
   @Public()
   @Post('admins/join')
-  async adminJoin(@Body() adminCreateDto: AdminCreateDto): Promise<Admin>{
+  async adminJoin(@Body() adminCreateDto: AdminCreateDto): Promise<boolean>{
     return this.authService.join(adminCreateDto);
   }
 

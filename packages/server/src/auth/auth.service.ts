@@ -18,10 +18,11 @@ const { LOGIN_INFO_NOT_FOUND } = errors;
 export class AuthService {
   constructor(private userService: UserService, private adminService: AdminService, private jwtService:JwtService) {}
 
-  async join(adminCreateDto: AdminCreateDto): Promise<Admin>{
-    const hashedPassword = bcrypt.hashSync(adminCreateDto.password, 2);
-    const createdAdmin = await this.adminService.create({...adminCreateDto, password:hashedPassword});
-    return createdAdmin;
+  async join(adminCreateDto: AdminCreateDto): Promise<boolean>{
+    const salt = bcrypt.genSaltSync();
+    const hashedPassword = bcrypt.hashSync(adminCreateDto.password, salt);
+    await this.adminService.create({...adminCreateDto, password:hashedPassword});
+    return true;
   }
 
   async adminLogin(adminCredential:AdminCredential): Promise<TokenDto>{

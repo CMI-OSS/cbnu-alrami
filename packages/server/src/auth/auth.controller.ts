@@ -29,11 +29,6 @@ export class AuthController {
     return this.authService.adminLogin(user);
   }
 
-  @UseGuards(JwtGuard)
-  @Get('admins/me')
-  // eslint-disable-next-line class-methods-use-this
-  async getMe(@UserField() user: AdminCredential): Promise<AdminCredential>{
-    return user;
-  }
+
 
 }

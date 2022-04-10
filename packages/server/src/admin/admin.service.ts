@@ -47,7 +47,7 @@ export class AdminService {
 
   async update(query: FindConditions<Admin>, adminDto: DeepPartial<AdminCreateDto>): Promise<ObjectLiteral[]>{
     const updateResult = await this.adminRepository.update(query, adminDto);
-    if(!updateResult.raw) throw new Error();
+    if(!updateResult.raw) throw DB_ERROR;
     return updateResult.generatedMaps;
   }
 }

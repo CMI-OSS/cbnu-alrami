@@ -1,0 +1,22 @@
+import { ExtractJwt, Strategy } from 'passport-jwt';
+import { PassportStrategy } from '@nestjs/passport';
+import { Injectable } from '@nestjs/common';
+import { AdminCredential } from 'src/auth/dto/adminCredential.dto';
+import { ACCESS_PRIVATE_KEY } from '../@constants/constants';
+
+@Injectable()
+export class JwtStrategy extends PassportStrategy(Strategy) {
+  constructor() {
+    super({
+      jwtFromRequest: ExtractJwt.fromHeader('x-access-token'),
+      ignoreExpiration: false,
+      secretOrKey: ACCESS_PRIVATE_KEY,
+    });
+  }
+  
+  // eslint-disable-next-line class-methods-use-this
+  async validate(adminCredential: any): Promise<AdminCredential> {
+    return adminCredential;
+  }
+
+}

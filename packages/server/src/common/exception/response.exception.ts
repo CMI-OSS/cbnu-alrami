@@ -1,7 +1,13 @@
-import { HttpException } from "@nestjs/common";
+import { HttpException, HttpStatus } from "@nestjs/common";
+import { Error } from "./exception";
 
 export class ResponseException extends HttpException {
-    constructor(error?: number) {
-        super('test', error);
+
+    public error: Error;
+
+    constructor(responseException: Error) {
+        // 일단 박아놓고 이따 수정하자 
+        super(responseException, HttpStatus.FORBIDDEN);
     }
+
 }

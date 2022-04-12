@@ -1,6 +1,8 @@
-import { Controller, Get, Inject, Param, ParseIntPipe } from "@nestjs/common"; 
+import { Controller, Get, Inject, Param, ParseIntPipe, UseInterceptors } from "@nestjs/common"; 
+import { TransformInterceptor } from "src/common/interceptor/response.interceptor";
 import { BoardService } from "./board.service";
 
+// @UseInterceptors(TransformInterceptor)
 @Controller('board')
 export class BoardController {
 

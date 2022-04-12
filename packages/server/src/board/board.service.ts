@@ -1,6 +1,7 @@
-import { Injectable, UseFilters } from "@nestjs/common";
+import { Injectable, UseFilters, UseInterceptors } from "@nestjs/common";
 import { Errors } from 'src/common/exception/exception';
 import ResponseExceptionFilter from "src/common/exception/response.exception.filter";
+import { TransformInterceptor } from "src/common/interceptor/response.interceptor";
 const { NOT_FOUND } = Errors;
 
 @Injectable()

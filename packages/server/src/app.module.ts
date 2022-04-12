@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import configuration from "./config/configuration";
 import { FcmModule } from './fcm/fcm.module';
+import { AwsModule } from "./aws/aws.module";
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { FcmModule } from './fcm/fcm.module';
       }),
       inject: [ ConfigService ],
     }),
-    FcmModule
+    FcmModule,
+    AwsModule
   ],
 })
 export class AppModule {}

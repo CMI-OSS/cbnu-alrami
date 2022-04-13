@@ -1,4 +1,4 @@
 export class TokenDto {
   xAccessToken: string;
-  // xRefreshToken: string;
+  // TODO xRefreshToken: string;
 }

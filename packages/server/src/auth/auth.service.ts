@@ -33,7 +33,7 @@ export class AuthService {
   async adminLogin(adminCredential: AdminCredential): Promise<TokenDto> {
     const tokens: TokenDto = {
       xAccessToken: this.jwtService.sign(adminCredential),
-      // xRefreshToken: this.jwtService.sign({ id:admin.id })
+      //TODO xRefreshToken: this.jwtService.sign({ id:admin.id })
     };
     return tokens;
   }

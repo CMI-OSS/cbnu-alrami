@@ -38,13 +38,26 @@ const BOARD_MENUS = {
     },
   ],
 };
+const ADMIN_MANAGE_MENUS = {
+  label: "관리자 관리",
+  menus: [
+    {
+      path: "/manage/add",
+      label: "관리자 추가",
+    },
+    {
+      path: "/manage/list",
+      label: "관리자 목록",
+    },
+  ],
+};
 
 export default function Navigation() {
   const isLoginMatch = useMatch("/login");
   const { pathname } = useLocation();
   const [ active, setActive ] = useState(-1);
   const boardState = useAppSelector((state) => state.boardReducer.board.write);
-  const navMenus = [ BOARD_MENUS, SCRAPER_MENUS ];
+  const navMenus = [ BOARD_MENUS, SCRAPER_MENUS, ADMIN_MANAGE_MENUS ];
 
   useEffect(() => {
     navMenus.forEach(({ menus }, idx) => {

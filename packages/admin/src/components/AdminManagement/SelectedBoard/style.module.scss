@@ -1,0 +1,27 @@
+@import "@shared/styles/color.scss";
+
+.container {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 0.5rem;
+    color: $white;
+    background-color: $blue-200;
+    font-size: 0.8rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+
+    .delete-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 0.4rem;
+        font-size: 1rem;
+        color: $white;
+        background-color: transparent;
+
+        &:hover {
+            color: $gray-400;
+        }
+    }
+}

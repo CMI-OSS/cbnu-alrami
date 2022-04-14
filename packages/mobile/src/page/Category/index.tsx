@@ -7,9 +7,6 @@ import $ from "./style.module.scss";
 const menuList = [
   { id: 1, name: "학교", path: "/school" },
   { id: 2, name: "식사", path: "/food" },
-  { id: 3, name: "편리", path: "/convenient" },
-  { id: 4, name: "간식", path: "/snack" },
-  { id: 5, name: "놀거리", path: "/playground" },
 ];
 
 function Category() {

@@ -28,7 +28,11 @@
     "@nestjs/typeorm": "^8.0.3",
     "@types/js-yaml": "^4.0.5",
     "@types/lodash": "^4.14.181",
+<<<<<<< HEAD
     "class-transformer": "^0.5.1",
+=======
+    "aws-sdk": "^2.1111.0",
+>>>>>>> 662a75d93727da2f416b825b992e6e8edb402c18
     "compression": "^1.7.4",
     "csurf": "^1.11.0",
     "fcm-node": "^1.6.1",
@@ -47,6 +51,7 @@
     "@nestjs/testing": "^8.0.0",
     "@types/express": "^4.17.13",
     "@types/jest": "27.4.1",
+    "@types/multer": "^1.4.7",
     "@types/node": "^16.0.0",
     "@types/supertest": "^2.0.11",
     "jest": "^27.2.5",

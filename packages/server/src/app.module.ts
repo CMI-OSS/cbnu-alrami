@@ -5,7 +5,11 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { BoardModule } from "./board/board.module";
 import configuration from "./config/configuration";
 import { FcmModule } from './fcm/fcm.module';
+<<<<<<< HEAD
 import ResponseExceptionFilter from "./common/exception/response.exception.filter";
+=======
+import { AwsModule } from "./aws/aws.module";
+>>>>>>> 662a75d93727da2f416b825b992e6e8edb402c18
 
 @Module({
   imports: [
@@ -22,7 +26,11 @@ import ResponseExceptionFilter from "./common/exception/response.exception.filte
       inject: [ ConfigService ],
     }),
     FcmModule,
+<<<<<<< HEAD
     BoardModule
+=======
+    AwsModule
+>>>>>>> 662a75d93727da2f416b825b992e6e8edb402c18
   ],
 
   providers: [

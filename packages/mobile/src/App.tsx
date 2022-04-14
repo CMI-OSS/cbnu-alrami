@@ -7,6 +7,7 @@ import Calendar from "./page/Calendar";
 import Home from "./page/Home";
 import Map from "./page/Map";
 import Notification from "./page/Notification";
+import Category from "./page/Category";
 import Footer from "./components/molecules/Footer";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
     { id: 3, path: "/home", element: <Home /> },
     { id: 4, path: "/cafeteria", element: <Cafeteria /> },
     { id: 5, path: "/map", element: <Map /> },
+    { id: 6, path: "/category", element: <Category /> },
   ];
 
   return (

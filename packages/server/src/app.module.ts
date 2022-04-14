@@ -6,6 +6,7 @@ import { JwtGuard } from "./@guard/jwt.guard";
 import { AuthModule } from "./auth/auth.module";
 import configuration from "./@config/configuration";
 import { FcmModule } from "./fcm/fcm.module";
+import { AwsModule } from "./aws/aws.module";
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { FcmModule } from "./fcm/fcm.module";
     }),
     FcmModule,
     AuthModule,
+    AwsModule
   ],
   providers: [
     {

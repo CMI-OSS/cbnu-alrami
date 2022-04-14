@@ -3,6 +3,7 @@ import MenuButtonList from "@components/molecules/MenuButtonList";
 import { PlaceMenu } from "@components/atoms/icon/PlaceMenu";
 import { SmallPlaceMenu } from "@components/atoms/icon/SmallPlaceMenu";
 import { PlaceArrow } from "@components/atoms/icon/PlaceArrow";
+import { NavLink } from "react-router-dom";
 import $ from "./style.module.scss";
 import { placeInfoList } from "../../__mocks__/placeInfoList";
 
@@ -50,10 +51,10 @@ function Map() {
           </span>
           <PlaceArrow className={$.arrow} />
         </div>
-        <a href="." className={$.link}>
+        <NavLink to="../category" className={$.link}>
           <PlaceMenu className={$.icon} />
           <span className="blind">장소탐색하기</span>
-        </a>
+        </NavLink>
       </div>
     </div>
   );

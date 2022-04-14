@@ -29,11 +29,11 @@
   letter-spacing: 0.02em;
   font-weight: 500;
   line-height: 23px;
-  color: #202020;
+  color: $black-100;
 }
 
 .button {
-  color: #aaa;
+  color: $black-40;
   padding: 0 10px;
   font-size: 14px;
   line-height: 18px;
@@ -60,14 +60,14 @@
   font-size: 14px;
   line-height: 18px;
   padding: 8px;
-  color: #363636;
+  color: $black-80;
 
   &:not(:first-child) {
     margin-left: 16px;
   }
 
   &[aria-selected="true"] {
-    background-color: #d66d6e;
+    background-color: $red-50;
     color: $white;
     border-radius: 100px;
 

@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import classNames from "classnames";
 import { BsArrowBarDown, BsArrowBarUp } from "react-icons/bs";
 import { Authorities } from "src/__mockData__/admins";
@@ -15,8 +15,12 @@ export type Admin = {
 
 type Props = {
   admin: Admin;
-  onAdminChange: Dispatch<SetStateAction<Array<Admin>>>;
   className: string;
+  changeAuthority: (id: number, authortiy: Authorities) => void;
+  deleteAdmin: (id: number) => void;
+  addBoard: (id: number, board: string) => void;
+  searchBoard: (id: number, board: string) => boolean;
+  deleteBoard: (id: number, board: string) => void;
 };
 
 const AUTHORITY_OPTIONS = [ "super", "council" ];
@@ -30,51 +34,36 @@ const BOARDS = [
 
 export default function AdminCard({
   admin: { id, authority, boards, name, createdDate },
-  onAdminChange,
+  changeAuthority,
+  deleteAdmin,
+  addBoard,
+  searchBoard,
+  deleteBoard,
   className,
 }: Props) {
   const [ isDetailHidden, setIsDetailHidden ] = useState(true);
   const [ preSelectedBoard, setPreSelectedBoard ] = useState("");
   const [ isHiddenConfirmButton, setIsHiddenConfirmButton ] = useState(true);
 
-  function onAutorityChange(event: ChangeEvent<HTMLSelectElement>) {
+  function handleAuthorityChange(event: ChangeEvent<HTMLSelectElement>) {
+    const {
+      target: { value },
+    } = event;
+    changeAuthority(id, parseInt(value, 10));
+  }
+
+  function handleBoardSelected(event: ChangeEvent<HTMLSelectElement>) {
     const {
       target: { value },
     } = event;
 
-    onAdminChange((pre) =>
-      pre.map((admin) => {
-        if (admin.id === id)
-          return { ...admin, authority: parseInt(value, 10) };
-        return admin;
-      }),
-    );
-  }
-
-  function addBoard(event: ChangeEvent<HTMLSelectElement>) {
-    const {
-      target: { value },
-    } = event;
-
-    onAdminChange((pre) =>
-      pre.map((admin) => {
-        if (admin.id === id) {
-          const { boards } = admin;
-          if (boards.includes(value)) {
-            setPreSelectedBoard(value);
-            setTimeout(() => setPreSelectedBoard(""), 500);
-            return admin;
-          }
-          boards.push(value);
-          return { ...admin, boards };
-        }
-        return admin;
-      }),
-    );
-  }
-
-  function deleteAdmin() {
-    onAdminChange((pre) => pre.filter((admin) => admin.id !== id));
+    const isExist = searchBoard(id, value);
+    if (isExist) {
+      setPreSelectedBoard(value);
+      setTimeout(() => setPreSelectedBoard(""), 200);
+      return;
+    }
+    addBoard(id, value);
   }
 
   return (
@@ -100,6 +89,7 @@ export default function AdminCard({
           type="button"
           className={$["show-detail-button"]}
           onClick={() => setIsDetailHidden((pre) => !pre)}
+          aria-label={`상세 설정 페이지 ${isDetailHidden ? "보기" : "닫기"}`}
         >
           {isDetailHidden ? <BsArrowBarDown /> : <BsArrowBarUp />}
         </button>
@@ -107,18 +97,18 @@ export default function AdminCard({
       <div
         className={classNames(
           $["admin-hidden-container"],
-          isDetailHidden ? $.hidden : "",
+          isDetailHidden && $.hidden,
         )}
       >
         <hr className={$["split-line"]} />
-        <h2 className={$["editor-title"]}>권한 수정</h2>
-        <label htmlFor="authority-selector" className={className}>
+        <h3 className={$["editor-title"]}>권한 수정</h3>
+        <label htmlFor="authority-selector">
           권한
           <select
             className={$.selector}
             id="authority-selector"
             value={authority}
-            onChange={onAutorityChange}
+            onChange={handleAuthorityChange}
           >
             {AUTHORITY_OPTIONS.map((option, index) => (
               <option key={option} value={index}>
@@ -127,13 +117,13 @@ export default function AdminCard({
             ))}
           </select>
         </label>
-        <label htmlFor="board-selector" className={className}>
+        <label htmlFor="board-selector">
           관리 보드 추가
           <select
             className={$.selector}
             id="board-selector"
             value="선택"
-            onChange={addBoard}
+            onChange={handleBoardSelected}
           >
             {[ "선택", ...BOARDS ].map((option) => (
               <option key={option} value={option}>
@@ -142,7 +132,7 @@ export default function AdminCard({
             ))}
           </select>
         </label>
-        <h2 className={$["editor-title"]}>관리중인 보드</h2>
+        <h3 className={$["editor-title"]}>관리중인 보드</h3>
         <ul className={$["selected-board-container"]}>
           {boards.map((board) => (
             <SelectedBoard
@@ -151,18 +141,19 @@ export default function AdminCard({
               title={board}
               className={classNames(
                 $["selected-board"],
-                preSelectedBoard === board ? $.alert : "",
+                preSelectedBoard === board && $.alert,
               )}
-              onAdminChange={onAdminChange}
+              deleteBoard={deleteBoard}
             />
           ))}
         </ul>
-        <h2 className={$["editor-title"]}>위험한 설정</h2>
+        <h3 className={$["editor-title"]}>위험한 설정</h3>
         {isHiddenConfirmButton ? (
           <button
             className={classNames($["delete-admin-button"], $["delete-button"])}
             type="button"
             onClick={() => setIsHiddenConfirmButton((pre) => !pre)}
+            aira-label="관리자 삭제하기"
           >
             관리자 삭제
           </button>
@@ -174,7 +165,8 @@ export default function AdminCard({
                 $["delete-button"],
               )}
               type="button"
-              onClick={deleteAdmin}
+              onClick={() => deleteAdmin(id)}
+              aria-label="관리자 정말로 삭제하기"
             >
               정말로 삭제하시겠습니까?
             </button>
@@ -185,6 +177,7 @@ export default function AdminCard({
                 $["cancel-delete-button"],
               )}
               onClick={() => setIsHiddenConfirmButton((pre) => !pre)}
+              aira-label="관리자 삭제 그만두기"
             >
               취소
             </button>

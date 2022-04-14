@@ -39,7 +39,7 @@
         }
 
         .selector {
-            margin: 0 2rem 0 1rem;
+            margin: 1.5rem 2rem 0 1rem;
             padding: 0.5rem;
             border: none;
             border-radius: 0.4rem;
@@ -51,12 +51,13 @@
         }
 
         .editor-title {
-            margin: 1.5rem 0;
+            margin-top: 1.5rem;
             font-size: 1.05rem;
             font-weight: 500;
         }
 
         .selected-board-container {
+            margin-top: 1.5rem;
             display: flex;
             flex-wrap: wrap;
 
@@ -70,6 +71,7 @@
         }
 
         .delete-button {
+            margin-top: 1.5rem;
             padding: 0.2rem 2rem;
             border-radius: 0.8rem;
             box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;

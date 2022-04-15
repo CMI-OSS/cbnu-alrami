@@ -33,3 +33,4 @@ export { Info } from "./Info";
 export { Write } from "./Write";
 export { PlaceMenu } from "./PlaceMenu";
 export { SmallPlaceMenu } from "./SmallPlaceMenu";
+export { MapArrow } from "./MapArrow";

@@ -1,0 +1,100 @@
+@import "@shared/styles/color.scss";
+
+.container {
+    padding: 1.5rem;
+    background-color: $white;
+    border-radius: 1rem;
+    box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+
+    &:hover {
+        box-shadow: 0 0 0 0.1rem $blue-200;
+    }
+
+    .admin-preview {
+        display: flex;
+
+        .cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20%;
+
+            .super-user {
+                font-weight: 600;
+                color: $google-yellow;
+            }
+        }
+
+        .show-detail-button {
+            width: 20%;
+            background-color: transparent;
+        }
+    }
+
+    .admin-hidden-container {
+        .split-line {
+            margin: 1rem 0;
+            border: none;
+            border-bottom: 0.1rem solid $blue-200;
+        }
+
+        .selector {
+            margin: 1.5rem 2rem 0 1rem;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 0.4rem;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+
+            &:hover {
+                box-shadow: 0 0 0 0.1rem $blue-200;
+            }
+        }
+
+        .editor-title {
+            margin-top: 1.5rem;
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .selected-board-container {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+
+            .selected-board {
+                margin-right: 1rem;
+            }
+
+            .alert {
+                background-color: $google-red;
+            }
+        }
+
+        .delete-button {
+            margin-top: 1.5rem;
+            padding: 0.2rem 2rem;
+            border-radius: 0.8rem;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+        }
+
+        .delete-admin-button {
+            box-shadow: 0 0 0 0.1rem $google-red;
+            color: $google-red;
+            background-color: $white;
+        }
+
+        .delete-confirm-button {
+            color: $white;
+            background-color: $google-red;
+        }
+
+        .cancel-delete-button {
+            margin-left: 1rem;
+            background-color: $gray-300;
+        }
+    }
+}
+
+.hidden {
+    display: none;
+}

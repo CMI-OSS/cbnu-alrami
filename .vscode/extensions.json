@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "rvest.vs-code-prettier-eslint",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "eamodio.gitlens",
+    "sibiraj-s.vscode-scss-formatter",
+    "mrmlnc.vscode-scss"
+  ]
+}

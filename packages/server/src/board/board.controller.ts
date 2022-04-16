@@ -1,10 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
-  Inject,
   Param,
-  ParseIntPipe,
   Post,
 } from "@nestjs/common";
 import { BoardService } from "./board.service";
@@ -27,7 +26,13 @@ export class BoardController {
   }
 
   @Get(":boardId")
-  findOne(@Param("boardId") boardId: number): Promise<Board> {
+  async findOne(@Param("boardId") boardId: number): Promise<Board> {
     return this.boardService.findById(boardId);
+  }
+
+  @Delete(":boardId")
+  async remove(@Param("boardId") boardId: number) {
+    const board = await this.boardService.findById(boardId);
+    return this.boardService.remove(boardId);
   }
 }

@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { Errors } from "src/common/exception/exception.global";
-import { UnauthorizedException } from "src/common/exception/exception.response";
 import { BoardRepository } from "./board.repository";
 import { BoardCreateDto } from "./dto/board.create.dto";
 import { Board } from "src/@entities/board.entity";
+import { DeleteResult } from "typeorm";
 
 const { NO_DATA_IN_DB, DUPLICATE_BOARD_NAME, DUPLICATE_BOARD_URL } = Errors;
 
@@ -39,14 +39,18 @@ export class BoardService {
   }
 
   async findAll(): Promise<Board[]> {
-    const boards:Board[] = await this.boardRepository.find();
-    if(!Array.isArray(boards) || boards.length == 0) throw NO_DATA_IN_DB;
+    const boards: Board[] = await this.boardRepository.find();
+    if (!Array.isArray(boards) || boards.length == 0) throw NO_DATA_IN_DB;
     return boards;
   }
 
-  async findById(id: number):Promise<Board> {
+  async findById(id: number): Promise<Board> {
     const board = await this.boardRepository.findOne({ id });
-    if(!board) throw NO_DATA_IN_DB;
+    if (!board) throw NO_DATA_IN_DB;
     return board;
+  }
+
+  async remove(id: number): Promise<DeleteResult> {
+    return await this.boardRepository.delete({ id });
   }
 }

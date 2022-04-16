@@ -10,11 +10,16 @@ export type Error = {
 
 // 예외 메세지 예시
 export const Errors = {
-  // A 도메인에 대한 예외 메세지
-  EXAMPLE_NOT_FOUND: new NotFoundException("예외처리 예시입니다."),
-  TEST_NOT_VALIDATE: new InternalServerErrorException("예외처리 예시입니다22."),
+  // 공통
+  NO_DATA_IN_DB: new NotFoundException(
+    "데이터베이스에 값이 존재하지 않습니다.",
+  ),
 
-  // B 도메인에 대한 예외 메세지
-  NO_DATA_IN_DB: new NotFoundException("예외처리 예시입니다333."),
-  SESSION_EXPIRED: new BadRequestException("예외처리 예시입니다4444."),
+  // board 도메인에 대한 예외 메세지
+  DUPLICATE_BOARD_NAME: new BadRequestException(
+    "이미 존재하는 board name입니다.",
+  ),
+  DUPLICATE_BOARD_URL: new BadRequestException(
+    "이미 존재하는 board url입니다.",
+  ),
 };

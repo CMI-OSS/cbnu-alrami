@@ -1,12 +1,23 @@
-import { Controller, Get, Inject, Param, ParseIntPipe } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  ParseIntPipe,
+  Post,
+} from "@nestjs/common";
 import { BoardService } from "./board.service";
+import { BoardCreateDto } from "./dto/board.create.dto";
 
 @Controller("board")
 export class BoardController {
-  constructor(private boardService: BoardService) {}
+  constructor(private readonly boardService: BoardService) {}
 
-  @Get(":boardId")
-  test(@Param("boardId", ParseIntPipe) id: number): Promise<boolean> {
-    return this.boardService.test(id);
+  @Post()
+  async create(@Body() boardCreateDto: BoardCreateDto) {
+    const board = await this.boardService.create(boardCreateDto);
+    return board;
   }
+
 }

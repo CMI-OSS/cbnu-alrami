@@ -6,6 +6,8 @@ import {
   Param,
   Post,
   Put,
+  UsePipes,
+  ValidationPipe,
 } from "@nestjs/common";
 import { BoardService } from "./board.service";
 import { BoardCreateDto } from "./dto/board.create.dto";
@@ -17,6 +19,7 @@ export class BoardController {
   constructor(private readonly boardService: BoardService) {}
 
   @Post()
+  @UsePipes(ValidationPipe)
   async create(@Body() boardCreateDto: BoardCreateDto) {
     const board = await this.boardService.create(boardCreateDto);
     return board;
@@ -33,6 +36,7 @@ export class BoardController {
   }
 
   @Put(":boardId")
+  @UsePipes(ValidationPipe)
   async update(
     @Param("boardId") boardId: number,
     @Body() boardUpdateDto: BoardUpdateDto,

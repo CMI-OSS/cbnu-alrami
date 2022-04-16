@@ -1,4 +1,4 @@
-@import "@shared/styles/color.scss";
+@import "@shared/styles/main.scss";
 @import "src/styles/mixin.scss";
 
 .boardWrite {
@@ -6,7 +6,7 @@
   height: 100vh;
   margin-left: 13rem;
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: $laptop) {
     form {
       width: 100%;
     }
@@ -14,12 +14,12 @@
       display: none;
     }
   }
-  @media screen and (min-width: 1025px) {
+  @media screen and (min-width: ($laptop + 1)) {
     form {
       width: 50%;
     }
     section {
-      display: flex;
+      display: flex
     }
   }
 

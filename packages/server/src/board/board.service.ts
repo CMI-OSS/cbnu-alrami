@@ -43,4 +43,10 @@ export class BoardService {
     if(!Array.isArray(boards) || boards.length == 0) throw NO_DATA_IN_DB;
     return boards;
   }
+
+  async findById(id: number):Promise<Board> {
+    const board = await this.boardRepository.findOne({ id });
+    if(!board) throw NO_DATA_IN_DB;
+    return board;
+  }
 }

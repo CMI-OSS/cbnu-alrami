@@ -26,4 +26,8 @@ export class BoardController {
     return this.boardService.findAll();
   }
 
+  @Get(":boardId")
+  findOne(@Param("boardId") boardId: number): Promise<Board> {
+    return this.boardService.findById(boardId);
+  }
 }

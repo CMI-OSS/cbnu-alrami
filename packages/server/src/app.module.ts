@@ -7,6 +7,7 @@ import { AuthModule } from "./auth/auth.module";
 import configuration from "./@config/configuration";
 import { FcmModule } from "./fcm/fcm.module";
 import { AwsModule } from "./aws/aws.module";
+import { BoardModule } from "./board/board.module";
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { AwsModule } from "./aws/aws.module";
     }),
     FcmModule,
     AuthModule,
-    AwsModule
+    AwsModule,
+    BoardModule,
   ],
   providers: [
     {

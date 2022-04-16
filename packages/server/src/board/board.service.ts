@@ -3,6 +3,7 @@ import { Errors } from "src/common/exception/exception.global";
 import { UnauthorizedException } from "src/common/exception/exception.response";
 import { BoardRepository } from "./board.repository";
 import { BoardCreateDto } from "./dto/board.create.dto";
+import { Board } from "src/@entities/board.entity";
 
 const { NO_DATA_IN_DB, DUPLICATE_BOARD_NAME, DUPLICATE_BOARD_URL } = Errors;
 
@@ -35,5 +36,11 @@ export class BoardService {
 
     if (!board) throw NO_DATA_IN_DB;
     return board;
+  }
+
+  async findAll(): Promise<Board[]> {
+    const boards:Board[] = await this.boardRepository.find();
+    if(!Array.isArray(boards) || boards.length == 0) throw NO_DATA_IN_DB;
+    return boards;
   }
 }

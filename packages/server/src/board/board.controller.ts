@@ -9,15 +9,21 @@ import {
 } from "@nestjs/common";
 import { BoardService } from "./board.service";
 import { BoardCreateDto } from "./dto/board.create.dto";
+import { Board } from "../@entities/board.entity";
 
-@Controller("board")
+@Controller("boards")
 export class BoardController {
   constructor(private readonly boardService: BoardService) {}
 
-  @Post()
+  @Post("")
   async create(@Body() boardCreateDto: BoardCreateDto) {
     const board = await this.boardService.create(boardCreateDto);
     return board;
+  }
+
+  @Get()
+  async findAll(): Promise<Board[]> {
+    return this.boardService.findAll();
   }
 
 }

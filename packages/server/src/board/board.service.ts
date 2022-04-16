@@ -4,6 +4,7 @@ import { BoardRepository } from "./board.repository";
 import { BoardCreateDto } from "./dto/board.create.dto";
 import { Board } from "src/@entities/board.entity";
 import { DeleteResult } from "typeorm";
+import { BoardUpdateDto } from "./dto/board.update.dto";
 
 const { NO_DATA_IN_DB, DUPLICATE_BOARD_NAME, DUPLICATE_BOARD_URL } = Errors;
 
@@ -48,6 +49,12 @@ export class BoardService {
     const board = await this.boardRepository.findOne({ id });
     if (!board) throw NO_DATA_IN_DB;
     return board;
+  }
+
+  async update(id: number, boardUpdateDto: BoardUpdateDto): Promise<void> {
+    const board = await this.findById(id);
+    this.boardRepository.merge(board, boardUpdateDto);
+    await this.boardRepository.save(boardUpdateDto);
   }
 
   async remove(id: number): Promise<DeleteResult> {

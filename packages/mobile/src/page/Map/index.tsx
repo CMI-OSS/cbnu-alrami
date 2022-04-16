@@ -6,6 +6,7 @@ import { PlaceArrow } from "@components/atoms/icon/PlaceArrow";
 import { NavLink } from "react-router-dom";
 import $ from "./style.module.scss";
 import { placeInfoList } from "../../__mocks__/placeInfoList";
+import Footer from "@components/molecules/Footer";
 
 const makeMarker = (map: naver.maps.Map, position: naver.maps.LatLng) => {
   return new naver.maps.Marker({
@@ -56,6 +57,7 @@ function Map() {
           <span className="blind">장소탐색하기</span>
         </NavLink>
       </div>
+      <Footer />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import $ from "./style.module.scss";
 import { Setting, 비, Covid, Info, Write } from "../../components/atoms/icon";
 import BorderBox from "../../components/atoms/BorderBox";
 import Line from "../../components/atoms/Line";
+import Footer from "@components/molecules/Footer";
 
 function Home() {
   const schedules = [
@@ -86,6 +87,7 @@ function Home() {
           </div>
         </BorderBox>
       </div>
+      <Footer />
     </section>
   );
 }

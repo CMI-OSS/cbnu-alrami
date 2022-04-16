@@ -8,7 +8,6 @@ import Home from "./page/Home";
 import Map from "./page/Map";
 import Notification from "./page/Notification";
 import Category from "./page/Category";
-import Footer from "./components/molecules/Footer";
 
 function App() {
   const routes = [
@@ -28,7 +27,6 @@ function App() {
         ))}
         <Route path="*" element={<Navigate replace to="/home" />} />
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 }

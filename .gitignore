@@ -7,5 +7,8 @@ build
 dist
 yarn-error.log
 dev.yaml
+prod.yaml
+access.private.key
+
 *.log
 *.key

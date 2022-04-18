@@ -1,7 +1,7 @@
 import { Controller, Get } from "@nestjs/common";
-import { PageQuery } from "src/@decorator/PageQuery.decorator";
-import { UserField } from "src/@decorator/userField.decorator";
-import { Admin } from "src/@entities/admin.entity";
+import { PageQuery } from "src/commons/decorators/PageQuery.decorator";
+import { UserField } from "src/commons/decorators/userField.decorator";
+import { Admin } from "src/commons/entities/admin.entity";
 import { AdminCredential } from "src/auth/dto/adminCredential.dto";
 import { FindManyOptions } from "typeorm";
 import { AdminService } from "./admin.service";

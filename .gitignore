@@ -12,3 +12,5 @@ access.private.key
 
 *.log
 *.key
+.idea/
+*.iml

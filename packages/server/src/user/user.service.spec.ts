@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { Authority } from "src/@constants/enums";
-import { Admin } from "src/@entities/admin.entity";
+import { Authority } from "src/commons/constants/enums";
+import { Admin } from "src/commons/entities/admin.entity";
 import { UserService } from "./user.service";
 
 const users: Array<Admin> = [

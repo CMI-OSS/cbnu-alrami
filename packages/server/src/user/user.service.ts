@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { User } from "src/@entities/user.entity";
+import { User } from "src/commons/entities/user.entity";
 import {
   DeepPartial,
   DeleteResult,
@@ -9,11 +9,12 @@ import {
   FindOneOptions,
   ObjectLiteral,
 } from "typeorm";
-import { errors } from "src/@error";
+import { errors } from "src/commons/error";
 import { UserCreateDto } from "./dto/userCreate.dto";
 import { UserRepository } from "./repository/user.repository";
 
 const { USER_NOT_FOUND, DB_ERROR } = errors;
+
 @Injectable()
 export class UserService {
   constructor(

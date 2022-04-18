@@ -1,4 +1,4 @@
-import { Authority } from "src/@constants/enums";
+import { Authority } from "src/commons/constants/enums";
 import { Column, Entity } from "typeorm";
 import { CommonEntity } from "./common.entity";
 

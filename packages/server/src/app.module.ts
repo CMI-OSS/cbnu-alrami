@@ -2,11 +2,12 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { APP_GUARD } from "@nestjs/core";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { JwtGuard } from "./@guard/jwt.guard";
+import { JwtGuard } from "./commons/guards/jwt.guard";
 import { AuthModule } from "./auth/auth.module";
-import configuration from "./@config/configuration";
+import configuration from "./commons/config/configuration";
 import { FcmModule } from "./fcm/fcm.module";
 import { AwsModule } from "./aws/aws.module";
+import { BoardModule } from "./board/board.module";
 
 @Module({
   imports: [
@@ -18,13 +19,14 @@ import { AwsModule } from "./aws/aws.module";
       imports: [ ConfigModule ],
       useFactory: async (config: ConfigService) => ({
         ...config.get("db"),
-        entities: [ `${__dirname}/@entities/*.js` ],
+        entities: [ `${__dirname}/commons/entities/*.js` ],
       }),
       inject: [ ConfigService ],
     }),
     FcmModule,
     AuthModule,
-    AwsModule
+    AwsModule,
+    BoardModule,
   ],
   providers: [
     {

@@ -4,6 +4,7 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import classNames from "classnames";
 import { boardCategories } from "src/__mockData__";
 import Editor from "src/components/Editor";
+import { useDebounceInput, useWindowResize } from "src/hooks";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { writeBoard } from "src/store/boardSlice";
 

@@ -1,3 +1,4 @@
+import { now } from "lodash";
 import {
   BaseEntity,
   CreateDateColumn,
@@ -9,9 +10,15 @@ export abstract class CommonEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @CreateDateColumn()
-  createdAt!: Date;
+  @CreateDateColumn({
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updatedAt!: Date;
+  @UpdateDateColumn({
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  updatedAt: Date;
 }

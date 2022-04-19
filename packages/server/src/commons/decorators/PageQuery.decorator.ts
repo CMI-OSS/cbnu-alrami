@@ -24,6 +24,11 @@ export const PageQuery = createParamDecorator(
   (data: unknown, ctx: ExecutionContext): FindManyOptions<unknown> => {
     const { query } = ctx.switchToHttp().getRequest();
     const { limit, page, ...options } = query;
-    return {take:limit, skip: limit*(page-1), where: options};
+    const result = { take: limit, skip: limit * (page - 1), where: options };
+    if (!limit || !page) {
+      result.take = 10;
+      result.skip = 0;
+    }
+    return result;
   },
 );

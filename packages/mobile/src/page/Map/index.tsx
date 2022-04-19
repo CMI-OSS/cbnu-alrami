@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import { PlaceArrow } from "@components/atoms/icon/PlaceArrow";
 import { PlaceMenu } from "@components/atoms/icon/PlaceMenu";
 import { SmallPlaceMenu } from "@components/atoms/icon/SmallPlaceMenu";
+import Footer from "@components/molecules/Footer";
 import MenuButtonList from "@components/molecules/MenuButtonList";
 
 import { placeInfoList } from "../../__mocks__/placeInfoList";
@@ -54,11 +55,12 @@ function Map() {
           </span>
           <PlaceArrow className={$.arrow} />
         </div>
-        <NavLink to="../category" className={$.link}>
+        <NavLink to="/category" className={$.link}>
           <PlaceMenu className={$.icon} />
           <span className="blind">장소탐색하기</span>
         </NavLink>
       </div>
+      <Footer />
     </div>
   );
 }

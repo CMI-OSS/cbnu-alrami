@@ -8,31 +8,31 @@ function Footer() {
       id: 1,
       icon: Speaker,
       label: "공지",
-      to: "notification",
+      to: "/notification",
     },
     {
       id: 2,
       icon: Calendar,
       label: "일정",
-      to: "calendar",
+      to: "/calendar",
     },
     {
       id: 3,
       icon: Home,
       label: "홈",
-      to: "home",
+      to: "/home",
     },
     {
       id: 4,
       icon: Food,
       label: "식단",
-      to: "cafeteria",
+      to: "/cafeteria",
     },
     {
       id: 5,
       icon: Map,
       label: "캠퍼스맵",
-      to: "map",
+      to: "/map",
     },
   ];
 

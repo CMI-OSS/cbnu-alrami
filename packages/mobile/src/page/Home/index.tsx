@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-pascal-case */
 import { Link } from "react-router-dom";
 
+import Footer from "@components/molecules/Footer";
 import Menu from "src/components/atoms/Chip";
 import { Arrow } from "src/components/atoms/icon/Arrow";
 
@@ -88,6 +89,7 @@ function Home() {
           </div>
         </BorderBox>
       </div>
+      <Footer />
     </section>
   );
 }

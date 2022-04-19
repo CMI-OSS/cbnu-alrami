@@ -10,7 +10,6 @@ import AdminManagementPage from "./pages/AdminManagementPage";
 import BoardPage from "./pages/BoardPage";
 import LoginPage from "./pages/Login";
 import { store } from "./store";
-import "@shared/styles/global.scss";
 import "./admin.scss";
 
 function App() {

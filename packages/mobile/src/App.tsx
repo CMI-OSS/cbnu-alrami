@@ -1,4 +1,4 @@
-import "@shared/styles/global.scss";
+import "./mobile.scss";
 import { hot } from "react-hot-loader";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";

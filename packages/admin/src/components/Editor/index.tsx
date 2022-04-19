@@ -5,6 +5,7 @@ import "react-quill/dist/quill.snow.css";
 import { useDebounceInput } from "src/hooks";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { writeBoard } from "src/store/boardSlice";
+
 import $ from "./style.module.scss";
 
 export default function Editor() {

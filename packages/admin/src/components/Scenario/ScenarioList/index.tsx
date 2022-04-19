@@ -1,4 +1,5 @@
 import { ScenarioType } from "@shared/types";
+
 import Card from "../ScenarioCard";
 import $ from "./style.module.scss";
 

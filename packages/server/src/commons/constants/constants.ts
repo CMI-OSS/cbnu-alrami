@@ -1,8 +1,9 @@
 import { readFileSync } from "fs";
 import { join } from "path";
+
+import configuration from "src/commons/config/configuration";
 import { Admin } from "src/commons/entities/admin.entity";
 import { User } from "src/commons/entities/user.entity";
-import configuration from "src/commons/config/configuration";
 
 const yaml = configuration();
 export const ROOT_DIR = join(__dirname, "../../../");

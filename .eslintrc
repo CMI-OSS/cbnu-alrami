@@ -24,6 +24,8 @@
     "react/prop-types": 0,
     "react/react-in-jsx-scope": 0,
     "react/self-closing-comp": 0,
+    "class-methods-use-this": 0,
+    "max-classes-per-file": 0,
     "react/jsx-filename-extension": [
       2,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }

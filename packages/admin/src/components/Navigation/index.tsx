@@ -75,7 +75,7 @@ export default function Navigation() {
         <li className={$.logo}>CMI</li>
         <ul>
           {navMenus.map(({ label, menus }, idx) => (
-            <li key={`${menus}`}>
+            <li key={label}>
               <p>{label}</p>
               <ul className={idx === active ? $["list-activated"] : ""}>
                 {menus.map(({ path, label }) => (

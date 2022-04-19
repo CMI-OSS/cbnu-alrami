@@ -1,4 +1,5 @@
 @import "@shared/styles/color.scss";
+@import "@shared/styles/variables.scss";
 
 @mixin hover-status($color, $decoration) {
   color: $color;
@@ -97,7 +98,7 @@
   padding: 11px 15px 11px 13px;
   background-color: $white;
   border-top: 3px solid $background;
-  box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.03);
+  box-shadow: $border-box-shadow;
 }
 
 .hash_link {

@@ -51,13 +51,13 @@ const imageList = [
 ];
 
 function Category() {
-  const [menu, setMenu] = useState(1);
-  const [hash, setHash] = useState(1);
+  const [ menu, setMenu ] = useState(1);
+  const [ hash, setHash ] = useState(1);
 
   return (
     <>
       <div className={$.header}>
-        <NavLink to="../map" className={$.link}>
+        <NavLink to="/map" className={$.link}>
           <MapArrow />
           <span className="blind">뒤로가기</span>
         </NavLink>
@@ -110,7 +110,7 @@ function Category() {
         <div className={$.image_list}>
           {imageList.map((item, idx) => {
             return (
-              <NavLink to="./" className={$.item} key={`menu-${idx}`}>
+              <NavLink to="/" className={$.item} key={`menu-${idx}`}>
                 <img
                   className={$.school_image}
                   src={item.src}

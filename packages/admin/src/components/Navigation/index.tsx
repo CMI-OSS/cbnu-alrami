@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { NavLink, useLocation, useMatch } from "react-router-dom";
+
 import classnames from "classnames";
 import { useAppSelector } from "src/store";
+
 import $ from "./style.module.scss";
 
 const SCRAPER_MENUS = {

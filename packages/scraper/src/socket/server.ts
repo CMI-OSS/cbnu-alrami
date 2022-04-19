@@ -1,19 +1,4 @@
 import { ScraperState, ScraperType } from "@shared/types";
-import { Server, Socket } from "socket.io";
-import NoticeScraper from "src/scrapers/NoticeScraper";
-import CalendarScrpaer from "src/scrapers/CalendarScraper";
-import CafeteriaScraper from "src/scrapers/CafeteriaScraper";
-import DomitoryScraper from "src/scrapers/DomitoryScraper";
-import CovidScraper from "src/scrapers/CovidScraper";
-import { SocketMessage } from "@shared/types/Socket/SocketMessage";
-import {
-  InitScraperMessage,
-  INIT_SCRAPER_EVENT,
-} from "@shared/types/Socket/InitScraper";
-import {
-  ChangeScraperStateMessage,
-  CHANGE_SCRAPER_STATE_EVENT,
-} from "@shared/types/Socket/ChangeScraperState";
 import {
   AppendLogMessage,
   AppendLogPayload,
@@ -24,6 +9,22 @@ import {
   ChangeScenarioQueuePayload,
   CHANGE_SCENARIO_QUEUE_EVENT,
 } from "@shared/types/Socket/ChangeScenarioQueue";
+import {
+  ChangeScraperStateMessage,
+  CHANGE_SCRAPER_STATE_EVENT,
+} from "@shared/types/Socket/ChangeScraperState";
+import {
+  InitScraperMessage,
+  INIT_SCRAPER_EVENT,
+} from "@shared/types/Socket/InitScraper";
+import { SocketMessage } from "@shared/types/Socket/SocketMessage";
+import { Server, Socket } from "socket.io";
+import CafeteriaScraper from "src/scrapers/CafeteriaScraper";
+import CalendarScrpaer from "src/scrapers/CalendarScraper";
+import CovidScraper from "src/scrapers/CovidScraper";
+import DomitoryScraper from "src/scrapers/DomitoryScraper";
+import NoticeScraper from "src/scrapers/NoticeScraper";
+
 import { socketHandler } from "./handler";
 
 const io = new Server({ cors: { origin: "*" } });

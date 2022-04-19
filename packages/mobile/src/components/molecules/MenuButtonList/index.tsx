@@ -1,9 +1,10 @@
-import Flicking from "@egjs/react-flicking";
 import MenuButton from "@components/atoms/MenuButton";
+import Flicking from "@egjs/react-flicking";
+
 import $ from "./style.module.scss";
 
 function MenuButtonList() {
-  const items = ["학교", "음식점"];
+  const items = [ "학교", "음식점" ];
 
   return (
     <Flicking

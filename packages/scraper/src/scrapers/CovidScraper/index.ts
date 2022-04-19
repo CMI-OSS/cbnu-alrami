@@ -1,8 +1,9 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-useless-catch */
 import { ScraperType } from "@shared/types";
-import Scraper from "../Scraper";
+
 import { Scenario } from "../Scenario";
+import Scraper from "../Scraper";
 
 interface CovidDetailInfo {
   typeOfPlace: string;

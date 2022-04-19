@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
+import { ScraperLog, ScraperState, ScraperType } from "@shared/types";
+import find from "find";
+import { stringify } from "javascript-stringify";
 import puppeteer, { Page } from "puppeteer";
 import { isDev, Queue } from "src/common";
-import { stringify } from "javascript-stringify";
-import find from "find";
-import { ScraperLog, ScraperState, ScraperType } from "@shared/types";
 import {
   sendChangeScenarioQueue,
   sendChangeScraperState,
   sendAppendLog,
 } from "src/socket/server";
+
 import { Scenario } from "./Scenario";
 
 const WINDOW_SIZE = {

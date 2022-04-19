@@ -110,6 +110,7 @@ function Category() {
         <div className={$.image_list}>
           {imageList.map((item, idx) => {
             return (
+              // eslint-disable-next-line react/no-array-index-key
               <NavLink to="/" className={$.item} key={`menu-${idx}`}>
                 <img
                   className={$.school_image}

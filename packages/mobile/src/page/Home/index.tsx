@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-pascal-case */
 import { Link } from "react-router-dom";
 
+import Footer from "@components/molecules/Footer";
 import Menu from "src/components/atoms/Chip";
 import { Arrow } from "src/components/atoms/icon/Arrow";
 
 import BorderBox from "../../components/atoms/BorderBox";
 import { Setting, 비, Covid, Info, Write } from "../../components/atoms/icon";
 import Line from "../../components/atoms/Line";
-import Footer from "@components/molecules/Footer";
 import $ from "./style.module.scss";
 
 function Home() {

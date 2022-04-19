@@ -4,5 +4,5 @@ module.exports = {
     "@babel/preset-env",
     "@babel/preset-typescript",
   ],
-  plugins: ["react-hot-loader/babel"],
+  plugins: [ "react-hot-loader/babel" ],
 };

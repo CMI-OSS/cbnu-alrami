@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import { debounce } from "../lib/debounce";
 
 export default function useWindowResize() {

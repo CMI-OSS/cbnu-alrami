@@ -1,6 +1,7 @@
 import { ScenarioType } from "@shared/types";
 import { useQuery } from "src/hooks";
 import { getScenarioGroups } from "src/lib/scenario";
+
 import ScenarioList from "../ScenarioList";
 import $ from "./style.module.scss";
 

@@ -1,10 +1,14 @@
+
 import { useEffect } from "react";
-import MenuButtonList from "@components/molecules/MenuButtonList";
+import { NavLink } from "react-router-dom";
+
+import { PlaceArrow } from "@components/atoms/icon/PlaceArrow";
 import { PlaceMenu } from "@components/atoms/icon/PlaceMenu";
 import { SmallPlaceMenu } from "@components/atoms/icon/SmallPlaceMenu";
-import { PlaceArrow } from "@components/atoms/icon/PlaceArrow";
-import $ from "./style.module.scss";
+import MenuButtonList from "@components/molecules/MenuButtonList";
+
 import { placeInfoList } from "../../__mocks__/placeInfoList";
+import $ from "./style.module.scss";
 
 const makeMarker = (map: naver.maps.Map, position: naver.maps.LatLng) => {
   return new naver.maps.Marker({
@@ -50,10 +54,10 @@ function Map() {
           </span>
           <PlaceArrow className={$.arrow} />
         </div>
-        <a href="." className={$.link}>
+        <NavLink to="../category" className={$.link}>
           <PlaceMenu className={$.icon} />
           <span className="blind">장소탐색하기</span>
-        </a>
+        </NavLink>
       </div>
     </div>
   );

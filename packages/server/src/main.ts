@@ -1,18 +1,20 @@
 import { NestFactory } from "@nestjs/core";
-import helmet from "helmet";
-import * as csurf from "csurf";
 import * as compression from "compression";
+import * as express from "express";
+import helmet from "helmet";
+
 import { AppModule } from "./app.module";
-import getConfiguration from "./config/configuration";
+import { HttpExceptionFilter } from "./common/filter/http.exception.filter";
+import getConfiguration from "./commons/config/configuration";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
   app.use(helmet());
-  app.use(csurf());
   app.use(compression());
+  app.enableCors();
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.useGlobalFilters(new HttpExceptionFilter());
   await app.listen(getConfiguration().http.port);
-
-  // console.log(getConfiguration());   //환경변수 로딩 확인 코드
 }
 bootstrap();

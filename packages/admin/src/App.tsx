@@ -1,11 +1,14 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import ScraperPage from "src/pages/ScraperPage";
-import { Provider } from "react-redux";
 import { hot } from "react-hot-loader";
+import { Provider } from "react-redux";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import useSocket from "src/hooks/useSocket";
+import ScraperPage from "src/pages/ScraperPage";
+
 import Navigation from "./components/Navigation";
-import LoginPage from "./pages/Login";
+import AdminManagementPage from "./pages/AdminManagementPage";
 import BoardPage from "./pages/BoardPage";
+import LoginPage from "./pages/Login";
 import { store } from "./store";
 import "./admin.scss";
 
@@ -20,6 +23,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/board/*" element={<BoardPage />} />
           <Route path="/scraper/*" element={<ScraperPage />} />
+          <Route path="/manage/*" element={<AdminManagementPage />} />
           <Route path="*" element={<Navigate to="/scraper/notice" />} />
         </Routes>
       </BrowserRouter>

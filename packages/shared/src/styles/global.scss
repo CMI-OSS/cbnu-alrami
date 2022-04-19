@@ -157,9 +157,9 @@ select:focus {
     box-sizing: border-box;
 }
 a {
-    all: unset;
     color: inherit;
     text-decoration: none;
+    cursor: pointer;
 }
 img {
     border: 0;

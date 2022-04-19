@@ -1,14 +1,13 @@
-import noticeScenariosMockData from "./noticeScenarios";
-import studentRestaurantScenariosMockData from "./studentRestaurantScenarios";
-import domitoryRestaurantScenariosMockData from "./domitoryRestaurantScenarios";
-import collegeScheduleMockData from "./collegeScheduleScenarios";
-
-import noticeScenarioQueue from "./noticeScenarioQueue";
-import studentScenarioQueue from "./studentRestaurantScenarioQueue";
-import domitoryScenarioQueue from "./domitoryRestarantScenarioQueue";
-import scheduleScenarioQueue from "./collegeScheduleScenarioQueue";
-
+import admins from "./admins";
 import boardCategories from "./boardCategories";
+import scheduleScenarioQueue from "./collegeScheduleScenarioQueue";
+import collegeScheduleMockData from "./collegeScheduleScenarios";
+import domitoryScenarioQueue from "./domitoryRestarantScenarioQueue";
+import domitoryRestaurantScenariosMockData from "./domitoryRestaurantScenarios";
+import noticeScenarioQueue from "./noticeScenarioQueue";
+import noticeScenariosMockData from "./noticeScenarios";
+import studentScenarioQueue from "./studentRestaurantScenarioQueue";
+import studentRestaurantScenariosMockData from "./studentRestaurantScenarios";
 
 export {
   noticeScenariosMockData,
@@ -20,4 +19,5 @@ export {
   noticeScenarioQueue,
   studentScenarioQueue,
   boardCategories,
+  admins,
 };

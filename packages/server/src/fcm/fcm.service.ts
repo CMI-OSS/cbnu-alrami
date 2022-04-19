@@ -1,13 +1,9 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable camelcase */
-/* eslint-disable no-useless-constructor */
-// eslint-disable-next-line class-methods-use-this
-
 import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
 } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import * as FCM from "fcm-node";
 import { isNil } from "lodash";
 
@@ -17,12 +13,12 @@ import { Data } from "./fcm.interfaces";
 export class FcmService {
   private readonly serverKey;
   private readonly fcm;
-  constructor() {
-    // this.serverKey = this.configService.get("serverKey");
-    // this.fcm = new FCM(this.serverKey);
+  constructor(private readonly configService: ConfigService) {
+    this.serverKey = this.configService.get("fcm").serverKey;
+    this.fcm = new FCM(this.serverKey);
   }
 
-  private message(to: string, data: Data, collapse_key: string) {
+  private static message(to: string, data: Data, collapseKey: string) {
     try {
       const { title, body } = data;
 
@@ -32,7 +28,7 @@ export class FcmService {
 
       return {
         to,
-        collapse_key,
+        collapse_key: collapseKey,
         notification: {
           title: data.title,
           body: data.body,
@@ -48,7 +44,7 @@ export class FcmService {
   public sendNoticeAndroid(to: string, data: Data) {
     try {
       this.fcm.send(
-        this.message(to, data, "com.jaryapp.myapplication3"),
+        FcmService.message(to, data, "com.jaryapp.myapplication3"),
         (err, res) => {
           if (err) {
             console.log(err);
@@ -66,7 +62,7 @@ export class FcmService {
   public sendNoticeIos(to: string, data: Data) {
     try {
       this.fcm.send(
-        this.message(to, data, "com.cmi.cbnu-alrami"),
+        FcmService.message(to, data, "com.cmi.cbnu-alrami"),
         (err, res) => {
           if (err) {
             console.log(err);

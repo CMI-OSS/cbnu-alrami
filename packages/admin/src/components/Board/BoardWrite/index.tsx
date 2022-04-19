@@ -50,7 +50,7 @@ export default function BoardWrite() {
   }, [ boardContent ]);
 
   const autoResizeTextArea = useCallback(() => {
-    if (refs.current) {
+    if (refs.current[0]) {
       refs.current[0].style.height = "auto";
       refs.current[0].style.height = `${refs.current[0].scrollHeight}px`;
     }

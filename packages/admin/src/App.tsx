@@ -7,7 +7,6 @@ import Navigation from "./components/Navigation";
 import LoginPage from "./pages/Login";
 import BoardPage from "./pages/BoardPage";
 import { store } from "./store";
-import "@shared/styles/global.scss";
 import "./admin.scss";
 
 function App() {

@@ -1,4 +1,5 @@
 import { createParamDecorator, ExecutionContext } from "@nestjs/common";
+import { FindManyOptions } from "typeorm";
 // import { Request } from "express";
 
 // enum OrderDirection {
@@ -20,7 +21,9 @@ import { createParamDecorator, ExecutionContext } from "@nestjs/common";
 // }
 
 export const PageQuery = createParamDecorator(
-  (data: unknown, ctx: ExecutionContext): any => {
-    return data;
+  (data: unknown, ctx: ExecutionContext): FindManyOptions<unknown> => {
+    const { query } = ctx.switchToHttp().getRequest();
+    const { limit, page, ...options } = query;
+    return {take:limit, skip: limit*(page-1), where: options};
   },
 );

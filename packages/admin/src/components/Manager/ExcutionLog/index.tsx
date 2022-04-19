@@ -1,5 +1,7 @@
-import { ScraperLog } from "@shared/types";
 import { useEffect, useRef } from "react";
+
+import { ScraperLog } from "@shared/types";
+
 import $ from "./style.module.scss";
 
 interface Props {

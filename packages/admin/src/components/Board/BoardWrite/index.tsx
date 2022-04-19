@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
+
+import classNames from "classnames";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useWindowResize, useDebounceInput } from "src/hooks";
 import { boardCategories } from "src/__mockData__";

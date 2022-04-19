@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import { admins } from "src/__mockData__";
 import { Authorities } from "src/__mockData__/admins";
 import AdminCard from "../AdminCard";

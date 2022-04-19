@@ -38,11 +38,35 @@
     "import/order": [
       "error",
       {
-        "groups": ["builtin", "external", ["parent", "sibling"], "index"],
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["parent", "sibling"],
+          "index"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "builtin",
+            "position": "before"
+          },
+          {
+            "pattern": "@nest",
+            "group": "builtin",
+            "position": "before"
+          },
+          {
+            "pattern": "*.scss",
+            "group": "unknown",
+            "position": "after"
+          }
+        ],
         "alphabetize": {
           "order": "asc",
           "caseInsensitive": true
         },
+        "pathGroupsExcludedImportTypes": ["react", "@nest"],
         "newlines-between": "always"
       }
     ]

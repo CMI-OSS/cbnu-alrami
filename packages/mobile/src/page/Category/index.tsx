@@ -1,7 +1,9 @@
-import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import { MapArrow } from "src/components/atoms/icon/MapArrow";
+
 import Flicking from "@egjs/react-flicking";
+import { NavLink } from "react-router-dom";
+import { MapArrow } from "src/components/atoms/icon/MapArrow";
+
 import $ from "./style.module.scss";
 
 const menuList = [
@@ -10,7 +12,7 @@ const menuList = [
 ];
 
 function Category() {
-  const [menu, setMenu] = useState(1);
+  const [ menu, setMenu ] = useState(1);
 
   return (
     <>

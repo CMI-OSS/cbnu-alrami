@@ -1,11 +1,13 @@
 import { useEffect } from "react";
-import MenuButtonList from "@components/molecules/MenuButtonList";
+
+import { PlaceArrow } from "@components/atoms/icon/PlaceArrow";
 import { PlaceMenu } from "@components/atoms/icon/PlaceMenu";
 import { SmallPlaceMenu } from "@components/atoms/icon/SmallPlaceMenu";
-import { PlaceArrow } from "@components/atoms/icon/PlaceArrow";
+import MenuButtonList from "@components/molecules/MenuButtonList";
 import { NavLink } from "react-router-dom";
-import $ from "./style.module.scss";
+
 import { placeInfoList } from "../../__mocks__/placeInfoList";
+import $ from "./style.module.scss";
 
 const makeMarker = (map: naver.maps.Map, position: naver.maps.LatLng) => {
   return new naver.maps.Marker({

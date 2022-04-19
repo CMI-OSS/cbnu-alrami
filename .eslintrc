@@ -47,8 +47,11 @@
         ],
         "pathGroups": [
           {
-            "pattern": "react",
+            "pattern": "react*/*",
             "group": "builtin",
+            "patternOptions": {
+              "partial": true
+            },
             "position": "before"
           },
           {
@@ -57,8 +60,8 @@
             "position": "before"
           },
           {
-            "pattern": "*.scss",
-            "group": "unknown",
+            "pattern": "*.[s]css",
+            "group": "index",
             "position": "after"
           }
         ],

@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+
 import { AdminList, NewAdmin } from "src/components/AdminManagement";
 
 export default function AdminManagementPage() {

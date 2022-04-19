@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 import classNames from "classnames";
-import { IoMdArrowDropdown } from "react-icons/io";
-import { useWindowResize, useDebounceInput } from "src/hooks";
 import { boardCategories } from "src/__mockData__";
 import Editor from "src/components/Editor";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { writeBoard } from "src/store/boardSlice";
-import classNames from "classnames";
+
 import $ from "./style.module.scss";
 
 export default function BoardWrite() {

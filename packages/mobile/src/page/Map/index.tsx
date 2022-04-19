@@ -1,10 +1,11 @@
+
 import { useEffect } from "react";
+import { NavLink } from "react-router-dom";
 
 import { PlaceArrow } from "@components/atoms/icon/PlaceArrow";
 import { PlaceMenu } from "@components/atoms/icon/PlaceMenu";
 import { SmallPlaceMenu } from "@components/atoms/icon/SmallPlaceMenu";
 import MenuButtonList from "@components/molecules/MenuButtonList";
-import { NavLink } from "react-router-dom";
 
 import { placeInfoList } from "../../__mocks__/placeInfoList";
 import $ from "./style.module.scss";

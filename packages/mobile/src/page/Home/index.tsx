@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-pascal-case */
 import { Arrow } from "src/components/atoms/icon/Arrow";
 import { Link } from "react-router-dom";
+
 import Menu from "src/components/atoms/Chip";
 import $ from "./style.module.scss";
 import { Setting, 비, Covid, Info, Write } from "../../components/atoms/icon";

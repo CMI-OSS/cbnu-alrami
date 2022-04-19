@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 import Flicking from "@egjs/react-flicking";
-import { NavLink } from "react-router-dom";
 import { MapArrow } from "src/components/atoms/icon/MapArrow";
 
 import $ from "./style.module.scss";

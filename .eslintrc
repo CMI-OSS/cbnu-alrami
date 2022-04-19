@@ -1,6 +1,6 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "prettier", "jsx-a11y"],
+  "plugins": ["@typescript-eslint", "prettier", "jsx-a11y", "import"],
   "ignorePatterns": ["build/**"],
   "extends": [
     "airbnb",
@@ -17,8 +17,8 @@
     "import/extensions": 0,
     "no-use-before-define": 0,
     "import/no-unresolved": 0,
-    "no-useless-constructor": "off",
-    "@typescript-eslint/no-useless-constructor": false,
+    "no-useless-constructor": 0,
+    "@typescript-eslint/no-useless-constructor": 0,
     "import/no-extraneous-dependencies": 0, // 테스트 또는 개발환경을 구성하는 파일에서는 devDependency 사용을 허용
     "no-shadow": 0,
     "react/prop-types": 0,
@@ -34,6 +34,17 @@
       "error",
       "always",
       { "exceptAfterSingleLine": true }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", ["parent", "sibling"], "index"],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "newlines-between": "always"
+      }
     ]
   },
   "parserOptions": {

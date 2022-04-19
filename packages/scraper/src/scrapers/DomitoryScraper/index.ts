@@ -1,11 +1,12 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-useless-catch */
-import { DomitoryScript } from "src/types/DomitoryScript";
-import { DomitoryFood } from "src/types/DomitoryFood";
-import { createMenu } from "src/db/restaurant";
 import { ScraperType } from "@shared/types";
-import Scraper from "../Scraper";
+import { createMenu } from "src/db/restaurant";
+import { DomitoryFood } from "src/types/DomitoryFood";
+import { DomitoryScript } from "src/types/DomitoryScript";
+
 import { Scenario } from "../Scenario";
+import Scraper from "../Scraper";
 
 class DomitoryScraper extends Scraper<DomitoryScript> {
   name = "기숙사 식단";

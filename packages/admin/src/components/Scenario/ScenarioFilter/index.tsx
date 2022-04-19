@@ -1,9 +1,11 @@
 import { ChangeEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
 import queryString from "query-string";
+import scenarios from "src/__mockData__/noticeScenarios";
 import { useQuery } from "src/hooks";
 import { getScenarioGroups } from "src/lib/scenario";
-import scenarios from "src/__mockData__/noticeScenarios";
+
 import $ from "./style.module.scss";
 
 interface Props {

@@ -2,13 +2,14 @@ import "@shared/styles/global.scss";
 import { hot } from "react-hot-loader";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import Footer from "./components/molecules/Footer";
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
+import Category from "./page/Category";
 import Home from "./page/Home";
 import Map from "./page/Map";
 import Notification from "./page/Notification";
-import Category from "./page/Category";
-import Footer from "./components/molecules/Footer";
 
 function App() {
   const routes = [

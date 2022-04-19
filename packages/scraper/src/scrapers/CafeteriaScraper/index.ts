@@ -1,9 +1,10 @@
+import { ScraperType } from "@shared/types";
+import { createMenu } from "src/db/restaurant";
 import { CafeteriaScript } from "src/types";
 import { Menu } from "src/types/Menu";
-import { createMenu } from "src/db/restaurant";
-import { ScraperType } from "@shared/types";
-import Scraper from "../Scraper";
+
 import { Scenario } from "../Scenario";
+import Scraper from "../Scraper";
 
 class CafeteriaScraper extends Scraper<CafeteriaScript> {
   name = "학생식당";

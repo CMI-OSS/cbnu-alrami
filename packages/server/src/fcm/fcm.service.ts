@@ -3,9 +3,10 @@ import {
   Injectable,
   InternalServerErrorException,
 } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import * as FCM from "fcm-node";
 import { isNil } from "lodash";
-import { ConfigService } from "@nestjs/config";
+
 import { Data } from "./fcm.interfaces";
 
 @Injectable()

@@ -1,8 +1,8 @@
-import { COMMAND_SCRAPER_EVENT } from "./CommandScraper";
-import { CHANGE_SCRAPER_STATE_EVENT } from "./ChangeScraperState";
-import { CHANGE_SCENARIO_QUEUE_EVENT } from "./ChangeScenarioQueue";
-import { INIT_SCRAPER_EVENT } from "./InitScraper";
 import { APPEND_LOG_EVENT } from "./AppendLog";
+import { CHANGE_SCENARIO_QUEUE_EVENT } from "./ChangeScenarioQueue";
+import { CHANGE_SCRAPER_STATE_EVENT } from "./ChangeScraperState";
+import { COMMAND_SCRAPER_EVENT } from "./CommandScraper";
+import { INIT_SCRAPER_EVENT } from "./InitScraper";
 
 const SOCKET_EVENT = {
   ...COMMAND_SCRAPER_EVENT,

@@ -1,12 +1,14 @@
 /* eslint-disable react/jsx-pascal-case */
-import { Arrow } from "src/components/atoms/icon/Arrow";
 import { Link } from "react-router-dom";
+
 import Menu from "src/components/atoms/Chip";
-import $ from "./style.module.scss";
-import { Setting, 비, Covid, Info, Write } from "../../components/atoms/icon";
+import { Arrow } from "src/components/atoms/icon/Arrow";
+
 import BorderBox from "../../components/atoms/BorderBox";
+import { Setting, 비, Covid, Info, Write } from "../../components/atoms/icon";
 import Line from "../../components/atoms/Line";
 import Footer from "@components/molecules/Footer";
+import $ from "./style.module.scss";
 
 function Home() {
   const schedules = [
@@ -22,7 +24,7 @@ function Home() {
     "산업인공지능연구센터 연구원 채용 공고",
     "산업인공지능연구센터 연구원 채용 공고",
   ];
-  const menus = ["최신공지", "인기공지"];
+  const menus = [ "최신공지", "인기공지" ];
 
   return (
     <section className={$.home}>

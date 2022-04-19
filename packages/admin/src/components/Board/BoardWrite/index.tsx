@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
-import { useWindowResize, useDebounceInput } from "src/hooks";
+
+import classNames from "classnames";
 import { boardCategories } from "src/__mockData__";
 import Editor from "src/components/Editor";
+import { useDebounceInput, useWindowResize } from "src/hooks";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { writeBoard } from "src/store/boardSlice";
-import classNames from "classnames";
+
 import $ from "./style.module.scss";
 
 export default function BoardWrite() {
@@ -50,7 +52,7 @@ export default function BoardWrite() {
   }, [ boardContent ]);
 
   const autoResizeTextArea = useCallback(() => {
-    if (refs.current) {
+    if (refs.current[0]) {
       refs.current[0].style.height = "auto";
       refs.current[0].style.height = `${refs.current[0].scrollHeight}px`;
     }

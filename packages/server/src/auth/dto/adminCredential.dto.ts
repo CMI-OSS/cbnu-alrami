@@ -1,5 +1,5 @@
 import { Matches } from "class-validator";
-import { Authority } from "src/@constants/enums";
+import { Authority } from "src/commons/constants/enums";
 
 export class AdminCredential {
   id: number;

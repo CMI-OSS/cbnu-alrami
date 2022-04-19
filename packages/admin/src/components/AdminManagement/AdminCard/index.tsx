@@ -1,9 +1,12 @@
 import { ChangeEvent, useState } from "react";
-import classNames from "classnames";
 import { BsArrowBarDown, BsArrowBarUp } from "react-icons/bs";
+
+import classNames from "classnames";
 import { Authorities } from "src/__mockData__/admins";
+
 import SelectedBoard from "../SelectedBoard";
 import $ from "./style.module.scss";
+
 
 export type Admin = {
   id: number;

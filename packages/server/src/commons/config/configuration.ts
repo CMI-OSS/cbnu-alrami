@@ -1,9 +1,10 @@
 import { readFileSync } from "fs";
-import * as yaml from "js-yaml";
 import { join } from "path";
 
+import * as yaml from "js-yaml";
+
 export default () => {
-  const YAML_CONFIG_FILENAME = `../../${
+  const YAML_CONFIG_FILENAME = `../../../${
     process.env.NODE_ENV ? process.env.NODE_ENV : "prod"
   }.yaml`;
   return yaml.load(

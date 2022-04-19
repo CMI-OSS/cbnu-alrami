@@ -1,7 +1,9 @@
-import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import { MapArrow } from "src/components/atoms/icon/MapArrow";
+import { NavLink } from "react-router-dom";
+
 import Flicking from "@egjs/react-flicking";
+import { MapArrow } from "src/components/atoms/icon/MapArrow";
+
 import $ from "./style.module.scss";
 
 const menuList = [

@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Admin } from "src/@entities/admin.entity";
+import { Admin } from "src/commons/entities/admin.entity";
 import {
   DeepPartial,
   DeleteResult,
@@ -9,12 +9,14 @@ import {
   FindOneOptions,
   ObjectLiteral,
 } from "typeorm";
+
+import { errors } from "../commons/error";
 import { AdminCreateDto } from "./dto/adminCreate.dto";
 import { AdminRepository } from "./repository/admin.repository";
-import { errors } from "../@error";
 
 const { ADMIN_NOT_FOUND, NICKNAME_DUPLICATED, LOGIN_ID_DUPLICATED, DB_ERROR } =
   errors;
+
 @Injectable()
 export class AdminService {
   constructor(

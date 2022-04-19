@@ -1,6 +1,6 @@
-import $ from "./style.module.scss";
 import { Calendar, Food, Home, Map, Speaker } from "../../atoms/icon";
 import NavigationLink from "../../atoms/NavigationLink";
+import $ from "./style.module.scss";
 
 function Footer() {
   const routes = [

@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+
 import $ from "./style.module.scss";
 
 type Props = {

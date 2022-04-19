@@ -1,5 +1,5 @@
 import { Matches } from "class-validator";
-import { Authority } from "src/@constants/enums";
+import { Authority } from "src/commons/constants/enums";
 
 export class AdminCreateDto {
   @Matches(/^[a-z0-9_]{4,18}$/)

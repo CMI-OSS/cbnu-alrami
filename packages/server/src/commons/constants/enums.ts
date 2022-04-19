@@ -1,4 +1,3 @@
-
 export enum Authority {
   Super = "Super",
   StudentCouncil = "StudentCouncil",

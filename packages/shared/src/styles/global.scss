@@ -1,4 +1,5 @@
 @import "./main.scss";
+@import "./font.scss";
 
 html,
 body,
@@ -178,9 +179,6 @@ input {
 }
 hr {
     margin: 0;
-}
-::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
 }
 
 .blind {

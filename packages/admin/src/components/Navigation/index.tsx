@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { NavLink, useLocation, useMatch } from "react-router-dom";
+
 import classnames from "classnames";
 import { useAppSelector } from "src/store";
+
 import $ from "./style.module.scss";
 
 const SCRAPER_MENUS = {
@@ -73,7 +75,7 @@ export default function Navigation() {
         <li className={$.logo}>CMI</li>
         <ul>
           {navMenus.map(({ label, menus }, idx) => (
-            <li key={`${menus}`}>
+            <li key={label}>
               <p>{label}</p>
               <ul className={idx === active ? $["list-activated"] : ""}>
                 {menus.map(({ path, label }) => (

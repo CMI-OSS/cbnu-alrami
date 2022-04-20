@@ -1,5 +1,7 @@
-import classNames from "classnames";
 import { MdCancel } from "react-icons/md";
+
+import classNames from "classnames";
+
 import $ from "./style.module.scss";
 
 type Props = {

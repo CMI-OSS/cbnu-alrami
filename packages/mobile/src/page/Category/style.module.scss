@@ -1,4 +1,5 @@
 @import "@shared/styles/color.scss";
+@import "@shared/styles/variables.scss";
 
 @mixin hover-status($color, $decoration) {
   color: $color;
@@ -81,4 +82,101 @@
       @include hover-status(inherit, none);
     }
   }
+}
+
+.content {
+  padding: 11px 15px 0 13px;
+  background-color: $background;
+}
+
+.hash {
+  position: fixed;
+  top: 132px;
+  left: 0;
+  right: 0;
+  display: flex;
+  padding: 11px 15px 11px 13px;
+  background-color: $white;
+  border-top: 3px solid $background;
+  box-shadow: $border-box-shadow;
+}
+
+.hash_link {
+  display: block;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 7px 8px 7px 10px;
+
+  &:not(:first-child) {
+    margin-left: 12px;
+  }
+
+  &[aria-selected="true"] {
+    background-color: $red-20;
+    color: $red-100;
+    border-radius: 100px;
+
+    &:hover {
+      @include hover-status($red-100, none);
+    }
+  }
+
+  &[aria-selected="false"] {
+    background-color: $black-10;
+    color: $black-80;
+    border-radius: 100px;
+
+    &:hover {
+      @include hover-status($black-80, none);
+    }
+  }
+}
+
+.image_list {
+  margin-top: 190px;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: inherit;
+  background-color: $white;
+  padding: 15px 35px 15px 15px;
+  border-radius: 20px;
+
+  &:not(:first-child) {
+    margin-top: 11px;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.school_image {
+  width: 90px;
+  height: 90px;
+  border-radius: 20px;
+}
+
+.summary {
+  flex: 1 1 auto;
+
+  &:not(:first-child) {
+    margin-left: 23px;
+  }
+}
+
+.summary_title {
+  display: block;
+  padding-top: 20px;
+  color: $black-100;
+  line-height: 18px;
+}
+
+.summary_description {
+  display: block;
+  margin-top: 10px;
+  color: $black-40;
 }

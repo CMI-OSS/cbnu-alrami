@@ -1,8 +1,9 @@
-import { Notice, NoticeScript } from "src/types";
-import { createNotice, hasNotice } from "src/db/notice";
 import { ScraperState, ScraperType } from "@shared/types";
-import Scraper from "../Scraper";
+import { createNotice, hasNotice } from "src/db/notice";
+import { Notice, NoticeScript } from "src/types";
+
 import { Scenario } from "../Scenario";
+import Scraper from "../Scraper";
 
 class NoticeScraper extends Scraper<NoticeScript> {
   name = "공지사항";

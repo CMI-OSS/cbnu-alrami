@@ -1,4 +1,5 @@
 import { Controller, Get, Inject, Param, ParseIntPipe } from "@nestjs/common";
+
 import { BoardService } from "./board.service";
 
 @Controller("board")

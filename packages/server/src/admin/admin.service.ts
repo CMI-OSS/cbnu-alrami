@@ -9,9 +9,10 @@ import {
   FindOneOptions,
   ObjectLiteral,
 } from "typeorm";
+
+import { errors } from "../commons/error";
 import { AdminCreateDto } from "./dto/adminCreate.dto";
 import { AdminRepository } from "./repository/admin.repository";
-import { errors } from "../commons/error";
 
 const { ADMIN_NOT_FOUND, NICKNAME_DUPLICATED, LOGIN_ID_DUPLICATED, DB_ERROR } =
   errors;
@@ -29,7 +30,7 @@ export class AdminService {
   }
 
   async find(query: FindManyOptions<Admin>): Promise<Admin[]> {
-    const res = await this.adminRepository.find(query);
+    const res = await this.adminRepository.find({select: [ 'loginId', 'nickname', 'authority' ], ...query});
     return res;
   }
 

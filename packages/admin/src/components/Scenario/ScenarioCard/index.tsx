@@ -1,5 +1,6 @@
 import { Element, ScenarioType, ScenarioStateType } from "@shared/types";
 import classnames from "classnames";
+
 import $ from "./style.module.scss";
 
 type Props = {

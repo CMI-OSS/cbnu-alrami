@@ -45,7 +45,7 @@ export class BoardController {
   async update(
     @Param("boardId") boardId: number,
     @Body() boardUpdateDto: BoardUpdateDto,
-  ): Promise<void> {
+  ): Promise<Board> {
     return this.boardService.update(boardId, boardUpdateDto);
   }
 

@@ -45,11 +45,22 @@ export class BoardService {
     return board;
   }
 
-  async update(id: number, boardUpdateDto: BoardUpdateDto): Promise<void> {
+  /*
+   * 기존 board 객체의 name, url은 중복체크에서 걸리지 않지만, 다른 board의 name, url은 중복체크에 걸리도록 처리
+   */
+  async update(id: number, boardUpdateDto: BoardUpdateDto) {
+    const name = boardUpdateDto.name;
+    const url = boardUpdateDto.url;
+
+    if ((await this.boardRepository.existsByIdAndName(id, name)) > 0)
+      throw DUPLICATE_BOARD_NAME;
+    if ((await this.boardRepository.existsByIdAndUrl(id, url)) > 0)
+      throw DUPLICATE_BOARD_URL;
+
     const board = await this.findById(id);
     const newBoard = Object.assign(board, boardUpdateDto);
 
-    await this.boardRepository.save(newBoard);
+    return await this.boardRepository.save(newBoard);
   }
 
   async remove(id: number): Promise<DeleteResult> {

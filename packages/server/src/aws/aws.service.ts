@@ -6,44 +6,50 @@ import * as AWS from "aws-sdk";
 export class AwsService {
   private awsS3;
   private bucketName;
+
   constructor(private readonly configService: ConfigService) {
-    this.awsS3 = new AWS.S3({
-      accessKeyId: this.configService.get("awsS3").accessKeyId,
-      secretAccessKey: this.configService.get("awsS3").secretAccessKey,
-      region: this.configService.get("awsS3").region,
-    });
-    this.bucketName = this.configService.get("awsS3").bucketName;
+    this.awsS3 = new AWS.S3(this.configService.get("awsS3"));
+    this.bucketName = this.configService.get("s3BucketName");
   }
 
-  public async uploadFileToS3(
+  public async uploadImagesToS3(
     folder: string,
-    file: Express.Multer.File,
-  ): Promise<string> {
+    images: Express.Multer.File[],
+  ): Promise<string[]> {
     try {
-      const { buffer, originalname } = file;
-      const key = `${folder}/${originalname}`;
-      await this.awsS3
-        .upload({
-          Bucket: this.bucketName,
-          ACL: "public-read",
-          Key: key,
-          Body: buffer,
-        })
-        .promise();
+      const locations = [];
 
-      const location = await AwsService.getFileUri(this.bucketName, key);
+      for (const image of images) {
+        const { mimetype, buffer, fieldname } = image;
+        const date = new Date().getTime();
+        const extension = mimetype.split("/")[1];
+        const key = `${folder}/${fieldname}_${date}.${extension}`;
 
-      return location;
+        this.awsS3
+          .putObject({
+            Bucket: this.bucketName,
+            Key: key,
+            Body: buffer,
+            ACL: "public-read",
+            ContentType: mimetype,
+          })
+          .promise();
+
+        const imageUrl = this.getAwsS3ImageUrl(key);
+        locations.push(imageUrl);
+      }
+      return locations;
     } catch (error) {
       throw new BadRequestException("이미지 업로드에 실패했습니다.");
     }
   }
 
   public async deleteFileFromS3(
+    folder: string,
     location: string,
     callback?: (err: AWS.AWSError, data: AWS.S3.DeleteObjectOutput) => void,
-  ): Promise<void> {
-    const key = await AwsService.decodeUri(location);
+  ): Promise<{ success: true }> {
+    const key = location.split(`s3.amazonaws.com/${folder}/`)[1];
 
     try {
       await this.awsS3
@@ -55,25 +61,13 @@ export class AwsService {
           callback,
         )
         .promise();
+      return { success: true };
     } catch (error) {
       throw new BadRequestException("이미지 삭제에 실패했습니다.");
     }
   }
 
-  private static async getFileUri(
-    bucketName: string,
-    key: string,
-  ): Promise<string> {
-    return AwsService.encodeUri(
-      `https://${bucketName}.s3.amazonaws.com/${key}`,
-    );
-  }
-
-  private static async encodeUri(url: string): Promise<string> {
-    return encodeURI(url);
-  }
-
-  private static async decodeUri(url: string): Promise<string> {
-    return decodeURI(url).split("s3.amazonaws.com/")[1];
+  private getAwsS3ImageUrl(key: string) {
+    return `https://${this.bucketName}.s3.amazonaws.com/${key}`;
   }
 }

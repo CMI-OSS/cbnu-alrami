@@ -4,7 +4,7 @@ import * as express from "express";
 import helmet from "helmet";
 
 import { AppModule } from "./app.module";
-import { HttpExceptionFilter } from "./common/filter/http.exception.filter";
+import { HttpExceptionFilter } from "./commons/filter/http.exception.filter";
 import getConfiguration from "./commons/config/configuration";
 
 async function bootstrap() {

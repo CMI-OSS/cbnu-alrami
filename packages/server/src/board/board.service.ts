@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Errors } from "src/common/exception/exception.global";
+import { Errors } from "src/commons/exception/exception.global";
 
 import { Board } from "../commons/entities/board.entity";
 import { BoardRepository } from "./board.repository";

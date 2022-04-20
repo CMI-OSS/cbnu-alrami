@@ -1,8 +1,4 @@
-import {
-  NotFoundException,
-  BadRequestException,
-  InternalServerErrorException,
-} from "@nestjs/common";
+import { NotFoundException, BadRequestException } from "@nestjs/common";
 
 export type Error = {
   message: string;

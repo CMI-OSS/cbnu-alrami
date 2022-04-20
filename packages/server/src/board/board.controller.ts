@@ -49,11 +49,9 @@ export class BoardController {
     return this.boardService.update(boardId, boardUpdateDto);
   }
 
-  // 리턴 타입 수정 필요
   @Delete(":boardId")
   @Public()
   async remove(@Param("boardId") boardId: number) {
-    const board = await this.boardService.findById(boardId);
     return this.boardService.remove(boardId);
   }
 }

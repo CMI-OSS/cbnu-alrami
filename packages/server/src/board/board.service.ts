@@ -63,7 +63,9 @@ export class BoardService {
     return await this.boardRepository.save(newBoard);
   }
 
-  async remove(id: number): Promise<DeleteResult> {
-    return await this.boardRepository.delete({ id });
+  async remove(id: number): Promise<Boolean> {
+    await this.findById(id);
+    await this.boardRepository.delete({ id });
+    return true;
   }
 }

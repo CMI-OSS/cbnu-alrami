@@ -47,8 +47,9 @@ export class BoardService {
 
   async update(id: number, boardUpdateDto: BoardUpdateDto): Promise<void> {
     const board = await this.findById(id);
-    this.boardRepository.merge(board, boardUpdateDto);
-    await this.boardRepository.save(boardUpdateDto);
+    const newBoard = Object.assign(board, boardUpdateDto);
+
+    await this.boardRepository.save(newBoard);
   }
 
   async remove(id: number): Promise<DeleteResult> {

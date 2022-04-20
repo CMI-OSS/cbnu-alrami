@@ -39,7 +39,6 @@ export class BoardController {
     return this.boardService.findById(boardId);
   }
 
-  // 수정이 아니라 새로 추가되고 있음ㅠ
   @Put(":boardId")
   @Public()
   @UsePipes(ValidationPipe)

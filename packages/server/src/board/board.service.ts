@@ -13,29 +13,23 @@ export class BoardService {
   constructor(private readonly boardRepository: BoardRepository) {}
 
   async create(boardCreateDto: BoardCreateDto) {
-    if (this.findByName(boardCreateDto.name)) throw DUPLICATE_BOARD_NAME;
-    if (this.findByUrl(boardCreateDto.url)) throw DUPLICATE_BOARD_URL;
+    if ((await this.boardRepository.count({ name: boardCreateDto.name })) > 0)
+      throw DUPLICATE_BOARD_NAME;
+    if ((await this.boardRepository.count({ url: boardCreateDto.url })) > 0)
+      throw DUPLICATE_BOARD_URL;
 
     return await this.boardRepository.save(boardCreateDto);
   }
 
   async findByName(name: string) {
-    const board = await this.boardRepository
-      .createQueryBuilder("board")
-      .where("board.name = :name", { name })
-      .getOne();
-
-    if (!board) throw NO_DATA_IN_DB;
+    const board = await this.boardRepository.findOne({ name: name });
+    if (board === null || typeof board === "undefined") throw NO_DATA_IN_DB;
     return board;
   }
 
   async findByUrl(url: string) {
-    const board = await this.boardRepository
-      .createQueryBuilder("board")
-      .where("board.url = :url", { url })
-      .getOne();
-
-    if (!board) throw NO_DATA_IN_DB;
+    const board = await this.boardRepository.findOne({ url: url });
+    if (board === null || typeof board === "undefined") throw NO_DATA_IN_DB;
     return board;
   }
 

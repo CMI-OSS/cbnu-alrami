@@ -1,7 +1,8 @@
 import { FaPlay, FaPause, FaStop } from "react-icons/fa";
 import { MdReplay } from "react-icons/md";
-import classnames from "classnames";
+
 import { ScraperState, ScraperType } from "@shared/types";
+import classnames from "classnames";
 import {
   pauseScraper,
   restartScraper,
@@ -10,6 +11,7 @@ import {
 } from "src/lib/socket";
 import { useAppSelector } from "src/store";
 import { initialScraper } from "src/store/scraperSlice";
+
 import { ScenarioQueue, ExcutionLog } from "..";
 import Tooltip from "../../Tooltip";
 import $ from "./style.module.scss";

@@ -1,14 +1,15 @@
 /* eslint-disable no-useless-constructor */
 import { Injectable } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import * as bcrypt from "bcrypt";
 import { AdminService } from "src/admin/admin.service";
 import { AdminCreateDto } from "src/admin/dto/adminCreate.dto";
+import { errors } from "src/commons/error";
 import { UserService } from "src/user/user.service";
-import * as bcrypt from "bcrypt";
-import { JwtService } from "@nestjs/jwt";
-import { errors } from "src/@error";
+
+import { AdminCredential } from "./dto/adminCredential.dto";
 import { AdminLoginDto } from "./dto/adminLogin.dto";
 import { TokenDto } from "./dto/token.dto";
-import { AdminCredential } from "./dto/adminCredential.dto";
 
 const { LOGIN_INFO_NOT_FOUND } = errors;
 
@@ -19,6 +20,14 @@ export class AuthService {
     private adminService: AdminService,
     private jwtService: JwtService,
   ) {}
+
+  private static matchPassword(
+    inputPassword: string,
+    entityPassword: string,
+  ): boolean {
+    if (!bcrypt.compareSync(inputPassword, entityPassword)) return false;
+    return true;
+  }
 
   async join(adminCreateDto: AdminCreateDto): Promise<boolean> {
     const salt = bcrypt.genSaltSync();
@@ -33,7 +42,7 @@ export class AuthService {
   async adminLogin(adminCredential: AdminCredential): Promise<TokenDto> {
     const tokens: TokenDto = {
       xAccessToken: this.jwtService.sign(adminCredential),
-      //TODO xRefreshToken: this.jwtService.sign({ id:admin.id })
+      // TODO xRefreshToken: this.jwtService.sign({ id:admin.id })
     };
     return tokens;
   }
@@ -50,15 +59,6 @@ export class AuthService {
     if (!admin || !AuthService.matchPassword(password, hashedPassword))
       throw LOGIN_INFO_NOT_FOUND;
     return admin;
-  }
-
-
-  private static matchPassword(
-    inputPassword: string,
-    entityPassword: string,
-  ): boolean {
-    if (!bcrypt.compareSync(inputPassword, entityPassword)) return false;
-    return true;
   }
 
   // modifyPassword(newPassword:string, entityPassword:string): boolean{

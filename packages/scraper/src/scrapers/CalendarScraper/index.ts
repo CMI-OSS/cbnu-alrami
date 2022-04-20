@@ -1,8 +1,9 @@
 /* eslint-disable no-plusplus */
-import Scraper from "src/scrapers/Scraper";
 import { ScraperType } from "@shared/types";
-import { Calendar, CalendarScript } from "src/types";
 import { createSchedule } from "src/db/calendar";
+import Scraper from "src/scrapers/Scraper";
+import { Calendar, CalendarScript } from "src/types";
+
 import { Scenario } from "../Scenario";
 import ArrayToDate from "./ArrayToDate";
 

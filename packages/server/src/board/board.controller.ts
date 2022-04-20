@@ -9,11 +9,12 @@ import {
   UsePipes,
   ValidationPipe,
 } from "@nestjs/common";
+import { Public } from "src/commons/decorators/public.decorator";
+import { Board } from "src/commons/entities/board.entity";
+
 import { BoardService } from "./board.service";
 import { BoardCreateDto } from "./dto/board.create.dto";
-import { Board } from "../@entities/board.entity";
 import { BoardUpdateDto } from "./dto/board.update.dto";
-import { Public } from "src/@decorator/public.decorator";
 
 @Controller("boards")
 export class BoardController {

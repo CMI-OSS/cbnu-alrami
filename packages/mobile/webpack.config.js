@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
-const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 const isAnalyze = process.argv.includes("--analyze");
@@ -26,12 +27,12 @@ module.exports = {
   },
   devtool: prod ? "cheap-source-map" : "eval-cheap-source-map",
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [ ".tsx", ".ts", ".js" ],
     alias: {
       src: path.resolve(__dirname, "./src"),
       "@shared": path.resolve(__dirname, "../shared/src"),
       "@components": path.resolve(__dirname, './src/components'),
-      extensions: [".js", ".ts", ".tsx"],
+      extensions: [ ".js", ".ts", ".tsx" ],
     },
   },
   module: {
@@ -39,7 +40,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         exclude: "/node_modules/",
-        use: ["babel-loader", "ts-loader"],
+        use: [ "babel-loader", "ts-loader" ],
       },
       {
         test: /\.(png|svg)$/,
@@ -54,7 +55,7 @@ module.exports = {
       },
       {
         test: /\.(sc|c)ss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: [ "style-loader", "css-loader", "sass-loader" ],
       },
     ],
   },
@@ -63,7 +64,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),
-    ...(isAnalyze ? [new BundleAnalyzerPlugin()] : []),
+    ...(isAnalyze ? [ new BundleAnalyzerPlugin() ] : []),
     new webpack.HotModuleReplacementPlugin(),
   ],
 };

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import Flicking from "@egjs/react-flicking";
 import { MapArrow } from "src/components/atoms/icon/MapArrow";
 
 import $ from "./style.module.scss";
@@ -67,29 +66,21 @@ function Category() {
         </button>
       </div>
       <div className={$.menu}>
-        <Flicking
-          className={$.flicking}
-          moveType="freeScroll"
-          bound
-          align="prev"
-          horizontal
-        >
-          <div className={$.list}>
-            {menuList.map((item, idx) => {
-              return (
-                <NavLink
-                  key={`menu-${item.id}`}
-                  to={item.path}
-                  className={$.menu_link}
-                  onClick={() => setMenu(idx)}
-                  aria-selected={menu === idx + 1}
-                >
-                  {item.name}
-                </NavLink>
-              );
-            })}
-          </div>
-        </Flicking>
+        <div className={$.list}>
+          {menuList.map((item, idx) => {
+            return (
+              <NavLink
+                key={`menu-${item.id}`}
+                to={item.path}
+                className={$.menu_link}
+                onClick={() => setMenu(idx)}
+                aria-selected={menu === idx + 1}
+              >
+                {item.name}
+              </NavLink>
+            );
+          })}
+        </div>
       </div>
       <div className={$.content}>
         <div className={$.hash}>

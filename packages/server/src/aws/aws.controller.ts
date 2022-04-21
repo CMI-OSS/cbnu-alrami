@@ -19,6 +19,6 @@ export class AwsController {
   async uploadImages(
     @UploadedFiles() images: Express.Multer.File[],
   ): Promise<string[]> {
-    return this.awsService.uploadImagesToS3("image", images);
+    return this.awsService.uploadImagesToS3(images);
   }
 }

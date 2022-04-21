@@ -12,44 +12,25 @@ export class AwsService {
     this.bucketName = this.configService.get("s3BucketName");
   }
 
-  public async uploadImagesToS3(
-    folder: string,
-    images: Express.Multer.File[],
-  ): Promise<string[]> {
+  public async uploadImagesToS3(images: Express.Multer.File[]) {
     try {
-      const locations = [];
+      const imageUrls = await this.uploadImages(images);
 
-      for (const image of images) {
-        const { mimetype, buffer, fieldname } = image;
-        const date = new Date().getTime();
-        const extension = mimetype.split("/")[1];
-        const key = `${folder}/${fieldname}_${date}.${extension}`;
+      const location = imageUrls.map((url) => {
+        return this.getAwsS3ImageUrl(url);
+      });
 
-        this.awsS3
-          .putObject({
-            Bucket: this.bucketName,
-            Key: key,
-            Body: buffer,
-            ACL: "public-read",
-            ContentType: mimetype,
-          })
-          .promise();
-
-        const imageUrl = this.getAwsS3ImageUrl(key);
-        locations.push(imageUrl);
-      }
-      return locations;
+      return location;
     } catch (error) {
-      throw new BadRequestException("이미지 업로드에 실패했습니다.");
+      throw new BadRequestException("이미지 전송에 실패했습니다.");
     }
   }
 
-  public async deleteFileFromS3(
-    folder: string,
+  public async deleteImageFromS3(
     location: string,
     callback?: (err: AWS.AWSError, data: AWS.S3.DeleteObjectOutput) => void,
   ): Promise<{ success: true }> {
-    const key = location.split(`s3.amazonaws.com/${folder}/`)[1];
+    const key = location.split(`s3.amazonaws.com/image/`)[1];
 
     try {
       await this.awsS3
@@ -64,6 +45,33 @@ export class AwsService {
       return { success: true };
     } catch (error) {
       throw new BadRequestException("이미지 삭제에 실패했습니다.");
+    }
+  }
+
+  private async uploadImages(images: Express.Multer.File[]): Promise<string[]> {
+    try {
+      const uploadImages = images.map((image) => {
+        const { mimetype, buffer, fieldname } = image;
+        const date = new Date().getTime();
+        const extension = mimetype.split("/")[1];
+        const key = `${fieldname}/${date}.${extension}`;
+
+        this.awsS3
+          .putObject({
+            Bucket: this.bucketName,
+            Key: key,
+            Body: buffer,
+            ACL: "public-read",
+            ContentType: mimetype,
+          })
+          .promise();
+
+        return key;
+      });
+
+      return uploadImages;
+    } catch (error) {
+      throw new BadRequestException("이미지 업로드에 실패했습니다.");
     }
   }
 

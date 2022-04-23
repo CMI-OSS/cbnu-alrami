@@ -25,10 +25,10 @@ function Home() {
 
   return (
     <section className={$.home}>
-      <header>
+      <header className={$.header}>
         <div className={$.content}>
-          <h1>충림이</h1>
-          <span>오늘은 총 6개의 일정이 있어요</span>
+          <h1 className={$.title}>충림이</h1>
+          <p>오늘은 총 6개의 일정이 있어요</p>
         </div>
         <Setting />
       </header>
@@ -41,9 +41,9 @@ function Home() {
         ))}
       </div>
       <div className={$.information}>
-        <BorderBox height={160} background="#EAF4FE">
+        <BorderBox className={$.borderbox} height={160} background="#EAF4FE">
           <비 style={{ width: "50px", height: "auto" }} />
-          <span>청주 날씨</span>
+          <strong>청주 날씨</strong>
           <span className={$.important}>25도</span>
           <span>구름 조금</span>
           <div className={$.more}>
@@ -51,9 +51,9 @@ function Home() {
             기온별 옷차림
           </div>
         </BorderBox>
-        <BorderBox height={160} background="#F2F0FE">
+        <BorderBox className={$.borderbox} height={160} background="#F2F0FE">
           <Covid />
-          <span>확진자 수</span>
+          <strong>확진자 수</strong>
           <span className={$.important}>500,000</span>
           <span>+1,325</span>
           <Link className={$.more} to="/covid">
@@ -64,7 +64,7 @@ function Home() {
       </div>
       <div className={$.cafeteria}>
         <BorderBox height={180}>
-          <div className={$.title}>
+          <div className={$.location}>
             <span>
               본관 아침 <Write />
             </span>

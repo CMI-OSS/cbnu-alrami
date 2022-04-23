@@ -2,15 +2,6 @@ svg path {
     stroke: #aaa;
 }
 
-.active {
-    svg path {
-        stroke: #d66d6e;
-    }
-    .label {
-        color: #d66d6e;
-    }
-}
-
 .link {
     display: flex;
     flex-direction: column;
@@ -22,5 +13,14 @@ svg path {
     .label {
         margin-top: 6px;
         color: #aaa;
+    }
+}
+
+.active {
+    svg path {
+        stroke: #d66d6e;
+    }
+    .label {
+        color: #d66d6e;
     }
 }

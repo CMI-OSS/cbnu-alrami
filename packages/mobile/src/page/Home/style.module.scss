@@ -2,13 +2,13 @@
     > div {
         margin-bottom: 30px;
     }
-    header {
+    .header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 30px;
 
-        h1 {
+        .title {
             font-weight: 500;
             font-size: 21px;
             line-height: 33px;
@@ -18,7 +18,7 @@
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
-        div {
+        > div {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -27,7 +27,7 @@
             margin-right: 23px;
             min-width: 70%;
         }
-        p {
+        > p {
             padding-right: 10px;
             line-height: 24px;
         }
@@ -35,14 +35,14 @@
     .information {
         display: flex;
         font-size: 11px;
-        div {
+        .borderbox {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-evenly;
             width: 100%;
         }
-        div:first-child {
+        .borderbox:first-child {
             margin-right: 25px;
         }
         .more {
@@ -68,16 +68,16 @@
         > div {
             padding: 17px;
         }
-        .title {
+        .location {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 16px;
-            p {
+            > p {
                 font-weight: 500;
                 margin-right: 5px;
             }
-            p:last-child {
+            > p:last-child {
                 color: #707070;
                 font-size: 13px;
             }
@@ -96,7 +96,7 @@
         .content {
             padding-left: 14px;
             margin-top: 10px;
-            p {
+            > p {
                 line-height: 33px;
             }
         }

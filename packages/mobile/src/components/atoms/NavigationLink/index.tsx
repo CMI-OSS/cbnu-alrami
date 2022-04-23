@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import classNames from "classnames";
 import $ from "./style.module.scss";
 
 type Props = {
@@ -15,10 +16,10 @@ function NavigationLink({ route }: Props) {
     <NavLink
       key={route.id}
       to={route.to}
-      className={({ isActive }) => (isActive ? $.active : "")}
+      className={({ isActive }) => classNames($.link, { [$.active]: isActive })}
     >
       <route.icon />
-      <p>{route.label}</p>
+      <p className={$.label}>{route.label}</p>
     </NavLink>
   );
 }

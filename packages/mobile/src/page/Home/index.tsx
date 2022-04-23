@@ -34,28 +34,28 @@ function Home() {
       </header>
       <div className={$.schedule}>
         {schedules.map((schedule) => (
-          <BorderBox height={90}>
+          <BorderBox width={271} height={101}>
             <p>{schedule}</p>
             <Arrow />
           </BorderBox>
         ))}
       </div>
       <div className={$.information}>
-        <BorderBox className={$.borderbox} height={160} background="#EAF4FE">
+        <BorderBox height={200} background="#EAF4FE">
           <비 style={{ width: "50px", height: "auto" }} />
           <strong>청주 날씨</strong>
-          <span className={$.important}>25도</span>
-          <span>구름 조금</span>
+          <span className={$.amount}>25도</span>
+          <span className={$.description}>구름 조금</span>
           <div className={$.more}>
             <Info style={{ width: "10px", height: "10px" }} />
             기온별 옷차림
           </div>
         </BorderBox>
-        <BorderBox className={$.borderbox} height={160} background="#F2F0FE">
+        <BorderBox height={200} background="#F2F0FE">
           <Covid />
           <strong>확진자 수</strong>
-          <span className={$.important}>500,000</span>
-          <span>+1,325</span>
+          <span className={$.amount}>500,000</span>
+          <span className={$.description}>+1,325</span>
           <Link className={$.more} to="/covid">
             더보기
             <Arrow style={{ width: "7px", height: "7px", stroke: "#222" }} />
@@ -63,12 +63,13 @@ function Home() {
         </BorderBox>
       </div>
       <div className={$.cafeteria}>
-        <BorderBox height={180}>
-          <div className={$.location}>
-            <span>
-              본관 아침 <Write />
-            </span>
-            <span>7:30~9:00</span>
+        <BorderBox height={188}>
+          <div className={$.title}>
+            <div className={$.location}>
+              본관 아침
+              <Write />
+            </div>
+            <span className={$.time}>7:30~9:00</span>
           </div>
           <Line />
           <div className={$.content}>
@@ -79,6 +80,14 @@ function Home() {
       </div>
       <div className={$.notification}>
         <BorderBox height={300}>
+          <div className={$.title}>
+            공지사항
+            <div className={$.category}>
+              <span>인기</span>
+              <span>최신</span>
+            </div>
+          </div>
+          <Line />
           <div className={$.content}>
             {notifications.map((notification) => (
               <p>{notification}</p>

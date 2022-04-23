@@ -1,17 +1,23 @@
 .home {
-    > div {
-        margin-bottom: 30px;
-    }
+    padding: 34px 25px 100px 35px;
+    background: #f5f6fa;
+
     .header {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         margin-bottom: 30px;
 
-        .title {
-            font-weight: 500;
-            font-size: 21px;
-            line-height: 33px;
+        .content {
+            .title {
+                font-weight: 500;
+                font-size: 25.5px;
+                line-height: 31px;
+            }
+
+            > p {
+                color: #aaa;
+            }
         }
     }
     .schedule {
@@ -25,6 +31,7 @@
             padding-left: 20px;
             padding-right: 20px;
             margin-right: 23px;
+            margin-bottom: 35px;
             min-width: 70%;
         }
         > p {
@@ -34,52 +41,67 @@
     }
     .information {
         display: flex;
-        font-size: 11px;
-        .borderbox {
+        justify-content: space-between;
+        margin-bottom: 35px;
+
+        > div {
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            justify-content: space-evenly;
-            width: 100%;
-        }
-        .borderbox:first-child {
-            margin-right: 25px;
-        }
-        .more {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            svg {
-                margin-right: 4px;
+            width: calc((100% - 25px) / 2);
+            padding: 22px 0;
 
-                path {
-                    stroke: #222;
-                }
+            > strong {
+                font-size: 13px;
+                line-height: 16px;
+                color: #6c6c6c;
+            }
+
+            .amount {
+                line-height: 22px;
+                font-size: 18px;
+                font-weight: 500;
+                color: #363636;
+            }
+
+            .description {
+                font-size: 13px;
+                color: #6c6c6c;
+            }
+
+            .more {
+                color: #aaa;
+                font-size: 12px;
             }
         }
-        .important {
-            font-size: 18px;
-            font-weight: 500;
-        }
     }
+
     .cafeteria {
         width: 100%;
+        margin-bottom: 35px;
 
         > div {
             padding: 17px;
         }
-        .location {
+        .title {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 16px;
-            > p {
-                font-weight: 500;
-                margin-right: 5px;
+            color: #202020;
+
+            .location {
+                display: flex;
+                align-items: center;
+
+                > svg {
+                    margin-left: 10px;
+                }
             }
-            > p:last-child {
-                color: #707070;
-                font-size: 13px;
+
+            .time {
+                color: #aaa;
             }
         }
         .content {
@@ -90,14 +112,32 @@
     }
     .notification {
         > div {
-            padding: 24px 10px 10px 10px;
+            padding: 20px 25px 24px;
         }
 
+        .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            color: #202020;
+
+            .category {
+                color: #aaa;
+
+                > span:first-child {
+                    margin-right: 13px;
+                }
+            }
+        }
         .content {
-            padding-left: 14px;
-            margin-top: 10px;
             > p {
-                line-height: 33px;
+                font-size: 13px;
+                line-height: 16px;
+                margin: 14px 0;
+            }
+            > p:last-child {
+                margin: 0;
             }
         }
     }

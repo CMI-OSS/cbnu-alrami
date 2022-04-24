@@ -4,8 +4,8 @@ import * as express from "express";
 import helmet from "helmet";
 
 import { AppModule } from "./app.module";
-import { HttpExceptionFilter } from "./common/filter/http.exception.filter";
 import getConfiguration from "./commons/config/configuration";
+import { HttpExceptionFilter } from "./commons/filter/http.exception.filter";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

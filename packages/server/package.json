@@ -32,9 +32,9 @@
     "@types/bcrypt": "^5.0.0",
     "@types/js-yaml": "^4.0.5",
     "@types/lodash": "^4.14.181",
+    "aws-sdk": "^2.1111.0",
     "bcrypt": "^5.0.1",
     "class-validator": "^0.13.2",
-    "aws-sdk": "^2.1111.0",
     "compression": "^1.7.4",
     "csurf": "^1.11.0",
     "fcm-node": "^1.6.1",
@@ -49,6 +49,7 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "typeorm": "0.2.45",
+    "typeorm-naming-strategies": "^4.1.0",
     "typescript": "^4.6.3"
   },
   "devDependencies": {

@@ -4117,6 +4117,13 @@ base64id@2.0.0, base64id@~2.0.0:
   resolved "https://registry.yarnpkg.com/base64id/-/base64id-2.0.0.tgz#2770ac6bc47d312af97a8bf9a634342e0cd25cb6"
   integrity sha512-lGe34o6EHj9y3Kts9R4ZYs/Gr+6N7MCaMlIFA3F1R2O5/m7K06AxfSeO5530PEERE6/WyEg3lsuyw4GHlPZHog==
 
+basic-auth@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/basic-auth/-/basic-auth-2.0.1.tgz#b998279bf47ce38344b4f3cf916d4679bbf51e3a"
+  integrity sha512-NF+epuEdnUYVlGuhaxbbq+dvJttwLnGY+YixlXlME5KpQ5W3CnXA5cVTneY3SPbPDRkcjMbifrwmFYcClgOZeg==
+  dependencies:
+    safe-buffer "5.1.2"
+
 batch@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/batch/-/batch-0.6.1.tgz#dc34314f4e679318093fc760272525f94bf25c16"
@@ -5557,7 +5564,7 @@ dotenv-expand@5.1.0:
   resolved "https://registry.yarnpkg.com/dotenv-expand/-/dotenv-expand-5.1.0.tgz#3fbaf020bfd794884072ea26b1e9791d45a629f0"
   integrity sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==
 
-dotenv@16.0.0:
+dotenv@16.0.0, dotenv@^16.0.0:
   version "16.0.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.0.tgz#c619001253be89ebb638d027b609c75c26e47411"
   integrity sha512-qD9WU0MPM4SWLPJy/r2Be+2WgQj8plChsyrCNQzW/0WjvcJQiKQJ9mH3ZgB3fxbUUxgc/11ZJ0Fi5KiimWGz2Q==
@@ -6210,6 +6217,13 @@ expect@^27.5.1:
     jest-get-type "^27.5.1"
     jest-matcher-utils "^27.5.1"
     jest-message-util "^27.5.1"
+
+express-basic-auth@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/express-basic-auth/-/express-basic-auth-1.2.1.tgz#d31241c03a915dd55db7e5285573049cfcc36381"
+  integrity sha512-L6YQ1wQ/mNjVLAmK3AG1RK6VkokA1BIY6wmiH304Xtt/cLTps40EusZsU1Uop+v9lTDPxdtzbFmdXfFO3KEnwA==
+  dependencies:
+    basic-auth "^2.0.1"
 
 express@4.17.2:
   version "4.17.2"

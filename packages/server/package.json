@@ -40,6 +40,8 @@
     "class-validator": "^0.13.2",
     "compression": "^1.7.4",
     "csurf": "^1.11.0",
+    "dotenv": "^16.0.0",
+    "express-basic-auth": "^1.2.1",
     "fcm-node": "^1.6.1",
     "helmet": "^5.0.2",
     "js-yaml": "^4.1.0",

@@ -4,7 +4,13 @@ export enum Authority {
   Guest = "Guest",
 }
 
+
 export enum BoardAuthorityRole {
   READ = "read",
   WRITE = "write",
+}
+export enum MealTime {
+  Morning,
+  Lunch,
+  Dinner,
 }

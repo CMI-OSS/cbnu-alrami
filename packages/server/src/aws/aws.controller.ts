@@ -14,7 +14,7 @@ export class AwsController {
   constructor(private readonly awsService: AwsService) {}
 
   @Public()
-  @Post("uploads/images")
+  @Post("upload/images")
   @UseInterceptors(FilesInterceptor("image", 10))
   async uploadImages(
     @UploadedFiles() images: Express.Multer.File[],

@@ -1,0 +1,5 @@
+@mixin flicking {
+  overflow-y: hidden;
+  overflow-x: auto;
+  width: calc(100vw);
+}

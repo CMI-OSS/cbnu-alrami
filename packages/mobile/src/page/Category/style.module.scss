@@ -1,5 +1,6 @@
 @import "@shared/styles/color.scss";
 @import "@shared/styles/variables.scss";
+@import "@shared/styles/mixin.scss";
 
 @mixin hover-status($color, $decoration) {
   color: $color;
@@ -54,6 +55,8 @@
 
 .list {
   display: flex;
+
+  @include flicking;
 }
 
 .menu_link {
@@ -61,6 +64,7 @@
   font-size: 14px;
   line-height: 18px;
   padding: 8px;
+  white-space: nowrap;
   color: $black-80;
 
   &:not(:first-child) {
@@ -99,6 +103,8 @@
   background-color: $white;
   border-top: 3px solid $background;
   box-shadow: $border-box-shadow;
+
+  @include flicking;
 }
 
 .hash_link {
@@ -106,6 +112,7 @@
   font-size: 14px;
   line-height: 18px;
   padding: 7px 8px 7px 10px;
+  white-space: nowrap;
 
   &:not(:first-child) {
     margin-left: 12px;

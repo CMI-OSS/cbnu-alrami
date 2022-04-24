@@ -1,7 +1,6 @@
 import { NestFactory } from "@nestjs/core";
 import * as compression from "compression";
 import * as express from "express";
-import * as expressBasicAuth from "express-basic-auth";
 import helmet from "helmet";
 
 import { AppModule } from "./app.module";
@@ -17,15 +16,6 @@ async function bootstrap() {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.useGlobalFilters(new HttpExceptionFilter());
-  app.use(
-    [ "/api-docs" ],
-    expressBasicAuth({
-      challenge: true,
-      users: {
-        [process.env.SWAGGER_ID]: process.env.SWAGGER_PASSWORD,
-      },
-    }),
-  );
   SwaggerConfig(app);
   await app.listen(getConfiguration().http.port);
 }

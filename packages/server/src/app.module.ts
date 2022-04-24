@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { APP_GUARD } from "@nestjs/core";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
 import { AuthModule } from "./auth/auth.module";
 import { AwsModule } from "./aws/aws.module";
@@ -24,6 +25,7 @@ import { WeatherModule } from "./weather/weather.module";
       useFactory: async (config: ConfigService) => ({
         ...config.get("db"),
         entities: [ `${__dirname}/commons/entities/*.js` ],
+        namingStrategy: new SnakeNamingStrategy(),
       }),
       inject: [ ConfigService ],
     }),

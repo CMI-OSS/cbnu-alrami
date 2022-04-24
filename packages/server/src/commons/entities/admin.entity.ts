@@ -5,15 +5,15 @@ import { CommonEntity } from "./common.entity";
 
 @Entity()
 export class Admin extends CommonEntity {
-  @Column({ type: "varchar", length: 20, unique: true })
+  @Column("varchar", { length: 20, unique: true, nullable: false })
   loginId: string;
 
-  @Column({ type: "varchar" })
+  @Column("varchar", {nullable:false})
   password: string;
 
-  @Column({ type: "varchar", length: 20, unique: true })
+  @Column("varchar", {length: 20, unique: true, nullable:false })
   nickname: string;
 
-  @Column({ type: "enum", enum: Authority, default: Authority.Guest })
+  @Column({ type: "enum", enum: Authority, default: Authority.Guest, nullable: false })
   authority: Authority;
 }

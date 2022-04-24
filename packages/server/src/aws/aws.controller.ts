@@ -5,8 +5,8 @@ import {
   UseInterceptors,
 } from "@nestjs/common";
 import { FilesInterceptor } from "@nestjs/platform-express";
+import { Public } from "src/commons/decorators/public.decorator";
 
-import { Public } from "../../dist/decorator/public.decorator";
 import { AwsService } from "./aws.service";
 
 @Controller()

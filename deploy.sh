@@ -1,3 +1,4 @@
+git reset --hard
 git pull
 yarn
 yarn build:admin

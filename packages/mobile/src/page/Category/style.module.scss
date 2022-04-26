@@ -2,11 +2,6 @@
 @import "@shared/styles/variables.scss";
 @import "@shared/styles/mixin.scss";
 
-@mixin hover-status($color, $decoration) {
-  color: $color;
-  text-decoration: $decoration;
-}
-
 .header {
   position: fixed;
   top: 0;
@@ -94,52 +89,6 @@
 .content {
   padding: 11px 15px 0 13px;
   background-color: $background;
-}
-
-.hash {
-  position: fixed;
-  top: 131px;
-  left: 0;
-  right: 0;
-  display: flex;
-  padding: 11px 15px 11px 13px;
-  background-color: $white;
-  border-top: 3px solid $background;
-  box-shadow: $border-box-shadow;
-
-  @include flicking;
-}
-
-.hash_link {
-  display: block;
-  font-size: 14px;
-  line-height: 18px;
-  padding: 7px 8px 7px 10px;
-  white-space: nowrap;
-
-  &:not(:first-child) {
-    margin-left: 12px;
-  }
-
-  &[aria-selected="true"] {
-    background-color: $red-20;
-    color: $red-100;
-    border-radius: 100px;
-
-    &:hover {
-      @include hover-status($red-100, none);
-    }
-  }
-
-  &[aria-selected="false"] {
-    background-color: $black-10;
-    color: $black-80;
-    border-radius: 100px;
-
-    &:hover {
-      @include hover-status($black-80, none);
-    }
-  }
 }
 
 .image_list {

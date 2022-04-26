@@ -19,17 +19,21 @@ import { BoardUpdateDto } from "./dto/board.update.dto";
 
 @Public()
 @Controller("boards")
-@ApiTags("board 도메인 API")
+@ApiTags("[board] 공지사항 사이트 도메인 API")
 export class BoardController {
   constructor(private readonly boardService: BoardService) {}
 
   @Post()
   @UsePipes(ValidationPipe)
   @ApiOperation({
-    summary: "board 생성 API",
+    summary: "공지사항 사이트 생성 API",
     description: "새로운 board를 생성한다.",
   })
-  @ApiResponse({ status: 201, description: "생성된 board 객체", type: Board })
+  @ApiResponse({
+    status: 201,
+    description: "생성된 board 객체",
+    type: Board,
+  })
   async create(@Body() boardCreateDto: BoardCreateDto) {
     const board = await this.boardService.create(boardCreateDto);
     return board;
@@ -37,12 +41,12 @@ export class BoardController {
 
   @Get()
   @ApiOperation({
-    summary: "board 전체 조회 API",
+    summary: "전체 공지사항 사이트 조회 API",
     description: "모든 board를 조회한다.",
   })
   @ApiResponse({
     status: 200,
-    description: "전체 board 리스트",
+    description: "전체 공지사항 사이트 리스트",
     type: Board,
     isArray: true,
   })
@@ -52,7 +56,7 @@ export class BoardController {
 
   @Get(":boardId")
   @ApiOperation({
-    summary: "특정 board 조회 API",
+    summary: "특정 공지사항 사이트 조회 API",
     description: "id를 이용, 특정 board를 조회한다.",
   })
   @ApiResponse({
@@ -67,7 +71,7 @@ export class BoardController {
   @Put(":boardId")
   @UsePipes(ValidationPipe)
   @ApiOperation({
-    summary: "특정 board 수정 API",
+    summary: "특정 공지사항 사이트 수정 API",
     description: "특정 board를 수정한다.",
   })
   @ApiBody({
@@ -92,7 +96,7 @@ export class BoardController {
 
   @Delete(":boardId")
   @ApiOperation({
-    summary: "특정 board 삭제 API",
+    summary: "특정 공지사항 사이트 삭제 API",
     description: "id를 이용, 특정 board를 삭제한다.",
   })
   @ApiResponse({

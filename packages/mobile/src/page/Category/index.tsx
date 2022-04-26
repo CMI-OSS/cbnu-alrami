@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import { MapArrow } from "src/components/atoms/icon/MapArrow";
+import { MapArrow } from "@components/atoms/icon/MapArrow";
+import MenuList from "@components/molecules/MenuList";
 
 import $ from "./style.module.scss";
 
@@ -51,7 +52,6 @@ const imageList = [
 
 function Category() {
   const [ menu, setMenu ] = useState(1);
-  const [ hash, setHash ] = useState(1);
 
   return (
     <>
@@ -83,21 +83,7 @@ function Category() {
         </div>
       </div>
       <div className={$.content}>
-        <div className={$.hash}>
-          {hashList.map((item, idx) => {
-            return (
-              <NavLink
-                key={`menu-${item.id}`}
-                to={item.path}
-                className={$.hash_link}
-                onClick={() => setHash(idx)}
-                aria-selected={hash === idx + 1}
-              >
-                {item.name}
-              </NavLink>
-            );
-          })}
-        </div>
+        <MenuList list={hashList} />
         <div className={$.image_list}>
           {imageList.map((item, idx) => {
             return (

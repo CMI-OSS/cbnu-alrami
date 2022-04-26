@@ -1133,67 +1133,6 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@egjs/agent@^2.2.1":
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/@egjs/agent/-/agent-2.3.1.tgz#1a9aee32e2470adde66947a6eedc98334bb47444"
-  integrity sha512-745ThAjBkMh+lDe9F/rCW8v/Yz00aEor3lvRil1L1cKy6EzHjWcZKD2XhBHsoO4g8pPj2DQt2mcNlpRTggHaig==
-
-"@egjs/axes@^2.8.0":
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/@egjs/axes/-/axes-2.8.0.tgz#b038378ad0a085b3b4a5218dd8e7db396898212c"
-  integrity sha512-WPMIM/ExZBS8guD3oeNr6YGDn2xSnj0YUZHWvY/NWvTQIs7A2O7WxJivYgzcg7r2q0RYtzrdpHn+982iaKCLSw==
-  dependencies:
-    "@egjs/agent" "^2.2.1"
-    "@egjs/component" "^2.2.2"
-    "@egjs/hammerjs" "^2.0.15"
-
-"@egjs/component@^2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@egjs/component/-/component-2.2.2.tgz#b8208ea4ca05f6562a51d58f1e6f9979aad8a9d9"
-  integrity sha512-2m6nu6/Mbs6VnoT4IHFGUBX6V82Zp01zDmlWpIJ3fMatHpe7BB1qUYFgMmSWGY0uOvOl4plvflwbCRUAGMfwWQ==
-
-"@egjs/component@^3.0.1":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@egjs/component/-/component-3.0.2.tgz#c56794fcf1b2cb2768d09b021444779e54d0de1b"
-  integrity sha512-Mze3mwEE19+dERrimg0JVLtpOHG4AC+LOuKqvF4qGZjn0k23ZbNI7b/gy1LFR63LigC2b8k70aDjy8xoT+WNPA==
-
-"@egjs/flicking@~4.5.1":
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/@egjs/flicking/-/flicking-4.5.1.tgz#7521dbf1cc58fe11c07578b21f8a8cd0a0f8d462"
-  integrity sha512-PbkoPPPeI1N34GHw5wwUa+DvkKkjp+rTt37DtAcxUxHVoIr7WLcfDXXYykIvlzVNFMZsPDq6QtHhr7L4yrwX4w==
-  dependencies:
-    "@egjs/axes" "^2.8.0"
-    "@egjs/component" "^3.0.1"
-    "@egjs/imready" "^1.1.3"
-    "@egjs/list-differ" "^1.0.0"
-
-"@egjs/hammerjs@^2.0.15":
-  version "2.0.17"
-  resolved "https://registry.yarnpkg.com/@egjs/hammerjs/-/hammerjs-2.0.17.tgz#5dc02af75a6a06e4c2db0202cae38c9263895124"
-  integrity sha512-XQsZgjm2EcVUiZQf11UBJQfmZeEmOW8DpI1gsFeln6w0ae0ii4dMQEQ0kjl6DspdWX1aGY1/loyXnP0JS06e/A==
-  dependencies:
-    "@types/hammerjs" "^2.0.36"
-
-"@egjs/imready@^1.1.3":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@egjs/imready/-/imready-1.3.0.tgz#76a7df9d1a77c008bcd33942d207d39d0ce2f6fa"
-  integrity sha512-h6qxQup/ZJxEJkDMuyR6yuJ9jsuVan7EyQ8Xa0WkTWAr3HtUYjtDHOCjJvhFg50Xv3C+TkfYj4Mxmkz7zNePSA==
-  dependencies:
-    "@egjs/component" "^3.0.1"
-
-"@egjs/list-differ@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@egjs/list-differ/-/list-differ-1.0.0.tgz#2277aff52e3e4bd9318d5c30ffc3ba3b6216f05e"
-  integrity sha512-HsbMKc0ZAQH+EUeCmI/2PvTYSybmkaWwakU8QGDYYgMVIg9BQ5sM0A0Nnombjxo2+JzXHxmH+jw//yGX+y6GYw==
-
-"@egjs/react-flicking@^4.5.3":
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/@egjs/react-flicking/-/react-flicking-4.5.3.tgz#bb123c5876cd1212f0d1438cfa8b2ad6c932e82c"
-  integrity sha512-BaUW/afkydnM4seFDO1o1ghZGFxu6wznrArAoXtUeWqtpKkudG+dsKDyTxx1dkBh2DRhH++km9Fc4GqsV2cqwQ==
-  dependencies:
-    "@egjs/flicking" "~4.5.1"
-    "@egjs/list-differ" "^1.0.0"
-
 "@emotion/babel-plugin@^11.3.0":
   version "11.7.2"
   resolved "https://registry.yarnpkg.com/@emotion/babel-plugin/-/babel-plugin-11.7.2.tgz#fec75f38a6ab5b304b0601c74e2a5e77c95e5fa0"
@@ -2949,11 +2888,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/hammerjs@^2.0.36":
-  version "2.0.41"
-  resolved "https://registry.yarnpkg.com/@types/hammerjs/-/hammerjs-2.0.41.tgz#f6ecf57d1b12d2befcce00e928a6a097c22980aa"
-  integrity sha512-ewXv/ceBaJprikMcxCmWU1FKyMAQ2X7a9Gtmzw8fcg2kIePI1crERDM818W+XYrxqdBBOdlf2rm137bU+BltCA==
-
 "@types/history@^4.7.11":
   version "4.7.11"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.11.tgz#56588b17ae8f50c53983a524fc3cc47437969d64"
@@ -4589,6 +4523,11 @@ cjs-module-lexer@^1.0.0:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/cjs-module-lexer/-/cjs-module-lexer-1.2.2.tgz#9f84ba3244a512f3a54e5277e8eef4c489864e40"
   integrity sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==
+
+class-transformer@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/class-transformer/-/class-transformer-0.5.1.tgz#24147d5dffd2a6cea930a3250a677addf96ab336"
+  integrity sha512-SQa1Ws6hUbfC98vKGxZH3KFY0Y1lm5Zm0SY8XX9zbK7FJCyVEac3ATW0RIpwzW+oOfmHE5PMPufDG9hCfoEOMw==
 
 class-validator@^0.13.2:
   version "0.13.2"

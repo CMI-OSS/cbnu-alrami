@@ -32,6 +32,8 @@
   font-weight: 500;
   line-height: 23px;
   color: $black-100;
+
+  @include ellipsis;
 }
 
 .button {
@@ -40,6 +42,7 @@
   font-size: 14px;
   line-height: 18px;
   background-color: inherit;
+  flex: 0 0 auto;
 }
 
 .menu {
@@ -95,7 +98,7 @@
 
 .hash {
   position: fixed;
-  top: 132px;
+  top: 131px;
   left: 0;
   right: 0;
   display: flex;
@@ -165,6 +168,7 @@
   width: 90px;
   height: 90px;
   border-radius: 20px;
+  flex: 0 0 auto;
 }
 
 .summary {

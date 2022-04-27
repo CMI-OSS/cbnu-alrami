@@ -1,11 +1,11 @@
-import { ScenarioFilter, ScenarioGroupList } from "src/components/Scenario";
-import mockNoticeScenarios from "src/__mockData__/noticeScenarios";
-import mockDomitoryRestaurantScenarios from "src/__mockData__/domitoryRestaurantScenarios";
-import mockStudentScenarios from "src/__mockData__/studentRestaurantScenarios";
-import mockCollegeScheduleScenarios from "src/__mockData__/collegeScheduleScenarios";
-
 import { ScraperType } from "@shared/types";
+import mockCollegeScheduleScenarios from "src/__mockData__/collegeScheduleScenarios";
+import mockDomitoryRestaurantScenarios from "src/__mockData__/domitoryRestaurantScenarios";
+import mockNoticeScenarios from "src/__mockData__/noticeScenarios";
+import mockStudentScenarios from "src/__mockData__/studentRestaurantScenarios";
+import { ScenarioFilter, ScenarioGroupList } from "src/components/Scenario";
 import { getScraperLabel } from "src/lib/scraper";
+
 import { ScraperManager } from "../Manager";
 import $ from "./style.module.scss";
 

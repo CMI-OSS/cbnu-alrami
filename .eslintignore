@@ -6,4 +6,5 @@ react-app-env.d.ts
 build
 dist
 **/scripts/*
-packages/server
+*.test.js
+*.spec.js

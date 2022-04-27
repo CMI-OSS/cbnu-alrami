@@ -37,6 +37,13 @@
         margin: 0 0 0 1rem;
         align-items: left;
 
+        span {
+          line-height: 1;
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: $google-red;
+        }
+
         .nav-link {
           margin-left: 0.2rem;
           margin-top: 1.5rem;

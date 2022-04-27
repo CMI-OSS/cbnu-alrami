@@ -1,10 +1,10 @@
 import { ScraperType } from "@shared/types";
-import { io } from "socket.io-client";
-import { SocketMessage } from "@shared/types/Socket/SocketMessage";
 import {
   CommandScraperMessage,
   COMMAND_SCRAPER_EVENT,
 } from "@shared/types/Socket/CommandScraper";
+import { SocketMessage } from "@shared/types/Socket/SocketMessage";
+import { io } from "socket.io-client";
 
 const socket = io(
   `${window.location.protocol}//${window.location.hostname}:8070`,

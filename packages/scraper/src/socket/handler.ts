@@ -1,14 +1,14 @@
-import NoticeScraper from "src/scrapers/NoticeScraper";
-import CalendarScrpaer from "src/scrapers/CalendarScraper";
-import CafeteriaScraper from "src/scrapers/CafeteriaScraper";
-import DomitoryScraper from "src/scrapers/DomitoryScraper";
-import CovidScraper from "src/scrapers/CovidScraper";
 import { ScraperType } from "@shared/types";
-import { SocketMessage } from "@shared/types/Socket/SocketMessage";
 import {
   CommandScraperMessage,
   isCommandScraperMessage,
 } from "@shared/types/Socket/CommandScraper";
+import { SocketMessage } from "@shared/types/Socket/SocketMessage";
+import CafeteriaScraper from "src/scrapers/CafeteriaScraper";
+import CalendarScrpaer from "src/scrapers/CalendarScraper";
+import CovidScraper from "src/scrapers/CovidScraper";
+import DomitoryScraper from "src/scrapers/DomitoryScraper";
+import NoticeScraper from "src/scrapers/NoticeScraper";
 
 const getScraper = (scraperType: ScraperType) => {
   if (scraperType === "notice") return NoticeScraper;

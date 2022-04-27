@@ -1,7 +1,7 @@
-export const debounce = (callback: () => void, delay: number) => {
+export function debounce<T>(callback: (arg: T) => void, delay: number) {
   let timer: ReturnType<typeof setTimeout>;
-  return function () {
+  return function (arg: T) {
     if (timer) clearTimeout(timer);
-    timer = setTimeout(() => callback(), delay);
+    timer = setTimeout(() => callback(arg), delay);
   };
-};
+}

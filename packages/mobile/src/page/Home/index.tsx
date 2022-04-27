@@ -2,8 +2,12 @@ import { Arrow } from "src/components/atoms/icon/Arrow";
 import { Link } from "react-router-dom";
 import $ from "./style.module.scss";
 import { Setting, 비, Covid, Info, Write } from "../../components/atoms/icon";
+import Footer from "@components/molecules/Footer";
+import Menu from "src/components/atoms/Chip";
+
 import BorderBox from "../../components/atoms/BorderBox";
 import Line from "../../components/atoms/Line";
+import $ from "./style.module.scss";
 
 function Home() {
   const schedules = [
@@ -94,6 +98,7 @@ function Home() {
           </div>
         </BorderBox>
       </div>
+      <Footer />
     </section>
   );
 }

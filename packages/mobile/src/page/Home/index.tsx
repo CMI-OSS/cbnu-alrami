@@ -1,7 +1,5 @@
-/* eslint-disable react/jsx-pascal-case */
 import { Arrow } from "src/components/atoms/icon/Arrow";
 import { Link } from "react-router-dom";
-import Menu from "src/components/atoms/Chip";
 import $ from "./style.module.scss";
 import { Setting, 비, Covid, Info, Write } from "../../components/atoms/icon";
 import BorderBox from "../../components/atoms/BorderBox";
@@ -21,7 +19,6 @@ function Home() {
     "산업인공지능연구센터 연구원 채용 공고",
     "산업인공지능연구센터 연구원 채용 공고",
   ];
-  const menus = ["최신공지", "인기공지"];
 
   return (
     <section className={$.home}>
@@ -30,7 +27,9 @@ function Home() {
           <h1 className={$.title}>충림이</h1>
           <p>오늘은 총 6개의 일정이 있어요</p>
         </div>
-        <Setting />
+        <button type="button">
+          <Setting />
+        </button>
       </header>
       <div className={$.schedule}>
         {schedules.map((schedule) => (

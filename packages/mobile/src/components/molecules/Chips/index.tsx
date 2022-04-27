@@ -13,7 +13,7 @@ type Props = {
   list: ItemProps[];
 }
 
-function MenuList( { list } : Props) {
+function Chips( { list } : Props) {
   const [ hash, setHash ] = useState(1);
 
   return (
@@ -35,4 +35,4 @@ function MenuList( { list } : Props) {
   )
 }
 
-export default MenuList;
+export default Chips;

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { MapArrow } from "@components/atoms/icon/MapArrow";
-import MenuList from "@components/molecules/MenuList";
+import Chips from "@components/molecules/Chips";
 
 import $ from "./style.module.scss";
 
@@ -83,7 +83,7 @@ function Category() {
         </div>
       </div>
       <div className={$.content}>
-        <MenuList list={hashList} />
+        <Chips list={hashList} />
         <div className={$.image_list}>
           {imageList.map((item, idx) => {
             return (

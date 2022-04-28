@@ -7,7 +7,7 @@
         justify-content: space-between;
         margin-bottom: 30px;
 
-        .content {
+        .header-content {
             .title {
                 font-weight: 500;
                 font-size: 25.5px;
@@ -111,10 +111,14 @@
                 color: #aaa;
             }
         }
-        .content {
+        .cafeteria-content {
             padding: 21px 20px 0px 0px;
             line-height: 25px;
-            font-size: 12px;
+            font-size: 13px;
+
+            > p {
+                margin-bottom: 28px;
+            }
         }
     }
     .notification {
@@ -137,10 +141,14 @@
                 }
             }
         }
-        .content {
+        .notification-content {
             > p {
                 font-size: 13px;
                 line-height: 16px;
+                margin-bottom: 28px;
+            }
+            > p:first-child {
+                margin-top: 25px;
             }
             > p:last-child {
                 margin: 0;

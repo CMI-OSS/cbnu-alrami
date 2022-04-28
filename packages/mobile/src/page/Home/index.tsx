@@ -17,13 +17,12 @@ function Home() {
     "2022학년도 정시 법무대학원 신입생 추가",
     "2022학년도 정시 대학원(일반대학원) 석사과정",
     "산업인공지능연구센터 연구원 채용 공고",
-    "산업인공지능연구센터 연구원 채용 공고",
   ];
 
   return (
     <section className={$.home}>
       <header className={$.header}>
-        <div className={$.content}>
+        <div className={$["header-content"]}>
           <h1 className={$.title}>충림이</h1>
           <p>오늘은 총 6개의 일정이 있어요</p>
         </div>
@@ -71,7 +70,7 @@ function Home() {
             <span className={$.time}>7:30~9:00</span>
           </div>
           <Line />
-          <div className={$.content}>
+          <div className={$["cafeteria-content"]}>
             흰밥/우유(두유)/김치 단호박스프 고구마치즈롤까스 &소스 양상추샐러드
             오리엔탈드레싱 시금치나물 에너지:1165Kcal 단백질:16g
           </div>
@@ -87,7 +86,7 @@ function Home() {
             </div>
           </div>
           <Line />
-          <div className={$.content}>
+          <div className={$["notification-content"]}>
             {notifications.map((notification) => (
               <p>{notification}</p>
             ))}

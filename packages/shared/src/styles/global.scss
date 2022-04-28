@@ -1,4 +1,5 @@
 @import "./main.scss";
+@import "./font.scss";
 
 html,
 body,
@@ -104,6 +105,10 @@ nav,
 section {
     display: block;
 }
+html {
+  width: 100%;
+  height: 100%;
+}
 body {
     line-height: 1;
     background-color: $gray-300;
@@ -113,6 +118,8 @@ body {
     font-size: 14px;
     line-height: 21px;
     letter-spacing: -0.002em;
+    width: 100%;
+    height: 100%;
 }
 ol,
 ul {
@@ -129,6 +136,13 @@ q:after {
     content: "";
     content: none;
 }
+textarea,
+input,
+button,
+select,
+a{
+    cursor: pointer;
+}
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -142,11 +156,10 @@ select:focus {
 * {
     box-sizing: border-box;
 }
-
 a {
-    all: unset;
     color: inherit;
     text-decoration: none;
+    cursor: pointer;
 }
 img {
     border: 0;
@@ -157,14 +170,15 @@ em {
 }
 textarea {
     appearance: none;
+    padding: 0;
     border: 0;
     -webkit-overflow-scrolling: touch;
 }
 input {
     appearance: none;
 }
-::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
+hr {
+    margin: 0;
 }
 
 .blind {

@@ -1,10 +1,18 @@
+@import "@shared/styles/color.scss";
+
 $footerHeight: 65px;
 $footerLinkDistance: 20px;
 $linkHeight: 61px;
 $linkTooltipDistance: 17px;
 
+.map {
+  width: 100vw;
+  height: 100vh;
+}
+
 .wrap {
   position: relative;
+  z-index: 100;
 }
 
 .place_wrap {
@@ -13,11 +21,11 @@ $linkTooltipDistance: 17px;
   right: 26px;
   border-radius: 10px;
   padding: 10px 10px 10px 14px;
-  background-color: #fff;
+  background-color: $white;
   font-size: 12px;
   letter-spacing: -0.02em;
   line-height: 17px;
-  color: #707070;
+  color: $black-80;
 }
 
 .small_icon {
@@ -31,7 +39,7 @@ $linkTooltipDistance: 17px;
   z-index: -1;
 
   path {
-    stroke: #fff;
+    stroke: $white;
   }
 }
 
@@ -41,7 +49,7 @@ $linkTooltipDistance: 17px;
   height: 62px;
   bottom: $footerHeight + $footerLinkDistance;
   right: 15px;
-  background-color: #d66d6e;
+  background-color: $red-50;
   border-radius: 50%;
 }
 

@@ -25,7 +25,13 @@ $ yarn dev:{package_name} // 개발모드로 패키지 실행 ex) yarn dev:mobil
 $ yarn start:{package_name} // 프로덕션 모드로 패키지 실행 ex) yarn start:server
 ```
 
+
 ### 패키지별 의존성 모듈 설치
 ```
 $ yarn workspace {package_name} add {의존성 모듈} // 패키지별 의존성 모듈 설치 ex) yarn workspace mobile add react
+```
+### root에 개발 의존성 모듈 설치
+패키지 공통으로 사용되는 개발 의존성 모듈 설치가 필요한 경우
+```
+$ yarn add {의존성 모듈} -D -W // ex) yarn add prettier -D -W
 ```

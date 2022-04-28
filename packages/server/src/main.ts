@@ -1,8 +1,20 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import getConfiguration from './config/configuration';
+import { NestFactory } from "@nestjs/core";
+import * as compression from "compression";
+import * as express from "express";
+import helmet from "helmet";
+
+import { AppModule } from "./app.module";
+import getConfiguration from "./commons/config/configuration";
+import { HttpExceptionFilter } from "./commons/filter/http.exception.filter";
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(getConfiguration(process.env.NODE_ENV).http.port);
+  app.use(helmet());
+  app.use(compression());
+  app.enableCors();
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.useGlobalFilters(new HttpExceptionFilter());
+  await app.listen(getConfiguration().http.port);
 }
 bootstrap();

@@ -49,7 +49,7 @@
   "scripts": {
     "start:admin": "lerna run --scope admin start",
     "dev:admin": "lerna run --scope admin dev --stream",
-    "build:admin": "lerna run --scope admin build",
+    "build:admin": "lerna run --scope admin build --stream",
     "analyze:admin": "lerna run --scope admin analyze",
     "start:mobile": "lerna run --scope mobile start",
     "dev:mobile": "lerna run --scope mobile dev --stream",
@@ -58,12 +58,15 @@
     "start:scraper": "lerna run --scope scraper start",
     "dev:scraper": "lerna run --scope scraper dev --stream",
     "start:server": "lerna run --scope server start",
+    "build:server": "lerna run --scope server build --stream",
     "dev:server": "lerna run --scope server dev --stream",
+    "cov:server": "lerna run --scope server test:cov",
+    "test:server": "lerna run --scope server test:watch --stream",
     "lint": "yarn eslint .",
     "lint:fix": "yarn eslint --fix .",
     "format": "yarn prettier-eslint --write \"**/*.js\" \"**/*.ts\" \"**/*.jsx\" \"**/*.tsx\" --ignore-path .gitignore",
-    "convert": "lerna link convert",
-    "bootstrap": "lerna bootstrap"
+    "clean": "lerna clean -y && rm -rf ./node_modules",
+    "reinstall": "yarn clean && yarn install"
   },
   "husky": {
     "hooks": {

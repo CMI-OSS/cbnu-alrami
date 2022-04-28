@@ -1,0 +1,20 @@
+@mixin flicking {
+  overflow-y: hidden;
+  overflow-x: auto;
+  width: calc(100vw);
+}
+
+@mixin ellipsis ($line : 1) {
+  @if($line == 1) {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  } @else {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+  }
+}

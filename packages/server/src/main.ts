@@ -5,6 +5,7 @@ import helmet from "helmet";
 
 import { AppModule } from "./app.module";
 import getConfiguration from "./commons/config/configuration";
+import { SwaggerConfig } from "./commons/config/swagger.config";
 import { HttpExceptionFilter } from "./commons/filter/http.exception.filter";
 
 async function bootstrap() {
@@ -15,6 +16,7 @@ async function bootstrap() {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.useGlobalFilters(new HttpExceptionFilter());
+  SwaggerConfig(app);
   await app.listen(getConfiguration().http.port);
 }
 bootstrap();

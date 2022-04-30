@@ -1,11 +1,10 @@
-import { Arrow } from "src/components/atoms/icon/Arrow";
 import { Link } from "react-router-dom";
-import $ from "./style.module.scss";
-import { Setting, 비, Covid, Info, Write } from "../../components/atoms/icon";
+
 import Footer from "@components/molecules/Footer";
-import Menu from "src/components/atoms/Chip";
+import { Arrow } from "src/components/atoms/icon/Arrow";
 
 import BorderBox from "../../components/atoms/BorderBox";
+import { Setting, 비, Covid, Info, Write } from "../../components/atoms/icon";
 import Line from "../../components/atoms/Line";
 import $ from "./style.module.scss";
 

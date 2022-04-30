@@ -24,13 +24,13 @@ export class BoardService {
 
   async findByName(name: string) {
     const board = await this.boardRepository.findOne({ name });
-    if (board === null || typeof board === "undefined") throw NO_DATA_IN_DB;
+    if (typeof board === "undefined") throw NO_DATA_IN_DB;
     return board;
   }
 
   async findByUrl(url: string) {
     const board = await this.boardRepository.findOne({ url });
-    if (board === null || typeof board === "undefined") throw NO_DATA_IN_DB;
+    if (typeof board === "undefined") throw NO_DATA_IN_DB;
     return board;
   }
 

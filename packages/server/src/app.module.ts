@@ -9,6 +9,7 @@ import { BoardModule } from "./board/board.module";
 import configuration from "./commons/config/configuration";
 import { JwtGuard } from "./commons/guards/jwt.guard";
 import { FcmModule } from "./fcm/fcm.module";
+import { ScheduleModule } from "./schedule/schedule.module";
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { FcmModule } from "./fcm/fcm.module";
     AuthModule,
     AwsModule,
     BoardModule,
+    ScheduleModule,
   ],
   providers: [
     {

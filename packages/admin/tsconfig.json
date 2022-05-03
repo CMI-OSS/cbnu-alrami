@@ -5,21 +5,23 @@
       "src/*": ["./src/*"],
       "@shared/*": ["../shared/src/*"]
     },
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
+    "noFallthroughCasesInSwitch": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "src/type/global.d.ts"]
+  "include": ["src","src/type/global.d.ts"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

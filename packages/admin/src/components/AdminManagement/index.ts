@@ -1,4 +1,4 @@
 import AdminList from "./AdminList";
-import NewAdmin from "./NewAdmin";
+import AdminMaker from "./AdminMaker";
 
-export { NewAdmin, AdminList };
+export { AdminMaker, AdminList };

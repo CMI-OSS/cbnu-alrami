@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { MdCancel } from "react-icons/md";
 
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -29,6 +30,7 @@ const BOARDS = [
 const AUTHORITIES = [ "super", "council", "scraper", "guest" ];
 
 export default function AdminMaker() {
+  const [ isEncrypted, setIsEncrypted ] = useState(true);
   const {
     register,
     handleSubmit,
@@ -93,24 +95,42 @@ export default function AdminMaker() {
             <span className={$["error-message"]}>{errors.id?.message}</span>
             <label htmlFor="password-input" className={$.label}>
               비밀번호
-              <input
-                type="password"
-                id="password-input"
-                className={$.input}
-                {...register("password")}
-              />
+              <div className={$["password-container"]}>
+                <input
+                  type={isEncrypted ? "password" : "text"}
+                  id="password-input"
+                  className={$.input}
+                  {...register("password")}
+                />
+                <button
+                  className={$["encrypt-button"]}
+                  type="button"
+                  onClick={() => setIsEncrypted((pre) => !pre)}
+                >
+                  {isEncrypted ? <AiFillEyeInvisible /> : <AiFillEye />}
+                </button>
+              </div>
             </label>
             <span className={$["error-message"]}>
               {errors.password?.message}
             </span>
             <label htmlFor="password-confirm-input" className={$.label}>
               비밀번호 확인
-              <input
-                type="password"
-                id="password-confirm-input"
-                className={$.input}
-                {...register("passwordConfirm")}
-              />
+              <div className={$["password-container"]}>
+                <input
+                  type={isEncrypted ? "password" : "text"}
+                  id="password-confirm-input"
+                  className={$.input}
+                  {...register("passwordConfirm")}
+                />
+                <button
+                  className={$["encrypt-button"]}
+                  type="button"
+                  onClick={() => setIsEncrypted((pre) => !pre)}
+                >
+                  {isEncrypted ? <AiFillEyeInvisible /> : <AiFillEye />}
+                </button>
+              </div>
             </label>
             <span className={$["error-message"]}>
               {errors.passwordConfirm?.message}

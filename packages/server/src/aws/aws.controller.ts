@@ -5,7 +5,7 @@ import {
   UseInterceptors,
 } from "@nestjs/common";
 import { FilesInterceptor } from "@nestjs/platform-express";
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Public } from "src/commons/decorators/public.decorator";
 
 import { AwsService } from "./aws.service";
@@ -21,14 +21,6 @@ export class AwsController {
   @ApiOperation({
     summary: "이미지 업로드 API",
     description: "이미지를 AWS S3에 업로드합니다.",
-  })
-  @ApiBody({
-    schema: {
-      example: {
-        image: [ "image.jpg", "image.png" ],
-      },
-      type: "Express.Multer.File[]",
-    },
   })
   @ApiResponse({
     status: 201,

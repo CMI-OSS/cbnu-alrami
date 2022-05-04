@@ -15,9 +15,11 @@
     "react-router-dom": "^6.2.2"
   },
   "devDependencies": {
+    "@reduxjs/toolkit": "^1.8.1",
     "@types/navermaps": "^3.0.13",
     "classnames": "^2.3.1",
     "file-loader": "^6.2.0",
-    "react-naver-maps": "^0.0.13"
+    "react-naver-maps": "^0.0.13",
+    "react-redux": "^8.0.1"
   }
 }

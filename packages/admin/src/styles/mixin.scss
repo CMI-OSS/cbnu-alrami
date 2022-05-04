@@ -61,3 +61,16 @@
     font-size: 2.5em;
   }
 }
+
+@mixin roundBox($width: fit-content, $border: none, $background-color: $white, $color: $black) {
+  display: block;
+  margin-top: 15px;
+  height: 40px;
+  width: $width;
+  padding: 10px;
+  border: $border;
+  border-radius: 10px;
+  font-size: 15px;
+  background-color: $background-color;
+  color: $color;
+}

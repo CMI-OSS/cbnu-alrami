@@ -1,4 +1,4 @@
+import AdminJoin from "./AdminJoin";
 import AdminList from "./AdminList";
-import AdminMaker from "./AdminMaker";
 
-export { AdminMaker, AdminList };
+export { AdminJoin, AdminList };

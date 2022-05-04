@@ -10,6 +10,8 @@ import Category from "./page/Category";
 import Home from "./page/Home";
 import Map from "./page/Map";
 import Notification from "./page/Notification";
+import { store } from "./store";
+import { Provider } from "react-redux";
 
 function App() {
   const routes = [
@@ -33,4 +35,12 @@ function App() {
   );
 }
 
-export default hot(module)(App);
+function ProviderApp() {
+  return (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+}
+
+export default hot(module)(ProviderApp);

@@ -3,13 +3,16 @@ import { ChangeEventHandler } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { MdCancel } from "react-icons/md";
 
+import { yupResolver } from "@hookform/resolvers/yup";
 import classNames from "classnames";
 
 import $ from "./style.module.scss";
+import schema from "./yup";
 
 type Inputs = {
   id: string;
   password: string;
+  passwordConfirm: string;
   nickname: string;
   authority: string;
   boards: string[];
@@ -33,7 +36,10 @@ export default function AdminMaker() {
     reset,
     setValue,
     formState: { errors },
-  } = useForm<Inputs>({ defaultValues: { authority: "super", boards: [] } });
+  } = useForm<Inputs>({
+    resolver: yupResolver(schema),
+    defaultValues: { authority: "super", boards: [] },
+  });
 
   const addNewAdmin = (adminData: Inputs) => {
     // eslint-disable-next-line no-alert
@@ -81,23 +87,33 @@ export default function AdminMaker() {
                 type="text"
                 id="id-input"
                 className={$.input}
-                {...register("id", { required: "아이디를 입력해주세요" })}
+                {...register("id")}
               />
             </label>
             <span className={$["error-message"]}>{errors.id?.message}</span>
             <label htmlFor="password-input" className={$.label}>
               비밀번호
               <input
-                type="text"
+                type="password"
                 id="password-input"
                 className={$.input}
-                {...register("password", {
-                  required: "비밀번호를 입력해주세요",
-                })}
+                {...register("password")}
               />
             </label>
             <span className={$["error-message"]}>
               {errors.password?.message}
+            </span>
+            <label htmlFor="password-confirm-input" className={$.label}>
+              비밀번호 확인
+              <input
+                type="password"
+                id="password-confirm-input"
+                className={$.input}
+                {...register("passwordConfirm")}
+              />
+            </label>
+            <span className={$["error-message"]}>
+              {errors.passwordConfirm?.message}
             </span>
             <label htmlFor="nickname" className={$.label}>
               닉네임
@@ -105,7 +121,7 @@ export default function AdminMaker() {
                 type="text"
                 id="nickname"
                 className={$.input}
-                {...register("nickname", { required: "닉네임을 입력해주세요" })}
+                {...register("nickname")}
               />
             </label>
             <span className={$["error-message"]}>

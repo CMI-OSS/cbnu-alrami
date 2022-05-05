@@ -4,6 +4,7 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import classNames from "classnames";
 import { boardCategories } from "src/__mockData__";
 import Editor from "src/components/Editor";
+import ImgUpload from "src/components/ImgUpload";
 import { useDebounceInput, useWindowResize } from "src/hooks";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { writeBoard } from "src/store/boardSlice";
@@ -133,6 +134,8 @@ export default function BoardWrite() {
             ))}
           </datalist>
         </div>
+
+        <ImgUpload />
 
         <Editor />
         <span className={$["content-error"]}>

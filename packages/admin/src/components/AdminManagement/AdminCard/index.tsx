@@ -7,7 +7,6 @@ import { Authorities } from "src/__mockData__/admins";
 import SelectedBoard from "../SelectedBoard";
 import $ from "./style.module.scss";
 
-
 export type Admin = {
   id: number;
   name: string;

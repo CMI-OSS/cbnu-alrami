@@ -1,25 +1,26 @@
 svg path {
-    stroke: #d6d6d6;
+    stroke: #aaa;
+}
+
+.link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    align-items: center;
+    font-size: 10px;
+
+    .label {
+        margin-top: 6px;
+        color: #aaa;
+    }
 }
 
 .active {
     svg path {
-        stroke: #ce5455;
+        stroke: #d66d6e;
     }
-    p {
-        color: #ce5455;
-    }
-}
-
-a {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    p {
-        margin-top: 6px;
-        font-size: 9px;
-        color: #d6d6d6;
+    .label {
+        color: #d66d6e;
     }
 }

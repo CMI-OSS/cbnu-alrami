@@ -1,9 +1,7 @@
 import "./mobile.scss";
-import { hot } from "react-hot-loader";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Footer from "./components/molecules/Footer";
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
 import Category from "./page/Category";
@@ -14,6 +12,7 @@ import { store } from "./store";
 import { Provider } from "react-redux";
 
 function App() {
+
   const routes = [
     { id: 1, path: "/notification", element: <Notification /> },
     { id: 2, path: "/calendar", element: <Calendar /> },
@@ -43,4 +42,4 @@ function ProviderApp() {
   );
 }
 
-export default hot(module)(ProviderApp);
+export default App

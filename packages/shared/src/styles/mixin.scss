@@ -18,3 +18,8 @@
     -webkit-box-orient: vertical;
   }
 }
+
+@mixin hover-status($color, $decoration) {
+  color: $color;
+  text-decoration: $decoration;
+}

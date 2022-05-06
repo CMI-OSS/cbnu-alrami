@@ -1,0 +1,21 @@
+@import "@shared/styles/color.scss";
+@import "src/styles/mixin.scss";
+
+.container {
+    padding: 3rem 3rem 3rem 15rem;
+
+    .title {
+        margin-bottom: 50px;
+        font-size: 2rem;
+        line-height: 3rem;
+        font-weight: 500;
+    }
+
+    .main {
+        display: flex;
+    }
+}
+
+.side-section {
+    margin-left: 100px;
+}

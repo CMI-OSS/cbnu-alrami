@@ -1,4 +1,4 @@
+import AdminJoin from "./AdminJoin";
 import AdminList from "./AdminList";
-import NewAdmin from "./NewAdmin";
 
-export { NewAdmin, AdminList };
+export { AdminJoin, AdminList };

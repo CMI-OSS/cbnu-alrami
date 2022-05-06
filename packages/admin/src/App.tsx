@@ -1,4 +1,3 @@
-import { hot } from "react-hot-loader";
 import { Provider } from "react-redux";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
@@ -39,4 +38,4 @@ function ProviderApp() {
   );
 }
 
-export default hot(module)(ProviderApp);
+export default ProviderApp;

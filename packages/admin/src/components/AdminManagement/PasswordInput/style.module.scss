@@ -1,0 +1,37 @@
+@import "@shared/styles/color.scss";
+@import "src/styles/mixin.scss";
+
+.label {
+    display: block;
+    color: $gray-500;
+
+    .password-container {
+        position: relative;
+
+        .encrypt-button {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            font-size: 20px;
+            color: $gray-500;
+        }
+    }
+
+    .input {
+        @include roundBox(250px, 2px solid $gray-400);
+
+        &:focus {
+            border: 2px solid $blue-200;
+        }
+    }
+
+    .error-message {
+        display: block;
+        margin-top: 5px;
+        color: $google-red;
+    }
+}

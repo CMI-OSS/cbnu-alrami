@@ -5,6 +5,9 @@
   margin: 1rem 0;
   background-color: $white;
   div:nth-of-type(2) {
+    display: none;
+  }
+  div:nth-of-type(3) {
     height: 36rem;
     font-size: 1rem;
     strong {

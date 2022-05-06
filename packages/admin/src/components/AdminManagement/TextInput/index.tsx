@@ -1,4 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import { UseFormRegisterReturn } from "react-hook-form";
+
 import classNames from "classnames";
 
 import $ from "./style.module.scss";
@@ -6,9 +8,9 @@ import $ from "./style.module.scss";
 type Props = {
   id: string;
   className: string;
-  errorMessage: string;
+  errorMessage: string | undefined;
   label: string;
-  register: () => void;
+  register: () => UseFormRegisterReturn;
 };
 
 export default function TextInput({

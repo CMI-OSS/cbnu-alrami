@@ -1,7 +1,10 @@
 @import "@shared/styles/color.scss";
 @import "src/styles/mixin.scss";
 
-.input,
+.input {
+    margin-top: 10px;
+}
+
 .select {
     margin-top: 10px;
 }

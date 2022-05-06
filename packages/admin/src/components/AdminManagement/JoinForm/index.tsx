@@ -9,9 +9,9 @@ import TextInput from "../TextInput";
 import $ from "./style.module.scss";
 
 type Props = {
-  handleSubmit: () => void;
+  onSubmit: () => void;
   register: UseFormRegister<AdminJoinFormInputs>;
-  handleBoardSelectChange: ChangeEventHandler<HTMLSelectElement>;
+  onBoardSelectChange: ChangeEventHandler<HTMLSelectElement>;
   errors: AdminJoinFormErrors;
 };
 
@@ -26,9 +26,9 @@ const BOARDS = [
 const AUTHORITIES = [ "super", "council", "scraper", "guest" ];
 
 export default function JoinForm({
-  handleSubmit,
+  onSubmit: handleSubmit,
   register,
-  handleBoardSelectChange,
+  onBoardSelectChange: handleBoardSelectChange,
   errors,
 }: Props) {
   return (
@@ -36,28 +36,28 @@ export default function JoinForm({
       <TextInput
         id="id-input"
         className={$.input}
-        errorMessage={errors.id?.message ?? ""}
+        errorMessage={errors.id?.message}
         label="아이디"
         register={() => register("id")}
       />
       <PasswordInput
         id="password-input"
         className={$.input}
-        errorMessage={errors.password?.message ?? ""}
+        errorMessage={errors.password?.message}
         label="비밀번호"
         register={() => register("password")}
       />
       <PasswordInput
         id="password-confirm-input"
         className={$.input}
-        errorMessage={errors.passwordConfirm?.message ?? ""}
+        errorMessage={errors.passwordConfirm?.message}
         label="비밀번호 확인"
         register={() => register("passwordConfirm")}
       />
       <TextInput
         id="nickname"
         className={$.input}
-        errorMessage={errors.nickname?.message ?? ""}
+        errorMessage={errors.nickname?.message}
         label="닉네임"
         register={() => register("nickname")}
       />

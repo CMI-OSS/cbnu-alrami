@@ -4,12 +4,12 @@ import $ from "./style.module.scss";
 
 type Props = {
   boards: string[];
-  handleDeleteBoard: (board: string) => void;
+  onDeleteBoard: (board: string) => void;
 };
 
 export default function SelectedBoardList({
   boards,
-  handleDeleteBoard,
+  onDeleteBoard: handleDeleteBoard,
 }: Props) {
   return (
     <>

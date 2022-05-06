@@ -22,7 +22,7 @@ export default function AdminJoin() {
     defaultValues: { authority: "super", boards: [] },
   });
 
-  const addNewAdmin = (adminData: AdminJoinFormInputs) => {
+  const addAdmin = (adminData: AdminJoinFormInputs) => {
     // eslint-disable-next-line no-alert
     alert(JSON.stringify(adminData));
 
@@ -30,7 +30,7 @@ export default function AdminJoin() {
   };
 
   const onSubmit: SubmitHandler<AdminJoinFormInputs> = (data) => {
-    addNewAdmin(data);
+    addAdmin(data);
     reset();
   };
 
@@ -59,16 +59,16 @@ export default function AdminJoin() {
       <main className={$.main}>
         <section>
           <JoinForm
-            handleSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(onSubmit)}
+            onBoardSelectChange={handleBoardSelectChange}
             register={register}
-            handleBoardSelectChange={handleBoardSelectChange}
             errors={errors}
           />
         </section>
         <section className={$["side-section"]}>
           <SelectedBoardList
             boards={watch("boards")}
-            handleDeleteBoard={handleDeleteBoard}
+            onDeleteBoard={handleDeleteBoard}
           />
         </section>
       </main>

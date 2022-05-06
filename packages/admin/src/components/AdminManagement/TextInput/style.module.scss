@@ -5,17 +5,17 @@
     display: block;
     color: $gray-500;
 
+    .error-message {
+        display: block;
+        margin-top: 5px;
+        color: $google-red;
+    }
+
     .input {
         @include roundBox(250px, 2px solid $gray-400);
 
         &:focus {
             border: 2px solid $blue-200;
         }
-    }
-
-    .error-message {
-        display: block;
-        margin-top: 5px;
-        color: $google-red;
     }
 }

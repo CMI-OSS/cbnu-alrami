@@ -8,7 +8,7 @@ import { SmallPlaceMenu } from "@components/atoms/icon/SmallPlaceMenu";
 import Footer from "@components/molecules/Footer";
 import MenuButtonList from "@components/molecules/MenuButtonList";
 import { useAppDispatch, useAppSelector } from "src/store";
-import { checkStatus } from "src/store/statusSlice";
+import { hideFloatingButtonStatus } from "src/store/statusSlice";
 
 import { placeInfoList } from "../../__mocks__/placeInfoList";
 import $ from "./style.module.scss";
@@ -24,7 +24,7 @@ function Map() {
   const CBNU_LATITUDE = 36.62903849870408;
   const CBNU_LONGITUDE = 127.45635082700974;
 
-  const { status } = useAppSelector(
+  const { isDisplayFloatingButton } = useAppSelector(
     (state) => state.statusReducer.map,
   );
   const dispatch = useAppDispatch();
@@ -43,7 +43,7 @@ function Map() {
         naver.maps.Event.addListener(marker, "click", (e) => {
           map.panTo(e.coord, { duration: 300, easing: "easeOutCubic" });
           e.domEvent.stopPropagation();
-          dispatch(checkStatus({ status: false }));
+          dispatch(hideFloatingButtonStatus({ isDisplayFloatingButton: false }));
         });
       });
       return map;
@@ -53,8 +53,8 @@ function Map() {
 
   return (
     <div id="map" className={$.map}>
-      {status? <MenuButtonList /> : <div>ddd</div>}
-      {status &&
+      {isDisplayFloatingButton? <MenuButtonList /> : <div>ddd</div>}
+      {isDisplayFloatingButton &&
       <div className={$.wrap}>
         <div className={$.place_wrap}>
           <span className={$.text}>

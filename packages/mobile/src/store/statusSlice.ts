@@ -5,13 +5,13 @@ const name = "status";
 
 type Props = {
   map: {
-    status: boolean;
+    isDisplayFloatingButton: boolean;
   };
 };
 
 const initialState: Props = {
   map: {
-    status: true,
+    isDisplayFloatingButton: true,
   },
 };
 
@@ -19,16 +19,16 @@ export const statusSlice = createSlice({
   name,
   initialState,
   reducers: {
-    checkStatus: (
+    hideFloatingButtonStatus: (
       state,
       action: PayloadAction<{
-        status?: boolean;
+        isDisplayFloatingButton?: boolean;
       }>,
     ) => {
-      state.map.status = false;
+      state.map.isDisplayFloatingButton = false;
     },
   },
 });
 
-export const { checkStatus } = statusSlice.actions;
+export const { hideFloatingButtonStatus } = statusSlice.actions;
 export default statusSlice.reducer;

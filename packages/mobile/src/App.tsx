@@ -42,4 +42,4 @@ function ProviderApp() {
   );
 }
 
-export default App
+export default ProviderApp

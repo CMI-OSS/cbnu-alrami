@@ -15,7 +15,7 @@ const axiosBaseQuery =
   async ({ url, method, data, params }) => {
     try {
       const result = await axios({
-        url: `${process.env.API_URL}/${url}`,
+        url: `${import.meta.env.VITE_API_URL}/${url}`,
         method,
         headers: {
           "Content-type": "application/json",

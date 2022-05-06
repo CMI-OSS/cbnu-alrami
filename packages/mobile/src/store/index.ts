@@ -1,13 +1,13 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
-import { configureStore, MiddlewareArray } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 
 import statusReducer from "./statusSlice";
-import logger from "./loggerMiddleware";
+import logger from "redux-logger";
 
 export const store = configureStore({
   reducer: { statusReducer },
-  middleware: new MiddlewareArray().concat(logger),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   devTools: process.env.NODE_ENV !== "production",
 });
 

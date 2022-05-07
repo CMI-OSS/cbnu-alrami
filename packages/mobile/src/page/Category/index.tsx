@@ -60,7 +60,7 @@ function Category() {
           <MapArrow />
           <span className="blind">뒤로가기</span>
         </NavLink>
-        <h1 className={$.title}>리스트</h1>
+        <h1 className={$.title}>장소</h1>
         <button type="button" className={$.button}>
           제보하기
         </button>

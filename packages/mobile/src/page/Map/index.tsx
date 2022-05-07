@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -43,7 +42,9 @@ function Map() {
         naver.maps.Event.addListener(marker, "click", (e) => {
           map.panTo(e.coord, { duration: 300, easing: "easeOutCubic" });
           e.domEvent.stopPropagation();
-          dispatch(hideFloatingButtonStatus({ isDisplayFloatingButton: false }));
+          dispatch(
+            hideFloatingButtonStatus({ isDisplayFloatingButton: false }),
+          );
         });
       });
       return map;
@@ -53,23 +54,23 @@ function Map() {
 
   return (
     <div id="map" className={$.map}>
-      {isDisplayFloatingButton? <MenuButtonList /> : <div>ddd</div>}
-      {isDisplayFloatingButton &&
-      <div className={$.wrap}>
-        <div className={$.place_wrap}>
-          <span className={$.text}>
-            <SmallPlaceMenu className={$.small_icon} />를 눌러
-            <br />
-            다양한 장소를 탐색해요
-          </span>
-          <PlaceArrow className={$.arrow} />
+      {isDisplayFloatingButton ? <MenuButtonList /> : <div>ddd</div>}
+      {isDisplayFloatingButton && (
+        <div className={$.wrap}>
+          <div className={$.place_wrap}>
+            <span className={$.text}>
+              <SmallPlaceMenu className={$.small_icon} />를 눌러
+              <br />
+              다양한 장소를 탐색해요
+            </span>
+            <PlaceArrow className={$.arrow} />
+          </div>
+          <NavLink to="/category" className={$.link}>
+            <PlaceMenu className={$.icon} />
+            <span className="blind">장소탐색하기</span>
+          </NavLink>
         </div>
-        <NavLink to="/category" className={$.link}>
-          <PlaceMenu className={$.icon} />
-          <span className="blind">장소탐색하기</span>
-        </NavLink>
-      </div>
-      }
+      )}
       <Footer />
     </div>
   );

@@ -1,9 +1,9 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import { configureStore } from "@reduxjs/toolkit";
+import logger from "redux-logger";
 
 import statusReducer from "./statusSlice";
-import logger from "redux-logger";
 
 export const store = configureStore({
   reducer: { statusReducer },

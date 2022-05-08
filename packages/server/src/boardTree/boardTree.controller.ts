@@ -1,6 +1,5 @@
 import { Controller, Get, Param } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { BoardService } from "src/board/board.service";
 import { Public } from "src/commons/decorators/public.decorator";
 
 import { BoardTreeService } from "./boardTree.service";

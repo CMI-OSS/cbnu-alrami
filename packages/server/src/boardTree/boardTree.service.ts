@@ -2,10 +2,13 @@ import { Injectable } from "@nestjs/common";
 import { Builder } from "builder-pattern";
 import { BoardResponseDto } from "src/board/dto/board.response.dto";
 import { BoardTree } from "src/commons/entities/boardTree.entity";
+import { Errors } from "src/commons/exception/exception.global";
 
 import { BoardTreeRepository } from "./boardTree.repository";
 import { BoardTreeAllResponseDto } from "./dto/boardTree.all.response.dto";
 import { BoardTreeResponseDto } from "./dto/boardTree.response.dto";
+
+const { BOARD_ID_NOT_FOUND } = Errors;
 
 @Injectable()
 export class BoardTreeService {
@@ -18,6 +21,8 @@ export class BoardTreeService {
       },
       relations: [ "board", "parentBoard" ],
     });
+
+    if (typeof boardTree === "undefined") throw BOARD_ID_NOT_FOUND;
 
     return Builder(BoardTreeResponseDto)
       .id(boardTree.board.id)

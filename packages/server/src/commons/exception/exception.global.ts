@@ -12,6 +12,9 @@ export const Errors = {
   ),
 
   // board 도메인에 대한 예외 메세지
+  BOARD_ID_NOT_FOUND: new NotFoundException(
+    "해당 id의 board가 존재하지 않습니다.",
+  ),
   DUPLICATE_BOARD_NAME: new BadRequestException(
     "이미 존재하는 board name입니다.",
   ),

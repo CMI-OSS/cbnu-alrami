@@ -29,8 +29,8 @@ import { ScheduleModule } from "./schedule/schedule.module";
     FcmModule,
     AuthModule,
     AwsModule,
-    BoardModule,
     BoardTreeModule,
+    BoardModule,
     ScheduleModule,
   ],
   providers: [

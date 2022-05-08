@@ -1,36 +1,101 @@
 import { Injectable } from "@nestjs/common";
 import { Builder } from "builder-pattern";
-import { BoardService } from "src/board/board.service";
 import { BoardResponseDto } from "src/board/dto/board.response.dto";
-import { BoardResponseDtoBuilder } from "src/board/dto/board.response.dto.builder";
-import { Board } from "src/commons/entities/board.entity";
+import { BoardTree } from "src/commons/entities/boardTree.entity";
 
 import { BoardTreeRepository } from "./boardTree.repository";
+import { BoardTreeAllResponseDto } from "./dto/boardTree.all.response.dto";
 import { BoardTreeResponseDto } from "./dto/boardTree.response.dto";
-import { BoardTreeResponseDtoBuilder } from "./dto/boardTree.response.dto.builder";
 
 @Injectable()
 export class BoardTreeService {
-  constructor(
-    private readonly boardService: BoardService,
-    private readonly boardTreeRepository: BoardTreeRepository,
-  ) {}
+  constructor(private readonly boardTreeRepository: BoardTreeRepository) {}
 
-  async findByBoard(board: Board): Promise<BoardTreeResponseDto> {
-    const boardTree = await this.boardTreeRepository.findOne(
-      { board },
-      { relations: [ "board", "parentBoard" ] },
+  async findByBoard(boardId: number): Promise<BoardTreeResponseDto> {
+    const boardTree = await this.boardTreeRepository.findOne({
+      where: {
+        board: boardId,
+      },
+      relations: [ "board", "parentBoard" ],
+    });
+
+    return Builder(BoardTreeResponseDto)
+      .id(boardTree.board.id)
+      .name(boardTree.board.name)
+      .parent(
+        Builder(BoardResponseDto)
+          .id(boardTree.parentBoard.id)
+          .name(boardTree.parentBoard.name)
+          .build(),
+      )
+      .build();
+  }
+
+  async findAll() {
+    const rootList: BoardTree[] = await this.boardTreeRepository.find({
+      where: {
+        parentBoard: null,
+      },
+      relations: [ "board", "parentBoard" ],
+    });
+
+    const response: BoardTreeAllResponseDto[] = [];
+
+    await Promise.all(
+      rootList.map(async (root) => {
+        const children = await this.findChildren(root.board.id);
+        response.push(
+          Builder(BoardTreeAllResponseDto)
+            .id(root.board.id)
+            .name(root.board.name)
+            .children(children)
+            .build(),
+        );
+      }),
     );
 
-    const parent = new BoardResponseDtoBuilder()
-      .setId(boardTree.parentBoard.id)
-      .setName(boardTree.parentBoard.name)
-      .build();
+    return response;
+  }
 
-    return new BoardTreeResponseDtoBuilder()
-      .setId(boardTree.board.id)
-      .setName(boardTree.board.name)
-      .setParent(parent)
-      .build();
+  async findChildren(parentId: number): Promise<BoardTreeAllResponseDto[]> {
+    const children = await this.boardTreeRepository.find({
+      where: {
+        parentBoard: parentId,
+      },
+      relations: [ "board", "parentBoard" ],
+    });
+
+    const response: BoardTreeAllResponseDto[] = [];
+
+    await Promise.all(
+      children.map(async (child) => {
+        const grandChildren: BoardTreeAllResponseDto[] =
+          children.length > 0
+            ? await this.findChildren(child.board.id)
+            : undefined;
+
+        // 리프노드인 경우에만 url을 보낸다.
+        if (grandChildren !== undefined) {
+          response.push(
+            Builder(BoardTreeAllResponseDto)
+              .id(child.board.id)
+              .name(child.board.name)
+              .children(grandChildren)
+              .build(),
+          );
+        } else {
+          response.push(
+            Builder(BoardTreeAllResponseDto)
+              .id(child.board.id)
+              .name(child.board.name)
+              .url(child.board.url)
+              .children(grandChildren)
+              .build(),
+          );
+        }
+      }),
+    );
+
+    return response.length === 0 ? undefined : response;
   }
 }

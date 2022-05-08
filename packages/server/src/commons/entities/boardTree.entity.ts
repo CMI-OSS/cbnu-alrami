@@ -3,6 +3,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   RelationId,
@@ -16,14 +17,14 @@ export class BoardTree {
   @ApiProperty({ description: "pk" })
   id!: number;
 
-  @OneToOne((type) => Board)
+  @OneToOne(() => Board)
   @JoinColumn({ name: "board_id" })
   board: Board;
 
   //   @RelationId((boardTree: BoardTree) => boardTree.board)
   //   boardId: number;
 
-  @OneToOne((type) => Board)
+  @OneToOne(() => Board)
   @JoinColumn({ name: "parent_board_id" })
   parentBoard: Board;
 

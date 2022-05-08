@@ -8,20 +8,21 @@ import { BoardTreeResponseDto } from "./dto/boardTree.response.dto";
 
 @Public()
 @Controller({
-  path: "boards/trees",
+  path: "board-tree",
 })
 @ApiTags("[boardTree] 공지사항 사이트 계층구조 도메인 API")
 export class BoardTreeController {
-  constructor(
-    private readonly boardTreeService: BoardTreeService,
-    private readonly boardService: BoardService,
-  ) {}
+  constructor(private readonly boardTreeService: BoardTreeService) {}
+
+  @Get()
+  async findAll() {
+    return this.boardTreeService.findAll();
+  }
 
   @Get(":boardId")
   async findByBoard(
     @Param("boardId") boardId: number,
   ): Promise<BoardTreeResponseDto> {
-    const board = await this.boardService.findById(boardId);
-    return this.boardTreeService.findByBoard(board);
+    return this.boardTreeService.findByBoard(boardId);
   }
 }

@@ -1,4 +1,5 @@
 import "./mobile.scss";
+import { Provider } from "react-redux";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -8,9 +9,9 @@ import Category from "./page/Category";
 import Home from "./page/Home";
 import Map from "./page/Map";
 import Notification from "./page/Notification";
+import { store } from "./store";
 
 function App() {
-
   const routes = [
     { id: 1, path: "/notification", element: <Notification /> },
     { id: 2, path: "/calendar", element: <Calendar /> },
@@ -32,4 +33,12 @@ function App() {
   );
 }
 
-export default App
+function ProviderApp() {
+  return (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+}
+
+export default ProviderApp;

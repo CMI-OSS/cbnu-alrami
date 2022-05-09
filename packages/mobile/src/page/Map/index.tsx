@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -7,6 +6,8 @@ import { PlaceMenu } from "@components/atoms/icon/PlaceMenu";
 import { SmallPlaceMenu } from "@components/atoms/icon/SmallPlaceMenu";
 import Footer from "@components/molecules/Footer";
 import MenuButtonList from "@components/molecules/MenuButtonList";
+import { useAppDispatch, useAppSelector } from "src/store";
+import { hideFloatingButtonStatus } from "src/store/statusSlice";
 
 import { placeInfoList } from "../../__mocks__/placeInfoList";
 import $ from "./style.module.scss";
@@ -22,6 +23,11 @@ function Map() {
   const CBNU_LATITUDE = 36.62903849870408;
   const CBNU_LONGITUDE = 127.45635082700974;
 
+  const { isDisplayFloatingButton } = useAppSelector(
+    (state) => state.statusReducer.map,
+  );
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     const initMap = () => {
       const map = new naver.maps.Map("map", {
@@ -36,6 +42,9 @@ function Map() {
         naver.maps.Event.addListener(marker, "click", (e) => {
           map.panTo(e.coord, { duration: 300, easing: "easeOutCubic" });
           e.domEvent.stopPropagation();
+          dispatch(
+            hideFloatingButtonStatus({ isDisplayFloatingButton: false }),
+          );
         });
       });
       return map;
@@ -45,21 +54,23 @@ function Map() {
 
   return (
     <div id="map" className={$.map}>
-      <MenuButtonList />
-      <div className={$.wrap}>
-        <div className={$.place_wrap}>
-          <span className={$.text}>
-            <SmallPlaceMenu className={$.small_icon} />를 눌러
-            <br />
-            다양한 장소를 탐색해요
-          </span>
-          <PlaceArrow className={$.arrow} />
+      {isDisplayFloatingButton ? <MenuButtonList /> : <div>ddd</div>}
+      {isDisplayFloatingButton && (
+        <div className={$.wrap}>
+          <div className={$.place_wrap}>
+            <span className={$.text}>
+              <SmallPlaceMenu className={$.small_icon} />를 눌러
+              <br />
+              다양한 장소를 탐색해요
+            </span>
+            <PlaceArrow className={$.arrow} />
+          </div>
+          <NavLink to="/category" className={$.link}>
+            <PlaceMenu className={$.icon} />
+            <span className="blind">장소탐색하기</span>
+          </NavLink>
         </div>
-        <NavLink to="/category" className={$.link}>
-          <PlaceMenu className={$.icon} />
-          <span className="blind">장소탐색하기</span>
-        </NavLink>
-      </div>
+      )}
       <Footer />
     </div>
   );

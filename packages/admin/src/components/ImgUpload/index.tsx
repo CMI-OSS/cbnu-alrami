@@ -50,6 +50,7 @@ export default function ImgUpload() {
               style={{ display: "none" }}
               id="chooseFile"
               type="file"
+              accept=".jpg,.jpeg,.png"
               multiple
               onChange={onLoadFile}
             />

@@ -61,9 +61,9 @@ function Category() {
           <span className="blind">뒤로가기</span>
         </NavLink>
         <h1 className={$.title}>장소</h1>
-        <button type="button" className={$.button}>
+        <NavLink to="/call" className={$.place_link}>
           제보하기
-        </button>
+        </NavLink>
       </div>
       <div className={$.menu}>
         <div className={$.list}>

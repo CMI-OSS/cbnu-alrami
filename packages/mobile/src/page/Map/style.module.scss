@@ -28,6 +28,24 @@ $linkTooltipDistance: 17px;
   color: $black-80;
 }
 
+.content {
+  position: relative;
+}
+
+.close_button {
+  position: absolute;
+  top: -4px;
+  right: 0;
+  background-color: transparent;
+  padding: 10px;
+  margin: -10px;
+}
+
+.close_icon {
+  width: 11px;
+  height: 10px;
+}
+
 .small_icon {
   margin: 0 3px -1px 0;
 }

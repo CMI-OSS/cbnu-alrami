@@ -1,24 +1,46 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import { MapArrow } from "@components/atoms/icon/MapArrow";
 import Chips from "@components/molecules/Chips";
+import { useAppDispatch, useAppSelector } from "src/store";
+import { setHashMenu } from "src/store/placeSlice";
 
 import $ from "./style.module.scss";
 
 const menuList = [
-  { id: 1, name: "학교", path: "/school" },
-  { id: 2, name: "식사", path: "/food" },
-  { id: 3, name: "편리", path: "/convenient" },
-  { id: 4, name: "간식", path: "/food" },
-  { id: 5, name: "놀거리", path: "/food" },
-
+  { id: 1, name: "학교", path: "/place?category=1" },
+  { id: 2, name: "식사", path: "/place?category=2" },
+  { id: 3, name: "편리", path: "/place?category=3" },
+  { id: 4, name: "간식", path: "/place?category=4" },
+  { id: 5, name: "놀거리", path: "/place?category=5" },
 ];
 
-const hashList = [
-  { id: 1, name: "#학교", path: "/school_hash" },
-  { id: 2, name: "#N구역", path: "/area" },
-  { id: 3, name: "#8인_테이블", path: "/table" },
+const constructionList = [
+  { id: 1, name: "건물", path: "/place?category=1&subCategory=1" },
+  { id: 2, name: "식당", path: "/place?category=1&subCategory=2" },
+  { id: 3, name: "기숙사", path: "/place?category=1&subCategory=3" },
+  { id: 4, name: "명소", path: "/place?category=1&subCategory=4" },
+  { id: 5, name: "프린터기", path: "/place?category=1&subCategory=5" },
+];
+
+const foodList = [
+  { id: 1, name: "한식", path: "/place?category=2&subCategory=1" },
+  { id: 2, name: "중식", path: "/place?category=2&subCategory=2" },
+  { id: 3, name: "일식", path: "/place?category=2&subCategory=3" },
+  { id: 4, name: "양식", path: "/place?category=2&subCategory=4" },
+];
+
+const snackList = [
+  { id: 1, name: "카페", path: "/place?category=4&subCategory=1" },
+  { id: 2, name: "아이스크림", path: "/place?category=4&subCategory=2" },
+];
+
+const playList = [
+  { id: 1, name: "PC방", path: "/place?category=5&subCategory=1" },
+  { id: 2, name: "코인노래방", path: "/place?category=5&subCategory=2" },
+  { id: 3, name: "즉석사진", path: "/place?category=5&subCateogry=3" },
+  { id: 4, name: "기타", path: "/place?category=5&subCategory=4" },
 ];
 
 const imageList = [
@@ -54,8 +76,29 @@ const imageList = [
   },
 ];
 
-function Category() {
-  const [ menu, setMenu ] = useState(1);
+function Place() {
+  const [ menu, setMenu ] = useState(0);
+  const dispatch = useAppDispatch();
+
+  const getHashList = () => {
+    switch (menu) {
+      case 0:
+        return constructionList;
+      case 1:
+        return foodList;
+      case 3:
+        return snackList;
+      case 4:
+        return playList;
+      default:
+        return constructionList;
+    }
+  };
+
+  const handleMenu = (idx: number) => {
+    setMenu(idx);
+    dispatch(setHashMenu({ hashNumber: 0 }));
+  };
 
   return (
     <>
@@ -77,8 +120,8 @@ function Category() {
                 key={`menu-${item.id}`}
                 to={item.path}
                 className={$.menu_link}
-                onClick={() => setMenu(idx)}
-                aria-selected={menu === idx + 1}
+                onClick={() => handleMenu(idx)}
+                aria-selected={menu === idx}
               >
                 {item.name}
               </NavLink>
@@ -87,7 +130,7 @@ function Category() {
         </div>
       </div>
       <div className={$.content}>
-        <Chips list={hashList} />
+        <Chips list={getHashList()} />
         <div className={$.image_list}>
           {imageList.map((item, idx) => {
             return (
@@ -113,4 +156,4 @@ function Category() {
   );
 }
 
-export default Category;
+export default Place;

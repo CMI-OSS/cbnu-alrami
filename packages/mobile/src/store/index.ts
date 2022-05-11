@@ -3,10 +3,14 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 
+import placeReducer from "./placeSlice";
 import statusReducer from "./statusSlice";
 
 export const store = configureStore({
-  reducer: { statusReducer },
+  reducer: {
+    statusReducer,
+    placeReducer,
+  },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   devTools: process.env.NODE_ENV !== "production",
 });

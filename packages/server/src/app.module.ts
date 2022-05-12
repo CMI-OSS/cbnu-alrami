@@ -10,6 +10,7 @@ import configuration from "./commons/config/configuration";
 import { JwtGuard } from "./commons/guards/jwt.guard";
 import { FcmModule } from "./fcm/fcm.module";
 import { ScheduleModule } from "./schedule/schedule.module";
+import { WeatherModule } from "./weather/weather.module";
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { ScheduleModule } from "./schedule/schedule.module";
     AwsModule,
     BoardModule,
     ScheduleModule,
+    WeatherModule,
   ],
   providers: [
     {

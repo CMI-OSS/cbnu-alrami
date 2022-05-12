@@ -1,3 +1,3 @@
-import { CreateWeatherRequestDto } from "./create-weather.request.dto";
+import { Weather } from "../../commons/entities/weather.entity";
 
-export class WeatherResponseDto extends CreateWeatherRequestDto {}
+export class GetWeatherResponseDto extends Weather {}

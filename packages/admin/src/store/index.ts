@@ -1,7 +1,7 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import { configureStore } from "@reduxjs/toolkit";
-import { boardWriteApi } from "src/services/boardWriteApi";
+import { boardWriteApi } from "src/api/board";
 
 import boardReducer from "./boardSlice";
 import logger from "./loggerMiddleware";

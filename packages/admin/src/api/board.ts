@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import axiosBaseQuery from "src/lib/axiosBaseQuery";
+import axiosBaseQuery from "src/api/baseQuery";
 
 export const boardWriteApi = createApi({
   reducerPath: "boardWriteApi",

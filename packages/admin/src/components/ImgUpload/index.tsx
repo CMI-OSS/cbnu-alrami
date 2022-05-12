@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 
 import classNames from "classnames";
-import { useImgUploadMutation } from "src/services/boardWriteApi";
+import { useImgUploadMutation } from "src/api/board";
 
-import { LoadingSpinner, ToastMsg } from "../AtomicUi";
+import { LoadingSpinner, ToastMsg } from "../Atom";
 import $ from "./style.module.scss";
 
 export default function ImgUpload() {
-  const [ isFetched, setIsFetched ] = useState<boolean>(false);
+  const [ isFetched, setIsFetched ] = useState(false);
   const [ imgSrcList, setImgSrcList ] = useState<string[]>([]);
   const [ imgUpload, { isLoading, isSuccess } ] = useImgUploadMutation();
 
@@ -30,7 +30,9 @@ export default function ImgUpload() {
         const data = await imgUpload(formData).unwrap();
         setIsFetched(true);
         setImgSrcList([ ...imgSrcList, ...data ]);
-      } catch {
+      } catch (e) {
+        console.log(e);
+      } finally {
         setIsFetched(true);
       }
     }
@@ -64,7 +66,7 @@ export default function ImgUpload() {
       )}
 
       {imgSrcList.map((src) => (
-        <img key={src} alt="img" src={src} />
+        <img key={src} alt="업로드된 이미지" src={src} />
       ))}
     </>
   );

@@ -21,27 +21,8 @@ export class BoardTree {
   @JoinColumn({ name: "board_id" })
   board: Board;
 
-  //   @RelationId((boardTree: BoardTree) => boardTree.board)
-  //   boardId: number;
-
   @OneToOne(() => Board)
   @JoinColumn({ name: "parent_board_id" })
   parentBoard: Board;
 
-  //   @RelationId((boardTree: BoardTree) => boardTree.parentBoard)
-  //   parentBoardId: number;
-
-  //   @Column({ name: "board_id" })
-  //   boardId: number;
-
-  //   @OneToOne((type) => Board)
-  //   @JoinColumn()
-  //   board: Board;
-
-  //   @Column({ name: "parent_board_id" })
-  //   parentBoardId: number;
-
-  //   @OneToOne((type) => Board)
-  //   @JoinColumn()
-  //   parentBoard: Board;
 }

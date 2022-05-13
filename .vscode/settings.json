@@ -15,5 +15,6 @@
   },
   "[typescript]": {
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
-  }
+  },
+  "compile-hero.disable-compile-files-on-did-save-code": false
 }

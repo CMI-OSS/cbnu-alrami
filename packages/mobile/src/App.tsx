@@ -20,7 +20,6 @@ function App() {
     { id: 3, path: "/home", element: <Home /> },
     { id: 4, path: "/cafeteria", element: <Cafeteria /> },
     { id: 5, path: "/map", element: <Map /> },
-    { id: 6, path: "/place", element: <Place /> },
   ];
 
   return (
@@ -30,6 +29,7 @@ function App() {
           <Route key={route.id} path={route.path} element={route.element} />
         ))}
         <Route path="*" element={<Navigate replace to="/home" />} />
+        <Route path="/place/*" element={<Place />} />
       </Routes>
     </BrowserRouter>
   );

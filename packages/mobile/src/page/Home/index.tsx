@@ -1,10 +1,8 @@
-import { Link } from "react-router-dom";
-
 import Footer from "@components/molecules/Footer";
 import { Arrow } from "src/components/atoms/icon/Arrow";
 
 import BorderBox from "../../components/atoms/BorderBox";
-import { Setting, 비, Covid, Info, Write } from "../../components/atoms/icon";
+import { Setting, 구름조금_낮, Info, Write } from "../../components/atoms/icon";
 import Line from "../../components/atoms/Line";
 import $ from "./style.module.scss";
 
@@ -42,25 +40,21 @@ function Home() {
         ))}
       </div>
       <div className={$.information}>
-        <BorderBox height={200} background="#EAF4FE">
-          <비 style={{ width: "50px", height: "auto" }} />
-          <strong>청주 날씨</strong>
-          <span className={$.amount}>25도</span>
-          <span className={$.description}>구름 조금</span>
-          <div className={$.more}>
-            <Info style={{ width: "10px", height: "10px" }} />
-            기온별 옷차림
+        <BorderBox height={155} background="#EAF4FE">
+          <div className={$.first}>
+            <span className={$.amount}>25°C</span>
+            <span className={$.description}>청주, 구름 조금</span>
+            <span className={$.celsius}>-11.0 °C / 2.0°C</span>
           </div>
-        </BorderBox>
-        <BorderBox height={200} background="#F2F0FE">
-          <Covid />
-          <strong>확진자 수</strong>
-          <span className={$.amount}>500,000</span>
-          <span className={$.description}>+1,325</span>
-          <Link className={$.more} to="/covid">
-            더보기
-            <Arrow style={{ width: "7px", height: "7px", stroke: "#222" }} />
-          </Link>
+          <div className={$.second}>
+            <div style={{ width: "66px", height: "55px" }}>
+              <구름조금_낮 />
+            </div>
+            <div className={$.more}>
+              <Info width="14" height="14" />
+              기온별 옷차림
+            </div>
+          </div>
         </BorderBox>
       </div>
       <div className={$.cafeteria}>

@@ -12,15 +12,15 @@ export class Article extends CommonEntity {
   @ManyToOne(() => Admin, (Admin) => Admin.id)
   author: number;
 
-  @Column()
+  @Column({ type: "varchar" })
   title: string;
 
-  @Column()
+  @Column({ type: "text" })
   content: string;
 
   @Column({ type: "varchar", nullable: true })
   url: string;
 
-  @Column()
+  @Column({ type: "datetime" })
   date: Date;
 }

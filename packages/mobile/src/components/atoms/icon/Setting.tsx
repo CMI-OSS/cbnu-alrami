@@ -1,11 +1,16 @@
 import type { StyleProps } from "src/type/props";
 
-function Setting({ className, style }: StyleProps) {
+type Props = {
+  width?: string;
+  height?: string;
+} & StyleProps;
+
+function Setting({ width, height, className, style }: Props) {
   return (
     <svg
       style={style}
-      width="24"
-      height="26"
+      width={width ?? "24"}
+      height={height ?? "24"}
       viewBox="0 0 24 26"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

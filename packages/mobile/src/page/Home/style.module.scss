@@ -143,6 +143,57 @@
             }
         }
     }
+
+    .show-guide {
+        > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 22px 0 16px 0;
+            text-align: center;
+            color: $black-40;
+
+            > span {
+                margin-top: 9px;
+                @include typography(14);
+                font-weight: 500;
+            }
+            > p {
+                margin-top: 9px;
+                @include typography(12);
+                line-height: 18px;
+            }
+        }
+    }
+
+    .show-final-guide {
+        > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            padding: 24px 0 24px 0;
+            text-align: center;
+
+            > p {
+                @include typography(12);
+                line-height: 18px;
+                color: $black-80;
+
+                span {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    svg {
+                        margin-right: 5px;
+                    }
+                }
+            }
+        }
+    }
+
     .notification {
         > div {
             padding: 20px 25px 24px;

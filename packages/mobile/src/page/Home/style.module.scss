@@ -1,3 +1,5 @@
+@import "../../styles/main.scss";
+
 .home {
     padding: 34px 25px 100px 35px;
     background: #f5f6fa;
@@ -9,13 +11,14 @@
 
         .header-content {
             .title {
+                @include typography(25);
                 font-weight: 500;
-                font-size: 25.5px;
-                line-height: 31px;
+                color: $black-100;
             }
 
             > p {
-                color: #aaa;
+                @include typography(16);
+                color: $black-50;
             }
         }
 
@@ -38,6 +41,9 @@
             margin-right: 23px;
             margin-bottom: 35px;
             min-width: 70%;
+            @include typography(16);
+            font-weight: 500;
+            color: $black-80;
         }
         > div:last-child {
             margin-right: 0;
@@ -54,33 +60,48 @@
 
         > div {
             display: flex;
-            flex-direction: column;
             justify-content: space-between;
             align-items: center;
             width: calc((100% - 25px) / 2);
-            padding: 22px 0;
+            padding: 32px 26px 22px 29px;
 
-            > strong {
-                font-size: 13px;
-                line-height: 16px;
-                color: #6c6c6c;
+            .first {
+                display: flex;
+                flex-direction: column;
+
+                .amount {
+                    margin-bottom: 15px;
+                    color: $black-80;
+                    @include typography(22);
+                }
+
+                .description {
+                    margin-bottom: 17px;
+                    @include typography(14);
+                    color: $black-60;
+                }
+
+                .celsius {
+                    @include typography(12);
+                    color: $black-50;
+                }
             }
 
-            .amount {
-                line-height: 22px;
-                font-size: 18px;
-                font-weight: 500;
-                color: #363636;
-            }
+            .second {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                justify-content: space-between;
+                height: 100%;
 
-            .description {
-                font-size: 13px;
-                color: #6c6c6c;
-            }
-
-            .more {
-                color: #aaa;
-                font-size: 12px;
+                .more {
+                    display: flex;
+                    align-items: center;
+                    svg {
+                        margin-right: 5px;
+                    }
+                    color: $black-40;
+                }
             }
         }
     }
@@ -96,11 +117,11 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 16px;
-            color: #202020;
+            color: $black-100;
 
             .location {
-                display: flex;
-                align-items: center;
+                @include typography(16);
+                font-weight: 500;
 
                 > svg {
                     margin-left: 10px;
@@ -108,7 +129,7 @@
             }
 
             .time {
-                color: #aaa;
+                color: $black-40;
             }
         }
         .cafeteria-content {
@@ -118,6 +139,7 @@
 
             > p {
                 margin-bottom: 28px;
+                color: $black-80;
             }
         }
     }
@@ -131,10 +153,12 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 16px;
-            color: #202020;
+            @include typography(16);
+            color: $black-100;
 
             .category {
-                color: #aaa;
+                @include typography(14);
+                color: $black-40;
 
                 > span:first-child {
                     margin-right: 13px;
@@ -143,9 +167,9 @@
         }
         .notification-content {
             > p {
-                font-size: 13px;
-                line-height: 16px;
                 margin-bottom: 28px;
+                @include typography(13);
+                color: $black-80;
             }
             > p:first-child {
                 margin-top: 25px;

@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/jsx-pascal-case */
 import Footer from "@components/molecules/Footer";
 import classNames from "classnames";
@@ -12,43 +14,85 @@ import {
 } from "src/components/atoms/icon";
 import { Arrow } from "src/components/atoms/icon/Arrow";
 import Line from "src/components/atoms/Line";
-import { isShowRepresentativeRestaurantGuide } from "src/utils/storage";
+import {
+  isShown대표식당가이드,
+  unset대표식당마지막가이드,
+  get대표식당,
+  set대표식당,
+} from "src/utils/storage";
 
 import $ from "./style.module.scss";
 
 function FinalGuideRestaurant() {
+  const handleUnshowGuide = () => {
+    unset대표식당마지막가이드();
+  };
+
   return (
     <div className={classNames($.cafeteria, $["show-final-guide"])}>
       <BorderBox height={188}>
         <p>
           홈화면에서 다시 식단을 보고싶다면 <br />
           <span>
-            <Setting width="14" height="15" /> 설정 &gt; 대표식당에서 <br />
+            <Setting width="14" height="15" /> 설정 &gt; 대표식당에서 다시
+            선택해주세요.
           </span>
-          다시 선택해주세요.
-          <br />
         </p>
-        <Button text="확인" />
+        <Button onClick={handleUnshowGuide} text="확인" />
       </BorderBox>
     </div>
   );
 }
 
 function GuideRestaurant() {
+  const handleShowModal = () => {
+    console.log("모달열림");
+    set대표식당("");
+  };
   return (
-    <div className={classNames($.cafeteria, $["show-guide"])}>
+    <div
+      className={classNames($.cafeteria, $["show-guide"])}
+      onClick={handleShowModal}
+    >
       <BorderBox height={188}>
         <Food width="18" height="22" />
         <span>화면을 눌러 대표식당을 선택해주세요.</span>
         <p>
           대표식당을 선택하면
           <br />
-          홈화면에서 대표식당의 식단을 볼 수 있어요.
+          홈화면에서 식단을 볼 수 있어요.
           <br />
           홈화면에서 식단을 보고싶지 않다면 <br />
           “표시 안함”을 선택해주세요.
           <br />
         </p>
+      </BorderBox>
+    </div>
+  );
+}
+
+function Restaurant() {
+  if (get대표식당() === null) {
+    return <GuideRestaurant />;
+  }
+  if (isShown대표식당가이드()) {
+    return <FinalGuideRestaurant />;
+  }
+  return (
+    <div className={$.cafeteria}>
+      <BorderBox height={188}>
+        <div className={$.title}>
+          <div className={$.location}>
+            본관 아침
+            <Write />
+          </div>
+          <span className={$.time}>7:30~9:00</span>
+        </div>
+        <Line />
+        <div className={$["cafeteria-content"]}>
+          흰밥/우유(두유)/김치 단호박스프 고구마치즈롤까스 &소스 양상추샐러드
+          오리엔탈드레싱 시금치나물 에너지:1165Kcal 단백질:16g
+        </div>
       </BorderBox>
     </div>
   );
@@ -67,7 +111,6 @@ function Home() {
     "2022학년도 정시 대학원(일반대학원) 석사과정4",
     "산업인공지능연구센터 연구원 채용 공고5",
   ];
-  const isShowGuide = isShowRepresentativeRestaurantGuide();
 
   return (
     <section className={$.home}>
@@ -106,27 +149,7 @@ function Home() {
           </div>
         </BorderBox>
       </div>
-      <FinalGuideRestaurant />
-      {/* {isShowGuide ? (
-        <GuideRestaurant />
-      ) : (
-        <div className={$.cafeteria}>
-          <BorderBox height={188}>
-            <div className={$.title}>
-              <div className={$.location}>
-                본관 아침
-                <Write />
-              </div>
-              <span className={$.time}>7:30~9:00</span>
-            </div>
-            <Line />
-            <div className={$["cafeteria-content"]}>
-              흰밥/우유(두유)/김치 단호박스프 고구마치즈롤까스 &소스
-              양상추샐러드 오리엔탈드레싱 시금치나물 에너지:1165Kcal 단백질:16g
-            </div>
-          </BorderBox>
-        </div>
-      )} */}
+      <Restaurant />
       <div className={$.notification}>
         <BorderBox height={300}>
           <div className={$.title}>

@@ -177,7 +177,7 @@
             text-align: center;
 
             > p {
-                @include typography(12);
+                @include typography(14);
                 line-height: 18px;
                 color: $black-80;
 

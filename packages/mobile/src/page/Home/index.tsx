@@ -15,8 +15,8 @@ import {
 import { Arrow } from "src/components/atoms/icon/Arrow";
 import Line from "src/components/atoms/Line";
 import {
-  isShown대표식당가이드,
-  unset대표식당마지막가이드,
+  isShown선택안함가이드,
+  unset선택안함가이드,
   get대표식당,
   set대표식당,
 } from "src/utils/storage";
@@ -25,7 +25,7 @@ import $ from "./style.module.scss";
 
 function FinalGuideRestaurant() {
   const handleUnshowGuide = () => {
-    unset대표식당마지막가이드();
+    unset선택안함가이드();
   };
 
   return (
@@ -46,8 +46,7 @@ function FinalGuideRestaurant() {
 
 function GuideRestaurant() {
   const handleShowModal = () => {
-    console.log("모달열림");
-    set대표식당("");
+    set대표식당("선택안함");
   };
   return (
     <div
@@ -72,10 +71,10 @@ function GuideRestaurant() {
 }
 
 function Restaurant() {
-  if (get대표식당() === null) {
+  if (!get대표식당()) {
     return <GuideRestaurant />;
   }
-  if (isShown대표식당가이드()) {
+  if (isShown선택안함가이드()) {
     return <FinalGuideRestaurant />;
   }
   return (

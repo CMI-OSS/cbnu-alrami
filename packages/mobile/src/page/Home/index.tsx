@@ -1,16 +1,14 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable react/jsx-pascal-case */
 import { Link, useSearchParams } from "react-router-dom";
 
 import Footer from "@components/molecules/Footer";
 import BorderBox from "src/components/atoms/BorderBox";
-import { Setting, 구름조금_낮, Info } from "src/components/atoms/icon";
+import { Setting } from "src/components/atoms/icon";
 import { Arrow } from "src/components/atoms/icon/Arrow";
 import Line from "src/components/atoms/Line";
 
 import Restaurant from "./Restaurant";
 import $ from "./style.module.scss";
+import Weather from "./Weather";
 
 function Home() {
   const [ searchParams ] = useSearchParams();
@@ -49,24 +47,7 @@ function Home() {
           </BorderBox>
         ))}
       </div>
-      <div className={$.information}>
-        <BorderBox height={155} background="#EAF4FE">
-          <div className={$.first}>
-            <span className={$.amount}>25°C</span>
-            <span className={$.description}>청주, 구름 조금</span>
-            <span className={$.celsius}>-11.0 °C / 2.0°C</span>
-          </div>
-          <div className={$.second}>
-            <div style={{ width: "66px", height: "55px" }}>
-              <구름조금_낮 />
-            </div>
-            <div className={$.more}>
-              <Info width="14" height="14" />
-              기온별 옷차림
-            </div>
-          </div>
-        </BorderBox>
-      </div>
+      <Weather />
       <Restaurant />
       <div className={$.notification}>
         <BorderBox height={300}>

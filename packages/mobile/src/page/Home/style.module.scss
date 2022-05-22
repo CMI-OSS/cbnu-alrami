@@ -106,44 +106,6 @@
         }
     }
 
-    .cafeteria {
-        margin-bottom: 35px;
-
-        > div {
-            padding: 17px;
-        }
-        .title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            color: $black-100;
-
-            .location {
-                @include typography(16);
-                font-weight: 500;
-
-                > svg {
-                    margin-left: 10px;
-                }
-            }
-
-            .time {
-                color: $black-40;
-            }
-        }
-        .cafeteria-content {
-            padding: 21px 20px 0px 0px;
-            line-height: 25px;
-            font-size: 13px;
-
-            > p {
-                margin-bottom: 28px;
-                color: $black-80;
-            }
-        }
-    }
-
     .show-guide {
         > div {
             display: flex;

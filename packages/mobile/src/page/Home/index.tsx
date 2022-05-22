@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/jsx-pascal-case */
+import { Link, useSearchParams } from "react-router-dom";
+
 import Footer from "@components/molecules/Footer";
 import classNames from "classnames";
 import BorderBox from "src/components/atoms/BorderBox";
@@ -98,18 +100,22 @@ function Restaurant() {
 }
 
 function Home() {
+  const [ searchParams ] = useSearchParams();
+  const noti = searchParams.get("noti") || "popular";
+
   const schedules = [
     "중간고사",
     "제목이 아주 긴 일정 제목이 아주 긴일정 제목이 아주 긴",
     "출근싫어",
   ];
-  const notifications = [
+  const popular_notifications = [
     "2022학년도 정시 대학원(일반대학원) 석사과정1",
     "산업인공지능연구센터 연구원 채용 공고2",
     "2022학년도 정시 법무대학원 신입생 추가3",
     "2022학년도 정시 대학원(일반대학원) 석사과정4",
     "산업인공지능연구센터 연구원 채용 공고5",
   ];
+  const lastest_notifications = [ "최신1", "최신2", "최신3", "최신4", "최신5" ];
 
   return (
     <section className={$.home}>
@@ -154,15 +160,29 @@ function Home() {
           <div className={$.title}>
             공지사항
             <div className={$.category}>
-              <span>인기</span>
-              <span>최신</span>
+              <Link
+                to="?noti=popular"
+                className={noti === "popular" ? $.active : $.inactive}
+              >
+                인기
+              </Link>
+              <Link
+                to="?noti=latest"
+                className={noti === "latest" ? $.active : $.inactive}
+              >
+                최신
+              </Link>
             </div>
           </div>
           <Line />
           <div className={$["notification-content"]}>
-            {notifications.map((notification) => (
-              <p key={notification}>{notification}</p>
-            ))}
+            {noti === "popular"
+              ? popular_notifications.map((notification) => (
+                  <p key={notification}>{notification}</p>
+                ))
+              : lastest_notifications.map((notification) => (
+                  <p key={notification}>{notification}</p>
+                ))}
           </div>
         </BorderBox>
       </div>

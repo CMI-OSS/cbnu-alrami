@@ -211,8 +211,12 @@
                 @include typography(14);
                 color: $black-40;
 
-                > span:first-child {
+                > a:first-child {
                     margin-right: 13px;
+                }
+
+                .active {
+                    color: $red-50;
                 }
             }
         }

@@ -3,7 +3,7 @@ import MenuButton from "@components/atoms/MenuButton";
 import $ from "./style.module.scss";
 
 function MenuButtonList() {
-  const items = [ "학교", "음식점" ];
+  const items = [ "학교", "식사", "편리", "간식", "놀거리" ];
 
   return (
     <div className={$.wrap}>

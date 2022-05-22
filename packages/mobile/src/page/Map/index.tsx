@@ -1,13 +1,17 @@
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
+import { Close } from "@components/atoms/icon/Close";
 import { PlaceArrow } from "@components/atoms/icon/PlaceArrow";
 import { PlaceMenu } from "@components/atoms/icon/PlaceMenu";
 import { SmallPlaceMenu } from "@components/atoms/icon/SmallPlaceMenu";
 import Footer from "@components/molecules/Footer";
 import MenuButtonList from "@components/molecules/MenuButtonList";
 import { useAppDispatch, useAppSelector } from "src/store";
-import { hideFloatingButtonStatus } from "src/store/statusSlice";
+import {
+  hideFloatingButtonStatus,
+  hideTooltipButtonStatus,
+} from "src/store/statusSlice";
 
 import { placeInfoList } from "../../__mocks__/placeInfoList";
 import $ from "./style.module.scss";
@@ -23,7 +27,7 @@ function Map() {
   const CBNU_LATITUDE = 36.62903849870408;
   const CBNU_LONGITUDE = 127.45635082700974;
 
-  const { isDisplayFloatingButton } = useAppSelector(
+  const { isDisplayFloatingButton, isDisplayTooltip } = useAppSelector(
     (state) => state.statusReducer.map,
   );
   const dispatch = useAppDispatch();
@@ -57,15 +61,29 @@ function Map() {
       {isDisplayFloatingButton ? <MenuButtonList /> : <div>ddd</div>}
       {isDisplayFloatingButton && (
         <div className={$.wrap}>
-          <div className={$.place_wrap}>
-            <span className={$.text}>
-              <SmallPlaceMenu className={$.small_icon} />를 눌러
-              <br />
-              다양한 장소를 탐색해요
-            </span>
-            <PlaceArrow className={$.arrow} />
-          </div>
-          <NavLink to="/category" className={$.link}>
+          {isDisplayTooltip && (
+            <div className={$.place_wrap}>
+              <span className={$.content}>
+                <SmallPlaceMenu className={$.small_icon} />를 눌러
+                <button
+                  type="button"
+                  className={$.close_button}
+                  aria-label="닫기 버튼"
+                  onClick={() =>
+                    dispatch(
+                      hideTooltipButtonStatus({ isDisplayTooltip: false }),
+                    )
+                  }
+                >
+                  <Close className={$.close_icon} />
+                </button>
+                <br />
+                다양한 장소를 탐색해요
+              </span>
+              <PlaceArrow className={$.arrow} />
+            </div>
+          )}
+          <NavLink to="/place/school" className={$.link}>
             <PlaceMenu className={$.icon} />
             <span className="blind">장소탐색하기</span>
           </NavLink>

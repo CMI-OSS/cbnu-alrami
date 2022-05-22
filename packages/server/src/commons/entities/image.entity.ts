@@ -1,10 +1,12 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
+import { Article } from "./article.entity";
 import { CommonEntity } from "./common.entity";
 
 @Entity({ name: "image" })
 export class Image extends CommonEntity {
-  @Column({ type: "int", nullable: true })
+  @ManyToOne(() => Article, (Article) => Article.id, { nullable: true })
+  @JoinColumn({ name: "article_id" })
   articleId?: number;
 
   @Column({ type: "varchar" })

@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { APP_GUARD } from "@nestjs/core";
-import { TypeOrmModule } from "@nestjs/typeorm";
+import { InjectConnection, TypeOrmModule } from "@nestjs/typeorm";
+import { Connection } from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
 import { AuthModule } from "./auth/auth.module";
@@ -9,10 +9,14 @@ import { AwsModule } from "./aws/aws.module";
 import { BoardModule } from "./board/board.module";
 import { BoardTreeModule } from "./boardTree/boardTree.module";
 import configuration from "./commons/config/configuration";
-import { JwtGuard } from "./commons/guards/jwt.guard";
+import { initialize } from "./commons/factories/initialize";
 import { FcmModule } from "./fcm/fcm.module";
+<<<<<<< Updated upstream
 import { ScheduleModule } from "./schedule/schedule.module";
 import { WeatherModule } from "./weather/weather.module";
+=======
+import { PlaceModule } from "./place/place.module";
+>>>>>>> Stashed changes
 
 @Module({
   imports: [
@@ -26,6 +30,8 @@ import { WeatherModule } from "./weather/weather.module";
         ...config.get("db"),
         entities: [ `${__dirname}/commons/entities/*.js` ],
         namingStrategy: new SnakeNamingStrategy(),
+        charset: "utf8",
+        logging: [ "query" ],
       }),
       inject: [ ConfigService ],
     }),
@@ -37,11 +43,9 @@ import { WeatherModule } from "./weather/weather.module";
     ScheduleModule,
     WeatherModule,
   ],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: JwtGuard,
-    },
-  ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(@InjectConnection() private connection: Connection) {
+    initialize(this.connection);
+  }
+}

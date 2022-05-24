@@ -1,8 +1,6 @@
 import { IsEnum, IsNotEmpty, IsString, Matches } from "class-validator";
 import { Authority } from "src/commons/constants/enums";
 
-function IsEum() {}
-
 export class AdminCreateDto {
   @IsNotEmpty()
   @IsString()

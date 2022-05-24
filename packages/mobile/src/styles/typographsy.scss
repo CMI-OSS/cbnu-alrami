@@ -1,0 +1,74 @@
+$font-size-header1: 25.5px;
+$font-size-header2: 22px;
+$font-size-header3: 18px;
+$font-size-header4: 16px;
+$font-size-body1: 14px;
+$font-size-body2: 13px;
+$font-size-body3: 12px;
+
+$line-height-header1: 32px;
+$line-height-header2: 27px;
+$line-height-header3: 23px;
+$line-height-header4: 20px;
+$line-height-body1: 18px;
+$line-height-body2: 16px;
+$line-height-body3: 15px;
+
+@mixin font-style-header1() {
+    font-size: $font-size-header1;
+    line-height: $line-height-header1;
+}
+
+@mixin font-style-header2() {
+    font-size: $font-size-header2;
+    line-height: $line-height-header2;
+}
+
+@mixin font-style-header3() {
+    font-size: $font-size-header3;
+    line-height: $line-height-header3;
+}
+
+@mixin font-style-header4() {
+    font-size: $font-size-header4;
+    line-height: $line-height-header4;
+}
+
+@mixin font-style-body1() {
+    font-size: $font-size-body1;
+    line-height: $line-height-body1;
+}
+
+@mixin font-style-body2() {
+    font-size: $font-size-body2;
+    line-height: $line-height-body2;
+}
+
+@mixin font-style-body3() {
+    font-size: $font-size-body3;
+    line-height: $line-height-body3;
+}
+
+@mixin typography($size) {
+    @if ($size==25) {
+        @include font-style-header1;
+    }
+    @if ($size==22) {
+        @include font-style-header2;
+    }
+    @if ($size==18) {
+        @include font-style-header3;
+    }
+    @if ($size==16) {
+        @include font-style-header4;
+    }
+    @if ($size==14) {
+        @include font-style-body1;
+    }
+    @if ($size==13) {
+        @include font-style-body2;
+    }
+    @if ($size==12) {
+        @include font-style-body3;
+    }
+}

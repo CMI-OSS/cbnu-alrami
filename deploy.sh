@@ -1,3 +1,4 @@
+git clean -df
 git reset --hard
 git pull
 yarn

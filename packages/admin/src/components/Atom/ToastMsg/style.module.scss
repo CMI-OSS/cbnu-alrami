@@ -1,0 +1,15 @@
+@import "@shared/styles/main.scss";
+
+.toast {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  padding: 0.6rem 1rem;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.7);
+  color: $white;
+  border-radius: 0.7rem;
+  border: 0.1rem solid $black-100;
+}

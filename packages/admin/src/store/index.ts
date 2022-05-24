@@ -1,15 +1,20 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
-
-import { configureStore, MiddlewareArray } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
+import { boardWriteApi } from "src/api/board";
 
 import boardReducer from "./boardSlice";
 import logger from "./loggerMiddleware";
 import scraperReducer from "./scraperSlice";
 
 export const store = configureStore({
-  reducer: { scraperReducer, boardReducer },
-  middleware: new MiddlewareArray().concat(logger),
+  reducer: {
+    scraperReducer,
+    boardReducer,
+    [boardWriteApi.reducerPath]: boardWriteApi.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(logger).concat(boardWriteApi.middleware),
   devTools: process.env.NODE_ENV !== "production",
 });
 

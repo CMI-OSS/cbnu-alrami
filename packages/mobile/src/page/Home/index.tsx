@@ -19,14 +19,14 @@ function Home() {
     "제목이 아주 긴 일정 제목이 아주 긴일정 제목이 아주 긴",
     "출근싫어",
   ];
-  const popular_notifications = [
+  const popularNotifications = [
     "2022학년도 정시 대학원(일반대학원) 석사과정1",
     "산업인공지능연구센터 연구원 채용 공고2",
     "2022학년도 정시 법무대학원 신입생 추가3",
     "2022학년도 정시 대학원(일반대학원) 석사과정4",
     "산업인공지능연구센터 연구원 채용 공고5",
   ];
-  const lastest_notifications = [ "최신1", "최신2", "최신3", "최신4", "최신5" ];
+  const lastestNotifications = [ "최신1", "최신2", "최신3", "최신4", "최신5" ];
 
   return (
     <section className={$.home}>
@@ -71,10 +71,10 @@ function Home() {
           <Line />
           <div className={$["notification-content"]}>
             {noti === "popular"
-              ? popular_notifications.map((notification) => (
+              ? popularNotifications.map((notification) => (
                   <p key={notification}>{notification}</p>
                 ))
-              : lastest_notifications.map((notification) => (
+              : lastestNotifications.map((notification) => (
                   <p key={notification}>{notification}</p>
                 ))}
           </div>

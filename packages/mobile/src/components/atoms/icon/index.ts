@@ -36,3 +36,4 @@ export { Write } from "./Write";
 export { PlaceMenu } from "./PlaceMenu";
 export { SmallPlaceMenu } from "./SmallPlaceMenu";
 export { MapArrow } from "./MapArrow";
+export { Close } from "./Close";

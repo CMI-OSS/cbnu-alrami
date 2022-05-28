@@ -1,5 +1,3 @@
-import { Link, useSearchParams } from "react-router-dom";
-
 import Footer from "@components/molecules/Footer";
 import BorderBox from "src/components/atoms/BorderBox";
 import { Setting } from "src/components/atoms/icon";

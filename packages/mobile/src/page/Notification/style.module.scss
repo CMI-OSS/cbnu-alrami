@@ -1,0 +1,41 @@
+@import "../../styles/main.scss";
+
+.notification {
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 70px;
+        padding: 13px 35px 14px 23px;
+        background: #fff;
+        border-bottom: 1px solid $background-20;
+        @include typography(18);
+        font-weight: 500;
+
+        .icons {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .categories {
+        display: flex;
+        max-height: 55px;
+        padding: 12px;
+        align-items: center;
+        overflow-x: auto;
+        background: #fff;
+
+        .category {
+            max-height: 34px;
+            padding: 8px 12px;
+            margin-right: 11px;
+            background: $black-10;
+            border-radius: 20px;
+
+            path {
+                stroke: $black-60;
+            }
+        }
+    }
+}

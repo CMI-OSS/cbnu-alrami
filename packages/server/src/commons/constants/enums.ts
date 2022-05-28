@@ -3,3 +3,8 @@ export enum Authority {
   StudentCouncil = "StudentCouncil",
   Guest = "Guest",
 }
+
+export enum BoardAuthorityRole {
+  READ = "read",
+  WRITE = "write",
+}

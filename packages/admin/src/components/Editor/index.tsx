@@ -27,7 +27,7 @@ export default function Editor() {
           [ { size: [ "small", false, "large", "huge" ] }, { color: [] } ],
           [ "bold", "italic", "underline", "strike" ],
           [ { list: "ordered" }, { list: "bullet" }, { align: [] } ],
-          [ "image", "link" ],
+          [ "link" ],
         ],
         handlers: {
           //   image: imageHandler, // Todo: 이미지 핸들러 선언

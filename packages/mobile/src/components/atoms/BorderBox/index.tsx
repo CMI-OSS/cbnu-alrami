@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import type { DefaultProps } from "src/type/props";
 
 import $ from "./style.module.scss";

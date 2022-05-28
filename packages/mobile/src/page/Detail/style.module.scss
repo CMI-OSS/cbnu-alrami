@@ -1,0 +1,222 @@
+@import "@shared/styles/color.scss";
+@import "@shared/styles/mixin.scss";
+
+.wrap {
+  position: relative;
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 58px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 22.92%, rgba(0, 0, 0, 0) 100%);
+}
+
+.detail_button {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  margin: -10px;
+  padding: 10px;
+  background-color: transparent;
+
+  svg path {
+    fill: $white;
+    stroke: $white;
+  }
+}
+
+.link_call {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  margin: -10px;
+  padding: 10px;
+
+  svg path {
+    fill: $white;
+  }
+}
+
+.backImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  width: 100%;
+  height: 398px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.info {
+  padding-top: 300px;
+}
+
+.infoInner {
+  padding: 29px 30px;
+  background-color: $white;
+  border-radius: 20px;
+}
+
+.text {
+  font-size: 14px;
+  line-height: 23px;
+  color: $black-40;
+}
+
+.title {
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: 0.02em;
+  color: $black-80;
+
+  @include ellipsis;
+
+  &:not(:first-child) {
+    margin-top: 19px;
+  }
+}
+
+.list {
+
+  &:not(:first-child) {
+    margin-top: 34px;
+  }
+}
+
+.item {
+  display: flex;
+
+  &:not(:first-child) {
+    margin-top: 25px;
+  }
+}
+
+.phone {
+  width: 22px;
+  height: 10px;
+}
+
+.itemText {
+  line-height: 23px;
+  color: $black-80;
+  flex: 1 1 auto;
+
+  &:not(:first-child) {
+    margin-left: 15px;
+  }
+}
+
+.error {
+  text-align: right;
+
+  &:not(:first-child) {
+    margin-top: 24px;
+  }
+}
+
+.errorLink {
+  padding: 10px;
+  margin: -10px;
+  color: $black-40;
+  line-height: 23px;
+}
+
+.menu {
+  padding: 29px 23px 24px;
+  background-color: #fff;
+  border-radius: 20px;
+
+  &:not(:first-child) {
+    margin-top: 8px;
+  }
+}
+
+.menuTitle {
+  font-size: 16px;
+  line-height: 25px;
+  color: $black-80;
+}
+
+.price {
+  padding: 23px 21px 13px;
+  background: #fff;
+  border: 0.5px solid #c3c3c3;
+  border-radius: 18px;
+
+  &:not(:first-child) {
+    margin-top: 14px;
+  }
+}
+
+.priceItem {
+  display: flex;
+
+  &:not(:first-child) {
+    margin-top: 20px;
+  }
+}
+
+.priceTitle {
+  display: block;
+  font-size: 14px;
+  line-height: 18px;
+  color: $black-80;
+  letter-spacing: 0.01em;
+  flex: 1 1 auto;
+
+  &:not(:last-child) {
+    margin-right: 47px;
+  }
+}
+
+.priceValue {
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.01em;
+  color: $black-80;
+  flex: 0 0 auto;
+}
+
+.priceLink {
+  display: block;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 23px;
+  border-radius: 20px;
+  color: $black-40;
+
+  &:not(:first-child) {
+    margin-top: 19px;
+  }
+}
+
+.moreArrow {
+  width: 3px;
+  height: 10px;
+  margin-left: 1px;
+}
+
+.detail {
+  padding: 25px 23px 26px;
+  background-color: $white;
+
+  &:not(:first-child) {
+    margin-top: 8px;
+  }
+}
+
+.detailTitle {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 25px;
+  letter-spacing: 0.015em;
+  color: $black-80;
+
+  @include ellipsis;
+}

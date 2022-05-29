@@ -6,8 +6,8 @@ import { User } from "./user.entity";
 @Entity("report")
 export class Report extends CommonEntity {
   @ManyToOne(() => User, (User) => User.id, { cascade: true, nullable: false })
-  @JoinColumn({ name: "user_id" })
-  userId: User;
+  @JoinColumn()
+  user: User;
 
   @Column({ type: "varchar" })
   content: string;

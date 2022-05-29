@@ -20,15 +20,15 @@ export class BoardAuthority {
     cascade: true,
     nullable: false,
   })
-  @JoinColumn({ name: "board_id" })
-  boardId: Board;
+  @JoinColumn()
+  board: Board;
 
   @ManyToOne(() => Admin, (Admin) => Admin.id, {
     cascade: true,
     nullable: false,
   })
-  @JoinColumn({ name: "admin_id" })
-  adminId: Admin;
+  @JoinColumn()
+  admin: Admin;
 
   @Column({
     type: "enum",

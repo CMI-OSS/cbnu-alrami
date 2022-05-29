@@ -14,8 +14,8 @@ export class Certification {
   id: number;
 
   @OneToOne(() => User, (User) => User.id, { cascade: true, nullable: false })
-  @JoinColumn({ name: "user_id" })
-  userId: number;
+  @JoinColumn()
+  user: User;
 
   @Column({ type: "varchar" })
   number: string;

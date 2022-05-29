@@ -7,15 +7,15 @@ import { User } from "./user.entity";
 @Entity("notice_history")
 export class NoticeHistory extends CommonEntity {
   @ManyToOne(() => User, (User) => User.id, { cascade: true, nullable: false })
-  @JoinColumn({ name: "user_id" })
-  userId: User;
+  @JoinColumn()
+  user: User;
 
   @ManyToOne(() => Article, (Article) => Article.id, {
     cascade: true,
     nullable: false,
   })
-  @JoinColumn({ name: "article_id" })
-  articleId: Article;
+  @JoinColumn()
+  article: Article;
 
   @Column({ type: "boolean", default: false })
   isConfirm: boolean;

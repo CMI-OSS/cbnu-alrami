@@ -7,13 +7,13 @@ import { User } from "./user.entity";
 @Entity({ name: "bookmark" })
 export class Bookmark extends CommonEntity {
   @ManyToOne(() => User, (User) => User.id, { cascade: true, nullable: false })
-  @JoinColumn({ name: "user_id" })
-  userId: User;
+  @JoinColumn()
+  user: User;
 
   @ManyToOne(() => Article, (Article) => Article.id, {
     cascade: true,
     nullable: false,
   })
-  @JoinColumn({ name: "article_id" })
-  articleId: Article;
+  @JoinColumn()
+  article: Article;
 }

@@ -1,5 +1,11 @@
 import { IsEnum } from "class-validator";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 import { BoardAuthorityRole } from "../constants/enums";
 import { Admin } from "./admin.entity";
@@ -14,13 +20,15 @@ export class BoardAuthority {
     cascade: true,
     nullable: false,
   })
-  board: number;
+  @JoinColumn()
+  board: Board;
 
   @ManyToOne(() => Admin, (Admin) => Admin.id, {
     cascade: true,
     nullable: false,
   })
-  admin: number;
+  @JoinColumn()
+  admin: Admin;
 
   @Column({
     type: "enum",

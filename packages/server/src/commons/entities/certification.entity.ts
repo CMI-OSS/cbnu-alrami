@@ -1,4 +1,10 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 import { User } from "./user.entity";
 
@@ -8,11 +14,12 @@ export class Certification {
   id: number;
 
   @OneToOne(() => User, (User) => User.id, { cascade: true, nullable: false })
-  user: number;
+  @JoinColumn()
+  user: User;
 
   @Column({ type: "varchar" })
   number: string;
- 
+
   @Column({ type: "datetime" })
   expireDate: Date;
 }

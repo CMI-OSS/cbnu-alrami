@@ -31,3 +31,8 @@ export type AdminJoinFormErrors = {
     ? FieldError[] | undefined
     : FieldError | undefined;
 };
+
+export type imgType = {
+  id: number;
+  src: string;
+};

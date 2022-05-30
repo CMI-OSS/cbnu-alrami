@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { boardCategories } from "src/__mockData__";
 import Editor from "src/components/Editor";
 import ImgUpload from "src/components/ImgUpload";
+import ImgUploadSlides from "src/components/ImgUploadSlides";
 import { useDebounceInput, useWindowResize } from "src/hooks";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { writeBoard } from "src/store/boardSlice";
@@ -12,9 +13,8 @@ import { writeBoard } from "src/store/boardSlice";
 import $ from "./style.module.scss";
 
 export default function BoardWrite() {
-  const { boardTitle, boardCategory, boardContent } = useAppSelector(
-    (state) => state.boardReducer.board.write,
-  );
+  const { boardImgList, boardTitle, boardCategory, boardContent } =
+    useAppSelector((state) => state.boardReducer.board.write);
   const dispatch = useAppDispatch();
   const [ error, setError ] = useState({
     title: false,
@@ -134,6 +134,8 @@ export default function BoardWrite() {
             ))}
           </datalist>
         </div>
+
+        <ImgUploadSlides imgList={boardImgList} />
 
         <ImgUpload />
 

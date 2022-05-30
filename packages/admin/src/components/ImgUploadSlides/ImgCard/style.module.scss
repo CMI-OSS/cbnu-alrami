@@ -1,0 +1,26 @@
+@import "@shared/styles/main.scss";
+@import "src/styles/mixin.scss";
+
+.img-card {
+  position: relative;
+  padding: 2.5rem;
+  .img-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20rem;
+    height: 20rem;
+    img {
+      -webkit-user-drag: none;
+    }
+  }
+  .button-delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem;
+    background-color: transparent;
+    font-size: 30px;
+    color: $gray-400;
+  }
+}

@@ -62,6 +62,7 @@
     }
     .category {
       width: fit-content;
+      border: 1px solid $gray-350;
       border-radius: 0.7rem;
       background-color: $white;
       input {

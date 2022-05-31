@@ -1,5 +1,6 @@
 @import "@shared/styles/color.scss";
 @import "@shared/styles/mixin.scss";
+@import "../../styles/main.scss";
 
 .wrap {
   position: relative;
@@ -14,12 +15,14 @@
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 22.92%, rgba(0, 0, 0, 0) 100%);
 }
 
-.detail_button {
+.detail-button {
   position: absolute;
+  width: 30px;
+  height: 30px;
   top: 15px;
   left: 15px;
-  margin: -10px;
   padding: 10px;
+  margin: -10px;
   background-color: transparent;
 
   svg path {
@@ -28,7 +31,7 @@
   }
 }
 
-.link_call {
+.link-call {
   position: absolute;
   top: 15px;
   right: 15px;
@@ -40,7 +43,7 @@
   }
 }
 
-.backImage {
+.back-image {
   position: absolute;
   top: 0;
   left: 0;
@@ -56,21 +59,19 @@
   padding-top: 300px;
 }
 
-.infoInner {
+.info-inner {
   padding: 29px 30px;
   background-color: $white;
   border-radius: 20px;
 }
 
 .text {
-  font-size: 14px;
-  line-height: 23px;
+  @include typography(14);
   color: $black-40;
 }
 
 .title {
-  font-size: 18px;
-  line-height: 28px;
+  @include typography(18);
   letter-spacing: 0.02em;
   color: $black-80;
 
@@ -101,7 +102,7 @@
   height: 10px;
 }
 
-.itemText {
+.item-text {
   line-height: 23px;
   color: $black-80;
   flex: 1 1 auto;
@@ -119,7 +120,7 @@
   }
 }
 
-.errorLink {
+.error-link {
   padding: 10px;
   margin: -10px;
   color: $black-40;
@@ -136,9 +137,8 @@
   }
 }
 
-.menuTitle {
-  font-size: 16px;
-  line-height: 25px;
+.menu-title {
+  @include typography(16);
   color: $black-80;
 }
 
@@ -153,7 +153,7 @@
   }
 }
 
-.priceItem {
+.price-item {
   display: flex;
 
   &:not(:first-child) {
@@ -161,10 +161,9 @@
   }
 }
 
-.priceTitle {
+.price-title {
+  @include typography(14);
   display: block;
-  font-size: 14px;
-  line-height: 18px;
   color: $black-80;
   letter-spacing: 0.01em;
   flex: 1 1 auto;
@@ -174,20 +173,18 @@
   }
 }
 
-.priceValue {
-  font-size: 14px;
-  line-height: 18px;
+.price-value {
+  @include typography(14);
   letter-spacing: 0.01em;
   color: $black-80;
   flex: 0 0 auto;
 }
 
-.priceLink {
+.price-link {
+  @include typography(14);
   display: block;
   padding: 10px;
   text-align: center;
-  font-size: 14px;
-  line-height: 23px;
   border-radius: 20px;
   color: $black-40;
 
@@ -196,7 +193,7 @@
   }
 }
 
-.moreArrow {
+.more-arrow {
   width: 3px;
   height: 10px;
   margin-left: 1px;
@@ -211,10 +208,9 @@
   }
 }
 
-.detailTitle {
-  font-size: 16px;
+.detail-title {
+  @include typography(16);
   font-weight: 500;
-  line-height: 25px;
   letter-spacing: 0.015em;
   color: $black-80;
 

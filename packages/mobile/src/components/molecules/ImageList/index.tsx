@@ -18,7 +18,7 @@ function ImageList({ isMoreContents, detailImageList }: Props) {
       {detailImageList.map((item, index) => {
         return (
           <>
-            <li key={`key-${index}`} className={$["menu-item"]}>
+            <li key={item.id} className={$["menu-item"]}>
               <img className={$["menu-image"]} src={item.src} alt={item.alt} />
               {isMoreContents && index === 2 && (
                 <div className={$["more-status"]}>

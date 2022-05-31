@@ -1,7 +1,7 @@
 @import "@shared/styles/mixin.scss";
 @import "@shared/styles/variables.scss";
 
-.menuList {
+.menu-list {
   display: flex;
 
   &:not(:first-child) {
@@ -9,7 +9,7 @@
   }
 }
 
-.menuItem {
+.menu-item {
   position: relative;
 
   &:not(:first-child) {
@@ -17,7 +17,7 @@
   }
 }
 
-.menuImage {
+.menu-image {
   position: relative;
   width: 106px;
   height: 106px;
@@ -38,7 +38,7 @@
   }
 }
 
-.moreStatus {
+.more-status {
   position: absolute;
   top: 0;
   left: 0;
@@ -48,12 +48,12 @@
   background-color: rgba(27, 27, 27, 0.85);
 }
 
-.morePlus {
+.more-plus {
   width: 100%;
   margin: 24px auto 0;
 }
 
-.moreText {
+.more-text {
   display: block;
   font-size: 12px;
   line-height: 20px;

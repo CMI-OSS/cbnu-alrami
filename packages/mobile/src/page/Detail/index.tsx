@@ -1,15 +1,14 @@
 import { NavLink, useNavigate } from "react-router-dom";
 
-import { url } from "inspector";
-
+import { Call } from "@components/atoms/icon/Call";
 import { MapArrow } from "@components/atoms/icon/MapArrow";
 import { MoreArrow } from "@components/atoms/icon/MoreArrow";
 import { Phone } from "@components/atoms/icon/Phone";
 import { Position } from "@components/atoms/icon/Position";
 import { Time } from "@components/atoms/icon/Time";
 import ImageList from "@components/molecules/ImageList";
-import { Call } from "src/components/atoms/icon/Call";
 
+import detailImageList from "../../__mocks__/detailImageList";
 import $ from "./style.module.scss";
 
 function Detail() {
@@ -22,19 +21,19 @@ function Detail() {
       <div className={$.header}>
         <button
           type="button"
-          className={$.detail_button}
+          className={$["detail-button"]}
           onClick={() => navigate(-1)}
         >
           <MapArrow />
           <span className="blind">뒤로 가기</span>
         </button>
-        <NavLink to="/call" className={$.link_call}>
+        <NavLink to="/call" className={$["link-call"]}>
           <Call />
           <span className="blind">제보하기</span>
         </NavLink>
       </div>
       <div
-        className={$.backImage}
+        className={$["back-image"]}
         style={{
           backgroundImage: `url(
             ${imageUrl}
@@ -42,70 +41,70 @@ function Detail() {
         }}
       />
       <div className={$.info}>
-        <div className={$.infoInner}>
+        <div className={$["info-inner"]}>
           <span className={$.text}>N15 / (구) 057</span>
           <strong className={$.title}>충북대학교 사회과학대학</strong>
           <ul className={$.list}>
             <li className={$.item}>
               <Position />
-              <span className={$.itemText}>
+              <span className={$["item-text"]}>
                 충청북도 청주시 흥덕구 사창동 470
               </span>
             </li>
             <li className={$.item}>
               <Phone className={$.phone} />
-              <span className={$.itemText}>
+              <span className={$["item-text"]}>
                 000-0000-0000 <br />
                 000-0000-000
               </span>
             </li>
             <li className={$.item}>
               <Time />
-              <span className={$.itemText}>오전 9:00 ~ 오후 6:00</span>
+              <span className={$["item-text"]}>오전 9:00 ~ 오후 6:00</span>
             </li>
           </ul>
           <div className={$.error}>
-            <NavLink className={$.errorLink} to="/declaration">
+            <NavLink className={$["error-link"]} to="/declaration">
               오류 신고
             </NavLink>
           </div>
         </div>
       </div>
       <div className={$.menu}>
-        <strong className={$.menuTitle}>메뉴판</strong>
-        <ImageList isMoreContents={false} />
+        <strong className={$["menu-title"]}>메뉴판</strong>
+        <ImageList isMoreContents={false} detailImageList={detailImageList} />
         <div className={$.price}>
-          <div className={$.priceItem}>
-            <span className={$.priceTitle}>감바스</span>
-            <span className={$.priceValue}>8,000원</span>
+          <div className={$["price-item"]}>
+            <span className={$["price-title"]}>감바스</span>
+            <span className={$["price-value"]}>8,000원</span>
           </div>
-          <div className={$.priceItem}>
-            <span className={$.priceTitle}>가츠동</span>
-            <span className={$.priceValue}>8,500원</span>
+          <div className={$["price-item"]}>
+            <span className={$["price-title"]}>가츠동</span>
+            <span className={$["price-value"]}>8,500원</span>
           </div>
-          <div className={$.priceItem}>
-            <span className={$.priceTitle}>피자</span>
-            <span className={$.priceValue}>13,000원</span>
+          <div className={$["price-item"]}>
+            <span className={$["price-title"]}>피자</span>
+            <span className={$["price-value"]}>13,000원</span>
           </div>
-          <div className={$.priceItem}>
-            <span className={$.priceTitle}>초코 아이스크림</span>
-            <span className={$.priceValue}>18,000원</span>
+          <div className={$["price-item"]}>
+            <span className={$["price-title"]}>초코 아이스크림</span>
+            <span className={$["price-value"]}>18,000원</span>
           </div>
-          <div className={$.priceItem}>
-            <span className={$.priceTitle}>
+          <div className={$["price-item"]}>
+            <span className={$["price-title"]}>
               소불고기 소불고기 소불고기소불고기 소불고기소불고기
             </span>
-            <span className={$.priceValue}>130,000원</span>
+            <span className={$["price-value"]}>130,000원</span>
           </div>
-          <NavLink className={$.priceLink} to="/more">
+          <NavLink className={$["price-link"]} to="/more">
             더보기
-            <MoreArrow className={$.moreArrow} />
+            <MoreArrow className={$["more-arrow"]} />
           </NavLink>
         </div>
       </div>
       <div className={$.detail}>
-        <strong className={$.detailTitle}>상세이미지</strong>
-        <ImageList isMoreContents />
+        <strong className={$["detail-title"]}>상세이미지</strong>
+        <ImageList isMoreContents detailImageList={detailImageList} />
       </div>
     </div>
   );

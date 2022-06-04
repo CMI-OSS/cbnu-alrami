@@ -1,0 +1,21 @@
+.box {
+    height: 360px;
+    padding: 19px 27px 10px;
+    color: #363636;
+    background-color: #ffffff;
+
+    .calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        justify-items: center;
+
+        .fraction {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            width: 26px;
+            height: 48px;
+        }
+    }
+}

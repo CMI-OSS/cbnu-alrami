@@ -1,0 +1,16 @@
+$label-hight: 36.75px;
+
+.label {
+    display: block;
+    width: 143.5px;
+    height: $label-hight;
+    border-radius: calc($label-hight / 2);
+    text-align: center;
+    line-height: $label-hight;
+    color: #828282;
+}
+
+.checked-label {
+    color: #363636;
+    background-color: #ffffff;
+}

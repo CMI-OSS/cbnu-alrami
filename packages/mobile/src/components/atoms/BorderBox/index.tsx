@@ -1,11 +1,12 @@
 /* eslint-disable react/require-default-props */
+import classnames from "classnames";
 import type { DefaultProps } from "src/type/props";
 
 import $ from "./style.module.scss";
 
 type Props = {
   width?: number;
-  height: number;
+  height: number | string;
   background?: string;
 } & DefaultProps;
 
@@ -19,7 +20,7 @@ function BorderBox({
 }: Props) {
   return (
     <div
-      className={$["border-box"]}
+      className={classnames($["border-box"], className)}
       style={{ width, height, background, ...style }}
     >
       {children}

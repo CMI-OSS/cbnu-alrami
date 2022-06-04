@@ -1,0 +1,19 @@
+.header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    border-bottom: 1px solid #f3f4f9;
+    background-color: #ffffff;
+
+    .container {
+        display: flex;
+        align-items: center;
+    }
+
+    .add-link {
+        position: absolute;
+        right: 22px;
+    }
+}

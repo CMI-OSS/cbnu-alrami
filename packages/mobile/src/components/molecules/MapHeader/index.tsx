@@ -4,11 +4,11 @@ import { MapArrow } from "@components/atoms/icon/MapArrow";
 
 import $ from "./style.module.scss";
 
-type props = {
+type Props = {
   title: string;
 };
 
-function MapHeader({ title }: props) {
+function MapHeader({ title }: Props) {
   return (
     <div className={$.header}>
       <NavLink to="./" className={$.link}>

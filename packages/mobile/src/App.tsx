@@ -3,8 +3,6 @@ import { Provider } from "react-redux";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import queryString from "query-string";
-
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
 import Call from "./page/Call";

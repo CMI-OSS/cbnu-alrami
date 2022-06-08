@@ -7,6 +7,7 @@ import queryString from "query-string";
 
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
+import Call from "./page/Call";
 import Detail from "./page/Detail";
 import Home from "./page/Home";
 import Map from "./page/Map";
@@ -23,6 +24,7 @@ function App() {
     { id: 4, path: "/cafeteria", element: <Cafeteria /> },
     { id: 5, path: "/map", element: <Map /> },
     { id: 6, path: "/more", element: <MoreImage /> },
+    { id: 7, path: "/call", element: <Call /> },
   ];
 
   return (

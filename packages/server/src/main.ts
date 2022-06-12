@@ -1,3 +1,4 @@
+import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import * as compression from "compression";
 import * as express from "express";
@@ -16,7 +17,15 @@ async function bootstrap() {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
   SwaggerConfig(app);
   await app.listen(getConfiguration().http.port);
 }
+
 bootstrap();

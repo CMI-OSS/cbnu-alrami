@@ -1,103 +1,146 @@
+@import "../../styles/main.scss";
+
 .home {
-    > div {
-        margin-bottom: 30px;
-    }
-    header {
+    padding: 34px 25px 100px 35px;
+    background: #f5f6fa;
+
+    .header {
         display: flex;
         justify-content: space-between;
-        align-items: center;
         margin-bottom: 30px;
 
-        h1 {
-            font-weight: 500;
-            font-size: 21px;
-            line-height: 33px;
+        .header-content {
+            .title {
+                @include typography(25);
+                font-weight: 500;
+                color: $black-100;
+            }
+
+            > p {
+                @include typography(16);
+                color: $black-50;
+            }
+        }
+
+        > button {
+            background: transparent;
+            padding: 10px;
+            cursor: pointer;
         }
     }
     .schedule {
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
-        div {
+        > div {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding-left: 20px;
             padding-right: 20px;
             margin-right: 23px;
+            margin-bottom: 35px;
             min-width: 70%;
+            @include typography(16);
+            font-weight: 500;
+            color: $black-80;
         }
-        p {
+        > div:last-child {
+            margin-right: 0;
+        }
+        > p {
             padding-right: 10px;
             line-height: 24px;
         }
     }
-    .information {
-        display: flex;
-        font-size: 11px;
-        div {
+
+    .show-guide {
+        > div {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: space-evenly;
-            width: 100%;
-        }
-        div:first-child {
-            margin-right: 25px;
-        }
-        .more {
-            display: flex;
-            flex-direction: row;
             justify-content: center;
-            svg {
-                margin-right: 4px;
+            align-items: center;
+            padding: 22px 0 16px 0;
+            text-align: center;
+            color: $black-40;
 
-                path {
-                    stroke: #222;
+            > span {
+                margin-top: 9px;
+                @include typography(14);
+                font-weight: 500;
+            }
+            > p {
+                margin-top: 9px;
+                @include typography(12);
+                line-height: 18px;
+            }
+        }
+    }
+
+    .show-final-guide {
+        > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            padding: 24px 0 24px 0;
+            text-align: center;
+
+            > p {
+                @include typography(14);
+                line-height: 18px;
+                color: $black-80;
+
+                span {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    svg {
+                        margin-right: 5px;
+                    }
                 }
             }
         }
-        .important {
-            font-size: 18px;
-            font-weight: 500;
-        }
     }
-    .cafeteria {
-        width: 100%;
 
+    .notification {
         > div {
-            padding: 17px;
+            padding: 20px 25px 24px;
         }
+
         .title {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 16px;
-            p {
-                font-weight: 500;
-                margin-right: 5px;
-            }
-            p:last-child {
-                color: #707070;
-                font-size: 13px;
-            }
-        }
-        .content {
-            padding: 21px 20px 0px 0px;
-            line-height: 25px;
-            font-size: 12px;
-        }
-    }
-    .notification {
-        > div {
-            padding: 24px 10px 10px 10px;
-        }
+            @include typography(16);
+            color: $black-100;
 
-        .content {
-            padding-left: 14px;
-            margin-top: 10px;
-            p {
-                line-height: 33px;
+            .category {
+                @include typography(14);
+                color: $black-40;
+
+                > a:first-child {
+                    margin-right: 13px;
+                }
+
+                .active {
+                    color: $red-50;
+                }
+            }
+        }
+        .notification-content {
+            > p {
+                margin-bottom: 28px;
+                @include typography(13);
+                color: $black-80;
+            }
+            > p:first-child {
+                margin-top: 25px;
+            }
+            > p:last-child {
+                margin: 0;
             }
         }
     }

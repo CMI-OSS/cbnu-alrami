@@ -1,0 +1,30 @@
+@import "@shared/styles/color.scss";
+
+.boardlist-title {
+    color: $gray-500;
+}
+
+.board-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    min-height: 30px;
+    margin-top: 10px;
+    border: 2px solid $blue-200;
+    border-radius: 10px;
+    background-color: $white;
+    color: $blue-200;
+
+    .delete-board-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 7px;
+        margin-left: 5px;
+        background-color: transparent;
+        color: $gray-500;
+        font-size: 20px;
+        line-height: 30px;
+    }
+}

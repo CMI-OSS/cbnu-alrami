@@ -1,5 +1,5 @@
 import { createParamDecorator, ExecutionContext } from "@nestjs/common";
-import { Any, FindManyOptions } from "typeorm";
+import { FindManyOptions } from "typeorm";
 // import { Request } from "express";
 
 // enum OrderDirection {
@@ -40,7 +40,6 @@ export const PageQuery = createParamDecorator(
       where: options,
       order,
     };
-
     if (!limit || !page) {
       result.take = 10;
       result.skip = 0;

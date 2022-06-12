@@ -1,91 +1,82 @@
-/* eslint-disable react/jsx-pascal-case */
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import Footer from "@components/molecules/Footer";
-import Menu from "src/components/atoms/Chip";
+import BorderBox from "src/components/atoms/BorderBox";
+import { Setting } from "src/components/atoms/icon";
 import { Arrow } from "src/components/atoms/icon/Arrow";
+import Line from "src/components/atoms/Line";
 
-import BorderBox from "../../components/atoms/BorderBox";
-import { Setting, 비, Covid, Info, Write } from "../../components/atoms/icon";
-import Line from "../../components/atoms/Line";
+import Restaurant from "./Restaurant";
 import $ from "./style.module.scss";
+import Weather from "./Weather";
 
 function Home() {
+  const [ searchParams ] = useSearchParams();
+  const noti = searchParams.get("noti") || "popular";
+
   const schedules = [
     "중간고사",
     "제목이 아주 긴 일정 제목이 아주 긴일정 제목이 아주 긴",
     "출근싫어",
   ];
-  const notifications = [
-    "2022학년도 정시 대학원(일반대학원) 석사과정",
-    "산업인공지능연구센터 연구원 채용 공고",
-    "2022학년도 정시 법무대학원 신입생 추가",
-    "2022학년도 정시 대학원(일반대학원) 석사과정",
-    "산업인공지능연구센터 연구원 채용 공고",
-    "산업인공지능연구센터 연구원 채용 공고",
+  const popularNotifications = [
+    "2022학년도 정시 대학원(일반대학원) 석사과정1",
+    "산업인공지능연구센터 연구원 채용 공고2",
+    "2022학년도 정시 법무대학원 신입생 추가3",
+    "2022학년도 정시 대학원(일반대학원) 석사과정4",
+    "산업인공지능연구센터 연구원 채용 공고5",
   ];
-  const menus = [ "최신공지", "인기공지" ];
+  const lastestNotifications = [ "최신1", "최신2", "최신3", "최신4", "최신5" ];
 
   return (
     <section className={$.home}>
-      <header>
-        <div className={$.content}>
-          <h1>충림이</h1>
-          <span>오늘은 총 6개의 일정이 있어요</span>
+      <header className={$.header}>
+        <div className={$["header-content"]}>
+          <h1 className={$.title}>충림이</h1>
+          <p>오늘은 총 6개의 일정이 있어요</p>
         </div>
-        <Setting />
+        <button type="button">
+          <Setting />
+        </button>
       </header>
       <div className={$.schedule}>
         {schedules.map((schedule) => (
-          <BorderBox height={90}>
+          <BorderBox key={schedule} width={271} height={101}>
             <p>{schedule}</p>
             <Arrow />
           </BorderBox>
         ))}
       </div>
-      <div className={$.information}>
-        <BorderBox height={160} background="#EAF4FE">
-          <비 style={{ width: "50px", height: "auto" }} />
-          <span>청주 날씨</span>
-          <span className={$.important}>25도</span>
-          <span>구름 조금</span>
-          <div className={$.more}>
-            <Info style={{ width: "10px", height: "10px" }} />
-            기온별 옷차림
-          </div>
-        </BorderBox>
-        <BorderBox height={160} background="#F2F0FE">
-          <Covid />
-          <span>확진자 수</span>
-          <span className={$.important}>500,000</span>
-          <span>+1,325</span>
-          <Link className={$.more} to="/covid">
-            더보기
-            <Arrow style={{ width: "7px", height: "7px", stroke: "#222" }} />
-          </Link>
-        </BorderBox>
-      </div>
-      <div className={$.cafeteria}>
-        <BorderBox height={180}>
-          <div className={$.title}>
-            <span>
-              본관 아침 <Write />
-            </span>
-            <span>7:30~9:00</span>
-          </div>
-          <Line />
-          <div className={$.content}>
-            흰밥/우유(두유)/김치 단호박스프 고구마치즈롤까스 &소스 양상추샐러드
-            오리엔탈드레싱 시금치나물 에너지:1165Kcal 단백질:16g
-          </div>
-        </BorderBox>
-      </div>
+      <Weather />
+      <Restaurant />
       <div className={$.notification}>
         <BorderBox height={300}>
-          <div className={$.content}>
-            {notifications.map((notification) => (
-              <p>{notification}</p>
-            ))}
+          <div className={$.title}>
+            공지사항
+            <div className={$.category}>
+              <Link
+                to="?noti=popular"
+                className={noti === "popular" ? $.active : $.inactive}
+              >
+                인기
+              </Link>
+              <Link
+                to="?noti=latest"
+                className={noti === "latest" ? $.active : $.inactive}
+              >
+                최신
+              </Link>
+            </div>
+          </div>
+          <Line />
+          <div className={$["notification-content"]}>
+            {noti === "popular"
+              ? popularNotifications.map((notification) => (
+                  <p key={notification}>{notification}</p>
+                ))
+              : lastestNotifications.map((notification) => (
+                  <p key={notification}>{notification}</p>
+                ))}
           </div>
         </BorderBox>
       </div>

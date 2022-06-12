@@ -9,3 +9,7 @@ export enum MealTime {
   Lunch,
   Dinner,
 }
+export enum BoardAuthorityRole {
+  READ = "read",
+  WRITE = "write",
+}

@@ -1,23 +1,27 @@
 import { Injectable } from "@nestjs/common";
-import { InjectConnection, InjectRepository } from "@nestjs/typeorm";
+import { InjectRepository } from "@nestjs/typeorm";
 import { Cafeteria } from "src/commons/entities/cafeteria.entity";
-import CreateCafeterias from "src/commons/seeds/cafeteria.seed";
-import { Connection } from "typeorm";
+import { errors } from "src/commons/error";
+import { FindManyOptions, FindOneOptions } from "typeorm";
 
 import { CafeteriaRepository } from "./repository/cafeteria.repository";
 
+const { CAFETERIA_NOT_FOUND } = errors;
 @Injectable()
 export class CafeteriaService {
   constructor(
-    @InjectConnection() private connection: Connection,
     @InjectRepository(CafeteriaRepository)
     private cafeteriaRepository: CafeteriaRepository,
-    private createCafeterias: CreateCafeterias,
-  ) {
-    this.cafeteriaRepository
-      .find()
-      .then((res) =>
-        res ? null : this.createCafeterias.run(undefined, this.connection),
-      );
+  ) {}
+
+  async find(query: FindManyOptions): Promise<Cafeteria[]>{
+    const cafeterias = await this.cafeteriaRepository.find(query);
+    return cafeterias
+  }
+
+  async findOne(query: FindOneOptions): Promise<Cafeteria>{
+    const cafeteria = await this.cafeteriaRepository.findOne(query);
+    if (!cafeteria) throw CAFETERIA_NOT_FOUND;
+    return cafeteria;
   }
 }

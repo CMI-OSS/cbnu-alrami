@@ -3,6 +3,9 @@ import { Reflector } from "@nestjs/core";
 import { AuthGuard } from "@nestjs/passport";
 import { IS_PUBLIC_KEY } from "src/commons/decorators/public.decorator";
 
+import { errors } from "../error";
+
+const { TOKEN_REQUIRED } = errors;
 @Injectable()
 export class JwtGuard extends AuthGuard("jwt") {
   constructor(private reflector: Reflector) {
@@ -17,6 +20,7 @@ export class JwtGuard extends AuthGuard("jwt") {
     if (isPublic) {
       return true;
     }
-    return super.canActivate(context);
+    if (!super.canActivate(context)) throw TOKEN_REQUIRED;
+    return true;
   }
 }

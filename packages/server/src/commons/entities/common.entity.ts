@@ -1,4 +1,3 @@
-import { now } from "lodash";
 import {
   BaseEntity,
   CreateDateColumn,

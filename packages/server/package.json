@@ -30,6 +30,7 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/typeorm": "^8.0.3",
     "@types/bcrypt": "^5.0.0",
+    "@types/faker": "^6.6.9",
     "@types/js-yaml": "^4.0.5",
     "@types/lodash": "^4.14.181",
     "aws-sdk": "^2.1111.0",

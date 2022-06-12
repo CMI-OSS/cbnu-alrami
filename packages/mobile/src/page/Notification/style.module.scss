@@ -22,6 +22,7 @@
         display: flex;
         max-height: 55px;
         padding: 12px;
+        margin-bottom: 8px;
         align-items: center;
         overflow-x: auto;
         background: #fff;
@@ -39,5 +40,10 @@
                 stroke: $black-60;
             }
         }
+    }
+
+    .notification-list{
+        display:flex;
+        justify-content: center;
     }
 }

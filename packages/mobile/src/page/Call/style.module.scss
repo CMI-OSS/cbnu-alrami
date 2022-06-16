@@ -4,6 +4,7 @@
 .wrap {
   position: relative;
   overflow-y: hidden;
+  background-color: $white;
 }
 
 .textarea {
@@ -19,3 +20,18 @@
     color: $black-20;
   }
 }
+
+.button {
+  position: fixed;
+  left: 0;
+  right: 14px;
+  bottom: 14px;
+  text-align: right;
+  z-index: 100;
+  background-color: $white;
+
+  svg path {
+    stroke: $white;
+  }
+}
+

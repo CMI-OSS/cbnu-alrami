@@ -11,13 +11,15 @@ function Call() {
   };
   return (
     <>
-      <MapHeader title="제보하기" />
-      <textarea
-        placeholder="내용을 입력해주세요"
-        className={$.textarea}
-        onChange={handleTextarea}
-        value={textarea}
-      ></textarea>
+      <div className={$.wrap}>
+        <MapHeader title="제보하기" />
+        <textarea
+          placeholder="내용을 입력해주세요"
+          className={$.textarea}
+          onChange={handleTextarea}
+          value={textarea}
+        />
+      </div>
     </>
   );
 }

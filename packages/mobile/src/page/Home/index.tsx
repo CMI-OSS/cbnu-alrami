@@ -11,7 +11,7 @@ import $ from "./style.module.scss";
 import Weather from "./Weather";
 
 function Home() {
-  const [searchParams] = useSearchParams();
+  const [ searchParams ] = useSearchParams();
   const noti = searchParams.get("noti") || "popular";
 
   const schedules = [
@@ -26,7 +26,7 @@ function Home() {
     "2022학년도 정시 대학원(일반대학원) 석사과정4",
     "산업인공지능연구센터 연구원 채용 공고5",
   ];
-  const lastestNotifications = ["최신1", "최신2", "최신3", "최신4", "최신5"];
+  const lastestNotifications = [ "최신1", "최신2", "최신3", "최신4", "최신5" ];
 
   return (
     <section className={$.home}>

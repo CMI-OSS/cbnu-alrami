@@ -5,28 +5,31 @@ type Props = {
   height?: string;
 } & StyleProps;
 
-function Info({ className, style, width = "10", height = "10" }: Props) {
+function Plus({ className, style, width, height }: Props) {
   return (
     <svg
       className={className}
       style={style}
       width={width}
       height={height}
-      viewBox="0 0 10 10"
+      viewBox="0 0 22 22"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="5" cy="5" r="4.6" stroke="#999999" strokeWidth="0.8" />
       <path
-        d="M5 4.30005V7.30005"
-        stroke="#999999"
-        strokeWidth="0.8"
+        d="M1 10.6H21"
+        stroke="#AAAAAA"
+        strokeWidth="1.4"
         strokeLinecap="round"
-        strokeLinejoin="round"
       />
-      <circle cx="5" cy="2.80005" r="0.5" fill="#999999" />
+      <path
+        d="M11.4 21L11.4 0.999999"
+        stroke="#AAAAAA"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
 
-export { Info };
+export { Plus };

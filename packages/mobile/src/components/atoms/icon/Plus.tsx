@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import type { StyleProps } from "src/type/props";
 
 type Props = {
@@ -6,9 +5,11 @@ type Props = {
   height?: string;
 } & StyleProps;
 
-function Plus({ className, style, width = "20", height = "20" }: Props) {
+function Plus({ className, style, width, height }: Props) {
   return (
     <svg
+      className={className}
+      style={style}
       width={width}
       height={height}
       viewBox="0 0 22 22"

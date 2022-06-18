@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import type { StyleProps } from "src/type/props";
 
 type Props = {
@@ -9,6 +8,8 @@ type Props = {
 function Star({ className, style, width = "20", height = "20" }: Props) {
   return (
     <svg
+      className={className}
+      style={style}
       width={width}
       height={height}
       viewBox="0 0 12 12"

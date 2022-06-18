@@ -3,6 +3,9 @@ import { NavLink } from "react-router-dom";
 import CardList from "@components/molecules/CardList";
 import Footer from "@components/molecules/Footer";
 import classNames from "classnames";
+import { mockCategory, mockNotification } from "src/__mocks__";
+import guideEmptyStar from "src/assets/guide_empty_star.png";
+import guideEmptySubscription from "src/assets/guide_empty_subscription.png";
 import { Setting, Plus, Star } from "src/components/atoms/icon";
 import useSearch from "src/hooks/useSearch";
 
@@ -10,49 +13,14 @@ import $ from "./style.module.scss";
 
 function EmptyGuideImage({ major }: { major: string }) {
   if (major === "즐겨찾기") {
-    return <div>즐겨찾기없는가이드이미지</div>;
+    return <img src={guideEmptyStar} alt="즐겨찾기 항목 미존재" />;
   }
-  return <div>공지없는가이드이미지</div>;
+  return <img src={guideEmptySubscription} alt="구독 공지사항 미존재" />;
 }
 
 function Notification() {
-  const mockCategory = [
-    { major: "경영정보학과", to: "?major=경영정보학과" },
-    { major: "소프트웨어학과", to: "?major=소프트웨어학과" },
-    { major: "안전공학과", to: "?major=안전공학과" },
-    { major: "어떤학과", to: "?major=어떤학과" },
-    { major: "이런학과저런학과", to: "?major=이런학과저런학과" },
-  ];
-
-  const mockNotification = [
-    {
-      id: 1,
-      category: "충북대학교",
-      title: "충북대학교 인문대학 영상 공모전 안내1",
-      date: "22-04-22",
-      view: 123,
-      star: 55,
-    },
-    {
-      id: 2,
-      category: "충북대학교",
-      title: "충북대학교 인문대학 영상 공모전 안내2",
-      date: "22-04-22",
-      view: 123,
-      star: 55,
-    },
-    {
-      id: 3,
-      category: "충북대학교",
-      title: "충북대학교 인문대학 영상 공모전 안내3",
-      date: "22-04-22",
-      view: 123,
-      star: 55,
-    },
-  ];
-
-  const mockSubscribeNotification = 1;
-  const mockStarNotification = 2;
+  const mockSubscribeNotification = 0;
+  const mockStarNotification = 0;
   const major = useSearch({ target: "major" })!;
 
   return (
@@ -60,8 +28,8 @@ function Notification() {
       <header className={$.header}>
         공지사항
         <div className={$.icons}>
-          <Setting style={{ marginRight: "35px" }} />
-          <Plus />
+          <Setting width="21px" height="22px" className={$.setting} />
+          <Plus width="20px" height="20px" />
         </div>
       </header>
       <div className={$.categories}>

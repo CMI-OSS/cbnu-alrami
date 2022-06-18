@@ -1,6 +1,8 @@
 @import "../../styles/main.scss";
 
 .notification {
+    height: calc(100vh - 68px);
+
     .header {
         display: flex;
         justify-content: space-between;
@@ -15,6 +17,10 @@
         .icons {
             display: flex;
             align-items: center;
+
+            .setting{
+                margin-right: 35px;
+            }
         }
     }
 
@@ -45,5 +51,12 @@
     .notification-list{
         display:flex;
         justify-content: center;
+        height: calc(100% - 140px);
+        align-items: center;
+
+        img {
+            max-width: 375px;
+            max-height: 405px;
+        }
     }
 }

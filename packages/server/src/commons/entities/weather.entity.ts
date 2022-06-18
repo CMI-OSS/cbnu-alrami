@@ -8,12 +8,12 @@ export class Weather {
   id: number;
 
   @ApiProperty({ description: "현재 날씨" })
-  @Column({ type: "varchar", length: 50 })
-  currentWeather: string;
+  @Column({ type: "varchar", length: 50, nullable: true })
+  currentWeather?: string;
 
   @ApiProperty({ description: "현재 온도" })
-  @Column({ type: "int" })
-  currentTemp: number;
+  @Column({ type: "int", nullable: true })
+  currentTemp?: number;
 
   @ApiProperty({ description: "오늘 최고 온도" })
   @Column({ type: "int" })

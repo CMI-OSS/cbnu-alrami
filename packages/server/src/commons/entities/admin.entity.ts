@@ -1,6 +1,6 @@
-import { Authority } from "src/commons/constants/enums";
 import { Column, Entity } from "typeorm";
 
+import { Authority } from "../constants/enums";
 import { CommonEntity } from "./common.entity";
 
 @Entity()

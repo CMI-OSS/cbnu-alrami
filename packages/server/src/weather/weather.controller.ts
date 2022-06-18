@@ -1,9 +1,8 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Controller, Get } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 
 import { Public } from "../commons/decorators/public.decorator";
 import { Weather } from "../commons/entities/weather.entity";
-import { CreateWeatherRequestDto } from "./dtos/create-weather.request.dto";
 import { GetWeatherResponseDto } from "./dtos/get-weather.response.dto";
 import { WeatherService } from "./weather.service";
 
@@ -25,21 +24,5 @@ export class WeatherController {
   })
   async getWeather(): Promise<GetWeatherResponseDto> {
     return this.weatherService.getWeather();
-  }
-
-  @Public()
-  @Post()
-  @ApiOperation({
-    summary: "날씨 데이터 가져오기 API",
-    description: "스크래핑을 통해 날씨 데이터를 가져옵니다.",
-  })
-  @ApiResponse({
-    status: 201,
-    description: "가져오기 성공",
-  })
-  async createWeather(
-    @Body() createWeatherRequestDto: CreateWeatherRequestDto,
-  ): Promise<void> {
-    return this.weatherService.createWeather(createWeatherRequestDto);
   }
 }

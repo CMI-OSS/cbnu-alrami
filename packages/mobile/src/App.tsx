@@ -8,6 +8,7 @@ import Calendar from "./page/Calendar";
 import Detail from "./page/Detail";
 import Home from "./page/Home";
 import Map from "./page/Map";
+import MoreImage from "./page/MoreImage";
 import Notification from "./page/Notification";
 import Place from "./page/Place";
 import { store } from "./store";
@@ -19,6 +20,7 @@ function App() {
     { id: 3, path: "/home", element: <Home /> },
     { id: 4, path: "/cafeteria", element: <Cafeteria /> },
     { id: 5, path: "/map", element: <Map /> },
+    { id: 6, path: "/more", element: <MoreImage /> },
   ];
 
   return (

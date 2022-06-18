@@ -8,9 +8,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 20rem;
-    height: 20rem;
     img {
+      width: 20rem;
+      height: 20rem;
+      object-fit: contain;
       -webkit-user-drag: none;
     }
   }

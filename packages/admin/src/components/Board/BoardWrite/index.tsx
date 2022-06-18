@@ -137,8 +137,6 @@ export default function BoardWrite() {
 
         <ImgUploadSlides imgList={boardImgList} />
 
-        <ImgUpload />
-
         <Editor />
         <span className={$["content-error"]}>
           {error.content ? "내용을 입력해주세요." : ""}

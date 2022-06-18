@@ -20,18 +20,18 @@ export default function ImgCard({ img: { id, src } }: Props) {
     (state) => state.boardReducer.board.write,
   );
 
-  useEffect(() => {
-    // 버그
-    const curImgRef = imgRef.current;
-    if (curImgRef) {
-      if (curImgRef.clientHeight > curImgRef.clientWidth) {
-        curImgRef.style.height = "100%";
-      } else curImgRef.style.width = "100%";
-    }
-  }, []);
+  // useEffect(() => {
+  //   // 버그
+  //   const curImgRef = imgRef.current;
+  //   if (curImgRef) {
+  //     if (curImgRef.clientHeight > curImgRef.clientWidth) {
+  //       curImgRef.style.height = "100%";
+  //     } else curImgRef.style.width = "100%";
+  //   }
+  // }, []);
 
   return (
-    <div className={$["img-card"]}>
+    <li className={$["img-card"]}>
       <div className={$["img-wrapper"]}>
         <img alt="업로드할 이미지" src={src} ref={imgRef} />
       </div>
@@ -49,6 +49,6 @@ export default function ImgCard({ img: { id, src } }: Props) {
       >
         <MdOutlineClose />
       </button>
-    </div>
+    </li>
   );
 }

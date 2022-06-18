@@ -33,28 +33,28 @@ export default function ImgUpload() {
         formData.append("image", file);
       });
 
-      const res = [ ...imgListMocks ];
-      const data = res.map((src) => ({
-        id: idRef.current++,
-        src,
-      }));
-      setIsFetched(true);
-      setImgSrcList([ ...imgSrcList, ...data ]);
-      dispatch(writeBoard({ boardImgList: [ ...imgSrcList, ...data ] }));
-      // try {
-      //   const res = await imgUpload(formData).unwrap();
-      //   const data = res.map((src) => ({
-      //     id: idRef.current++,
-      //     src,
-      //   }));
-      //   setIsFetched(true);
-      //   setImgSrcList([ ...imgSrcList, ...data ]);
-      //   dispatch(writeBoard({ boardImgList: [ ...imgSrcList, ...data ] }));
-      // } catch (e) {
-      //   console.log(e);
-      // } finally {
-      //   setIsFetched(true);
-      // }
+      // const res = [ ...imgListMocks ];
+      // const data = res.map((src) => ({
+      //   id: idRef.current++,
+      //   src,
+      // }));
+      // setIsFetched(true);
+      // setImgSrcList([ ...imgSrcList, ...data ]);
+      // dispatch(writeBoard({ boardImgList: [ ...imgSrcList, ...data ] }));
+      try {
+        const res = await imgUpload(formData).unwrap();
+        const data = res.map((src) => ({
+          id: idRef.current++,
+          src,
+        }));
+        setIsFetched(true);
+        setImgSrcList([ ...imgSrcList, ...data ]);
+        dispatch(writeBoard({ boardImgList: [ ...imgSrcList, ...data ] }));
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setIsFetched(true);
+      }
     }
   };
 

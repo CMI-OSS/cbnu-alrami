@@ -1,13 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-  RelationId,
-} from "typeorm";
+import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 import { Board } from "./board.entity";
 
@@ -18,11 +10,10 @@ export class BoardTree {
   id!: number;
 
   @OneToOne(() => Board)
-  @JoinColumn({ name: "board_id" })
+  @JoinColumn()
   board: Board;
 
   @OneToOne(() => Board)
-  @JoinColumn({ name: "parent_board_id" })
+  @JoinColumn()
   parentBoard: Board;
-
 }

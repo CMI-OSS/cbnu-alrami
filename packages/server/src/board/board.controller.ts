@@ -6,10 +6,8 @@ import {
   Param,
   Post,
   Put,
-  UsePipes,
-  ValidationPipe,
 } from "@nestjs/common";
-import { ApiBody, ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Public } from "src/commons/decorators/public.decorator";
 import { Board } from "src/commons/entities/board.entity";
 
@@ -24,7 +22,6 @@ export class BoardController {
   constructor(private readonly boardService: BoardService) {}
 
   @Post()
-  @UsePipes(ValidationPipe)
   @ApiOperation({
     summary: "공지사항 사이트 생성 API",
     description: "새로운 board를 생성한다.",
@@ -69,7 +66,6 @@ export class BoardController {
   }
 
   @Put(":boardId")
-  @UsePipes(ValidationPipe)
   @ApiOperation({
     summary: "특정 공지사항 사이트 수정 API",
     description: "특정 board를 수정한다.",

@@ -39,6 +39,7 @@
       "always",
       { "exceptAfterSingleLine": true }
     ],
+    "react/require-default-props": "off",
     "import/order": [
       "error",
       {

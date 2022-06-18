@@ -1,4 +1,5 @@
 import constructionList from "./constructionList";
+import detailImageList from "./detailImageList";
 import foodList from "./foodList";
 import imageList from "./imageList";
 import menuList from "./menuList";
@@ -15,4 +16,5 @@ export {
   snackList,
   mockNotification,
   mockCategory,
+  detailImageList,
 };

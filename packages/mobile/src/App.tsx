@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
+import Detail from "./page/Detail";
 import Home from "./page/Home";
 import Map from "./page/Map";
 import Notification from "./page/Notification";
@@ -27,6 +28,7 @@ function App() {
           <Route key={route.id} path={route.path} element={route.element} />
         ))}
         <Route path="*" element={<Navigate replace to="/home" />} />
+        <Route path="/place/:name/detail/:id" element={<Detail />} />
         <Route path="/place/*" element={<Place />} />
       </Routes>
     </BrowserRouter>

@@ -76,8 +76,11 @@ function PlaceTemplate({ menuType }: Props) {
         <div className={$.image_list}>
           {imageList.map((item, idx) => {
             return (
-              // eslint-disable-next-line react/no-array-index-key
-              <NavLink to="/" className={$.item} key={`menu-${idx}`}>
+              <NavLink
+                to={`/place/school/detail/${idx + 1}`}
+                className={$.item}
+                key={item.id}
+              >
                 <img
                   className={$.school_image}
                   src={item.src}

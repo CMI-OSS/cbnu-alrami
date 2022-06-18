@@ -5,15 +5,15 @@ import {
   UseInterceptors,
 } from "@nestjs/common";
 import { FilesInterceptor } from "@nestjs/platform-express";
-import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Public } from "src/commons/decorators/public.decorator";
 
-import { AwsService } from "./aws.service";
+import { ImageService } from "./image.service";
 
 @Controller()
 @ApiTags("[image] 이미지 업로드 API")
-export class AwsController {
-  constructor(private readonly awsService: AwsService) {}
+export class ImageController {
+  constructor(private readonly imageService: ImageService) {}
 
   @Public()
   @Post("upload/images")
@@ -21,6 +21,13 @@ export class AwsController {
   @ApiOperation({
     summary: "이미지 업로드 API",
     description: "이미지를 AWS S3에 업로드합니다.",
+  })
+  @ApiBody({
+    schema: {
+      properties: {
+        image: { type: "File" },
+      },
+    },
   })
   @ApiResponse({
     status: 201,
@@ -31,6 +38,6 @@ export class AwsController {
   async uploadImages(
     @UploadedFiles() images: Express.Multer.File[],
   ): Promise<string[]> {
-    return this.awsService.uploadImagesToS3(images);
+    return this.imageService.uploadImages(images);
   }
 }

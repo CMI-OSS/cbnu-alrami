@@ -1,5 +1,6 @@
 export { Calendar } from "./Calendar";
 export { Food } from "./Food";
+export { LeftArrow } from "./LeftArrow";
 export { Home } from "./Home";
 export { Map } from "./Map";
 export { Speaker } from "./Speaker";

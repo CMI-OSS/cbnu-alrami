@@ -5,12 +5,13 @@ type Props = {
   height?: string;
 } & StyleProps;
 
-function Setting({ width, height, className, style }: Props) {
+function Setting({ className, style, width, height }: Props) {
   return (
     <svg
+      className={className}
       style={style}
-      width={width ?? "24"}
-      height={height ?? "24"}
+      width={width}
+      height={height}
       viewBox="0 0 24 26"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

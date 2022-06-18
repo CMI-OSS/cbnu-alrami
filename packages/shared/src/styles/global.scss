@@ -106,12 +106,11 @@ section {
     display: block;
 }
 html {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 body {
     line-height: 1;
-    background-color: $gray-300;
     position: relative;
     -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
@@ -121,6 +120,7 @@ body {
     letter-spacing: -0.002em;
     width: 100%;
     height: 100%;
+    background: $background-20;
 }
 ol,
 ul {
@@ -141,7 +141,7 @@ textarea,
 input,
 button,
 select,
-a{
+a {
     cursor: pointer;
 }
 table {
@@ -183,10 +183,10 @@ hr {
 }
 
 .blind {
-  position: absolute;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  width: 1px;
-  height: 1px;
-  margin: -1px;
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
 }

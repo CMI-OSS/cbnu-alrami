@@ -1,5 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { Builder } from "builder-pattern";
+import { AdminService } from "src/admin/admin.service";
+import { BoardRepository } from "src/board/board.repository";
+import { BoardService } from "src/board/board.service";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
 import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
 import { BookmarkRepository } from "src/bookmark/bookmark.repository";
@@ -8,6 +11,7 @@ import { Errors } from "src/commons/exception/exception.global";
 import { HitRepository } from "src/hit/hit.repository";
 
 import { ArticleRepository } from "./article.repository";
+import { ArticleCreateDto } from "./dtos/article.create.dto";
 import { ArticleDetailInfoDto } from "./dtos/article.detail.info.dto";
 import { ArticleResponseDto } from "./dtos/article.response.dto";
 
@@ -19,8 +23,27 @@ export class ArticleService {
     private readonly articleRepository: ArticleRepository,
     private readonly boomarkRepository: BookmarkRepository,
     private readonly hitRepository: HitRepository,
+    private readonly adminService: AdminService,
+    private readonly boardService: BoardService,
     private readonly boardTreeService: BoardTreeService,
   ) {}
+
+  async create(boardId: number, adminId: number, articleCreateDto: ArticleCreateDto): Promise<Article> {
+    const board = await this.boardService.findById(boardId);
+    const admin = await this.adminService.findById(adminId);
+
+    const article = Builder(Article)
+        .board(board)
+        .author(admin)
+        .title(articleCreateDto.title)
+        .content(articleCreateDto.content)
+        .url(articleCreateDto.url)
+        .date(articleCreateDto.date)
+        .build();
+    
+    const result = await this.articleRepository.save(article);
+    return result;
+  }
 
   async findById(id: number): Promise<Article> {
     const article: Article = await this.articleRepository.findById(id);

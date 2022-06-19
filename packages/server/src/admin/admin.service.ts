@@ -73,4 +73,10 @@ export class AdminService {
     if (!updateResult.raw) throw DB_ERROR;
     return updateResult.generatedMaps;
   }
+
+  async findById(id: number): Promise<Admin> {
+    const admin = await this.adminRepository.findOne({ id });
+    if (!admin) throw ADMIN_NOT_FOUND;
+    return admin;
+  }
 }

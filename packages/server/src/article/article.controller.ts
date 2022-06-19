@@ -1,9 +1,10 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { Public } from "src/commons/decorators/public.decorator";
 import { Article } from "src/commons/entities/article.entity";
 
 import { ArticleService } from "./article.service";
+import { ArticleCreateDto } from "./dtos/article.create.dto";
 import { ArticleDetailInfoDto } from "./dtos/article.detail.info.dto";
 import { ArticleResponseDto } from "./dtos/article.response.dto";
 
@@ -13,7 +14,6 @@ import { ArticleResponseDto } from "./dtos/article.response.dto";
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
-  @Public()
   @Get("boards/:boardId/articles")
   @ApiOperation({
     summary: "공지사항 사이트별 공지사항 목록 조회 API",
@@ -25,11 +25,20 @@ export class ArticleController {
     return this.articleService.findArticleInfoListByBoard(boardId);
   }
 
-  @Public()
   @Get("boards/articles/:articleId")
   async findById(
     @Param("articleId") articleId: number,
   ): Promise<ArticleResponseDto> {
     return this.articleService.findArticleRes(articleId);
+  }
+
+  @Post("/boards/:boardId/articles/:adminId")
+  async create(
+    @Param("boardId") boardId: number,
+    @Param("adminId") adminId: number,
+    @Body() articleCreateDto: ArticleCreateDto
+  ): Promise<Article> {
+    const article = await this.articleService.create(boardId, adminId, articleCreateDto);
+    return article;
   }
 }

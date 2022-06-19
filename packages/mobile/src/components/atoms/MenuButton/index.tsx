@@ -1,12 +1,12 @@
 import $ from "./style.module.scss";
 
 type Props = {
-  menuButtonItem: string
-}
+  menuButtonItem: string;
+};
 
-function MenuButton({menuButtonItem} : Props) {
+function MenuButton({ menuButtonItem }: Props) {
   return (
-    <button type="button" className={$.wrap} aria-pressed='false'>
+    <button type="button" className={$.wrap} aria-pressed="false">
       {menuButtonItem}
     </button>
   );

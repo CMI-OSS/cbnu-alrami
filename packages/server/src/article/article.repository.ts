@@ -1,0 +1,11 @@
+import { Article } from "src/commons/entities/article.entity";
+import { EntityRepository, Repository } from "typeorm";
+
+@EntityRepository(Article)
+export class ArticleRepository extends Repository<Article> {
+  async findByBoard(boardId: number): Promise<Article[]> {
+    return this.createQueryBuilder("article")
+      .where("article.boardId = :boardId", { boardId })
+      .getMany();
+  }
+}

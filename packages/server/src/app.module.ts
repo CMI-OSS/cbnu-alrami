@@ -13,8 +13,8 @@ import configuration from "./commons/config/configuration";
 import { initialize } from "./commons/factories/initialize";
 import { JwtGuard } from "./commons/guards/jwt.guard";
 import { FcmModule } from "./fcm/fcm.module";
-import { PlaceModule } from "./place/place.module";
 import { ImageModule } from "./image/image.module";
+import { PlaceModule } from "./place/place.module";
 import { ScheduleModule } from "./schedule/schedule.module";
 import { WeatherModule } from "./weather/weather.module";
 

@@ -12,15 +12,15 @@ export class Weather {
   currentWeather?: string;
 
   @ApiProperty({ description: "현재 온도" })
-  @Column({ type: "int", nullable: true })
+  @Column("decimal", { precision: 4, scale: 2, nullable: true })
   currentTemp?: number;
 
   @ApiProperty({ description: "오늘 최고 온도" })
-  @Column({ type: "int" })
+  @Column("decimal", { precision: 4, scale: 2 })
   maxTemp: number;
 
   @ApiProperty({ description: "오늘 최저 온도" })
-  @Column({ type: "int" })
+  @Column("decimal", { precision: 4, scale: 2 })
   minTemp: number;
 
   @ApiProperty({ description: "오전 날씨" })

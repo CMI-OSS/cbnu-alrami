@@ -31,8 +31,6 @@ export class WeatherService {
 
   @Cron("0 0 0 * * *")
   async createWeathers(): Promise<void> {
-    console.log("start");
-
     const weather = await this.httpService
       .get(
         "https://api.openweathermap.org/data/2.5/onecall?lat=36.62858542513084&lon=127.45748680644566&appid=c8038d625b9e51a9897d4f431af45455&lang=kr&exclude=minutely&units=metric",
@@ -70,10 +68,8 @@ export class WeatherService {
     }
   }
 
-  @Cron("0 0 0/1 * * *")
+  @Cron("5 0 */1 * * *")
   async createCurrentWeather(): Promise<void> {
-    console.log("start");
-
     const weather = await this.httpService
       .get(
         "https://api.openweathermap.org/data/2.5/onecall?lat=36.62858542513084&lon=127.45748680644566&appid=c8038d625b9e51a9897d4f431af45455&lang=kr&exclude=minutely&units=metric",

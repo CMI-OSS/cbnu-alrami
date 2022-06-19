@@ -7,9 +7,11 @@ import { ArticleModule } from "./article/article.module";
 import { AuthModule } from "./auth/auth.module";
 import { BoardModule } from "./board/board.module";
 import { BoardTreeModule } from "./boardTree/boardTree.module";
+import { BookmarkModule } from "./bookmark/bookmark.module";
 import configuration from "./commons/config/configuration";
 import { JwtGuard } from "./commons/guards/jwt.guard";
 import { FcmModule } from "./fcm/fcm.module";
+import { HitModule } from "./hit/hit.module";
 import { ImageModule } from "./image/image.module";
 import { ScheduleModule } from "./schedule/schedule.module";
 import { WeatherModule } from "./weather/weather.module";
@@ -34,8 +36,10 @@ import { WeatherModule } from "./weather/weather.module";
     ImageModule,
     BoardTreeModule,
     BoardModule,
+    BookmarkModule,
     ScheduleModule,
     WeatherModule,
+    HitModule,
   ],
   providers: [
     {

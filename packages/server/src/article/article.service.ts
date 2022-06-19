@@ -4,6 +4,7 @@ import { BoardTreeService } from "src/boardTree/boardTree.service";
 import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
 import { Article } from "src/commons/entities/article.entity";
 import { Errors } from "src/commons/exception/exception.global";
+import { HitRepository } from "src/hit/hit.repository";
 
 import { ArticleRepository } from "./article.repository";
 import { ArticleDetailInfoDto } from "./dtos/article.detail.info";
@@ -14,6 +15,7 @@ const { NO_DATA_IN_DB } = Errors;
 export class ArticleService {
   constructor(
     private readonly articleRepository: ArticleRepository,
+    private readonly hitRepository: HitRepository,
     private readonly boardTreeService: BoardTreeService,
   ) {}
 
@@ -36,12 +38,13 @@ export class ArticleService {
 
     await Promise.all(
       articles.map(async (article) => {
+        const hitCnt = await this.hitRepository.countByArticle(article.id);
         response.push(
           Builder(ArticleDetailInfoDto)
             .id(article.id)
             .board(board)
             .title(article.title)
-            .hits(3)
+            .hits(hitCnt)
             .scraps(10)
             .dates(article.date)
             .build(),

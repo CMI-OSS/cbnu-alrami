@@ -23,3 +23,21 @@
   color: $color;
   text-decoration: $decoration;
 }
+
+@mixin position($position, $args: ()) {
+  $offsets: top right bottom left;
+  position: $position;
+
+  @each $offset in $offsets {
+    $index: index($args, $offset);
+
+    @if $index {
+      $next: nth($args, $index + 1);
+      @if $next {
+        #{$offset}: $next;
+      } @else {
+        @warn "Invalid value `#{$next}` for offset `#{$offset}`.";
+      }
+    }
+  }
+}

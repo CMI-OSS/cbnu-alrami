@@ -37,6 +37,8 @@ export { PlaceMenu } from "./PlaceMenu";
 export { SmallPlaceMenu } from "./SmallPlaceMenu";
 export { MapArrow } from "./MapArrow";
 export { Close } from "./Close";
+export { Plus } from "./Plus";
+export { Star } from "./Star";
 export { Call } from "./Call";
 export { Position } from "./Position";
 export { Time } from "./Time";

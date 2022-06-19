@@ -36,7 +36,7 @@ function Home() {
           <p>오늘은 총 6개의 일정이 있어요</p>
         </div>
         <button type="button">
-          <Setting />
+          <Setting width="24px" height="25px" />
         </button>
       </header>
       <div className={$.schedule}>

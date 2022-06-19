@@ -108,4 +108,10 @@ export class ArticleService {
 
     return response.length === 0 ? undefined : response;
   }
+
+  async remove(id: number): Promise<boolean> {
+    await this.findById(id);
+    await this.articleRepository.delete({ id });
+    return true;
+  }
 }

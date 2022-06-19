@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { Public } from "src/commons/decorators/public.decorator";
 import { Article } from "src/commons/entities/article.entity";
@@ -40,5 +40,10 @@ export class ArticleController {
   ): Promise<Article> {
     const article = await this.articleService.create(boardId, adminId, articleCreateDto);
     return article;
+  }
+
+  @Delete(":articleId")
+  async remove(@Param("articleId") articleId: number) {
+    return this.articleService.remove(articleId);
   }
 }

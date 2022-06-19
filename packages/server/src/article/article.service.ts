@@ -2,6 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { Builder } from "builder-pattern";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
 import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
+import { BookmarkRepository } from "src/bookmark/bookmark.repository";
+import { BookmarkService } from "src/bookmark/bookmark.service";
 import { Article } from "src/commons/entities/article.entity";
 import { Errors } from "src/commons/exception/exception.global";
 import { HitRepository } from "src/hit/hit.repository";
@@ -15,6 +17,7 @@ const { NO_DATA_IN_DB } = Errors;
 export class ArticleService {
   constructor(
     private readonly articleRepository: ArticleRepository,
+    private readonly boomarkRepository: BookmarkRepository,
     private readonly hitRepository: HitRepository,
     private readonly boardTreeService: BoardTreeService,
   ) {}
@@ -39,13 +42,14 @@ export class ArticleService {
     await Promise.all(
       articles.map(async (article) => {
         const hitCnt = await this.hitRepository.countByArticle(article.id);
+        const bookmarkCnt = await this.boomarkRepository.countByArticle(article.id);
         response.push(
           Builder(ArticleDetailInfoDto)
             .id(article.id)
             .board(board)
             .title(article.title)
             .hits(hitCnt)
-            .scraps(10)
+            .scraps(bookmarkCnt)
             .dates(article.date)
             .build(),
         );

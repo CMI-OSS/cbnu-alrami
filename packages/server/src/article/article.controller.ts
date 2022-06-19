@@ -1,18 +1,33 @@
-import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from "@nestjs/common";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { Builder } from "builder-pattern";
+import { BoardTreeService } from "src/boardTree/boardTree.service";
+import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
 import { Public } from "src/commons/decorators/public.decorator";
-import { Article } from "src/commons/entities/article.entity";
 
 import { ArticleService } from "./article.service";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
 import { ArticleDetailInfoDto } from "./dtos/article.detail.info.dto";
+import { ArticleDto } from "./dtos/article.dto";
 import { ArticleResponseDto } from "./dtos/article.response.dto";
+import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
 @Public()
 @Controller()
 @ApiTags("[article] 공지사항 도메인 API")
 export class ArticleController {
-  constructor(private readonly articleService: ArticleService) {}
+  constructor(
+    private readonly articleService: ArticleService,
+    private readonly boardTreeService: BoardTreeService,
+  ) {}
 
   @Get("boards/:boardId/articles")
   @ApiOperation({
@@ -36,10 +51,38 @@ export class ArticleController {
   async create(
     @Param("boardId") boardId: number,
     @Param("adminId") adminId: number,
-    @Body() articleCreateDto: ArticleCreateDto
-  ): Promise<Article> {
-    const article = await this.articleService.create(boardId, adminId, articleCreateDto);
-    return article;
+    @Body() articleCreateDto: ArticleCreateDto,
+  ): Promise<number> {
+    const article = await this.articleService.create(
+      boardId,
+      adminId,
+      articleCreateDto,
+    );
+    return article.id;
+  }
+
+  @Put(":articleId")
+  async update(
+    @Param("articleId") articleId: number,
+    @Body() articleUpdateDto: ArticleUpdateDto,
+  ): Promise<ArticleDto> {
+    const article = await this.articleService.update(
+      articleId,
+      articleUpdateDto,
+    );
+    const board: BoardTreeResponseDto = await this.boardTreeService.findByBoard(
+      article.board.id,
+    );
+
+    return Builder(ArticleDto)
+      .id(article.id)
+      .board(board)
+      .title(article.title)
+      .content(article.content)
+      .dates(article.date)
+      .createdAt(article.createdAt)
+      .updatedAt(article.updatedAt)
+      .build();
   }
 
   @Delete(":articleId")

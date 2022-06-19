@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Builder } from "builder-pattern";
 import { AdminService } from "src/admin/admin.service";
-import { BoardRepository } from "src/board/board.repository";
 import { BoardService } from "src/board/board.service";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
 import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
@@ -14,6 +13,7 @@ import { ArticleRepository } from "./article.repository";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
 import { ArticleDetailInfoDto } from "./dtos/article.detail.info.dto";
 import { ArticleResponseDto } from "./dtos/article.response.dto";
+import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
 const { NO_DATA_IN_DB } = Errors;
 
@@ -28,19 +28,23 @@ export class ArticleService {
     private readonly boardTreeService: BoardTreeService,
   ) {}
 
-  async create(boardId: number, adminId: number, articleCreateDto: ArticleCreateDto): Promise<Article> {
+  async create(
+    boardId: number,
+    adminId: number,
+    articleCreateDto: ArticleCreateDto,
+  ): Promise<Article> {
     const board = await this.boardService.findById(boardId);
     const admin = await this.adminService.findById(adminId);
 
     const article = Builder(Article)
-        .board(board)
-        .author(admin)
-        .title(articleCreateDto.title)
-        .content(articleCreateDto.content)
-        .url(articleCreateDto.url)
-        .date(articleCreateDto.date)
-        .build();
-    
+      .board(board)
+      .author(admin)
+      .title(articleCreateDto.title)
+      .content(articleCreateDto.content)
+      .url(articleCreateDto.url)
+      .date(articleCreateDto.date)
+      .build();
+
     const result = await this.articleRepository.save(article);
     return result;
   }
@@ -62,22 +66,22 @@ export class ArticleService {
   async findArticleRes(id: number): Promise<ArticleResponseDto> {
     const article: Article = await this.findById(id);
     const board: BoardTreeResponseDto = await this.boardTreeService.findByBoard(
-        article.board.id,
-      );
+      article.board.id,
+    );
     const hitCnt = await this.hitRepository.countByArticle(article.id);
     const bookmarkCnt = await this.boomarkRepository.countByArticle(article.id);
 
     return Builder(ArticleResponseDto)
-        .id(article.id)
-        .board(board)
-        .title(article.title)
-        .content(article.content)
-        .hits(hitCnt)
-        .scraps(bookmarkCnt)
-        .dates(article.date)
-        .createdAt(article.createdAt)
-        .updatedAt(article.updatedAt)
-        .build();
+      .id(article.id)
+      .board(board)
+      .title(article.title)
+      .content(article.content)
+      .hits(hitCnt)
+      .scraps(bookmarkCnt)
+      .dates(article.date)
+      .createdAt(article.createdAt)
+      .updatedAt(article.updatedAt)
+      .build();
   }
 
   async findArticleInfoListByBoard(
@@ -92,7 +96,9 @@ export class ArticleService {
     await Promise.all(
       articles.map(async (article) => {
         const hitCnt = await this.hitRepository.countByArticle(article.id);
-        const bookmarkCnt = await this.boomarkRepository.countByArticle(article.id);
+        const bookmarkCnt = await this.boomarkRepository.countByArticle(
+          article.id,
+        );
         response.push(
           Builder(ArticleDetailInfoDto)
             .id(article.id)
@@ -107,6 +113,25 @@ export class ArticleService {
     );
 
     return response.length === 0 ? undefined : response;
+  }
+
+  async update(
+    articleId: number,
+    articleUpdateDto: ArticleUpdateDto,
+  ): Promise<Article> {
+    const article = await this.findById(articleId);
+
+    if (article.board.id !== articleUpdateDto.boardId) {
+      await this.boardService.findById(articleUpdateDto.boardId);
+    }
+
+    if (article.author.id !== articleUpdateDto.adminId) {
+      await this.adminService.findById(articleUpdateDto.adminId);
+    }
+
+    const newArticle = Object.assign(article, articleUpdateDto);
+    const result = await this.articleRepository.save(newArticle);
+    return result;
   }
 
   async remove(id: number): Promise<boolean> {

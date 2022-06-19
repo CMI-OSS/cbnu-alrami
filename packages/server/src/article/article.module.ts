@@ -10,7 +10,14 @@ import { ArticleRepository } from "./article.repository";
 import { ArticleService } from "./article.service";
 
 @Module({
-  imports: [ TypeOrmModule.forFeature([ ArticleRepository, BookmarkRepository, BoardTreeRepository, HitRepository ]) ],
+  imports: [
+    TypeOrmModule.forFeature([
+      ArticleRepository,
+      BookmarkRepository,
+      BoardTreeRepository,
+      HitRepository,
+    ]),
+  ],
   controllers: [ ArticleController ],
   providers: [ ArticleService, BoardTreeService ],
 })

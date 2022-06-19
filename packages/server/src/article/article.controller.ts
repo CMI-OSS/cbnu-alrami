@@ -1,9 +1,11 @@
 import { Controller, Get, Param } from "@nestjs/common";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { Public } from "src/commons/decorators/public.decorator";
+import { Article } from "src/commons/entities/article.entity";
 
 import { ArticleService } from "./article.service";
-import { ArticleDetailInfoDto } from "./dtos/article.detail.info";
+import { ArticleDetailInfoDto } from "./dtos/article.detail.info.dto";
+import { ArticleResponseDto } from "./dtos/article.response.dto";
 
 @Public()
 @Controller()
@@ -21,5 +23,13 @@ export class ArticleController {
     @Param("boardId") boardId: number,
   ): Promise<ArticleDetailInfoDto[]> {
     return this.articleService.findArticleInfoListByBoard(boardId);
+  }
+
+  @Public()
+  @Get("boards/articles/:articleId")
+  async findById(
+    @Param("articleId") articleId: number,
+  ): Promise<ArticleResponseDto> {
+    return this.articleService.findArticleRes(articleId);
   }
 }

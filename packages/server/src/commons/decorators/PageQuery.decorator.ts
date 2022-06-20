@@ -23,8 +23,23 @@ import { FindManyOptions } from "typeorm";
 export const PageQuery = createParamDecorator(
   (data: unknown, ctx: ExecutionContext): FindManyOptions<unknown> => {
     const { query } = ctx.switchToHttp().getRequest();
-    const { limit, page, ...options } = query;
-    const result = { take: limit, skip: limit * (page - 1), where: options };
+    const { limit, page, sort, ...options } = query;
+    let order: any = sort as string;
+    if (order) {
+      if (order[0] === "-") {
+        order = order.substring(1);
+        order = "DESC";
+      } else order = "ASC";
+      order as any;
+      order = { order };
+    }
+    order = {};
+    const result = {
+      take: limit,
+      skip: limit * (page - 1),
+      where: options,
+      order,
+    };
     if (!limit || !page) {
       result.take = 10;
       result.skip = 0;

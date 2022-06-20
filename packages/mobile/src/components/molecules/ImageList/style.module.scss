@@ -26,24 +26,10 @@
   @media (max-width: $mobile - 1) {
     width: 88px;
   }
-
-  &::after {
-    position: absolute;
-    content: '';
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border: 1px solid red;
-  }
 }
 
 .more-status {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  @include position(absolute, top 0 right 0 bottom 0 left 0);
   border-radius: 18px;
   background-color: rgba(27, 27, 27, 0.85);
 }

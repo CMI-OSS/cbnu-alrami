@@ -53,96 +53,57 @@
             line-height: 24px;
         }
     }
-    .information {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 35px;
 
+    .show-guide {
         > div {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            width: calc((100% - 25px) / 2);
-            padding: 32px 26px 22px 29px;
+            padding: 22px 0 16px 0;
+            text-align: center;
+            color: $black-40;
 
-            .first {
-                display: flex;
-                flex-direction: column;
-
-                .amount {
-                    margin-bottom: 15px;
-                    color: $black-80;
-                    @include typography(22);
-                }
-
-                .description {
-                    margin-bottom: 17px;
-                    @include typography(14);
-                    color: $black-60;
-                }
-
-                .celsius {
-                    @include typography(12);
-                    color: $black-50;
-                }
+            > span {
+                margin-top: 9px;
+                @include typography(14);
+                font-weight: 500;
             }
+            > p {
+                margin-top: 9px;
+                @include typography(12);
+                line-height: 18px;
+            }
+        }
+    }
 
-            .second {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-end;
-                justify-content: space-between;
-                height: 100%;
+    .show-final-guide {
+        > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            padding: 24px 0 24px 0;
+            text-align: center;
 
-                .more {
+            > p {
+                @include typography(14);
+                line-height: 18px;
+                color: $black-80;
+
+                span {
                     display: flex;
                     align-items: center;
+                    justify-content: center;
+
                     svg {
                         margin-right: 5px;
                     }
-                    color: $black-40;
                 }
             }
         }
     }
 
-    .cafeteria {
-        margin-bottom: 35px;
-
-        > div {
-            padding: 17px;
-        }
-        .title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            color: $black-100;
-
-            .location {
-                @include typography(16);
-                font-weight: 500;
-
-                > svg {
-                    margin-left: 10px;
-                }
-            }
-
-            .time {
-                color: $black-40;
-            }
-        }
-        .cafeteria-content {
-            padding: 21px 20px 0px 0px;
-            line-height: 25px;
-            font-size: 13px;
-
-            > p {
-                margin-bottom: 28px;
-                color: $black-80;
-            }
-        }
-    }
     .notification {
         > div {
             padding: 20px 25px 24px;
@@ -160,8 +121,12 @@
                 @include typography(14);
                 color: $black-40;
 
-                > span:first-child {
+                > a:first-child {
                     margin-right: 13px;
+                }
+
+                .active {
+                    color: $red-50;
                 }
             }
         }

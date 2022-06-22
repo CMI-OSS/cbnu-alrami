@@ -1,6 +1,6 @@
 import type { StyleProps } from "src/type/props";
 
-function 눈({ className, style }: StyleProps) {
+function 눈_낮({ className, style }: StyleProps) {
   return (
     <svg
       {...{ className, style }}
@@ -76,4 +76,4 @@ function 눈({ className, style }: StyleProps) {
     </svg>
   );
 }
-export { 눈 };
+export { 눈_낮 };

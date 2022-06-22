@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 import { CommonEntity } from "./common.entity";
 import { User } from "./user.entity";
@@ -6,7 +6,8 @@ import { User } from "./user.entity";
 @Entity("report")
 export class Report extends CommonEntity {
   @ManyToOne(() => User, (User) => User.id, { cascade: true, nullable: false })
-  user: number;
+  @JoinColumn()
+  user: User;
 
   @Column({ type: "varchar" })
   content: string;

@@ -4,7 +4,6 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import classNames from "classnames";
 import { boardCategories } from "src/__mockData__";
 import Editor from "src/components/Editor";
-import ImgUpload from "src/components/ImgUpload";
 import ImgUploadSlides from "src/components/ImgUploadSlides";
 import { useDebounceInput, useWindowResize } from "src/hooks";
 import { useAppDispatch, useAppSelector } from "src/store";

@@ -44,29 +44,31 @@ function Map() {
     );
   };
 
+  const success = (position: GeolocationPosition) => {
+    setMyLocation({
+      latitude: comparePosition(
+        position.coords.latitude,
+        position.coords.longitude,
+      )
+        ? position.coords.latitude
+        : CBNU_LATITUDE,
+      longitude: comparePosition(
+        position.coords.latitude,
+        position.coords.longitude,
+      )
+        ? position.coords.longitude
+        : CBNU_LONGITUDE,
+    });
+  };
+
+  const error = () => {
+    alert("현재 위치를 알 수 없습니다.");
+  };
+
   useEffect(() => {
     const initMap = () => {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position: GeolocationPosition) => {
-            setMyLocation({
-              latitude: comparePosition(
-                position.coords.latitude,
-                position.coords.longitude,
-              )
-                ? position.coords.latitude
-                : CBNU_LATITUDE,
-              longitude: comparePosition(
-                position.coords.latitude,
-                position.coords.longitude,
-              )
-                ? position.coords.longitude
-                : CBNU_LONGITUDE,
-            });
-          },
-        );
-      } else {
-        alert("현재 위치를 알 수 없습니다.");
+        navigator.geolocation.getCurrentPosition(success, error);
       }
     };
     initMap();

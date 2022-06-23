@@ -36,13 +36,10 @@ export { Write } from "./Write";
 export { PlaceMenu } from "./PlaceMenu";
 export { SmallPlaceMenu } from "./SmallPlaceMenu";
 export { MapArrow } from "./MapArrow";
-<<<<<<< HEAD
 export { CalendarRightArrow } from "./CalendarRightArrow";
 export { CalendarLeftArrow } from "./CalendarLeftArrow";
-export { Star } from "./Star";
 export { EmptyStar } from "./EmptyStar";
 export { AddSchedule } from "./AddSchedule";
-=======
 export { Close } from "./Close";
 export { Plus } from "./Plus";
 export { Star } from "./Star";
@@ -52,4 +49,3 @@ export { Time } from "./Time";
 export { MoreArrow } from "./MoreArrow";
 export { ImagePlus } from "./ImagePlus";
 export { CallSubmit } from "./CallSubmit";
->>>>>>> dev

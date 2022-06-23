@@ -115,7 +115,6 @@ function Calendar() {
               ? collegeCalendarMap
               : personalCalendarMap
           }
-          {...{ setSelectedDate, selectedDate }}
         />
       </div>
       <ScheduleRadioBox

@@ -5,14 +5,14 @@ import type { DefaultProps } from "src/type/props";
 import $ from "./style.module.scss";
 
 type Props = {
-  width?: number;
+  width?: number | string;
   height: number | string;
   background?: string;
 } & DefaultProps;
 
 function BorderBox({
   className,
-  width,
+  width = "100%",
   height,
   background,
   style,

@@ -131,8 +131,7 @@ export const getCalendarMap = (
   const calendarMap = calendar1D.map((date) => {
     for (let i = 0; i < schedules.length; i += 1) {
       const schedule = schedules[i];
-      const { startDate, endDate } = schedule;
-      const isHoliyday = !!schedule.isHoliyday;
+      const { startDate, endDate, isHoliyday } = schedule;
       const start = getDateWithoutTime(startDate);
       if (endDate) {
         const end = getDateWithoutTime(endDate);

@@ -54,26 +54,4 @@ export class AwsService {
   private getAwsS3ImageUrl(key: string) {
     return `https://${this.bucketName}.s3.amazonaws.com/${key}`;
   }
-
-  // public async deleteImageFromS3(
-  //   location: string,
-  //   callback?: (err: AWS.AWSError, data: AWS.S3.DeleteObjectOutput) => void,
-  // ): Promise<{ success: true }> {
-  //   const key = location.split(`s3.amazonaws.com/image/`)[1];
-  //
-  //   try {
-  //     await this.awsS3
-  //       .deleteObject(
-  //         {
-  //           Bucket: this.bucketName,
-  //           Key: key,
-  //         },
-  //         callback,
-  //       )
-  //       .promise();
-  //     return { success: true };
-  //   } catch (error) {
-  //     throw new BadRequestException("이미지 삭제에 실패했습니다.");
-  //   }
-  // }
 }

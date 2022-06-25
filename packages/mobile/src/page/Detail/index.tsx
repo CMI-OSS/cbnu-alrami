@@ -64,7 +64,7 @@ function Detail() {
             </li>
           </ul>
           <div className={$.error}>
-            <NavLink className={$["error-link"]} to="/declaration">
+            <NavLink className={$["error-link"]} to="/error">
               오류 신고
             </NavLink>
           </div>

@@ -12,6 +12,10 @@ export const errors = {
   LOGIN_INFO_NOT_FOUND: new NotFoundException(
     "일치하는 로그인 정보가 없습니다.",
   ),
+  CAFETERIA_NOT_FOUND: new NotFoundException("식당이 없습니다."),
+  PLACE_NOT_FOUND: new NotFoundException("등록되지 않은 장소입니다."),
+  MENU_NOT_FOUND: new NotFoundException("메뉴가 없습니다."),
+  AUTHORITY_REQUIRED: new UnauthorizedException("권한이 없습니다."),
   TOKEN_REQUIRED: new UnauthorizedException("토큰이 필요합니다."),
   LOGIN_REQUIRED: new UnauthorizedException("로그인이 필요합니다."),
   TOKEN_EXPIRED: new UnauthorizedException("토큰이 만료되었습니다."),

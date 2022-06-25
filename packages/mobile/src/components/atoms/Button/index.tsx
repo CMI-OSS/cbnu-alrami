@@ -1,4 +1,4 @@
-import "./style.module.scss";
+import $ from "./style.module.scss";
 
 type Props = {
   text: string;
@@ -7,7 +7,7 @@ type Props = {
 
 function Button({ text, onClick }: Props) {
   return (
-    <button type="button" onClick={onClick}>
+    <button type="button" className={$.button} onClick={onClick}>
       {text}
     </button>
   );

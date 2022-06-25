@@ -5,10 +5,19 @@ import { GetWeatherResponseDto } from "./dtos/get-weather.response.dto";
 
 @EntityRepository(Weather)
 export class WeatherRepository extends Repository<Weather> {
-  async findOne(): Promise<GetWeatherResponseDto> {
+  async findOneWeather(hour, date): Promise<GetWeatherResponseDto> {
     return this.createQueryBuilder("weather")
-      .orderBy("weather.id", "DESC")
-      .limit(1)
+      .where("hour = :hour", { hour })
+      .andWhere("date = :date", { date })
       .getOne();
+  }
+
+  async updateWeather(currentTemp, currentWeather, hour, date) {
+    return this.createQueryBuilder("weather")
+      .update(Weather)
+      .set({ currentTemp, currentWeather })
+      .where("hour = :hour", { hour })
+      .andWhere("date = :date", { date })
+      .execute();
   }
 }

@@ -7,6 +7,7 @@ import { CommonEntity } from "./common.entity";
 @Entity({ name: "article" })
 export class Article extends CommonEntity {
   @ManyToOne(() => Board, (Board) => Board.id)
+  @JoinColumn()
   board: Board;
 
   @ManyToOne(() => Admin, (Admin) => Admin.id)

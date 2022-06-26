@@ -5,7 +5,7 @@ import { EntityRepository, Repository } from "typeorm";
 export class ArticleRepository extends Repository<Article> {
   async findByBoard(boardId: number): Promise<Article[]> {
     return this.createQueryBuilder("article")
-      .where("article.board_id = :board_id", { boardId })
+      .where("article.board_id = :boardId", { boardId })
       .getMany();
   }
 

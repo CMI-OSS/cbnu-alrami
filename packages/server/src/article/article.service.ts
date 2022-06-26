@@ -36,6 +36,8 @@ export class ArticleService {
     const board = await this.boardService.findById(boardId);
     const admin = await this.adminService.findById(adminId);
 
+    // FIXME: url로 중복처리 추가~~~~~~~
+
     const article = Builder(Article)
       .board(board)
       .author(admin)
@@ -64,12 +66,19 @@ export class ArticleService {
   }
 
   async findArticleRes(id: number): Promise<ArticleResponseDto> {
+    console.log("111111");
     const article: Article = await this.findById(id);
+    console.log("으악");
+    console.log({ article });
+    console.log(`보드야보드:${  article.board.id}`);
     const board: BoardTreeResponseDto = await this.boardTreeService.findByBoard(
       article.board.id,
     );
+    console.log("나와이자식아");
     const hitCnt = await this.hitRepository.countByArticle(article.id);
+    console.log("어딘데ㅠ");
     const bookmarkCnt = await this.boomarkRepository.countByArticle(article.id);
+    console.log("어머ㅣㅏ머ㅏㅣ");
 
     return Builder(ArticleResponseDto)
       .id(article.id)

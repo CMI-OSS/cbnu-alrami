@@ -10,6 +10,7 @@ export default defineConfig({
       src: path.resolve(__dirname, "./src"),
       "@shared": path.resolve(__dirname, "../shared/src"),
       "@components": path.resolve(__dirname, "./src/components"),
+      "@hooks": path.resolve(__dirname, "./src/hooks"),
     },
   },
   plugins: [ react() ],

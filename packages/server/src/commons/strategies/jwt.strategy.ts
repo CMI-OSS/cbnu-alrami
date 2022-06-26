@@ -17,4 +17,5 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate(adminCredential: AdminCredential): Promise<AdminCredential> {
     return adminCredential;
   }
+  
 }

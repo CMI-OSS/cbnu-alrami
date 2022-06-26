@@ -8,6 +8,7 @@ import { AuthService } from "./auth.service";
 import { AdminCredential } from "./dto/adminCredential.dto";
 import { TokenDto } from "./dto/token.dto";
 
+
 @Controller("auth")
 export class AuthController {
   constructor(@Inject(AuthService) private authService: AuthService) {}

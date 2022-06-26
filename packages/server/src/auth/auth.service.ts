@@ -30,12 +30,7 @@ export class AuthService {
   }
 
   async join(adminCreateDto: AdminCreateDto): Promise<boolean> {
-    const salt = bcrypt.genSaltSync();
-    const hashedPassword = bcrypt.hashSync(adminCreateDto.password, salt);
-    await this.adminService.create({
-      ...adminCreateDto,
-      password: hashedPassword,
-    });
+    await this.adminService.create(adminCreateDto);
     return true;
   }
 

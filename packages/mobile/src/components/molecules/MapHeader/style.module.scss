@@ -11,6 +11,7 @@
   z-index: 100;
   background-color: $white;
   height: 70px;
+  width: 100%;
 }
 
 .link {
@@ -25,7 +26,6 @@
 .title {
   @include typography(18);
   @include ellipsis;
-  display: block;
   font-weight: 500;
   color: $black-100;
   letter-spacing: 0.02em;

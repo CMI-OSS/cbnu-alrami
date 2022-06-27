@@ -5,10 +5,12 @@ import { Close } from "@components/atoms/icon/Close";
 import { PlaceArrow } from "@components/atoms/icon/PlaceArrow";
 import { PlaceMenu } from "@components/atoms/icon/PlaceMenu";
 import { SmallPlaceMenu } from "@components/atoms/icon/SmallPlaceMenu";
+import ConstructionInfo from "@components/molecules/ConstructionInfo";
 import Footer from "@components/molecules/Footer";
 import MenuButtonList from "@components/molecules/MenuButtonList";
 import { useAppDispatch, useAppSelector } from "src/store";
 import {
+  hideConstructionTooltipStatus,
   hideFloatingButtonStatus,
   hideTooltipButtonStatus,
 } from "src/store/statusSlice";
@@ -30,9 +32,8 @@ function Map() {
   const [ myLocation, setMyLocation ] = useState<
     { latitude: number; longitude: number } | string
   >("");
-  const { isDisplayFloatingButton, isDisplayTooltip } = useAppSelector(
-    (state) => state.statusReducer.map,
-  );
+  const { isDisplayFloatingButton, isDisplayTooltip, isConstructionTooltip } =
+    useAppSelector((state) => state.statusReducer.map);
   const dispatch = useAppDispatch();
 
   const comparePosition = (latitude: number, longitude: number) => {
@@ -96,6 +97,11 @@ function Map() {
           dispatch(
             hideFloatingButtonStatus({ isDisplayFloatingButton: false }),
           );
+          dispatch(
+            hideConstructionTooltipStatus({
+              isConstructionTooltip: true,
+            }),
+          );
         });
       });
     }
@@ -134,6 +140,7 @@ function Map() {
           </NavLink>
         </div>
       )}
+      {isConstructionTooltip && <ConstructionInfo />}
       <Footer />
     </div>
   );

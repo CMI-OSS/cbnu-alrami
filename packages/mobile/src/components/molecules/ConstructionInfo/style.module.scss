@@ -1,0 +1,55 @@
+@import "@shared/styles/mixin.scss";
+@import "@shared/styles/color.scss";
+@import "../../../styles/main.scss";
+
+.wrap {
+  @include position(absolute, left 25px right 25px bottom 200px);
+  display: flex;
+  padding: 20px 18px 19px 17px;
+  background-color: $white;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+}
+
+.image {
+  width: 90px;
+  height: 90px;
+  margin-top: 10px;
+  border-radius: 18px;
+}
+
+.info {
+  padding-top: 20px;
+  margin-left: 15px;
+}
+
+.title {
+  @include typography(14);
+  color: $black-100;
+}
+
+.address {
+  @include typography(12);
+  display: block;
+  margin-top: 12px;
+  color: $black-40;
+}
+
+.link {
+  display: block;
+}
+
+.text {
+  display: inline-block;
+  @include typography(12);
+  color: $black-40;
+  margin-top: 16px;
+}
+
+.arrow {
+  display: inline-block;
+  margin-left: 3px;
+  padding-top: 2px;
+  color: $black-40;
+}

@@ -3,6 +3,7 @@ $label-hight: 36.75px;
 .label {
     display: block;
     width: 143.5px;
+    margin: 0;
     height: $label-hight;
     border-radius: calc($label-hight / 2);
     text-align: center;

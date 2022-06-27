@@ -9,11 +9,4 @@ export class ArticleRepository extends Repository<Article> {
       .getMany();
   }
 
-  async findById(id: number): Promise<Article> {
-    return this.createQueryBuilder("article")
-      .where("article.id = :id", { id })
-      .leftJoinAndSelect("article.board", "board")
-      .leftJoinAndSelect("article.admin", "admin")
-      .getOne();
-  }
 }

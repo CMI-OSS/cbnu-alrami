@@ -1,3 +1,4 @@
+import { Dayjs } from "dayjs";
 import { Schedule, ScheduleType } from "src/page/Calendar";
 
 import CollegeCard from "../CollegeCard";
@@ -7,7 +8,7 @@ import $ from "./style.module.scss";
 type Props = {
   scheduleType: ScheduleType;
   schedules: Schedule[];
-  selectedDate: string;
+  selectedDate: Dayjs;
 };
 
 function ScheduleBox({ scheduleType, schedules, selectedDate }: Props) {

@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { NavLink } from "react-router-dom";
 
 import classNames from "classnames";
+import { Dayjs } from "dayjs";
 import BorderBox from "src/components/atoms/BorderBox";
 import { Write } from "src/components/atoms/icon";
 import { DefaultProps } from "src/type/props";
@@ -11,9 +12,9 @@ import $ from "./style.module.scss";
 
 type Props = {
   content: string;
-  startDate: string;
-  endDate: string | null;
-  selectedDate: string;
+  startDate: Dayjs;
+  endDate: Dayjs | null;
+  selectedDate: Dayjs;
 } & DefaultProps;
 
 function PersonalCard({
@@ -33,7 +34,7 @@ function PersonalCard({
       <em className={$.content}>{content}</em>
       <span className={$.period}>{period}</span>
       <NavLink to="" className={$.link}>
-        <Write />
+        <Write width="16px" height="16.5px" />
       </NavLink>
     </BorderBox>
   );

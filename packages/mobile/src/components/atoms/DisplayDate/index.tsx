@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 
-import { getDisplayDate } from "src/utils/calendarTools";
+import dayjs from "dayjs";
 
 import $ from "./style.module.scss";
 
@@ -10,11 +10,10 @@ type Props = {
 };
 
 function DisplayDate({ year, month }: Props) {
-  const [ displayDate, setDisplayDate ] = useState("");
-
-  useEffect(() => {
-    setDisplayDate(getDisplayDate(year, month));
-  }, [ month ]);
+  const displayDate = useMemo(
+    () => `${year}.${(month + 1).toString().padStart(2, "0")}`,
+    [ month ],
+  );
 
   return <span className={$["year-month"]}>{displayDate}</span>;
 }

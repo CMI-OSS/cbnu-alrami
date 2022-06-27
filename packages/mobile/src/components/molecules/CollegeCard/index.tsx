@@ -1,8 +1,9 @@
 import { useMemo, useState } from "react";
 
 import classNames from "classnames";
+import { Dayjs } from "dayjs";
 import BorderBox from "src/components/atoms/BorderBox";
-import { EmptyStar, Star } from "src/components/atoms/icon";
+import { ColorStar, EmptyStar } from "src/components/atoms/icon";
 import { DefaultProps } from "src/type/props";
 import { getDatePeriod } from "src/utils/calendarTools";
 
@@ -10,8 +11,8 @@ import $ from "./style.module.scss";
 
 type Props = {
   content: string;
-  startDate: string;
-  endDate: string | null;
+  startDate: Dayjs;
+  endDate: Dayjs | null;
 } & DefaultProps;
 
 function CollegeCard({ className, content, startDate, endDate }: Props) {
@@ -30,7 +31,7 @@ function CollegeCard({ className, content, startDate, endDate }: Props) {
         className={$.star}
         onClick={() => setIsStar((pre) => !pre)}
       >
-        {isStar ? <Star /> : <EmptyStar />}
+        {isStar ? <ColorStar /> : <EmptyStar />}
       </button>
     </BorderBox>
   );

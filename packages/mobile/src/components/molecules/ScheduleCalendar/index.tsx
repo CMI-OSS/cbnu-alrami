@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 
+import { Dayjs } from "dayjs";
 import DateBox from "src/components/atoms/DateBox";
 import DayBox from "src/components/atoms/DayBox";
 import { CalendarData } from "src/page/Calendar";
@@ -9,9 +10,9 @@ import $ from "./style.module.scss";
 
 type Props = {
   calendarMap: CalendarData[];
-  today: string;
-  selectedDate: string;
-  setSelectedDate: Dispatch<SetStateAction<string>>;
+  today: Dayjs;
+  selectedDate: Dayjs;
+  setSelectedDate: Dispatch<SetStateAction<Dayjs>>;
   month: number;
 };
 
@@ -30,7 +31,7 @@ function ScheduleCalendar({
         ))}
         {calendarMap.map(({ date, isSchedule, isHoliyday }, index) => (
           <DateBox
-            key={date}
+            key={date.format()}
             className={$.fraction}
             {...{
               date,

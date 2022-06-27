@@ -52,7 +52,12 @@ export class ArticleService {
   }
 
   async findById(id: number): Promise<Article> {
-    const article: Article = await this.articleRepository.findById(id);
+    const article = await this.articleRepository.findOne({
+      where: {
+        id,
+      },
+      relations: [ "board" ],
+    });
     if (!article) throw NO_DATA_IN_DB;
     return article;
   }
@@ -66,19 +71,12 @@ export class ArticleService {
   }
 
   async findArticleRes(id: number): Promise<ArticleResponseDto> {
-    console.log("111111");
-    const article: Article = await this.findById(id);
-    console.log("으악");
-    console.log({ article });
-    console.log(`보드야보드:${  article.board.id}`);
+    const article = await this.findById(id);
     const board: BoardTreeResponseDto = await this.boardTreeService.findByBoard(
       article.board.id,
     );
-    console.log("나와이자식아");
     const hitCnt = await this.hitRepository.countByArticle(article.id);
-    console.log("어딘데ㅠ");
     const bookmarkCnt = await this.boomarkRepository.countByArticle(article.id);
-    console.log("어머ㅣㅏ머ㅏㅣ");
 
     return Builder(ArticleResponseDto)
       .id(article.id)

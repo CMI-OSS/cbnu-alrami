@@ -3,9 +3,9 @@ import { EntityRepository, Repository } from "typeorm";
 
 @EntityRepository(Hit)
 export class HitRepository extends Repository<Hit> {
-    async countByArticle(articleId: number): Promise<number> {
-        return this.createQueryBuilder("hit")
-        .where("hit.article_id = :article_id", { articleId })
-        .getCount();
-    }
+  async countByArticle(articleId: number): Promise<number> {
+    return this.createQueryBuilder("hit")
+      .where("hit.article_id = :articleId", { articleId })
+      .getCount();
+  }
 }

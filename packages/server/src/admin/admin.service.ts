@@ -31,7 +31,7 @@ export class AdminService {
 
   async find(query: FindManyOptions<Admin>): Promise<Admin[]> {
     const res = await this.adminRepository.find({
-      select: [ "loginId", "nickname", "authority" ],
+      select: ["loginId", "nickname", "authority"],
       ...query,
     });
     return res;

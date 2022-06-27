@@ -3,9 +3,9 @@ import { EntityRepository, Repository } from "typeorm";
 
 @EntityRepository(Bookmark)
 export class BookmarkRepository extends Repository<Bookmark> {
-    async countByArticle(articleId: number): Promise<number> {
-        return this.createQueryBuilder("bookmark")
-        .where("bookmark.article_id = :article_id", { articleId })
-        .getCount();
-    }
+  async countByArticle(articleId: number): Promise<number> {
+    return this.createQueryBuilder("bookmark")
+      .where("bookmark.article_id = :articleId", { articleId })
+      .getCount();
+  }
 }

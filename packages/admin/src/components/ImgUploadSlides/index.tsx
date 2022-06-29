@@ -60,36 +60,36 @@ export default function ImgSlides({ imgList }: Props) {
     const formData = new FormData();
     if (files) {
       const filesArr = Array.from(files);
-      filesArr.forEach((file) => {
+      filesArr.forEach((file: File) => {
         formData.append("image", file);
       });
 
-      // const res = [ ...imgListMocks ]; // 서버 통신이 안돼서 mock데이터로 테스트
-      // const data = res.map((src) => ({
-      //   id: idRef.current++,
-      //   src,
-      // }));
-      // setIsFetched(true);
-      // setImgSrcList([ ...imgSrcList, ...data ]);
-      // dispatch(writeBoard({ boardImgList: [ ...imgSrcList, ...data ] }));
+      const res = [ ...imgListMocks ]; // 서버 통신이 안돼서 mock데이터로 테스트
+      const data = res.map((src) => ({
+        id: idRef.current++,
+        src,
+      }));
+      setIsFetched(true);
+      setImgSrcList([ ...imgSrcList, ...data ]);
+      dispatch(writeBoard({ boardImgList: [ ...imgSrcList, ...data ] }));
 
-      try {
-        const res = await imgUpload(formData).unwrap();
-        const data = res.map((src) => {
-          idRef.current += 1;
-          return {
-            id: idRef.current + 1,
-            src,
-          };
-        });
-        setIsFetched(true);
-        setImgSrcList([ ...imgSrcList, ...data ]);
-        dispatch(writeBoard({ boardImgList: [ ...imgSrcList, ...data ] }));
-      } catch (e) {
-        console.log(e);
-      } finally {
-        setIsFetched(true);
-      }
+      // try {
+      //   const res = await imgUpload(formData).unwrap();
+      //   const data = res.map((src) => {
+      //     idRef.current += 1;
+      //     return {
+      //       id: idRef.current + 1,
+      //       src,
+      //     };
+      //   });
+      //   setIsFetched(true);
+      //   setImgSrcList([ ...imgSrcList, ...data ]);
+      //   dispatch(writeBoard({ boardImgList: [ ...imgSrcList, ...data ] }));
+      // } catch (e) {
+      //   console.log(e);
+      // } finally {
+      //   setIsFetched(true);
+      // }
     }
   };
 
@@ -107,15 +107,18 @@ export default function ImgSlides({ imgList }: Props) {
   const onMouseDown = (num: number) => setMouseDownClientX(num);
   const onMouseUp = (num: number) => setMouseUpClientX(num);
 
-  const handleDragInOutOver = useCallback((e: React.DragEvent) => {
+  const doPreventEvent = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
+  };
+
+  const handleDragInOutOver = useCallback((e: React.DragEvent) => {
+    doPreventEvent(e);
   }, []);
 
   const handleDrop = useCallback(
     (e: React.DragEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
+      doPreventEvent(e);
       onLoadFile(e);
     },
     [ onLoadFile ],
@@ -124,7 +127,7 @@ export default function ImgSlides({ imgList }: Props) {
   return (
     <article className={$["img-slides"]}>
       {imgList.length ? (
-        <div className={$["img-list-box"]} role="presentation">
+        <div className={$["img-list-box"]}>
           {isLoading ? (
             loadingSpinner
           ) : (
@@ -133,6 +136,7 @@ export default function ImgSlides({ imgList }: Props) {
                 onMouseDown={(e: React.MouseEvent) => onMouseDown(e.clientX)}
                 onMouseUp={(e: React.MouseEvent) => onMouseUp(e.clientX)}
                 role="presentation"
+                className={$["img-lists"]}
                 style={{
                   transform: `translateX(
                 ${currentImgIdx * -100.6}%`,

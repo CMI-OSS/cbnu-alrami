@@ -45,8 +45,11 @@ export const boardSlice = createSlice({
     },
     changeCurrentImg: (state, action) => {
       let idx = action.payload;
-      if (!state.board.write.boardImgList.length) idx = 0;
-      if (state.board.write.boardImgList.length <= idx) idx = 0;
+      if (
+        !state.board.write.boardImgList.length ||
+        state.board.write.boardImgList.length <= idx
+      )
+        idx = 0;
       if (idx < 0) idx = state.board.write.boardImgList.length - 1;
       state.board.write.currentImgIdx = idx;
     },

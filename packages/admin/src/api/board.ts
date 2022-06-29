@@ -8,7 +8,6 @@ export const boardWriteApi = createApi({
   endpoints: (build) => ({
     imgUpload: build.mutation<string[], FormData>({
       query(data) {
-        console.log(data.getAll("image"));
         return {
           url: "upload/images",
           method: "POST",

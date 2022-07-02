@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { Close } from "@components/atoms/icon/Close";
+import { MapArrow } from "@components/atoms/icon/MapArrow";
 import { PlaceArrow } from "@components/atoms/icon/PlaceArrow";
 import { PlaceMenu } from "@components/atoms/icon/PlaceMenu";
 import { SmallPlaceMenu } from "@components/atoms/icon/SmallPlaceMenu";
@@ -109,7 +110,12 @@ function Map() {
 
   return (
     <div id="map" className={$.map}>
-      {isDisplayFloatingButton ? <MenuButtonList /> : <div>ddd</div>}
+      {isDisplayFloatingButton && <MenuButtonList />}
+      {isConstructionTooltip && (
+        <NavLink to="/" className={$["place-link"]}>
+          <MapArrow className={$["place-arrow"]} />
+        </NavLink>
+      )}
       {isDisplayFloatingButton && (
         <div className={$.wrap}>
           {isDisplayTooltip && (

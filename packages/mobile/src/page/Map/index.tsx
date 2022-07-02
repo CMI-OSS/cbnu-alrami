@@ -30,11 +30,9 @@ function Map() {
   const CBNU_LATITUDE = 36.62850496903595;
   const CBNU_LONGITUDE = 127.45731862757414;
 
-  const [ myLocation, setMyLocation ] = useState<
-    { latitude: number; longitude: number } | string
-  >("");
   const { isDisplayFloatingButton, isDisplayTooltip, isConstructionTooltip } =
     useAppSelector((state) => state.statusReducer.map);
+  const [ myLocation, setMyLocation ] = useState({ latitude: 0, longitude: 0 });
   const dispatch = useAppDispatch();
 
   const comparePosition = (latitude: number, longitude: number) => {
@@ -77,35 +75,26 @@ function Map() {
   }, []);
 
   useEffect(() => {
-    if (typeof myLocation !== "string") {
-      const currentPosition = [ myLocation.latitude, myLocation.longitude ];
-      const map = new naver.maps.Map("map", {
-        center: new naver.maps.LatLng(currentPosition[0], currentPosition[1]),
-        zoom: 16,
-        zoomControl: true,
-        zoomControlOptions: {
-          position: naver.maps.Position.TOP_RIGHT,
-        },
+    const currentPosition = [ myLocation.latitude, myLocation.longitude ];
+    const map = new naver.maps.Map("map", {
+      center: new naver.maps.LatLng(currentPosition[0], currentPosition[1]),
+      zoom: 16,
+      zoomControl: true,
+      zoomControlOptions: {
+        position: naver.maps.Position.TOP_RIGHT,
+      },
+    });
+    placeInfoList.forEach((place) => {
+      const marker = makeMarker(
+        map,
+        new naver.maps.LatLng(place.lat, place.lng),
+      );
+      naver.maps.Event.addListener(marker, "click", (e) => {
+        map.panTo(e.coord, { duration: 300, easing: "easeOutCubic" });
+        e.domEvent.stopPropagation();
+        dispatch(hideFloatingButtonStatus({ isDisplayFloatingButton: false }));
       });
-      placeInfoList.forEach((place) => {
-        const marker = makeMarker(
-          map,
-          new naver.maps.LatLng(place.lat, place.lng),
-        );
-        naver.maps.Event.addListener(marker, "click", (e) => {
-          map.panTo(e.coord, { duration: 300, easing: "easeOutCubic" });
-          e.domEvent.stopPropagation();
-          dispatch(
-            hideFloatingButtonStatus({ isDisplayFloatingButton: false }),
-          );
-          dispatch(
-            hideConstructionTooltipStatus({
-              isConstructionTooltip: true,
-            }),
-          );
-        });
-      });
-    }
+    });
   }, [ myLocation ]);
 
   return (

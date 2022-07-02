@@ -3,7 +3,7 @@ import type { StyleProps } from "src/type/props";
 function Arrow({ className, style }: StyleProps) {
   return (
     <svg
-      style={style}
+      {...{ className, style }}
       width="10"
       height="27"
       viewBox="0 0 10 27"

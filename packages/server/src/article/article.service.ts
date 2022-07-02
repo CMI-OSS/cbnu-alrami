@@ -72,9 +72,8 @@ export class ArticleService {
 
   async findArticleRes(id: number): Promise<ArticleResponseDto> {
     const article = await this.findById(id);
-    const board: BoardTreeResponseDto = await this.boardTreeService.findByBoard(
-      article.board.id,
-    );
+    const board: BoardTreeResponseDto =
+      await this.boardTreeService.getBoardTree(article.board.id);
     const hitCnt = await this.hitRepository.countByArticle(article.id);
     const bookmarkCnt = await this.boomarkRepository.countByArticle(article.id);
 
@@ -95,9 +94,8 @@ export class ArticleService {
     boardId: number,
   ): Promise<ArticleDetailInfoDto[]> {
     const articles: Article[] = await this.findByBoard(boardId);
-    const board: BoardTreeResponseDto = await this.boardTreeService.findByBoard(
-      boardId,
-    );
+    const board: BoardTreeResponseDto =
+      await this.boardTreeService.getBoardTree(boardId);
     const response: ArticleDetailInfoDto[] = [];
 
     await Promise.all(

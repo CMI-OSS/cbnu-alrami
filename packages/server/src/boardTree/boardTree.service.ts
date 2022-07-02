@@ -14,7 +14,7 @@ const { BOARD_ID_NOT_FOUND } = Errors;
 export class BoardTreeService {
   constructor(private readonly boardTreeRepository: BoardTreeRepository) {}
 
-  async findByBoard(boardId: number): Promise<BoardTreeResponseDto> {
+  async findByBoard(boardId: number): Promise<BoardTree> {
     const boardTree = await this.boardTreeRepository.findOne({
       where: {
         board: boardId,
@@ -22,7 +22,12 @@ export class BoardTreeService {
       relations: [ "board", "parentBoard" ],
     });
 
-    if (typeof boardTree === "undefined") throw BOARD_ID_NOT_FOUND;
+    return boardTree;
+  }
+
+  async getBoardTree(boardId: number): Promise<BoardTreeResponseDto> {
+    const boardTree = await this.findByBoard(boardId);
+    if (typeof boardTree === "undefined") return null;
 
     return Builder(BoardTreeResponseDto)
       .id(boardTree.board.id)

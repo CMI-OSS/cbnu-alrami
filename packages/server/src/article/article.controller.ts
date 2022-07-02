@@ -70,9 +70,8 @@ export class ArticleController {
       articleId,
       articleUpdateDto,
     );
-    const board: BoardTreeResponseDto = await this.boardTreeService.findByBoard(
-      article.board.id,
-    );
+    const board: BoardTreeResponseDto =
+      await this.boardTreeService.getBoardTree(article.board.id);
 
     return Builder(ArticleDto)
       .id(article.id)

@@ -1,0 +1,27 @@
+@import "@shared/styles/color.scss";
+@import "@shared/styles/mixin.scss";
+@import "../../../styles/main.scss";
+
+.cafeteria-menu-card {
+  margin-bottom: 35px;
+  padding: 20px 25px 13px;
+  .time {
+    display: flex;
+    margin-bottom: 17px;
+    font-size: 16px;
+    &-info {
+      margin-left: auto;
+      font-size: 14px;
+      color: $black-40;
+    }
+  }
+  .meal {
+    margin-top: 17px;
+    line-height: 35px;
+    font-size: 13px;
+    &-calory {
+      display: block;
+      color: $black-50;
+    }
+  }
+}

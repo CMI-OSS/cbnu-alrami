@@ -2,23 +2,46 @@
 
 .cafeteria {
   padding: 95px 35px 102px;
-  .go-out {
+}
+
+.go-out {
+  display: flex;
+  flex-direction: column;
+  color: $background-50;
+  font-size: 12px;
+  span {
+    margin: 0 auto 11px;
+    line-height: 20px;
+  }
+  &-link {
     display: flex;
-    flex-direction: column;
-    color: $background-50;
-    font-size: 12px;
+    align-items: center;
+    margin: 0 auto;
+    .icon {
+      height: 8px;
+      path {
+        stroke: $background-50;
+      }
+    }
+  }
+}
+
+.no-menu {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .go-out {
     span {
-      margin: 0 auto 11px;
+      margin-top: 20px;
+      line-height: 26px;
+      font-size: 16px;
     }
     &-link {
-      display: flex;
-      align-items: center;
-      margin: 0 auto;
+      font-size: 14px;
       .icon {
-        height: 12px;
-        path {
-          stroke: $background-50;
-        }
+        height: 10px;
       }
     }
   }

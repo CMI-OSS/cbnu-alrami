@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 
+import classnames from "classnames";
 import { cafeteriaMenu } from "src/__mocks__";
+import noMenu from "src/assets/no_menu.png";
 import { Arrow } from "src/components/atoms/icon/Arrow";
 import CafeteriaMenuCard from "src/components/molecules/CafeteriaMenuCard";
 import Flicking from "src/components/molecules/Flicking";
@@ -22,25 +24,42 @@ function Cafeteria() {
   return (
     <>
       <Flicking menuList={menuList} />
-      <main className={$.cafeteria}>
-        {cafeteriaMenu.map(({ id, content, calory, time }) => {
-          const [ mealTime, timeInfo ] = cafeteriaTime(id, time);
-          return (
-            <CafeteriaMenuCard
-              key={content}
-              {...{ mealTime, timeInfo }}
-              mealMenu={content}
-              calory={calory}
-            />
-          );
+      <main
+        className={classnames($.cafeteria, {
+          [$["no-menu"]]: !cafeteriaMenu.length,
         })}
-        <div className={$["go-out"]}>
-          <span>다른 메뉴가 먹고싶다면?</span>
-          <Link to="/place/food" className={$["go-out-link"]}>
-            나가서 먹기
-            <Arrow className={$.icon} />
-          </Link>
-        </div>
+      >
+        {cafeteriaMenu.length > 0 ? (
+          <>
+            {cafeteriaMenu.map(({ id, content, calory, time }) => {
+              const [ mealTime, timeInfo ] = cafeteriaTime(id, time);
+              return (
+                <CafeteriaMenuCard
+                  key={content}
+                  {...{ mealTime, timeInfo }}
+                  mealMenu={content}
+                  calory={calory}
+                />
+              );
+            })}
+            <div className={$["go-out"]}>
+              <span>다른 메뉴가 먹고싶다면?</span>
+              <Link to="/place/food" className={$["go-out-link"]}>
+                나가서 먹기
+                <Arrow className={$.icon} />
+              </Link>
+            </div>
+          </>
+        ) : (
+          <div className={$["go-out"]}>
+            <img src={noMenu} alt="메뉴가 없습니다." width="130" height="130" />
+            <span>오늘은 식단이 없어요</span>
+            <Link to="/place/food" className={$["go-out-link"]}>
+              대신 나가서 먹기
+              <Arrow className={$.icon} />
+            </Link>
+          </div>
+        )}
         <Footer />
       </main>
     </>

@@ -21,4 +21,9 @@ export const Errors = {
   DUPLICATE_BOARD_URL: new BadRequestException(
     "이미 존재하는 board url입니다.",
   ),
+
+  // article 도메인에 대한 예외 메세지
+  ARTICLE_URL_EXISTS: new NotFoundException(
+    "이미 존재하는 공지사항 url 입니다.",
+  ),
 };

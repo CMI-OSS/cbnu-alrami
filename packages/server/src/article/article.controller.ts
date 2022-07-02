@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from "@nestjs/common";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { Builder } from "builder-pattern";
@@ -47,7 +48,7 @@ export class ArticleController {
     return this.articleService.findArticleRes(articleId);
   }
 
-  @Post("/boards/:boardId/articles/:adminId")
+  @Post("/boards/:boardId/article/admin/:adminId")
   async create(
     @Param("boardId") boardId: number,
     @Param("adminId") adminId: number,

@@ -9,4 +9,9 @@ export class ArticleRepository extends Repository<Article> {
       .getMany();
   }
 
+  async existsByUrl(url: string): Promise<number> {
+    return this.createQueryBuilder("article")
+      .where("article.url != :url", { url })
+      .getCount();
+  }
 }

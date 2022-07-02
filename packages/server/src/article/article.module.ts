@@ -9,6 +9,10 @@ import { BoardTreeRepository } from "src/boardTree/boardTree.repository";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
 import { BookmarkRepository } from "src/bookmark/bookmark.repository";
 import { HitRepository } from "src/hit/hit.repository";
+import { AwsService } from "src/image/aws.service";
+import { ImageModule } from "src/image/image.module";
+import { ImageRepository } from "src/image/image.repository";
+import { ImageService } from "src/image/image.service";
 
 import { ArticleController } from "./article.controller";
 import { ArticleRepository } from "./article.repository";
@@ -22,11 +26,18 @@ import { ArticleService } from "./article.service";
       BoardRepository,
       BoardTreeRepository,
       HitRepository,
+      ImageRepository,
     ]),
     AdminModule,
     BoardModule,
   ],
   controllers: [ ArticleController ],
-  providers: [ ArticleService, BoardService, BoardTreeService ],
+  providers: [
+    ArticleService,
+    BoardService,
+    BoardTreeService,
+    AwsService,
+    ImageService,
+  ],
 })
 export class ArticleModule {}

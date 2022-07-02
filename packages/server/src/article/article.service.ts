@@ -8,6 +8,7 @@ import { BookmarkRepository } from "src/bookmark/bookmark.repository";
 import { Article } from "src/commons/entities/article.entity";
 import { Errors } from "src/commons/exception/exception.global";
 import { HitRepository } from "src/hit/hit.repository";
+import { ImageService } from "src/image/image.service";
 
 import { ArticleRepository } from "./article.repository";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
@@ -15,7 +16,7 @@ import { ArticleDetailInfoDto } from "./dtos/article.detail.info.dto";
 import { ArticleResponseDto } from "./dtos/article.response.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
-const { NO_DATA_IN_DB } = Errors;
+const { NO_DATA_IN_DB, ARTICLE_URL_EXISTS } = Errors;
 
 @Injectable()
 export class ArticleService {
@@ -26,6 +27,7 @@ export class ArticleService {
     private readonly adminService: AdminService,
     private readonly boardService: BoardService,
     private readonly boardTreeService: BoardTreeService,
+    private readonly imageService: ImageService,
   ) {}
 
   async create(
@@ -33,10 +35,13 @@ export class ArticleService {
     adminId: number,
     articleCreateDto: ArticleCreateDto,
   ): Promise<Article> {
+    const {url} = articleCreateDto;
+    if ((await this.articleRepository.existsByUrl(url)) > 0)
+      throw ARTICLE_URL_EXISTS;
+
     const board = await this.boardService.findById(boardId);
     const admin = await this.adminService.findById(adminId);
-
-    // FIXME: url로 중복처리 추가~~~~~~~
+    const date = new Date(articleCreateDto.date);
 
     const article = Builder(Article)
       .board(board)
@@ -44,10 +49,19 @@ export class ArticleService {
       .title(articleCreateDto.title)
       .content(articleCreateDto.content)
       .url(articleCreateDto.url)
-      .date(articleCreateDto.date)
+      .date(date)
       .build();
 
     const result = await this.articleRepository.save(article);
+
+    // DESCRIBE: image를 생성된 article과 연결
+    const {images} = articleCreateDto;
+    await Promise.all(
+      images.map(async (imageId) => {
+        await this.imageService.updateArticle(imageId, article.id);
+      }),
+    );
+
     return result;
   }
 

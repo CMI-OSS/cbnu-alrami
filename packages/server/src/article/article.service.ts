@@ -44,7 +44,6 @@ export class ArticleService {
 
     const board = await this.boardService.findById(boardId);
     const admin = await this.adminService.findById(adminId);
-    // const date = new Date(articleCreateDto.date);
 
     const article = Builder(Article)
       .board(board)
@@ -68,14 +67,12 @@ export class ArticleService {
   }
 
   async findById(id: number): Promise<Article> {
-    console.log("0.0.0");
     const article = await this.articleRepository.findOne({
       where: {
         id,
       },
       relations: [ "board", "author" ],
     });
-    console.log("0.0.1");
     if (!article) throw NO_DATA_IN_DB;
     return article;
   }

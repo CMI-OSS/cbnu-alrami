@@ -5,7 +5,9 @@ import { BoardService } from "src/board/board.service";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
 import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
 import { BookmarkRepository } from "src/bookmark/bookmark.repository";
+import { Admin } from "src/commons/entities/admin.entity";
 import { Article } from "src/commons/entities/article.entity";
+import { Board } from "src/commons/entities/board.entity";
 import { Errors } from "src/commons/exception/exception.global";
 import { HitRepository } from "src/hit/hit.repository";
 import { ImageService } from "src/image/image.service";
@@ -31,19 +33,18 @@ export class ArticleService {
     private readonly imageService: ImageService,
   ) {}
 
+  @Transaction()
   async create(
     boardId: number,
     adminId: number,
     articleCreateDto: ArticleCreateDto,
   ): Promise<Article> {
-    const {url} = articleCreateDto;
-    const cnt = await this.articleRepository.existsByUrl(url);
-    console.log(cnt);
-    if (cnt > 0) throw ARTICLE_URL_EXISTS;
+    if ((await this.articleRepository.existsByUrl(articleCreateDto.url)) > 0)
+      throw ARTICLE_URL_EXISTS;
 
     const board = await this.boardService.findById(boardId);
     const admin = await this.adminService.findById(adminId);
-    const date = new Date(articleCreateDto.date);
+    // const date = new Date(articleCreateDto.date);
 
     const article = Builder(Article)
       .board(board)
@@ -51,15 +52,14 @@ export class ArticleService {
       .title(articleCreateDto.title)
       .content(articleCreateDto.content)
       .url(articleCreateDto.url)
-      .date(date)
+      .date(articleCreateDto.date)
       .build();
 
     const result = await this.articleRepository.save(article);
 
     // DESCRIBE: image를 생성된 article과 연결
-    const { images } = articleCreateDto;
     await Promise.all(
-      images.map(async (imageId) => {
+      articleCreateDto.images.map(async (imageId) => {
         await this.imageService.updateArticle(imageId, article);
       }),
     );
@@ -68,12 +68,14 @@ export class ArticleService {
   }
 
   async findById(id: number): Promise<Article> {
+    console.log("0.0.0");
     const article = await this.articleRepository.findOne({
       where: {
         id,
       },
-      relations: [ "board" ],
+      relations: [ "board", "author" ],
     });
+    console.log("0.0.1");
     if (!article) throw NO_DATA_IN_DB;
     return article;
   }
@@ -140,21 +142,45 @@ export class ArticleService {
     articleId: number,
     articleUpdateDto: ArticleUpdateDto,
   ): Promise<Article> {
-    const article = await this.findById(articleId);
+    const beforeArticle = await this.findById(articleId);
 
-    if (article.board.id !== articleUpdateDto.boardId) {
-      await this.boardService.findById(articleUpdateDto.boardId);
+    // DESCRIBE: 이전 값
+    const { url } = beforeArticle;
+    let { board } = beforeArticle;
+    let { author } = beforeArticle;
+
+    // DESCRIBE: 신규 값
+    const newUrl: string = articleUpdateDto.url;
+    if (
+      url !== newUrl &&
+      (await this.articleRepository.existsByUrl(newUrl)) > 0
+    )
+      throw ARTICLE_URL_EXISTS;
+
+    if (board.id !== articleUpdateDto.boardId) {
+      board = await this.boardService.findById(articleUpdateDto.boardId);
     }
 
-    if (article.author.id !== articleUpdateDto.adminId) {
-      await this.adminService.findById(articleUpdateDto.adminId);
+    if (beforeArticle.author.id !== articleUpdateDto.adminId) {
+      author = await this.adminService.findById(articleUpdateDto.adminId);
     }
 
-    const newArticle = Object.assign(article, articleUpdateDto);
+    const newArticle = Object.assign(
+      beforeArticle,
+      Builder(Article)
+        .board(board)
+        .author(author)
+        .title(articleUpdateDto.title)
+        .content(articleUpdateDto.content)
+        .url(articleUpdateDto.url)
+        .date(articleUpdateDto.date)
+        .build(),
+    );
     const result = await this.articleRepository.save(newArticle);
     return result;
   }
 
+  @Transaction()
   async remove(id: number): Promise<boolean> {
     await this.findById(id);
     await this.articleRepository.delete({ id });

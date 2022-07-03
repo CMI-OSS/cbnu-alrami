@@ -28,16 +28,20 @@ export class BoardTreeService {
   async getBoardTree(boardId: number): Promise<BoardTreeResponseDto> {
     const boardTree = await this.findByBoard(boardId);
     if (typeof boardTree === "undefined") return null;
+    let parent;
+    if (boardTree.parentBoard === null) {
+      parent = null;
+    } else {
+      parent = Builder(BoardResponseDto)
+        .id(boardTree.parentBoard.id)
+        .name(boardTree.parentBoard.name)
+        .build();
+    }
 
     return Builder(BoardTreeResponseDto)
       .id(boardTree.board.id)
       .name(boardTree.board.name)
-      .parent(
-        Builder(BoardResponseDto)
-          .id(boardTree.parentBoard.id)
-          .name(boardTree.parentBoard.name)
-          .build(),
-      )
+      .parent(parent)
       .build();
   }
 

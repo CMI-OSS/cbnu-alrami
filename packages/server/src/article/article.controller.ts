@@ -87,7 +87,7 @@ export class ArticleController {
       .build();
   }
 
-  @Delete(":articleId")
+  @Delete("/articles/:articleId")
   async remove(@Param("articleId") articleId: number) {
     return this.articleService.remove(articleId);
   }

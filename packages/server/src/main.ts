@@ -13,7 +13,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(helmet());
   app.use(compression());
-  app.enableCors();
+  app.enableCors({
+    origin: "*",
+  });
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.useGlobalFilters(new HttpExceptionFilter());

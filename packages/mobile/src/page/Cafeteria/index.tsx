@@ -5,8 +5,8 @@ import { cafeteriaMenu } from "src/__mocks__";
 import noMenu from "src/assets/no_menu.png";
 import { Arrow } from "src/components/atoms/icon/Arrow";
 import CafeteriaMenuCard from "src/components/molecules/CafeteriaMenuCard";
-import Flicking from "src/components/molecules/Flicking";
 import Footer from "src/components/molecules/Footer";
+import useFlicking from "src/hooks/useFlicking";
 import { cafeteriaTime } from "src/utils/cafeteriaTime";
 
 import $ from "./style.module.scss";
@@ -21,9 +21,11 @@ const menuList = [
 ];
 
 function Cafeteria() {
+  const [ clickedMenu, Flicking ] = useFlicking(menuList);
+
   return (
     <>
-      <Flicking menuList={menuList} />
+      {Flicking}
       <main
         className={classnames($.cafeteria, {
           [$["no-menu"]]: !cafeteriaMenu.length,

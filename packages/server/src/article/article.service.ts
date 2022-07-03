@@ -9,6 +9,7 @@ import { Article } from "src/commons/entities/article.entity";
 import { Errors } from "src/commons/exception/exception.global";
 import { HitRepository } from "src/hit/hit.repository";
 import { ImageService } from "src/image/image.service";
+import { Transaction } from "typeorm";
 
 import { ArticleRepository } from "./article.repository";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
@@ -36,8 +37,9 @@ export class ArticleService {
     articleCreateDto: ArticleCreateDto,
   ): Promise<Article> {
     const {url} = articleCreateDto;
-    if ((await this.articleRepository.existsByUrl(url)) > 0)
-      throw ARTICLE_URL_EXISTS;
+    const cnt = await this.articleRepository.existsByUrl(url);
+    console.log(cnt);
+    if (cnt > 0) throw ARTICLE_URL_EXISTS;
 
     const board = await this.boardService.findById(boardId);
     const admin = await this.adminService.findById(adminId);
@@ -55,10 +57,10 @@ export class ArticleService {
     const result = await this.articleRepository.save(article);
 
     // DESCRIBE: image를 생성된 article과 연결
-    const {images} = articleCreateDto;
+    const { images } = articleCreateDto;
     await Promise.all(
       images.map(async (imageId) => {
-        await this.imageService.updateArticle(imageId, article.id);
+        await this.imageService.updateArticle(imageId, article);
       }),
     );
 

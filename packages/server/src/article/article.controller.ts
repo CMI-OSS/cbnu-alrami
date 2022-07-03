@@ -20,6 +20,7 @@ import { ArticleDetailInfoDto } from "./dtos/article.detail.info.dto";
 import { ArticleDto } from "./dtos/article.dto";
 import { ArticleResponseDto } from "./dtos/article.response.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
+import { TestDto } from "./dtos/test.dto";
 
 @Public()
 @Controller()
@@ -54,6 +55,7 @@ export class ArticleController {
     @Param("adminId") adminId: number,
     @Body() articleCreateDto: ArticleCreateDto,
   ): Promise<number> {
+    console.log({ articleCreateDto });
     const article = await this.articleService.create(
       boardId,
       adminId,

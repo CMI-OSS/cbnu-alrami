@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { Article } from "src/commons/entities/article.entity";
 import { Errors } from "src/commons/exception/exception.global";
 import { createQueryBuilder } from "typeorm";
 
@@ -30,10 +31,11 @@ export class ImageService {
     return image;
   }
 
-  async updateArticle(id: number, articleId: number) {
+  async updateArticle(id: number, newArticle: Article) {
     const image = await this.findById(id);
-    await createQueryBuilder().update(image).set({
-      article: articleId,
-    });
+    await this.imageRepository.update(id, { article: newArticle });
+    // return createQueryBuilder().update(image).set({
+    //   article: articleId,
+    // });
   }
 }

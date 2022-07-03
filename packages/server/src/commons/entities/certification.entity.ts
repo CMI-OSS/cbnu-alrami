@@ -8,7 +8,7 @@ import {
 
 import { User } from "./user.entity";
 
-@Entity("certification")
+@Entity()
 export class Certification {
   @PrimaryGeneratedColumn()
   id: number;

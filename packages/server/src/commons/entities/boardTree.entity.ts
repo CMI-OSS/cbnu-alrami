@@ -3,7 +3,7 @@ import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 import { Board } from "./board.entity";
 
-@Entity({ name: "board_tree" })
+@Entity()
 export class BoardTree {
   @PrimaryGeneratedColumn()
   @ApiProperty({ description: "pk" })

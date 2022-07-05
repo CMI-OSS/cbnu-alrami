@@ -6,9 +6,9 @@ import { MapArrow } from "@components/atoms/icon/MapArrow";
 import { PlaceArrow } from "@components/atoms/icon/PlaceArrow";
 import { PlaceMenu } from "@components/atoms/icon/PlaceMenu";
 import { SmallPlaceMenu } from "@components/atoms/icon/SmallPlaceMenu";
-import ConstructionInfo from "@components/molecules/ConstructionInfo";
 import Footer from "@components/molecules/Footer";
 import MenuButtonList from "@components/molecules/MenuButtonList";
+import ConstructionInfo from "src/page/Map/ConstructionInfo";
 import { useAppDispatch, useAppSelector } from "src/store";
 import {
   hideConstructionTooltipStatus,
@@ -93,6 +93,9 @@ function Map() {
         map.panTo(e.coord, { duration: 300, easing: "easeOutCubic" });
         e.domEvent.stopPropagation();
         dispatch(hideFloatingButtonStatus({ isDisplayFloatingButton: false }));
+        dispatch(
+          hideConstructionTooltipStatus({ isConstructionTooltip: true }),
+        );
       });
     });
   }, [ myLocation ]);

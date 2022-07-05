@@ -2,6 +2,7 @@ import { HttpService } from "@nestjs/axios";
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { Cron } from "@nestjs/schedule";
+import { firstValueFrom } from "rxjs";
 
 import { GetWeatherResponseDto } from "./dtos/get-weather.response.dto";
 import { WeatherRepository } from "./weather.repository";
@@ -37,15 +38,15 @@ export class WeatherService {
 
   @Cron("0 0 0 * * *")
   async createWeathers(): Promise<void> {
-    const weather = await this.httpService
-      .get(
+    const weather = await firstValueFrom(
+      await this.httpService.get(
         `https://api.openweathermap.org/data/2.5/onecall?lat=36.62858542513084&lon=127.45748680644566&appid=${this.weatherKey}&lang=kr&exclude=current,minutely,daily,alerts&units=metric`,
-      )
-      .toPromise();
+      ),
+    );
 
     const todayTemp: number[] = [];
     const todayWeather: string[] = [];
-
+ 
     weather.data.hourly.forEach((data) => {
       if (new Date(data.dt * 1000).getDate() === new Date().getDate()) {
         todayTemp.push(data.temp);
@@ -76,11 +77,11 @@ export class WeatherService {
 
   @Cron("5 0 */1 * * *")
   async createCurrentWeather(): Promise<void> {
-    const weather = await this.httpService
-      .get(
+    const weather = await firstValueFrom(
+      await this.httpService.get(
         `https://api.openweathermap.org/data/2.5/onecall?lat=36.62858542513084&lon=127.45748680644566&appid=${this.weatherKey}&lang=kr&exclude=minutely,hourly,daily,alerts&units=metric`,
-      )
-      .toPromise();
+      ),
+    );
 
     const currentTemp = weather.data.current.temp;
     const currentWeather = weather.data.current.weather[0].main;

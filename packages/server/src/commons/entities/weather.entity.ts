@@ -1,26 +1,26 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity({ name: "weather" })
+@Entity()
 export class Weather {
   @ApiProperty({ description: "PK" })
   @PrimaryGeneratedColumn({ type: "int" })
   id: number;
 
   @ApiProperty({ description: "현재 날씨" })
-  @Column({ type: "varchar", length: 50 })
-  currentWeather: string;
+  @Column({ type: "varchar", length: 50, nullable: true })
+  currentWeather?: string;
 
   @ApiProperty({ description: "현재 온도" })
-  @Column({ type: "int" })
-  currentTemp: number;
+  @Column("decimal", { precision: 4, scale: 2, nullable: true })
+  currentTemp?: number;
 
   @ApiProperty({ description: "오늘 최고 온도" })
-  @Column({ type: "int" })
+  @Column("decimal", { precision: 4, scale: 2 })
   maxTemp: number;
 
   @ApiProperty({ description: "오늘 최저 온도" })
-  @Column({ type: "int" })
+  @Column("decimal", { precision: 4, scale: 2 })
   minTemp: number;
 
   @ApiProperty({ description: "오전 날씨" })

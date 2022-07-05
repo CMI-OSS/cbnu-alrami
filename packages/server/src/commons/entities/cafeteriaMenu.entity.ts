@@ -6,8 +6,8 @@ import { CommonEntity } from "./common.entity";
 
 @Entity()
 export class CafeteriaMenu extends CommonEntity {
-  @ManyToOne(() => Cafeteria, cafeteria => cafeteria.cafeteriaMenus)
-  @JoinColumn({name: 'cafeteria_id'})
+  @ManyToOne(() => Cafeteria, (cafeteria) => cafeteria.cafeteriaMenus)
+  @JoinColumn({ name: "cafeteria_id" })
   cafeteria: Cafeteria;
 
   @Column("varchar", { nullable: false })

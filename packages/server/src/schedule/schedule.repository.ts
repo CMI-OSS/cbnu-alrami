@@ -29,4 +29,16 @@ export class ScheduleRepository extends Repository<Schedule> {
       .addOrderBy("startDate", "ASC")
       .getMany();
   }
+
+  async saveHoliday(content, startDate) {
+    return this.createQueryBuilder()
+      .insert()
+      .into(Schedule)
+      .values({
+        content: `${content}`,
+        isHoliday: 1,
+        startDate: `${startDate}`,
+      })
+      .execute();
+  }
 }

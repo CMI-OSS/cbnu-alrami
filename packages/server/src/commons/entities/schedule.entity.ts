@@ -8,7 +8,7 @@ export class Schedule {
   id: number;
 
   @ApiProperty({ description: "학사 내용" })
-  @Column({ type: "varchar", length: 50, unique: true })
+  @Column({ type: "varchar", length: 50 })
   content: string;
 
   @ApiProperty({ description: "우선 순위", required: false })
@@ -16,7 +16,7 @@ export class Schedule {
   priority?: number;
 
   @ApiProperty({ description: "공휴일 여부", required: false })
-  @Column({ type: "tinyint", nullable: true })
+  @Column({ type: "boolean", nullable: true })
   isHoliday?: number;
 
   @ApiProperty({ description: "일정 시작일" })

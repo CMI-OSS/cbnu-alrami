@@ -1,9 +1,7 @@
 import { Injectable } from "@nestjs/common";
-import { Article } from "src/commons/entities/article.entity";
+import { Image } from "src/commons/entities/image.entity";
 import { Errors } from "src/commons/exception/exception.global";
-import { createQueryBuilder } from "typeorm";
 
-import { Image } from "../commons/entities/image.entity";
 import { AwsService } from "./aws.service";
 import { ImageRepository } from "./image.repository";
 
@@ -25,17 +23,10 @@ export class ImageService {
       where: {
         id,
       },
-      relations: [ "article" ],
     });
     if (!image) throw NO_DATA_IN_DB;
     return image;
   }
 
-  async updateArticle(id: number, newArticle: Article) {
-    const image = await this.findById(id);
-    await this.imageRepository.update(id, { article: newArticle });
-    // return createQueryBuilder().update(image).set({
-    //   article: articleId,
-    // });
-  }
+  image;
 }

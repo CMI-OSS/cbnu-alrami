@@ -1,13 +1,12 @@
 import { Injectable } from "@nestjs/common";
 import { Builder } from "builder-pattern";
 import { AdminService } from "src/admin/admin.service";
+import { ArticleImageService } from "src/articleImage/articleImage.service";
 import { BoardService } from "src/board/board.service";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
 import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
 import { BookmarkRepository } from "src/bookmark/bookmark.repository";
-import { Admin } from "src/commons/entities/admin.entity";
 import { Article } from "src/commons/entities/article.entity";
-import { Board } from "src/commons/entities/board.entity";
 import { Errors } from "src/commons/exception/exception.global";
 import { HitRepository } from "src/hit/hit.repository";
 import { ImageService } from "src/image/image.service";
@@ -30,10 +29,10 @@ export class ArticleService {
     private readonly adminService: AdminService,
     private readonly boardService: BoardService,
     private readonly boardTreeService: BoardTreeService,
+    private readonly articleImageService: ArticleImageService,
     private readonly imageService: ImageService,
   ) {}
 
-  @Transaction()
   async create(
     boardId: number,
     adminId: number,
@@ -59,7 +58,8 @@ export class ArticleService {
     // DESCRIBE: image를 생성된 article과 연결
     await Promise.all(
       articleCreateDto.images.map(async (imageId) => {
-        await this.imageService.updateArticle(imageId, article);
+        const image = await this.imageService.findById(imageId);
+        await this.articleImageService.updateArticle(image, article);
       }),
     );
 

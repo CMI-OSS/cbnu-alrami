@@ -1,14 +1,14 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import * as AWS from "aws-sdk";
+import { S3 } from "aws-sdk";
 
 @Injectable()
 export class AwsService {
   private readonly bucketName;
-  private readonly awsS3;
+  private readonly awsS3: S3;
 
   constructor(private readonly configService: ConfigService) {
-    this.awsS3 = new AWS.S3(this.configService.get("awsS3"));
+    this.awsS3 = new S3(this.configService.get("awsS3"));
     this.bucketName = this.configService.get("s3BucketName");
   }
 
@@ -28,24 +28,26 @@ export class AwsService {
 
   private async uploadImages(images: Express.Multer.File[]): Promise<string[]> {
     try {
-      return images.map((image) => {
-        const { mimetype, buffer, fieldname } = image;
-        const date = new Date().getTime();
-        const extension = mimetype.split("/")[1];
-        const key = `${fieldname}/${date}.${extension}`;
+      return Promise.all(
+        images.map(async (image) => {
+          const { mimetype, buffer, fieldname } = image;
+          const date = new Date().getTime();
+          const extension = mimetype.split("/")[1];
+          const key = `${fieldname}/${date}.${extension}`;
 
-        this.awsS3
-          .putObject({
-            Bucket: this.bucketName,
-            Key: key,
-            Body: buffer,
-            ACL: "public-read",
-            ContentType: mimetype,
-          })
-          .promise();
+          await this.awsS3
+            .putObject({
+              Bucket: this.bucketName,
+              Key: key,
+              Body: buffer,
+              ACL: "public-read",
+              ContentType: mimetype,
+            })
+            .promise();
 
-        return key;
-      });
+          return key;
+        }),
+      );
     } catch (error) {
       throw new BadRequestException("이미지 업로드에 실패했습니다.");
     }

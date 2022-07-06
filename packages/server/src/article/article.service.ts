@@ -143,8 +143,7 @@ export class ArticleService {
 
     // DESCRIBE: 이전 값
     const { url } = beforeArticle;
-    let { board } = beforeArticle;
-    let { author } = beforeArticle;
+    let { board, author } = beforeArticle;
 
     // DESCRIBE: 신규 값
     const newUrl: string = articleUpdateDto.url;

@@ -1,7 +1,7 @@
 import { HttpService } from "@nestjs/axios";
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { Cron } from "@nestjs/schedule";
+import { Cron, CronExpression } from "@nestjs/schedule";
 import { firstValueFrom } from "rxjs";
 
 import { Schedule } from "../commons/entities/schedule.entity";
@@ -46,7 +46,7 @@ export class ScheduleService {
     return this.scheduleRepository.getSchedules(getSchedulesRequestDto);
   }
 
-  @Cron("0 0 0 1 1 *")
+  @Cron(CronExpression.EVERY_YEAR)
   public async getHolidays(): Promise<void> {
     const url = `${this.holidayUrl}`;
 
@@ -55,47 +55,16 @@ export class ScheduleService {
     const year = ScheduleService.getYear();
     const solYear = `&solYear=${year}`;
 
-    const months = [
-      "01",
-      "02",
-      "03",
-      "04",
-      "05",
-      "06",
-      "07",
-      "08",
-      "09",
-      "10",
-      "11",
-      "12",
-    ];
-
-    await Promise.all(
-      months.map(async (month) => {
-        const solMonth = `&solMonth=${month}`;
-
-        const holiday = await firstValueFrom(
-          this.httpService.get(`${url}${serviceKey}${solYear}${solMonth}`),
-        );
-
-        const holidayData: holidayData | holidayData[] =
-          holiday.data.response.body.items.item;
-
-        if (Array.isArray(holidayData)) {
-          holidayData.map(async (holiday) => {
-            const { dateName, locdate } = holiday;
-
-            if (dateName && locdate) {
-              await this.scheduleRepository.saveHoliday(dateName, locdate);
-            }
-          });
-        } else if (holidayData?.dateName && holidayData?.locdate) {
-          await this.scheduleRepository.saveHoliday(
-            holidayData.dateName,
-            holidayData.locdate,
-          );
-        }
-      }),
+    const holiday = await firstValueFrom(
+      this.httpService.get(`${url}${serviceKey}${solYear}&numOfRows=30`),
     );
+
+    const holidayData: holidayData[] = holiday.data.response.body.items.item;
+
+    holidayData.map(async (holiday) => {
+      const { dateName, locdate } = holiday;
+
+      await this.scheduleRepository.saveHoliday(dateName, locdate);
+    });
   }
 }

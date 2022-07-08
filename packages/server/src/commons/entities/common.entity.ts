@@ -11,6 +11,7 @@ export abstract class DefaultEntity extends BaseEntity {
 
   @CreateDateColumn({
     type: "timestamp",
+    name: "created_at",
   })
   createdAt: Date;
 }
@@ -18,6 +19,7 @@ export abstract class DefaultEntity extends BaseEntity {
 export abstract class UpdatableCommonEntity extends DefaultEntity {
   @UpdateDateColumn({
     type: "timestamp",
+    name: "updated_at",
   })
   updatedAt: Date;
 }

@@ -11,7 +11,7 @@ import { BoardAuthorityRole } from "../constants/enums";
 import { Admin } from "./admin.entity";
 import { Board } from "./board.entity";
 
-@Entity("board_authority")
+@Entity()
 export class BoardAuthority {
   @PrimaryGeneratedColumn()
   id: number;

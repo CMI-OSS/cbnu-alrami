@@ -1,12 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
-export class Board {
-  @PrimaryGeneratedColumn()
-  @ApiProperty({ description: "pk" })
-  id!: number;
+import { CommonEntity } from "./common.entity";
 
+@Entity()
+export class Board extends CommonEntity {
   @ApiProperty({ description: "board 이름" })
   @Column({ type: "varchar", length: 100, unique: true })
   name!: string;

@@ -5,7 +5,7 @@ import { CommonEntity } from "./common.entity";
 import { User } from "./user.entity";
 
 @Entity()
-export class Subscribe extends CommonEntity() {
+export class Subscribe extends CommonEntity {
   @ManyToOne(() => User, (User) => User.id, { cascade: true, nullable: false })
   @JoinColumn()
   user: User;

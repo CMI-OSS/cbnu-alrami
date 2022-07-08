@@ -5,7 +5,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-export abstract class DefaultEntity extends BaseEntity {
+export class CommonEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -16,16 +16,10 @@ export abstract class DefaultEntity extends BaseEntity {
   createdAt: Date;
 }
 
-export abstract class UpdatableCommonEntity extends DefaultEntity {
+export abstract class UpdatableCommonEntity extends CommonEntity {
   @UpdateDateColumn({
     type: "timestamp",
     name: "updated_at",
   })
   updatedAt: Date;
-}
-
-export function CommonEntity(options?: { updatable: boolean }) {
-  if (options?.updatable) return UpdatableCommonEntity;
-
-  return DefaultEntity;
 }

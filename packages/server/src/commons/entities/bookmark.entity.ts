@@ -1,11 +1,11 @@
 import { Entity, JoinColumn, ManyToOne } from "typeorm";
 
 import { Article } from "./article.entity";
-import { CommonEntity } from "./common.entity";
+import { UpdatableCommonEntity } from "./common.entity";
 import { User } from "./user.entity";
 
-@Entity({ name: "bookmark" })
-export class Bookmark extends CommonEntity({ updatable: true }) {
+@Entity("bookmark")
+export class Bookmark extends UpdatableCommonEntity {
   @ManyToOne(() => User, (User) => User.id, { cascade: true, nullable: false })
   @JoinColumn()
   user: User;

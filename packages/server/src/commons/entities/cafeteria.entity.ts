@@ -1,11 +1,11 @@
 import { Column, Entity, JoinColumn, OneToMany, OneToOne } from "typeorm";
 
 import { CafeteriaMenu } from "./cafeteriaMenu.entity";
-import { CommonEntity } from "./common.entity";
+import { UpdatableCommonEntity } from "./common.entity";
 import { Place } from "./place.entity";
 
-@Entity()
-export class Cafeteria extends CommonEntity({ updatable: true }) {
+@Entity("cafeteria")
+export class Cafeteria extends UpdatableCommonEntity {
   @OneToOne(() => Place, {
     eager: true,
     onDelete: "CASCADE",

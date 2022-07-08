@@ -1,4 +1,4 @@
-import { EntityRepository, Repository } from "typeorm";
+import { EntityRepository, InsertResult, Repository } from "typeorm";
 
 import { Schedule } from "../commons/entities/schedule.entity";
 import { GetSchedulesRequestDto } from "./dtos/get-schedules-request.dto";
@@ -30,7 +30,7 @@ export class ScheduleRepository extends Repository<Schedule> {
       .getMany();
   }
 
-  async saveHoliday(content, startDate) {
+  async saveHoliday(content: string, startDate: Date): Promise<InsertResult> {
     return this.createQueryBuilder()
       .insert()
       .into(Schedule)

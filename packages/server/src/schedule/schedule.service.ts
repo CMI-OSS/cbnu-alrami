@@ -61,14 +61,16 @@ export class ScheduleService {
 
     const holidayData: holidayData[] = holiday.data.response.body.items.item;
 
-    this.saveHoliday(holidayData);
+    await this.saveHoliday(holidayData);
   }
 
-  private saveHoliday(holidayData): void {
-    holidayData.map(async (holiday) => {
-      const { dateName, locdate } = holiday;
+  private async saveHoliday(holidayData): Promise<void> {
+    await Promise.all(
+      holidayData.map(async (holiday) => {
+        const { dateName, locdate } = holiday;
 
-      await this.scheduleRepository.saveHoliday(dateName, locdate);
-    });
+        return this.scheduleRepository.saveHoliday(dateName, locdate);
+      }),
+    );
   }
 }

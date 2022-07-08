@@ -30,7 +30,10 @@ export class AdminService {
   }
 
   async find(query: FindManyOptions<Admin>): Promise<Admin[]> {
-    const res = await this.adminRepository.find({select: [ 'loginId', 'nickname', 'authority' ], ...query});
+    const res = await this.adminRepository.find({
+      select: [ "loginId", "nickname", "authority" ],
+      ...query,
+    });
     return res;
   }
 
@@ -69,5 +72,11 @@ export class AdminService {
     const updateResult = await this.adminRepository.update(query, adminDto);
     if (!updateResult.raw) throw DB_ERROR;
     return updateResult.generatedMaps;
+  }
+
+  async findById(id: number): Promise<Admin> {
+    const admin = await this.adminRepository.findOne({ id });
+    if (!admin) throw ADMIN_NOT_FOUND;
+    return admin;
   }
 }

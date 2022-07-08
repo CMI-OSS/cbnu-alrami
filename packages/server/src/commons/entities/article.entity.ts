@@ -4,7 +4,7 @@ import { Admin } from "./admin.entity";
 import { Board } from "./board.entity";
 import { UpdatableCommonEntity } from "./common.entity";
 
-@Entity({ name: "article" })
+@Entity("article")
 export class Article extends UpdatableCommonEntity {
   @ManyToOne(() => Board, (Board) => Board.id, { eager: true })
   @JoinColumn()

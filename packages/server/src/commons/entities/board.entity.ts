@@ -3,7 +3,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 import { CommonEntity } from "./common.entity";
 
-@Entity()
+@Entity("board")
 export class Board extends CommonEntity {
   @ApiProperty({ description: "board 이름" })
   @Column({ type: "varchar", length: 100, unique: true })

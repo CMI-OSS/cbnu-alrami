@@ -6,7 +6,7 @@ import { Admin } from "./admin.entity";
 import { Board } from "./board.entity";
 import { CommonEntity } from "./common.entity";
 
-@Entity()
+@Entity("board_authority")
 export class BoardAuthority extends CommonEntity {
   @ManyToOne(() => Board, (Board) => Board.id, {
     cascade: true,

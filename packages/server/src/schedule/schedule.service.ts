@@ -10,9 +10,9 @@ import { ScheduleRepository } from "./schedule.repository";
 
 interface holidayData {
   dateKind: "01";
-  dateName?: string | undefined;
+  dateName: string;
   isHoliday: "Y";
-  locdate?: Date | undefined;
+  locdate: Date;
   seq: 1;
 }
 
@@ -61,6 +61,10 @@ export class ScheduleService {
 
     const holidayData: holidayData[] = holiday.data.response.body.items.item;
 
+    this.saveHoliday(holidayData);
+  }
+
+  private saveHoliday(holidayData): void {
     holidayData.map(async (holiday) => {
       const { dateName, locdate } = holiday;
 

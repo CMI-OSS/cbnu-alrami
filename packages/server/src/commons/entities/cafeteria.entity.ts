@@ -5,7 +5,7 @@ import { CommonEntity } from "./common.entity";
 import { Place } from "./place.entity";
 
 @Entity()
-export class Cafeteria extends CommonEntity {
+export class Cafeteria extends CommonEntity({ updatable: true }) {
   @OneToOne(() => Place, {
     eager: true,
     onDelete: "CASCADE",

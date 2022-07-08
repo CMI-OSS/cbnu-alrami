@@ -5,7 +5,7 @@ import { BeforeInsert, Column, Entity } from "typeorm";
 import { CommonEntity } from "./common.entity";
 
 @Entity()
-export class Admin extends CommonEntity {
+export class Admin extends CommonEntity({ updatable: true }) {
   @Column("varchar", { length: 20, unique: true, nullable: false })
   loginId: string;
 

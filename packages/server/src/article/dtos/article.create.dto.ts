@@ -25,4 +25,8 @@ export class ArticleCreateDto {
   @IsNotEmpty()
   @ApiProperty({ description: "공지사항에 첨부된 이미지 id 배열" })
   images: number[];
+
+  // @IsNotEmpty()
+  // @ApiProperty({ description: "공지사항에 첨부된 이미지 url 배열" })
+  // images: string[];
 }

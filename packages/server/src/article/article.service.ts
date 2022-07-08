@@ -10,7 +10,7 @@ import { Article } from "src/commons/entities/article.entity";
 import { Errors } from "src/commons/exception/exception.global";
 import { HitRepository } from "src/hit/hit.repository";
 import { ImageService } from "src/image/image.service";
-import { Transaction } from "typeorm";
+import { Transactional } from "typeorm-transactional-cls-hooked";
 
 import { ArticleRepository } from "./article.repository";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
@@ -33,6 +33,7 @@ export class ArticleService {
     private readonly imageService: ImageService,
   ) {}
 
+  @Transactional()
   async create(
     boardId: number,
     adminId: number,
@@ -45,8 +46,8 @@ export class ArticleService {
     const admin = await this.adminService.findById(adminId);
 
     const article = Builder(Article)
-      .board(board)
       .author(admin)
+      .board(board)
       .title(articleCreateDto.title)
       .content(articleCreateDto.content)
       .url(articleCreateDto.url)
@@ -59,7 +60,8 @@ export class ArticleService {
     await Promise.all(
       articleCreateDto.images.map(async (imageId) => {
         const image = await this.imageService.findById(imageId);
-        await this.articleImageService.updateArticle(image, article);
+        // const image = await this.imageService.findByUrl(imageId);
+        await this.articleImageService.create(image, article);
       }),
     );
 
@@ -176,7 +178,7 @@ export class ArticleService {
     return result;
   }
 
-  @Transaction()
+  @Transactional()
   async remove(id: number): Promise<boolean> {
     await this.findById(id);
     await this.articleRepository.delete({ id });

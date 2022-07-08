@@ -28,5 +28,13 @@ export class ImageService {
     return image;
   }
 
-  image;
+  async findByUrl(url: string): Promise<Image> {
+    const image = await this.imageRepository.findOne({
+      where: {
+        url,
+      },
+    });
+    if (!image) throw NO_DATA_IN_DB;
+    return image;
+  }
 }

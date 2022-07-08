@@ -2,12 +2,17 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { S3 } from "aws-sdk";
 
+import { ImageRepository } from "./image.repository";
+
 @Injectable()
 export class AwsService {
   private readonly bucketName;
   private readonly awsS3: S3;
 
-  constructor(private readonly configService: ConfigService) {
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly imageRepository: ImageRepository,
+  ) {
     this.awsS3 = new S3(this.configService.get("awsS3"));
     this.bucketName = this.configService.get("s3BucketName");
   }
@@ -16,11 +21,17 @@ export class AwsService {
     images: Express.Multer.File[],
   ): Promise<string[]> {
     try {
-      const imageUrls = await this.uploadImages(images);
+      const keys = await this.uploadImages(images);
 
-      return imageUrls.map((url) => {
-        return this.getAwsS3ImageUrl(url);
-      });
+      const urls = this.getAwsS3ImageUrl(keys);
+
+      await Promise.all(
+        urls.map(async (url) => {
+          return this.imageRepository.saveImage(url);
+        }),
+      );
+
+      return urls;
     } catch (error) {
       throw new BadRequestException("이미지 전송에 실패했습니다.");
     }
@@ -53,7 +64,9 @@ export class AwsService {
     }
   }
 
-  private getAwsS3ImageUrl(key: string) {
-    return `https://${this.bucketName}.s3.amazonaws.com/${key}`;
+  private getAwsS3ImageUrl(keys: string[]): string[] {
+    return keys.map((key) => {
+      return `https://${this.bucketName}.s3.amazonaws.com/${key}`;
+    });
   }
 }

@@ -2,12 +2,12 @@ import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 import { MealTime } from "../constants/enums";
 import { Cafeteria } from "./cafeteria.entity";
-import { CommonEntity } from "./common.entity";
+import { UpdatableCommonEntity } from "./common.entity";
 
-@Entity()
-export class CafeteriaMenu extends CommonEntity {
-  @ManyToOne(() => Cafeteria, cafeteria => cafeteria.cafeteriaMenus)
-  @JoinColumn({name: 'cafeteria_id'})
+@Entity("cafeteria_menu")
+export class CafeteriaMenu extends UpdatableCommonEntity {
+  @ManyToOne(() => Cafeteria, (cafeteria) => cafeteria.cafeteriaMenus)
+  @JoinColumn({ name: "cafeteria_id" })
   cafeteria: Cafeteria;
 
   @Column("varchar", { nullable: false })

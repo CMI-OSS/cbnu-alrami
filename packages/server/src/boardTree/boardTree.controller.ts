@@ -48,6 +48,6 @@ export class BoardTreeController {
   async findByBoard(
     @Param("boardId") boardId: number,
   ): Promise<BoardTreeResponseDto> {
-    return this.boardTreeService.findByBoard(boardId);
+    return this.boardTreeService.getBoardTree(boardId);
   }
 }

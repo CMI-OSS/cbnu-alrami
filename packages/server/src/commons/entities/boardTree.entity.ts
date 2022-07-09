@@ -2,13 +2,10 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 import { Board } from "./board.entity";
+import { CommonEntity } from "./common.entity";
 
-@Entity()
-export class BoardTree {
-  @PrimaryGeneratedColumn()
-  @ApiProperty({ description: "pk" })
-  id!: number;
-
+@Entity("board_tree")
+export class BoardTree extends CommonEntity {
   @OneToOne(() => Board)
   @JoinColumn()
   board: Board;

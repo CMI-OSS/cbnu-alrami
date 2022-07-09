@@ -2,10 +2,10 @@ import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 import { Admin } from "./admin.entity";
 import { Board } from "./board.entity";
-import { CommonEntity } from "./common.entity";
+import { UpdatableCommonEntity } from "./common.entity";
 
-@Entity()
-export class Article extends CommonEntity {
+@Entity("article")
+export class Article extends UpdatableCommonEntity {
   @ManyToOne(() => Board, (Board) => Board.id, { eager: true })
   @JoinColumn()
   board: Board;

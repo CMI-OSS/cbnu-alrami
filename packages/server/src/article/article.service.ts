@@ -15,6 +15,7 @@ import { Transactional } from "typeorm-transactional-cls-hooked";
 import { ArticleRepository } from "./article.repository";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
 import { ArticleDetailInfoDto } from "./dtos/article.detail.info.dto";
+import { ArticleListDto } from "./dtos/article.list.dto";
 import { ArticleResponseDto } from "./dtos/article.response.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
@@ -84,6 +85,12 @@ export class ArticleService {
       boardId,
     );
     if (!Array.isArray(articles) || articles.length === 0) throw NO_DATA_IN_DB;
+    return articles;
+  }
+
+  async findTopArticlesByHit(): Promise<ArticleListDto[]> {
+    const articles: Promise<ArticleListDto[]> =
+      this.articleRepository.findPopularArticles();
     return articles;
   }
 

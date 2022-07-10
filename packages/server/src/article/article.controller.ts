@@ -17,6 +17,7 @@ import { ArticleService } from "./article.service";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
 import { ArticleDetailInfoDto } from "./dtos/article.detail.info.dto";
 import { ArticleDto } from "./dtos/article.dto";
+import { ArticleListDto } from "./dtos/article.list.dto";
 import { ArticleResponseDto } from "./dtos/article.response.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
@@ -130,5 +131,10 @@ export class ArticleController {
   })
   async remove(@Param("articleId") articleId: number) {
     return this.articleService.remove(articleId);
+  }
+
+  @Get("/articles/popular")
+  async findPopularArticles(): Promise<ArticleListDto[]> {
+    return this.articleService.findTopArticlesByHit();
   }
 }

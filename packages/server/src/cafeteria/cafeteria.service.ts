@@ -22,7 +22,6 @@ export class CafeteriaService {
     return cafeterias;
   }
 
-  // id 로 한번찾고, date 로 찾고
   async findById(id: number, date: string): Promise<CafeteriaResponseDto[]> {
     console.log("date", date);
     const cafeterias = await this.cafeteriaMenuRepository.findByIdAndDate(

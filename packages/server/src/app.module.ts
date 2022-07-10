@@ -1,8 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { APP_GUARD } from "@nestjs/core";
-import { InjectConnection, TypeOrmModule } from "@nestjs/typeorm";
-import { Connection } from "typeorm";
+import { TypeOrmModule } from "@nestjs/typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
 import { ArticleModule } from "./article/article.module";
@@ -12,7 +11,6 @@ import { BoardTreeModule } from "./boardTree/boardTree.module";
 import { BookmarkModule } from "./bookmark/bookmark.module";
 import { CafeteriaModule } from "./cafeteria/cafeteria.module";
 import configuration from "./commons/config/configuration";
-import { initialize } from "./commons/factories/initialize";
 import { JwtGuard } from "./commons/guards/jwt.guard";
 import { FcmModule } from "./fcm/fcm.module";
 import { HitModule } from "./hit/hit.module";
@@ -58,8 +56,4 @@ import { WeatherModule } from "./weather/weather.module";
     },
   ],
 })
-export class AppModule {
-  constructor(@InjectConnection() private connection: Connection) {
-    initialize(this.connection);
-  }
-}
+export class AppModule {}

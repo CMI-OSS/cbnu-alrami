@@ -54,7 +54,7 @@ export class AuthService {
       });
 
     if (!admin || !AuthService.matchPassword(password, hashedPassword)) {
-      // throw LOGIN_INFO_NOT_FOUND;
+      throw LOGIN_INFO_NOT_FOUND;
     }
 
     return admin;

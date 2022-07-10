@@ -33,5 +33,5 @@ export type ScraperLog = {
 };
 
 export type BoardType = {
-  name: string
-}
+  name: string;
+};

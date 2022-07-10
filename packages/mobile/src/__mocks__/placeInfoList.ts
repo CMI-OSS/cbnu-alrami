@@ -183,4 +183,4 @@ const placeInfoList = [
   },
 ];
 
-export {placeInfoList}
+export { placeInfoList };

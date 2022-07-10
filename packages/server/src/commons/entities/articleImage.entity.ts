@@ -4,7 +4,7 @@ import { Article } from "./article.entity";
 import { CommonEntity } from "./common.entity";
 import { Image } from "./image.entity";
 
-@Entity()
+@Entity("article_image")
 export class ArticleImage extends CommonEntity {
   @ManyToOne(() => Article, (Article) => Article.id)
   @JoinColumn()

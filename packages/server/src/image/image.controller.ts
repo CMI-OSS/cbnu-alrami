@@ -38,7 +38,7 @@ export class ImageController {
   })
   async uploadImages(
     @UploadedFiles() images: Express.Multer.File[],
-  ): Promise<UploadImageResponse> {
+  ): Promise<UploadImageResponse[]> {
     return this.imageService.uploadImages(images);
   }
 }

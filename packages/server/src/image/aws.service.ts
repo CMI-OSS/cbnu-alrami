@@ -29,23 +29,16 @@ export class AwsService {
 
   public async uploadImagesToS3(
     images: Express.Multer.File[],
-  ): Promise<UploadImageResponse> {
-    try {
-      const keys = await this.uploadImages(images);
+  ): Promise<UploadImageResponse[]> {
+    const keys = await this.uploadImages(images);
 
-      const urls = this.getAwsS3ImageUrl(keys);
+    const urls = this.getAwsS3ImageUrl(keys);
 
-      const insertResult = await this.saveImage(urls);
+    const insertResult = await this.saveImage(urls);
 
-      const imageIds = await AwsService.getImageId(insertResult);
+    const imageIds = await AwsService.getImageId(insertResult);
 
-      return {
-        urls,
-        imageIds,
-      };
-    } catch (error) {
-      throw new BadRequestException("이미지 전송에 실패했습니다.");
-    }
+    return this.getResult(urls, imageIds);
   }
 
   private async uploadImages(images: Express.Multer.File[]): Promise<string[]> {
@@ -82,10 +75,20 @@ export class AwsService {
   }
 
   private async saveImage(urls: string[]): Promise<InsertResult[]> {
-    return Promise.all(
-      urls.map((url) => {
-        return this.imageRepository.insert({ url });
-      }),
-    );
+    try {
+      return Promise.all(
+        urls.map((url) => {
+          return this.imageRepository.insert({ url });
+        }),
+      );
+    } catch (error) {
+      throw new BadRequestException("이미지 저장에 실패했습니다.");
+    }
+  }
+
+  private getResult(urls, imageIds): Promise<UploadImageResponse[]> {
+    return urls.reduce((acc, cur, idx) => {
+      return [ ...acc, { id: imageIds[idx], url: cur } ];
+    }, []);
   }
 }

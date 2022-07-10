@@ -17,7 +17,7 @@ export class ImageService {
 
   async uploadImages(
     images: Express.Multer.File[],
-  ): Promise<UploadImageResponse> {
+  ): Promise<UploadImageResponse[]> {
     return this.awsService.uploadImagesToS3(images);
   }
 

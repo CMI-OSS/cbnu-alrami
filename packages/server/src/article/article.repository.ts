@@ -35,11 +35,19 @@ export class ArticleRepository extends Repository<Article> {
     return findPopularArticles;
   }
 
-  async findPopularArticles(num: number): Promise<ArticleListDto[]> {
-    return this.createQueryBuilder("article")
+  async findPopularArticles(
+    num: number,
+    idList: number[],
+  ): Promise<ArticleListDto[]> {
+    const articles = this.createQueryBuilder("article")
       .select([ "article.id", "article.title" ])
+      .andWhere(idList.length > 0 ? "article.id NOT IN (:...idList)" : "1=1", {
+        idList,
+      })
       .orderBy("article.date", "DESC")
       .limit(num)
       .getMany();
+
+    return articles;
   }
 }

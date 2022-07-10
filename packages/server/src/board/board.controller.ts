@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   Req,
+  UseGuards,
 } from "@nestjs/common";
 import {
   ApiBody,
@@ -16,6 +17,7 @@ import {
   ApiTags,
 } from "@nestjs/swagger";
 import { Board } from "src/commons/entities/board.entity";
+import { UserAuthGuard } from "src/commons/guards/user-auth.guard";
 
 import { BoardService } from "./board.service";
 import { BoardCreateDto } from "./dto/board.create.dto";
@@ -47,8 +49,8 @@ export class BoardController {
     description: "모든 board를 조회한다.",
   })
   @ApiHeader({
-    name: "x-access-token",
-    description: "admin JWT",
+    name: "uuid",
+    description: "user uuid",
     required: true,
   })
   @ApiResponse({
@@ -57,7 +59,10 @@ export class BoardController {
     type: Board,
     isArray: true,
   })
+  @UseGuards(UserAuthGuard)
   async findAll(@Req() req): Promise<Board[]> {
+    // FIXME: 테스트후 로그 제거
+    console.log(req.user);
     return this.boardService.findAll();
   }
 

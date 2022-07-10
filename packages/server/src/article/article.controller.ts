@@ -17,6 +17,7 @@ import { ArticleService } from "./article.service";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
 import { ArticleDetailInfoDto } from "./dtos/article.detail.info.dto";
 import { ArticleDto } from "./dtos/article.dto";
+import { ArticleListDto } from "./dtos/article.list.dto";
 import { ArticleResponseDto } from "./dtos/article.response.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
@@ -130,5 +131,21 @@ export class ArticleController {
   })
   async remove(@Param("articleId") articleId: number) {
     return this.articleService.remove(articleId);
+  }
+
+  @Get("/articles/popular")
+  @ApiOperation({
+    summary: "인기 공지사항 조회 API",
+    description:
+      "조회수와 공지사항 등록일을 이용, 제일 인기 많은 상위 5개의 공지사항들을 조회한다.",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "공지사항 제목과 id",
+    type: ArticleListDto,
+    isArray: true,
+  })
+  async findPopularArticles(): Promise<ArticleListDto[]> {
+    return this.articleService.findTopArticlesByHit();
   }
 }

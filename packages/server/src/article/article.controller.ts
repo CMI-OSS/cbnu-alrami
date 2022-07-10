@@ -134,6 +134,17 @@ export class ArticleController {
   }
 
   @Get("/articles/popular")
+  @ApiOperation({
+    summary: "인기 공지사항 조회 API",
+    description:
+      "조회수와 공지사항 등록일을 이용, 제일 인기 많은 상위 5개의 공지사항들을 조회한다.",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "공지사항 제목과 id",
+    type: ArticleListDto,
+    isArray: true,
+  })
   async findPopularArticles(): Promise<ArticleListDto[]> {
     return this.articleService.findTopArticlesByHit();
   }

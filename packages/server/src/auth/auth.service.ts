@@ -36,7 +36,6 @@ export class AuthService {
 
   async adminLogin(adminLogin: AdminLoginDto): Promise<TokenDto> {
     const admin = await this.validate(adminLogin);
-    console.log("k", admin);
 
     const token: TokenDto = {
       xAccessToken: this.jwtService.sign(admin),
@@ -54,9 +53,7 @@ export class AuthService {
         where: { loginId },
       });
 
-    console.log("c", admin);
     if (!admin || !AuthService.matchPassword(password, hashedPassword)) {
-      console.log("d", admin);
       // throw LOGIN_INFO_NOT_FOUND;
     }
 

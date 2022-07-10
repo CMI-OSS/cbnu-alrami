@@ -1,6 +1,8 @@
 import { Article } from "src/commons/entities/article.entity";
 import { EntityRepository, getManager, Repository } from "typeorm";
 
+import { ArticleListDto } from "./dtos/article.list.dto";
+
 @EntityRepository(Article)
 export class ArticleRepository extends Repository<Article> {
   async findByBoard(boardId: number): Promise<Article[]> {
@@ -15,7 +17,7 @@ export class ArticleRepository extends Repository<Article> {
       .getCount();
   }
 
-  async findPopularArticles() {
+  async findPopularArticlesByHit(): Promise<ArticleListDto[]> {
     const entityManager = getManager();
     const findPopularArticles = await entityManager.query(`
       SELECT id, title
@@ -31,5 +33,13 @@ export class ArticleRepository extends Repository<Article> {
       GROUP BY count desc, date desc;
       `);
     return findPopularArticles;
+  }
+
+  async findPopularArticles(num: number): Promise<ArticleListDto[]> {
+    return this.createQueryBuilder("article")
+      .select([ "article.id", "article.title" ])
+      .orderBy("article.date", "DESC")
+      .limit(num)
+      .getMany();
   }
 }

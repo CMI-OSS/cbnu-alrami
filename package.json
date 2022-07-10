@@ -71,5 +71,8 @@
     "hooks": {
       "pre-commit": "yarn lint"
     }
+  },
+  "dependencies": {
+    "typeorm-transactional-cls-hooked": "^0.1.21"
   }
 }

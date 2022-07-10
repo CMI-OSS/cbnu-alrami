@@ -1,22 +1,25 @@
-/*
-https://docs.nestjs.com/controllers#controllers
-*/
-
 import { Controller, Get, Param, Query } from "@nestjs/common";
-import { PageQuery } from "src/commons/decorators/PageQuery.decorator";
+import { Public } from "src/commons/decorators/public.decorator";
 import { Cafeteria } from "src/commons/entities/cafeteria.entity";
-import { FindManyOptions, FindOneOptions } from "typeorm";
 
 import { CafeteriaService } from "./cafeteria.service";
+import { CafeteriaResponseDto } from "./dto/cafeteria.response.dto";
 
-@Controller()
+@Public()
+@Controller("cafeterias")
 export class CafeteriaController {
   constructor(private cafeteriaService: CafeteriaService) {}
 
   @Get()
-  async find(
-    @PageQuery() query: FindManyOptions<Cafeteria>,
-  ): Promise<Cafeteria[]> {
-    return this.cafeteriaService.find(query);
+  async find(): Promise<Cafeteria[]> {
+    return this.cafeteriaService.find();
+  }
+
+  @Get("/:id/menus")
+  async findCafeteriaMenus(
+    @Param("id") id: number,
+    @Query("date") date: string,
+  ): Promise<CafeteriaResponseDto[]> {
+    return this.cafeteriaService.findById(id, date);
   }
 }

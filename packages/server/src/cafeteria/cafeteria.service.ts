@@ -23,7 +23,6 @@ export class CafeteriaService {
   }
 
   async findById(id: number, date: string): Promise<CafeteriaResponseDto[]> {
-    console.log("date", date);
     const cafeterias = await this.cafeteriaMenuRepository.findByIdAndDate(
       id,
       date,

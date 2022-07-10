@@ -18,7 +18,7 @@ import { FcmModule } from "./fcm/fcm.module";
 import { HitModule } from "./hit/hit.module";
 import { ImageModule } from "./image/image.module";
 import { PlaceModule } from "./place/place.module";
-import { ScheduleModule } from "./schedule/schedule.module";
+import { SchedulesModule } from "./schedule/schedule.module";
 import { WeatherModule } from "./weather/weather.module";
 
 @Module({
@@ -47,7 +47,7 @@ import { WeatherModule } from "./weather/weather.module";
     BookmarkModule,
     CafeteriaModule,
     PlaceModule,
-    ScheduleModule,
+    SchedulesModule,
     WeatherModule,
     HitModule,
   ],

@@ -1,6 +1,6 @@
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { APP_GUARD } from "@nestjs/core";
+import { JwtModule } from "@nestjs/jwt";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
@@ -11,12 +11,14 @@ import { BoardTreeModule } from "./boardTree/boardTree.module";
 import { BookmarkModule } from "./bookmark/bookmark.module";
 import { CafeteriaModule } from "./cafeteria/cafeteria.module";
 import configuration from "./commons/config/configuration";
-import { JwtGuard } from "./commons/guards/jwt.guard";
+import { ACCESS_PRIVATE_KEY } from "./commons/constants/constants";
+import { AuthMiddleware } from "./commons/middlewares/auth.middleware";
 import { FcmModule } from "./fcm/fcm.module";
 import { HitModule } from "./hit/hit.module";
 import { ImageModule } from "./image/image.module";
 import { PlaceModule } from "./place/place.module";
 import { SchedulesModule } from "./schedule/schedule.module";
+import { UserModule } from "./user/user.module";
 import { WeatherModule } from "./weather/weather.module";
 
 @Module({
@@ -43,17 +45,21 @@ import { WeatherModule } from "./weather/weather.module";
     BoardTreeModule,
     BoardModule,
     BookmarkModule,
+    UserModule,
     CafeteriaModule,
     PlaceModule,
     SchedulesModule,
     WeatherModule,
     HitModule,
+    JwtModule.register({
+      secret: ACCESS_PRIVATE_KEY,
+      signOptions: { expiresIn: "60m" },
+    }),
   ],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: JwtGuard,
-    },
-  ],
+  providers: [],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes("*");
+  }
+}

@@ -5,7 +5,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-export class CommonEntity extends BaseEntity {
+export abstract class CommonEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 

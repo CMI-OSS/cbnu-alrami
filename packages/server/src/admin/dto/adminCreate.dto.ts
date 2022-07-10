@@ -1,23 +1,33 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IsEnum, IsNotEmpty, IsString, Matches } from "class-validator";
 import { Authority } from "src/commons/constants/enums";
 
 export class AdminCreateDto {
   @IsNotEmpty()
   @IsString()
-  @Matches(/^[a-z0-9_]{4,18}$/)
+  @ApiProperty({
+    default: "cmi",
+  })
   loginId: string;
 
   @IsNotEmpty()
   @IsString()
-  @Matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/)
+  @ApiProperty({
+    default: "cmi1234",
+  })
   password: string;
 
   @IsNotEmpty()
   @IsString()
-  @Matches(/^[a-z0-9_]{2,18}$/)
+  @ApiProperty({
+    default: "테스트 관리자",
+  })
   nickname: string;
 
   @IsNotEmpty()
   @IsEnum(Authority)
+  @ApiProperty({
+    default: "Super",
+  })
   authority: Authority;
 }

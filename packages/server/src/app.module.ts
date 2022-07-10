@@ -1,8 +1,7 @@
 import { MiddlewareConsumer, Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
-import { InjectConnection, TypeOrmModule } from "@nestjs/typeorm";
-import { Connection } from "typeorm";
+import { TypeOrmModule } from "@nestjs/typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
 import { ArticleModule } from "./article/article.module";
@@ -13,7 +12,6 @@ import { BookmarkModule } from "./bookmark/bookmark.module";
 import { CafeteriaModule } from "./cafeteria/cafeteria.module";
 import configuration from "./commons/config/configuration";
 import { ACCESS_PRIVATE_KEY } from "./commons/constants/constants";
-import { initialize } from "./commons/factories/initialize";
 import { AuthMiddleware } from "./commons/middlewares/auth.middleware";
 import { FcmModule } from "./fcm/fcm.module";
 import { HitModule } from "./hit/hit.module";
@@ -61,10 +59,6 @@ import { WeatherModule } from "./weather/weather.module";
   providers: [],
 })
 export class AppModule {
-  constructor(@InjectConnection() private connection: Connection) {
-    initialize(this.connection);
-  }
-
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(AuthMiddleware).forRoutes("*");
   }

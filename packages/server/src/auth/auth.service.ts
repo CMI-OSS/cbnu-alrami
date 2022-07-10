@@ -34,12 +34,14 @@ export class AuthService {
     return true;
   }
 
-  async adminLogin(adminCredential: AdminCredential): Promise<TokenDto> {
-    const tokens: TokenDto = {
-      xAccessToken: this.jwtService.sign(adminCredential),
-      // TODO xRefreshToken: this.jwtService.sign({ id:admin.id })
+  async adminLogin(adminLogin: AdminLoginDto): Promise<TokenDto> {
+    const admin = await this.validate(adminLogin);
+    console.log("k", admin);
+
+    const token: TokenDto = {
+      xAccessToken: this.jwtService.sign(admin),
     };
-    return tokens;
+    return token;
   }
 
   async validate({
@@ -51,8 +53,13 @@ export class AuthService {
         select: [ "id", "authority", "nickname", "password" ],
         where: { loginId },
       });
-    if (!admin || !AuthService.matchPassword(password, hashedPassword))
-      throw LOGIN_INFO_NOT_FOUND;
+
+    console.log("c", admin);
+    if (!admin || !AuthService.matchPassword(password, hashedPassword)) {
+      console.log("d", admin);
+      // throw LOGIN_INFO_NOT_FOUND;
+    }
+
     return admin;
   }
 

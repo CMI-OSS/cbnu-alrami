@@ -6,16 +6,21 @@ import {
   Param,
   Post,
   Put,
+  Req,
 } from "@nestjs/common";
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { Public } from "src/commons/decorators/public.decorator";
+import {
+  ApiBody,
+  ApiHeader,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from "@nestjs/swagger";
 import { Board } from "src/commons/entities/board.entity";
 
 import { BoardService } from "./board.service";
 import { BoardCreateDto } from "./dto/board.create.dto";
 import { BoardUpdateDto } from "./dto/board.update.dto";
 
-@Public()
 @Controller("boards")
 @ApiTags("[board] 공지사항 사이트 도메인 API")
 export class BoardController {
@@ -41,13 +46,18 @@ export class BoardController {
     summary: "전체 공지사항 사이트 조회 API",
     description: "모든 board를 조회한다.",
   })
+  @ApiHeader({
+    name: "x-access-token",
+    description: "admin JWT",
+    required: true,
+  })
   @ApiResponse({
     status: 200,
     description: "전체 공지사항 사이트 리스트",
     type: Board,
     isArray: true,
   })
-  async findAll(): Promise<Board[]> {
+  async findAll(@Req() req): Promise<Board[]> {
     return this.boardService.findAll();
   }
 

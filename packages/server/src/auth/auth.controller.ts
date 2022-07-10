@@ -1,4 +1,4 @@
-import { Body, Controller, Inject, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Inject, Post } from "@nestjs/common";
 import {
   ApiBody,
   ApiCreatedResponse,
@@ -7,11 +7,8 @@ import {
 } from "@nestjs/swagger";
 import { AdminCreateDto } from "src/admin/dto/adminCreate.dto";
 import { Public } from "src/commons/decorators/public.decorator";
-import { UserField } from "src/commons/decorators/userField.decorator";
-import { LocalGuard } from "src/commons/guards/local.guard";
 
 import { AuthService } from "./auth.service";
-import { AdminCredential } from "./dto/adminCredential.dto";
 import { AdminLoginDto } from "./dto/adminLogin.dto";
 import { TokenDto } from "./dto/token.dto";
 
@@ -39,7 +36,6 @@ export class AuthController {
   }
 
   @Public()
-  @UseGuards(LocalGuard)
   @Post("admins/login")
   @ApiOperation({
     summary: "관리자 로그인",
@@ -53,7 +49,8 @@ export class AuthController {
     description: "로그인 성공",
     type: TokenDto,
   })
-  async adminLogin(@UserField() user: AdminCredential): Promise<TokenDto> {
+  async adminLogin(@Body() user: AdminLoginDto): Promise<TokenDto> {
+    console.log({ user });
     return this.authService.adminLogin(user);
   }
 }

@@ -1,7 +1,9 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { S3 } from "aws-sdk";
+import { InsertResult } from "typeorm";
 
+import { UploadImageResponse } from "./dto/upload-image.response.dto";
 import { ImageRepository } from "./image.repository";
 
 @Injectable()
@@ -17,21 +19,30 @@ export class AwsService {
     this.bucketName = this.configService.get("s3BucketName");
   }
 
+  private static async getImageId(
+    insertResult: InsertResult[],
+  ): Promise<string[]> {
+    return insertResult.map((image) => {
+      return image.raw.insertId;
+    });
+  }
+
   public async uploadImagesToS3(
     images: Express.Multer.File[],
-  ): Promise<string[]> {
+  ): Promise<UploadImageResponse> {
     try {
       const keys = await this.uploadImages(images);
 
       const urls = this.getAwsS3ImageUrl(keys);
 
-      await Promise.all(
-        urls.map(async (url) => {
-          return this.imageRepository.saveImage(url);
-        }),
-      );
+      const insertResult = await this.saveImage(urls);
 
-      return urls;
+      const imageIds = await AwsService.getImageId(insertResult);
+
+      return {
+        urls,
+        imageIds,
+      };
     } catch (error) {
       throw new BadRequestException("이미지 전송에 실패했습니다.");
     }
@@ -68,5 +79,13 @@ export class AwsService {
     return keys.map((key) => {
       return `https://${this.bucketName}.s3.amazonaws.com/${key}`;
     });
+  }
+
+  private async saveImage(urls: string[]): Promise<InsertResult[]> {
+    return Promise.all(
+      urls.map((url) => {
+        return this.imageRepository.insert({ url });
+      }),
+    );
   }
 }

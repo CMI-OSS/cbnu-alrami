@@ -2,8 +2,10 @@ import { Injectable } from "@nestjs/common";
 import { Builder } from "builder-pattern";
 import { BoardResponseDto } from "src/board/dto/board.response.dto";
 import { BoardTree } from "src/commons/entities/boardTree.entity";
+import { Subscribe } from "src/commons/entities/subscribe.entity";
 import { User } from "src/commons/entities/user.entity";
 import { Errors } from "src/commons/exception/exception.global";
+import { SubscribeService } from "src/subscribe/subscribe.service";
 
 import { BoardTreeRepository } from "./boardTree.repository";
 import { BoardTreeAllResponseDto } from "./dto/boardTree.all.response.dto";
@@ -13,7 +15,10 @@ const { BOARD_ID_NOT_FOUND } = Errors;
 
 @Injectable()
 export class BoardTreeService {
-  constructor(private readonly boardTreeRepository: BoardTreeRepository) {}
+  constructor(
+    private readonly boardTreeRepository: BoardTreeRepository,
+    private readonly subscribeService: SubscribeService,
+  ) {}
 
   async findByBoard(boardId: number): Promise<BoardTree> {
     const boardTree = await this.boardTreeRepository.findOne({
@@ -54,11 +59,26 @@ export class BoardTreeService {
       relations: [ "board", "parentBoard" ],
     });
 
+    const subscribeList: Subscribe[] = await this.subscribeService.findByUser(
+      user.id,
+    );
+
     const response: BoardTreeAllResponseDto[] = [];
 
     await Promise.all(
       rootList.map(async (root) => {
         const children = await this.findChildren(root.board.id);
+        let isNotice: boolean;
+        let isSubscribe: boolean;
+        if (Array.isArray(subscribeList) && subscribeList.length === 0) {
+          const subscribe = subscribeList.find(
+            (x) => x.board.id === root.board.id,
+          );
+          if (subscribe !== null && subscribe !== undefined) {
+            isSubscribe = true;
+            // isNotice = subscribe.notice;
+          }
+        }
         response.push(
           Builder(BoardTreeAllResponseDto)
             .id(root.board.id)

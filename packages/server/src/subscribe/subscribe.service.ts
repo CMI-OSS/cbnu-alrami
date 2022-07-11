@@ -7,8 +7,8 @@ import { SubscribeRepository } from "./subscribe.repository";
 export class SubscribeService {
   constructor(private readonly subscribeRepository: SubscribeRepository) {}
 
-  async findByUser(userId: number): Promise<Subscribe> {
-    const subscribe = await this.subscribeRepository.findOne({
+  async findByUser(userId: number): Promise<Subscribe[]> {
+    const subscribe = await this.subscribeRepository.find({
       where: {
         user: userId,
       },

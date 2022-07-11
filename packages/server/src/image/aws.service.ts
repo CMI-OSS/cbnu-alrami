@@ -19,9 +19,7 @@ export class AwsService {
     this.bucketName = this.configService.get("s3BucketName");
   }
 
-  private static async getImageId(
-    insertResult: InsertResult[],
-  ): Promise<string[]> {
+  private static getImageId(insertResult: InsertResult[]): string[] {
     return insertResult.map((image) => {
       return image.raw.insertId;
     });
@@ -36,7 +34,7 @@ export class AwsService {
 
     const insertResult = await this.saveImage(urls);
 
-    const imageIds = await AwsService.getImageId(insertResult);
+    const imageIds = AwsService.getImageId(insertResult);
 
     return this.getResult(urls, imageIds);
   }
@@ -86,7 +84,7 @@ export class AwsService {
     }
   }
 
-  private getResult(urls, imageIds): Promise<UploadImageResponse[]> {
+  private getResult(urls, imageIds): UploadImageResponse[] {
     return urls.reduce((acc, cur, idx) => {
       return [ ...acc, { id: imageIds[idx], url: cur } ];
     }, []);

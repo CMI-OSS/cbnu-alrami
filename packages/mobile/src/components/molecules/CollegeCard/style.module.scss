@@ -1,3 +1,4 @@
+@import "../../../../../shared/src/styles/mixin.scss";
 @import "../../../styles/main.scss";
 
 .card {
@@ -17,9 +18,7 @@
     }
 
     .star {
-        position: absolute;
-        bottom: 16px;
-        right: 20px;
+        @include position(absolute, bottom 16px right 20px);
         line-height: 0;
         background-color: transparent;
     }

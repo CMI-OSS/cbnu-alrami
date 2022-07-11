@@ -22,15 +22,13 @@ function CollegeCard({ className, content, startDate, endDate }: Props) {
     [ startDate, endDate ],
   );
 
+  const handleStarClick = () => setIsStar((pre) => !pre);
+
   return (
-    <BorderBox className={classNames(className, $.card)} height="min-content">
+    <BorderBox className={classNames(className, $.card)}>
       <em className={$.content}>{content}</em>
       <span className={$.period}>{period}</span>
-      <button
-        type="button"
-        className={$.star}
-        onClick={() => setIsStar((pre) => !pre)}
-      >
+      <button type="button" className={$.star} onClick={handleStarClick}>
         {isStar ? <ColorStar /> : <EmptyStar />}
       </button>
     </BorderBox>

@@ -30,7 +30,7 @@ function PersonalCard({
   );
 
   return (
-    <BorderBox className={classNames(className, $.card)} height="min-content">
+    <BorderBox className={classNames(className, $.card)}>
       <em className={$.content}>{content}</em>
       <span className={$.period}>{period}</span>
       <NavLink to="" className={$.link}>

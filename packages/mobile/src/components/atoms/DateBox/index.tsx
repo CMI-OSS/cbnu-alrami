@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import classNames from "classnames";
 import { Dayjs } from "dayjs";
@@ -82,11 +82,11 @@ function DateBox({
           [$["today-circle"]]: isToday,
         })}
         onClick={handleSelect}
-        aira-label={`${date.date()}일 선택하기`}
+        aria-label={`${date.date()}일 선택하기`}
       >
         {date.date()}
       </button>
-      {isSchedule && <div className={$["schedule-dot"]}></div>}
+      {isSchedule && <div className={$["schedule-dot"]} />}
     </li>
   );
 }

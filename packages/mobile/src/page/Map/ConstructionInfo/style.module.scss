@@ -3,7 +3,7 @@
 @import "../../../styles/main.scss";
 
 .wrap {
-  @include position(absolute, left 25px right 25px bottom 200px);
+  @include position(fixed, left 25px right 25px bottom 94px);
   display: flex;
   padding: 20px 18px 19px 17px;
   background-color: $white;

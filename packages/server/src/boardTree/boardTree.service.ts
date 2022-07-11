@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { Builder } from "builder-pattern";
 import { BoardResponseDto } from "src/board/dto/board.response.dto";
 import { BoardTree } from "src/commons/entities/boardTree.entity";
+import { User } from "src/commons/entities/user.entity";
 import { Errors } from "src/commons/exception/exception.global";
 
 import { BoardTreeRepository } from "./boardTree.repository";
@@ -45,7 +46,7 @@ export class BoardTreeService {
       .build();
   }
 
-  async findAll() {
+  async findAll(user: User) {
     const rootList: BoardTree[] = await this.boardTreeRepository.find({
       where: {
         parentBoard: null,

@@ -1,3 +1,5 @@
+@import "../../../styles/main.scss";
+
 .card {
     position: relative;
     margin-top: 10px;
@@ -10,7 +12,7 @@
 
     .period {
         margin-top: 8px;
-        color: #aaaaaa;
+        color: $black-40;
         font-size: 12px;
     }
 

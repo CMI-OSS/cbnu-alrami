@@ -1,5 +1,7 @@
+@import "../../styles/main.scss";
+
 .calendar {
-    color: #363636;
+    color: $black-80;
 
     .sticky-box {
         position: sticky;

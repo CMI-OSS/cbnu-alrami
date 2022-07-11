@@ -1,3 +1,5 @@
+@import "../../../styles/main.scss";
+
 .radio-box {
     display: flex;
     width: 287px;
@@ -5,5 +7,5 @@
     margin: 16px auto 0;
     padding: 2px;
     border-radius: calc(41px / 2);
-    background-color: #eeeded;
+    background-color: $black-10;
 }

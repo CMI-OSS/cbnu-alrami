@@ -1,11 +1,13 @@
+@import "../../../styles/main.scss";
+
 .header {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 60px;
-    border-bottom: 1px solid #f3f4f9;
-    background-color: #ffffff;
+    border-bottom: 1px solid $background-20;
+    background-color: $black-0;
 
     .container {
         display: flex;

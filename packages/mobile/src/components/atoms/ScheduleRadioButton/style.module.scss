@@ -1,3 +1,5 @@
+@import "../../../styles/main.scss";
+
 $label-hight: 36.75px;
 
 .label {
@@ -8,10 +10,10 @@ $label-hight: 36.75px;
     border-radius: calc($label-hight / 2);
     text-align: center;
     line-height: $label-hight;
-    color: #828282;
+    color: $black-50;
 }
 
 .checked-label {
-    color: #363636;
-    background-color: #ffffff;
+    color: $black-80;
+    background-color: $black-0;
 }

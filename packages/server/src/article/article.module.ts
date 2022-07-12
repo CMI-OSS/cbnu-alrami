@@ -1,10 +1,8 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { AdminModule } from "src/admin/admin.module";
-import { AdminService } from "src/admin/admin.service";
 import { ArticleImageRepository } from "src/articleImage/articleImage.repository";
 import { ArticleImageService } from "src/articleImage/articleImage.service";
-import { BoardModule } from "src/board/board.module";
 import { BoardRepository } from "src/board/board.repository";
 import { BoardService } from "src/board/board.service";
 import { BoardTreeRepository } from "src/boardTree/boardTree.repository";
@@ -14,6 +12,8 @@ import { HitRepository } from "src/hit/hit.repository";
 import { AwsService } from "src/image/aws.service";
 import { ImageRepository } from "src/image/image.repository";
 import { ImageService } from "src/image/image.service";
+import { SubscribeRepository } from "src/subscribe/subscribe.repository";
+import { SubscribeService } from "src/subscribe/subscribe.service";
 
 import { ArticleController } from "./article.controller";
 import { ArticleRepository } from "./article.repository";
@@ -29,6 +29,7 @@ import { ArticleService } from "./article.service";
       HitRepository,
       ArticleImageRepository,
       ImageRepository,
+      SubscribeRepository,
     ]),
     AdminModule,
   ],
@@ -39,6 +40,7 @@ import { ArticleService } from "./article.service";
     BoardTreeService,
     AwsService,
     ArticleImageService,
+    SubscribeService,
     ImageService,
   ],
 })

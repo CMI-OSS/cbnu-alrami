@@ -1,6 +1,7 @@
-import { Controller, Get, Param } from "@nestjs/common";
-import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { Controller, Get, Param, Req, UseGuards } from "@nestjs/common";
+import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Public } from "src/commons/decorators/public.decorator";
+import { UserAuthGuard } from "src/commons/guards/user-auth.guard";
 
 import { BoardTreeService } from "./boardTree.service";
 import { BoardTreeAllResponseDto } from "./dto/boardTree.all.response.dto";
@@ -25,8 +26,14 @@ export class BoardTreeController {
     type: BoardTreeAllResponseDto,
     isArray: true,
   })
-  async findAll() {
-    return this.boardTreeService.findAll();
+  @ApiHeader({
+    name: "uuid",
+    description: "user uuid",
+  })
+  @UseGuards(UserAuthGuard)
+  async findAll(@Req() req) {
+    const { user } = req;
+    return this.boardTreeService.findAll(user.id);
   }
 
   @Get(":boardId")

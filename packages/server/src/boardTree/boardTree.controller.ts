@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Req, UseGuards } from "@nestjs/common";
-import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Public } from "src/commons/decorators/public.decorator";
 import { UserAuthGuard } from "src/commons/guards/user-auth.guard";
 
@@ -25,6 +25,10 @@ export class BoardTreeController {
     description: "공지사항 사이트 전체 계층 구조",
     type: BoardTreeAllResponseDto,
     isArray: true,
+  })
+  @ApiHeader({
+    name: "uuid",
+    description: "user uuid",
   })
   @UseGuards(UserAuthGuard)
   async findAll(@Req() req) {

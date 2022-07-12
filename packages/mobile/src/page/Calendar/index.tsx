@@ -7,20 +7,20 @@ import ScheduleCalendar from "src/components/molecules/ScheduleCalendar";
 import ScheduleBox from "src/components/molecules/ScheduleCardBox";
 import ScheduleRadioBox from "src/components/molecules/ScheduleRadioBox";
 import {
+  fetchColleageSchedules,
+  fetchPersonalSchedules,
   filterTodaySchedules,
   getCalendarMap,
   MAXIMUM_MONTH,
   MINIMUM_MONTH,
   MINIMUM_YEAR,
-  fetchColleageSchedules,
-  fetchPersonalSchedules,
 } from "src/utils/calendarTools";
 
 import $ from "./style.module.scss";
 
 export type ScheduleType = "personal" | "college";
 
-export type CalendarData = {
+export type DateMap = {
   date: Dayjs;
   isSchedule: boolean;
   isHoliyday: boolean;
@@ -38,12 +38,8 @@ export type Schedule = {
 function Calendar() {
   const [ toggleSchedule, setToggleSchedule ] =
     useState<ScheduleType>("personal");
-  const [ personalCalendarMap, setPersonalCalendarMap ] = useState<
-    CalendarData[]
-  >([]);
-  const [ collegeCalendarMap, setCollegeCalendarMap ] = useState<CalendarData[]>(
-    [],
-  );
+  const [ personalCalendarMap, setPersonalCalendarMap ] = useState<DateMap[]>([]);
+  const [ collegeCalendarMap, setCollegeCalendarMap ] = useState<DateMap[]>([]);
   const [ collegeSchedules, setCollegeSchedules ] = useState<Schedule[]>([]);
   const [ personalSchedule, setPersonalSchedule ] = useState<Schedule[]>([]);
   const [ year, setYear ] = useState(dayjs().year());

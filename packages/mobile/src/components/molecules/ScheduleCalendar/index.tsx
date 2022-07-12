@@ -3,13 +3,13 @@ import { Dispatch, SetStateAction } from "react";
 import { Dayjs } from "dayjs";
 import DateBox from "src/components/atoms/DateBox";
 import DayBox from "src/components/atoms/DayBox";
-import { CalendarData } from "src/page/Calendar";
+import { DateMap } from "src/page/Calendar";
 import { DAY } from "src/utils/calendarTools";
 
 import $ from "./style.module.scss";
 
 type Props = {
-  calendarMap: CalendarData[];
+  calendarMap: DateMap[];
   today: Dayjs;
   selectedDate: Dayjs;
   setSelectedDate: Dispatch<SetStateAction<Dayjs>>;

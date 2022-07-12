@@ -29,7 +29,7 @@ export class BoardTreeController {
   @UseGuards(UserAuthGuard)
   async findAll(@Req() req) {
     const { user } = req;
-    return this.boardTreeService.findAll(user);
+    return this.boardTreeService.findAll(user.id);
   }
 
   @Get(":boardId")

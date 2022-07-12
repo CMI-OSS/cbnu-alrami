@@ -3,7 +3,6 @@ import { Builder } from "builder-pattern";
 import { BoardResponseDto } from "src/board/dto/board.response.dto";
 import { BoardTree } from "src/commons/entities/boardTree.entity";
 import { Subscribe } from "src/commons/entities/subscribe.entity";
-import { User } from "src/commons/entities/user.entity";
 import { Errors } from "src/commons/exception/exception.global";
 import { SubscribeService } from "src/subscribe/subscribe.service";
 
@@ -51,7 +50,7 @@ export class BoardTreeService {
       .build();
   }
 
-  async findAll(user: User) {
+  async findAll(userId: number) {
     const rootList: BoardTree[] = await this.boardTreeRepository.find({
       where: {
         parentBoard: null,
@@ -63,7 +62,7 @@ export class BoardTreeService {
 
     await Promise.all(
       rootList.map(async (root) => {
-        const children = await this.findChildren(root.board.id, user.id);
+        const children = await this.findChildren(root.board.id, userId);
         response.push(
           Builder(BoardTreeAllResponseDto)
             .id(root.board.id)

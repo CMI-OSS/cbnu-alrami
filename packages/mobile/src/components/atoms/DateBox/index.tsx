@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 
 import classNames from "classnames";
 import { Dayjs } from "dayjs";
@@ -15,7 +15,7 @@ type Props = {
   isSchedule: boolean;
   isHoliyday: boolean;
   selectedDate: Dayjs;
-  setSelectedDate: Dispatch<SetStateAction<Dayjs>>;
+  setSelectedDate: Dispatch<Dayjs>;
 } & StyleProps;
 
 function DateBox({

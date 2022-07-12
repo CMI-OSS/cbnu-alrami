@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useEffect, useState } from "react";
+import { ChangeEventHandler, useEffect, useReducer, useState } from "react";
 
 import dayjs, { Dayjs } from "dayjs";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
@@ -11,12 +11,11 @@ import {
   fetchPersonalSchedules,
   filterTodaySchedules,
   getCalendarMap,
-  MAXIMUM_MONTH,
-  MINIMUM_MONTH,
-  MINIMUM_YEAR,
 } from "src/utils/calendarTools";
 
+import monthReducer from "./monthReducer";
 import $ from "./style.module.scss";
+import useSelectedDate from "./useSelectedDate";
 
 export type ScheduleType = "personal" | "college";
 
@@ -42,24 +41,17 @@ function Calendar() {
   const [ collegeCalendarMap, setCollegeCalendarMap ] = useState<DateMap[]>([]);
   const [ collegeSchedules, setCollegeSchedules ] = useState<Schedule[]>([]);
   const [ personalSchedule, setPersonalSchedule ] = useState<Schedule[]>([]);
-  const [ year, setYear ] = useState(dayjs().year());
-  const [ month, setMonth ] = useState(dayjs().month());
   const [ today, setToday ] = useState(dayjs());
-  const [ selectedDate, setSelectedDate ] = useState(today);
+  const [ { year, month }, dispatchMonth ] = useReducer(monthReducer, {
+    year: dayjs().year(),
+    month: dayjs().month(),
+  });
+  const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
 
   useEffect(() => {
     setCollegeSchedules(fetchColleageSchedules());
     setPersonalSchedule(fetchPersonalSchedules());
   }, []);
-
-  useEffect(() => {
-    if (today.month() === month) {
-      setSelectedDate(today);
-      return;
-    }
-    const firstDateOfMonth = dayjs(`${year}-${month + 1}-01`);
-    setSelectedDate(firstDateOfMonth);
-  }, [ month ]);
 
   useEffect(() => {
     setCollegeCalendarMap(getCalendarMap(year, month, collegeSchedules));
@@ -75,32 +67,13 @@ function Calendar() {
     setToggleSchedule(value as ScheduleType);
   };
 
-  const handleMonthDecrease = () => {
-    if (month === MINIMUM_MONTH) {
-      if (year === MINIMUM_YEAR) return;
-      setYear((pre) => pre - 1);
-      setMonth(11);
-      return;
-    }
-    setMonth((pre) => pre - 1);
-  };
-
-  const handleMonthIncrease = () => {
-    if (month === MAXIMUM_MONTH) {
-      setYear((pre) => pre + 1);
-      setMonth(0);
-      return;
-    }
-    setMonth((pre) => pre + 1);
-  };
-
   return (
     <section className={$.calendar}>
       <div className={$["sticky-box"]}>
         <CalendarHeader
           {...{ year, month }}
-          onMonthDecrease={handleMonthDecrease}
-          onMonthIncrease={handleMonthIncrease}
+          onMonthDecrease={() => dispatchMonth({ type: "decrement" })}
+          onMonthIncrease={() => dispatchMonth({ type: "increment" })}
         />
         <ScheduleCalendar
           {...{ today, month, setSelectedDate, selectedDate }}

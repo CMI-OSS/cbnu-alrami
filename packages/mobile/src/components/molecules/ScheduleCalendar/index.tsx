@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch } from "react";
 
 import { Dayjs } from "dayjs";
 import DateBox from "src/components/atoms/DateBox";
@@ -12,7 +12,7 @@ type Props = {
   calendarMap: DateMap[];
   today: Dayjs;
   selectedDate: Dayjs;
-  setSelectedDate: Dispatch<SetStateAction<Dayjs>>;
+  setSelectedDate: Dispatch<Dayjs>;
   month: number;
 };
 

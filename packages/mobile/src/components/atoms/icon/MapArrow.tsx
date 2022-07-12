@@ -3,6 +3,7 @@ import type { StyleProps } from "src/type/props";
 function MapArrow({ className, style }: StyleProps) {
   return (
     <svg
+      className={className}
       width="18"
       height="19"
       viewBox="0 0 18 19"

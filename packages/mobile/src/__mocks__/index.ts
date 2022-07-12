@@ -1,3 +1,4 @@
+import constructionInfo from "./constructionInfo";
 import constructionList from "./constructionList";
 import detailImageList from "./detailImageList";
 import foodList from "./foodList";
@@ -19,4 +20,5 @@ export {
   mockCategory,
   detailImageList,
   mapImageList,
+  constructionInfo,
 };

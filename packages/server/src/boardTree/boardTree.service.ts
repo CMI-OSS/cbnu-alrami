@@ -59,26 +59,11 @@ export class BoardTreeService {
       relations: [ "board", "parentBoard" ],
     });
 
-    const subscribeList: Subscribe[] = await this.subscribeService.findByUser(
-      user.id,
-    );
-
     const response: BoardTreeAllResponseDto[] = [];
 
     await Promise.all(
       rootList.map(async (root) => {
-        const children = await this.findChildren(root.board.id);
-        let isNotice: boolean;
-        let isSubscribe: boolean;
-        if (Array.isArray(subscribeList) && subscribeList.length === 0) {
-          const subscribe = subscribeList.find(
-            (x) => x.board.id === root.board.id,
-          );
-          if (subscribe !== null && subscribe !== undefined) {
-            isSubscribe = true;
-            // isNotice = subscribe.notice;
-          }
-        }
+        const children = await this.findChildren(root.board.id, user.id);
         response.push(
           Builder(BoardTreeAllResponseDto)
             .id(root.board.id)
@@ -92,7 +77,10 @@ export class BoardTreeService {
     return response;
   }
 
-  async findChildren(parentId: number): Promise<BoardTreeAllResponseDto[]> {
+  async findChildren(
+    parentId: number,
+    userId: number,
+  ): Promise<BoardTreeAllResponseDto[]> {
     const children = await this.boardTreeRepository.find({
       where: {
         parentBoard: parentId,
@@ -106,10 +94,10 @@ export class BoardTreeService {
       children.map(async (child) => {
         const grandChildren: BoardTreeAllResponseDto[] =
           children.length > 0
-            ? await this.findChildren(child.board.id)
+            ? await this.findChildren(child.board.id, userId)
             : undefined;
 
-        // 리프노드인 경우에만 url을 보낸다.
+        // DESCRIBE: 리프노드인 경우에만 url, board 구독 여부, 알림 여부을 보낸다.
         if (grandChildren !== undefined) {
           response.push(
             Builder(BoardTreeAllResponseDto)
@@ -119,11 +107,28 @@ export class BoardTreeService {
               .build(),
           );
         } else {
+          // DESCRIBE: 구독 중인 board만 알림 받아볼 수 있음 -> 둘 다 디폴트 값 false
+          let isSubscribing = false;
+          let isNoticing = false;
+          const subscribe: Subscribe =
+            await this.subscribeService.findByUserAndBoard(
+              userId,
+              child.board.id,
+            );
+
+          // DESCRIBE: subscribe 존재하면 구독 true, 이후 알림 여부 확인
+          if (typeof subscribe !== "undefined") {
+            isSubscribing = true;
+            isNoticing = subscribe.notice;
+          }
+
           response.push(
             Builder(BoardTreeAllResponseDto)
               .id(child.board.id)
               .name(child.board.name)
               .url(child.board.url)
+              .isSubscribing(isSubscribing)
+              .isNoticing(isNoticing)
               .children(grandChildren)
               .build(),
           );

@@ -16,4 +16,18 @@ export class SubscribeService {
     });
     return subscribe;
   }
+
+  async findByUserAndBoard(
+    userId: number,
+    boardId: number,
+  ): Promise<Subscribe> {
+    const subscribe = await this.subscribeRepository.findOne({
+      where: {
+        user: userId,
+        board: boardId,
+      },
+      relations: [ "user", "board" ],
+    });
+    return subscribe;
+  }
 }

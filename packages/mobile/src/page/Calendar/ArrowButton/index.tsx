@@ -1,4 +1,4 @@
-import { MoreArrow } from "../icon";
+import { MoreArrow } from "../../../components/atoms/icon";
 import $ from "./style.module.scss";
 
 type Props = {

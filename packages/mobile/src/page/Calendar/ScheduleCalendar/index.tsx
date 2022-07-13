@@ -1,9 +1,9 @@
 import { Dispatch } from "react";
 
 import { Dayjs } from "dayjs";
-import DateBox from "src/components/atoms/DateBox";
-import DayBox from "src/components/atoms/DayBox";
 import { DateMap } from "src/page/Calendar";
+import Date from "src/page/Calendar/Date";
+import Day from "src/page/Calendar/Day";
 import { DAY } from "src/utils/calendarTools";
 
 import $ from "./style.module.scss";
@@ -27,10 +27,10 @@ function ScheduleCalendar({
     <section className={$.box}>
       <ul className={$.calendar}>
         {DAY.map((day) => (
-          <DayBox key={day} className={$.fraction} day={day} />
+          <Day key={day} className={$.fraction} day={day} />
         ))}
         {calendarMap.map(({ date, isSchedule, isHoliyday }, index) => (
-          <DateBox
+          <Date
             key={date.format()}
             className={$.fraction}
             {...{

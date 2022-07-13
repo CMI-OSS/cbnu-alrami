@@ -1,4 +1,5 @@
 @import "../../styles/main.scss";
+@import "../../../../shared/src/styles/mixin.scss";
 
 .calendar {
     color: $black-80;
@@ -7,5 +8,9 @@
         position: sticky;
         top: 0;
         z-index: 1;
+
+        .add-link {
+            @include position(absolute, top 20px right 22px);
+        }
     }
 }

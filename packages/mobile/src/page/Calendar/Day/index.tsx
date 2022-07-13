@@ -10,7 +10,7 @@ type Props = {
   day: typeof DAY[number];
 } & StyleProps;
 
-function DayBox({ className, day }: Props) {
+function Day({ className, day }: Props) {
   const [ isRed, setIsRed ] = useState(false);
 
   useEffect(() => {
@@ -30,4 +30,4 @@ function DayBox({ className, day }: Props) {
   );
 }
 
-export default DayBox;
+export default Day;

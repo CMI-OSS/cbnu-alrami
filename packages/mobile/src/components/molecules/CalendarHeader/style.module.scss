@@ -1,7 +1,6 @@
 @import "../../../styles/main.scss";
 
 .header {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,10 +11,12 @@
     .container {
         display: flex;
         align-items: center;
-    }
 
-    .add-link {
-        position: absolute;
-        right: 22px;
+        .year-month {
+            margin: 0 24px;
+            font-size: 18px;
+            font-weight: 500;
+            color: #202020;
+        }
     }
 }

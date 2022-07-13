@@ -11,7 +11,7 @@ type Props = {
   selectedDate: Dayjs;
 };
 
-function ScheduleBox({ scheduleType, schedules, selectedDate }: Props) {
+function CardBox({ scheduleType, schedules, selectedDate }: Props) {
   if (schedules.length === 0)
     return (
       <section className={$["empty-box"]}>
@@ -41,4 +41,4 @@ function ScheduleBox({ scheduleType, schedules, selectedDate }: Props) {
   );
 }
 
-export default ScheduleBox;
+export default CardBox;

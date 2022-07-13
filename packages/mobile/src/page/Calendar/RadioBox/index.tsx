@@ -1,7 +1,7 @@
 import { ChangeEventHandler } from "react";
 
-import ScheduleRadioButton from "src/components/atoms/ScheduleRadioButton";
 import { ScheduleType } from "src/page/Calendar";
+import RadioButton from "src/page/Calendar/RadioButton";
 
 import $ from "./style.module.scss";
 
@@ -10,16 +10,16 @@ type Props = {
   onToggleChange: ChangeEventHandler<HTMLInputElement>;
 };
 
-function ScheduleRadioBox({ toggle, onToggleChange }: Props) {
+function RadioBox({ toggle, onToggleChange }: Props) {
   return (
     <section className={$["radio-box"]}>
-      <ScheduleRadioButton
+      <RadioButton
         labelText="개인 일정"
         value="personal"
         isChecked={toggle === "personal"}
         onChange={onToggleChange}
       />
-      <ScheduleRadioButton
+      <RadioButton
         labelText="학사 일정"
         value="college"
         isChecked={toggle === "college"}
@@ -29,4 +29,4 @@ function ScheduleRadioBox({ toggle, onToggleChange }: Props) {
   );
 }
 
-export default ScheduleRadioBox;
+export default RadioBox;

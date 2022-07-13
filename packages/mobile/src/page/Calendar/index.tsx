@@ -9,9 +9,9 @@ import {
 import dayjs, { Dayjs } from "dayjs";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
 import Footer from "src/components/molecules/Footer";
-import ScheduleCalendar from "src/components/molecules/ScheduleCalendar";
-import ScheduleBox from "src/components/molecules/ScheduleCardBox";
-import ScheduleRadioBox from "src/components/molecules/ScheduleRadioBox";
+import CardBox from "src/page/Calendar/CardBox";
+import RadioBox from "src/page/Calendar/RadioBox";
+import ScheduleCalendar from "src/page/Calendar/ScheduleCalendar";
 import {
   fetchColleageSchedules,
   fetchPersonalSchedules,
@@ -19,6 +19,7 @@ import {
   getCalendarMap,
 } from "src/utils/calendarTools";
 
+import AddScheduleLink from "./AddScheduleLink";
 import monthReducer from "./monthReducer";
 import $ from "./style.module.scss";
 import useSelectedDate from "./useSelectedDate";
@@ -74,6 +75,7 @@ function Calendar() {
   return (
     <section className={$.calendar}>
       <div className={$["sticky-box"]}>
+        <AddScheduleLink className={$["add-link"]} />
         <CalendarHeader
           {...{ year, month }}
           onMonthDecrease={() => dispatchMonth({ type: "decrement" })}
@@ -88,11 +90,11 @@ function Calendar() {
           }
         />
       </div>
-      <ScheduleRadioBox
+      <RadioBox
         toggle={toggleSchedule}
         onToggleChange={handleScheduleToggleChange}
       />
-      <ScheduleBox
+      <CardBox
         scheduleType={toggleSchedule}
         schedules={
           toggleSchedule === "college"

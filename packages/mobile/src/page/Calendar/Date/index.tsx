@@ -1,11 +1,11 @@
-import { Dispatch, useEffect, useState } from "react";
+import { Dispatch } from "react";
 
 import classNames from "classnames";
 import { Dayjs } from "dayjs";
 import { StyleProps } from "src/type/props";
-import { DAY } from "src/utils/calendarTools";
 
 import $ from "./style.module.scss";
+import useDateState from "./useDateState";
 
 type Props = {
   date: Dayjs;
@@ -18,7 +18,7 @@ type Props = {
   setSelectedDate: Dispatch<Dayjs>;
 } & StyleProps;
 
-function DateBox({
+function Date({
   className,
   date,
   today,
@@ -29,41 +29,14 @@ function DateBox({
   selectedDate,
   setSelectedDate,
 }: Props) {
-  const [ isSelected, setIsSelected ] = useState(false);
-  const [ isToday, setIsToday ] = useState(false);
-  const [ isRed, setIsRed ] = useState(false);
-  const [ isGray, setIsGray ] = useState(false);
-
-  useEffect(() => {
-    if (today.month() !== month) {
-      setIsToday(false);
-      return;
-    }
-    if (today.isSame(date, "date")) {
-      setIsToday(true);
-      return;
-    }
-    setIsToday(false);
-  }, [ today, month ]);
-
-  useEffect(() => {
-    const currentMonth = date.month();
-    if (isSelected || isToday) {
-      setIsRed(false);
-      return;
-    }
-    const isSunday = index % DAY.length === 0;
-    setIsRed(isSunday || isHoliyday);
-    setIsGray(currentMonth !== month);
-  }, [ date, isSelected, month ]);
-
-  useEffect(() => {
-    if (selectedDate.isSame(date, "date")) {
-      setIsSelected(true);
-      return;
-    }
-    setIsSelected(false);
-  }, [ selectedDate ]);
+  const { isSelected, isToday, isRed, isGray } = useDateState({
+    today,
+    selectedDate,
+    date,
+    isHoliyday,
+    month,
+    index,
+  });
 
   const handleSelect = () => {
     const currentMonth = date.month();
@@ -91,4 +64,4 @@ function DateBox({
   );
 }
 
-export default DateBox;
+export default Date;

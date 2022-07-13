@@ -11,7 +11,7 @@ type Props = {
   onChange: ChangeEventHandler<HTMLInputElement>;
 };
 
-function ScheduleRadioButton({ labelText, value, isChecked, onChange }: Props) {
+function RadioButton({ labelText, value, isChecked, onChange }: Props) {
   return (
     <label
       className={classNames({ [$["checked-label"]]: isChecked }, $.label)}
@@ -28,4 +28,4 @@ function ScheduleRadioButton({ labelText, value, isChecked, onChange }: Props) {
   );
 }
 
-export default ScheduleRadioButton;
+export default RadioButton;

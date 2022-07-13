@@ -1,14 +1,12 @@
 import { NavLink } from "react-router-dom";
 
-import classNames from "classnames";
 import { StyleProps } from "src/type/props";
 
-import { AddSchedule } from "../icon";
-import $ from "./style.module.scss";
+import { AddSchedule } from "../../../components/atoms/icon";
 
 function AddScheduleLink({ className }: StyleProps) {
   return (
-    <NavLink to="" className={classNames(className, $.link)}>
+    <NavLink to="" className={className}>
       <AddSchedule />
     </NavLink>
   );

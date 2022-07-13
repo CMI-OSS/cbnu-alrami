@@ -1,6 +1,6 @@
-import AddScheduleLink from "src/components/atoms/AddScheduleLink";
-import ArrowButton from "src/components/atoms/ArrowButton";
-import DisplayDate from "src/components/atoms/DisplayDate";
+import { useMemo } from "react";
+
+import ArrowButton from "src/page/Calendar/ArrowButton";
 
 import $ from "./style.module.scss";
 
@@ -17,14 +17,18 @@ function CalendarHeader({
   onMonthDecrease,
   onMonthIncrease,
 }: Props) {
+  const displayDate = useMemo(
+    () => `${year}.${(month + 1).toString().padStart(2, "0")}`,
+    [ month ],
+  );
+
   return (
     <header className={$.header}>
       <div className={$.container}>
         <ArrowButton direction="left" onClick={onMonthDecrease} />
-        <DisplayDate {...{ year, month }} />
+        <span className={$["year-month"]}>{displayDate}</span>
         <ArrowButton direction="right" onClick={onMonthIncrease} />
       </div>
-      <AddScheduleLink className={$["add-link"]} />
     </header>
   );
 }

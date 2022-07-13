@@ -1,4 +1,4 @@
-import { CalendarLeftArrow, CalendarRightArrow } from "../icon";
+import { MoreArrow } from "../icon";
 import $ from "./style.module.scss";
 
 type Props = {
@@ -14,7 +14,11 @@ function ArrowButton({ direction, onClick }: Props) {
       onClick={onClick}
       aria-label={`${direction === "left" ? "이전" : "다음"}으로 이동`}
     >
-      {direction === "left" ? <CalendarLeftArrow /> : <CalendarRightArrow />}
+      {direction === "left" ? (
+        <MoreArrow className={$.rotated} width="7px" height="16px" />
+      ) : (
+        <MoreArrow width="7px" height="16px" />
+      )}
     </button>
   );
 }

@@ -1,4 +1,10 @@
-import { ChangeEventHandler, useEffect, useReducer, useState } from "react";
+import {
+  ChangeEventHandler,
+  useEffect,
+  useMemo,
+  useReducer,
+  useState,
+} from "react";
 
 import dayjs, { Dayjs } from "dayjs";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
@@ -37,29 +43,27 @@ export type Schedule = {
 function Calendar() {
   const [ toggleSchedule, setToggleSchedule ] =
     useState<ScheduleType>("personal");
-  const [ personalCalendarMap, setPersonalCalendarMap ] = useState<DateMap[]>([]);
-  const [ collegeCalendarMap, setCollegeCalendarMap ] = useState<DateMap[]>([]);
   const [ collegeSchedules, setCollegeSchedules ] = useState<Schedule[]>([]);
   const [ personalSchedule, setPersonalSchedule ] = useState<Schedule[]>([]);
-  const [ today, setToday ] = useState(dayjs());
   const [ { year, month }, dispatchMonth ] = useReducer(monthReducer, {
     year: dayjs().year(),
     month: dayjs().month(),
   });
+  const today = useMemo(() => dayjs(), []);
   const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
+  const collegeCalendarMap = useMemo(
+    () => getCalendarMap(year, month, collegeSchedules),
+    [ month, collegeSchedules ],
+  );
+  const personalCalendarMap = useMemo(
+    () => getCalendarMap(year, month, personalSchedule),
+    [ month, personalSchedule ],
+  );
 
   useEffect(() => {
     setCollegeSchedules(fetchColleageSchedules());
     setPersonalSchedule(fetchPersonalSchedules());
   }, []);
-
-  useEffect(() => {
-    setCollegeCalendarMap(getCalendarMap(year, month, collegeSchedules));
-  }, [ month, collegeSchedules ]);
-
-  useEffect(() => {
-    setPersonalCalendarMap(getCalendarMap(year, month, personalSchedule));
-  }, [ month, personalSchedule ]);
 
   const handleScheduleToggleChange: ChangeEventHandler<HTMLInputElement> = ({
     target: { value },

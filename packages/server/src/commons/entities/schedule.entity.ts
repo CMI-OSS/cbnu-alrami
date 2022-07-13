@@ -1,9 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity } from "typeorm";
 
 import { CommonEntity } from "./common.entity";
 
-@Entity()
+@Entity("schedule")
 export class Schedule extends CommonEntity {
   @ApiProperty({ description: "학사 내용" })
   @Column({ type: "varchar", length: 50 })

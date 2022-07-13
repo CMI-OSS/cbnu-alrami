@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { Close } from "@components/atoms/icon/Close";
+import { MapArrow } from "@components/atoms/icon/MapArrow";
 import { PlaceArrow } from "@components/atoms/icon/PlaceArrow";
 import { PlaceMenu } from "@components/atoms/icon/PlaceMenu";
 import { SmallPlaceMenu } from "@components/atoms/icon/SmallPlaceMenu";
 import Footer from "@components/molecules/Footer";
 import MenuButtonList from "@components/molecules/MenuButtonList";
+import ConstructionInfo from "src/page/Map/ConstructionInfo";
 import { useAppDispatch, useAppSelector } from "src/store";
 import {
+  hideConstructionTooltipStatus,
   hideFloatingButtonStatus,
   hideTooltipButtonStatus,
 } from "src/store/statusSlice";
@@ -27,10 +30,9 @@ function Map() {
   const CBNU_LATITUDE = 36.62850496903595;
   const CBNU_LONGITUDE = 127.45731862757414;
 
+  const { isDisplayFloatingButton, isDisplayTooltip, isConstructionTooltip } =
+    useAppSelector((state) => state.statusReducer.map);
   const [ myLocation, setMyLocation ] = useState({ latitude: 0, longitude: 0 });
-  const { isDisplayFloatingButton, isDisplayTooltip } = useAppSelector(
-    (state) => state.statusReducer.map,
-  );
   const dispatch = useAppDispatch();
 
   const comparePosition = (latitude: number, longitude: number) => {
@@ -91,13 +93,21 @@ function Map() {
         map.panTo(e.coord, { duration: 300, easing: "easeOutCubic" });
         e.domEvent.stopPropagation();
         dispatch(hideFloatingButtonStatus({ isDisplayFloatingButton: false }));
+        dispatch(
+          hideConstructionTooltipStatus({ isConstructionTooltip: true }),
+        );
       });
     });
   }, [ myLocation ]);
 
   return (
     <div id="map" className={$.map}>
-      {isDisplayFloatingButton ? <MenuButtonList /> : <div>ddd</div>}
+      {isDisplayFloatingButton && <MenuButtonList />}
+      {isConstructionTooltip && (
+        <NavLink to="/" className={$["place-link"]}>
+          <MapArrow className={$["place-arrow"]} />
+        </NavLink>
+      )}
       {isDisplayFloatingButton && (
         <div className={$.wrap}>
           {isDisplayTooltip && (
@@ -128,6 +138,7 @@ function Map() {
           </NavLink>
         </div>
       )}
+      {isConstructionTooltip && <ConstructionInfo />}
       <Footer />
     </div>
   );

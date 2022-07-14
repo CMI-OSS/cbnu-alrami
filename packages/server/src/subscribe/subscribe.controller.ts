@@ -26,7 +26,7 @@ export class SubscribeControlelr {
     description: "특정 board를 구독합니다.",
   })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: "성공 여부",
   })
   @ApiHeader({
@@ -45,7 +45,7 @@ export class SubscribeControlelr {
     description: "특정 board를 구독 해제 합니다.",
   })
   @ApiResponse({
-    status: 204,
+    status: 200,
     description: "성공 여부",
   })
   @ApiHeader({

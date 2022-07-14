@@ -33,7 +33,7 @@ export class SubscribeService {
       .build();
 
     const result = await this.subscribeRepository.save(subscribe);
-    return result;
+    return !result ? "fail" : "success";
   }
 
   async findByUser(userId: number): Promise<Subscribe[]> {

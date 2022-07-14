@@ -35,4 +35,5 @@ export const Errors = {
   ALREADY_SUBSCRIBE_BOARD: new ConflictException(
     "이미 구독 중인 board 입니다.",
   ),
+  NOT_SUBSCRIBED_BOARD: new NotFoundException("구독 중인 board가 아닙니다."),
 };

@@ -8,7 +8,7 @@ import { Transactional } from "typeorm-transactional-cls-hooked";
 
 import { SubscribeRepository } from "./subscribe.repository";
 
-const { ALREADY_SUBSCRIBE_BOARD } = Errors;
+const { ALREADY_SUBSCRIBE_BOARD, NOT_SUBSCRIBED_BOARD } = Errors;
 
 @Injectable()
 export class SubscribeService {
@@ -32,8 +32,21 @@ export class SubscribeService {
       .notice(false)
       .build();
 
-    const result = await this.subscribeRepository.save(subscribe);
-    return !result ? "fail" : "success";
+    await this.subscribeRepository.save(subscribe);
+    return "success";
+  }
+
+  @Transactional()
+  async remove(user: User, boardId: number) {
+    const board = await this.boardService.findById(boardId);
+
+    // DESCRIBE: 요청한 유저가 board를 구독하고 있는지 확인
+    const subscribe = await this.findByUserAndBoard(user.id, boardId);
+    if (!subscribe) throw NOT_SUBSCRIBED_BOARD;
+
+    // DESCRIBE: 이미 구독 중인 board라면 구독 해제
+    await this.subscribeRepository.delete({ id: subscribe.id });
+    return "success";
   }
 
   async findByUser(userId: number): Promise<Subscribe[]> {

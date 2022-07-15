@@ -4,7 +4,6 @@ import { BoardService } from "src/board/board.service";
 import { Subscribe } from "src/commons/entities/subscribe.entity";
 import { User } from "src/commons/entities/user.entity";
 import { Errors } from "src/commons/exception/exception.global";
-import { Transactional } from "typeorm-transactional-cls-hooked";
 
 import { SubscribeRepository } from "./subscribe.repository";
 
@@ -17,7 +16,6 @@ export class SubscribeService {
     private readonly boardService: BoardService,
   ) {}
 
-  @Transactional()
   async create(user: User, boardId: number) {
     const board = await this.boardService.findById(boardId);
 
@@ -36,7 +34,6 @@ export class SubscribeService {
     return "success";
   }
 
-  @Transactional()
   async remove(user: User, boardId: number) {
     const board = await this.boardService.findById(boardId);
 

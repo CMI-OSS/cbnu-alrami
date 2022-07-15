@@ -2,6 +2,7 @@
 
 import dayjs from "dayjs";
 import find from "lodash/find";
+import {useWeathers} from "src/api/weather";
 import BorderBox from "src/components/atoms/BorderBox";
 import {
   Info,
@@ -95,7 +96,12 @@ const iconToBackgrounds = [
 ];
 
 function Weather() {
+  const { data, isLoading } = useWeathers();
+  if (isLoading) return <div>로딩중입니다.</div>;
+
+  const weather = data?.data;
   const time = dayjs().hour() >= 12 ? "밤" : "낮";
+  // TODO: 백엔드 값 분류해서 실제 날씨 넣기
   const timeTarget = find(
     iconToBackgrounds,
     (o) => o.key === `천둥번개${time}`,
@@ -107,9 +113,12 @@ function Weather() {
     <div className={$.weather}>
       <BorderBox height={155} background={iconToBackground?.backgroundColor}>
         <div className={$.first}>
-          <span className={$.amount}>25°C</span>흐림
+          <span className={$.amount}>{weather.currentTemp}°C</span>흐림
+          {/* TODO: 여기 실제 날씨 들어가야함 */}
           <span className={$.description}>청주, 구름 조금</span>
-          <span className={$.celsius}>-11.0 °C / 2.0°C</span>
+          <span className={$.celsius}>
+            {weather.minTemp} °C / {weather.maxTemp}°C
+          </span>
         </div>
         <div className={$.second}>
           <div style={{ width: "66px", height: "55px" }}>

@@ -6,13 +6,13 @@ import BorderBox from "src/components/atoms/BorderBox";
 import { Setting } from "src/components/atoms/icon";
 import { Arrow } from "src/components/atoms/icon/Arrow";
 import Line from "src/components/atoms/Line";
+import Weather from "src/page/Home/Weather";
 
 import Restaurant from "./Restaurant";
 import $ from "./style.module.scss";
-import Weather from "./Weather";
 
 function Home() {
-  const [searchParams] = useSearchParams();
+  const [ searchParams ] = useSearchParams();
   const noti = searchParams.get("noti") || "popular";
   const { data } = usePopularArticle();
   const popularNotifications = data?.data;
@@ -22,7 +22,7 @@ function Home() {
     "제목이 아주 긴 일정 제목이 아주 긴일정 제목이 아주 긴",
     "출근싫어",
   ];
-  const lastestNotifications = ["최신1", "최신2", "최신3", "최신4", "최신5"];
+  const lastestNotifications = [ "최신1", "최신2", "최신3", "최신4", "최신5" ];
 
   return (
     <section className={$.home}>

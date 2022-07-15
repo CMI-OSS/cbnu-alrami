@@ -1,6 +1,7 @@
 import { Link, useSearchParams } from "react-router-dom";
 
 import Footer from "@components/molecules/Footer";
+import { usePopularArticle } from "src/api/article";
 import BorderBox from "src/components/atoms/BorderBox";
 import { Setting } from "src/components/atoms/icon";
 import { Arrow } from "src/components/atoms/icon/Arrow";
@@ -11,22 +12,17 @@ import $ from "./style.module.scss";
 import Weather from "./Weather";
 
 function Home() {
-  const [ searchParams ] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const noti = searchParams.get("noti") || "popular";
+  const { data } = usePopularArticle();
+  const popularNotifications = data?.data;
 
   const schedules = [
     "중간고사",
     "제목이 아주 긴 일정 제목이 아주 긴일정 제목이 아주 긴",
     "출근싫어",
   ];
-  const popularNotifications = [
-    "2022학년도 정시 대학원(일반대학원) 석사과정1",
-    "산업인공지능연구센터 연구원 채용 공고2",
-    "2022학년도 정시 법무대학원 신입생 추가3",
-    "2022학년도 정시 대학원(일반대학원) 석사과정4",
-    "산업인공지능연구센터 연구원 채용 공고5",
-  ];
-  const lastestNotifications = [ "최신1", "최신2", "최신3", "최신4", "최신5" ];
+  const lastestNotifications = ["최신1", "최신2", "최신3", "최신4", "최신5"];
 
   return (
     <section className={$.home}>
@@ -71,8 +67,8 @@ function Home() {
           <Line />
           <div className={$["notification-content"]}>
             {noti === "popular"
-              ? popularNotifications.map((notification) => (
-                  <p key={notification}>{notification}</p>
+              ? popularNotifications?.map((notification: any) => (
+                  <p key={notification.id}>{notification.title}</p>
                 ))
               : lastestNotifications.map((notification) => (
                   <p key={notification}>{notification}</p>

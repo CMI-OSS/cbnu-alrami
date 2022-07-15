@@ -1,5 +1,4 @@
 import "./mobile.scss";
-import { Provider } from "react-redux";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -13,7 +12,6 @@ import MoreImage from "./page/MoreImage";
 import Notification from "./page/Notification";
 import Place from "./page/Place";
 import Report from "./page/Report";
-import { store } from "./store";
 
 function App() {
   const routes = [
@@ -41,12 +39,4 @@ function App() {
   );
 }
 
-function ProviderApp() {
-  return (
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
-}
-
-export default ProviderApp;
+export default App;

@@ -6,6 +6,7 @@ import { BoardService } from "src/board/board.service";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
 import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
 import { BookmarkRepository } from "src/bookmark/bookmark.repository";
+import { Admin } from "src/commons/entities/admin.entity";
 import { Article } from "src/commons/entities/article.entity";
 import { Errors } from "src/commons/exception/exception.global";
 import { HitRepository } from "src/hit/hit.repository";
@@ -37,14 +38,13 @@ export class ArticleService {
   @Transactional()
   async create(
     boardId: number,
-    adminId: number,
+    admin: Admin,
     articleCreateDto: ArticleCreateDto,
   ): Promise<Article> {
     if ((await this.articleRepository.existsByUrl(articleCreateDto.url)) > 0)
       throw ARTICLE_URL_EXISTS;
 
     const board = await this.boardService.findById(boardId);
-    const admin = await this.adminService.findById(adminId);
 
     const article = Builder(Article)
       .author(admin)

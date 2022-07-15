@@ -89,7 +89,7 @@ export class ArticleController {
     const { admin } = req;
     const article = await this.articleService.create(
       boardId,
-      admin.id,
+      admin,
       articleCreateDto,
     );
     return article.id;

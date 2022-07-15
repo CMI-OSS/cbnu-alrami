@@ -1,9 +1,9 @@
 import { useQuery } from "react-query";
 
-import axios from "axios";
+import caxios from "src/api/caxios";
 
 const fetchWeathers = () => {
-  return axios.get("https://dev-server.cmi.kro.kr/weathers");
+  return caxios.get("/weathers");
 };
 
 export const useWeathers = () => {

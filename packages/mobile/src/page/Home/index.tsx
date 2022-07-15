@@ -14,9 +14,9 @@ import $ from "./style.module.scss";
 function Home() {
   const [ searchParams ] = useSearchParams();
   const noti = searchParams.get("noti") || "popular";
-  const { data } = usePopularArticle();
-  const popularNotifications = data?.data;
-
+  const popularNotifications = usePopularArticle()?.data?.data;
+  // TODO: 백엔드 api 확인 후 수정
+  // const schedules = useSchedule()?.data?.data;
   const schedules = [
     "중간고사",
     "제목이 아주 긴 일정 제목이 아주 긴일정 제목이 아주 긴",

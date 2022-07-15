@@ -1,10 +1,10 @@
 const script = {
-  url: "http://agecon.cbnu.ac.kr/dsoft/index.html?pg_idx=26",
+  url: "https://agecon.cbnu.ac.kr/?pg_idx=119",
   site_id: 30101,
   site: "농업경제학과",
   category: "공지사항",
-  noticeListSelector: "#data_list > tbody > tr",
-  noticeContentsSelector: "#bbs_contnets > div.rd_body.clear",
+  noticeListSelector: "#bbs_contnets tbody > tr",
+  noticeContentsSelector: ".dambbs_body",
   getNoticeList: function () {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list).map((item) => {
@@ -15,7 +15,7 @@ const script = {
         site_id: this.site_id,
         title: td[1].querySelector("a").innerText.trim(),
         url: td[1].querySelector("a").href.trim(),
-        date: td[3].innerText.trim(),
+        date: td[2].innerText.trim(),
       };
     });
   },

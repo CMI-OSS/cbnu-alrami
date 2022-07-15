@@ -1,5 +1,5 @@
 const script = {
-  url: "http://mis.chungbuk.ac.kr/master.php?pg_idx=7",
+  url: "https://mis.chungbuk.ac.kr/master.php?pg_idx=7",
   site_id: 10101,
   site: "경영정보학과",
   category: "학부공지",

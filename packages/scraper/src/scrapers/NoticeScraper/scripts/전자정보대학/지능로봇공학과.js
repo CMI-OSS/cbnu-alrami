@@ -3,8 +3,8 @@ const script = {
   site_id: 130601,
   site: "지능로봇공학과",
   category: "공지사항",
-  noticeListSelector: `#board_list > table > tbody > tr`,
-  noticeContentsSelector: ".read_body",
+  noticeListSelector: `.bd_lst tbody > tr`,
+  noticeContentsSelector: ".rd_body",
   getNoticeList: function () {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list)

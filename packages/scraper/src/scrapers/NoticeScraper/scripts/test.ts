@@ -1,7 +1,8 @@
 import find from "find";
-import NoticeScraper from "../index";
+import "src/socket/server";
 import { NoticeScript } from "src/types";
 import { Scenario } from "../../Scenario";
+import NoticeScraper from "../index";
 
 function loadScripts(scriptPath: string): Promise<Array<NoticeScript>> {
   return new Promise((resolve, _) => {
@@ -40,24 +41,24 @@ async function checkOverlapped() {
   console.log("No Similar scripts");
 }
 
-const startTargetStie = "ALL"; // "ALL" or "학과명" e.g. "전기공학부"
+const startTargetStie = "지능로봇공학과"; // "ALL" or "학과명" e.g. "전기공학부"
 
 async function checkNoticeList() {
-  await NoticeScraper.initScraper();
+  await NoticeScraper.init();
   NoticeScraper.pause();
 
   const scripts = await loadScripts(__dirname);
-  let start = false;
+  let start = false
 
   for (const target of scripts) {
-    if (startTargetStie === "ALL" || target.site === startTargetStie) {
+    if (target.site === startTargetStie) {
       start = true;
     }
 
     if (!start) continue;
 
     try {
-      const scenario = new Scenario(target);
+      const scenario = new Scenario(target.site,target);
       const notices = await NoticeScraper.getNoticeList(scenario);
       if (notices.length === 0) {
         throw Error("공지사항 리스트 없음");
@@ -67,6 +68,8 @@ async function checkNoticeList() {
       NoticeScraper.stop();
       throw Error(`[${target.site}] 공지사항 리스트 스크래핑 fail`);
     }
+
+    console.log((`[${target.site} > ${target.category}] Pass!`))
 
     await wait(500);
   }

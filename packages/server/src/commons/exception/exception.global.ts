@@ -36,4 +36,13 @@ export const Errors = {
     "이미 구독 중인 board 입니다.",
   ),
   NOT_SUBSCRIBED_BOARD: new NotFoundException("구독 중인 board가 아닙니다."),
+
+  // image 도메인에 대한 예외 메세지
+  IMAGE_ID_NOT_FOUND: new NotFoundException(
+    "해당 id의 image가 존재하지 않습니다.",
+  ),
+
+  IMAGE_URL_NOT_FOUND: new NotFoundException(
+    "해당 url의 image가 존재하지 않습니다.",
+  ),
 };

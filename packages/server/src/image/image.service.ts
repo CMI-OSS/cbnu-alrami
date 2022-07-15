@@ -6,7 +6,7 @@ import { AwsService } from "./aws.service";
 import { UploadImageResponse } from "./dto/upload-image.response.dto";
 import { ImageRepository } from "./image.repository";
 
-const { NO_DATA_IN_DB } = Errors;
+const { IMAGE_ID_NOT_FOUND, IMAGE_URL_NOT_FOUND } = Errors;
 
 @Injectable()
 export class ImageService {
@@ -27,7 +27,7 @@ export class ImageService {
         id,
       },
     });
-    if (!image) throw NO_DATA_IN_DB;
+    if (!image) throw IMAGE_ID_NOT_FOUND;
     return image;
   }
 
@@ -37,7 +37,7 @@ export class ImageService {
         url,
       },
     });
-    if (!image) throw NO_DATA_IN_DB;
+    if (!image) throw IMAGE_URL_NOT_FOUND;
     return image;
   }
 }

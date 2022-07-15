@@ -77,7 +77,7 @@ export class ArticleController {
     description: "생성된 article id (PK)",
   })
   @ApiHeader({
-    name: "jwt",
+    name: "x-access-token",
     description: "admin jwt",
   })
   @UseGuards(AdminAuthGuard)

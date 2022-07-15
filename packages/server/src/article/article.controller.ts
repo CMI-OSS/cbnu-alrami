@@ -6,12 +6,15 @@ import {
   Param,
   Post,
   Put,
+  Req,
+  UseGuards,
 } from "@nestjs/common";
-import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Builder } from "builder-pattern";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
 import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
 import { Public } from "src/commons/decorators/public.decorator";
+import { AdminAuthGuard } from "src/commons/guards/admin-auth.guard";
 
 import { ArticleService } from "./article.service";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
@@ -64,7 +67,7 @@ export class ArticleController {
     return this.articleService.findArticleRes(articleId);
   }
 
-  @Post("/boards/:boardId/article/admin/:adminId")
+  @Post("/boards/:boardId/article")
   @ApiOperation({
     summary: "신규 공지사항 등록 API",
     description: "특정 공지사항 사이트에서 받아온 새로운 공지사항을 등록한다.",
@@ -73,15 +76,20 @@ export class ArticleController {
     status: 201,
     description: "생성된 article id (PK)",
   })
+  @ApiHeader({
+    name: "jwt",
+    description: "admin jwt",
+  })
+  @UseGuards(AdminAuthGuard)
   async create(
     @Param("boardId") boardId: number,
-    @Param("adminId") adminId: number,
     @Body() articleCreateDto: ArticleCreateDto,
+    @Req() req,
   ): Promise<number> {
-    console.log({ articleCreateDto });
+    const { admin } = req;
     const article = await this.articleService.create(
       boardId,
-      adminId,
+      admin.id,
       articleCreateDto,
     );
     return article.id;

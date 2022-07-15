@@ -9,4 +9,13 @@ const caxios = axios.create({
   },
 });
 
+caxios.interceptors.response.use((response) => {
+  if (response.data.error) {
+    window.alert(response.data.error);
+    return Promise.reject(response.data.error);
+  }
+
+  return response;
+});
+
 export default caxios;

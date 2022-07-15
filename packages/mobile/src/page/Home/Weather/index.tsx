@@ -96,10 +96,15 @@ const iconToBackgrounds = [
 ];
 
 function Weather() {
-  const { data, isLoading } = useWeathers();
-  if (isLoading) return <div>로딩중입니다.</div>;
+  const {
+    data: weatherData,
+    isLoading: weatherLoading,
+    isError: weatherError,
+  } = useWeathers();
+  if (weatherLoading) return <div>로딩중입니다.</div>;
+  if (weatherError) return <div>에러가 발생했습니다.</div>;
 
-  const weather = data?.data;
+  const weather = weatherData!.data;
   const time = dayjs().hour() >= 12 ? "밤" : "낮";
   // TODO: 백엔드 값 분류해서 실제 날씨 넣기
   const timeTarget = find(

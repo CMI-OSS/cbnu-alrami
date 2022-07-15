@@ -17,7 +17,6 @@ import { FcmModule } from "./fcm/fcm.module";
 import { HitModule } from "./hit/hit.module";
 import { ImageModule } from "./image/image.module";
 import { PlaceModule } from "./place/place.module";
-import { SchedulesModule } from "./schedule/schedule.module";
 import { SubscribeModule } from "./subscribe/subscribe.module";
 import { UserModule } from "./user/user.module";
 import { WeatherModule } from "./weather/weather.module";
@@ -49,7 +48,7 @@ import { WeatherModule } from "./weather/weather.module";
     UserModule,
     CafeteriaModule,
     PlaceModule,
-    SchedulesModule,
+    // SchedulesModule,
     SubscribeModule,
     WeatherModule,
     HitModule,

@@ -6,6 +6,7 @@ import mapImageList from "./mapImageList";
 import menuList from "./menuList";
 import { mockNotification, mockCategory } from "./notificationList";
 import playList from "./playList";
+import { settingConfig } from "./settingConfig";
 import snackList from "./snackList";
 
 export {
@@ -19,4 +20,5 @@ export {
   mockCategory,
   detailImageList,
   mapImageList,
+  settingConfig,
 };

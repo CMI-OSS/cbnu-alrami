@@ -1,12 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity } from "typeorm";
 
-@Entity()
-export class Weather {
-  @ApiProperty({ description: "PK" })
-  @PrimaryGeneratedColumn({ type: "int" })
-  id: number;
+import { CommonEntity } from "./common.entity";
 
+@Entity("weather")
+export class Weather extends CommonEntity {
   @ApiProperty({ description: "현재 날씨" })
   @Column({ type: "varchar", length: 50, nullable: true })
   currentWeather?: string;

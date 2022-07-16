@@ -17,3 +17,5 @@ export type settingLabel = {
   문의하기?: string;
   만든이?: string;
 };
+
+export type FlickingMenu = { id: number; name: string };

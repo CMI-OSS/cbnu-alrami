@@ -1,4 +1,4 @@
-import { EntityRepository, Repository } from "typeorm";
+import { EntityRepository, InsertResult, Repository } from "typeorm";
 
 import { Schedule } from "../commons/entities/schedule.entity";
 import { GetSchedulesRequestDto } from "./dtos/get-schedules-request.dto";
@@ -10,23 +10,37 @@ export class ScheduleRepository extends Repository<Schedule> {
   ): Promise<Schedule[]> {
     const { startDate, endDate } = getSchedulesRequestDto;
     return this.createQueryBuilder()
-      .where("startDate >= :startDate AND startDate <= :endDate", {
+      .where("start_date >= :startDate AND start_date <= :endDate", {
         startDate,
         endDate,
       })
-      .orWhere("endDate >= :startDate AND endDate <= :endDate", {
+      .orWhere("end_date >= :startDate AND end_date <= :endDate", {
         startDate,
         endDate,
       })
-      .orderBy("startDate", "ASC")
+      .orderBy("start_date", "ASC")
       .getMany();
   }
 
   async getDailySchedules(startDate: Date): Promise<Schedule[]> {
     return this.createQueryBuilder()
-      .where("StartDate <= :startDate AND endDate >= :startDate", { startDate })
+      .where("Start_date <= :startDate AND end_date >= :startDate", {
+        startDate,
+      })
       .orderBy("priority", "ASC")
-      .addOrderBy("startDate", "ASC")
+      .addOrderBy("start_date", "ASC")
       .getMany();
+  }
+
+  async saveHoliday(content: string, startDate: Date): Promise<InsertResult> {
+    return this.createQueryBuilder()
+      .insert()
+      .into(Schedule)
+      .values({
+        content: `${content}`,
+        isHoliday: 1,
+        startDate: `${startDate}`,
+      })
+      .execute();
   }
 }

@@ -8,13 +8,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "calendar": "^0.1.1",
     "dayjs": "^1.11.2",
     "nanoid": "^3.3.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-router-dom": "^6.2.2"
+    "react-router-dom": "^6.2.2",
+    "underscore": "^1.13.4"
   },
   "devDependencies": {
+    "@types/calendar": "^0.1.2",
+    "@types/underscore": "^1.11.4",
     "@reduxjs/toolkit": "^1.8.1",
     "@types/navermaps": "^3.0.13",
     "@types/react": "^18.0.0",

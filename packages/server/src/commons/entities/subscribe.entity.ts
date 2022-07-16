@@ -4,7 +4,7 @@ import { Board } from "./board.entity";
 import { CommonEntity } from "./common.entity";
 import { User } from "./user.entity";
 
-@Entity()
+@Entity("subscribe")
 export class Subscribe extends CommonEntity {
   @ManyToOne(() => User, (User) => User.id, { cascade: true, nullable: false })
   @JoinColumn()
@@ -17,6 +17,6 @@ export class Subscribe extends CommonEntity {
   @JoinColumn()
   board: Board;
 
-  @Column({ type: "tinyint", nullable: true })
-  notice: number;
+  @Column({ type: "bool", width: 1, nullable: true })
+  notice: boolean;
 }

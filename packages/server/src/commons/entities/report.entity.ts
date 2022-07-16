@@ -3,7 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { CommonEntity } from "./common.entity";
 import { User } from "./user.entity";
 
-@Entity()
+@Entity("report")
 export class Report extends CommonEntity {
   @ManyToOne(() => User, (User) => User.id, { cascade: true, nullable: false })
   @JoinColumn()

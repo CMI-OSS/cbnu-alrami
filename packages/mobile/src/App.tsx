@@ -13,6 +13,7 @@ import MoreImage from "./page/MoreImage";
 import Notification from "./page/Notification";
 import Place from "./page/Place";
 import Report from "./page/Report";
+import Setting from "./page/Setting";
 import { store } from "./store";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
     { id: 6, path: "/more", element: <MoreImage /> },
     { id: 7, path: "/call", element: <Call /> },
     { id: 8, path: "/error", element: <Report /> },
+    { id: 9, path: "/setting", element: <Setting /> },
   ];
 
   return (

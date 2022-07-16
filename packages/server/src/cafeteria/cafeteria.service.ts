@@ -37,7 +37,6 @@ export class CafeteriaService {
     const cafeteria = await this.cafeteriaRepository.findOne({
       id: cafeteriaId,
     });
-
     const result = await this.cafeteriaMenuRepository.save({
       cafeteria,
       ...cafeteriaCreateDto,

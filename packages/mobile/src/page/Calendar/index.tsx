@@ -81,15 +81,15 @@ function Calendar() {
           onMonthDecrease={() => dispatchMonth({ type: "decrement" })}
           onMonthIncrease={() => dispatchMonth({ type: "increment" })}
         />
-        <ScheduleCalendar
-          {...{ today, month, setSelectedDate, selectedDate }}
-          calendarMap={
-            toggleSchedule === "college"
-              ? collegeCalendarMap
-              : personalCalendarMap
-          }
-        />
       </div>
+      <ScheduleCalendar
+        {...{ today, month, setSelectedDate, selectedDate }}
+        calendarMap={
+          toggleSchedule === "college"
+            ? collegeCalendarMap
+            : personalCalendarMap
+        }
+      />
       <RadioBox
         toggle={toggleSchedule}
         onToggleChange={handleScheduleToggleChange}

@@ -15,7 +15,6 @@ function CardBox({ scheduleType, schedules, selectedDate }: Props) {
   if (schedules.length === 0)
     return (
       <section className={$["empty-box"]}>
-        <div>(그림)</div>
         <span className={$.description}>오늘은 일정이 없어요</span>
       </section>
     );

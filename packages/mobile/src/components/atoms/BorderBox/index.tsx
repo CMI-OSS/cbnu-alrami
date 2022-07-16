@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import classnames from "classnames";
 import type { DefaultProps } from "src/type/props";
 

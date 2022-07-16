@@ -13,6 +13,7 @@ export { Info } from "./Info";
 export { Map } from "./Map";
 export { MapArrow } from "./MapArrow";
 export { MoreArrow } from "./MoreArrow";
+export { NoMenu } from "./NoMenu";
 export { PlaceMenu } from "./PlaceMenu";
 export { Plus } from "./Plus";
 export { Position } from "./Position";

@@ -1,3 +1,6 @@
+import cafeteriaList from "./cafeteriaList";
+import cafeteriaMenu from "./cafeteriaMenu";
+import cafeteriaTimeInfo from "./cafeteriaTimeInfo";
 import constructionInfo from "./constructionInfo";
 import constructionList from "./constructionList";
 import detailImageList from "./detailImageList";
@@ -20,5 +23,8 @@ export {
   mockCategory,
   detailImageList,
   mapImageList,
+  cafeteriaTimeInfo,
+  cafeteriaMenu,
+  cafeteriaList,
   constructionInfo,
 };

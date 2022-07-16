@@ -1,0 +1,17 @@
+@import "@shared/styles/color.scss";
+
+.setting-cafeteria{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 118px 49px;
+  .text {
+    margin-top: 19.67px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    text-align: center;
+    letter-spacing: 0.015em;
+    color: $black-80;
+  }
+}

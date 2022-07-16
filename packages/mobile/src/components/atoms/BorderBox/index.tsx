@@ -5,14 +5,14 @@ import $ from "./style.module.scss";
 
 type Props = {
   width?: number | string;
-  height: number | string;
+  height?: number | string;
   background?: string;
 } & DefaultProps;
 
 function BorderBox({
   className,
   width = "100%",
-  height,
+  height = "auto",
   background,
   style,
   children,

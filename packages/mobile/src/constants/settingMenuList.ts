@@ -15,6 +15,8 @@ interface settingMenu {
   icon: any;
   label: keyof settingLabel;
   to: string;
+  width: string;
+  height: string;
 }
 
 const settingMenuList: settingMenu[] = [
@@ -23,48 +25,64 @@ const settingMenuList: settingMenu[] = [
     icon: Subscribe,
     label: "구독/알림",
     to: "./subscribe",
+    width: "16.06px",
+    height: "16.06px",
   },
   {
     id: 2,
     icon: Food,
     label: "대표식당",
     to: "./cafeteria",
+    width: "14.51px",
+    height: "16.92px",
   },
   {
     id: 3,
     icon: Experiment,
     label: "실험실",
     to: "./experiment",
+    width: "16px",
+    height: "20.71px",
   },
   {
     id: 4,
     icon: Speaker,
     label: "공지사항",
     to: "./notice",
+    width: "16.65px",
+    height: "15.03px",
   },
   {
     id: 5,
     icon: Help,
     label: "도움말",
     to: "./help",
+    width: "18.02px",
+    height: "18.02px",
   },
   {
     id: 6,
     icon: AppVersion,
     label: "앱 버전",
     to: "./appversion",
+    width: "19.76px",
+    height: "17.62px",
   },
   {
     id: 7,
     icon: Email,
     label: "문의하기",
     to: "./contact",
+    width: "18.02px",
+    height: "12.6px",
   },
   {
     id: 8,
     icon: Person,
     label: "만든이",
     to: "./creator",
+    width: "16.99px",
+    height: "17.1px",
   },
 ];
 

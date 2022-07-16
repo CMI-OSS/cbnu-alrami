@@ -3,7 +3,7 @@ import { Column, Entity } from "typeorm";
 
 import { CommonEntity } from "./common.entity";
 
-@Entity()
+@Entity("place")
 export class Place extends CommonEntity {
   @Column({ type: "varchar", unique: true, nullable: false })
   name: string;

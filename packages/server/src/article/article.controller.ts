@@ -6,17 +6,21 @@ import {
   Param,
   Post,
   Put,
+  Req,
+  UseGuards,
 } from "@nestjs/common";
-import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Builder } from "builder-pattern";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
 import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
 import { Public } from "src/commons/decorators/public.decorator";
+import { AdminAuthGuard } from "src/commons/guards/admin-auth.guard";
 
 import { ArticleService } from "./article.service";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
 import { ArticleDetailInfoDto } from "./dtos/article.detail.info.dto";
 import { ArticleDto } from "./dtos/article.dto";
+import { ArticleListDto } from "./dtos/article.list.dto";
 import { ArticleResponseDto } from "./dtos/article.response.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
@@ -63,7 +67,7 @@ export class ArticleController {
     return this.articleService.findArticleRes(articleId);
   }
 
-  @Post("/boards/:boardId/article/admin/:adminId")
+  @Post("/boards/:boardId/article")
   @ApiOperation({
     summary: "신규 공지사항 등록 API",
     description: "특정 공지사항 사이트에서 받아온 새로운 공지사항을 등록한다.",
@@ -72,15 +76,20 @@ export class ArticleController {
     status: 201,
     description: "생성된 article id (PK)",
   })
+  @ApiHeader({
+    name: "x-access-token",
+    description: "admin jwt",
+  })
+  @UseGuards(AdminAuthGuard)
   async create(
     @Param("boardId") boardId: number,
-    @Param("adminId") adminId: number,
     @Body() articleCreateDto: ArticleCreateDto,
+    @Req() req,
   ): Promise<number> {
-    console.log({ articleCreateDto });
+    const { admin } = req;
     const article = await this.articleService.create(
       boardId,
-      adminId,
+      admin,
       articleCreateDto,
     );
     return article.id;
@@ -130,5 +139,21 @@ export class ArticleController {
   })
   async remove(@Param("articleId") articleId: number) {
     return this.articleService.remove(articleId);
+  }
+
+  @Get("/articles/popular")
+  @ApiOperation({
+    summary: "인기 공지사항 조회 API",
+    description:
+      "조회수와 공지사항 등록일을 이용, 제일 인기 많은 상위 5개의 공지사항들을 조회한다.",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "공지사항 제목과 id",
+    type: ArticleListDto,
+    isArray: true,
+  })
+  async findPopularArticles(): Promise<ArticleListDto[]> {
+    return this.articleService.findTopArticlesByHit();
   }
 }

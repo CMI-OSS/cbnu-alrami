@@ -6,6 +6,7 @@ import { BoardService } from "src/board/board.service";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
 import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
 import { BookmarkRepository } from "src/bookmark/bookmark.repository";
+import { Admin } from "src/commons/entities/admin.entity";
 import { Article } from "src/commons/entities/article.entity";
 import { Errors } from "src/commons/exception/exception.global";
 import { HitRepository } from "src/hit/hit.repository";
@@ -15,6 +16,7 @@ import { Transactional } from "typeorm-transactional-cls-hooked";
 import { ArticleRepository } from "./article.repository";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
 import { ArticleDetailInfoDto } from "./dtos/article.detail.info.dto";
+import { ArticleListDto } from "./dtos/article.list.dto";
 import { ArticleResponseDto } from "./dtos/article.response.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
@@ -36,14 +38,13 @@ export class ArticleService {
   @Transactional()
   async create(
     boardId: number,
-    adminId: number,
+    admin: Admin,
     articleCreateDto: ArticleCreateDto,
   ): Promise<Article> {
     if ((await this.articleRepository.existsByUrl(articleCreateDto.url)) > 0)
       throw ARTICLE_URL_EXISTS;
 
     const board = await this.boardService.findById(boardId);
-    const admin = await this.adminService.findById(adminId);
 
     const article = Builder(Article)
       .author(admin)
@@ -85,6 +86,35 @@ export class ArticleService {
     );
     if (!Array.isArray(articles) || articles.length === 0) throw NO_DATA_IN_DB;
     return articles;
+  }
+
+  async findTopArticlesByHit(): Promise<ArticleListDto[]> {
+    const response = [];
+
+    // DESCRIBE: hit 테이블에서 조회수 순으로 상위 5개 공지사항 조회
+    const articlesByHit =
+      await this.articleRepository.findPopularArticlesByHit();
+    response.push(...articlesByHit);
+
+    // DESCRIBE: 만약 조회수 있는 공지사항이 5개보다 적다면
+    if (articlesByHit.length < 5) {
+      // DESCRIBE: hit 테이블에서 가져온 article은 가져오지 않도록 리스트 생성
+      const idList: number[] = [];
+      articlesByHit.forEach((article) => {
+        idList.push(article.id);
+      });
+      // DESCRIBE: 부족한 수만큼 article 테이블에서 날짜 순으로 공지사항 조회
+      const num = 5 - articlesByHit.length;
+      const articles = await this.articleRepository.findPopularArticles(
+        num,
+        idList,
+      );
+      response.push(...articles);
+    }
+
+    // DESCRIBE: hit 테이블 조회 결과와 article 테이블 조회 결과 합쳐서 리턴
+    if (!Array.isArray(response) || response.length === 0) throw NO_DATA_IN_DB;
+    return response;
   }
 
   async findArticleRes(id: number): Promise<ArticleResponseDto> {

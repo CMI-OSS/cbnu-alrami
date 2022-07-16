@@ -8,6 +8,7 @@ import { FilesInterceptor } from "@nestjs/platform-express";
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Public } from "src/commons/decorators/public.decorator";
 
+import { UploadImageResponse } from "./dto/upload-image.response.dto";
 import { ImageService } from "./image.service";
 
 @Controller()
@@ -37,7 +38,7 @@ export class ImageController {
   })
   async uploadImages(
     @UploadedFiles() images: Express.Multer.File[],
-  ): Promise<string[]> {
+  ): Promise<UploadImageResponse[]> {
     return this.imageService.uploadImages(images);
   }
 }

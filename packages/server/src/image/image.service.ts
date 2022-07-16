@@ -3,9 +3,10 @@ import { Image } from "src/commons/entities/image.entity";
 import { Errors } from "src/commons/exception/exception.global";
 
 import { AwsService } from "./aws.service";
+import { UploadImageResponse } from "./dto/upload-image.response.dto";
 import { ImageRepository } from "./image.repository";
 
-const { NO_DATA_IN_DB } = Errors;
+const { IMAGE_ID_NOT_FOUND, IMAGE_URL_NOT_FOUND } = Errors;
 
 @Injectable()
 export class ImageService {
@@ -14,7 +15,9 @@ export class ImageService {
     private readonly imageRepository: ImageRepository,
   ) {}
 
-  async uploadImages(images: Express.Multer.File[]): Promise<string[]> {
+  async uploadImages(
+    images: Express.Multer.File[],
+  ): Promise<UploadImageResponse[]> {
     return this.awsService.uploadImagesToS3(images);
   }
 
@@ -24,7 +27,7 @@ export class ImageService {
         id,
       },
     });
-    if (!image) throw NO_DATA_IN_DB;
+    if (!image) throw IMAGE_ID_NOT_FOUND;
     return image;
   }
 
@@ -34,7 +37,7 @@ export class ImageService {
         url,
       },
     });
-    if (!image) throw NO_DATA_IN_DB;
+    if (!image) throw IMAGE_URL_NOT_FOUND;
     return image;
   }
 }

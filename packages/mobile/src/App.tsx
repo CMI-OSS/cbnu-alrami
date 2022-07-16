@@ -2,6 +2,8 @@ import "./mobile.scss";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import Subscription from "src/page/Subscription";
+
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
 import Call from "./page/Call";
@@ -23,6 +25,7 @@ function App() {
     { id: 6, path: "/more", element: <MoreImage /> },
     { id: 7, path: "/call", element: <Call /> },
     { id: 8, path: "/error", element: <Report /> },
+    { id: 9, path: "/subscription", element: <Subscription /> },
   ];
 
   return (

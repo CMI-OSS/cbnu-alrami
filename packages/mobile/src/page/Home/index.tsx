@@ -51,7 +51,7 @@ function Home() {
         {schedules.map((schedule) => (
           <BorderBox key={schedule.id} width={271} height={101}>
             <p>{schedule.content}</p>
-            <Arrow />
+            <Arrow width={7} height={25} color="#AAAAAA" />
           </BorderBox>
         ))}
       </div>

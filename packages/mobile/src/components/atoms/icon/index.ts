@@ -1,6 +1,5 @@
 export { Calendar } from "./Calendar";
 export { Food } from "./Food";
-export { LeftArrow } from "./LeftArrow";
 export { Home } from "./Home";
 export { Map } from "./Map";
 export { Speaker } from "./Speaker";
@@ -46,3 +45,8 @@ export { Time } from "./Time";
 export { MoreArrow } from "./MoreArrow";
 export { ImagePlus } from "./ImagePlus";
 export { CallSubmit } from "./CallSubmit";
+export { Subscription } from "./Subscription";
+export { UnSubscription } from "./UnSubscription";
+export { LeftArrow } from "./LeftArrow";
+export { Alarm } from "./Alarm";
+export { UnAlarm } from "./UnAlarm";

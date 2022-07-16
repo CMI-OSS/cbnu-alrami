@@ -4,7 +4,8 @@
     "paths": {
       "src/*": ["./src/*"],
       "@shared/*": ["../shared/src/*"],
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+      "@hooks/*": ["./src/hooks/*"]
     },
     "target": "ESNext",
     "useDefineForClassFields": true,

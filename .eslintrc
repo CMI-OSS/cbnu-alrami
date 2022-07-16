@@ -1,7 +1,14 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "prettier", "jsx-a11y", "import"],
-  "ignorePatterns": ["build/**"],
+  "plugins": [
+    "@typescript-eslint",
+    "prettier",
+    "jsx-a11y",
+    "import"
+  ],
+  "ignorePatterns": [
+    "build/**"
+  ],
   "extends": [
     "airbnb",
     "plugin:import/errors",
@@ -19,7 +26,8 @@
     "import/no-unresolved": 0,
     "no-useless-constructor": 0,
     "@typescript-eslint/no-useless-constructor": 0,
-    "import/no-extraneous-dependencies": 0, // 테스트 또는 개발환경을 구성하는 파일에서는 devDependency 사용을 허용
+    "import/no-extraneous-dependencies": 0,
+    // 테스트 또는 개발환경을 구성하는 파일에서는 devDependency 사용을 허용
     "no-shadow": 0,
     "react/prop-types": 0,
     "react/react-in-jsx-scope": 0,
@@ -29,15 +37,27 @@
     "max-classes-per-file": 0,
     "react/jsx-filename-extension": [
       2,
-      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+      {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
+      }
     ],
     "react/require-default-props": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,
-    "array-bracket-spacing": ["error", "always", { "arraysInArrays": true }],
+    "array-bracket-spacing": [
+      "error",
+      "always"
+    ],
     "lines-between-class-members": [
       "error",
       "always",
-      { "exceptAfterSingleLine": true }
+      {
+        "exceptAfterSingleLine": true
+      }
     ],
     "import/order": [
       "error",
@@ -46,7 +66,10 @@
           "builtin",
           "external",
           "internal",
-          ["parent", "sibling"],
+          [
+            "parent",
+            "sibling"
+          ],
           "index"
         ],
         "pathGroups": [
@@ -73,7 +96,10 @@
           "order": "asc",
           "caseInsensitive": true
         },
-        "pathGroupsExcludedImportTypes": ["react", "@nest"],
+        "pathGroupsExcludedImportTypes": [
+          "react",
+          "@nest"
+        ],
         "newlines-between": "always"
       }
     ]
@@ -81,7 +107,6 @@
   "parserOptions": {
     "ecmaVersion": 2017
   },
-
   "env": {
     "es6": true
   }

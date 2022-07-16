@@ -1,16 +1,17 @@
 import "./mobile.scss";
-import { Provider } from "react-redux";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
+import Call from "./page/Call";
 import Detail from "./page/Detail";
 import Home from "./page/Home";
 import Map from "./page/Map";
+import MoreImage from "./page/MoreImage";
 import Notification from "./page/Notification";
 import Place from "./page/Place";
-import { store } from "./store";
+import Report from "./page/Report";
 
 function App() {
   const routes = [
@@ -19,6 +20,9 @@ function App() {
     { id: 3, path: "/home", element: <Home /> },
     { id: 4, path: "/cafeteria", element: <Cafeteria /> },
     { id: 5, path: "/map", element: <Map /> },
+    { id: 6, path: "/more", element: <MoreImage /> },
+    { id: 7, path: "/call", element: <Call /> },
+    { id: 8, path: "/error", element: <Report /> },
   ];
 
   return (
@@ -35,12 +39,4 @@ function App() {
   );
 }
 
-function ProviderApp() {
-  return (
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
-}
-
-export default ProviderApp;
+export default App;

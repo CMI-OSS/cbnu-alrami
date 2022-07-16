@@ -30,21 +30,17 @@ export class AuthService {
   }
 
   async join(adminCreateDto: AdminCreateDto): Promise<boolean> {
-    const salt = bcrypt.genSaltSync();
-    const hashedPassword = bcrypt.hashSync(adminCreateDto.password, salt);
-    await this.adminService.create({
-      ...adminCreateDto,
-      password: hashedPassword,
-    });
+    await this.adminService.create(adminCreateDto);
     return true;
   }
 
-  async adminLogin(adminCredential: AdminCredential): Promise<TokenDto> {
-    const tokens: TokenDto = {
-      xAccessToken: this.jwtService.sign(adminCredential),
-      // TODO xRefreshToken: this.jwtService.sign({ id:admin.id })
+  async adminLogin(adminLogin: AdminLoginDto): Promise<TokenDto> {
+    const admin = await this.validate(adminLogin);
+
+    const token: TokenDto = {
+      xAccessToken: this.jwtService.sign(admin),
     };
-    return tokens;
+    return token;
   }
 
   async validate({
@@ -56,8 +52,11 @@ export class AuthService {
         select: [ "id", "authority", "nickname", "password" ],
         where: { loginId },
       });
-    if (!admin || !AuthService.matchPassword(password, hashedPassword))
+
+    if (!admin || !AuthService.matchPassword(password, hashedPassword)) {
       throw LOGIN_INFO_NOT_FOUND;
+    }
+
     return admin;
   }
 

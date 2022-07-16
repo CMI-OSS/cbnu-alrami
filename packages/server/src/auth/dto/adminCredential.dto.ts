@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import {
   IsEnum,
   IsNotEmpty,
@@ -15,9 +16,11 @@ export class AdminCredential {
   @IsNotEmpty()
   @IsString()
   @Matches(/^[a-z0-9_]{2,18}$/)
+  @ApiProperty()
   nickname: string;
 
   @IsNotEmpty()
   @IsEnum(Authority)
+  @ApiProperty()
   authority: Authority;
 }

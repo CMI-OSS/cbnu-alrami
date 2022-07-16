@@ -1,16 +1,25 @@
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { APP_GUARD } from "@nestjs/core";
+import { JwtModule } from "@nestjs/jwt";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
+import { ArticleModule } from "./article/article.module";
 import { AuthModule } from "./auth/auth.module";
-import { AwsModule } from "./aws/aws.module";
 import { BoardModule } from "./board/board.module";
 import { BoardTreeModule } from "./boardTree/boardTree.module";
+import { BookmarkModule } from "./bookmark/bookmark.module";
+import { CafeteriaModule } from "./cafeteria/cafeteria.module";
 import configuration from "./commons/config/configuration";
-import { JwtGuard } from "./commons/guards/jwt.guard";
+import { ACCESS_PRIVATE_KEY } from "./commons/constants/constants";
+import { AuthMiddleware } from "./commons/middlewares/auth.middleware";
 import { FcmModule } from "./fcm/fcm.module";
-import { ScheduleModule } from "./schedule/schedule.module";
+import { HitModule } from "./hit/hit.module";
+import { ImageModule } from "./image/image.module";
+import { PlaceModule } from "./place/place.module";
+import { SchedulesModule } from "./schedule/schedule.module";
+import { SubscribeModule } from "./subscribe/subscribe.module";
+import { UserModule } from "./user/user.module";
 import { WeatherModule } from "./weather/weather.module";
 
 @Module({
@@ -24,22 +33,35 @@ import { WeatherModule } from "./weather/weather.module";
       useFactory: async (config: ConfigService) => ({
         ...config.get("db"),
         entities: [ `${__dirname}/commons/entities/*.js` ],
+        namingStrategy: new SnakeNamingStrategy(),
+        charset: "utf8",
+        logging: [ "query" ],
       }),
       inject: [ ConfigService ],
     }),
     FcmModule,
     AuthModule,
-    AwsModule,
+    ArticleModule,
+    ImageModule,
     BoardTreeModule,
     BoardModule,
-    ScheduleModule,
+    BookmarkModule,
+    UserModule,
+    CafeteriaModule,
+    PlaceModule,
+    SchedulesModule,
+    SubscribeModule,
     WeatherModule,
+    HitModule,
+    JwtModule.register({
+      secret: ACCESS_PRIVATE_KEY,
+      signOptions: { expiresIn: "60m" },
+    }),
   ],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: JwtGuard,
-    },
-  ],
+  providers: [],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes("*");
+  }
+}

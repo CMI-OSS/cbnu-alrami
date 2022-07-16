@@ -1,6 +1,7 @@
 import cafeteriaList from "./cafeteriaList";
 import cafeteriaMenu from "./cafeteriaMenu";
 import cafeteriaTimeInfo from "./cafeteriaTimeInfo";
+import constructionInfo from "./constructionInfo";
 import constructionList from "./constructionList";
 import detailImageList from "./detailImageList";
 import foodList from "./foodList";
@@ -25,4 +26,5 @@ export {
   cafeteriaTimeInfo,
   cafeteriaMenu,
   cafeteriaList,
+  constructionInfo,
 };

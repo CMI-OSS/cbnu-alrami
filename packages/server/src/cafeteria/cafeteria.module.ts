@@ -1,24 +1,17 @@
-import { forwardRef, Module } from "@nestjs/common";
-import { RouterModule } from "@nestjs/core";
+import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { CafeteriaMenuModule } from "src/cafeteria/cafeteria-menu/cafeteria-menu.module";
 
+import { CafeteriaController } from "./cafeteria.controller";
 import { CafeteriaService } from "./cafeteria.service";
+import { CafeteriaMenuRepository } from "./repository/cafeteria-menu.repository";
 import { CafeteriaRepository } from "./repository/cafeteria.repository";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ CafeteriaRepository ]),
-    CafeteriaMenuModule,
-    RouterModule.register([
-      {
-        path: "menus",
-        module: CafeteriaMenuModule,
-      },
-    ]),
-    forwardRef(() => CafeteriaMenuModule),
+    TypeOrmModule.forFeature([ CafeteriaRepository, CafeteriaMenuRepository ]),
   ],
   providers: [ CafeteriaService ],
+  controllers: [ CafeteriaController ],
   exports: [ CafeteriaService ],
 })
 export class CafeteriaModule {}

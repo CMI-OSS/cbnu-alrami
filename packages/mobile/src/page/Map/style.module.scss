@@ -1,4 +1,5 @@
 @import "@shared/styles/color.scss";
+@import "@shared/styles/mixin.scss";
 
 $footerHeight: 65px;
 $footerLinkDistance: 20px;
@@ -8,6 +9,20 @@ $linkTooltipDistance: 17px;
 .map {
   width: 100vw;
   height: 100vh;
+}
+
+.place-link {
+  @include position(absolute, top 15px left 15px);
+  z-index: 1000;
+  width: 49px;
+  height: 49px;
+  border-radius: 50%;
+  background-color: $white;
+}
+
+.place-arrow {
+  @include position(absolute, top 50% left 50%);
+  transform: translate(-50%, -50%);
 }
 
 .wrap {

@@ -2,10 +2,10 @@ import * as bcrypt from "bcrypt";
 import { Authority } from "src/commons/constants/enums";
 import { BeforeInsert, Column, Entity } from "typeorm";
 
-import { CommonEntity } from "./common.entity";
+import { UpdatableCommonEntity } from "./common.entity";
 
-@Entity()
-export class Admin extends CommonEntity {
+@Entity("admin")
+export class Admin extends UpdatableCommonEntity {
   @Column("varchar", { length: 20, unique: true, nullable: false })
   loginId: string;
 

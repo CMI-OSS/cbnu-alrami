@@ -17,6 +17,6 @@ export class Subscribe extends CommonEntity {
   @JoinColumn()
   board: Board;
 
-  @Column({ type: "tinyint", nullable: true })
-  notice: number;
+  @Column({ type: "bool", width: 1, nullable: true })
+  notice: boolean;
 }

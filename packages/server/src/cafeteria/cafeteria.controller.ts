@@ -24,8 +24,14 @@ export class CafeteriaController {
     return this.cafeteriaService.findById(id, date);
   }
 
-  @Post("/:id/menus")
-  async create(@Body() cafeteriaCreateDto: CafeteriaCreateDto) {
-    const cafeteria = await this.cafeteriaService.create(cafeteriaCreateDto);
+  @Post("/:cafeteriaId/menus")
+  async create(
+    @Param("cafeteriaId") cafeteriaId: number,
+    @Body() cafeteriaCreateDto: CafeteriaCreateDto,
+  ) {
+    const cafeteria = await this.cafeteriaService.create(
+      cafeteriaId,
+      cafeteriaCreateDto,
+    );
   }
 }

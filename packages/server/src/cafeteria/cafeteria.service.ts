@@ -33,8 +33,15 @@ export class CafeteriaService {
     return cafeterias;
   }
 
-  async create(cafeteriaCreateDto: CafeteriaCreateDto) {
-    const result = await this.cafeteriaMenuRepository.save(cafeteriaCreateDto);
+  async create(cafeteriaId: number, cafeteriaCreateDto: CafeteriaCreateDto) {
+    const cafeteria = await this.cafeteriaRepository.findOne({
+      id: cafeteriaId,
+    });
+
+    const result = await this.cafeteriaMenuRepository.save({
+      cafeteria,
+      ...cafeteriaCreateDto,
+    });
     return result;
   }
 }

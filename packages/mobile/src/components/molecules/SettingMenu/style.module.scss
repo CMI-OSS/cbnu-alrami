@@ -1,0 +1,31 @@
+@import "@shared/styles/color.scss";
+@import "@shared/styles/variables.scss";
+@import "@shared/styles/mixin.scss";
+
+.setting-menu {
+  display: flex;
+  align-items: center;
+  padding: 24px 0;
+  color: $black-80;
+
+  .icon-box {
+    width: 24px;
+    display: flex;
+    justify-content: center;
+    margin-right: 18px;
+    .icon {
+      path {
+        stroke: $black-60;
+      }
+    }
+  }
+
+  .config {
+    margin: auto 0 auto auto;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 23px;
+    letter-spacing: 0.01em;
+    color: $black-40;
+  }
+}

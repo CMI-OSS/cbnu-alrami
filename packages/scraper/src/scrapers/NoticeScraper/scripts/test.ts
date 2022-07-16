@@ -3,6 +3,7 @@ import "src/socket/server";
 import { NoticeScript } from "src/types";
 import { Scenario } from "../../Scenario";
 import NoticeScraper from "../index";
+import { createBoard } from "./board";
 
 function loadScripts(scriptPath: string): Promise<Array<NoticeScript>> {
   return new Promise((resolve, _) => {
@@ -41,14 +42,14 @@ async function checkOverlapped() {
   console.log("No Similar scripts");
 }
 
-const startTargetStie = "지능로봇공학과"; // "ALL" or "학과명" e.g. "전기공학부"
+const startTargetStie = "ALL"; // "ALL" or "학과명" e.g. "전기공학부"
 
 async function checkNoticeList() {
   await NoticeScraper.init();
   NoticeScraper.pause();
 
   const scripts = await loadScripts(__dirname);
-  let start = false
+  let start = true
 
   for (const target of scripts) {
     if (target.site === startTargetStie) {
@@ -58,8 +59,11 @@ async function checkNoticeList() {
     if (!start) continue;
 
     try {
+      await createBoard({id:target.site_id,url:target.url,name:target.site})
+      continue;
       const scenario = new Scenario(target.site,target);
       const notices = await NoticeScraper.getNoticeList(scenario);
+      console.log(notices)
       if (notices.length === 0) {
         throw Error("공지사항 리스트 없음");
       }

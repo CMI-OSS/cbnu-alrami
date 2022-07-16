@@ -3,7 +3,7 @@ import type { StyleProps } from "src/type/props";
 function Speaker({ className, style }: StyleProps) {
   return (
     <svg
-      style={style}
+      {...{ className, style }}
       width="24"
       height="22"
       viewBox="0 0 24 22"

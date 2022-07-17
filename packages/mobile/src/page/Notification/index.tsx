@@ -6,7 +6,7 @@ import classNames from "classnames";
 import { mockCategory, mockNotification } from "src/__mocks__";
 import guideEmptyStar from "src/assets/guide_empty_star.png";
 import guideEmptySubscription from "src/assets/guide_empty_subscription.png";
-import { Setting, Plus, Star } from "src/components/atoms/icon";
+import { Plus, Setting, Star } from "src/components/atoms/icon";
 import useSearch from "src/hooks/useSearch";
 
 import $ from "./style.module.scss";
@@ -19,10 +19,12 @@ function EmptyGuideImage({ major }: { major: string }) {
 }
 
 function Notification() {
-  const mockSubscribeNotification = 0;
+  const mockSubscribeNotification = 1;
   const mockStarNotification = 0;
   const major = useSearch({ target: "major" })!;
-
+  const guideImageViewCondition =
+    (major === "즐겨찾기" && !mockStarNotification) ||
+    (major !== "즐겨찾기" && !mockSubscribeNotification);
   return (
     <section className={$.notification}>
       <header className={$.header}>
@@ -52,9 +54,11 @@ function Notification() {
           </NavLink>
         ))}
       </div>
-      <div className={$["notification-list"]}>
-        {(major === "즐겨찾기" && !mockStarNotification) ||
-        (major !== "즐겨찾기" && !mockSubscribeNotification) ? (
+      <div
+        className={$["notification-list"]}
+        style={guideImageViewCondition ? { alignItems: "center" } : {}}
+      >
+        {guideImageViewCondition ? (
           <EmptyGuideImage {...{ major }} />
         ) : (
           <CardList notifications={mockNotification} />

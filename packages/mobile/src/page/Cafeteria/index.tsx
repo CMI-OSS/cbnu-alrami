@@ -38,7 +38,7 @@ function Cafeteria() {
               <span>다른 메뉴가 먹고싶다면?</span>
               <Link to="/place/food" className={$["go-out-link"]}>
                 나가서 먹기
-                <Arrow className={$.icon} />
+                <Arrow width={3} height={19} color="#A3B9D6" />
               </Link>
             </div>
           </>
@@ -48,7 +48,7 @@ function Cafeteria() {
             <span>오늘은 식단이 없어요</span>
             <Link to="/place/food" className={$["go-out-link"]}>
               대신 나가서 먹기
-              <Arrow className={$.icon} />
+              <Arrow width={3} height={19} color="#A3B9D6" />
             </Link>
           </div>
         )}

@@ -1,0 +1,48 @@
+@import "../../styles/main.scss";
+
+.cafeteria {
+  padding: 95px 35px 102px;
+}
+
+.go-out {
+  display: flex;
+  flex-direction: column;
+  color: $background-50;
+  font-size: 12px;
+  span {
+    margin: 0 auto 11px;
+    line-height: 20px;
+  }
+  &-link {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    .icon {
+      height: 8px;
+      path {
+        stroke: $background-50;
+      }
+    }
+  }
+}
+
+.no-menu {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .go-out {
+    span {
+      margin-top: 20px;
+      line-height: 26px;
+      font-size: 16px;
+    }
+    &-link {
+      font-size: 14px;
+      .icon {
+        height: 10px;
+      }
+    }
+  }
+}

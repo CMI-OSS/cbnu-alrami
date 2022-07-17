@@ -1,0 +1,43 @@
+@import "@shared/styles/color.scss";
+@import "@shared/styles/mixin.scss";
+@import "../../styles/main.scss";
+
+.menu-list {
+  @include flicking;
+  @include position(fixed, left 0 right 0);
+  display: flex;
+  z-index: 100;
+  padding: 12px 21px 12px 13px;
+  background-color: $white;
+  border-top: 3px solid $background;
+
+  .menu {
+    display: block;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 8px;
+    white-space: nowrap;
+    background-color: $white;
+    color: $black-80;
+    
+    &:not(:first-child) {
+      margin-left: 16px;
+    }
+    
+    &-clicked {
+      background-color: $red-50;
+      color: $white;
+      border-radius: 100px;
+    
+      &:hover {
+        @include hover-status($white, none);
+      }
+    }
+    
+    &-not-clicked {
+      &:hover {
+        @include hover-status(inherit, none);
+      }
+    }
+  }
+}

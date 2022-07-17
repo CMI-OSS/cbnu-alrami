@@ -22,7 +22,7 @@
     "@types/underscore": "^1.11.4",
     "@reduxjs/toolkit": "^1.8.1",
     "react-router-dom": "^6.2.2",
-    "underscore": "^1.13.4"
+    "underscore": "^1.13.4",
     "@types/navermaps": "^3.0.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",

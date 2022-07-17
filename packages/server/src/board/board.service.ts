@@ -6,7 +6,12 @@ import { BoardRepository } from "./board.repository";
 import { BoardCreateDto } from "./dto/board.create.dto";
 import { BoardUpdateDto } from "./dto/board.update.dto";
 
-const { NO_DATA_IN_DB, DUPLICATE_BOARD_NAME, DUPLICATE_BOARD_URL } = Errors;
+const {
+  NO_DATA_IN_DB,
+  DUPLICATE_BOARD_NAME,
+  DUPLICATE_BOARD_URL,
+  BOARD_ID_NOT_FOUND,
+} = Errors;
 
 @Injectable()
 export class BoardService {
@@ -42,7 +47,7 @@ export class BoardService {
 
   async findById(id: number): Promise<Board> {
     const board = await this.boardRepository.findOne({ id });
-    if (!board) throw NO_DATA_IN_DB;
+    if (!board) throw BOARD_ID_NOT_FOUND;
     return board;
   }
 

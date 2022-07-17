@@ -1,0 +1,17 @@
+@import "../../../styles/main.scss";
+
+.empty-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 130px;
+    color: $background-50;
+
+    .description {
+        margin-top: 45px;
+    }
+}
+
+.card-box {
+    padding: 16px 10px 84px;
+}

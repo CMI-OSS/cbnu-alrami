@@ -1,11 +1,19 @@
 import type { StyleProps } from "src/type/props";
 
-function MoreArrow({ className, style }: StyleProps) {
+type Props = {
+  width?: string;
+  height?: string;
+};
+
+function MoreArrow({
+  className,
+  style,
+  width = "5px",
+  height = "12px",
+}: Props & StyleProps) {
   return (
     <svg
-      className={className}
-      width="5"
-      height="12"
+      {...{ className, width, height, style }}
       viewBox="0 0 5 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

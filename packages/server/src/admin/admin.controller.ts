@@ -3,7 +3,7 @@ import { AdminCredential } from "src/auth/dto/adminCredential.dto";
 import { Authority } from "src/commons/constants/enums";
 import { Authorities } from "src/commons/decorators/Authorities.decorator";
 import { PageQuery } from "src/commons/decorators/PageQuery.decorator";
-import { UserField } from "src/commons/decorators/userField.decorator";
+import { UserSession } from "src/commons/decorators/UserSession.decorator";
 import { Admin } from "src/commons/entities/admin.entity";
 import { FindManyOptions } from "typeorm";
 
@@ -15,7 +15,7 @@ export class AdminController {
   constructor(private adminService: AdminService) {}
 
   @Get("me")
-  async getMe(@UserField() user: AdminCredential): Promise<AdminCredential> {
+  async getMe(@UserSession() user: AdminCredential): Promise<AdminCredential> {
     return user;
   }
 

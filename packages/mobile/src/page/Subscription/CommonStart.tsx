@@ -16,6 +16,7 @@ function CommonStart() {
       {COMMON_START_CONTENTS.map((content) => {
         return (
           <BorderBox
+            key={content.title}
             height={87}
             background="#F6F5FB"
             style={{ marginBottom: "12px" }}

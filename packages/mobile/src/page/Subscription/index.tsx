@@ -1,5 +1,5 @@
 import { Close, LeftArrow } from "@components/atoms/icon";
-import CommonEnd from "src/page/Subscription/CommonEnd";
+import Process from "src/page/Subscription/Process";
 
 import $ from "./style.module.scss";
 
@@ -11,7 +11,8 @@ function Subscription() {
         <Close />
       </div>
       {/* <CommonStart /> */}
-      <CommonEnd />
+      <Process />
+      {/* <CommonEnd /> */}
     </div>
   );
 }

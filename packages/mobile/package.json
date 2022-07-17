@@ -18,7 +18,7 @@
     "react-router-dom": "^6.2.2"
   },
   "devDependencies": {
-    "underscore": "^1.13.4"
+    "underscore": "^1.13.4",
     "@types/calendar": "^0.1.2",
     "@types/underscore": "^1.11.4",
     "@reduxjs/toolkit": "^1.8.1",

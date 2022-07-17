@@ -6,7 +6,6 @@ import {
   Param,
   Post,
   Put,
-  Req,
   UseGuards,
 } from "@nestjs/common";
 import {
@@ -16,7 +15,9 @@ import {
   ApiResponse,
   ApiTags,
 } from "@nestjs/swagger";
+import { UserSession } from "src/commons/decorators/UserSession.decorator";
 import { Board } from "src/commons/entities/board.entity";
+import { User } from "src/commons/entities/user.entity";
 import { UserAuthGuard } from "src/commons/guards/user-auth.guard";
 
 import { BoardService } from "./board.service";
@@ -60,9 +61,9 @@ export class BoardController {
     isArray: true,
   })
   @UseGuards(UserAuthGuard)
-  async findAll(@Req() req): Promise<Board[]> {
+  async findAll(@UserSession() user: User): Promise<Board[]> {
     // FIXME: 테스트후 로그 제거
-    console.log(req.user);
+    console.log({ user });
     return this.boardService.findAll();
   }
 

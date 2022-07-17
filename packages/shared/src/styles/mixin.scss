@@ -1,7 +1,6 @@
 @mixin flicking {
   overflow-y: hidden;
   overflow-x: auto;
-  width: calc(100vw);
 }
 
 @mixin ellipsis ($line : 1) {

@@ -6,7 +6,7 @@ type Props = {
   color: string;
 } & StyleProps;
 
-function Arrow({ width, height, color, style }: Props) {
+function Arrow({ width, height, color, style, className }: Props) {
   return (
     <svg
       style={style}

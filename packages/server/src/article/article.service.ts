@@ -7,7 +7,6 @@ import { BoardService } from "src/board/board.service";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
 import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
 import { BookmarkRepository } from "src/bookmark/bookmark.repository";
-import { BookmarkArticleDto } from "src/bookmark/dto/bookmark.article.dto";
 import { Admin } from "src/commons/entities/admin.entity";
 import { Article } from "src/commons/entities/article.entity";
 import { User } from "src/commons/entities/user.entity";
@@ -18,9 +17,12 @@ import { Transactional } from "typeorm-transactional-cls-hooked";
 
 import { ArticleRepository } from "./article.repository";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
-import { ArticleDetailInfoDto } from "./dtos/article.detail.info.dto";
+import {
+  ArticleDetailInfoDto,
+  ArticleListInfoDto,
+  ArticleResponseDto,
+} from "./dtos/article.dto";
 import { ArticleListDto } from "./dtos/article.list.dto";
-import { ArticleResponseDto } from "./dtos/article.response.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
 const { NO_DATA_IN_DB, ARTICLE_URL_EXISTS } = Errors;
@@ -220,7 +222,7 @@ export class ArticleService {
     return true;
   }
 
-  async findBookmarkArticles(user: User): Promise<BookmarkArticleDto[]> {
+  async findBookmarkArticles(user: User): Promise<ArticleListInfoDto[]> {
     const response = [];
     const bookmarkList = await this.bookmarkRepository.find({
       where: {
@@ -237,13 +239,13 @@ export class ArticleService {
 
         const formattedDate = moment(article.date).format("YY-DD-MM");
         response.push(
-          Builder(BookmarkArticleDto)
+          Builder(ArticleListInfoDto)
             .id(article.id)
             .boardName(article.board.name)
             .title(article.title)
             .date(formattedDate)
-            .hitCnt(hitCnt)
-            .bookmarkCnt(bookmarkCnt)
+            .hits(hitCnt)
+            .scraps(bookmarkCnt)
             .build(),
         );
       }),

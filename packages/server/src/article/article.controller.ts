@@ -20,10 +20,12 @@ import { AdminAuthGuard } from "src/commons/guards/admin-auth.guard";
 
 import { ArticleService } from "./article.service";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
-import { ArticleDetailInfoDto } from "./dtos/article.detail.info.dto";
-import { ArticleDto } from "./dtos/article.dto";
+import {
+  ArticleDetailInfoDto,
+  ArticleDto,
+  ArticleResponseDto,
+} from "./dtos/article.dto";
 import { ArticleListDto } from "./dtos/article.list.dto";
-import { ArticleResponseDto } from "./dtos/article.response.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
 @Public()

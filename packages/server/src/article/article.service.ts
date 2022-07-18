@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Builder } from "builder-pattern";
+import * as moment from "moment-timezone";
 import { AdminService } from "src/admin/admin.service";
 import { ArticleImageService } from "src/articleImage/articleImage.service";
 import { BoardService } from "src/board/board.service";
@@ -234,12 +235,13 @@ export class ArticleService {
         const hitCnt = await this.hitRepository.count({ article });
         const bookmarkCnt = await this.bookmarkRepository.count({ article });
 
+        const formattedDate = moment(article.date).format("YY-DD-MM");
         response.push(
           Builder(BookmarkArticleDto)
             .id(article.id)
             .boardName(article.board.name)
             .title(article.title)
-            .date(article.date)
+            .date(formattedDate)
             .hitCnt(hitCnt)
             .bookmarkCnt(bookmarkCnt)
             .build(),

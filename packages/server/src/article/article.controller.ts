@@ -23,6 +23,7 @@ import { ArticleCreateDto } from "./dtos/article.create.dto";
 import {
   ArticleDetailInfoDto,
   ArticleDto,
+  ArticleListInfoDto,
   ArticleResponseDto,
 } from "./dtos/article.dto";
 import { ArticleListDto } from "./dtos/article.list.dto";
@@ -168,9 +169,13 @@ export class ArticleController {
   })
   @ApiResponse({
     status: 200,
-    description: "공지사항 제목과 id",
-    type: ArticleListDto,
+    description: "공지사항 정보",
+    type: ArticleListInfoDto,
     isArray: true,
+  })
+  @ApiHeader({
+    name: "uuid",
+    description: "user uuid",
   })
   async findBookmarkArticles(@UserSession() user: User) {
     return this.articleService.findBookmarkArticles(user);

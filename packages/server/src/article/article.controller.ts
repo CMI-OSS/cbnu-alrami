@@ -180,4 +180,24 @@ export class ArticleController {
   async findBookmarkArticles(@UserSession() user: User) {
     return this.articleService.findBookmarkArticles(user);
   }
+
+  @Get("/articles/subscribe")
+  @ApiOperation({
+    summary: "최신 공지사항 조회 API",
+    description:
+      "유저가 구독 중인 공지사항 사이트에서 최신 공지사항 5개를 조회한다.",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "공지사항 정보",
+    type: ArticleListInfoDto,
+    isArray: true,
+  })
+  @ApiHeader({
+    name: "uuid",
+    description: "user uuid",
+  })
+  async findSubscribeArticles(@UserSession() user: User) {
+    return this.articleService.findSubscribeArticles(user);
+  }
 }

@@ -50,4 +50,13 @@ export class ArticleRepository extends Repository<Article> {
 
     return articles;
   }
+
+  async findRecentArticlesByBoard(boardIdList: number[]): Promise<Article[]> {
+    return this.createQueryBuilder("article")
+      .where("article.board_id IN (:boardIdList)", { boardIdList })
+      .leftJoinAndSelect("article.board", "board")
+      .orderBy("article.date", "DESC")
+      .limit(5)
+      .getMany();
+  }
 }

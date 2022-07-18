@@ -13,6 +13,7 @@ import { User } from "src/commons/entities/user.entity";
 import { Errors } from "src/commons/exception/exception.global";
 import { HitRepository } from "src/hit/hit.repository";
 import { ImageService } from "src/image/image.service";
+import { SubscribeService } from "src/subscribe/subscribe.service";
 import { Transactional } from "typeorm-transactional-cls-hooked";
 
 import { ArticleRepository } from "./article.repository";
@@ -36,6 +37,7 @@ export class ArticleService {
     private readonly adminService: AdminService,
     private readonly boardService: BoardService,
     private readonly boardTreeService: BoardTreeService,
+    private readonly subscribeService: SubscribeService,
     private readonly articleImageService: ArticleImageService,
     private readonly imageService: ImageService,
   ) {}
@@ -234,6 +236,35 @@ export class ArticleService {
     await Promise.all(
       bookmarkList.map(async (bookmark) => {
         const { article } = bookmark;
+        const hitCnt = await this.hitRepository.count({ article });
+        const bookmarkCnt = await this.bookmarkRepository.count({ article });
+
+        const formattedDate = moment(article.date).format("YY-DD-MM");
+        response.push(
+          Builder(ArticleListInfoDto)
+            .id(article.id)
+            .boardName(article.board.name)
+            .title(article.title)
+            .date(formattedDate)
+            .hits(hitCnt)
+            .scraps(bookmarkCnt)
+            .build(),
+        );
+      }),
+    );
+
+    return response;
+  }
+
+  async findSubscribeArticles(user: User): Promise<ArticleListInfoDto[]> {
+    const response = [];
+    const boardIdList = await this.subscribeService.findBoardByUser(user.id);
+    const articleList = await this.articleRepository.findRecentArticlesByBoard(
+      boardIdList,
+    );
+
+    await Promise.all(
+      articleList.map(async (article) => {
         const hitCnt = await this.hitRepository.count({ article });
         const bookmarkCnt = await this.bookmarkRepository.count({ article });
 

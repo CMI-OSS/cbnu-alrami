@@ -8,11 +8,4 @@ export class BookmarkRepository extends Repository<Bookmark> {
       .where("bookmark.article_id = :articleId", { articleId })
       .getCount();
   }
-
-  async findByUser(userId: number) {
-    return this.createQueryBuilder("bookmark")
-      .select("bookmark.article_id")
-      .where("bookmark.user_id = :userId", { userId })
-      .getMany();
-  }
 }

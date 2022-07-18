@@ -6,8 +6,10 @@ import { BoardService } from "src/board/board.service";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
 import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
 import { BookmarkRepository } from "src/bookmark/bookmark.repository";
+import { BookmarkArticleDto } from "src/bookmark/dto/bookmark.article.dto";
 import { Admin } from "src/commons/entities/admin.entity";
 import { Article } from "src/commons/entities/article.entity";
+import { User } from "src/commons/entities/user.entity";
 import { Errors } from "src/commons/exception/exception.global";
 import { HitRepository } from "src/hit/hit.repository";
 import { ImageService } from "src/image/image.service";
@@ -26,7 +28,7 @@ const { NO_DATA_IN_DB, ARTICLE_URL_EXISTS } = Errors;
 export class ArticleService {
   constructor(
     private readonly articleRepository: ArticleRepository,
-    private readonly boomarkRepository: BookmarkRepository,
+    private readonly bookmarkRepository: BookmarkRepository,
     private readonly hitRepository: HitRepository,
     private readonly adminService: AdminService,
     private readonly boardService: BoardService,
@@ -122,7 +124,9 @@ export class ArticleService {
     const board: BoardTreeResponseDto =
       await this.boardTreeService.getBoardTree(article.board.id);
     const hitCnt = await this.hitRepository.countByArticle(article.id);
-    const bookmarkCnt = await this.boomarkRepository.countByArticle(article.id);
+    const bookmarkCnt = await this.bookmarkRepository.countByArticle(
+      article.id,
+    );
 
     return Builder(ArticleResponseDto)
       .id(article.id)
@@ -148,7 +152,7 @@ export class ArticleService {
     await Promise.all(
       articles.map(async (article) => {
         const hitCnt = await this.hitRepository.countByArticle(article.id);
-        const bookmarkCnt = await this.boomarkRepository.countByArticle(
+        const bookmarkCnt = await this.bookmarkRepository.countByArticle(
           article.id,
         );
         response.push(
@@ -213,5 +217,36 @@ export class ArticleService {
     await this.findById(id);
     await this.articleRepository.delete({ id });
     return true;
+  }
+
+  async findBookmarkArticles(user: User): Promise<BookmarkArticleDto[]> {
+    const response = [];
+    const bookmarkList = await this.bookmarkRepository.find({
+      where: {
+        user,
+      },
+      relations: [ "article" ],
+    });
+
+    await Promise.all(
+      bookmarkList.map(async (bookmark) => {
+        const { article } = bookmark;
+        const hitCnt = await this.hitRepository.count({ article });
+        const bookmarkCnt = await this.bookmarkRepository.count({ article });
+
+        response.push(
+          Builder(BookmarkArticleDto)
+            .id(article.id)
+            .boardName(article.board.name)
+            .title(article.title)
+            .date(article.date)
+            .hitCnt(hitCnt)
+            .bookmarkCnt(bookmarkCnt)
+            .build(),
+        );
+      }),
+    );
+
+    return response;
   }
 }

@@ -14,6 +14,8 @@ import { Builder } from "builder-pattern";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
 import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
 import { Public } from "src/commons/decorators/public.decorator";
+import { UserSession } from "src/commons/decorators/UserSession.decorator";
+import { User } from "src/commons/entities/user.entity";
 import { AdminAuthGuard } from "src/commons/guards/admin-auth.guard";
 
 import { ArticleService } from "./article.service";
@@ -155,5 +157,20 @@ export class ArticleController {
   })
   async findPopularArticles(): Promise<ArticleListDto[]> {
     return this.articleService.findTopArticlesByHit();
+  }
+
+  @Get("/articles/bookmarks")
+  @ApiOperation({
+    summary: "북마크한 공지사항 조회 API",
+    description: "유저가 북마크한 공지사항들을 조회한다.",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "공지사항 제목과 id",
+    type: ArticleListDto,
+    isArray: true,
+  })
+  async findBookmarkArticles(@UserSession() user: User) {
+    return this.articleService.findBookmarkArticles(user);
   }
 }

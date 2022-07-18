@@ -1,0 +1,36 @@
+@import "../../../styles/main.scss";
+
+.date-button {
+    display: flex;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 24px;
+    line-height: 24px;
+}
+
+.red-date {
+    color: $red-50;
+}
+
+.gray-date {
+    color: $black-40;
+}
+
+.selected-circle {
+    color: $black-80;
+    background-color: $red-10;
+}
+
+.today-circle {
+    color: $black-0;
+    background-color: $red-50;
+}
+
+.schedule-dot {
+    width: 5px;
+    height: 5px;
+    margin-top: 7px;
+    border-radius: calc(5px / 2);
+    background-color: $black-20;
+}

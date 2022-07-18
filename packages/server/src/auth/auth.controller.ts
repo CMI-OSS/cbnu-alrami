@@ -17,7 +17,6 @@ import { TokenDto } from "./dto/token.dto";
 export class AuthController {
   constructor(@Inject(AuthService) private authService: AuthService) {}
 
-  @Public()
   @Post("admins/join")
   @ApiOperation({
     summary: "관리자 계정 생성",
@@ -49,8 +48,7 @@ export class AuthController {
     description: "로그인 성공",
     type: TokenDto,
   })
-  async adminLogin(@Body() user: AdminLoginDto): Promise<TokenDto> {
-    console.log({ user });
-    return this.authService.adminLogin(user);
+  async adminLogin(@Body() admin: AdminLoginDto): Promise<TokenDto> {
+    return this.authService.adminLogin(admin);
   }
 }

@@ -10,7 +10,7 @@
   left: 0;
   z-index: 100;
   background-color: $white;
-  height: 70px;
+  height: 60px;
   width: 100%;
 }
 
@@ -19,7 +19,7 @@
   top: 0;
   left: 0;
   display: inline-block;
-  max-height: 70px;
+  max-height: 60px;
   padding: 25px 22px 26px;
 }
 
@@ -30,5 +30,5 @@
   color: $black-100;
   letter-spacing: 0.02em;
   text-align: center;
-  padding: 25px 50px 26px;
+  padding: 25px 50px 16px;
 }

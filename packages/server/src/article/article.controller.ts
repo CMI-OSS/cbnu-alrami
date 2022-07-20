@@ -7,7 +7,7 @@ import {
   Post,
   Put,
   Req,
-  UseGuards,
+  UseGuards
 } from "@nestjs/common";
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Builder } from "builder-pattern";
@@ -145,7 +145,7 @@ export class ArticleController {
   @ApiOperation({
     summary: "인기 공지사항 조회 API",
     description:
-      "조회수와 공지사항 등록일을 이용, 제일 인기 많은 상위 5개의 공지사항들을 조회한다.",
+      "조회수와 공지사항 등록일을 이용, 최근 2주 동안 제일 인기가 많았던 상위 5개의 공지사항들을 조회한다.",
   })
   @ApiResponse({
     status: 200,

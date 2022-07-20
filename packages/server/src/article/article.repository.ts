@@ -29,8 +29,10 @@ export class ArticleRepository extends Repository<Article> {
                FROM hit
                         LEFT JOIN article
                                   ON hit.article_id = article.id
+               WHERE article.date > date_add(now(),interval -2 week)
                GROUP BY hit.article_id) AS A
-      GROUP BY count desc, date desc;
+      GROUP BY count desc, date desc
+      LIMIT 5;
       `);
     return findPopularArticles;
   }

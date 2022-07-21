@@ -91,7 +91,7 @@
 
 .item {
   display: flex;
-
+  color: $black-80;
   &:not(:first-child) {
     margin-top: 25px;
   }

@@ -1,7 +1,8 @@
 import "./mobile.scss";
-import { Provider } from "react-redux";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import Subscription from "src/page/Subscription";
 
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
@@ -13,7 +14,6 @@ import MoreImage from "./page/MoreImage";
 import Notification from "./page/Notification";
 import Place from "./page/Place";
 import Report from "./page/Report";
-import { store } from "./store";
 
 function App() {
   const routes = [
@@ -25,6 +25,7 @@ function App() {
     { id: 6, path: "/more", element: <MoreImage /> },
     { id: 7, path: "/call", element: <Call /> },
     { id: 8, path: "/error", element: <Report /> },
+    { id: 9, path: "/subscription", element: <Subscription /> },
   ];
 
   return (
@@ -41,12 +42,4 @@ function App() {
   );
 }
 
-function ProviderApp() {
-  return (
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
-}
-
-export default ProviderApp;
+export default App;

@@ -1,12 +1,39 @@
+import { HttpService } from "@nestjs/axios";
 import { Injectable } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { Cron, CronExpression } from "@nestjs/schedule";
+import { firstValueFrom } from "rxjs";
 
 import { Schedule } from "../commons/entities/schedule.entity";
 import { GetSchedulesRequestDto } from "./dtos/get-schedules-request.dto";
 import { ScheduleRepository } from "./schedule.repository";
 
+interface holidayData {
+  dateKind: "01";
+  dateName: string;
+  isHoliday: "Y";
+  locdate: Date;
+  seq: 1;
+}
+
 @Injectable()
 export class ScheduleService {
-  constructor(private readonly scheduleRepository: ScheduleRepository) {}
+  private readonly holidayKey;
+  private readonly holidayUrl;
+
+  constructor(
+    private readonly scheduleRepository: ScheduleRepository,
+    private readonly httpService: HttpService,
+    private readonly configService: ConfigService,
+  ) {
+    this.holidayKey = this.configService.get("holiday.key");
+    this.holidayUrl = this.configService.get("holiday.url");
+  }
+
+  private static getYear(): number {
+    const today = new Date();
+    return today.getFullYear();
+  }
 
   public getSchedules(
     getSchedulesRequestDto: GetSchedulesRequestDto,
@@ -17,5 +44,33 @@ export class ScheduleService {
       return this.scheduleRepository.getDailySchedules(startDate);
     }
     return this.scheduleRepository.getSchedules(getSchedulesRequestDto);
+  }
+
+  @Cron(CronExpression.EVERY_YEAR)
+  public async getHolidays(): Promise<void> {
+    const url = `${this.holidayUrl}`;
+
+    const serviceKey = `?ServiceKey=${this.holidayKey}`;
+
+    const year = ScheduleService.getYear();
+    const solYear = `&solYear=${year}`;
+
+    const holiday = await firstValueFrom(
+      this.httpService.get(`${url}${serviceKey}${solYear}&numOfRows=30`),
+    );
+
+    const holidayData: holidayData[] = holiday.data.response.body.items.item;
+
+    await this.saveHoliday(holidayData);
+  }
+
+  private async saveHoliday(holidayData): Promise<void> {
+    await Promise.all(
+      holidayData.map(async (holiday) => {
+        const { dateName, locdate } = holiday;
+
+        return this.scheduleRepository.saveHoliday(dateName, locdate);
+      }),
+    );
   }
 }

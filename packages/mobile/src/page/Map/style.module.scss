@@ -1,4 +1,5 @@
 @import "@shared/styles/color.scss";
+@import "@shared/styles/mixin.scss";
 
 $footerHeight: 65px;
 $footerLinkDistance: 20px;
@@ -8,6 +9,20 @@ $linkTooltipDistance: 17px;
 .map {
   width: 100vw;
   height: 100vh;
+}
+
+.place-link {
+  @include position(absolute, top 15px left 15px);
+  z-index: 1000;
+  width: 49px;
+  height: 49px;
+  border-radius: 50%;
+  background-color: $white;
+}
+
+.place-arrow {
+  @include position(absolute, top 50% left 50%);
+  transform: translate(-50%, -50%);
 }
 
 .wrap {
@@ -20,7 +35,7 @@ $linkTooltipDistance: 17px;
   bottom: $footerHeight + $footerLinkDistance + $linkHeight + $linkTooltipDistance;
   right: 26px;
   border-radius: 10px;
-  padding: 10px 10px 10px 14px;
+  padding: 15px 10px 10px 14px;
   background-color: $white;
   font-size: 12px;
   letter-spacing: -0.02em;
@@ -28,17 +43,12 @@ $linkTooltipDistance: 17px;
   color: $black-80;
 }
 
-.content {
-  position: relative;
-}
-
 .close_button {
   position: absolute;
-  top: -4px;
-  right: 0;
+  top: 3px;
+  right: 5px;
   background-color: transparent;
-  padding: 10px;
-  margin: -10px;
+  padding: 5px;
 }
 
 .close_icon {

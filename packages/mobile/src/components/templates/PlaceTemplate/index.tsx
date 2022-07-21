@@ -1,17 +1,18 @@
 import { useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { MapArrow } from "@components/atoms/icon/MapArrow";
 import Chips from "@components/molecules/Chips";
-import { useAppDispatch, useAppSelector } from "src/store";
+import { useAppDispatch } from "src/store";
 import { setHashMenu } from "src/store/placeSlice";
 
 import {
-  constructionList,
+  convenientList,
   foodList,
   imageList,
   menuList,
   playList,
+  schoolList,
   snackList,
 } from "../../../__mocks__/index";
 import $ from "./style.module.scss";
@@ -25,7 +26,7 @@ function PlaceTemplate({ menuType }: Props) {
   const getHashList = () => {
     switch (menuType) {
       case 1:
-        return constructionList;
+        return schoolList;
       case 2:
         return foodList;
       case 4:
@@ -33,7 +34,7 @@ function PlaceTemplate({ menuType }: Props) {
       case 5:
         return playList;
       default:
-        return constructionList;
+        return convenientList;
     }
   };
 

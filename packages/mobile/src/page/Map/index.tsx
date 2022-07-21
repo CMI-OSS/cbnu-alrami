@@ -132,7 +132,7 @@ function Map() {
               <PlaceArrow className={$.arrow} />
             </div>
           )}
-          <NavLink to="/place/school" className={$.link}>
+          <NavLink to="/place/school/1" className={$.link}>
             <PlaceMenu className={$.icon} />
             <span className="blind">장소탐색하기</span>
           </NavLink>

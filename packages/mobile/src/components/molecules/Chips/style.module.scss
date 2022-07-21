@@ -27,7 +27,7 @@
     margin-left: 12px;
   }
 
-  &[aria-selected="true"] {
+  &.active {
     background-color: $red-20;
     color: $red-100;
     border-radius: 100px;

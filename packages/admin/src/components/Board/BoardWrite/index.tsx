@@ -73,6 +73,7 @@ export default function BoardWrite() {
     }
     console.log({
       // Todo: API communication
+      boardImgList,
       boardTitle: title,
       boardCategory: category,
       boardContent,

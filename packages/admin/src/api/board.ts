@@ -1,12 +1,14 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQuery from "src/api/baseQuery";
 
+import { imgType } from "../types/index";
+
 export const boardWriteApi = createApi({
   reducerPath: "boardWriteApi",
-  baseQuery,
+  baseQuery: baseQuery(),
   tagTypes: [ "ImgUpload" ],
   endpoints: (build) => ({
-    imgUpload: build.mutation<string[], FormData>({
+    imgUpload: build.mutation<imgType[], FormData>({
       query(data) {
         return {
           url: "upload/images",

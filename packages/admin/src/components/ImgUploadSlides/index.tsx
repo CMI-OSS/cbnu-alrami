@@ -1,6 +1,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable react/no-array-index-key */
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { IoImagesOutline } from "react-icons/io5";
 import {
@@ -9,7 +9,6 @@ import {
 } from "react-icons/md";
 
 import classNames from "classnames";
-import { imgListMocks } from "src/__mockData__";
 import { useImgUploadMutation } from "src/api/board";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { writeBoard, changeCurrentImg } from "src/store/boardSlice";
@@ -25,14 +24,12 @@ interface Props {
 
 export default function ImgSlides({ imgList }: Props) {
   const dispatch = useAppDispatch();
-  const { currentImgIdx } = useAppSelector(
+  const { boardImgList, currentImgIdx } = useAppSelector(
     (state) => state.boardReducer.board.write,
   );
-  const idRef = useRef(-1);
   const [ isFetched, setIsFetched ] = useState(false);
-  const [ imgSrcList, setImgSrcList ] = useState<imgType[]>([]);
-  const [ mouseDownClientX, setMouseDownClientX ] = useState<number>(0);
-  const [ mouseUpClientX, setMouseUpClientX ] = useState<number>(0);
+  const [ mouseDownClientX, setMouseDownClientX ] = useState(0);
+  const [ mouseUpClientX, setMouseUpClientX ] = useState(0);
   const [ imgUpload, { isLoading, isSuccess } ] = useImgUploadMutation();
   const loadingSpinner = (
     <LoadingSpinner width={5} borderWidth={0.3} color="#000" />
@@ -64,43 +61,28 @@ export default function ImgSlides({ imgList }: Props) {
         formData.append("image", file);
       });
 
-      const res = [ ...imgListMocks ]; // 서버 통신이 안돼서 mock데이터로 테스트
-      const data = res.map((src) => ({
-        id: idRef.current++,
-        src,
-      }));
-      setIsFetched(true);
-      setImgSrcList([ ...imgSrcList, ...data ]);
-      dispatch(writeBoard({ boardImgList: [ ...imgSrcList, ...data ] }));
-
-      // try {
-      //   const res = await imgUpload(formData).unwrap();
-      //   const data = res.map((src) => {
-      //     idRef.current += 1;
-      //     return {
-      //       id: idRef.current + 1,
-      //       src,
-      //     };
-      //   });
-      //   setIsFetched(true);
-      //   setImgSrcList([ ...imgSrcList, ...data ]);
-      //   dispatch(writeBoard({ boardImgList: [ ...imgSrcList, ...data ] }));
-      // } catch (e) {
-      //   console.log(e);
-      // } finally {
-      //   setIsFetched(true);
-      // }
+      try {
+        const data = await imgUpload(formData).unwrap();
+        setIsFetched(true);
+        dispatch(writeBoard({ boardImgList: [ ...boardImgList, ...data ] }));
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setIsFetched(true);
+      }
     }
   };
 
   function onLoadFile(e: React.ChangeEvent | React.DragEvent) {
-    if (e.type === "drop") {
-      const { dataTransfer } = e as React.DragEvent<HTMLInputElement>;
+    if (e.type === "drop" && "dataTransfer" in e) {
+      const { dataTransfer } = e;
       uploadFiles(dataTransfer.files);
     }
-    if (e.type === "change") {
-      const { target } = e as React.ChangeEvent<HTMLInputElement>;
-      if (target.files) uploadFiles(target.files);
+    if (e.type === "change" && "files" in e.target) {
+      const {
+        target: { files },
+      } = e;
+      if (files) uploadFiles(files);
     }
   }
 
@@ -143,7 +125,7 @@ export default function ImgSlides({ imgList }: Props) {
                 }}
               >
                 {imgList.map((img, idx) => (
-                  <ImgCard key={`img-${img.src}-${idx}`} img={img} />
+                  <ImgCard key={`img-${img.url}-${idx}`} data={img} />
                 ))}
               </ul>
 

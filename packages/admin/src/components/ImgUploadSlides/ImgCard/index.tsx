@@ -6,13 +6,13 @@ import { changeCurrentImg, writeBoard } from "src/store/boardSlice";
 import $ from "./style.module.scss";
 
 interface Props {
-  img: {
+  data: {
     id: number;
-    src: string;
+    url: string;
   };
 }
 
-export default function ImgCard({ img: { id, src } }: Props) {
+export default function ImgCard({ data: { id, url } }: Props) {
   const dispatch = useAppDispatch();
   const { boardImgList, currentImgIdx } = useAppSelector(
     (state) => state.boardReducer.board.write,
@@ -21,7 +21,7 @@ export default function ImgCard({ img: { id, src } }: Props) {
   return (
     <li className={$["img-card"]}>
       <div className={$["img-wrapper"]}>
-        <img alt="업로드할 이미지" src={src} />
+        <img alt="업로드할 이미지" src={url} />
       </div>
       <button
         type="button"

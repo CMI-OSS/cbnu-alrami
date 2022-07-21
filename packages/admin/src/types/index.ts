@@ -34,5 +34,5 @@ export type AdminJoinFormErrors = {
 
 export type imgType = {
   id: number;
-  src: string;
+  url: string;
 };

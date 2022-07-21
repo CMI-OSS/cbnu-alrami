@@ -1,0 +1,59 @@
+@import "@shared/styles/main.scss";
+@import "src/styles/mixin.scss";
+
+.img-slides {
+  width: 25rem;
+  height: 25rem;
+  margin-top: 1rem;
+  border: 1px solid $gray-350;
+  .img-list-box {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: $white;
+    user-select: none;
+    .img-lists {
+      display: flex;
+      transition: all 0.3s ease 0s;
+    }
+    .button-add,
+    .button-prev,
+    .button-next {
+      position: absolute;
+      top: 45%;
+      background-color: transparent;
+      font-size: 30px;
+      color: $gray-400;
+    }
+    .button-add {
+      top: 0;
+      padding: 0.5rem;
+      cursor:pointer;
+    }
+    .button-prev {
+      padding-left: 0.2rem;
+    }
+    .button-next {
+      right: 0;
+      padding-right: 0.2rem;
+    }
+  }
+  .no-image {
+    height: calc(25rem - 2px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $white;
+    cursor: pointer;
+    svg {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+    span {
+      font-weight: 500;
+      font-size: 0.8rem;
+    }
+  }
+}

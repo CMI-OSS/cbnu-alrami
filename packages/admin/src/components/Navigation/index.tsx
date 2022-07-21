@@ -58,7 +58,11 @@ export default function Navigation() {
   const isLoginMatch = useMatch("/login");
   const { pathname } = useLocation();
   const [ active, setActive ] = useState(-1);
-  const boardState = useAppSelector((state) => state.boardReducer.board.write);
+  const { boardImgList, boardTitle, boardCategory, boardContent } =
+    useAppSelector((state) => state.boardReducer.board.write);
+  const boardState = {
+    ...{ boardImgList, boardTitle, boardCategory, boardContent },
+  };
   const navMenus = [ BOARD_MENUS, SCRAPER_MENUS, ADMIN_MANAGE_MENUS ];
 
   useEffect(() => {
@@ -93,7 +97,8 @@ export default function Navigation() {
                     {label}
                     {label === "게시물 작성" &&
                       Object.values(boardState).some(
-                        (x) => x !== "" && x !== "<p><br></p>",
+                        (x) =>
+                          x !== "" && x !== "<p><br></p>" && x.length !== 0,
                       ) && <span>(작성중)</span>}
                   </NavLink>
                 ))}

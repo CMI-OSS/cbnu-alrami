@@ -1,3 +1,4 @@
+import { addHours, subWeeks } from "date-fns";
 import { Article } from "src/commons/entities/article.entity";
 import { EntityRepository, getManager, Repository } from "typeorm";
 
@@ -29,8 +30,10 @@ export class ArticleRepository extends Repository<Article> {
                FROM hit
                         LEFT JOIN article
                                   ON hit.article_id = article.id
+               WHERE article.date >= date_add(now(),interval -2 week)
                GROUP BY hit.article_id) AS A
-      GROUP BY count desc, date desc;
+      GROUP BY count desc, date desc
+      LIMIT 5;
       `);
     return findPopularArticles;
   }
@@ -39,11 +42,13 @@ export class ArticleRepository extends Repository<Article> {
     num: number,
     idList: number[],
   ): Promise<ArticleListDto[]> {
+    const afterDate = subWeeks(addHours(new Date(), 9), 2);
     const articles = this.createQueryBuilder("article")
       .select([ "article.id", "article.title" ])
       .andWhere(idList.length > 0 ? "article.id NOT IN (:...idList)" : "1=1", {
         idList,
       })
+      .andWhere("article.date >= :afterDate", { afterDate })
       .orderBy("article.date", "DESC")
       .limit(num)
       .getMany();

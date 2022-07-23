@@ -18,16 +18,16 @@ function Radio({ className, label, isChecked, handleChange, style }: Props) {
         {label}
       </label>
 
-      <div className={classnames($.radio, { [$.checked]: isChecked })}>
+      <span className={classnames($.radio, { [$.checked]: isChecked })}>
         <input
           id="radio"
           type="radio"
           checked={isChecked}
           value={label}
-          onChange={(e) => handleChange(e.target.value)}
           className={classnames($["radio-input"], { [$.checked]: isChecked })}
+          onChange={(e) => handleChange(e.target.value)}
         />
-      </div>
+      </span>
     </div>
   );
 }

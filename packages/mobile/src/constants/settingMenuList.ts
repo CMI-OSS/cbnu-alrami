@@ -1,12 +1,10 @@
 import {
-  Subscribe,
-  Food,
-  Speaker,
-  Experiment,
-  Help,
   AppVersion,
   Email,
+  Food,
   Person,
+  Speaker,
+  Subscribe,
 } from "src/components/atoms/icon";
 import { settingLabel } from "src/type";
 
@@ -38,14 +36,6 @@ const settingMenuList: settingMenu[] = [
   },
   {
     id: 3,
-    icon: Experiment,
-    label: "실험실",
-    to: "./experiment",
-    width: "16px",
-    height: "20.71px",
-  },
-  {
-    id: 4,
     icon: Speaker,
     label: "공지사항",
     to: "./notice",
@@ -53,15 +43,7 @@ const settingMenuList: settingMenu[] = [
     height: "15.03px",
   },
   {
-    id: 5,
-    icon: Help,
-    label: "도움말",
-    to: "./help",
-    width: "18.02px",
-    height: "18.02px",
-  },
-  {
-    id: 6,
+    id: 4,
     icon: AppVersion,
     label: "앱 버전",
     to: "./appversion",
@@ -69,7 +51,7 @@ const settingMenuList: settingMenu[] = [
     height: "17.62px",
   },
   {
-    id: 7,
+    id: 5,
     icon: Email,
     label: "문의하기",
     to: "./contact",
@@ -77,7 +59,7 @@ const settingMenuList: settingMenu[] = [
     height: "12.6px",
   },
   {
-    id: 8,
+    id: 6,
     icon: Person,
     label: "만든이",
     to: "./creator",

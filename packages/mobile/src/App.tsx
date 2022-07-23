@@ -3,6 +3,7 @@ import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Subscription from "src/page/Subscription";
+import MajorProcess2 from "src/page/Subscription/MajorProcess2";
 
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
@@ -14,6 +15,9 @@ import MoreImage from "./page/MoreImage";
 import Notification from "./page/Notification";
 import Place from "./page/Place";
 import Report from "./page/Report";
+import CommonProcess from "./page/Subscription/CommonProcess";
+import End from "./page/Subscription/End";
+import MajorProcess1 from "./page/Subscription/MajorProcess1";
 
 function App() {
   const routes = [
@@ -26,6 +30,11 @@ function App() {
     { id: 7, path: "/call", element: <Call /> },
     { id: 8, path: "/error", element: <Report /> },
     { id: 9, path: "/subscription", element: <Subscription /> },
+    { id: 10, path: "/subscription/common", element: <CommonProcess /> },
+    { id: 11, path: "/subscription/common/:id", element: <End /> },
+    { id: 10, path: "/subscription/major", element: <MajorProcess1 /> },
+    { id: 11, path: "/subscription/major/:fullId", element: <MajorProcess2 /> },
+    { id: 11, path: "/subscription/major/:fullId/:id", element: <End /> },
   ];
 
   return (

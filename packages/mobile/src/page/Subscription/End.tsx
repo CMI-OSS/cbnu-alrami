@@ -1,7 +1,17 @@
-import { Alarm, Subscription, UnSubscription } from "@components/atoms/icon";
-import { Arrow } from "@components/atoms/icon/Arrow";
+import { useParams } from "react-router-dom";
+
+import {
+  Alarm,
+  Close,
+  LeftArrow,
+  Subscription,
+  UnSubscription,
+} from "@components/atoms/icon";
 import BorderBox from "src/components/atoms/BorderBox";
+import { Arrow } from "src/components/atoms/icon/Arrow";
+import { commonMockData } from "src/page/Subscription/CommonProcess";
 import { GUIDE } from "src/page/Subscription/constant";
+import { majorMockData } from "src/page/Subscription/MajorProcess1";
 import $ from "src/page/Subscription/style.module.scss";
 
 const 구독안함 = () => {
@@ -21,6 +31,7 @@ const 구독하고알람함 = () => {
     </>
   );
 };
+동;
 
 const 구독하고알람안함 = () => {
   return (
@@ -34,17 +45,28 @@ const 구독하고알람안함 = () => {
   );
 };
 
-function CommonEnd() {
-  const COMMON_END_CONTENTS = [
-    { title: "학부공지", isSubscribe: false, isAlarm: false },
-    { title: "대학원공지", isSubscribe: true, isAlarm: true },
-    { title: "대학원공지", isSubscribe: true, isAlarm: false },
-  ];
+function End() {
+  const { id, fullId } = useParams();
+  const type = fullId ? "전공" : "전체";
+  const data = type === "전체" ? commonMockData : majorMockData;
+  const mockData = data.find(
+    (data) => `${data.id}` === (type === "전체" ? id : fullId),
+  )!;
+
+  const fullName = mockData?.name;
+  const children =
+    type === "전체" ? mockData?.children : mockData?.children[0]?.children;
 
   return (
-    <div className={$["common-start"]}>
+    <div className={$.subscription}>
+      <div className={$.header}>
+        <LeftArrow />
+        <Close />
+      </div>
       <div className={$.guide}>
-        <div className={$.title}>전체</div>
+        <div className={$.title}>
+          {type}&nbsp;&gt;{fullName}
+        </div>
         <div className={$.content}>
           <UnSubscription
             style={{
@@ -56,7 +78,7 @@ function CommonEnd() {
           {GUIDE.common_end}
         </div>
       </div>
-      {COMMON_END_CONTENTS.map((content) => {
+      {children.map((content: any) => {
         return (
           <BorderBox
             height={87}
@@ -65,15 +87,17 @@ function CommonEnd() {
           >
             <div className={$["subscription-box-base"]}>
               <div className={$.left}>
-                <span className={$.title}>{content.title}</span>
+                <span className={$.title}>{content.name}</span>
                 <Arrow width={4} height={13} color="#AAAAAA" />
               </div>
               <div className={$.right}>
-                {content.isSubscribe && content.isAlarm && <구독하고알람함 />}
-                {content.isSubscribe && !content.isAlarm && (
+                {content.isSubscribing && content.isNoticing && (
+                  <구독하고알람함 />
+                )}
+                {content.isSubscribing && !content.isNoticing && (
                   <구독하고알람안함 />
                 )}
-                {!content.isSubscribe && <구독안함 />}
+                {!content.isSubscribing && <구독안함 />}
               </div>
             </div>
           </BorderBox>
@@ -83,4 +107,4 @@ function CommonEnd() {
   );
 }
 
-export default CommonEnd;
+export default End;

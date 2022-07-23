@@ -1,6 +1,6 @@
 import { Close, LeftArrow } from "@components/atoms/icon";
-import Process from "src/page/Subscription/Process";
 
+import Start from "./Start";
 import $ from "./style.module.scss";
 
 function Subscription() {
@@ -10,9 +10,7 @@ function Subscription() {
         <LeftArrow />
         <Close />
       </div>
-      {/* <CommonStart /> */}
-      <Process />
-      {/* <CommonEnd /> */}
+      <Start />
     </div>
   );
 }

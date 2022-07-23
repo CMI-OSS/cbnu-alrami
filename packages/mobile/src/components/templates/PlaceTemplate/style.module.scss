@@ -10,7 +10,7 @@
   z-index: 100;
   display: flex;
   justify-content: space-between;
-  height: 70px;
+  height: 60px;
   background-color: $white;
 }
 
@@ -42,7 +42,7 @@
 
 .menu {
   position: fixed;
-  top: 70px;
+  top: 60px;
   left: 0;
   right: 0;
   z-index: 100;
@@ -92,7 +92,7 @@
 }
 
 .image_list {
-  margin-top: 190px;
+  margin-top: 180px;
 }
 
 .item {
@@ -137,6 +137,7 @@
 
 .summary_description {
   display: block;
-  margin-top: 10px;
+  font-size: 12px;
+  margin-top: 6px;
   color: $black-40;
 }

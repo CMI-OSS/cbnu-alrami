@@ -1,11 +1,14 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import axiosBaseQuery from "src/api/baseQuery";
+import baseQuery from "src/api/baseQuery";
+
+import { imgType } from "../types/index";
 
 export const boardWriteApi = createApi({
   reducerPath: "boardWriteApi",
-  baseQuery: axiosBaseQuery(),
+  baseQuery: baseQuery(),
+  tagTypes: [ "ImgUpload" ],
   endpoints: (build) => ({
-    imgUpload: build.mutation<string[], FormData>({
+    imgUpload: build.mutation<imgType[], FormData>({
       query(data) {
         return {
           url: "upload/images",
@@ -13,6 +16,7 @@ export const boardWriteApi = createApi({
           data,
         };
       },
+      invalidatesTags: [ "ImgUpload" ],
     }),
   }),
 });

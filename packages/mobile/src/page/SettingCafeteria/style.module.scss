@@ -1,10 +1,12 @@
 @import "@shared/styles/color.scss";
 
 .setting-cafeteria{
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 48px 118px 49px;
+  justify-content: center;
+  padding: 48px 0;
   .text {
     margin-top: 19.67px;
     font-weight: 400;
@@ -13,5 +15,16 @@
     text-align: center;
     letter-spacing: 0.015em;
     color: $black-80;
+  }
+}
+
+.select-cafeteria {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+  border-radius: 20px;
+  .radio-select {
+    padding: 27px 30px;
   }
 }

@@ -11,7 +11,7 @@ type Props = {
   handleChange: (label: string) => void;
 } & StyleProps;
 
-function Radio({ className, label, isChecked, handleChange, style }: Props) {
+function RadioSelect({ className, label, isChecked, handleChange, style }: Props) {
   return (
     <div className={classnames($["radio-box"], className)} style={style}>
       <label htmlFor="radio" className={$["radio-label"]}>
@@ -32,4 +32,4 @@ function Radio({ className, label, isChecked, handleChange, style }: Props) {
   );
 }
 
-export default memo(Radio);
+export default memo(RadioSelect);

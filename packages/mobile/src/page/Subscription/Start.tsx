@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 import BorderBox from "@components/atoms/BorderBox";
-import { Close, LeftArrow } from "@components/atoms/icon";
+import SubscriptionModalTemplate from "@components/templates/SubscriptionModalTemplate";
 import { GUIDE } from "src/page/Subscription/constant";
 
 import $ from "./style.module.scss";
@@ -21,11 +21,7 @@ function Start() {
   ];
 
   return (
-    <div className={$.subscription}>
-      <div className={$.header}>
-        <LeftArrow />
-        <Close />
-      </div>
+    <SubscriptionModalTemplate>
       <div className={$.guide}>
         <div className={$.title}>전체</div>
         <div className={$.content}>{GUIDE.common_start}</div>
@@ -47,7 +43,7 @@ function Start() {
           </Link>
         );
       })}
-    </div>
+    </SubscriptionModalTemplate>
   );
 }
 

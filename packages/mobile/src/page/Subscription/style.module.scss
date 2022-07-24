@@ -1,63 +1,51 @@
 @import '../../styles/main.scss';
 
-.subscription {
-  height: 100vh;
-  padding: 0 25px;
-  background: #fff;
 
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 70px;
+.guide {
+  padding-top: 34px;
+  padding-bottom: 73px;
+  white-space: pre-wrap;
+
+  .title {
+    margin-bottom: 12px;
+    @include typography(14);
+    color: $black-40;
   }
 
-  .guide {
-    padding-top: 34px;
-    padding-bottom: 73px;
-    white-space: pre-wrap;
+  .content {
+    @include typography(25);
+    color: $black-80;
+    font-weight: 500;
+  }
+}
 
-    .title {
-      margin-bottom: 12px;
-      @include typography(14);
-      color: $black-40;
-    }
+.subscription-box-base {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 20px 32px 21px;
 
-    .content {
-      @include typography(25);
-      color: $black-80;
-      font-weight: 500;
-    }
+  .title {
+    margin-right: 7px;
+    font-weight: 500;
+    @include typography(18);
+  }
+}
+
+.subscription-box-content {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 21px;
+
+  .title {
+    margin-bottom: 13px;
+    font-weight: 500;
+    @include typography(18);
   }
 
-  .subscription-box-base {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 32px 20px 32px 21px;
-
-    .title {
-      margin-right: 7px;
-      font-weight: 500;
-      @include typography(18);
-    }
+  .content {
+    @include typography(14);
+    color: $black-40;
   }
 
-  .subscription-box-content {
-    display: flex;
-    flex-direction: column;
-    padding: 18px 21px;
-
-    .title {
-      margin-bottom: 13px;
-      font-weight: 500;
-      @include typography(18);
-    }
-
-    .content {
-      @include typography(14);
-      color: $black-40;
-    }
-
-  }
 }

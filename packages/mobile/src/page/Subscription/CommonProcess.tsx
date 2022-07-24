@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 import BorderBox from "@components/atoms/BorderBox";
-import { Close, LeftArrow } from "@components/atoms/icon";
+import SubscriptionModalTemplate from "src/components/templates/SubscriptionModalTemplate";
 import { GUIDE } from "src/page/Subscription/constant";
 import $ from "src/page/Subscription/style.module.scss";
 
@@ -25,32 +25,26 @@ export const commonMockData = [
 
 function CommonProcess() {
   return (
-    <div className={$.subscription}>
-      <div className={$.header}>
-        <LeftArrow />
-        <Close />
+    <SubscriptionModalTemplate>
+      <div className={$.guide}>
+        <div className={$.title}>전체&nbsp;&gt;&nbsp;공통</div>
+        <div className={$.content}>{GUIDE.all_depth1}</div>
       </div>
-      <div className={$.process}>
-        <div className={$.guide}>
-          <div className={$.title}>전체&nbsp;&gt;&nbsp;공통</div>
-          <div className={$.content}>{GUIDE.all_depth1}</div>
-        </div>
-        {commonMockData.map((data) => (
-          <Link to={`/subscription/common/${data.id}`} key={data.id}>
-            <BorderBox
-              key={data.name}
-              height={87}
-              background="#F6F5FB"
-              style={{ marginBottom: "12px" }}
-            >
-              <div className={$["subscription-box-base"]}>
-                <span className={$.title}>{data.name}</span>
-              </div>
-            </BorderBox>
-          </Link>
-        ))}
-      </div>
-    </div>
+      {commonMockData.map((data) => (
+        <Link to={`/subscription/common/${data.id}`} key={data.id}>
+          <BorderBox
+            key={data.name}
+            height={87}
+            background="#F6F5FB"
+            style={{ marginBottom: "12px" }}
+          >
+            <div className={$["subscription-box-base"]}>
+              <span className={$.title}>{data.name}</span>
+            </div>
+          </BorderBox>
+        </Link>
+      ))}
+    </SubscriptionModalTemplate>
   );
 }
 

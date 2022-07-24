@@ -1,14 +1,9 @@
 import { useParams } from "react-router-dom";
 
-import {
-  Alarm,
-  Close,
-  LeftArrow,
-  Subscription,
-  UnSubscription,
-} from "@components/atoms/icon";
+import { Alarm, Subscription, UnSubscription } from "@components/atoms/icon";
 import BorderBox from "src/components/atoms/BorderBox";
 import { Arrow } from "src/components/atoms/icon/Arrow";
+import SubscriptionModalTemplate from "src/components/templates/SubscriptionModalTemplate";
 import { commonMockData } from "src/page/Subscription/CommonProcess";
 import { GUIDE } from "src/page/Subscription/constant";
 import { majorMockData } from "src/page/Subscription/MajorProcess1";
@@ -48,18 +43,14 @@ function End() {
   const { id, fullId } = useParams();
   const type = fullId ? "전공" : "전체";
   const data: any[] = type === "전체" ? commonMockData : majorMockData;
-  const mockData = data.find((d) => `${d.id}` === fullId ?? id);
+  const mockData = data.find((d) => `${d.id}` === (fullId ?? id));
 
   const fullName = mockData?.name;
   const children =
     type === "전체" ? mockData?.children : mockData.children[0].children;
 
   return (
-    <div className={$.subscription}>
-      <div className={$.header}>
-        <LeftArrow />
-        <Close />
-      </div>
+    <SubscriptionModalTemplate>
       <div className={$.guide}>
         <div className={$.title}>
           {type}&nbsp;&gt;{fullName}
@@ -101,7 +92,7 @@ function End() {
           </BorderBox>
         );
       })}
-    </div>
+    </SubscriptionModalTemplate>
   );
 }
 

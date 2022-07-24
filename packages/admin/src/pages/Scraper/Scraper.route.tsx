@@ -1,8 +1,8 @@
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
-import Scraper from "src/components/Scraper";
+import Scraper from "./Scraper";
 
-export default function ScraperPage() {
+export default function ScraperRoute() {
   return (
     <>
       <Routes>

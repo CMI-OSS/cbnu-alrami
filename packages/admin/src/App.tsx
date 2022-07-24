@@ -1,15 +1,15 @@
 import { Provider } from "react-redux";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import useSocket from "src/hooks/useSocket";
-import ScraperPage from "src/pages/ScraperPage";
+import ScraperPage from "src/pages/Scraper/Scraper.route";
 
+import "./admin.scss";
 import Navigation from "./components/Navigation";
 import AdminManagementPage from "./pages/AdminManagementPage";
 import BoardPage from "./pages/BoardPage";
 import LoginPage from "./pages/Login";
 import { store } from "./store";
-import "./admin.scss";
 
 function App() {
   useSocket();

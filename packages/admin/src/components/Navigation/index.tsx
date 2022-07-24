@@ -83,7 +83,7 @@ export default function Navigation() {
   ) : (
     <nav className={$.navigation}>
       <ul className={$["outer-ul"]}>
-        <li className={$.logo}>CMI</li>
+        {/* <li className={$.logo}>충림이v2 관리자</li> */}
         <ul>
           {navMenus.map(({ label, menus }, idx) => {
             return (

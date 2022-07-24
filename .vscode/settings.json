@@ -7,9 +7,6 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
   },
-  "[scss]": {
-    "editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter"
-  },
   "[javascript]": {
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
   },
@@ -19,5 +16,6 @@
   "compile-hero.disable-compile-files-on-did-save-code": false,
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
-  }
+  },
+  "eslint.workingDirectories": ["./packages/admin"]
 }

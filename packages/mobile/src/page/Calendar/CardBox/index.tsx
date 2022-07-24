@@ -1,9 +1,15 @@
+import { animateScroll } from "react-scroll";
+
 import { Dayjs } from "dayjs";
+import { Arrow } from "src/components/atoms/icon/Arrow";
+import useScroll from "src/hooks/useScroll";
 import { Schedule, ScheduleType } from "src/page/Calendar";
 
 import CollegeCard from "../CollegeCard";
 import PersonalCard from "../PersonalCard";
 import $ from "./style.module.scss";
+
+const CALLENDAR_UNVISIBLE_POINT = 320;
 
 type Props = {
   scheduleType: ScheduleType;
@@ -12,10 +18,12 @@ type Props = {
 };
 
 function CardBox({ scheduleType, schedules, selectedDate }: Props) {
+  const { Y } = useScroll();
+
   if (schedules.length === 0)
     return (
       <section className={$["empty-box"]}>
-        <span className={$.description}>오늘은 일정이 없어요</span>
+        <span>오늘은 일정이 없어요</span>
       </section>
     );
 
@@ -35,6 +43,15 @@ function CardBox({ scheduleType, schedules, selectedDate }: Props) {
             }}
           />
         ),
+      )}
+      {Y > CALLENDAR_UNVISIBLE_POINT && (
+        <button
+          className={$["floating-button"]}
+          type="button"
+          onClick={() => animateScroll.scrollToTop({ duration: 250 })}
+        >
+          <Arrow width={10} height={24} color="#828282" />
+        </button>
       )}
     </section>
   );

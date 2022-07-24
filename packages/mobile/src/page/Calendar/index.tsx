@@ -77,7 +77,7 @@ function Calendar() {
       <div className={$["sticky-box"]}>
         <AddScheduleLink className={$["add-link"]} />
         <CalendarHeader
-          {...{ year, month }}
+          calendar={{ ...{ year, month } }}
           onDecrease={() => dispatchMonth({ type: "decrement_month" })}
           onIncrease={() => dispatchMonth({ type: "increment_month" })}
         />

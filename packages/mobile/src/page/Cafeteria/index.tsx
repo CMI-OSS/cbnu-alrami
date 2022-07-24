@@ -27,7 +27,8 @@ function Cafeteria() {
   return (
     <>
       <CalendarHeader
-        {...{ year, month, date, day }}
+        isSticky
+        calendar={{ ...{ year, month, date, day } }}
         onDecrease={() => dispatchDay({ type: "decrement_date" })}
         onIncrease={() => dispatchDay({ type: "increment_date" })}
       />

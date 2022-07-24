@@ -1,37 +1,25 @@
 import { Link } from "react-router-dom";
 
 import BorderBox from "@components/atoms/BorderBox";
+import { useCommonBoardTree } from "src/api/boardTree";
 import SubscriptionModalTemplate from "src/components/templates/SubscriptionModalTemplate";
 import { GUIDE } from "src/page/Subscription/constant";
 import $ from "src/page/Subscription/style.module.scss";
 
-export const commonMockData = [
-  {
-    id: 1,
-    name: "국제교류본부",
-    isCommon: true,
-    children: [
-      {
-        id: 1,
-        isCommon: true,
-        name: "공지사항",
-        url: "www.dksk.com",
-        isSubscribing: true,
-        isNoticing: true,
-      },
-    ],
-  },
-];
-
 function CommonProcess() {
+  const { data: boardCommonTree, isLoading, isError } = useCommonBoardTree();
+
+  if (isLoading) return <div>로딩중입니다.</div>;
+  if (isError) return <div>에러가 발생했습니다.</div>;
+
   return (
     <SubscriptionModalTemplate>
       <div className={$.guide}>
         <div className={$.title}>전체&nbsp;&gt;&nbsp;공통</div>
         <div className={$.content}>{GUIDE.all_depth1}</div>
       </div>
-      {commonMockData.map((data) => (
-        <Link to={`/subscription/common/${data.id}`} key={data.id}>
+      {boardCommonTree?.children?.map((data) => (
+        <Link to={`/subscription/major/${data.name}`} key={data.id}>
           <BorderBox
             key={data.name}
             height={87}

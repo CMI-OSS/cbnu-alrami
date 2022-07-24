@@ -1,27 +1,31 @@
 import { Link, useParams } from "react-router-dom";
 
-import BorderBox from "@components/atoms/BorderBox";
+import { useCollegeBoardTree } from "src/api/boardTree";
+import BorderBox from "src/components/atoms/BorderBox";
 import SubscriptionModalTemplate from "src/components/templates/SubscriptionModalTemplate";
-import { GUIDE } from "src/page/Subscription/constant";
-import $ from "src/page/Subscription/style.module.scss";
 
-import { majorMockData } from "./MajorProcess1";
+import { GUIDE } from "./constant";
+import $ from "./style.module.scss";
 
 function MajorProcess2() {
-  const { fullId } = useParams();
-  const collegeData = majorMockData.find((data) => `${data.id}` === fullId)!;
-  const majorData = collegeData.children;
+  const { collegeId } = useParams();
+  const {
+    data: boardMajorTree,
+    isLoading,
+    isError,
+    breadCrumb,
+  } = useCollegeBoardTree(Number(collegeId));
+  if (isLoading) return <div>로딩중입니다.</div>;
+  if (isError) return <div>에러가 발생했습니다.</div>;
 
   return (
     <SubscriptionModalTemplate>
       <div className={$.guide}>
-        <div className={$.title}>
-          전체&nbsp;&gt;&nbsp;전공&nbsp;&gt;&nbsp;{collegeData.name}
-        </div>
+        <div className={$.title}>{breadCrumb}</div>
         <div className={$.content}>{GUIDE.all_depth1}</div>
       </div>
-      {majorData?.map((data) => (
-        <Link to={`/subscription/major/${fullId}/${data.id}`} key={data.id}>
+      {boardMajorTree?.map((data) => (
+        <Link to={`/subscription/major/${collegeId}/${data.id}`} key={data.id}>
           <BorderBox
             key={data.name}
             height={87}

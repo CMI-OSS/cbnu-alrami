@@ -1,33 +1,41 @@
 import { useMemo } from "react";
 
 import ArrowButton from "src/page/Calendar/ArrowButton";
+import { DAY } from "src/utils/calendarTools";
+import { calendarZeroPad } from "src/utils/calendarZeroPad";
 
 import $ from "./style.module.scss";
 
 type Props = {
   year: number;
   month: number;
-  onMonthDecrease: () => void;
-  onMonthIncrease: () => void;
+  date?: number;
+  day?: number;
+  onDecrease: () => void;
+  onIncrease: () => void;
 };
 
 function CalendarHeader({
   year,
   month,
-  onMonthDecrease,
-  onMonthIncrease,
+  date,
+  day,
+  onDecrease,
+  onIncrease,
 }: Props) {
-  const displayDate = useMemo(
-    () => `${year}.${(month + 1).toString().padStart(2, "0")}`,
-    [ month ],
-  );
+  const displayDate = useMemo(() => {
+    const yyyymm = `${year}.${calendarZeroPad(month + 1)}`;
+    const dd =
+      date && day !== undefined && `.${calendarZeroPad(date)}.(${DAY[day]})`;
+    return yyyymm + (dd || "");
+  }, [ month, date ]);
 
   return (
     <header className={$.header}>
       <div className={$.container}>
-        <ArrowButton direction="left" onClick={onMonthDecrease} />
+        <ArrowButton direction="left" onClick={onDecrease} />
         <span className={$["year-month"]}>{displayDate}</span>
-        <ArrowButton direction="right" onClick={onMonthIncrease} />
+        <ArrowButton direction="right" onClick={onIncrease} />
       </div>
     </header>
   );

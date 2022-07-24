@@ -20,7 +20,7 @@ import {
 } from "src/utils/calendarTools";
 
 import AddScheduleLink from "./AddScheduleLink";
-import monthReducer from "./monthReducer";
+import caledarReducer from "./calendarReducer";
 import $ from "./style.module.scss";
 import useSelectedDate from "./useSelectedDate";
 
@@ -46,7 +46,7 @@ function Calendar() {
     useState<ScheduleType>("personal");
   const [ collegeSchedules, setCollegeSchedules ] = useState<Schedule[]>([]);
   const [ personalSchedule, setPersonalSchedule ] = useState<Schedule[]>([]);
-  const [ { year, month }, dispatchMonth ] = useReducer(monthReducer, {
+  const [ { year, month }, dispatchMonth ] = useReducer(caledarReducer, {
     year: dayjs().year(),
     month: dayjs().month(),
   });
@@ -78,8 +78,8 @@ function Calendar() {
         <AddScheduleLink className={$["add-link"]} />
         <CalendarHeader
           {...{ year, month }}
-          onMonthDecrease={() => dispatchMonth({ type: "decrement" })}
-          onMonthIncrease={() => dispatchMonth({ type: "increment" })}
+          onDecrease={() => dispatchMonth({ type: "decrement_month" })}
+          onIncrease={() => dispatchMonth({ type: "increment_month" })}
         />
       </div>
       <ScheduleCalendar

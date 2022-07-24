@@ -91,6 +91,24 @@
   background-color: $background;
 }
 
+.tooltip {
+  margin: 186px 8px 0;
+  background-color: $white;
+  padding: 7px 13px 6px 18px;
+
+  & + .content {
+    .image_list {
+      margin-top: 0;
+    }
+  }
+
+  .tooltip_title {
+    font-size: 12px;
+    line-height: 20px;
+    color: $black-60;
+  }
+}
+
 .image_list {
   margin-top: 180px;
 }

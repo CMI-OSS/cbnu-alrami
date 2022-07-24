@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import CardList from "@components/molecules/CardList";
 import Footer from "@components/molecules/Footer";
@@ -6,7 +6,7 @@ import classNames from "classnames";
 import { mockCategory, mockNotification } from "src/__mocks__";
 import guideEmptyStar from "src/assets/guide_empty_star.png";
 import guideEmptySubscription from "src/assets/guide_empty_subscription.png";
-import { Plus, Setting, Star } from "src/components/atoms/icon";
+import { Setting, Star } from "src/components/atoms/icon";
 import useSearch from "src/hooks/useSearch";
 
 import $ from "./style.module.scss";
@@ -29,10 +29,9 @@ function Notification() {
     <section className={$.notification}>
       <header className={$.header}>
         공지사항
-        <div className={$.icons}>
+        <Link to="/subscription">
           <Setting width="21px" height="22px" className={$.setting} />
-          <Plus width="20px" height="20px" />
-        </div>
+        </Link>
       </header>
       <div className={$.categories}>
         <NavLink

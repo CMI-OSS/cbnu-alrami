@@ -1,0 +1,14 @@
+@import '../../../styles/main.scss';
+
+.subscription {
+  height: 100vh;
+  padding: 0 25px;
+  background: #fff;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+  }
+}

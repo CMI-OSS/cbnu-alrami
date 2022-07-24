@@ -2,8 +2,8 @@ import "./mobile.scss";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Subscription from "src/page/Subscription";
 import MajorProcess2 from "src/page/Subscription/MajorProcess2";
+import Subscription from "src/page/Subscription/Start";
 
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";

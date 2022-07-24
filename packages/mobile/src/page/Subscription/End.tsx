@@ -47,14 +47,12 @@ const 구독하고알람안함 = () => {
 function End() {
   const { id, fullId } = useParams();
   const type = fullId ? "전공" : "전체";
-  const data = type === "전체" ? commonMockData : majorMockData;
-  const mockData = data.find(
-    (data) => `${data.id}` === (type === "전체" ? id : fullId),
-  )!;
+  const data: any[] = type === "전체" ? commonMockData : majorMockData;
+  const mockData = data.find((d) => `${d.id}` === fullId ?? id);
 
   const fullName = mockData?.name;
   const children =
-    type === "전체" ? mockData?.children : mockData?.children[0]?.children;
+    type === "전체" ? mockData?.children : mockData.children[0].children;
 
   return (
     <div className={$.subscription}>
@@ -80,6 +78,7 @@ function End() {
       {children.map((content: any) => {
         return (
           <BorderBox
+            key={content.id}
             height={87}
             background="#F6F5FB"
             style={{ marginBottom: "12px" }}

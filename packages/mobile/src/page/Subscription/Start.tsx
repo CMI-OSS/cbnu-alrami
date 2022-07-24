@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 
-import BorderBox from "src/components/atoms/BorderBox";
+import BorderBox from "@components/atoms/BorderBox";
+import { Close, LeftArrow } from "@components/atoms/icon";
 import { GUIDE } from "src/page/Subscription/constant";
-import $ from "src/page/Subscription/style.module.scss";
+
+import $ from "./style.module.scss";
 
 function Start() {
   const COMMON_START_CONTENTS = [
@@ -19,14 +21,18 @@ function Start() {
   ];
 
   return (
-    <>
+    <div className={$.subscription}>
+      <div className={$.header}>
+        <LeftArrow />
+        <Close />
+      </div>
       <div className={$.guide}>
         <div className={$.title}>전체</div>
         <div className={$.content}>{GUIDE.common_start}</div>
       </div>
       {COMMON_START_CONTENTS.map((content) => {
         return (
-          <Link to={content.link}>
+          <Link to={content.link} key={content.link}>
             <BorderBox
               key={content.title}
               height={87}
@@ -41,7 +47,7 @@ function Start() {
           </Link>
         );
       })}
-    </>
+    </div>
   );
 }
 

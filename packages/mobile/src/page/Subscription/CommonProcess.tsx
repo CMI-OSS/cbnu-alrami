@@ -36,7 +36,7 @@ function CommonProcess() {
           <div className={$.content}>{GUIDE.all_depth1}</div>
         </div>
         {commonMockData.map((data) => (
-          <Link to={`/subscription/common/${data.id}`}>
+          <Link to={`/subscription/common/${data.id}`} key={data.id}>
             <BorderBox
               key={data.name}
               height={87}

@@ -26,7 +26,7 @@ function MajorProcess2() {
           <div className={$.content}>{GUIDE.all_depth1}</div>
         </div>
         {majorData?.map((data) => (
-          <Link to={`/subscription/major/${fullId}/${data.id}`}>
+          <Link to={`/subscription/major/${fullId}/${data.id}`} key={data.id}>
             <BorderBox
               key={data.name}
               height={87}

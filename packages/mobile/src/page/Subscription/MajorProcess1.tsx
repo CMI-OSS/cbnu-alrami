@@ -56,6 +56,24 @@ export const majorMockData = [
         isCommon: false,
         isSubscribing: true,
         isNoticing: false,
+        children: [
+          {
+            id: 5,
+            name: "학부공지",
+            url: "www.dksk.com",
+            isCommon: false,
+            isSubscribing: true,
+            isNoticing: false,
+          },
+          {
+            id: 6,
+            name: "대학원공지",
+            url: "www.dksk.com",
+            isCommon: false,
+            isSubscribing: false,
+            isNoticing: false,
+          },
+        ],
       },
       {
         id: 10102,
@@ -82,7 +100,7 @@ function MajorProcess1() {
           <div className={$.content}>{GUIDE.all_depth1}</div>
         </div>
         {majorMockData.map((data) => (
-          <Link to={`/subscription/major/${data.id}`}>
+          <Link to={`/subscription/major/${data.id}`} key={data.id}>
             <BorderBox
               key={data.name}
               height={87}

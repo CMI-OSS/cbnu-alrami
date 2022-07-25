@@ -11,17 +11,19 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      retry: false,
     },
   },
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-    <Provider store={store}>
-        <QueryClientProvider client={queryClient}>
-            <ReactQueryDevtools initialIsOpen />
-            <React.StrictMode>
-                <App />
-            </React.StrictMode>
-        </QueryClientProvider>
-    </Provider>,
+  <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen />
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </QueryClientProvider>
+  </Provider>,
 );

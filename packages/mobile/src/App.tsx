@@ -1,8 +1,8 @@
-import "./mobile.scss";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./mobile.scss";
 
-import Subscription from "src/page/Subscription";
+import Subscription from "src/page/Subscription/Start";
 
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
@@ -14,8 +14,10 @@ import MoreImage from "./page/MoreImage";
 import Notification from "./page/Notification";
 import Place from "./page/Place";
 import Report from "./page/Report";
+import College from "./page/Subscription/College";
+import End from "./page/Subscription/End";
+import Major from "./page/Subscription/Major";
 import SettingRoute from "./routes/setting";
-import { store } from "./store";
 
 function App() {
   const routes = [
@@ -29,6 +31,18 @@ function App() {
     { id: 8, path: "/error", element: <Report /> },
     { id: 9, path: "/subscription", element: <Subscription /> },
     { id: 10, path: "/setting/*", element: <SettingRoute /> },
+    { id: 11, path: "/subscription/common", element: <End /> },
+    { id: 12, path: "/subscription/major", element: <College /> },
+    {
+      id: 13,
+      path: "/subscription/major/:collegeId",
+      element: <Major />,
+    },
+    {
+      id: 14,
+      path: "/subscription/major/:collegeId/:majorId",
+      element: <End />,
+    },
   ];
 
   return (

@@ -1,0 +1,13 @@
+@import '../../../styles/main.scss';
+
+.full-modal {
+  height: 100vh;
+  background: #fff;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+  }
+}

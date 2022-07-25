@@ -1,8 +1,13 @@
+import { useParams } from "react-router-dom";
+
 import { Alarm, Subscription, UnSubscription } from "@components/atoms/icon";
-import { Arrow } from "@components/atoms/icon/Arrow";
+import { useLastChildBoardTree } from "src/api/boardTree";
 import BorderBox from "src/components/atoms/BorderBox";
+import { Arrow } from "src/components/atoms/icon/Arrow";
 import { GUIDE } from "src/page/Subscription/constant";
 import $ from "src/page/Subscription/style.module.scss";
+
+import SubscriptionModalTemplate from "./SubscriptionModalTemplate";
 
 const 구독안함 = () => {
   return (
@@ -34,17 +39,17 @@ const 구독하고알람안함 = () => {
   );
 };
 
-function CommonEnd() {
-  const COMMON_END_CONTENTS = [
-    { title: "학부공지", isSubscribe: false, isAlarm: false },
-    { title: "대학원공지", isSubscribe: true, isAlarm: true },
-    { title: "대학원공지", isSubscribe: true, isAlarm: false },
-  ];
+function End() {
+  const { collegeId, majorId } = useParams();
+  const { data: lastChildBoardTree, breadCrumb } = useLastChildBoardTree(
+    Number(collegeId),
+    Number(majorId),
+  );
 
   return (
-    <div className={$["common-start"]}>
+    <SubscriptionModalTemplate>
       <div className={$.guide}>
-        <div className={$.title}>전체</div>
+        <div className={$.title}>{breadCrumb}</div>
         <div className={$.content}>
           <UnSubscription
             style={{
@@ -56,31 +61,30 @@ function CommonEnd() {
           {GUIDE.common_end}
         </div>
       </div>
-      {COMMON_END_CONTENTS.map((content) => {
+      {lastChildBoardTree?.map((data) => {
         return (
           <BorderBox
+            key={data.id}
             height={87}
             background="#F6F5FB"
             style={{ marginBottom: "12px" }}
           >
             <div className={$["subscription-box-base"]}>
               <div className={$.left}>
-                <span className={$.title}>{content.title}</span>
+                <span className={$.title}>{data.name}</span>
                 <Arrow width={4} height={13} color="#AAAAAA" />
               </div>
               <div className={$.right}>
-                {content.isSubscribe && content.isAlarm && <구독하고알람함 />}
-                {content.isSubscribe && !content.isAlarm && (
-                  <구독하고알람안함 />
-                )}
-                {!content.isSubscribe && <구독안함 />}
+                {data.isSubscribing && data.isNoticing && <구독하고알람함 />}
+                {data.isSubscribing && !data.isNoticing && <구독하고알람안함 />}
+                {!data.isSubscribing && <구독안함 />}
               </div>
             </div>
           </BorderBox>
         );
       })}
-    </div>
+    </SubscriptionModalTemplate>
   );
 }
 
-export default CommonEnd;
+export default End;

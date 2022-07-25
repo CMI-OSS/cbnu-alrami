@@ -7,7 +7,7 @@ declare namespace res {
     isNoticing: boolean;
     children?: BoardTreeChildren[];
   };
-  type BoradTree = {
+  type BoardTree = {
     id: number;
     name: string;
     children: BoardTreeChildren[];

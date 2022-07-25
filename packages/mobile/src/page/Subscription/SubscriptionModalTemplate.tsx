@@ -15,7 +15,7 @@ function SubscriptionModalTemplate({ children }: Props) {
   return (
     <div className={$.modal}>
       <FullPageModalTemplate
-        left={<LeftArrow color="#AAAAAA" />}
+        left={<LeftArrow color="#AAAAAA" width="16" height="16" />}
         right={
           <button
             type="button"

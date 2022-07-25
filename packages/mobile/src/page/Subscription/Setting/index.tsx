@@ -32,7 +32,7 @@ function Setting() {
       <FullPageModalTemplate
         left={
           <button type="button" onClick={() => navigate(-1)}>
-            <LeftArrow color="#AAAAAA" />
+            <LeftArrow color="#AAAAAA" width="16" height="16" />
           </button>
         }
         title="구독/알림"
@@ -43,9 +43,11 @@ function Setting() {
         }
       >
         <div className={$.content}>
-          {mockSettings.map((data) => (
-            <Card key={data.name} data={data} />
-          ))}
+          {mockSettings.length === 0 ? (
+            <div>비었어요</div>
+          ) : (
+            mockSettings.map((data) => <Card key={data.name} data={data} />)
+          )}
         </div>
       </FullPageModalTemplate>
     </div>

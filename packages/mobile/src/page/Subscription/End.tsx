@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
 
 import { Alarm, Subscription, UnSubscription } from "@components/atoms/icon";
+import { useLastChildBoardTree } from "src/api/boardTree";
 import BorderBox from "src/components/atoms/BorderBox";
 import { Arrow } from "src/components/atoms/icon/Arrow";
-import SubscriptionModalTemplate from "src/components/templates/SubscriptionModalTemplate";
-import { commonMockData } from "src/page/Subscription/CommonProcess";
 import { GUIDE } from "src/page/Subscription/constant";
-import { majorMockData } from "src/page/Subscription/MajorProcess1";
 import $ from "src/page/Subscription/style.module.scss";
+
+import SubscriptionModalTemplate from "./SubscriptionModalTemplate";
 
 const 구독안함 = () => {
   return (
@@ -40,21 +40,16 @@ const 구독하고알람안함 = () => {
 };
 
 function End() {
-  const { id, fullId } = useParams();
-  const type = fullId ? "전공" : "전체";
-  const data: any[] = type === "전체" ? commonMockData : majorMockData;
-  const mockData = data.find((d) => `${d.id}` === (fullId ?? id));
-
-  const fullName = mockData?.name;
-  const children =
-    type === "전체" ? mockData?.children : mockData.children[0].children;
+  const { collegeId, majorId } = useParams();
+  const { data: lastChildBoardTree, breadCrumb } = useLastChildBoardTree(
+    Number(collegeId),
+    Number(majorId),
+  );
 
   return (
     <SubscriptionModalTemplate>
       <div className={$.guide}>
-        <div className={$.title}>
-          {type}&nbsp;&gt;{fullName}
-        </div>
+        <div className={$.title}>{breadCrumb}</div>
         <div className={$.content}>
           <UnSubscription
             style={{
@@ -66,27 +61,23 @@ function End() {
           {GUIDE.common_end}
         </div>
       </div>
-      {children.map((content: any) => {
+      {lastChildBoardTree?.map((data) => {
         return (
           <BorderBox
-            key={content.id}
+            key={data.id}
             height={87}
             background="#F6F5FB"
             style={{ marginBottom: "12px" }}
           >
             <div className={$["subscription-box-base"]}>
               <div className={$.left}>
-                <span className={$.title}>{content.name}</span>
+                <span className={$.title}>{data.name}</span>
                 <Arrow width={4} height={13} color="#AAAAAA" />
               </div>
               <div className={$.right}>
-                {content.isSubscribing && content.isNoticing && (
-                  <구독하고알람함 />
-                )}
-                {content.isSubscribing && !content.isNoticing && (
-                  <구독하고알람안함 />
-                )}
-                {!content.isSubscribing && <구독안함 />}
+                {data.isSubscribing && data.isNoticing && <구독하고알람함 />}
+                {data.isSubscribing && !data.isNoticing && <구독하고알람안함 />}
+                {!data.isSubscribing && <구독안함 />}
               </div>
             </div>
           </BorderBox>

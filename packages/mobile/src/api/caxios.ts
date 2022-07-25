@@ -9,6 +9,8 @@ const caxios = axios.create({
   },
 });
 
+caxios.defaults.headers.common.uuid = "1111";
+
 caxios.interceptors.response.use((response) => {
   if (response.data.error) {
     window.alert(response.data.error);

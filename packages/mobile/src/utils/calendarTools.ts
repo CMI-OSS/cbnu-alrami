@@ -111,9 +111,5 @@ export const getCalendarMap = (
   return calendarMap;
 };
 
-export const caculateDateNum = (year: number, month: number) => {
-  const DATE_NUM = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
-  if (month === 1 && ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0))
-    return 29;
-  return DATE_NUM[month];
-};
+export const caculateDateNum = (year: number, month: number) =>
+  dayjs().year(year).month(month).date(0).date();

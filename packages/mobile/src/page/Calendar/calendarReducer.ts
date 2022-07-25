@@ -4,7 +4,7 @@ import {
   MAXIMUM_MONTH,
   MINIMUM_DATE,
   MINIMUM_MONTH,
-  MINIMUM_YEAR
+  MINIMUM_YEAR,
 } from "src/utils/calendarTools";
 
 import { CalendarInfo } from "../../type/index";
@@ -49,7 +49,7 @@ const monthReducer = (
           return {
             year,
             month: month - 1,
-            date: caculateDateNum(year, month - 1),
+            date: caculateDateNum(year, month),
             day: decrementDay,
           };
         return { year, month, date: date - 1, day: decrementDay }; // 2022.07.24
@@ -66,7 +66,7 @@ const monthReducer = (
             date: MINIMUM_DATE,
             day: incrementDay,
           };
-        if (date === caculateDateNum(year, month))
+        if (date === caculateDateNum(year, month + 1))
           // 2022.06.30
           return {
             year,

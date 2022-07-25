@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 
-import classnames from "classnames";
 import ArrowButton from "src/page/Calendar/ArrowButton";
 import { DAY } from "src/utils/calendarTools";
 import { calendarZeroPad } from "src/utils/calendarZeroPad";
@@ -8,7 +7,6 @@ import { calendarZeroPad } from "src/utils/calendarZeroPad";
 import $ from "./style.module.scss";
 
 type Props = {
-  isSticky?: boolean;
   calendar: {
     year: number;
     month: number;
@@ -19,7 +17,7 @@ type Props = {
   onIncrease: () => void;
 };
 
-function CalendarHeader({ isSticky, calendar, onDecrease, onIncrease }: Props) {
+function CalendarHeader({ calendar, onDecrease, onIncrease }: Props) {
   const { year, month, date, day } = calendar;
   const displayDate = useMemo(() => {
     const yyyymm = `${year}.${calendarZeroPad(month + 1)}`;
@@ -29,7 +27,7 @@ function CalendarHeader({ isSticky, calendar, onDecrease, onIncrease }: Props) {
   }, [ month, date ]);
 
   return (
-    <header className={classnames($.header, { [$.sticky]: isSticky })}>
+    <header className={$.header}>
       <div className={$.container}>
         <ArrowButton direction="left" onClick={onDecrease} />
         <span className={$["year-month"]}>{displayDate}</span>

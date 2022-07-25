@@ -26,12 +26,14 @@ function Cafeteria() {
 
   return (
     <>
-      <CalendarHeader
-        isSticky
-        calendar={{ ...{ year, month, date, day } }}
-        onDecrease={() => dispatchDay({ type: "decrement_date" })}
-        onIncrease={() => dispatchDay({ type: "increment_date" })}
-      />
+      <header className={$.header}>
+        <CalendarHeader
+          calendar={{ ...{ year, month, date, day } }}
+          onDecrease={() => dispatchDay({ type: "decrement_date" })}
+          onIncrease={() => dispatchDay({ type: "increment_date" })}
+        />
+      </header>
+
       {Flicking}
       <main
         className={classnames($.cafeteria, {

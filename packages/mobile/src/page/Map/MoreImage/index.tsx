@@ -1,8 +1,7 @@
 import MapHeader from "@components/molecules/MapHeader";
 import MapImageList from "@components/molecules/MapImageList";
 
-import mapImageList from "../../__mocks__/mapImageList";
-import $ from "./style.module.scss";
+import mapImageList from "../../../__mocks__/mapImageList";
 
 function MoreImage() {
   return (

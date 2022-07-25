@@ -1,19 +1,19 @@
-import "./mobile.scss";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Subscription from "src/page/Subscription/Start";
 
+import "./mobile.scss";
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
-import Call from "./page/Call";
-import Detail from "./page/Detail";
 import Home from "./page/Home";
 import Map from "./page/Map";
-import MoreImage from "./page/MoreImage";
+import Call from "./page/Map/Call";
+import Detail from "./page/Map/Detail";
+import MoreImage from "./page/Map/MoreImage";
+import Report from "./page/Map/Report";
 import Notification from "./page/Notification";
 import Place from "./page/Place";
-import Report from "./page/Report";
 import College from "./page/Subscription/College";
 import End from "./page/Subscription/End";
 import Major from "./page/Subscription/Major";

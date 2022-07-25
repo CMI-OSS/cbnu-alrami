@@ -7,7 +7,7 @@ import { Position } from "@components/atoms/icon/Position";
 import { Time } from "@components/atoms/icon/Time";
 import ImageList from "@components/molecules/ImageList";
 
-import detailImageList from "../../__mocks__/detailImageList";
+import detailImageList from "../../../__mocks__/detailImageList";
 import $ from "./style.module.scss";
 
 function Detail() {
@@ -37,6 +37,7 @@ function Detail() {
             ${imageUrl}
           )`,
         }}
+        ß
       />
       <div className={$.info}>
         <div className={$["info-inner"]}>

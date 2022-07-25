@@ -53,3 +53,4 @@ export { UnSubscription } from "./UnSubscription";
 export { LeftArrow } from "./LeftArrow";
 export { Alarm } from "./Alarm";
 export { UnAlarm } from "./UnAlarm";
+export { Arrow } from "./Arrow";

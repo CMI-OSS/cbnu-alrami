@@ -10,14 +10,9 @@ export default function SettingMain() {
     <SettingTemplate title="설정" className={$["setting-main"]}>
       {settingMenuList.map((route) => {
         const { label } = route;
+        const config = settingConfig[label];
 
-        return (
-          <SettingMenu
-            key={label}
-            route={route}
-            config={settingConfig[label] ? settingConfig[label] : ""}
-          />
-        );
+        return <SettingMenu key={label} route={route} config={config || ""} />;
       })}
     </SettingTemplate>
   );

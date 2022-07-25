@@ -6,11 +6,6 @@
   display: flex;
   align-items: center;
   padding: 24px 0;
-  color: $black-80;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 26px;
-  letter-spacing: 0.015em;
 
   .icon-box {
     width: 20px;
@@ -22,6 +17,14 @@
         stroke: $black-60;
       }
     }
+  }
+
+  .label {
+    color: $black-80;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: 0.015em;
   }
 
   .config {

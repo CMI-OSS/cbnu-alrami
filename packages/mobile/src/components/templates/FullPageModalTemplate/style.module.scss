@@ -8,6 +8,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
+    height: 60px;
+
+    .title {
+      @include typography(18);
+      font-weight: 500;
+    }
   }
 }

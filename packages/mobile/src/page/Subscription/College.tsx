@@ -2,9 +2,10 @@ import { Link } from "react-router-dom";
 
 import BorderBox from "@components/atoms/BorderBox";
 import { useCollegeBoardTree } from "src/api/boardTree";
-import SubscriptionModalTemplate from "src/components/templates/SubscriptionModalTemplate";
 import { GUIDE } from "src/page/Subscription/constant";
 import $ from "src/page/Subscription/style.module.scss";
+
+import SubscriptionModalTemplate from "./SubscriptionModalTemplate";
 
 function College() {
   const { data: collegeBoardTree, breadCrumb } = useCollegeBoardTree();

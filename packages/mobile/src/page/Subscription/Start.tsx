@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 
 import BorderBox from "@components/atoms/BorderBox";
-import SubscriptionModalTemplate from "@components/templates/SubscriptionModalTemplate";
 import { GUIDE } from "src/page/Subscription/constant";
 
 import $ from "./style.module.scss";
+import SubscriptionModalTemplate from "./SubscriptionModalTemplate";
 
 function Start() {
   const COMMON_START_CONTENTS = [

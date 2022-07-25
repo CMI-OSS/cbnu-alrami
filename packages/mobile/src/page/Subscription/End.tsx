@@ -4,9 +4,10 @@ import { Alarm, Subscription, UnSubscription } from "@components/atoms/icon";
 import { useLastChildBoardTree } from "src/api/boardTree";
 import BorderBox from "src/components/atoms/BorderBox";
 import { Arrow } from "src/components/atoms/icon/Arrow";
-import SubscriptionModalTemplate from "src/components/templates/SubscriptionModalTemplate";
 import { GUIDE } from "src/page/Subscription/constant";
 import $ from "src/page/Subscription/style.module.scss";
+
+import SubscriptionModalTemplate from "./SubscriptionModalTemplate";
 
 const 구독안함 = () => {
   return (

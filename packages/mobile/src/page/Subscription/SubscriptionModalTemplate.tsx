@@ -25,7 +25,7 @@ function SubscriptionModalTemplate({ children }: Props) {
           </button>
         }
       >
-        {children}
+        <div className={$.children}>{children}</div>
       </FullPageModalTemplate>
     </div>
   );

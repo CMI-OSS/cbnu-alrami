@@ -1,8 +1,11 @@
 @import '../../styles/main.scss';
 
 .modal {
-  padding: 0 25px;
   background: #fff;
+
+  .children {
+    padding: 0 25px;
+  }
 }
 
 .guide {

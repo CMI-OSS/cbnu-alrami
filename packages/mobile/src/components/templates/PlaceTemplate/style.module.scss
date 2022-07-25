@@ -93,8 +93,9 @@
 
 .tooltip {
   margin: 186px 8px 0;
+  border-radius: 4px;
   background-color: $white;
-  padding: 7px 13px 6px 18px;
+  padding: 7px 21px 6px;
 
   & + .content {
     .image_list {

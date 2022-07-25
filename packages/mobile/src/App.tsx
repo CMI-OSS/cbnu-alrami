@@ -14,9 +14,9 @@ import MoreImage from "./page/MoreImage";
 import Notification from "./page/Notification";
 import Place from "./page/Place";
 import Report from "./page/Report";
+import College from "./page/Subscription/College";
 import End from "./page/Subscription/End";
-import MajorProcess1 from "./page/Subscription/MajorProcess1";
-import MajorProcess2 from "./page/Subscription/MajorProcess2";
+import Major from "./page/Subscription/Major";
 
 function App() {
   const routes = [
@@ -30,11 +30,11 @@ function App() {
     { id: 8, path: "/error", element: <Report /> },
     { id: 9, path: "/subscription", element: <Subscription /> },
     { id: 10, path: "/subscription/common", element: <End /> },
-    { id: 10, path: "/subscription/major", element: <MajorProcess1 /> },
+    { id: 10, path: "/subscription/major", element: <College /> },
     {
       id: 11,
       path: "/subscription/major/:collegeId",
-      element: <MajorProcess2 />,
+      element: <Major />,
     },
     {
       id: 11,

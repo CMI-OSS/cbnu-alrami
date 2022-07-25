@@ -40,12 +40,10 @@ const 구독하고알람안함 = () => {
 
 function End() {
   const { collegeId, majorId } = useParams();
-  const {
-    data: lastChildBoardTree,
-    isLoading,
-    isError,
-    breadCrumb,
-  } = useLastChildBoardTree(Number(collegeId), Number(majorId));
+  const { data: lastChildBoardTree, breadCrumb } = useLastChildBoardTree(
+    Number(collegeId),
+    Number(majorId),
+  );
 
   return (
     <SubscriptionModalTemplate>

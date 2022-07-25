@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import { MapArrow } from "@components/atoms/icon/MapArrow";
 import Chips from "@components/molecules/Chips";
+import BorderBox from "src/components/atoms/BorderBox";
 import { useAppDispatch } from "src/store";
 import { setHashMenu } from "src/store/placeSlice";
 
@@ -71,11 +72,11 @@ function PlaceTemplate({ menuType }: Props) {
           })}
         </div>
       </div>
-      <div className={$.tooltip}>
+      <BorderBox className={$.tooltip} style={{ width: "auto" }}>
         <span className={$.tooltip_title}>
           식사는 현재 베타버전으로, 다양한 맛집이 더 추가될 예정입니다.
         </span>
-      </div>
+      </BorderBox>
       <div className={$.content}>
         <Chips list={getHashList()} />
         <div className={$.image_list}>

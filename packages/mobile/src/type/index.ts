@@ -19,3 +19,10 @@ export type settingLabel = {
 };
 
 export type FlickingMenu = { id: number; name: string };
+
+export type CalendarInfo = {
+  year: number;
+  month: number;
+  date?: number;
+  day?: number;
+};

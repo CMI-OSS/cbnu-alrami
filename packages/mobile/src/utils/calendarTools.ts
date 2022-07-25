@@ -11,7 +11,9 @@ dayjs.extend(isSameOrBefore);
 
 export const MINIMUM_YEAR = 1970;
 export const MAXIMUM_MONTH = 11;
+export const MAXIMUM_DATE = 31;
 export const MINIMUM_MONTH = 0;
+export const MINIMUM_DATE = 1;
 export const DAY = [ "일", "월", "화", "수", "목", "금", "토" ] as const;
 
 export const fetchColleageSchedules = () =>
@@ -108,3 +110,6 @@ export const getCalendarMap = (
   });
   return calendarMap;
 };
+
+export const caculateDateNum = (year: number, month: number) =>
+  dayjs().year(year).month(month).date(0).date();

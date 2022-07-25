@@ -1,7 +1,12 @@
 @import "../../styles/main.scss";
 
 .cafeteria {
-  padding: 95px 35px 102px;
+  padding: 155px 35px 102px;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
 }
 
 .go-out {

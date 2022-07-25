@@ -2,10 +2,11 @@ import { Link, useParams } from "react-router-dom";
 
 import { useMajorBoardTree } from "src/api/boardTree";
 import BorderBox from "src/components/atoms/BorderBox";
-import SubscriptionModalTemplate from "src/components/templates/SubscriptionModalTemplate";
+
 
 import { GUIDE } from "./constant";
 import $ from "./style.module.scss";
+import SubscriptionModalTemplate from "./SubscriptionModalTemplate";
 
 function Major() {
   const { collegeId } = useParams();

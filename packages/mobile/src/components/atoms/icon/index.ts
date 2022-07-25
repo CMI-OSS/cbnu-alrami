@@ -8,7 +8,6 @@ export { Covid } from "./Covid";
 export { EmptyStar } from "./EmptyStar";
 export { Food } from "./Food";
 export { Home } from "./Home";
-export { ImagePlus } from "./ImagePlus";
 export { Info } from "./Info";
 export { Map } from "./Map";
 export { MapArrow } from "./MapArrow";

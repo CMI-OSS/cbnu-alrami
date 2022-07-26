@@ -11,16 +11,17 @@ import Detail from "./page/Detail";
 import Home from "./page/Home";
 import Map from "./page/Map";
 import MoreImage from "./page/MoreImage";
-import Notification from "./page/Notification";
+import Notice from "./page/Notice";
 import Place from "./page/Place";
 import Report from "./page/Report";
 import College from "./page/Subscription/College";
 import End from "./page/Subscription/End";
 import Major from "./page/Subscription/Major";
+import SubscriptionSetting from "./page/Subscription/Setting";
 
 function App() {
   const routes = [
-    { id: 1, path: "/notification", element: <Notification /> },
+    { id: 1, path: "/notice", element: <Notice /> },
     { id: 2, path: "/calendar", element: <Calendar /> },
     { id: 3, path: "/home", element: <Home /> },
     { id: 4, path: "/cafeteria", element: <Cafeteria /> },
@@ -29,15 +30,16 @@ function App() {
     { id: 7, path: "/call", element: <Call /> },
     { id: 8, path: "/error", element: <Report /> },
     { id: 9, path: "/subscription", element: <Subscription /> },
-    { id: 10, path: "/subscription/common", element: <End /> },
-    { id: 10, path: "/subscription/major", element: <College /> },
+    { id: 10, path: "/subscription/setting", element: <SubscriptionSetting /> },
+    { id: 11, path: "/subscription/common", element: <End /> },
+    { id: 12, path: "/subscription/major", element: <College /> },
     {
-      id: 11,
+      id: 13,
       path: "/subscription/major/:collegeId",
       element: <Major />,
     },
     {
-      id: 11,
+      id: 14,
       path: "/subscription/major/:collegeId/:majorId",
       element: <End />,
     },

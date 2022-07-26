@@ -8,7 +8,7 @@ function Footer() {
       id: 1,
       icon: Speaker,
       label: "공지",
-      to: "/notification",
+      to: "/notice",
     },
     {
       id: 2,

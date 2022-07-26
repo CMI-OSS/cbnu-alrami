@@ -67,6 +67,7 @@ export class SubscribeService {
     userId: number,
     boardId: number,
   ): Promise<Subscribe> {
+    const board = await this.boardService.findById(boardId);
     const subscribe = await this.subscribeRepository.findOne({
       where: {
         user: userId,
@@ -75,5 +76,21 @@ export class SubscribeService {
       relations: [ "user", "board" ],
     });
     return subscribe;
+  }
+
+  async updateNotice(user: User, boardId: number, ableFlag: boolean) {
+    const board = await this.boardService.findById(boardId);
+    const subscribeInfo: Subscribe = await this.findByUserAndBoard(
+      user.id,
+      boardId,
+    );
+    if (typeof subscribeInfo === "undefined") throw NOT_SUBSCRIBED_BOARD;
+    else {
+      if (ableFlag === true) subscribeInfo.updateNoticeAbled();
+      else subscribeInfo.updateNoticeDisabled();
+
+      await this.subscribeRepository.save(subscribeInfo);
+    }
+    return "success";
   }
 }

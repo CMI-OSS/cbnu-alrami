@@ -13,14 +13,12 @@ import { UserAuthGuard } from "src/commons/guards/user-auth.guard";
 import { SubscribeService } from "./subscribe.service";
 
 @Public()
-@Controller({
-  path: "subscribe",
-})
+@Controller()
 @ApiTags("[subscribe] 공지사항 사이트 구독 관련 API")
 export class SubscribeControlelr {
   constructor(private readonly subscribeService: SubscribeService) {}
 
-  @Post("boards/:boardId")
+  @Post("subscribe/boards/:boardId")
   @ApiOperation({
     summary: "공지사항 사이트 구독 API",
     description: "특정 board를 구독합니다.",
@@ -39,7 +37,7 @@ export class SubscribeControlelr {
     return this.subscribeService.create(user, boardId);
   }
 
-  @Delete("boards/:boardId")
+  @Delete("subscribe/boards/:boardId")
   @ApiOperation({
     summary: "공지사항 사이트 구독 해제 API",
     description: "특정 board를 구독 해제 합니다.",
@@ -56,5 +54,24 @@ export class SubscribeControlelr {
   async remove(@Req() req, @Param("boardId") boardId: number) {
     const { user } = req;
     return this.subscribeService.remove(user, boardId);
+  }
+
+  @Post("/notice/boards/:boardId")
+  @ApiOperation({
+    summary: "공지사항 사이트 알림 설정 API",
+    description: "특정 board의 업데이트 알림을 받도록 설정합니다.",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "성공 여부",
+  })
+  @ApiHeader({
+    name: "uuid",
+    description: "user uuid",
+  })
+  @UseGuards(UserAuthGuard)
+  async createNotice(@Req() req, @Param("boardId") boardId: number) {
+    const { user } = req;
+    return this.subscribeService.createNotice(user, boardId);
   }
 }

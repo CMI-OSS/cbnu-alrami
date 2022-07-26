@@ -76,4 +76,18 @@ export class SubscribeService {
     });
     return subscribe;
   }
+
+  async createNotice(user: User, boardId: number) {
+    const board = await this.boardService.findById(boardId);
+    const subscribeInfo: Subscribe = await this.findByUserAndBoard(
+      user.id,
+      boardId,
+    );
+    if (typeof subscribeInfo === "undefined") throw NOT_SUBSCRIBED_BOARD;
+    else if (subscribeInfo.notice === false) {
+      subscribeInfo.notice = true;
+      await this.subscribeRepository.save(subscribeInfo);
+    }
+    return "success";
+  }
 }

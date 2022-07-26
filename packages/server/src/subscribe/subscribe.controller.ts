@@ -72,6 +72,25 @@ export class SubscribeControlelr {
   @UseGuards(UserAuthGuard)
   async createNotice(@Req() req, @Param("boardId") boardId: number) {
     const { user } = req;
-    return this.subscribeService.createNotice(user, boardId);
+    return this.subscribeService.updateNotice(user, boardId, true);
+  }
+
+  @Delete("/notice/boards/:boardId")
+  @ApiOperation({
+    summary: "공지사항 사이트 알림 해제 API",
+    description: "특정 board의 업데이트 알림을 받지 않도록 설정합니다.",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "성공 여부",
+  })
+  @ApiHeader({
+    name: "uuid",
+    description: "user uuid",
+  })
+  @UseGuards(UserAuthGuard)
+  async deleteNotice(@Req() req, @Param("boardId") boardId: number) {
+    const { user } = req;
+    return this.subscribeService.updateNotice(user, boardId, false);
   }
 }

@@ -35,6 +35,10 @@ export const Errors = {
   ALREADY_SUBSCRIBE_BOARD: new ConflictException(
     "이미 구독 중인 board 입니다.",
   ),
+  // bookmark 도메인에 대한 예외 메세지
+  ALREADY_SUBSCRIBE_BOOKMARK: new ConflictException(
+    "이미 구독 중인 bookmark 입니다.",
+  ),
   NOT_SUBSCRIBED_BOARD: new NotFoundException("구독 중인 board가 아닙니다."),
 
   // image 도메인에 대한 예외 메세지

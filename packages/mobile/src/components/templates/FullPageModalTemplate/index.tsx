@@ -16,7 +16,13 @@ function FullPageModalTemplate({ left, center, right, children }: Props) {
   return (
     <div className={$["full-modal"]}>
       <div className={$.header}>
-        <button type="button" className={$.left} onClick={() => navigate(-1)}>
+        <button
+          type="button"
+          className={$.left}
+          onClick={() => {
+            return navigate(-1);
+          }}
+        >
           {left}
         </button>
         <div className={$.center}>{center}</div>

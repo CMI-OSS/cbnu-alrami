@@ -7,13 +7,15 @@ function MenuButtonList() {
 
   return (
     <div className={$.wrap}>
-      {items.map((item, index) => (
-        <MenuButton
-          // eslint-disable-next-line react/no-array-index-key
-          key={`button-${index}`}
-          menuButtonItem={item}
-        ></MenuButton>
-      ))}
+      {items.map((item, index) => {
+        return (
+          <MenuButton
+            // eslint-disable-next-line react/no-array-index-key
+            key={`button-${index}`}
+            menuButtonItem={item}
+          ></MenuButton>
+        );
+      })}
     </div>
   );
 }

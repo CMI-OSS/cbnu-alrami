@@ -10,9 +10,11 @@ type Props = {
 function ScenarioList({ scenarios }: Props) {
   return (
     <div className={$.container}>
-      {scenarios.map((scenario) => (
-        <Card className={$.card} scenario={scenario} key={scenario.title} />
-      ))}
+      {scenarios.map((scenario) => {
+        return (
+          <Card className={$.card} scenario={scenario} key={scenario.title} />
+        );
+      })}
     </div>
   );
 }

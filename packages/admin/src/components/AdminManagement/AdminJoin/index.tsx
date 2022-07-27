@@ -47,7 +47,9 @@ export default function AdminJoin() {
     const currentBoards = watch("boards");
     setValue(
       "boards",
-      currentBoards.filter((board) => board !== target),
+      currentBoards.filter((board) => {
+        return board !== target;
+      }),
     );
   };
 

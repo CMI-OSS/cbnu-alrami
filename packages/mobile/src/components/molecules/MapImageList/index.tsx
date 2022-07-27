@@ -13,11 +13,13 @@ type Props = {
 function MapImageList({ mapImageList }: Props) {
   return (
     <ul className={$.list}>
-      {mapImageList.map((item) => (
-        <li key={item.id} className={$.item}>
-          <img className={$.image} src={item.src} alt={item.alt} />
-        </li>
-      ))}
+      {mapImageList.map((item) => {
+        return (
+          <li key={item.id} className={$.item}>
+            <img className={$.image} src={item.src} alt={item.alt} />
+          </li>
+        );
+      })}
     </ul>
   );
 }

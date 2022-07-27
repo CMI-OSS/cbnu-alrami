@@ -30,13 +30,15 @@ import { WeatherModule } from "./weather/weather.module";
     }),
     TypeOrmModule.forRootAsync({
       imports: [ ConfigModule ],
-      useFactory: async (config: ConfigService) => ({
-        ...config.get("db"),
-        entities: [ `${__dirname}/commons/entities/*.js` ],
-        namingStrategy: new SnakeNamingStrategy(),
-        charset: "utf8",
-        logging: [ "query" ],
-      }),
+      useFactory: async (config: ConfigService) => {
+        return {
+          ...config.get("db"),
+          entities: [ `${__dirname}/commons/entities/*.js` ],
+          namingStrategy: new SnakeNamingStrategy(),
+          charset: "utf8",
+          logging: [ "query" ],
+        };
+      },
       inject: [ ConfigService ],
     }),
     FcmModule,

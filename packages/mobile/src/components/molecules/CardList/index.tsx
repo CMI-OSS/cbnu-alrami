@@ -18,9 +18,9 @@ function CardList({ notifications }: Props) {
   console.log(notifications, "공지들");
   return (
     <div className={$["card-list"]}>
-      {notifications.map((notification) => (
-        <Card key={notification.id} notification={notification} />
-      ))}
+      {notifications.map((notification) => {
+        return <Card key={notification.id} notification={notification} />;
+      })}
     </div>
   );
 }

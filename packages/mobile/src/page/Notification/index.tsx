@@ -35,23 +35,25 @@ function Notification() {
       </header>
       <div className={$.categories}>
         <NavLink
-          className={({ isActive }) =>
-            classNames($.category, { [$.active]: isActive })
-          }
+          className={({ isActive }) => {
+            return classNames($.category, { [$.active]: isActive });
+          }}
           to="?major=즐겨찾기"
         >
           <Star className={$.star} width="12" height="12" />
         </NavLink>
-        {mockCategory.map((category) => (
-          <NavLink
-            to={category.to}
-            className={({ isActive }) =>
-              classNames($.category, { [$.active]: isActive })
-            }
-          >
-            {category.major}
-          </NavLink>
-        ))}
+        {mockCategory.map((category) => {
+          return (
+            <NavLink
+              to={category.to}
+              className={({ isActive }) => {
+                return classNames($.category, { [$.active]: isActive });
+              }}
+            >
+              {category.major}
+            </NavLink>
+          );
+        })}
       </div>
       <div
         className={$["notification-list"]}

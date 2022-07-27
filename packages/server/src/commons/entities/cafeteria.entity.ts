@@ -6,13 +6,18 @@ import { Place } from "./place.entity";
 
 @Entity("cafeteria")
 export class Cafeteria extends UpdatableCommonEntity {
-  @OneToOne(() => Place, {
-    eager: true,
-    onDelete: "CASCADE",
-    nullable: false,
-    onUpdate: "CASCADE",
-    orphanedRowAction: "delete",
-  })
+  @OneToOne(
+    () => {
+      return Place;
+    },
+    {
+      eager: true,
+      onDelete: "CASCADE",
+      nullable: false,
+      onUpdate: "CASCADE",
+      orphanedRowAction: "delete",
+    },
+  )
   @JoinColumn()
   place: Place;
 
@@ -25,6 +30,13 @@ export class Cafeteria extends UpdatableCommonEntity {
   @Column("varchar", { nullable: true, default: null })
   dinnerTimeInfo?: string;
 
-  @OneToMany(() => CafeteriaMenu, (cafeteriaMenu) => cafeteriaMenu.cafeteria)
+  @OneToMany(
+    () => {
+      return CafeteriaMenu;
+    },
+    (cafeteriaMenu) => {
+      return cafeteriaMenu.cafeteria;
+    },
+  )
   cafeteriaMenus: CafeteriaMenu[];
 }

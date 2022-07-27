@@ -6,11 +6,15 @@ import { CommonEntity } from "./common.entity";
 
 @Entity("board_tree")
 export class BoardTree extends CommonEntity {
-  @OneToOne(() => Board)
+  @OneToOne(() => {
+    return Board;
+  })
   @JoinColumn()
   board: Board;
 
-  @OneToOne(() => Board)
+  @OneToOne(() => {
+    return Board;
+  })
   @JoinColumn()
   parentBoard: Board;
 }

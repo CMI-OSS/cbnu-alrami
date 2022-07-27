@@ -16,19 +16,21 @@ function College() {
         <div className={$.title}>{breadCrumb}</div>
         <div className={$.content}>{GUIDE.all_depth1}</div>
       </div>
-      {collegeBoardTree?.children.map((college) => (
-        <Link to={`/subscription/major/${college.id}`} key={college.id}>
-          <BorderBox
-            height={87}
-            background="#F6F5FB"
-            style={{ marginBottom: "12px" }}
-          >
-            <div className={$["subscription-box-base"]}>
-              <span className={$.title}>{college.name}</span>
-            </div>
-          </BorderBox>
-        </Link>
-      ))}
+      {collegeBoardTree?.children.map((college) => {
+        return (
+          <Link to={`/subscription/major/${college.id}`} key={college.id}>
+            <BorderBox
+              height={87}
+              background="#F6F5FB"
+              style={{ marginBottom: "12px" }}
+            >
+              <div className={$["subscription-box-base"]}>
+                <span className={$.title}>{college.name}</span>
+              </div>
+            </BorderBox>
+          </Link>
+        );
+      })}
     </SubscriptionModalTemplate>
   );
 }

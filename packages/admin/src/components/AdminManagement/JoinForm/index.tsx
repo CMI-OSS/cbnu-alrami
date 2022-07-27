@@ -38,35 +38,45 @@ export default function JoinForm({
         className={$.input}
         errorMessage={errors.id?.message}
         label="아이디"
-        register={() => register("id")}
+        register={() => {
+          return register("id");
+        }}
       />
       <PasswordInput
         id="password-input"
         className={$.input}
         errorMessage={errors.password?.message}
         label="비밀번호"
-        register={() => register("password")}
+        register={() => {
+          return register("password");
+        }}
       />
       <PasswordInput
         id="password-confirm-input"
         className={$.input}
         errorMessage={errors.passwordConfirm?.message}
         label="비밀번호 확인"
-        register={() => register("passwordConfirm")}
+        register={() => {
+          return register("passwordConfirm");
+        }}
       />
       <TextInput
         id="nickname"
         className={$.input}
         errorMessage={errors.nickname?.message}
         label="닉네임"
-        register={() => register("nickname")}
+        register={() => {
+          return register("nickname");
+        }}
       />
       <Select
         className={$.select}
         id="authority-select"
         options={AUTHORITIES}
         label="권한"
-        register={() => register("authority")}
+        register={() => {
+          return register("authority");
+        }}
       />
       <Select
         className={$.select}

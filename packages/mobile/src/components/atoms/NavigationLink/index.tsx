@@ -18,7 +18,9 @@ function NavigationLink({ route }: Props) {
     <NavLink
       key={route.id}
       to={route.to}
-      className={({ isActive }) => classNames($.link, { [$.active]: isActive })}
+      className={({ isActive }) => {
+        return classNames($.link, { [$.active]: isActive });
+      }}
     >
       <route.icon />
       <p className={$.label}>{route.label}</p>

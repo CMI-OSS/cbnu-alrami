@@ -62,7 +62,9 @@ function PlaceTemplate({ menuType }: Props) {
                 key={`menu-${item.id}`}
                 to={item.path}
                 className={$.menu_link}
-                onClick={() => handleMenu(idx)}
+                onClick={() => {
+                  return handleMenu(idx);
+                }}
                 aria-selected={menuType === idx + 1}
               >
                 {item.name}

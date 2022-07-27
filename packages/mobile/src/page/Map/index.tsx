@@ -31,7 +31,9 @@ function Map() {
   const CBNU_LONGITUDE = 127.45731862757414;
 
   const { isDisplayFloatingButton, isDisplayTooltip, isConstructionTooltip } =
-    useAppSelector((state) => state.statusReducer.map);
+    useAppSelector((state) => {
+      return state.statusReducer.map;
+    });
   const [ myLocation, setMyLocation ] = useState({ latitude: 0, longitude: 0 });
   const dispatch = useAppDispatch();
 
@@ -118,11 +120,11 @@ function Map() {
                   type="button"
                   className={$.close_button}
                   aria-label="닫기 버튼"
-                  onClick={() =>
-                    dispatch(
+                  onClick={() => {
+                    return dispatch(
                       hideTooltipButtonStatus({ isDisplayTooltip: false }),
-                    )
-                  }
+                    );
+                  }}
                 >
                   <Close className={$.close_icon} />
                 </button>

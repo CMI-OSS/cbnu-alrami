@@ -50,16 +50,16 @@ function Calendar() {
     year: dayjs().year(),
     month: dayjs().month(),
   });
-  const today = useMemo(() => dayjs(), []);
+  const today = useMemo(() => {
+    return dayjs();
+  }, []);
   const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
-  const collegeCalendarMap = useMemo(
-    () => getCalendarMap(year, month, collegeSchedules),
-    [ month, collegeSchedules ],
-  );
-  const personalCalendarMap = useMemo(
-    () => getCalendarMap(year, month, personalSchedule),
-    [ month, personalSchedule ],
-  );
+  const collegeCalendarMap = useMemo(() => {
+    return getCalendarMap(year, month, collegeSchedules);
+  }, [ month, collegeSchedules ]);
+  const personalCalendarMap = useMemo(() => {
+    return getCalendarMap(year, month, personalSchedule);
+  }, [ month, personalSchedule ]);
 
   useEffect(() => {
     setCollegeSchedules(fetchColleageSchedules());
@@ -78,8 +78,12 @@ function Calendar() {
         <AddScheduleLink className={$["add-link"]} />
         <CalendarHeader
           calendar={{ ...{ year, month } }}
-          onDecrease={() => dispatchMonth({ type: "decrement_month" })}
-          onIncrease={() => dispatchMonth({ type: "increment_month" })}
+          onDecrease={() => {
+            return dispatchMonth({ type: "decrement_month" });
+          }}
+          onIncrease={() => {
+            return dispatchMonth({ type: "increment_month" });
+          }}
         />
       </div>
       <ScheduleCalendar

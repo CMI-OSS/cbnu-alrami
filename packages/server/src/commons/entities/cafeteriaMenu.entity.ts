@@ -6,7 +6,14 @@ import { UpdatableCommonEntity } from "./common.entity";
 
 @Entity("cafeteria_menu")
 export class CafeteriaMenu extends UpdatableCommonEntity {
-  @ManyToOne(() => Cafeteria, (cafeteria) => cafeteria.cafeteriaMenus)
+  @ManyToOne(
+    () => {
+      return Cafeteria;
+    },
+    (cafeteria) => {
+      return cafeteria.cafeteriaMenus;
+    },
+  )
   @JoinColumn({ name: "cafeteria_id" })
   cafeteria: Cafeteria;
 

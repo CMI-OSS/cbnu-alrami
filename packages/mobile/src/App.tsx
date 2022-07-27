@@ -46,9 +46,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {routes.map((route) => (
-          <Route key={route.id} path={route.path} element={route.element} />
-        ))}
+        {routes.map((route) => {
+          return (
+            <Route key={route.id} path={route.path} element={route.element} />
+          );
+        })}
         <Route path="*" element={<Navigate replace to="/home" />} />
         <Route path="/place/:name/detail/:id" element={<Detail />} />
         <Route path="/place/*" element={<Place />} />

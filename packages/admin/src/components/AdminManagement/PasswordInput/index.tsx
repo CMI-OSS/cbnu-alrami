@@ -41,7 +41,11 @@ export default function PasswordInput({
             className={$["encrypt-button"]}
             type="button"
             aria-label={`비밀번호 ${toggleEncrypted ? "보기" : "숨기기"}`}
-            onClick={() => setToggleEncrypted((pre) => !pre)}
+            onClick={() => {
+              return setToggleEncrypted((pre) => {
+                return !pre;
+              });
+            }}
           >
             {toggleEncrypted ? <AiFillEyeInvisible /> : <AiFillEye />}
           </button>

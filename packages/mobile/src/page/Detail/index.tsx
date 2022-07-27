@@ -1,6 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
 
-import { Call } from "@components/atoms/icon/Call";
 import { MapArrow } from "@components/atoms/icon/MapArrow";
 import { MoreArrow } from "@components/atoms/icon/MoreArrow";
 import { Phone } from "@components/atoms/icon/Phone";
@@ -28,7 +27,6 @@ function Detail() {
           <span className="blind">뒤로 가기</span>
         </button>
         <NavLink to="/call" className={$["link-call"]}>
-          <Call />
           <span className="blind">제보하기</span>
         </NavLink>
       </div>

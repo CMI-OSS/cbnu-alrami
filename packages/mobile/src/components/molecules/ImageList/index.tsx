@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-import { ImagePlus } from "@components/atoms/icon/ImagePlus";
+import { Plus } from "@components/atoms/icon";
 
 import $ from "./style.module.scss";
 
@@ -24,7 +24,13 @@ function ImageList({ isMoreContents, detailImageList }: Props) {
               <img className={$["menu-image"]} src={item.src} alt={item.alt} />
               {isMoreContents && index === 2 && (
                 <NavLink to="/more" className={$["more-status"]}>
-                  <ImagePlus className={$["more-plus"]} />
+                  <Plus
+                    className={$["more-plus"]}
+                    width="35"
+                    height="36"
+                    color="#FFFFFF"
+                  />
+                  {/* <ImagePlus className={$["more-plus"]} /> */}
                   <span className={$["more-text"]}>더보기</span>
                 </NavLink>
               )}

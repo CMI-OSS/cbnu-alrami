@@ -9,4 +9,10 @@ export class SubscribeRepository extends Repository<Subscribe> {
       .andWhere("subscribe.board_id = :boardId", { boardId })
       .getCount();
   }
+
+  async findBoardByUser(userId: number) {
+    return this.createQueryBuilder("subscribe")
+      .select([ "board_id AS boardId" ])
+      .getRawMany();
+  }
 }

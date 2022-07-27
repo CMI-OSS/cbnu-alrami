@@ -56,10 +56,18 @@ export class SubscribeService {
     return subscribe;
   }
 
+  async findBoardByUser(userId: number): Promise<number[]> {
+    const boardIdList = await this.subscribeRepository.findBoardByUser(userId);
+    // FIXME: 쿼리단에서 number array로 들고왔음 좋겠다
+    const result = boardIdList.map(({ boardId }) => boardId);
+    return result;
+  }
+
   async findByUserAndBoard(
     userId: number,
     boardId: number,
   ): Promise<Subscribe> {
+    const board = await this.boardService.findById(boardId);
     const subscribe = await this.subscribeRepository.findOne({
       where: {
         user: userId,
@@ -68,5 +76,21 @@ export class SubscribeService {
       relations: [ "user", "board" ],
     });
     return subscribe;
+  }
+
+  async updateNotice(user: User, boardId: number, ableFlag: boolean) {
+    const board = await this.boardService.findById(boardId);
+    const subscribeInfo: Subscribe = await this.findByUserAndBoard(
+      user.id,
+      boardId,
+    );
+    if (typeof subscribeInfo === "undefined") throw NOT_SUBSCRIBED_BOARD;
+    else {
+      if (ableFlag === true) subscribeInfo.updateNoticeAbled();
+      else subscribeInfo.updateNoticeDisabled();
+
+      await this.subscribeRepository.save(subscribeInfo);
+    }
+    return "success";
   }
 }

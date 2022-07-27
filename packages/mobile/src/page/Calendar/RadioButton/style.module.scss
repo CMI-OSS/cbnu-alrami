@@ -1,0 +1,24 @@
+@import "../../../styles/main.scss";
+
+$label-hight: 36.75px;
+
+.label {
+    display: block;
+    width: 143.5px;
+    margin: 0;
+    height: $label-hight;
+    border-radius: calc($label-hight / 2);
+    text-align: center;
+    line-height: $label-hight;
+    color: $black-50;
+
+    .radio-input {
+        width: 0;
+        height: 0;
+    }
+}
+
+.checked-label {
+    color: $black-80;
+    background-color: $black-0;
+}

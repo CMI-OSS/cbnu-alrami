@@ -3,13 +3,13 @@ import type { StyleProps } from "src/type/props";
 type Props = {
   width?: string;
   height?: string;
+  color: string;
 } & StyleProps;
 
-function Plus({ className, style, width, height }: Props) {
+function Plus({ className, width, height, color }: Props) {
   return (
     <svg
       className={className}
-      style={style}
       width={width}
       height={height}
       viewBox="0 0 22 22"
@@ -18,13 +18,13 @@ function Plus({ className, style, width, height }: Props) {
     >
       <path
         d="M1 10.6H21"
-        stroke="#AAAAAA"
+        stroke={color}
         strokeWidth="1.4"
         strokeLinecap="round"
       />
       <path
         d="M11.4 21L11.4 0.999999"
-        stroke="#AAAAAA"
+        stroke={color}
         strokeWidth="1.4"
         strokeLinecap="round"
       />

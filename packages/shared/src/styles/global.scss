@@ -90,6 +90,7 @@ button {
     font: inherit;
     vertical-align: baseline;
     font-family: "Spoqa Han Sans Neo", "Sans-serif", serif;
+    background-color: transparent;
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -177,6 +178,7 @@ textarea {
 }
 input {
     appearance: none;
+    margin: 0;
 }
 hr {
     margin: 0;

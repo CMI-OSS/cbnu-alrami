@@ -4,6 +4,7 @@ import scheduleScenarioQueue from "./collegeScheduleScenarioQueue";
 import collegeScheduleMockData from "./collegeScheduleScenarios";
 import domitoryScenarioQueue from "./domitoryRestarantScenarioQueue";
 import domitoryRestaurantScenariosMockData from "./domitoryRestaurantScenarios";
+import imgListMocks from "./imgListMocks";
 import noticeScenarioQueue from "./noticeScenarioQueue";
 import noticeScenariosMockData from "./noticeScenarios";
 import studentScenarioQueue from "./studentRestaurantScenarioQueue";
@@ -20,4 +21,5 @@ export {
   studentScenarioQueue,
   boardCategories,
   admins,
+  imgListMocks,
 };

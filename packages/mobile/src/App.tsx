@@ -44,27 +44,27 @@ function App() {
       element: <End />,
     },
     {
-      id: 12,
+      id: 15,
       path: "/place/school/*",
       element: <PlaceTemplate menuType={1} />,
     },
     {
-      id: 13,
+      id: 16,
       path: "/place/food/*",
       element: <PlaceTemplate menuType={2} />,
     },
     {
-      id: 14,
+      id: 17,
       path: "/place/convenient/*",
       element: <PlaceTemplate menuType={3} />,
     },
     {
-      id: 15,
+      id: 18,
       path: "/place/snack/*",
       element: <PlaceTemplate menuType={4} />,
     },
     {
-      id: 16,
+      id: 19,
       path: "/place/play/*",
       element: <PlaceTemplate menuType={5} />,
     },

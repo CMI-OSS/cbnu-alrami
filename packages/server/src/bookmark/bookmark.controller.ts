@@ -29,8 +29,6 @@ export class BookmarkControlelr {
   @UseGuards(UserAuthGuard)
   async create(@Req() req, @Param("articleId") articleId: number) {
     const { user } = req;
-    console.log("req req:", req);
-    console.log("=============================");
     return this.bookmarkService.create(user, articleId);
   }
 }

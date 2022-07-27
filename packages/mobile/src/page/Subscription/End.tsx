@@ -1,21 +1,26 @@
 import { useParams } from "react-router-dom";
 
-import { Alarm, Subscription, UnSubscription } from "@components/atoms/icon";
+import {
+  Alarm,
+  Arrow,
+  Subscription,
+  UnAlarm,
+  UnSubscription,
+} from "@components/atoms/icon";
 import { useLastChildBoardTree } from "src/api/boardTree";
 import BorderBox from "src/components/atoms/BorderBox";
-import { Arrow } from "src/components/atoms/icon/Arrow";
 import { GUIDE } from "src/page/Subscription/constant";
 import $ from "src/page/Subscription/style.module.scss";
 
 import SubscriptionModalTemplate from "./SubscriptionModalTemplate";
 
-const 구독안함 = () => {
+export const 구독안함 = () => {
   return (
     <UnSubscription color="#AAAAAA" style={{ width: "32px", height: "21px" }} />
   );
 };
 
-const 구독하고알람함 = () => {
+export const 구독하고알람함 = () => {
   return (
     <>
       <Subscription
@@ -27,14 +32,14 @@ const 구독하고알람함 = () => {
   );
 };
 
-const 구독하고알람안함 = () => {
+export const 구독하고알람안함 = () => {
   return (
     <>
       <Subscription
         color="#D66D6E"
         style={{ width: "32px", height: "21px", marginRight: "20px" }}
       />
-      <Alarm color="#aaaaaa" style={{ width: "22px", height: "22px" }} />
+      <UnAlarm color="#aaaaaa" style={{ width: "22px", height: "22px" }} />
     </>
   );
 };

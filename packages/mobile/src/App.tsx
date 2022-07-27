@@ -1,19 +1,19 @@
-import "./mobile.scss";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Subscription from "src/page/Subscription/Start";
 
+import PlaceTemplate from "./components/templates/PlaceTemplate";
+import "./mobile.scss";
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
-import Call from "./page/Call";
-import Detail from "./page/Detail";
 import Home from "./page/Home";
 import Map from "./page/Map";
-import MoreImage from "./page/MoreImage";
+import Call from "./page/Map/Call";
+import Detail from "./page/Map/Detail";
+import MoreImage from "./page/Map/MoreImage";
+import Report from "./page/Map/Report";
 import Notice from "./page/Notice";
-import Place from "./page/Place";
-import Report from "./page/Report";
 import College from "./page/Subscription/College";
 import End from "./page/Subscription/End";
 import Major from "./page/Subscription/Major";
@@ -43,6 +43,31 @@ function App() {
       path: "/subscription/major/:collegeId/:majorId",
       element: <End />,
     },
+    {
+      id: 15,
+      path: "/place/school/*",
+      element: <PlaceTemplate menuType={1} />,
+    },
+    {
+      id: 16,
+      path: "/place/food/*",
+      element: <PlaceTemplate menuType={2} />,
+    },
+    {
+      id: 17,
+      path: "/place/convenient/*",
+      element: <PlaceTemplate menuType={3} />,
+    },
+    {
+      id: 18,
+      path: "/place/snack/*",
+      element: <PlaceTemplate menuType={4} />,
+    },
+    {
+      id: 19,
+      path: "/place/play/*",
+      element: <PlaceTemplate menuType={5} />,
+    },
   ];
 
   return (
@@ -53,7 +78,6 @@ function App() {
         ))}
         <Route path="*" element={<Navigate replace to="/home" />} />
         <Route path="/place/:name/detail/:id" element={<Detail />} />
-        <Route path="/place/*" element={<Place />} />
       </Routes>
     </BrowserRouter>
   );

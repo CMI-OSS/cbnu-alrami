@@ -5,12 +5,12 @@ import $ from "./style.module.scss";
 
 type Props = {
   left: JSX.Element;
-  center?: string;
+  title?: string;
   right?: JSX.Element;
   children: React.ReactNode;
 };
 
-function FullPageModalTemplate({ left, center, right, children }: Props) {
+function FullPageModalTemplate({ left, title, right, children }: Props) {
   const navigate = useNavigate();
 
   return (
@@ -25,7 +25,7 @@ function FullPageModalTemplate({ left, center, right, children }: Props) {
         >
           {left}
         </button>
-        <div className={$.center}>{center}</div>
+        <div className={$.title}>{title}</div>
         <div className={$.right}>{right}</div>
       </div>
       {children}

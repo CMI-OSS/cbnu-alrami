@@ -2,12 +2,18 @@
 
 .full-modal {
   height: 100vh;
-  background: #fff;
 
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
+    height: 60px;
+    padding: 0 25px;
+    background: #fff;
+
+    .title {
+      @include typography(18);
+      font-weight: 500;
+    }
   }
 }

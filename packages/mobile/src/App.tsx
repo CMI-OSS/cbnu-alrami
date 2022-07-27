@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Subscription from "src/page/Subscription/Start";
 
+import PlaceTemplate from "./components/templates/PlaceTemplate";
 import "./mobile.scss";
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
@@ -11,7 +12,6 @@ import Map from "./page/Map";
 import Call from "./page/Map/Call";
 import Detail from "./page/Map/Detail";
 import MoreImage from "./page/Map/MoreImage";
-import Place from "./page/Map/Place";
 import Report from "./page/Map/Report";
 import Notification from "./page/Notification";
 import College from "./page/Subscription/College";
@@ -41,6 +41,31 @@ function App() {
       path: "/subscription/major/:collegeId/:majorId",
       element: <End />,
     },
+    {
+      id: 12,
+      path: "/place/school/*",
+      element: <PlaceTemplate menuType={1} />,
+    },
+    {
+      id: 13,
+      path: "/place/food/*",
+      element: <PlaceTemplate menuType={2} />,
+    },
+    {
+      id: 14,
+      path: "/place/convenient/*",
+      element: <PlaceTemplate menuType={3} />,
+    },
+    {
+      id: 15,
+      path: "/place/snack/*",
+      element: <PlaceTemplate menuType={4} />,
+    },
+    {
+      id: 16,
+      path: "/place/play/*",
+      element: <PlaceTemplate menuType={5} />,
+    },
   ];
 
   return (
@@ -51,7 +76,6 @@ function App() {
         ))}
         <Route path="*" element={<Navigate replace to="/home" />} />
         <Route path="/place/:name/detail/:id" element={<Detail />} />
-        <Route path="/place/*" element={<Place />} />
       </Routes>
     </BrowserRouter>
   );

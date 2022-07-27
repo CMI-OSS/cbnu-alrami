@@ -37,7 +37,6 @@ function Detail() {
             ${imageUrl}
           )`,
         }}
-        ß
       />
       <div className={$.info}>
         <div className={$["info-inner"]}>

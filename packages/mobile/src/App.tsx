@@ -1,10 +1,10 @@
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./mobile.scss";
 
 import Subscription from "src/page/Subscription/Start";
 
 import PlaceTemplate from "./components/templates/PlaceTemplate";
+import "./mobile.scss";
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
 import Home from "./page/Home";
@@ -31,6 +31,7 @@ function App() {
     { id: 7, path: "/call", element: <Call /> },
     { id: 8, path: "/error", element: <Report /> },
     { id: 9, path: "/subscription", element: <Subscription /> },
+    { id: 10, path: "/setting/*", element: <SettingRoute /> },
     { id: 10, path: "/subscription/setting", element: <SubscriptionSetting /> },
     { id: 11, path: "/subscription/common", element: <End /> },
     { id: 12, path: "/subscription/major", element: <College /> },

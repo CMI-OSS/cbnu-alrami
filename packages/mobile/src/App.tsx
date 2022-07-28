@@ -4,24 +4,25 @@ import "./mobile.scss";
 
 import Subscription from "src/page/Subscription/Start";
 
+import PlaceTemplate from "./components/templates/PlaceTemplate";
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
-import Call from "./page/Call";
-import Detail from "./page/Detail";
 import Home from "./page/Home";
 import Map from "./page/Map";
-import MoreImage from "./page/MoreImage";
-import Notification from "./page/Notification";
-import Place from "./page/Place";
-import Report from "./page/Report";
+import Call from "./page/Map/Call";
+import Detail from "./page/Map/Detail";
+import MoreImage from "./page/Map/MoreImage";
+import Report from "./page/Map/Report";
+import Notice from "./page/Notice";
 import College from "./page/Subscription/College";
 import End from "./page/Subscription/End";
 import Major from "./page/Subscription/Major";
+import SubscriptionSetting from "./page/Subscription/Setting";
 import SettingRoute from "./routes/setting";
 
 function App() {
   const routes = [
-    { id: 1, path: "/notification", element: <Notification /> },
+    { id: 1, path: "/notice", element: <Notice /> },
     { id: 2, path: "/calendar", element: <Calendar /> },
     { id: 3, path: "/home", element: <Home /> },
     { id: 4, path: "/cafeteria", element: <Cafeteria /> },
@@ -30,7 +31,7 @@ function App() {
     { id: 7, path: "/call", element: <Call /> },
     { id: 8, path: "/error", element: <Report /> },
     { id: 9, path: "/subscription", element: <Subscription /> },
-    { id: 10, path: "/setting/*", element: <SettingRoute /> },
+    { id: 10, path: "/subscription/setting", element: <SubscriptionSetting /> },
     { id: 11, path: "/subscription/common", element: <End /> },
     { id: 12, path: "/subscription/major", element: <College /> },
     {
@@ -43,6 +44,32 @@ function App() {
       path: "/subscription/major/:collegeId/:majorId",
       element: <End />,
     },
+    {
+      id: 15,
+      path: "/place/school/*",
+      element: <PlaceTemplate menuType={1} />,
+    },
+    {
+      id: 16,
+      path: "/place/food/*",
+      element: <PlaceTemplate menuType={2} />,
+    },
+    {
+      id: 17,
+      path: "/place/convenient/*",
+      element: <PlaceTemplate menuType={3} />,
+    },
+    {
+      id: 18,
+      path: "/place/snack/*",
+      element: <PlaceTemplate menuType={4} />,
+    },
+    {
+      id: 19,
+      path: "/place/play/*",
+      element: <PlaceTemplate menuType={5} />,
+    },
+    { id: 20, path: "/setting/*", element: <SettingRoute /> },
   ];
 
   return (
@@ -53,7 +80,6 @@ function App() {
         ))}
         <Route path="*" element={<Navigate replace to="/home" />} />
         <Route path="/place/:name/detail/:id" element={<Detail />} />
-        <Route path="/place/*" element={<Place />} />
       </Routes>
     </BrowserRouter>
   );

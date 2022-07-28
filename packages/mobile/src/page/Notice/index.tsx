@@ -18,7 +18,7 @@ function EmptyGuideImage({ major }: { major: string }) {
   return <img src={guideEmptySubscription} alt="구독 공지사항 미존재" />;
 }
 
-function Notification() {
+function Notice() {
   const mockSubscribeNotification = 1;
   const mockStarNotification = 0;
   const major = useSearch({ target: "major" })!;
@@ -68,4 +68,4 @@ function Notification() {
   );
 }
 
-export default Notification;
+export default Notice;

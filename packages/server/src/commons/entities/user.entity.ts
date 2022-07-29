@@ -2,6 +2,11 @@ import { Column, Entity } from "typeorm";
 
 import { CommonEntity } from "./common.entity";
 
+export enum Device {
+  IOS = "ios",
+  ANDROID = "android",
+}
+
 @Entity("user")
 export class User extends CommonEntity {
   @Column("uuid", { unique: true, nullable: false })
@@ -9,4 +14,7 @@ export class User extends CommonEntity {
 
   @Column("varchar", { unique: true, nullable: false })
   fcmToken: string;
+
+  @Column("enum", { enum: Device, nullable: true })
+  device: Device;
 }

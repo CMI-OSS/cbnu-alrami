@@ -4,12 +4,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 
 import placeReducer from "./placeSlice";
+import settingReducer from "./settingSlice";
 import statusReducer from "./statusSlice";
 
 export const store = configureStore({
   reducer: {
     statusReducer,
     placeReducer,
+    settingReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   devTools: process.env.NODE_ENV !== "production",

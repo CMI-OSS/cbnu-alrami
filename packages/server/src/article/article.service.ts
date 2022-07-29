@@ -16,6 +16,7 @@ import { ImageService } from "src/image/image.service";
 import { SubscribeService } from "src/subscribe/subscribe.service";
 import { Transactional } from "typeorm-transactional-cls-hooked";
 
+import { FcmService } from "../fcm/fcm.service";
 import { ArticleRepository } from "./article.repository";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
 import {
@@ -40,6 +41,7 @@ export class ArticleService {
     private readonly subscribeService: SubscribeService,
     private readonly articleImageService: ArticleImageService,
     private readonly imageService: ImageService,
+    private readonly fcmService: FcmService,
   ) {}
 
   @Transactional()
@@ -72,6 +74,8 @@ export class ArticleService {
         await this.articleImageService.create(image, article);
       }),
     );
+
+    await this.fcmService.sendNotices(boardId);
 
     return result;
   }

@@ -15,6 +15,6 @@ export class User extends CommonEntity {
   @Column("varchar", { unique: true, nullable: false })
   fcmToken: string;
 
-  @Column("enum", { enum: Device, nullable: true })
+  @Column("enum", { enum: Device, nullable: false })
   device: Device;
 }

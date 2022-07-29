@@ -2,19 +2,11 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { MapArrow } from "@components/atoms/icon/MapArrow";
-import Chips from "@components/molecules/Chips";
 import BorderBox from "src/components/atoms/BorderBox";
 import { useAppDispatch } from "src/store";
 import { setHashMenu } from "src/store/placeSlice";
 
-import {
-  constructionList,
-  foodList,
-  imageList,
-  menuList,
-  playList,
-  snackList,
-} from "../../../__mocks__/index";
+import { imageList, menuList } from "../../../__mocks__/index";
 import $ from "./style.module.scss";
 
 interface Props {
@@ -23,20 +15,6 @@ interface Props {
 function PlaceTemplate({ menuType }: Props) {
   const dispatch = useAppDispatch();
   const [ menu, setMenu ] = useState(0);
-  const getHashList = () => {
-    switch (menuType) {
-      case 1:
-        return constructionList;
-      case 2:
-        return foodList;
-      case 4:
-        return snackList;
-      case 5:
-        return playList;
-      default:
-        return constructionList;
-    }
-  };
 
   const handleMenu = (idx: number) => {
     setMenu(idx);
@@ -50,7 +28,7 @@ function PlaceTemplate({ menuType }: Props) {
           <MapArrow />
           <span className="blind">뒤로가기</span>
         </NavLink>
-        <h1 className={$.title}>장소</h1>
+        <h1 className={$.title}>캠퍼스맵</h1>
         <NavLink to="/call" className={$.place_link}>
           제보하기
         </NavLink>
@@ -62,7 +40,7 @@ function PlaceTemplate({ menuType }: Props) {
               <NavLink
                 key={`menu-${item.id}`}
                 to={item.path}
-                className={$.menu_link}
+                className={$["menu-link"]}
                 onClick={() => handleMenu(idx)}
                 aria-selected={menuType === idx + 1}
               >
@@ -78,7 +56,6 @@ function PlaceTemplate({ menuType }: Props) {
         </span>
       </BorderBox>
       <div className={$.content}>
-        <Chips list={getHashList()} />
         <div className={$.image_list}>
           {imageList.map((item, idx) => {
             return (

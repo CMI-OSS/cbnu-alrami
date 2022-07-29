@@ -11,7 +11,7 @@ type Props = {
   className?: string;
 };
 
-function ModalPageTemplate({ children, type, dimmed, className }: Props) {
+function Modal({ children, type, dimmed, className }: Props) {
   return (
     <>
       <div className={classNames($.wrap, className)}>
@@ -32,4 +32,4 @@ function ModalPageTemplate({ children, type, dimmed, className }: Props) {
   );
 }
 
-export default ModalPageTemplate;
+export default Modal;

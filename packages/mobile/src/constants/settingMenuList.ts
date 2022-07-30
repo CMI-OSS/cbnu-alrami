@@ -1,10 +1,10 @@
 import {
+  Alarm,
   AppVersion,
   Email,
   Food,
   Person,
   Speaker,
-  Subscribe,
 } from "src/components/atoms/icon";
 import { settingLabel } from "src/type";
 
@@ -20,7 +20,7 @@ interface settingMenu {
 const settingMenuList: settingMenu[] = [
   {
     id: 1,
-    icon: Subscribe,
+    icon: Alarm,
     label: "구독/알림",
     to: "./subscribe",
     width: "16.06px",

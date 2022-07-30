@@ -45,28 +45,23 @@ function App() {
     },
     {
       id: 15,
-      path: "/place/school/*",
+      path: "/place/all",
       element: <PlaceTemplate menuType={1} />,
     },
     {
       id: 16,
-      path: "/place/food/*",
+      path: "/place/north",
       element: <PlaceTemplate menuType={2} />,
     },
     {
       id: 17,
-      path: "/place/convenient/*",
+      path: "/place/east",
       element: <PlaceTemplate menuType={3} />,
     },
     {
       id: 18,
-      path: "/place/snack/*",
+      path: "/place/south",
       element: <PlaceTemplate menuType={4} />,
-    },
-    {
-      id: 19,
-      path: "/place/play/*",
-      element: <PlaceTemplate menuType={5} />,
     },
   ];
 

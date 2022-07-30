@@ -3,9 +3,7 @@ import { ConfigService } from "@nestjs/config";
 import * as FCM from "fcm-node";
 import { isNil } from "lodash";
 
-import { BookmarkRepository } from "../bookmark/bookmark.repository";
 import { Device } from "../commons/entities/user.entity";
-import { HitRepository } from "../hit/hit.repository";
 import { SubscribeRepository } from "../subscribe/subscribe.repository";
 import { UserRepository } from "../user/repository/user.repository";
 import { Data } from "./fcm.interfaces";
@@ -14,16 +12,18 @@ import { Data } from "./fcm.interfaces";
 export class FcmService {
   private readonly serverKey;
   private readonly fcm;
+  private readonly collapseKeyAndroid;
+  private readonly collapseKeyIos;
 
   constructor(
     private readonly configService: ConfigService,
     private readonly subscribeRepository: SubscribeRepository,
     private readonly userRepository: UserRepository,
-    private readonly bookmarkRepository: BookmarkRepository,
-    private readonly hitRepository: HitRepository,
   ) {
     this.serverKey = this.configService.get("fcm").serverKey;
     this.fcm = new FCM(this.serverKey);
+    this.collapseKeyAndroid = this.configService.get("fcm").collapseKeyAndroid;
+    this.collapseKeyIos = this.configService.get("fcm").collapseKeyIos;
   }
 
   private static message(to: string, data: Data, collapseKey: string) {
@@ -63,9 +63,9 @@ export class FcmService {
       const { fcmToken } = user;
 
       if (user.device === Device.ANDROID) {
-        this.sendNotice(fcmToken, data, "com.jaryapp.myapplication3");
+        this.sendNotice(fcmToken, data, this.collapseKeyAndroid);
       } else if (user.device === Device.IOS) {
-        this.sendNotice(fcmToken, data, "com.cmi.cbnu-alrami");
+        this.sendNotice(fcmToken, data, this.collapseKeyIos);
       }
     });
   }

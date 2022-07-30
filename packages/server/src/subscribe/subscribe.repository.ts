@@ -13,6 +13,7 @@ export class SubscribeRepository extends Repository<Subscribe> {
   async findBoardByUser(userId: number) {
     return this.createQueryBuilder("subscribe")
       .select([ "board_id AS boardId" ])
+      .where("user_id = :userId", { userId })
       .getRawMany();
   }
 }

@@ -25,7 +25,6 @@ export { Setting } from "./Setting";
 export { SmallPlaceMenu } from "./SmallPlaceMenu";
 export { Speaker } from "./Speaker";
 export { Star } from "./Star";
-export { Subscribe } from "./Subscribe";
 export { Theme } from "./Theme";
 export { Time } from "./Time";
 export { Write } from "./Write";

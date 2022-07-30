@@ -223,7 +223,7 @@ export class ArticleService {
 
     // DESCRIBE: article image 수정 요청이 있는 경우만 진행
     const newImages: number[] = articleUpdateDto.images;
-    if (Array.isArray(newImages) && newImages.length > 0) {
+    if (Array.isArray(newImages)) {
       await this.articleImageService.update(newImages, newArticle);
     }
     return result;

@@ -1,5 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import {
+  IsArray,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from "class-validator";
 
 export class ArticleUpdateDto {
   @IsNotEmpty()
@@ -26,7 +32,7 @@ export class ArticleUpdateDto {
   @ApiProperty({ description: "공지사항 등록 날짜 : YYYY-MM-DD" })
   date!: Date;
 
-  @IsNotEmpty()
+  @IsArray()
   @ApiProperty({ description: "공지사항에 첨부된 이미지 id 배열" })
   images: number[];
 }

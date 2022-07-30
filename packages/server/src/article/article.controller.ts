@@ -7,14 +7,16 @@ import {
   Post,
   Put,
   Req,
-  UseGuards
+  UseGuards,
 } from "@nestjs/common";
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Builder } from "builder-pattern";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
 import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
+import { AdminSession } from "src/commons/decorators/AdminSession.decorator";
 import { Public } from "src/commons/decorators/public.decorator";
 import { UserSession } from "src/commons/decorators/UserSession.decorator";
+import { Admin } from "src/commons/entities/admin.entity";
 import { User } from "src/commons/entities/user.entity";
 import { AdminAuthGuard } from "src/commons/guards/admin-auth.guard";
 
@@ -110,11 +112,17 @@ export class ArticleController {
     description: "수정된 공지사항 정보",
     type: ArticleDto,
   })
+  @ApiHeader({
+    name: "x-access-token",
+    description: "admin jwt",
+  })
   async update(
+    @AdminSession() admin: Admin,
     @Param("articleId") articleId: number,
     @Body() articleUpdateDto: ArticleUpdateDto,
   ): Promise<ArticleDto> {
     const article = await this.articleService.update(
+      admin,
       articleId,
       articleUpdateDto,
     );

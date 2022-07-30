@@ -185,6 +185,7 @@ export class ArticleService {
   }
 
   async update(
+    admin: Admin,
     articleId: number,
     articleUpdateDto: ArticleUpdateDto,
   ): Promise<Article> {
@@ -192,7 +193,7 @@ export class ArticleService {
 
     // DESCRIBE: 이전 값
     const { url } = beforeArticle;
-    let { board, author } = beforeArticle;
+    let { board } = beforeArticle;
 
     // DESCRIBE: 신규 값
     const newUrl: string = articleUpdateDto.url;
@@ -206,15 +207,11 @@ export class ArticleService {
       board = await this.boardService.findById(articleUpdateDto.boardId);
     }
 
-    if (beforeArticle.author.id !== articleUpdateDto.adminId) {
-      author = await this.adminService.findById(articleUpdateDto.adminId);
-    }
-
     const newArticle = Object.assign(
       beforeArticle,
       Builder(Article)
         .board(board)
-        .author(author)
+        .author(admin)
         .title(articleUpdateDto.title)
         .content(articleUpdateDto.content)
         .url(articleUpdateDto.url)

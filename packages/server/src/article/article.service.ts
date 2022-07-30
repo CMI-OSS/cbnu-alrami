@@ -195,10 +195,11 @@ export class ArticleService {
     const { url } = beforeArticle;
     let { board } = beforeArticle;
 
-    // DESCRIBE: 신규 값
+    // DESCRIBE: 신규 url 값 -> 기존 Url과 다르고, 비어있지 않을 경우에만 중복 확인
     const newUrl: string = articleUpdateDto.url;
     if (
       url !== newUrl &&
+      !(await this.isEmpty(newUrl)) &&
       (await this.articleRepository.existsByUrl(newUrl)) > 0
     )
       throw ARTICLE_URL_EXISTS;

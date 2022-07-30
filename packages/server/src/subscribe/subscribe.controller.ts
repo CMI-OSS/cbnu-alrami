@@ -18,7 +18,7 @@ import { SubscribeService } from "./subscribe.service";
 @Public()
 @Controller()
 @ApiTags("[subscribe] 공지사항 사이트 구독 관련 API")
-export class SubscribeControlelr {
+export class SubscribeController {
   constructor(private readonly subscribeService: SubscribeService) {}
 
   @Post("subscribe/boards/:boardId")
@@ -113,6 +113,6 @@ export class SubscribeControlelr {
   })
   @UseGuards(UserAuthGuard)
   async findAllSubscribeAndNotice(@UserSession() user: User) {
-    console.log({ user });
+    return this.subscribeService.findAllSubscribeAndNotice(user);
   }
 }

@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Builder } from "builder-pattern";
 import * as moment from "moment-timezone";
-import { AdminService } from "src/admin/admin.service";
 import { ArticleImageService } from "src/articleImage/articleImage.service";
 import { BoardService } from "src/board/board.service";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
@@ -34,7 +33,6 @@ export class ArticleService {
     private readonly articleRepository: ArticleRepository,
     private readonly bookmarkRepository: BookmarkRepository,
     private readonly hitRepository: HitRepository,
-    private readonly adminService: AdminService,
     private readonly boardService: BoardService,
     private readonly boardTreeService: BoardTreeService,
     private readonly subscribeService: SubscribeService,
@@ -226,25 +224,7 @@ export class ArticleService {
     // DESCRIBE: article image 수정 요청이 있는 경우만 진행
     const newImages: number[] = articleUpdateDto.images;
     if (Array.isArray(newImages) && newImages.length > 0) {
-      // DESCRIBE: article_image 수정
-      const beforeImages = await this.articleImageService.findImageByArticle(
-        articleId,
-      );
-
-      // DESCRIBE: 기존 이미지 차집합은 삭제
-      const beforeDiff = beforeImages.filter((x) => !newImages.includes(x));
-      const removes = beforeDiff.map(async (imageId) => {
-        await this.articleImageService.remove(imageId);
-      });
-      await Promise.all(removes);
-
-      // DESCRIBE: 신규 이미지 차집합은 새로 등록
-      const newDiff = newImages.filter((x) => !beforeImages.includes(x));
-      const updates = newDiff.map(async (imageId) => {
-        const image = await this.imageService.findById(imageId);
-        await this.articleImageService.create(image, newArticle);
-      });
-      await Promise.all(updates);
+      await this.articleImageService.update(newImages, newArticle);
     }
     return result;
   }

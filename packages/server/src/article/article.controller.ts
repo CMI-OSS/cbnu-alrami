@@ -100,7 +100,7 @@ export class ArticleController {
     return article.id;
   }
 
-  @Put("/article/:articleId")
+  @Put("/articles/:articleId")
   @ApiOperation({
     summary: "특정 공지사항 정보 수정 API",
     description: "공지사항 id(pk)를 이용, 해당 공지사항의 정보를 수정한다.",

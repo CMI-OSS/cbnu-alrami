@@ -23,4 +23,15 @@ export class ArticleImageService {
 
     await this.articleImageRepository.save(articleImage);
   }
+
+  async remove(id: number) {
+    await this.articleImageRepository.delete({ id });
+  }
+
+  async findImageByArticle(articleId: number): Promise<number[]> {
+    const articleImages =
+      await this.articleImageRepository.findImageIdByArticle(articleId);
+    const result = articleImages.map(({ articleId }) => articleId);
+    return result;
+  }
 }

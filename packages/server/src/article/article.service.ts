@@ -184,6 +184,7 @@ export class ArticleService {
     return response.length === 0 ? undefined : response;
   }
 
+  @Transactional()
   async update(
     admin: Admin,
     articleId: number,
@@ -208,6 +209,7 @@ export class ArticleService {
       board = await this.boardService.findById(articleUpdateDto.boardId);
     }
 
+    // DESCRIBE: article 정보 업데이트
     const newArticle = Object.assign(
       beforeArticle,
       Builder(Article)
@@ -220,6 +222,30 @@ export class ArticleService {
         .build(),
     );
     const result = await this.articleRepository.save(newArticle);
+
+    // DESCRIBE: article image 수정 요청이 있는 경우만 진행
+    const newImages: number[] = articleUpdateDto.images;
+    if (Array.isArray(newImages) && newImages.length > 0) {
+      // DESCRIBE: article_image 수정
+      const beforeImages = await this.articleImageService.findImageByArticle(
+        articleId,
+      );
+
+      // DESCRIBE: 기존 이미지 차집합은 삭제
+      const beforeDiff = beforeImages.filter((x) => !newImages.includes(x));
+      const removes = beforeDiff.map(async (imageId) => {
+        await this.articleImageService.remove(imageId);
+      });
+      await Promise.all(removes);
+
+      // DESCRIBE: 신규 이미지 차집합은 새로 등록
+      const newDiff = newImages.filter((x) => !beforeImages.includes(x));
+      const updates = newDiff.map(async (imageId) => {
+        const image = await this.imageService.findById(imageId);
+        await this.articleImageService.create(image, newArticle);
+      });
+      await Promise.all(updates);
+    }
     return result;
   }
 

@@ -13,4 +13,10 @@ export class ArticleImageRepository extends Repository<ArticleImage> {
       .where("article_image.image_id = :imageId", { imageId })
       .execute();
   }
+
+  async findImageIdByArticle(articleId: number) {
+    return this.createQueryBuilder()
+      .select([ "image_id AS imageId" ])
+      .getRawMany();
+  }
 }

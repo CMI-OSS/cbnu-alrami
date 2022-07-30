@@ -6,7 +6,6 @@ import {
   Param,
   Post,
   Put,
-  Req,
   UseGuards,
 } from "@nestjs/common";
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
@@ -91,9 +90,8 @@ export class ArticleController {
   async create(
     @Param("boardId") boardId: number,
     @Body() articleCreateDto: ArticleCreateDto,
-    @Req() req,
+    @AdminSession() admin: Admin,
   ): Promise<number> {
-    const { admin } = req;
     const article = await this.articleService.create(
       boardId,
       admin,

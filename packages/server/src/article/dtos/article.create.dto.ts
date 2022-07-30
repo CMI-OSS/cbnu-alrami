@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class ArticleCreateDto {
   @IsNotEmpty()
@@ -12,7 +12,7 @@ export class ArticleCreateDto {
   @ApiProperty({ description: "공지사항 내용" })
   content: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   @ApiProperty({ description: "공지사항 url" })
   url: string;

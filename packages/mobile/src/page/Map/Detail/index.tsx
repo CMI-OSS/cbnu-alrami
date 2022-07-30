@@ -1,11 +1,11 @@
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { MapArrow } from "@components/atoms/icon/MapArrow";
-import { MoreArrow } from "@components/atoms/icon/MoreArrow";
 import { Phone } from "@components/atoms/icon/Phone";
 import { Position } from "@components/atoms/icon/Position";
 import { Time } from "@components/atoms/icon/Time";
 import ImageList from "@components/molecules/ImageList";
+import BorderBox from "src/components/atoms/BorderBox";
 
 import detailImageList from "../../../__mocks__/detailImageList";
 import $ from "./style.module.scss";
@@ -38,7 +38,7 @@ function Detail() {
           )`,
         }}
       />
-      <div className={$.info}>
+      <BorderBox className={$.info}>
         <div className={$["info-inner"]}>
           <span className={$.text}>N15 / (구) 057</span>
           <strong className={$.title}>충북대학교 사회과학대학</strong>
@@ -67,43 +67,22 @@ function Detail() {
             </NavLink>
           </div>
         </div>
-      </div>
-      <div className={$.menu}>
-        <strong className={$["menu-title"]}>메뉴판</strong>
-        <ImageList isMoreContents={false} detailImageList={detailImageList} />
-        <div className={$.price}>
-          <div className={$["price-item"]}>
-            <span className={$["price-title"]}>감바스</span>
-            <span className={$["price-value"]}>8,000원</span>
-          </div>
-          <div className={$["price-item"]}>
-            <span className={$["price-title"]}>가츠동</span>
-            <span className={$["price-value"]}>8,500원</span>
-          </div>
-          <div className={$["price-item"]}>
-            <span className={$["price-title"]}>피자</span>
-            <span className={$["price-value"]}>13,000원</span>
-          </div>
-          <div className={$["price-item"]}>
-            <span className={$["price-title"]}>초코 아이스크림</span>
-            <span className={$["price-value"]}>18,000원</span>
-          </div>
-          <div className={$["price-item"]}>
-            <span className={$["price-title"]}>
-              소불고기 소불고기 소불고기소불고기 소불고기소불고기
-            </span>
-            <span className={$["price-value"]}>130,000원</span>
-          </div>
-          <NavLink className={$["price-link"]} to="/more">
-            더보기
-            <MoreArrow className={$["more-arrow"]} />
-          </NavLink>
-        </div>
-      </div>
-      <div className={$.detail}>
+      </BorderBox>
+      <BorderBox className={$.menu}>
+        <strong className={$["description-title"]}>설명</strong>
+        <p className={$["description-text"]}>
+          유구한 역사와 전통에 빛나는 우리 대한국민은 3ㆍ1운동으로 건립된
+          대한민국임시정부의 법통과 불의에 항거한 4ㆍ19민주이념을 계승하고,
+          조국의 민주개혁과 평화적 통일의 사명에 입각하여 정의ㆍ인도와
+          동포애로써 민족의 단결을 공고히 하고, 모든 사회적 폐습과 불의를
+          타파하며, 자율과 조화를 바탕으로 자유민주적 기본질서를 더욱 확고히
+          하여 정치ㆍ경제ㆍ사회ㆍ문화의
+        </p>
+      </BorderBox>
+      <BorderBox className={$.detail}>
         <strong className={$["detail-title"]}>상세이미지</strong>
         <ImageList isMoreContents detailImageList={detailImageList} />
-      </div>
+      </BorderBox>
     </div>
   );
 }

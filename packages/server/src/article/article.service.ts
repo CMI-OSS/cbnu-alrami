@@ -48,7 +48,10 @@ export class ArticleService {
     admin: Admin,
     articleCreateDto: ArticleCreateDto,
   ): Promise<Article> {
-    if ((await this.articleRepository.existsByUrl(articleCreateDto.url)) > 0)
+    if (
+      !(await this.isEmpty(articleCreateDto.url)) &&
+      (await this.articleRepository.existsByUrl(articleCreateDto.url)) > 0
+    )
       throw ARTICLE_URL_EXISTS;
 
     const board = await this.boardService.findById(boardId);
@@ -74,6 +77,11 @@ export class ArticleService {
     );
 
     return result;
+  }
+
+  async isEmpty(str: string): Promise<boolean> {
+    if (typeof str === "undefined" || str === null || str === "") return true;
+    return false;
   }
 
   async findById(id: number): Promise<Article> {

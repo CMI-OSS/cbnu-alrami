@@ -1,8 +1,7 @@
-import classnames from "classnames";
-import SettingHeader from "src/components/molecules/SettingHeader";
+import { LeftArrow } from "src/components/atoms/icon";
 import { DefaultProps } from "src/type/props";
 
-import $ from "./style.module.scss";
+import FullPageModalTemplate from "../FullPageModalTemplate";
 
 type Props = {
   title: string;
@@ -10,14 +9,12 @@ type Props = {
 
 export default function SettingTemplate({ className, title, children }: Props) {
   return (
-    <>
-      <SettingHeader title={title} />
-      <main
-        className={classnames($["setting-template"], className)}
-        style={{ paddingTop: "70px" }}
-      >
-        {children}
-      </main>
-    </>
+    <FullPageModalTemplate
+      left={<LeftArrow color="#AAAAAA" width="16" height="16" />}
+      title={title}
+      className={className}
+    >
+      {children}
+    </FullPageModalTemplate>
   );
 }

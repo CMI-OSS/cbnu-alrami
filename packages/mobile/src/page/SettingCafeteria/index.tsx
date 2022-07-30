@@ -21,7 +21,7 @@ export default function SettingCafeteria() {
   const [ representative, setRepresentative ] = useState("표시 안함");
 
   return (
-    <SettingTemplate title="대표 식당">
+    <SettingTemplate title="대표식당">
       <div className={$["setting-cafeteria"]}>
         <Food width="32px" height="37.33px" />
         <span className={$.text}>

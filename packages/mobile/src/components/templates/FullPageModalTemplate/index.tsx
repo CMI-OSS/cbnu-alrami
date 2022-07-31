@@ -22,7 +22,7 @@ function FullPageModalTemplate({ left, title, right, children }: Props) {
         <div className={$.title}>{title}</div>
         <div className={$.right}>{right}</div>
       </div>
-      {children}
+      <div className={$.children}>{children}</div>
     </div>
   );
 }

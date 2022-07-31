@@ -7,14 +7,10 @@ import imageList from "./imageList";
 import mapImageList from "./mapImageList";
 import menuList from "./menuList";
 import { mockCategory } from "./notificationList";
-import playList from "./playList";
-import snackList from "./snackList";
 
 export {
   imageList,
   menuList,
-  playList,
-  snackList,
   mockCategory,
   detailImageList,
   mapImageList,

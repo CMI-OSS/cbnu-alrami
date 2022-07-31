@@ -1,6 +1,6 @@
 import { settingConfig } from "src/__mocks__";
-import SettingMenu from "src/components/molecules/SettingMenu";
-import SettingTemplate from "src/components/templates/SettingTemplate";
+import SettingMenu from "src/page/Setting/SettingMenu";
+import SettingTemplate from "src/page/Setting/SettingTemplate";
 
 import { settingMenuList } from "./constants";
 import $ from "./style.module.scss";

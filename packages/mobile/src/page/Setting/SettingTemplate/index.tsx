@@ -2,7 +2,7 @@ import classnames from "classnames";
 import { LeftArrow } from "src/components/atoms/icon";
 import { DefaultProps } from "src/type/props";
 
-import FullPageModalTemplate from "../FullPageModalTemplate";
+import FullPageModalTemplate from "../../../components/templates/FullPageModalTemplate";
 import $ from "./style.module.scss";
 
 type Props = {

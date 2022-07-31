@@ -14,11 +14,11 @@ import Detail from "./page/Map/Detail";
 import MoreImage from "./page/Map/MoreImage";
 import Report from "./page/Map/Report";
 import Notice from "./page/Notice";
+import SettingRoute from "./page/Setting";
 import College from "./page/Subscription/College";
 import End from "./page/Subscription/End";
 import Major from "./page/Subscription/Major";
 import SubscriptionSetting from "./page/Subscription/Setting";
-import SettingRoute from "./routes/setting";
 
 function App() {
   const routes = [

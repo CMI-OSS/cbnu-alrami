@@ -3,7 +3,7 @@ import { useState } from "react";
 import BorderBox from "src/components/atoms/BorderBox";
 import { Food } from "src/components/atoms/icon";
 import RadioSelect from "src/components/molecules/RadioSelect";
-import SettingTemplate from "src/components/templates/SettingTemplate";
+import SettingTemplate from "src/page/Setting/SettingTemplate";
 
 import $ from "./style.module.scss";
 

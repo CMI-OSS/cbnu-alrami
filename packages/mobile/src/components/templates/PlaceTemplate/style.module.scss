@@ -57,31 +57,34 @@
   @include flicking;
 }
 
-.menu_link {
+.menu-link {
   display: block;
   font-size: 14px;
   line-height: 18px;
-  padding: 8px;
+  padding: 8px 12px;
   white-space: nowrap;
   color: $black-80;
+  border-radius: 100px;
 
   &:not(:first-child) {
     margin-left: 16px;
   }
 
   &[aria-selected="true"] {
-    background-color: $red-50;
-    color: $white;
-    border-radius: 100px;
+    background-color: $red-20;
+    color: $red-100;
 
     &:hover {
-      @include hover-status($white, none);
+      @include hover-status($red-100, none);
     }
   }
 
   &[aria-selected="false"] {
+    background-color: $black-10;
+    color: $black-80;
+
     &:hover {
-      @include hover-status(inherit, none);
+      @include hover-status($black-80, none);
     }
   }
 }
@@ -92,7 +95,7 @@
 }
 
 .tooltip {
-  margin: 186px 8px 0;
+  margin: 129px 8px 0;
   border-radius: 4px;
   background-color: $white;
   padding: 7px 21px;

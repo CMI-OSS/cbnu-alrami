@@ -7,7 +7,6 @@ import { PlaceArrow } from "@components/atoms/icon/PlaceArrow";
 import { PlaceMenu } from "@components/atoms/icon/PlaceMenu";
 import { SmallPlaceMenu } from "@components/atoms/icon/SmallPlaceMenu";
 import Footer from "@components/molecules/Footer";
-import MenuButtonList from "@components/molecules/MenuButtonList";
 import ConstructionInfo from "src/page/Map/ConstructionInfo";
 import { useAppDispatch, useAppSelector } from "src/store";
 import {
@@ -102,7 +101,6 @@ function Map() {
 
   return (
     <div id="map" className={$.map}>
-      {isDisplayFloatingButton && <MenuButtonList />}
       {isConstructionTooltip && (
         <NavLink to="/" className={$["place-link"]}>
           <MapArrow className={$["place-arrow"]} />
@@ -132,7 +130,7 @@ function Map() {
               <PlaceArrow className={$.arrow} />
             </div>
           )}
-          <NavLink to="/place/school" className={$.link}>
+          <NavLink to="/place/all" className={$.link}>
             <PlaceMenu className={$.icon} />
             <span className="blind">장소탐색하기</span>
           </NavLink>

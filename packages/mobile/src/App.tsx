@@ -47,25 +47,21 @@ function App() {
       path: "/subscription/major/:collegeId/:majorId/:detailId",
       element: <Preview />,
     },
-    {
-      path: "/place/school/*",
+    {  
+      path: "/place/all",
       element: <PlaceTemplate menuType={1} />,
     },
     {
-      path: "/place/food/*",
+      path: "/place/north",
       element: <PlaceTemplate menuType={2} />,
     },
     {
-      path: "/place/convenient/*",
+      path: "/place/east",
       element: <PlaceTemplate menuType={3} />,
     },
     {
-      path: "/place/snack/*",
+      path: "/place/south",
       element: <PlaceTemplate menuType={4} />,
-    },
-    {
-      path: "/place/play/*",
-      element: <PlaceTemplate menuType={5} />,
     },
   ];
 

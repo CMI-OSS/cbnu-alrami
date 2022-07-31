@@ -2,29 +2,33 @@
 
 .full-modal {
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
 
-.header {
-  position: fixed;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 60px;
-  padding: 0 25px;
-  background: #fff;
-
-  .left {
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 60px;
+    padding: 0 25px;
+    background: #fff;
+
+    .left {
+      display: flex;
+    }
+
+    .title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      @include typography(18);
+      font-weight: 500;
+    }
   }
 
-  .title {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    @include typography(18);
-    font-weight: 500;
+  .children {
+    padding-top: 60px;
   }
 }

@@ -1,8 +1,8 @@
 import { settingConfig } from "src/__mocks__";
 import SettingMenu from "src/components/molecules/SettingMenu";
 import SettingTemplate from "src/components/templates/SettingTemplate";
-import { settingMenuList } from "src/constants";
 
+import { settingMenuList } from "./constants";
 import $ from "./style.module.scss";
 
 export default function SettingMain() {

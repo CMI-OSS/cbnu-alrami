@@ -14,15 +14,15 @@ function RadioBox({ toggle, onToggleChange }: Props) {
   return (
     <section className={$["radio-box"]}>
       <RadioButton
-        labelText="개인 일정"
-        value="personal"
-        isChecked={toggle === "personal"}
+        labelText="학사일정"
+        value="all"
+        isChecked={toggle === "all"}
         onChange={onToggleChange}
       />
       <RadioButton
-        labelText="학사 일정"
-        value="college"
-        isChecked={toggle === "college"}
+        labelText="즐겨찾기"
+        value="stared"
+        isChecked={toggle === "stared"}
         onChange={onToggleChange}
       />
     </section>

@@ -7,6 +7,7 @@ import imageList from "./imageList";
 import mapImageList from "./mapImageList";
 import menuList from "./menuList";
 import { mockCategory, mockNotification } from "./notificationList";
+import { settingConfig } from "./settingConfig";
 
 export {
   imageList,
@@ -15,6 +16,7 @@ export {
   mockCategory,
   detailImageList,
   mapImageList,
+  settingConfig,
   cafeteriaTimeInfo,
   cafeteriaMenu,
   cafeteriaList,

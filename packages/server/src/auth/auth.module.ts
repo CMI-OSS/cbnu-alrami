@@ -13,7 +13,7 @@ import { AuthService } from "./auth.service";
     UserModule,
     JwtModule.register({
       secret: ACCESS_PRIVATE_KEY,
-      signOptions: { expiresIn: "60m" },
+      signOptions: { expiresIn: "180m" },
     }),
   ],
   controllers: [ AuthController ],

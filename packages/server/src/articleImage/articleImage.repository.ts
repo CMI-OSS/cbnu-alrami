@@ -13,4 +13,19 @@ export class ArticleImageRepository extends Repository<ArticleImage> {
       .where("article_image.image_id = :imageId", { imageId })
       .execute();
   }
+
+  async findImageIdByArticle(articleId: number) {
+    return this.createQueryBuilder()
+      .select([ "image_id AS imageId" ])
+      .where("article_id = :articleId", { articleId })
+      .getRawMany();
+  }
+
+  async deleteByImage(imageId: number) {
+    return this.createQueryBuilder()
+      .delete()
+      .from(ArticleImage)
+      .where("image_id = :imageId", { imageId })
+      .execute();
+  }
 }

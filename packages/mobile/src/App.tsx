@@ -1,10 +1,10 @@
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./mobile.scss";
 
 import Subscription from "src/page/Subscription/Start";
 
 import PlaceTemplate from "./components/templates/PlaceTemplate";
-import "./mobile.scss";
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
 import Home from "./page/Home";
@@ -14,6 +14,7 @@ import Detail from "./page/Map/Detail";
 import MoreImage from "./page/Map/MoreImage";
 import Report from "./page/Map/Report";
 import Notice from "./page/Notice";
+import SettingRoute from "./page/Setting";
 import College from "./page/Subscription/College";
 import End from "./page/Subscription/End";
 import Major from "./page/Subscription/Major";
@@ -63,6 +64,12 @@ function App() {
       path: "/place/south",
       element: <PlaceTemplate menuType={4} />,
     },
+    {
+      id: 19,
+      path: "/place/play/*",
+      element: <PlaceTemplate menuType={5} />,
+    },
+    { id: 20, path: "/setting/*", element: <SettingRoute /> },
   ];
 
   return (

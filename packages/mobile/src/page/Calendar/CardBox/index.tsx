@@ -1,6 +1,6 @@
 import { animateScroll } from "react-scroll";
 
-import guideEmptyStaredSchedule from "src/assets/guide_empty_stared_schedule.png";
+import guideEmptyFavoritesSchedule from "src/assets/guide_empty_favorites_schedule.png";
 import { Arrow } from "src/components/atoms/icon/Arrow";
 import useScroll from "src/hooks/useScroll";
 import { Schedule, ScheduleType } from "src/page/Calendar";
@@ -25,8 +25,8 @@ function CardBox({ scheduleType, schedules }: Props) {
           <span className={$.discription}>오늘은 일정이 없어요</span>
         ) : (
           <img
-            className={$["empty-stared-board"]}
-            src={guideEmptyStaredSchedule}
+            className={$["empty-favorites-board"]}
+            src={guideEmptyFavoritesSchedule}
             alt="즐겨찾기된 학사일정 없음"
           />
         )}

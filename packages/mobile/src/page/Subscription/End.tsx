@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 import {
   Alarm,
@@ -50,6 +50,7 @@ function End() {
     Number(collegeId),
     Number(majorId),
   );
+  const { pathname } = useLocation();
 
   return (
     <SubscriptionModalTemplate>
@@ -66,26 +67,32 @@ function End() {
           {GUIDE.common_end}
         </div>
       </div>
-      {lastChildBoardTree?.map((data) => {
+      {lastChildBoardTree?.map((child) => {
         return (
-          <BorderBox
-            key={data.id}
-            height={87}
-            background="#F6F5FB"
-            style={{ marginBottom: "12px" }}
-          >
-            <div className={$["subscription-box-base"]}>
-              <div className={$.left}>
-                <span className={$.title}>{data.name}</span>
-                <Arrow width={4} height={13} color="#AAAAAA" />
+          <Link to={`${pathname}/${child.id}`}>
+            <BorderBox
+              key={child.id}
+              height={87}
+              background="#F6F5FB"
+              style={{ marginBottom: "12px" }}
+            >
+              <div className={$["subscription-box-base"]}>
+                <div className={$.left}>
+                  <span className={$.title}>{child.name}</span>
+                  <Arrow width={4} height={13} color="#AAAAAA" />
+                </div>
+                <div className={$.right}>
+                  {child.isSubscribing && child.isNoticing && (
+                    <구독하고알람함 />
+                  )}
+                  {child.isSubscribing && !child.isNoticing && (
+                    <구독하고알람안함 />
+                  )}
+                  {!child.isSubscribing && <구독안함 />}
+                </div>
               </div>
-              <div className={$.right}>
-                {data.isSubscribing && data.isNoticing && <구독하고알람함 />}
-                {data.isSubscribing && !data.isNoticing && <구독하고알람안함 />}
-                {!data.isSubscribing && <구독안함 />}
-              </div>
-            </div>
-          </BorderBox>
+            </BorderBox>
+          </Link>
         );
       })}
     </SubscriptionModalTemplate>

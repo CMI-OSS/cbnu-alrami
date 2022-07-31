@@ -14,3 +14,15 @@ export const usePopularArticle = () => {
   );
   return response;
 };
+
+export const fetchArticleByBoardId = (boardId: number) => {
+  return caxios.get<res.ArticleByBoardId[]>(`/boards/${boardId}/articles`);
+};
+
+export const useArticleByBoardId = (boardId: number) => {
+  const response = useQuery<AxiosResponse<res.ArticleByBoardId[]>, Error>(
+    [ "articles", boardId ],
+    () => fetchArticleByBoardId(boardId),
+  );
+  return response;
+};

@@ -9,20 +9,29 @@ type Props = {
   type: string;
   dimmed?: boolean;
   className?: string;
+  handleModalClose?: (e: React.MouseEvent) => void;
 };
 
-function Modal({ children, type, dimmed, className }: Props) {
+function Modal({ children, type, dimmed, className, handleModalClose }: Props) {
   return (
     <>
       <div className={classNames($.wrap, className)}>
         {children}
         <div className={$.buttons}>
           {type === "double" && (
-            <button type="button" className={$.cancel}>
+            <button
+              type="button"
+              className={$.cancel}
+              onClick={handleModalClose}
+            >
               취소
             </button>
           )}
-          <button type="button" className={$.confirm}>
+          <button
+            type="button"
+            className={$.confirm}
+            onClick={handleModalClose}
+          >
             확인
           </button>
         </div>

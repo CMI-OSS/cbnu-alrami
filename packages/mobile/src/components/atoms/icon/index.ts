@@ -54,3 +54,5 @@ export { LeftArrow } from "./LeftArrow";
 export { Alarm } from "./Alarm";
 export { UnAlarm } from "./UnAlarm";
 export { Arrow } from "./Arrow";
+export { Internet } from "./Internet";
+export { Share } from "./Share";

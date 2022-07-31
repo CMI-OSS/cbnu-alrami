@@ -3,12 +3,11 @@ import { Builder } from "builder-pattern";
 import { BoardService } from "src/board/board.service";
 import { BoardTreeRepository } from "src/boardTree/boardTree.repository";
 import { Board } from "src/commons/entities/board.entity";
-import { BoardTree } from "src/commons/entities/boardTree.entity";
 import { Subscribe } from "src/commons/entities/subscribe.entity";
 import { User } from "src/commons/entities/user.entity";
 import { Errors } from "src/commons/exception/exception.global";
 
-import { SubscribeInfoDto } from "./dtos/subscribe.dto";
+import { SubscribeBaseDto, SubscribeInfoDto } from "./dtos/subscribe.dto";
 import { SubscribeRepository } from "./subscribe.repository";
 
 const { ALREADY_SUBSCRIBE_BOARD, NOT_SUBSCRIBED_BOARD } = Errors;
@@ -105,31 +104,43 @@ export class SubscribeService {
     const subscribes = await this.findByUser(user.id);
     response = await Promise.all(
       subscribes.map(async (subscribe) => {
-        const boardTreeName = await this.getBoardTreeName(subscribe.board);
+        const { board } = subscribe;
+        const parentList = await this.getParentBoardList(board);
         return Builder(SubscribeInfoDto)
           .id(subscribe.id)
-          .name(boardTreeName)
+          .name(board.name)
           .isNoticing(subscribe.notice)
+          .parents(parentList)
           .build();
       }),
     );
     return response;
   }
 
-  async getBoardTreeName(board: Board): Promise<string> {
-    let response = board.name;
+  async getParentBoardList(board: Board): Promise<SubscribeBaseDto[]> {
+    const response: SubscribeBaseDto[] = [];
     const boardId = board.id;
-    const boardTree: BoardTree = await this.boardTreeRepository.findOne({
-      where: {
-        board: boardId,
-      },
-      relations: [ "board", "parentBoard" ],
-    });
-    if (typeof boardTree !== "undefined" && boardTree.parentBoard !== null) {
-      const { parentBoard } = boardTree;
-      const parentName = await this.getBoardTreeName(parentBoard);
-      response = `${parentName} > ${response}`;
-    }
+    // while (1) {
+    //   // DESCRIBE: 현재 노드의 보드 트리 검색
+    //   const boardTree: BoardTree = await this.boardTreeRepository.findOne({
+    //     where: {
+    //       board: boardId,
+    //     },
+    //     relations: [ "board", "parentBoard" ],
+    //   });
+
+    //   // DESCRIBE: 보드 트리 정보 있으면 결과 추가
+    //   if (typeof boardTree !== "undefined" && boardTree.parentBoard !== null) {
+    //     const { parentBoard } = boardTree;
+    //     response.push(
+    //       Builder(SubscribeBaseDto)
+    //         .id(parentBoard.id)
+    //         .name(parentBoard.name)
+    //         .build(),
+    //     );
+    //     boardId = boardTree.parentBoard.id;
+    //   } else break;
+    // }
 
     return response;
   }

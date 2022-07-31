@@ -1,6 +1,6 @@
 import { animateScroll } from "react-scroll";
 
-import { ScheduleBoard, Star } from "src/components/atoms/icon";
+import guideEmptyStaredSchedule from "src/assets/guide_empty_stared_schedule.png";
 import { Arrow } from "src/components/atoms/icon/Arrow";
 import useScroll from "src/hooks/useScroll";
 import { Schedule, ScheduleType } from "src/page/Calendar";
@@ -22,27 +22,13 @@ function CardBox({ scheduleType, schedules }: Props) {
     return (
       <section className={$["empty-box"]}>
         {scheduleType === "all" ? (
-          <span className={$["all-schedule-discription"]}>
-            오늘은 일정이 없어요
-          </span>
+          <span className={$.discription}>오늘은 일정이 없어요</span>
         ) : (
-          <>
-            <ScheduleBoard
-              className={$["board-icon"]}
-              width="239px"
-              height="54px"
-            />
-            <div className={$["description-box"]}>
-              <span className={$["stared-schedule-description"]}>
-                학사일정 우측 하단의{" "}
-              </span>
-              <Star width="13px" height="13" />
-              <span className={$["stared-schedule-description"]}>을 눌러</span>
-            </div>
-            <span className={$["stared-schedule-description"]}>
-              관심있는 공지를 저장해요
-            </span>
-          </>
+          <img
+            className={$["empty-stared-board"]}
+            src={guideEmptyStaredSchedule}
+            alt="즐겨찾기된 학사일정 없음"
+          />
         )}
       </section>
     );

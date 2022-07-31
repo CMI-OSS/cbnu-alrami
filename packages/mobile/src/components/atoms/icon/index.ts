@@ -24,7 +24,6 @@ export { Person } from "./Person";
 export { PlaceMenu } from "./PlaceMenu";
 export { Plus } from "./Plus";
 export { Position } from "./Position";
-export { ScheduleBoard } from "./ScheduleBoard";
 export { Setting } from "./Setting";
 export { SmallPlaceMenu } from "./SmallPlaceMenu";
 export { Speaker } from "./Speaker";
@@ -61,3 +60,4 @@ export { 연무 } from "./연무";
 export { 천둥번개 } from "./천둥번개";
 export { 황사 } from "./황사";
 export { 흐림 } from "./흐림";
+

@@ -6,21 +6,14 @@
     flex-direction: column;
     align-items: center;
 
-    .all-schedule-discription {
+    .discription {
         margin-top: 130px;
         color: $background-50;
     }
 
-    .description-box {
+    .empty-stared-board {
         margin-top: 59px;
-    }
-
-    .stared-schedule-description {
-        color: $background-50;
-    }
-
-    .board-icon {
-        margin-top: 63px;
+        width: 239px;
     }
 }
 

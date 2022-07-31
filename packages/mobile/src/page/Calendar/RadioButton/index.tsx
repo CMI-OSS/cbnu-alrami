@@ -18,6 +18,7 @@ function RadioButton({ labelText, value, isChecked, onChange }: Props) {
       htmlFor={value}
     >
       <input
+        className={$["radio-input"]}
         type="radio"
         id={value}
         checked={isChecked}

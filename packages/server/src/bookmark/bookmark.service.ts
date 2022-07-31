@@ -4,5 +4,5 @@ import { BookmarkRepository } from "./bookmark.repository";
 
 @Injectable()
 export class BookmarkService {
-    constructor(private readonly bookmarkRepository: BookmarkRepository) {}
+  constructor(private readonly bookmarkRepository: BookmarkRepository) {}
 }

@@ -19,4 +19,12 @@ export class Subscribe extends CommonEntity {
 
   @Column({ type: "bool", width: 1, nullable: true })
   notice: boolean;
+
+  async updateNoticeAbled() {
+    this.notice = true;
+  }
+
+  async updateNoticeDisabled() {
+    this.notice = false;
+  }
 }

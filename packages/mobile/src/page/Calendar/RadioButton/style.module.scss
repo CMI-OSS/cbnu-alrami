@@ -11,6 +11,11 @@ $label-hight: 36.75px;
     text-align: center;
     line-height: $label-hight;
     color: $black-50;
+
+    .radio-input {
+        width: 0;
+        height: 0;
+    }
 }
 
 .checked-label {

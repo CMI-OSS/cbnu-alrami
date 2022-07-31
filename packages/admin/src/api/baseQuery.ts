@@ -1,5 +1,13 @@
-import { BaseQueryFn } from "@reduxjs/toolkit/query";
+import { BaseQueryFn, fetchBaseQuery } from "@reduxjs/toolkit/query";
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
+
+const baseQuery = fetchBaseQuery({
+  baseUrl: `${import.meta.env.VITE_API_URL}/`,
+  prepareHeaders: (headers) => {
+    headers.set("Content-type", "application/json; charset=utf-8");
+    return headers;
+  },
+});
 
 const axiosBaseQuery =
   (): BaseQueryFn<
@@ -18,7 +26,6 @@ const axiosBaseQuery =
         url: `${import.meta.env.VITE_API_URL}/${url}`,
         method,
         headers: {
-          "Content-type": "application/json",
           "x-access-token": localStorage.getItem("x-access-token") || "",
           "x-refresh-token": localStorage.getItem("x-refresh-token") || "",
         },

@@ -4,7 +4,7 @@
 
 .menu-list {
   @include flicking;
-  @include position(fixed, left 0 right 0);
+  @include position(fixed, top 60px left 0 right 0);
   display: flex;
   z-index: 100;
   padding: 12px 21px 12px 13px;

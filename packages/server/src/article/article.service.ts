@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Builder } from "builder-pattern";
-import { AdminService } from "src/admin/admin.service";
+import * as moment from "moment-timezone";
 import { ArticleImageService } from "src/articleImage/articleImage.service";
 import { BoardService } from "src/board/board.service";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
@@ -8,16 +8,21 @@ import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
 import { BookmarkRepository } from "src/bookmark/bookmark.repository";
 import { Admin } from "src/commons/entities/admin.entity";
 import { Article } from "src/commons/entities/article.entity";
+import { User } from "src/commons/entities/user.entity";
 import { Errors } from "src/commons/exception/exception.global";
 import { HitRepository } from "src/hit/hit.repository";
 import { ImageService } from "src/image/image.service";
+import { SubscribeService } from "src/subscribe/subscribe.service";
 import { Transactional } from "typeorm-transactional-cls-hooked";
 
 import { ArticleRepository } from "./article.repository";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
-import { ArticleDetailInfoDto } from "./dtos/article.detail.info.dto";
+import {
+  ArticleDetailInfoDto,
+  ArticleListInfoDto,
+  ArticleResponseDto,
+} from "./dtos/article.dto";
 import { ArticleListDto } from "./dtos/article.list.dto";
-import { ArticleResponseDto } from "./dtos/article.response.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
 const { NO_DATA_IN_DB, ARTICLE_URL_EXISTS } = Errors;
@@ -26,11 +31,11 @@ const { NO_DATA_IN_DB, ARTICLE_URL_EXISTS } = Errors;
 export class ArticleService {
   constructor(
     private readonly articleRepository: ArticleRepository,
-    private readonly boomarkRepository: BookmarkRepository,
+    private readonly bookmarkRepository: BookmarkRepository,
     private readonly hitRepository: HitRepository,
-    private readonly adminService: AdminService,
     private readonly boardService: BoardService,
     private readonly boardTreeService: BoardTreeService,
+    private readonly subscribeService: SubscribeService,
     private readonly articleImageService: ArticleImageService,
     private readonly imageService: ImageService,
   ) {}
@@ -41,7 +46,10 @@ export class ArticleService {
     admin: Admin,
     articleCreateDto: ArticleCreateDto,
   ): Promise<Article> {
-    if ((await this.articleRepository.existsByUrl(articleCreateDto.url)) > 0)
+    if (
+      !(await this.isEmpty(articleCreateDto.url)) &&
+      (await this.articleRepository.existsByUrl(articleCreateDto.url)) > 0
+    )
       throw ARTICLE_URL_EXISTS;
 
     const board = await this.boardService.findById(boardId);
@@ -67,6 +75,11 @@ export class ArticleService {
     );
 
     return result;
+  }
+
+  async isEmpty(str: string): Promise<boolean> {
+    if (typeof str === "undefined" || str === null || str === "") return true;
+    return false;
   }
 
   async findById(id: number): Promise<Article> {
@@ -122,7 +135,9 @@ export class ArticleService {
     const board: BoardTreeResponseDto =
       await this.boardTreeService.getBoardTree(article.board.id);
     const hitCnt = await this.hitRepository.countByArticle(article.id);
-    const bookmarkCnt = await this.boomarkRepository.countByArticle(article.id);
+    const bookmarkCnt = await this.bookmarkRepository.countByArticle(
+      article.id,
+    );
 
     return Builder(ArticleResponseDto)
       .id(article.id)
@@ -148,7 +163,7 @@ export class ArticleService {
     await Promise.all(
       articles.map(async (article) => {
         const hitCnt = await this.hitRepository.countByArticle(article.id);
-        const bookmarkCnt = await this.boomarkRepository.countByArticle(
+        const bookmarkCnt = await this.bookmarkRepository.countByArticle(
           article.id,
         );
         response.push(
@@ -167,7 +182,9 @@ export class ArticleService {
     return response.length === 0 ? undefined : response;
   }
 
+  @Transactional()
   async update(
+    admin: Admin,
     articleId: number,
     articleUpdateDto: ArticleUpdateDto,
   ): Promise<Article> {
@@ -175,12 +192,13 @@ export class ArticleService {
 
     // DESCRIBE: 이전 값
     const { url } = beforeArticle;
-    let { board, author } = beforeArticle;
+    let { board } = beforeArticle;
 
-    // DESCRIBE: 신규 값
+    // DESCRIBE: 신규 url 값 -> 기존 Url과 다르고, 비어있지 않을 경우에만 중복 확인
     const newUrl: string = articleUpdateDto.url;
     if (
       url !== newUrl &&
+      !(await this.isEmpty(newUrl)) &&
       (await this.articleRepository.existsByUrl(newUrl)) > 0
     )
       throw ARTICLE_URL_EXISTS;
@@ -189,15 +207,12 @@ export class ArticleService {
       board = await this.boardService.findById(articleUpdateDto.boardId);
     }
 
-    if (beforeArticle.author.id !== articleUpdateDto.adminId) {
-      author = await this.adminService.findById(articleUpdateDto.adminId);
-    }
-
+    // DESCRIBE: article 정보 업데이트
     const newArticle = Object.assign(
       beforeArticle,
       Builder(Article)
         .board(board)
-        .author(author)
+        .author(admin)
         .title(articleUpdateDto.title)
         .content(articleUpdateDto.content)
         .url(articleUpdateDto.url)
@@ -205,6 +220,10 @@ export class ArticleService {
         .build(),
     );
     const result = await this.articleRepository.save(newArticle);
+
+    // DESCRIBE: article image 수정 요청이 있는 경우만 진행
+    const newImages: number[] = articleUpdateDto.images;
+    await this.articleImageService.update(newImages, newArticle);
     return result;
   }
 
@@ -213,5 +232,66 @@ export class ArticleService {
     await this.findById(id);
     await this.articleRepository.delete({ id });
     return true;
+  }
+
+  async findBookmarkArticles(user: User): Promise<ArticleListInfoDto[]> {
+    const response = [];
+    const bookmarkList = await this.bookmarkRepository.find({
+      where: {
+        user,
+      },
+      relations: [ "article" ],
+    });
+
+    await Promise.all(
+      bookmarkList.map(async (bookmark) => {
+        const { article } = bookmark;
+        const hitCnt = await this.hitRepository.count({ article });
+        const bookmarkCnt = await this.bookmarkRepository.count({ article });
+
+        const formattedDate = moment(article.date).format("YY-DD-MM");
+        response.push(
+          Builder(ArticleListInfoDto)
+            .id(article.id)
+            .boardName(article.board.name)
+            .title(article.title)
+            .date(formattedDate)
+            .hits(hitCnt)
+            .scraps(bookmarkCnt)
+            .build(),
+        );
+      }),
+    );
+
+    return response;
+  }
+
+  async findSubscribeArticles(user: User): Promise<ArticleListInfoDto[]> {
+    const response = [];
+    const boardIdList = await this.subscribeService.findBoardByUser(user.id);
+    const articleList = await this.articleRepository.findRecentArticlesByBoard(
+      boardIdList,
+    );
+
+    await Promise.all(
+      articleList.map(async (article) => {
+        const hitCnt = await this.hitRepository.count({ article });
+        const bookmarkCnt = await this.bookmarkRepository.count({ article });
+
+        const formattedDate = moment(article.date).format("YY-DD-MM");
+        response.push(
+          Builder(ArticleListInfoDto)
+            .id(article.id)
+            .boardName(article.board.name)
+            .title(article.title)
+            .date(formattedDate)
+            .hits(hitCnt)
+            .scraps(bookmarkCnt)
+            .build(),
+        );
+      }),
+    );
+
+    return response;
   }
 }

@@ -151,6 +151,7 @@ table {
 }
 select {
     appearance: none;
+    -webkit-appearance: none;
 }
 select:focus {
     outline: none;
@@ -172,12 +173,15 @@ em {
 }
 textarea {
     appearance: none;
+    -webkit-appearance: none;
     padding: 0;
     border: 0;
     -webkit-overflow-scrolling: touch;
 }
 input {
     appearance: none;
+    -webkit-appearance: none;
+    margin: 0;
 }
 hr {
     margin: 0;

@@ -6,6 +6,7 @@ import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
 import { ArticleModule } from "./article/article.module";
 import { AuthModule } from "./auth/auth.module";
+import { BoardAuthorityModule } from "./board-authority/board-authority.module";
 import { BoardModule } from "./board/board.module";
 import { BoardTreeModule } from "./boardTree/boardTree.module";
 import { BookmarkModule } from "./bookmark/bookmark.module";
@@ -57,6 +58,7 @@ import { WeatherModule } from "./weather/weather.module";
       secret: ACCESS_PRIVATE_KEY,
       signOptions: { expiresIn: "60m" },
     }),
+    BoardAuthorityModule,
   ],
   providers: [],
 })

@@ -10,7 +10,7 @@
   z-index: 100;
   display: flex;
   justify-content: space-between;
-  height: 70px;
+  height: 60px;
   background-color: $white;
 }
 
@@ -42,7 +42,7 @@
 
 .menu {
   position: fixed;
-  top: 70px;
+  top: 60px;
   left: 0;
   right: 0;
   z-index: 100;
@@ -57,31 +57,34 @@
   @include flicking;
 }
 
-.menu_link {
+.menu-link {
   display: block;
   font-size: 14px;
   line-height: 18px;
-  padding: 8px;
+  padding: 8px 12px;
   white-space: nowrap;
   color: $black-80;
+  border-radius: 100px;
 
   &:not(:first-child) {
     margin-left: 16px;
   }
 
   &[aria-selected="true"] {
-    background-color: $red-50;
-    color: $white;
-    border-radius: 100px;
+    background-color: $red-20;
+    color: $red-100;
 
     &:hover {
-      @include hover-status($white, none);
+      @include hover-status($red-100, none);
     }
   }
 
   &[aria-selected="false"] {
+    background-color: $black-10;
+    color: $black-80;
+
     &:hover {
-      @include hover-status(inherit, none);
+      @include hover-status($black-80, none);
     }
   }
 }
@@ -91,8 +94,27 @@
   background-color: $background;
 }
 
+.tooltip {
+  margin: 129px 8px 0;
+  border-radius: 4px;
+  background-color: $white;
+  padding: 7px 21px;
+
+  & + .content {
+    .image_list {
+      margin-top: 0;
+    }
+  }
+
+  .tooltip_title {
+    font-size: 12px;
+    line-height: 20px;
+    color: $black-60;
+  }
+}
+
 .image_list {
-  margin-top: 190px;
+  margin-top: 180px;
 }
 
 .item {
@@ -137,6 +159,7 @@
 
 .summary_description {
   display: block;
-  margin-top: 10px;
+  font-size: 12px;
+  margin-top: 6px;
   color: $black-40;
 }

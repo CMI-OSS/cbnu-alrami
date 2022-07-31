@@ -1,10 +1,10 @@
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./mobile.scss";
 
 import Subscription from "src/page/Subscription/Start";
 
 import PlaceTemplate from "./components/templates/PlaceTemplate";
+import "./mobile.scss";
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
 import Home from "./page/Home";
@@ -19,7 +19,6 @@ import College from "./page/Subscription/College";
 import End from "./page/Subscription/End";
 import Major from "./page/Subscription/Major";
 import SubscriptionSetting from "./page/Subscription/Setting";
-import SettingRoute from "./routes/setting";
 
 function App() {
   const routes = [

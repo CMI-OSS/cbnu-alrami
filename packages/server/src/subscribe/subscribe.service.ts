@@ -3,6 +3,7 @@ import { Builder } from "builder-pattern";
 import { BoardService } from "src/board/board.service";
 import { BoardTreeRepository } from "src/boardTree/boardTree.repository";
 import { Board } from "src/commons/entities/board.entity";
+import { BoardTree } from "src/commons/entities/boardTree.entity";
 import { Subscribe } from "src/commons/entities/subscribe.entity";
 import { User } from "src/commons/entities/user.entity";
 import { Errors } from "src/commons/exception/exception.global";
@@ -118,30 +119,26 @@ export class SubscribeService {
   }
 
   async getParentBoardList(board: Board): Promise<SubscribeBaseDto[]> {
-    const response: SubscribeBaseDto[] = [];
+    let response: SubscribeBaseDto[] = [];
     const boardId = board.id;
-    // while (1) {
-    //   // DESCRIBE: 현재 노드의 보드 트리 검색
-    //   const boardTree: BoardTree = await this.boardTreeRepository.findOne({
-    //     where: {
-    //       board: boardId,
-    //     },
-    //     relations: [ "board", "parentBoard" ],
-    //   });
+    const boardTree: BoardTree = await this.boardTreeRepository.findOne({
+      where: {
+        board: boardId,
+      },
+      relations: [ "board", "parentBoard" ],
+    });
 
-    //   // DESCRIBE: 보드 트리 정보 있으면 결과 추가
-    //   if (typeof boardTree !== "undefined" && boardTree.parentBoard !== null) {
-    //     const { parentBoard } = boardTree;
-    //     response.push(
-    //       Builder(SubscribeBaseDto)
-    //         .id(parentBoard.id)
-    //         .name(parentBoard.name)
-    //         .build(),
-    //     );
-    //     boardId = boardTree.parentBoard.id;
-    //   } else break;
-    // }
-
+    // DESCRIBE: 보드 트리 정보 있으면 결과 추가
+    if (typeof boardTree !== "undefined" && boardTree.parentBoard !== null) {
+      const { parentBoard } = boardTree;
+      response.push(
+        Builder(SubscribeBaseDto)
+          .id(parentBoard.id)
+          .name(parentBoard.name)
+          .build(),
+      );
+      response = response.concat(await this.getParentBoardList(parentBoard));
+    }
     return response;
   }
 }

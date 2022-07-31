@@ -54,5 +54,9 @@
     @include typography(14);
     color: $black-40;
   }
+}
 
+.구독상태 {
+  display: flex;
+  align-items: center;
 }

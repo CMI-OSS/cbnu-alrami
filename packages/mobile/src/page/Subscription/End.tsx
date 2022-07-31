@@ -22,25 +22,25 @@ export const 구독안함 = () => {
 
 export const 구독하고알람함 = () => {
   return (
-    <>
+    <div className={$.구독상태}>
       <Subscription
         color="#D66D6E"
         style={{ width: "32px", height: "21px", marginRight: "20px" }}
       />
       <Alarm color="#D66D6E" style={{ width: "22px", height: "22px" }} />
-    </>
+    </div>
   );
 };
 
 export const 구독하고알람안함 = () => {
   return (
-    <>
+    <div className={$.구독상태}>
       <Subscription
         color="#D66D6E"
         style={{ width: "32px", height: "21px", marginRight: "20px" }}
       />
       <UnAlarm color="#aaaaaa" style={{ width: "22px", height: "22px" }} />
-    </>
+    </div>
   );
 };
 

@@ -1,16 +1,17 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsString, IsNumber } from "class-validator";
+import {
+  IsArray,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from "class-validator";
 
 export class ArticleUpdateDto {
   @IsNotEmpty()
   @IsNumber()
   @ApiProperty({ description: "소속 공지사항 사이트 id (pk)" })
   boardId!: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  @ApiProperty({ description: "작성자 id (pk)" })
-  adminId!: number;
 
   @IsNotEmpty()
   @IsString()
@@ -22,12 +23,16 @@ export class ArticleUpdateDto {
   @ApiProperty({ description: "공지사항 내용" })
   content!: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   @ApiProperty({ description: "공지사항 url" })
-  url!: string;
+  url: string;
 
   @IsNotEmpty()
   @ApiProperty({ description: "공지사항 등록 날짜 : YYYY-MM-DD" })
   date!: Date;
+
+  @IsArray()
+  @ApiProperty({ description: "공지사항에 첨부된 이미지 id 배열" })
+  images: number[];
 }

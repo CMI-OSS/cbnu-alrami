@@ -32,13 +32,11 @@ export class Place extends CommonEntity {
 
   @OneToOne(() => School, (School) => School.place, {
     eager: true,
-    onDelete: "CASCADE",
   })
   school: School;
 
   @OneToMany(() => PlaceImage, (PlaceImage) => PlaceImage.place, {
     eager: true,
-    onDelete: "CASCADE",
   })
   images: PlaceImage[];
 }

@@ -6,7 +6,7 @@ import { Image } from "./image.entity";
 
 @Entity("article_image")
 export class ArticleImage extends CommonEntity {
-  @ManyToOne(() => Article, (Article) => Article.id)
+  @ManyToOne(() => Article, (Article) => Article.id, { onDelete: "CASCADE" })
   @JoinColumn()
   article: Article;
 

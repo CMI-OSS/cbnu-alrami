@@ -6,7 +6,10 @@ import { UpdatableCommonEntity } from "./common.entity";
 
 @Entity("article")
 export class Article extends UpdatableCommonEntity {
-  @ManyToOne(() => Board, (Board) => Board.id, { eager: true })
+  @ManyToOne(() => Board, (Board) => Board.id, {
+    eager: true,
+    onDelete: "CASCADE",
+  })
   @JoinColumn()
   board: Board;
 

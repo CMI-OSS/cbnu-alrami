@@ -11,7 +11,7 @@ export enum AREA {
 
 @Entity("school")
 export class School extends CommonEntity {
-  @OneToOne(() => Place, (Place) => Place.id)
+  @OneToOne(() => Place, (Place) => Place.id, { onDelete: "CASCADE" })
   @JoinColumn()
   place: Place;
 

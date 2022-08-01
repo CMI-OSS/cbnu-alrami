@@ -48,7 +48,7 @@ function Calendar() {
     year: dayjs().year(),
     month: dayjs().month(),
   });
-  const allSchedules = useAllSchedules();
+  const allSchedules = useAllSchedules(year);
   const today = useMemo(() => dayjs(), []);
   const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
   const allScheduleMap = useMemo(

@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import { useSchedule } from "src/api/schedule";
 
-function useAllSchedules() {
-  const { isLoading, error, data: scheduleData } = useSchedule();
+function useAllSchedules(year: number) {
+  const { isLoading, error, data: scheduleData } = useSchedule(year);
 
   if (isLoading || scheduleData === undefined || error) return [];
   // TODO: 에러 핸들링 구현하기

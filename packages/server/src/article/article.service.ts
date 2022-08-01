@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Builder } from "builder-pattern";
 import * as moment from "moment-timezone";
-import { AdminService } from "src/admin/admin.service";
 import { ArticleImageService } from "src/articleImage/articleImage.service";
 import { BoardService } from "src/board/board.service";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
@@ -12,6 +11,7 @@ import { Article } from "src/commons/entities/article.entity";
 import { User } from "src/commons/entities/user.entity";
 import { Errors } from "src/commons/exception/exception.global";
 import { HitRepository } from "src/hit/hit.repository";
+import { ImageResponseDto } from "src/image/dto/image.response.dto";
 import { ImageService } from "src/image/image.service";
 import { SubscribeService } from "src/subscribe/subscribe.service";
 import { Transactional } from "typeorm-transactional-cls-hooked";
@@ -34,7 +34,6 @@ export class ArticleService {
     private readonly articleRepository: ArticleRepository,
     private readonly bookmarkRepository: BookmarkRepository,
     private readonly hitRepository: HitRepository,
-    private readonly adminService: AdminService,
     private readonly boardService: BoardService,
     private readonly boardTreeService: BoardTreeService,
     private readonly subscribeService: SubscribeService,
@@ -48,7 +47,10 @@ export class ArticleService {
     admin: Admin,
     articleCreateDto: ArticleCreateDto,
   ): Promise<Article> {
-    if ((await this.articleRepository.existsByUrl(articleCreateDto.url)) > 0)
+    if (
+      !(await this.isEmpty(articleCreateDto.url)) &&
+      (await this.articleRepository.existsByUrl(articleCreateDto.url)) > 0
+    )
       throw ARTICLE_URL_EXISTS;
 
     const board = await this.boardService.findById(boardId);
@@ -74,6 +76,11 @@ export class ArticleService {
     );
 
     return result;
+  }
+
+  async isEmpty(str: string): Promise<boolean> {
+    if (typeof str === "undefined" || str === null || str === "") return true;
+    return false;
   }
 
   async findById(id: number): Promise<Article> {
@@ -133,6 +140,17 @@ export class ArticleService {
       article.id,
     );
 
+    let images = [];
+    const articleImages = await this.articleImageService.findImageByArticle(id);
+    if (articleImages.length > 0 || typeof articleImages !== "undefined") {
+      images = await Promise.all(
+        articleImages.map(async (articleImage) => {
+          const { image } = articleImage;
+          return Builder(ImageResponseDto).id(image.id).url(image.url).build();
+        }),
+      );
+    }
+
     return Builder(ArticleResponseDto)
       .id(article.id)
       .board(board)
@@ -141,6 +159,7 @@ export class ArticleService {
       .hits(hitCnt)
       .scraps(bookmarkCnt)
       .dates(article.date)
+      .images(images)
       .createdAt(article.createdAt)
       .updatedAt(article.updatedAt)
       .build();
@@ -176,7 +195,9 @@ export class ArticleService {
     return response.length === 0 ? undefined : response;
   }
 
+  @Transactional()
   async update(
+    admin: Admin,
     articleId: number,
     articleUpdateDto: ArticleUpdateDto,
   ): Promise<Article> {
@@ -184,12 +205,13 @@ export class ArticleService {
 
     // DESCRIBE: 이전 값
     const { url } = beforeArticle;
-    let { board, author } = beforeArticle;
+    let { board } = beforeArticle;
 
-    // DESCRIBE: 신규 값
+    // DESCRIBE: 신규 url 값 -> 기존 Url과 다르고, 비어있지 않을 경우에만 중복 확인
     const newUrl: string = articleUpdateDto.url;
     if (
       url !== newUrl &&
+      !(await this.isEmpty(newUrl)) &&
       (await this.articleRepository.existsByUrl(newUrl)) > 0
     )
       throw ARTICLE_URL_EXISTS;
@@ -198,15 +220,12 @@ export class ArticleService {
       board = await this.boardService.findById(articleUpdateDto.boardId);
     }
 
-    if (beforeArticle.author.id !== articleUpdateDto.adminId) {
-      author = await this.adminService.findById(articleUpdateDto.adminId);
-    }
-
+    // DESCRIBE: article 정보 업데이트
     const newArticle = Object.assign(
       beforeArticle,
       Builder(Article)
         .board(board)
-        .author(author)
+        .author(admin)
         .title(articleUpdateDto.title)
         .content(articleUpdateDto.content)
         .url(articleUpdateDto.url)
@@ -214,6 +233,10 @@ export class ArticleService {
         .build(),
     );
     const result = await this.articleRepository.save(newArticle);
+
+    // DESCRIBE: article image 수정 요청이 있는 경우만 진행
+    const newImages: number[] = articleUpdateDto.images;
+    await this.articleImageService.update(newImages, newArticle);
     return result;
   }
 

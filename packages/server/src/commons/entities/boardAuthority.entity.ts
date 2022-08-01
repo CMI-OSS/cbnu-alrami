@@ -11,6 +11,7 @@ export class BoardAuthority extends CommonEntity {
   @ManyToOne(() => Board, (Board) => Board.id, {
     cascade: true,
     nullable: false,
+    onDelete: "CASCADE",
   })
   @JoinColumn()
   board: Board;
@@ -18,6 +19,7 @@ export class BoardAuthority extends CommonEntity {
   @ManyToOne(() => Admin, (Admin) => Admin.id, {
     cascade: true,
     nullable: false,
+    onDelete: "CASCADE",
   })
   @JoinColumn()
   admin: Admin;

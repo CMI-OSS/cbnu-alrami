@@ -6,7 +6,11 @@ import { User } from "./user.entity";
 
 @Entity("bookmark")
 export class Bookmark extends UpdatableCommonEntity {
-  @ManyToOne(() => User, (User) => User.id, { cascade: true, nullable: false })
+  @ManyToOne(() => User, (User) => User.id, {
+    cascade: true,
+    nullable: false,
+    onDelete: "CASCADE",
+  })
   @JoinColumn()
   user: User;
 

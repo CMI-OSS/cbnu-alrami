@@ -4,16 +4,31 @@
   height: 100vh;
 
   .header {
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 60px;
+    width: 100%;
+    min-height: 60px;
     padding: 0 25px;
     background: #fff;
 
+    .left {
+      display: flex;
+    }
+
     .title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
       @include typography(18);
       font-weight: 500;
     }
+  }
+
+  .children {
+    padding-top: 60px;
   }
 }

@@ -1,10 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import { Builder } from "builder-pattern";
 import { BoardService } from "src/board/board.service";
+import { BoardTreeRepository } from "src/boardTree/boardTree.repository";
+import { Board } from "src/commons/entities/board.entity";
+import { BoardTree } from "src/commons/entities/boardTree.entity";
 import { Subscribe } from "src/commons/entities/subscribe.entity";
 import { User } from "src/commons/entities/user.entity";
 import { Errors } from "src/commons/exception/exception.global";
 
+import { SubscribeInfoDto } from "./dtos/subscribe.dto";
 import { SubscribeRepository } from "./subscribe.repository";
 
 const { ALREADY_SUBSCRIBE_BOARD, NOT_SUBSCRIBED_BOARD } = Errors;
@@ -13,6 +17,7 @@ const { ALREADY_SUBSCRIBE_BOARD, NOT_SUBSCRIBED_BOARD } = Errors;
 export class SubscribeService {
   constructor(
     private readonly subscribeRepository: SubscribeRepository,
+    private readonly boardTreeRepository: BoardTreeRepository,
     private readonly boardService: BoardService,
   ) {}
 
@@ -78,6 +83,7 @@ export class SubscribeService {
     return subscribe;
   }
 
+  // DESCRIBE: 알림 설정 on / off
   async updateNotice(user: User, boardId: number, ableFlag: boolean) {
     const board = await this.boardService.findById(boardId);
     const subscribeInfo: Subscribe = await this.findByUserAndBoard(
@@ -92,5 +98,39 @@ export class SubscribeService {
       await this.subscribeRepository.save(subscribeInfo);
     }
     return "success";
+  }
+
+  async findAllSubscribeAndNotice(user: User): Promise<SubscribeInfoDto[]> {
+    let response = [];
+    const subscribes = await this.findByUser(user.id);
+    response = await Promise.all(
+      subscribes.map(async (subscribe) => {
+        const boardTreeName = await this.getBoardTreeName(subscribe.board);
+        return Builder(SubscribeInfoDto)
+          .id(subscribe.id)
+          .name(boardTreeName)
+          .isNoticing(subscribe.notice)
+          .build();
+      }),
+    );
+    return response;
+  }
+
+  async getBoardTreeName(board: Board): Promise<string> {
+    let response = board.name;
+    const boardId = board.id;
+    const boardTree: BoardTree = await this.boardTreeRepository.findOne({
+      where: {
+        board: boardId,
+      },
+      relations: [ "board", "parentBoard" ],
+    });
+    if (typeof boardTree !== "undefined" && boardTree.parentBoard !== null) {
+      const { parentBoard } = boardTree;
+      const parentName = await this.getBoardTreeName(parentBoard);
+      response = `${parentName} > ${response}`;
+    }
+
+    return response;
   }
 }

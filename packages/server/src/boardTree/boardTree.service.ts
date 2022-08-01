@@ -3,14 +3,11 @@ import { Builder } from "builder-pattern";
 import { BoardResponseDto } from "src/board/dto/board.response.dto";
 import { BoardTree } from "src/commons/entities/boardTree.entity";
 import { Subscribe } from "src/commons/entities/subscribe.entity";
-import { Errors } from "src/commons/exception/exception.global";
 import { SubscribeService } from "src/subscribe/subscribe.service";
 
 import { BoardTreeRepository } from "./boardTree.repository";
 import { BoardTreeAllResponseDto } from "./dto/boardTree.all.response.dto";
 import { BoardTreeResponseDto } from "./dto/boardTree.response.dto";
-
-const { BOARD_ID_NOT_FOUND } = Errors;
 
 @Injectable()
 export class BoardTreeService {

@@ -1,10 +1,11 @@
-import { useArticleByBoardId } from "src/api/article";
+import { useArticleByBoard } from "src/api/board";
 import Notification from "src/page/Notice/Notification";
 
 import $ from "./style.module.scss";
 
+
 function NotificationList() {
-  const { data: articleByBoardIdData } = useArticleByBoardId(1);
+  const { data: articleByBoardIdData } = useArticleByBoard(1);
   const articleByBoardId = articleByBoardIdData?.data.map((data) => {
     const { id, title, hits, scraps, dates } = data;
     const breadcrumb = `${data.board.parent?.name} > ${data.board.name}`;

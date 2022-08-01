@@ -7,14 +7,13 @@ import {
 } from "react";
 
 import dayjs, { Dayjs } from "dayjs";
-import { useSchedule } from "src/api/schedule";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
 import Footer from "src/components/molecules/Footer";
 import CardBox from "src/page/Calendar/CardBox";
 import RadioBox from "src/page/Calendar/RadioBox";
 import ScheduleCalendar from "src/page/Calendar/ScheduleCalendar";
 import {
-  fetchStaredSchedules,
+  fetchBookmarkSchedules,
   filterTodaySchedules,
   getCalendarMap,
 } from "src/utils/calendarTools";
@@ -22,6 +21,7 @@ import {
 import AddScheduleLink from "./AddScheduleLink";
 import caledarReducer from "./calendarReducer";
 import $ from "./style.module.scss";
+import useAllSchedules from "./useAllSchedules";
 import useSelectedDate from "./useSelectedDate";
 
 export type ScheduleType = "all" | "bookmark";
@@ -43,28 +43,27 @@ export type Schedule = {
 
 function Calendar() {
   const [ toggleSchedule, setToggleSchedule ] = useState<ScheduleType>("all");
-  const [ collegeSchedules, setCollegeSchedules ] = useState<Schedule[]>([]);
-  const [ staredSchedules, setStartedSchedules ] = useState<Schedule[]>([]);
+  const [ bookmarkSchedules, setBookmarkSchedules ] = useState<Schedule[]>([]);
   const [ { year, month }, dispatchMonth ] = useReducer(caledarReducer, {
     year: dayjs().year(),
     month: dayjs().month(),
   });
+  const allSchedules = useAllSchedules();
   const today = useMemo(() => dayjs(), []);
   const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
-  const collegeCalendarMap = useMemo(
-    () => getCalendarMap(year, month, collegeSchedules),
-    [ month, collegeSchedules ],
+  const allScheduleMap = useMemo(
+    () => getCalendarMap(year, month, allSchedules),
+    [ month, allSchedules ],
   );
-  const startedCalendarMap = useMemo(
-    () => getCalendarMap(year, month, staredSchedules),
-    [ month, staredSchedules ],
+  const bookmarkScheduleMap = useMemo(
+    () => getCalendarMap(year, month, bookmarkSchedules),
+    [ month, bookmarkSchedules ],
   );
-  const { isLoading, error, data } = useSchedule();
 
   useEffect(() => {
-    setCollegeSchedules(data?.data);
-    setStartedSchedules(fetchStaredSchedules());
-  }, [ isAllScheduleLoading ]);
+    // TODO: 목데이터 즐겨찾기 API로 교체하기
+    setBookmarkSchedules(fetchBookmarkSchedules());
+  }, []);
 
   const handleScheduleToggleChange: ChangeEventHandler<HTMLInputElement> = ({
     target: { value },
@@ -85,7 +84,7 @@ function Calendar() {
       <ScheduleCalendar
         {...{ today, month, setSelectedDate, selectedDate }}
         calendarMap={
-          toggleSchedule === "all" ? collegeCalendarMap : startedCalendarMap
+          toggleSchedule === "all" ? allScheduleMap : bookmarkScheduleMap
         }
       />
       <RadioBox
@@ -96,8 +95,8 @@ function Calendar() {
         scheduleType={toggleSchedule}
         schedules={
           toggleSchedule === "all"
-            ? filterTodaySchedules(selectedDate, collegeSchedules)
-            : filterTodaySchedules(selectedDate, staredSchedules)
+            ? filterTodaySchedules(selectedDate, allSchedules)
+            : filterTodaySchedules(selectedDate, bookmarkSchedules)
         }
       />
       <Footer />

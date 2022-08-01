@@ -1,5 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, JoinColumn, OneToOne } from "typeorm";
 
 import { Board } from "./board.entity";
 import { CommonEntity } from "./common.entity";

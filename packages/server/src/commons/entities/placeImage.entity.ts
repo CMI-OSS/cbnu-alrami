@@ -10,7 +10,7 @@ export class PlaceImage extends CommonEntity {
   @JoinColumn()
   place: Place;
 
-  @ManyToOne(() => Image, (Image) => Image.id)
+  @ManyToOne(() => Image, (Image) => Image.id, { eager: true })
   @JoinColumn()
   image: Image;
 }

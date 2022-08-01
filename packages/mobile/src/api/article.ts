@@ -9,8 +9,20 @@ const fetchPopularArticle = () => {
 
 export const usePopularArticle = () => {
   const response = useQuery<AxiosResponse<res.Popular[]>, Error>(
-    "schedules",
+    "popularArticle",
     fetchPopularArticle,
+  );
+  return response;
+};
+
+export const fetchArticleByBoard = (boardId: number) => {
+  return caxios.get<res.ArticleByBoard[]>(`/boards/${boardId}/articles`);
+};
+
+export const useArticleByBoard = (boardId: number) => {
+  const response = useQuery<AxiosResponse<res.ArticleByBoard[]>, Error>(
+    [ "articles", boardId ],
+    () => fetchArticleByBoard(boardId),
   );
   return response;
 };

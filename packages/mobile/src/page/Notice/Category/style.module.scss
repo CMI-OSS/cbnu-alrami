@@ -1,0 +1,25 @@
+@import '../../../styles/main.scss';
+
+.categories {
+  display: flex;
+  width: 100vw;
+  max-height: 55px;
+  padding: 12px;
+  align-items: center;
+  overflow-x: auto;
+  background: #fff;
+
+  .category {
+    display: block;
+    white-space: nowrap;
+    max-height: 34px;
+    padding: 8px 12px;
+    margin-right: 11px;
+    background: $black-10;
+    border-radius: 20px;
+
+    path {
+      stroke: $black-60;
+    }
+  }
+}

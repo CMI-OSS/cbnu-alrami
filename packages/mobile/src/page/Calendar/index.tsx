@@ -7,13 +7,13 @@ import {
 } from "react";
 
 import dayjs, { Dayjs } from "dayjs";
+import { useSchedule } from "src/api/schedule";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
 import Footer from "src/components/molecules/Footer";
 import CardBox from "src/page/Calendar/CardBox";
 import RadioBox from "src/page/Calendar/RadioBox";
 import ScheduleCalendar from "src/page/Calendar/ScheduleCalendar";
 import {
-  fetchColleageSchedules,
   fetchStaredSchedules,
   filterTodaySchedules,
   getCalendarMap,
@@ -59,11 +59,12 @@ function Calendar() {
     () => getCalendarMap(year, month, staredSchedules),
     [ month, staredSchedules ],
   );
+  const { isLoading, error, data } = useSchedule();
 
   useEffect(() => {
-    setCollegeSchedules(fetchColleageSchedules());
+    setCollegeSchedules(data?.data);
     setStartedSchedules(fetchStaredSchedules());
-  }, []);
+  }, [ isAllScheduleLoading ]);
 
   const handleScheduleToggleChange: ChangeEventHandler<HTMLInputElement> = ({
     target: { value },

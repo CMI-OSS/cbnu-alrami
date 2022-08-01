@@ -24,7 +24,7 @@ import caledarReducer from "./calendarReducer";
 import $ from "./style.module.scss";
 import useSelectedDate from "./useSelectedDate";
 
-export type ScheduleType = "all" | "favorites";
+export type ScheduleType = "all" | "bookmark";
 
 export type DateMap = {
   date: Dayjs;

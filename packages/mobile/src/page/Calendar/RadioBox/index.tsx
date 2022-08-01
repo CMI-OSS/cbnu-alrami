@@ -21,8 +21,8 @@ function RadioBox({ toggle, onToggleChange }: Props) {
       />
       <RadioButton
         labelText="즐겨찾기"
-        value="stared"
-        isChecked={toggle === "favorites"}
+        value="bookmark"
+        isChecked={toggle === "bookmark"}
         onChange={onToggleChange}
       />
     </section>

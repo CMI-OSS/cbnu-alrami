@@ -180,7 +180,7 @@ INSERT INTO board (id, name, url) VALUES(204,'linc사업단','');
 INSERT INTO board (id, name, url) VALUES(20401,'공지사항','');
 INSERT INTO board (id, name, url) VALUES(205,'sw중심대학사업단','');
 INSERT INTO board (id, name, url) VALUES(20501,'공지사항','');
-INSERT INTO board (id, name, url) VALUES(206,'취어비주언본부','');
+INSERT INTO board (id, name, url) VALUES(206,'취업지원본부','');
 INSERT INTO board (id, name, url) VALUES(20601,'공지사항','');
 
 INSERT INTO board_tree (board_id, parent_board_id) VALUES(1, null);

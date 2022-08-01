@@ -11,6 +11,7 @@ import { Article } from "src/commons/entities/article.entity";
 import { User } from "src/commons/entities/user.entity";
 import { Errors } from "src/commons/exception/exception.global";
 import { HitRepository } from "src/hit/hit.repository";
+import { ImageResponseDto } from "src/image/dto/image.response.dto";
 import { ImageService } from "src/image/image.service";
 import { SubscribeService } from "src/subscribe/subscribe.service";
 import { Transactional } from "typeorm-transactional-cls-hooked";
@@ -139,6 +140,17 @@ export class ArticleService {
       article.id,
     );
 
+    let images = [];
+    const articleImages = await this.articleImageService.findImageByArticle(id);
+    if (articleImages.length > 0 || typeof articleImages !== "undefined") {
+      images = await Promise.all(
+        articleImages.map(async (articleImage) => {
+          const { image } = articleImage;
+          return Builder(ImageResponseDto).id(image.id).url(image.url).build();
+        }),
+      );
+    }
+
     return Builder(ArticleResponseDto)
       .id(article.id)
       .board(board)
@@ -147,6 +159,7 @@ export class ArticleService {
       .hits(hitCnt)
       .scraps(bookmarkCnt)
       .dates(article.date)
+      .images(images)
       .createdAt(article.createdAt)
       .updatedAt(article.updatedAt)
       .build();

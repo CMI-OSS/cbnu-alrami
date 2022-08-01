@@ -8,4 +8,12 @@ declare namespace res {
     name: string;
     parent?: Board;
   };
+  type ArticleByBoard = {
+    id: number;
+    board: Board;
+    title: string;
+    hits: number;
+    scraps: number;
+    dates: string;
+  };
 }

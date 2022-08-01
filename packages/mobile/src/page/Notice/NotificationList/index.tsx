@@ -1,8 +1,7 @@
-import { useArticleByBoard } from "src/api/board";
+import { useArticleByBoard } from "src/api/article";
 import Notification from "src/page/Notice/Notification";
 
 import $ from "./style.module.scss";
-
 
 function NotificationList() {
   const { data: articleByBoardIdData } = useArticleByBoard(1);

@@ -1,4 +1,5 @@
 import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
+import { ImageResponseDto } from "src/image/dto/image.response.dto";
 
 export class ArticleBaseDto {
   id: number;
@@ -31,4 +32,5 @@ export class ArticleResponseDto extends ArticleDetailInfoDto {
   content!: string;
   createdAt!: Date;
   updatedAt!: Date;
+  images!: ImageResponseDto[];
 }

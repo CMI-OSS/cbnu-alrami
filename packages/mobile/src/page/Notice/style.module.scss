@@ -18,8 +18,6 @@
       @include typography(18);
       font-weight: 500;
     }
-
-
   }
 
   .notification-list-wrapper {
@@ -28,10 +26,10 @@
     width: 100%;
     padding: 115px 0 68px 0;
   }
-}
 
-img {
-  width: 100%;
-  padding-top: 50%;
-  object-fit: scale-down;
+  img {
+    width: 100%;
+    padding-top: 50%;
+    object-fit: scale-down;
+  }
 }

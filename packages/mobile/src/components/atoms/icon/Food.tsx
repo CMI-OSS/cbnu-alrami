@@ -8,7 +8,7 @@ type Props = {
 function Food({ width, height, className, style }: Props) {
   return (
     <svg
-      style={style}
+      {...{ className, style }}
       width={width ?? "21"}
       height={height ?? "24"}
       viewBox="0 0 21 24"

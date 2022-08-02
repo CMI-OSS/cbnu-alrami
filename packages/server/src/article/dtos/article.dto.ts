@@ -25,7 +25,7 @@ export class ArticleDetailInfoDto extends ArticleBaseDto {
 
 export class ArticleListInfoDto extends ArticleBaseDto {
   boardName!: string;
-  date!: string;
+  date!: Date;
 }
 
 export class ArticleResponseDto extends ArticleDetailInfoDto {

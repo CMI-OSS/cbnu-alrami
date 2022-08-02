@@ -1,8 +1,7 @@
 /* eslint-disable no-plusplus */
 import { ScraperType } from "@shared/types";
-import { createSchedule } from "src/db/calendar";
 import Scraper from "src/scrapers/Scraper";
-import { Calendar, CalendarScript } from "src/types";
+import { CalendarScript } from "src/types";
 
 import { Scenario } from "../Scenario";
 import ArrayToDate from "./ArrayToDate";
@@ -48,7 +47,7 @@ class CalendarScraper extends Scraper<CalendarScript> {
     }
 
     for (const schedule of refinedData) {
-      await createSchedule(schedule as Calendar);
+      // await createSchedule(schedule as Calendar);
     }
   }
 }

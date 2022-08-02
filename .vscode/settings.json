@@ -17,5 +17,14 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
-  "eslint.workingDirectories": ["./packages/admin"]
+  "eslint.workingDirectories": ["./packages/admin"],
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/node_modules": true
+  }
 }

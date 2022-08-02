@@ -3,9 +3,11 @@ import baseQuery from "src/api/baseQuery";
 
 import type { imgType } from "../types";
 
+// header.set("Content-type", "multipart/form-data");
+
 export const boardWriteApi = createApi({
   reducerPath: "boardWriteApi",
-  baseQuery: baseQuery(),
+  baseQuery,
   tagTypes: [ "ImgUpload", "writeArticle" ],
   endpoints: (build) => ({
     imgUpload: build.mutation<imgType[], FormData>({
@@ -13,7 +15,7 @@ export const boardWriteApi = createApi({
         return {
           url: "upload/images",
           method: "POST",
-          data,
+          body: data,
         };
       },
       invalidatesTags: [ "ImgUpload" ],
@@ -26,11 +28,10 @@ export const boardWriteApi = createApi({
         return {
           url: `boards/${data.boardId}/article`,
           method: "POST",
-          data: {
+          body: {
             title: data.title,
             content: data.content,
             images: data.images,
-            url: "none",
             date: new Date(),
           },
         };

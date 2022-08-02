@@ -152,7 +152,10 @@ function genBoardId(parent) {
 }
 genBoardId(root);
 
-writeFileSync("board-tree.generated.json", JSON.stringify(root));
+writeFileSync(
+  "board-tree.generated.js",
+  `export const boardTree = ${JSON.stringify(root)}`,
+);
 writeFileSync(
   "board-tree.generated.sql",
   `${insertBoardSql}\n${insertBoardTreeSql}`,

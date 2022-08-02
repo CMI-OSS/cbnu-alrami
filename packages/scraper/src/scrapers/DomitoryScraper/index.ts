@@ -1,7 +1,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-useless-catch */
 import { ScraperType } from "@shared/types";
-import { createMenu } from "src/db/restaurant";
 import { DomitoryFood } from "src/types/DomitoryFood";
 import { DomitoryScript } from "src/types/DomitoryScript";
 
@@ -28,7 +27,7 @@ class DomitoryScraper extends Scraper<DomitoryScript> {
     const foodList = await this.getFoodList(scenario);
 
     for (const menu of foodList) {
-      await createMenu(menu);
+      // await createMenu(menu);
     }
   }
 

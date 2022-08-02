@@ -15,7 +15,7 @@ export default function Submit() {
         title,
         content,
         images: images.map((image) => String(image.id)),
-        boardId: 4,
+        boardId: 1130101,
       });
     },
   };

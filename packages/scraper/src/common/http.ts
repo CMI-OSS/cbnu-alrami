@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "서버 URL",
+  baseURL: "https://dev-server.cmi.kro.kr",
   headers: {
     "Content-type": "application/json",
   },

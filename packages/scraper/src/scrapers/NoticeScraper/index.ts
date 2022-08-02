@@ -1,5 +1,5 @@
 import { ScraperState, ScraperType } from "@shared/types";
-import { createNotice, hasNotice } from "src/db/notice";
+import { createNotice } from "src/api/createNotice";
 import { Notice, NoticeScript } from "src/types";
 
 import { Scenario } from "../Scenario";
@@ -28,17 +28,27 @@ class NoticeScraper extends Scraper<NoticeScript> {
 
     for (const notice of noticeList) {
       if (this.state !== ScraperState.Running) break;
-      if (!(await hasNotice(notice))) {
-        this.log({
-          prefix: "INFO",
-          message: `${notice.title} 게시물의 내용을 스크래핑합니다`,
-        });
-        await createNotice({
-          ...notice,
-          contents: await this.getContents(scenario, notice),
-        });
-        await this.scraper?.waitForTimeout(1000);
-      }
+      this.log({
+        prefix: "INFO",
+        message: `${notice.title} 게시물의 내용을 스크래핑합니다`,
+      });
+
+      await createNotice({
+        boardId: notice.site_id.toString(),
+        article: {
+          title: notice.title,
+          content: await this.getContents(scenario, notice),
+          date: notice.date,
+          url: notice.url,
+          images: [],
+        },
+      });
+
+      // await createNotice({
+      //   ...notice,
+      //   contents: await this.getContents(scenario, notice),
+      // });
+      await this.scraper?.waitForTimeout(1000);
     }
 
     // 사용자에게 알림

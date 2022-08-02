@@ -1,5 +1,5 @@
 import { ScraperType } from "@shared/types";
-import { createMenu } from "src/db/restaurant";
+// import { createMenu } from "src/db/restaurant";
 import { CafeteriaScript } from "src/types";
 import { Menu } from "src/types/Menu";
 
@@ -39,7 +39,7 @@ class CafeteriaScraper extends Scraper<CafeteriaScript> {
     const menus = await this.scraper.evaluate(`script.getMenus()`);
 
     for (const menu of menus) {
-      await createMenu(menu);
+      // await createMenu(menu);
     }
 
     return menus;

@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineLock, AiOutlineUnlock } from "react-icons/ai";
 import { IoPersonOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 import classnames from "classnames";
+import { useLoginMutation } from "src/api/auth";
 
 import $ from "./style.module.scss";
 
@@ -12,6 +14,9 @@ export default function LoginForm() {
   const [ isFocusId, setFocusId ] = useState(false);
   const [ isFocusPw, setFocusPw ] = useState(false);
   const [ isLock, setLock ] = useState(true);
+  const navigate = useNavigate();
+
+  const [ login ] = useLoginMutation();
 
   const {
     register,
@@ -34,8 +39,16 @@ export default function LoginForm() {
     setMessage("");
   }, [ errors.id, errors.password ]);
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const res = await login({ loginId: data.id, password: data.password });
+
+    if ("error" in res) {
+      alert((res.error as any).data.error.message);
+      return;
+    }
+
+    localStorage.setItem("x-access-token", res.data.xAccessToken);
+    navigate("/");
   };
 
   return (

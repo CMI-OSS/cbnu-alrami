@@ -132,7 +132,7 @@ export class ArticleController {
       .board(board)
       .title(article.title)
       .content(article.content)
-      .dates(article.date)
+      .date(article.date)
       .createdAt(article.createdAt)
       .updatedAt(article.updatedAt)
       .build();

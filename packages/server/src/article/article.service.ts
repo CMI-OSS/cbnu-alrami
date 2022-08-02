@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { Builder } from "builder-pattern";
-import * as moment from "moment-timezone";
 import { ArticleImageService } from "src/articleImage/articleImage.service";
 import { BoardService } from "src/board/board.service";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
@@ -158,10 +157,8 @@ export class ArticleService {
       .content(article.content)
       .hits(hitCnt)
       .scraps(bookmarkCnt)
-      .dates(article.date)
+      .date(article.date)
       .images(images)
-      .createdAt(article.createdAt)
-      .updatedAt(article.updatedAt)
       .build();
   }
 
@@ -186,7 +183,7 @@ export class ArticleService {
             .title(article.title)
             .hits(hitCnt)
             .scraps(bookmarkCnt)
-            .dates(article.date)
+            .date(article.date)
             .build(),
         );
       }),
@@ -261,14 +258,12 @@ export class ArticleService {
         const { article } = bookmark;
         const hitCnt = await this.hitRepository.count({ article });
         const bookmarkCnt = await this.bookmarkRepository.count({ article });
-
-        const formattedDate = moment(article.date).format("YY-DD-MM");
         response.push(
           Builder(ArticleListInfoDto)
             .id(article.id)
             .boardName(article.board.name)
             .title(article.title)
-            .date(formattedDate)
+            .date(article.date)
             .hits(hitCnt)
             .scraps(bookmarkCnt)
             .build(),
@@ -290,14 +285,12 @@ export class ArticleService {
       articleList.map(async (article) => {
         const hitCnt = await this.hitRepository.count({ article });
         const bookmarkCnt = await this.bookmarkRepository.count({ article });
-
-        const formattedDate = moment(article.date).format("YY-DD-MM");
         response.push(
           Builder(ArticleListInfoDto)
             .id(article.id)
             .boardName(article.board.name)
             .title(article.title)
-            .date(formattedDate)
+            .date(article.date)
             .hits(hitCnt)
             .scraps(bookmarkCnt)
             .build(),

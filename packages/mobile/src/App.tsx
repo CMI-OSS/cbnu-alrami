@@ -48,7 +48,7 @@ function App() {
       path: "/subscription/major/:collegeId/:majorId/:detailId",
       element: <Preview />,
     },
-    {  
+    {
       path: "/place/all",
       element: <PlaceTemplate menuType={1} />,
     },

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import BorderBox from "@components/atoms/BorderBox";
 import { useCollegeBoardTree } from "src/api/boardTree";
@@ -9,7 +9,7 @@ import SubscriptionModalTemplate from "./SubscriptionModalTemplate";
 
 function College() {
   const { data: collegeBoardTree, breadCrumb } = useCollegeBoardTree();
-
+  const { pathname } = useLocation();
   return (
     <SubscriptionModalTemplate>
       <div className={$.guide}>
@@ -17,7 +17,7 @@ function College() {
         <div className={$.content}>{GUIDE.all_depth1}</div>
       </div>
       {collegeBoardTree?.children.map((college) => (
-        <Link to={`/subscription/major/${college.id}`} key={college.id}>
+        <Link to={`${pathname}/${college.id}`} key={college.id}>
           <BorderBox
             height={87}
             background="#F6F5FB"

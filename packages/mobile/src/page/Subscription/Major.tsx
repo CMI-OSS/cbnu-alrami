@@ -1,8 +1,7 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 import { useMajorBoardTree } from "src/api/boardTree";
 import BorderBox from "src/components/atoms/BorderBox";
-
 
 import { GUIDE } from "./constant";
 import $ from "./style.module.scss";
@@ -13,6 +12,7 @@ function Major() {
   const { data: majorBoardTree, breadCrumb } = useMajorBoardTree(
     Number(collegeId),
   );
+  const { pathname } = useLocation();
 
   return (
     <SubscriptionModalTemplate>
@@ -21,10 +21,7 @@ function Major() {
         <div className={$.content}>{GUIDE.all_depth1}</div>
       </div>
       {majorBoardTree?.map((major) => (
-        <Link
-          to={`/subscription/major/${collegeId}/${major.id}`}
-          key={major.id}
-        >
+        <Link to={`${pathname}/${major.id}`} key={major.id}>
           <BorderBox
             height={87}
             background="#F6F5FB"

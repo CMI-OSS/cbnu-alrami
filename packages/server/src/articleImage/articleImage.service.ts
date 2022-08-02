@@ -34,6 +34,16 @@ export class ArticleImageService {
     await this.articleImageRepository.deleteByImage(imageId);
   }
 
+  async findImageByArticle(articleId: number): Promise<ArticleImage[]> {
+    const articleImages = await this.articleImageRepository.find({
+      where: {
+        article: articleId,
+      },
+      relations: [ "article", "image" ],
+    });
+    return articleImages;
+  }
+
   async findImageIdByArticle(articleId: number): Promise<number[]> {
     const articleImages =
       await this.articleImageRepository.findImageIdByArticle(articleId);

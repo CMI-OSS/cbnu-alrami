@@ -1,16 +1,16 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsArray, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class ArticleCreateDto {
   @IsNotEmpty()
   @IsString()
   @ApiProperty({ description: "공지사항 제목" })
-  title: string;
+  title!: string;
 
   @IsNotEmpty()
   @IsString()
   @ApiProperty({ description: "공지사항 내용" })
-  content: string;
+  content!: string;
 
   @IsOptional()
   @IsString()
@@ -18,15 +18,10 @@ export class ArticleCreateDto {
   url: string;
 
   @IsNotEmpty()
-  @IsString()
   @ApiProperty({ description: "공지사항 등록 날짜 : YYYY-MM-DD" })
-  date: Date;
+  date!: Date;
 
-  @IsNotEmpty()
+  @IsArray()
   @ApiProperty({ description: "공지사항에 첨부된 이미지 id 배열" })
   images: number[];
-
-  // @IsNotEmpty()
-  // @ApiProperty({ description: "공지사항에 첨부된 이미지 url 배열" })
-  // images: string[];
 }

@@ -16,4 +16,12 @@ export class SubscribeRepository extends Repository<Subscribe> {
       .where("user_id = :userId", { userId })
       .getRawMany();
   }
+
+  async findUserByBoard(boardId: number) {
+    return this.createQueryBuilder("subscribe")
+      .leftJoinAndSelect("subscribe.user", "user")
+      .where("subscribe.board_id = :boardId", { boardId })
+      .andWhere("subscribe.notice = :state", { state: true })
+      .getMany();
+  }
 }

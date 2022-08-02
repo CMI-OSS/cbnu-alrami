@@ -6,13 +6,18 @@ import { User } from "./user.entity";
 
 @Entity("hit")
 export class Hit extends CommonEntity {
-  @ManyToOne(() => User, (User) => User.id, { cascade: true, nullable: false })
+  @ManyToOne(() => User, (User) => User.id, {
+    cascade: true,
+    nullable: false,
+    onDelete: "CASCADE",
+  })
   @JoinColumn()
   user: User;
 
   @ManyToOne(() => Article, (Article) => Article.id, {
     cascade: true,
     nullable: false,
+    onDelete: "CASCADE",
   })
   @JoinColumn()
   article: Article;

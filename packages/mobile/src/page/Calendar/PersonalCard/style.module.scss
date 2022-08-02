@@ -14,7 +14,7 @@
     .period {
         margin-top: 8px;
         color: $black-40;
-        font-size: 12px;
+        @include typography(12);
     }
 
     .link {

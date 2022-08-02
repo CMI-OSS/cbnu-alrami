@@ -27,7 +27,7 @@ function Chips({ list }: Props) {
             key={`menu-${item.id}`}
             to={item.path}
             className={({ isActive }) =>
-              classNames($.hash_link, isActive ? $.active : "")
+              classNames($["hash-link"], isActive ? $.active : "")
             }
             onClick={() => dispatch(setHashMenu({ hashNumber: idx }))}
           >

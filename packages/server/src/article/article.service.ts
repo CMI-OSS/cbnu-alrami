@@ -158,10 +158,8 @@ export class ArticleService {
       .content(article.content)
       .hits(hitCnt)
       .scraps(bookmarkCnt)
-      .dates(article.date)
+      .date(article.date)
       .images(images)
-      .createdAt(article.createdAt)
-      .updatedAt(article.updatedAt)
       .build();
   }
 
@@ -186,7 +184,7 @@ export class ArticleService {
             .title(article.title)
             .hits(hitCnt)
             .scraps(bookmarkCnt)
-            .dates(article.date)
+            .date(article.date)
             .build(),
         );
       }),

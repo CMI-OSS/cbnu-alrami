@@ -13,14 +13,14 @@ export class ArticleDto {
   board!: BoardTreeResponseDto;
   title!: string;
   content!: string;
-  dates!: Date;
+  date!: Date;
   createdAt!: Date;
   updatedAt!: Date;
 }
 
 export class ArticleDetailInfoDto extends ArticleBaseDto {
   board: BoardTreeResponseDto;
-  dates: Date;
+  date: Date;
 }
 
 export class ArticleListInfoDto extends ArticleBaseDto {
@@ -30,7 +30,5 @@ export class ArticleListInfoDto extends ArticleBaseDto {
 
 export class ArticleResponseDto extends ArticleDetailInfoDto {
   content!: string;
-  createdAt!: Date;
-  updatedAt!: Date;
   images!: ImageResponseDto[];
 }

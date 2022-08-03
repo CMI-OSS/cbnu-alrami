@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Preview from "src/page/Subscription/Preview";
 import Subscription from "src/page/Subscription/Start";
 
-import PlaceTemplate from "./components/templates/PlaceTemplate";
 import "./mobile.scss";
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
@@ -15,6 +14,7 @@ import Detail from "./page/Map/Detail";
 import MoreImage from "./page/Map/MoreImage";
 import Report from "./page/Map/Report";
 import Notice from "./page/Notice";
+import PlaceDetail from "./page/Place/PlaceDetail";
 import SettingRoute from "./page/Setting";
 import College from "./page/Subscription/College";
 import End from "./page/Subscription/End";
@@ -50,24 +50,24 @@ function App() {
     },
     {
       path: "/place/all",
-      element: <PlaceTemplate menuType={1} />,
+      element: <PlaceDetail menuType={1} />,
     },
     {
       path: "/place/north",
-      element: <PlaceTemplate menuType={2} />,
+      element: <PlaceDetail menuType={2} />,
     },
     {
       path: "/place/east",
-      element: <PlaceTemplate menuType={3} />,
+      element: <PlaceDetail menuType={3} />,
     },
     {
       path: "/place/south",
-      element: <PlaceTemplate menuType={4} />,
+      element: <PlaceDetail menuType={4} />,
     },
     {
       id: 19,
       path: "/place/play/*",
-      element: <PlaceTemplate menuType={5} />,
+      element: <PlaceDetail menuType={5} />,
     },
     { id: 20, path: "/setting/*", element: <SettingRoute /> },
   ];

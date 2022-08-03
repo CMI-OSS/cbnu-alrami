@@ -13,7 +13,7 @@ import $ from "./style.module.scss";
 interface Props {
   menuType: number;
 }
-function PlaceTemplate({ menuType }: Props) {
+function PlaceDetail({ menuType }: Props) {
   const dispatch = useAppDispatch();
   const [ menu, setMenu ] = useState(0);
 
@@ -73,4 +73,4 @@ function PlaceTemplate({ menuType }: Props) {
   );
 }
 
-export default PlaceTemplate;
+export default PlaceDetail;

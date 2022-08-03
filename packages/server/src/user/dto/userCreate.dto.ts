@@ -1,4 +1,6 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
+
+import { Device } from "../../commons/entities/user.entity";
 
 export class UserCreateDto {
   @IsNotEmpty()
@@ -8,4 +10,8 @@ export class UserCreateDto {
   @IsNotEmpty()
   @IsString()
   fcmToken: string;
+
+  @IsOptional()
+  @IsEnum(Device)
+  device: Device;
 }

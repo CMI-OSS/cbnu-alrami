@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { MapArrow } from "@components/atoms/icon/MapArrow";
+import ChipGroup from "@components/molecules/ChipGroup";
 import BorderBox from "src/components/atoms/BorderBox";
 import { useAppDispatch } from "src/store";
 import { setHashMenu } from "src/store/placeSlice";
@@ -18,7 +19,7 @@ function PlaceTemplate({ menuType }: Props) {
 
   const handleMenu = (idx: number) => {
     setMenu(idx);
-    dispatch(setHashMenu({ hashNumber: 0 }));
+    dispatch(setHashMenu({ hashNumber: idx }));
   };
 
   return (
@@ -33,23 +34,11 @@ function PlaceTemplate({ menuType }: Props) {
           제보하기
         </NavLink>
       </div>
-      <div className={$.menu}>
-        <div className={$.list}>
-          {menuList.map((item, idx) => {
-            return (
-              <NavLink
-                key={`menu-${item.id}`}
-                to={item.path}
-                className={$["menu-link"]}
-                onClick={() => handleMenu(idx)}
-                aria-selected={menuType === idx + 1}
-              >
-                {item.name}
-              </NavLink>
-            );
-          })}
-        </div>
-      </div>
+      <ChipGroup
+        list={menuList}
+        handleSelectMenu={handleMenu}
+        menuType={menuType}
+      />
       <BorderBox className={$.tooltip} style={{ width: "auto" }}>
         <span className={$.tooltip_title}>
           식사는 현재 베타버전으로, 다양한 맛집이 더 추가될 예정입니다.

@@ -3,26 +3,38 @@ import { useQuery } from "react-query";
 import { AxiosResponse } from "axios";
 import caxios from "src/api/caxios";
 
-const fetchPopularArticle = () => {
+const fetchPopularArticles = () => {
   return caxios.get<res.Popular[]>("/articles/popular");
 };
 
-export const usePopularArticle = () => {
+export const usePopularArticles = () => {
   const response = useQuery<AxiosResponse<res.Popular[]>, Error>(
     "schedules",
-    fetchPopularArticle,
+    fetchPopularArticles,
   );
   return response;
 };
 
-export const fetchArticleByBoardId = (boardId: number) => {
+export const fetchArticlesByBoardId = (boardId: number) => {
   return caxios.get<res.ArticleByBoardId[]>(`/boards/${boardId}/articles`);
 };
 
-export const useArticleByBoardId = (boardId: number) => {
+export const useArticlesByBoardId = (boardId: number) => {
   const response = useQuery<AxiosResponse<res.ArticleByBoardId[]>, Error>(
     [ "articles", boardId ],
-    () => fetchArticleByBoardId(boardId),
+    () => fetchArticlesByBoardId(boardId),
+  );
+  return response;
+};
+
+export const fetchArticle = (articleId: number) => {
+  return caxios.get<res.Article>(`/boards/articles/${articleId}`);
+};
+
+export const useArticle = (articleId: number) => {
+  const response = useQuery<AxiosResponse<res.Article>, Error>(
+    [ "article", articleId ],
+    () => fetchArticle(articleId),
   );
   return response;
 };

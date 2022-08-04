@@ -1,7 +1,7 @@
 import { Link, useSearchParams } from "react-router-dom";
 
 import Footer from "@components/molecules/Footer";
-import { usePopularArticle } from "src/api/article";
+import { usePopularArticles } from "src/api/article";
 import { useSchedule } from "src/api/schedule";
 import BorderBox from "src/components/atoms/BorderBox";
 import { Setting } from "src/components/atoms/icon";
@@ -19,7 +19,7 @@ function Home() {
     data: popularArticleData,
     isLoading: popularArticleLoading,
     isError: popularArticleError,
-  } = usePopularArticle();
+  } = usePopularArticles();
   const {
     data: scheduleData,
     isLoading: scheduleLoading,

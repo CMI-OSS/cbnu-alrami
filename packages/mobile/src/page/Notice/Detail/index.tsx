@@ -1,10 +1,17 @@
+import { useParams } from "react-router-dom";
+
 import { LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
+import { useArticle } from "src/api/article";
 
 import Footer from "./Footer";
 import $ from "./style.module.scss";
 
 function NoticeDetail() {
+  const { noticeId } = useParams();
+  const { isLoading, error, data } = useArticle(Number(noticeId));
+
+  console.log({ data, error, isLoading });
   return (
     <div className={$["notice-detail"]}>
       <FullPageModalTemplate

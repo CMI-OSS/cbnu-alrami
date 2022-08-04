@@ -16,6 +16,7 @@ import MoreImage from "./page/Map/MoreImage";
 import Report from "./page/Map/Report";
 import Notice from "./page/Notice";
 import NoticeDetail from "./page/Notice/Detail";
+import SettingRoute from "./page/Setting";
 import College from "./page/Subscription/College";
 import End from "./page/Subscription/End";
 import Major from "./page/Subscription/Major";
@@ -65,6 +66,11 @@ function App() {
       path: "/place/south",
       element: <PlaceTemplate menuType={4} />,
     },
+    {
+      path: "/place/play/*",
+      element: <PlaceTemplate menuType={5} />,
+    },
+    { path: "/setting/*", element: <SettingRoute /> },
   ];
 
   return (

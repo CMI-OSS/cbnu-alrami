@@ -25,7 +25,7 @@ export const fetchColleageSchedules = () =>
     ...last,
   }));
 
-export const fetchPersonalSchedules = () =>
+export const fetchStaredSchedules = () =>
   PERSONAL_SCHEDULES.map(({ isHoliyday, startDate, endDate, ...last }) => ({
     isHoliyday: !!isHoliyday,
     startDate: dayjs(startDate),

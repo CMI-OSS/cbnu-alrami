@@ -21,14 +21,14 @@ function Notification({ notification }: Props) {
   return (
     <Link to={`${pathname}/${id}`} key={id}>
       <div className={$.notification}>
-        <div className={$.breadcrumb}>{breadcrumb}</div>
-        <div className={$.title}>{title}</div>
+        <span className={$.breadcrumb}>{breadcrumb}</span>
+        <span className={$.title}>{title}</span>
         <div className={$.detail}>
-          <div className={$.dates}>
+          <span className={$.dates}>
             {dayjs(dates).format("YY-MM-DD")}&nbsp;/&nbsp;
-          </div>
-          <div className={$.hits}>조회수&nbsp;{hits}&nbsp;/&nbsp;</div>
-          <div className={$.scraps}>스크랩&nbsp;{scraps}</div>
+          </span>
+          <span className={$.hits}>조회수&nbsp;{hits}&nbsp;/&nbsp;</span>
+          <span className={$.scraps}>스크랩&nbsp;{scraps}</span>
         </div>
       </div>
     </Link>

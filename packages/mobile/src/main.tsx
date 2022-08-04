@@ -4,8 +4,10 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Provider } from "react-redux";
 
+import { PersistGate } from "redux-persist/integration/react";
+
 import App from "./App";
-import { store } from "./store";
+import { persistor, store } from "./store";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,7 +24,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen />
       <React.StrictMode>
-        <App />
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+        </PersistGate>
       </React.StrictMode>
     </QueryClientProvider>
   </Provider>,

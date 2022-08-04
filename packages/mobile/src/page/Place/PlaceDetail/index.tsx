@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { MapArrow } from "@components/atoms/icon/MapArrow";
@@ -11,33 +10,14 @@ import { setHashMenu } from "src/store/placeSlice";
 import { imageList, menuList } from "../../../__mocks__/index";
 import $ from "./style.module.scss";
 
-interface Props {
-  menuType: number;
-}
-function PlaceDetail({ menuType }: Props) {
+function PlaceDetail() {
   const dispatch = useAppDispatch();
-  const [ menu, setMenu ] = useState(0);
   const position = useSearch({ target: "position" })!;
 
   const handleMenu = () => {
-    setMenu(checkMenu(position));
     dispatch(setHashMenu({ hashString: position }));
   };
 
-  const checkMenu = (position: string) => {
-    switch (position) {
-      case "all":
-        return 0;
-      case "north":
-        return 1;
-      case "east":
-        return 2;
-      case "south":
-        return 3;
-      default:
-        return 0;
-    }
-  };
   return (
     <>
       <div className={$.header}>
@@ -53,7 +33,7 @@ function PlaceDetail({ menuType }: Props) {
       <ChipGroup
         list={menuList}
         handleSelectMenu={handleMenu}
-        menuType={menu}
+        position={position}
       />
       <BorderBox className={$.tooltip} style={{ width: "auto" }}>
         <span className={$.tooltip_title}>

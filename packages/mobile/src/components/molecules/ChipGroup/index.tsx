@@ -11,10 +11,25 @@ type ItemProps = {
 type Props = {
   list: ItemProps[];
   handleSelectMenu: () => void;
-  menuType: number;
+  position: string;
 };
 
-function ChipGroup({ list, handleSelectMenu, menuType }: Props) {
+function ChipGroup({ list, handleSelectMenu, position }: Props) {
+  const checkMenu = (position: string) => {
+    switch (position) {
+      case "all":
+        return 0;
+      case "north":
+        return 1;
+      case "east":
+        return 2;
+      case "south":
+        return 3;
+      default:
+        return 0;
+    }
+  };
+
   return (
     <div className={$.menu}>
       <div className={$.list}>
@@ -25,7 +40,7 @@ function ChipGroup({ list, handleSelectMenu, menuType }: Props) {
               to={item.path}
               className={$["menu-link"]}
               onClick={() => handleSelectMenu()}
-              aria-selected={menuType === idx}
+              aria-selected={checkMenu(position) === idx}
             >
               {item.name}
             </NavLink>

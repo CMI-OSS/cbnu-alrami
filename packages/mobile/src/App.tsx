@@ -50,12 +50,7 @@ function App() {
     },
     {
       path: "/place",
-      element: <PlaceDetail menuType={1} />,
-    },
-    {
-      id: 19,
-      path: "/place/play/*",
-      element: <PlaceDetail menuType={5} />,
+      element: <PlaceDetail />,
     },
     { id: 20, path: "/setting/*", element: <SettingRoute /> },
   ];

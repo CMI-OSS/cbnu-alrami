@@ -1,6 +1,8 @@
 @import '../../../styles/main.scss';
 
 .notice-detail {
+  background: #fff;
+
   .children {
     height: calc(100vh - 60px);
     padding: 18px 22px;
@@ -23,7 +25,13 @@
     }
 
     .content {
-      padding: 18px 0;
+      padding: 18px 0px 84px 0px;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
     }
   }
 }

@@ -49,20 +49,8 @@ function App() {
       element: <Preview />,
     },
     {
-      path: "/place/all",
+      path: "/place",
       element: <PlaceDetail menuType={1} />,
-    },
-    {
-      path: "/place/north",
-      element: <PlaceDetail menuType={2} />,
-    },
-    {
-      path: "/place/east",
-      element: <PlaceDetail menuType={3} />,
-    },
-    {
-      path: "/place/south",
-      element: <PlaceDetail menuType={4} />,
     },
     {
       id: 19,

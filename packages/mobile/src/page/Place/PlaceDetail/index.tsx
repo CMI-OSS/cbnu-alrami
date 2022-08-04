@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { MapArrow } from "@components/atoms/icon/MapArrow";
 import ChipGroup from "@components/molecules/ChipGroup";
 import BorderBox from "src/components/atoms/BorderBox";
+import useSearch from "src/hooks/useSearch";
 import { useAppDispatch } from "src/store";
 import { setHashMenu } from "src/store/placeSlice";
 
@@ -16,12 +17,27 @@ interface Props {
 function PlaceDetail({ menuType }: Props) {
   const dispatch = useAppDispatch();
   const [ menu, setMenu ] = useState(0);
+  const position = useSearch({ target: "position" })!;
 
-  const handleMenu = (idx: number) => {
-    setMenu(idx);
-    dispatch(setHashMenu({ hashNumber: idx }));
+  const handleMenu = () => {
+    setMenu(checkMenu(position));
+    dispatch(setHashMenu({ hashString: position }));
   };
 
+  const checkMenu = (position: string) => {
+    switch (position) {
+      case "all":
+        return 0;
+      case "north":
+        return 1;
+      case "east":
+        return 2;
+      case "south":
+        return 3;
+      default:
+        return 0;
+    }
+  };
   return (
     <>
       <div className={$.header}>
@@ -37,7 +53,7 @@ function PlaceDetail({ menuType }: Props) {
       <ChipGroup
         list={menuList}
         handleSelectMenu={handleMenu}
-        menuType={menuType}
+        menuType={menu}
       />
       <BorderBox className={$.tooltip} style={{ width: "auto" }}>
         <span className={$.tooltip_title}>

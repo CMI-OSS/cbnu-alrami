@@ -10,7 +10,7 @@ type ItemProps = {
 
 type Props = {
   list: ItemProps[];
-  handleSelectMenu: (idx: number) => void;
+  handleSelectMenu: () => void;
   menuType: number;
 };
 
@@ -24,8 +24,8 @@ function ChipGroup({ list, handleSelectMenu, menuType }: Props) {
               key={`menu-${item.id}`}
               to={item.path}
               className={$["menu-link"]}
-              onClick={() => handleSelectMenu(idx)}
-              aria-selected={menuType === idx + 1}
+              onClick={() => handleSelectMenu()}
+              aria-selected={menuType === idx}
             >
               {item.name}
             </NavLink>

@@ -18,6 +18,21 @@ function PlaceDetail() {
     dispatch(setHashMenu({ hashString: position }));
   };
 
+  const checkMenu = (position: string) => {
+    switch (position) {
+      case "all":
+        return 0;
+      case "north":
+        return 1;
+      case "east":
+        return 2;
+      case "south":
+        return 3;
+      default:
+        return 0;
+    }
+  };
+
   return (
     <>
       <div className={$.header}>
@@ -33,7 +48,7 @@ function PlaceDetail() {
       <ChipGroup
         list={menuList}
         handleSelectMenu={handleMenu}
-        position={position}
+        selectedMenu={checkMenu(position)}
       />
       <BorderBox className={$.tooltip} style={{ width: "auto" }}>
         <span className={$.tooltip_title}>

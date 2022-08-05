@@ -10,11 +10,11 @@ import Calendar from "./page/Calendar";
 import Home from "./page/Home";
 import Map from "./page/Map";
 import Call from "./page/Map/Call";
-import Detail from "./page/Map/Detail";
+import MapDetail from "./page/Map/Detail";
 import MoreImage from "./page/Map/MoreImage";
 import Report from "./page/Map/Report";
 import Notice from "./page/Notice";
-import PlaceDetail from "./page/Place/PlaceDetail";
+import PlaceDetail from "./page/Place/Detail";
 import SettingRoute from "./page/Setting";
 import College from "./page/Subscription/College";
 import End from "./page/Subscription/End";
@@ -62,7 +62,7 @@ function App() {
           <Route key={route.path} path={route.path} element={route.element} />
         ))}
         <Route path="*" element={<Navigate replace to="/home" />} />
-        <Route path="/place/:name/detail/:id" element={<Detail />} />
+        <Route path="/place/:name/detail/:id" element={<MapDetail />} />
       </Routes>
     </BrowserRouter>
   );

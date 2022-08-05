@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import BorderBox from "@components/atoms/BorderBox";
 import { useCollegeBoardTree } from "src/api/boardTree";

@@ -30,9 +30,9 @@ export default function ScenarioCard({ className, scenario }: Props & Element) {
     <div className={classnames($.card, className)}>
       <h2>{title}</h2>
       <h3>{subTitle}</h3>
-      {tags.map((tagText) => (
-        <span className={$.tag} key={tagText}>{`# ${tagText}`}</span>
-      ))}
+      {tags.map((tagText) => {
+        return <span className={$.tag} key={tagText}>{`# ${tagText}`}</span>;
+      })}
       <div className={$["status-container"]}>
         <span>{stateLabelMap.get(state)}</span>
         <div className={$[`${colorMap.get(state)}`]}></div>

@@ -7,11 +7,13 @@ type Props = {
 function Menu({ menus }: Props) {
   return (
     <menu className={$.menu}>
-      {menus.map((menu) => (
-        <div key={menu} radioGroup={menu}>
-          {menu}
-        </div>
-      ))}
+      {menus.map((menu) => {
+        return (
+          <div key={menu} radioGroup={menu}>
+            {menu}
+          </div>
+        );
+      })}
     </menu>
   );
 }

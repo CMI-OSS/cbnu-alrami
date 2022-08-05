@@ -24,10 +24,9 @@ function PersonalCard({
   endDate,
   selectedDate,
 }: Props) {
-  const period = useMemo(
-    () => getTimePeriod(startDate, endDate, selectedDate),
-    [ startDate, endDate, selectedDate ],
-  );
+  const period = useMemo(() => {
+    return getTimePeriod(startDate, endDate, selectedDate);
+  }, [ startDate, endDate, selectedDate ]);
 
   return (
     <BorderBox className={classNames(className, $.card)}>

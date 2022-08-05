@@ -48,12 +48,14 @@ function Home() {
         </Link>
       </header>
       <div className={$.schedule}>
-        {schedules.map((schedule) => (
-          <BorderBox key={schedule.id} width={271} height={101}>
-            <p>{schedule.content}</p>
-            <Arrow width={7} height={25} color="#AAAAAA" />
-          </BorderBox>
-        ))}
+        {schedules.map((schedule) => {
+          return (
+            <BorderBox key={schedule.id} width={271} height={101}>
+              <p>{schedule.content}</p>
+              <Arrow width={7} height={25} color="#AAAAAA" />
+            </BorderBox>
+          );
+        })}
       </div>
       <Weather />
       <Restaurant />
@@ -79,12 +81,12 @@ function Home() {
           <Line />
           <div className={$["notification-content"]}>
             {noti === "popular"
-              ? popularNotifications?.map((notification) => (
-                  <p key={notification.id}>{notification.title}</p>
-                ))
-              : lastestNotifications.map((notification) => (
-                  <p key={notification}>{notification}</p>
-                ))}
+              ? popularNotifications?.map((notification) => {
+                  return <p key={notification.id}>{notification.title}</p>;
+                })
+              : lastestNotifications.map((notification) => {
+                  return <p key={notification}>{notification}</p>;
+                })}
           </div>
         </BorderBox>
       </div>

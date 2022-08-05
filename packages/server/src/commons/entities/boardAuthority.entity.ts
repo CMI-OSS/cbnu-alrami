@@ -8,19 +8,35 @@ import { CommonEntity } from "./common.entity";
 
 @Entity("board_authority")
 export class BoardAuthority extends CommonEntity {
-  @ManyToOne(() => Board, (Board) => Board.id, {
-    cascade: true,
-    nullable: false,
-    onDelete: "CASCADE",
-  })
+  @ManyToOne(
+    () => {
+      return Board;
+    },
+    (Board) => {
+      return Board.id;
+    },
+    {
+      cascade: true,
+      nullable: false,
+      onDelete: "CASCADE",
+    },
+  )
   @JoinColumn()
   board: Board;
 
-  @ManyToOne(() => Admin, (Admin) => Admin.id, {
-    cascade: true,
-    nullable: false,
-    onDelete: "CASCADE",
-  })
+  @ManyToOne(
+    () => {
+      return Admin;
+    },
+    (Admin) => {
+      return Admin.id;
+    },
+    {
+      cascade: true,
+      nullable: false,
+      onDelete: "CASCADE",
+    },
+  )
   @JoinColumn()
   admin: Admin;
 

@@ -1,7 +1,7 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import classNames from "classnames";
-import { useAppDispatch } from "src/store";
+import { useAppDispatch, useAppSelector } from "src/store";
 import { setHashMenu } from "src/store/placeSlice";
 
 import $ from "./style.module.scss";
@@ -17,6 +17,9 @@ type Props = {
 };
 
 function Chips({ list }: Props) {
+  const { hashNumber } = useAppSelector((state) => {
+    return state.placeReducer.hash;
+  });
   const dispatch = useAppDispatch();
 
   return (
@@ -26,10 +29,11 @@ function Chips({ list }: Props) {
           <NavLink
             key={`menu-${item.id}`}
             to={item.path}
-            className={({ isActive }) =>
-              classNames($["hash-link"], isActive ? $.active : "")
-            }
-            onClick={() => dispatch(setHashMenu({ hashNumber: idx }))}
+            className={$.hash_link}
+            onClick={() => {
+              return dispatch(setHashMenu({ hashNumber: idx }));
+            }}
+            aria-selected={hashNumber === idx}
           >
             {item.name}
           </NavLink>

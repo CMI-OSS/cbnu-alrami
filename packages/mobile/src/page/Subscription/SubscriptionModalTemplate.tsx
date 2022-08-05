@@ -19,7 +19,9 @@ function SubscriptionModalTemplate({ children }: Props) {
         right={
           <button
             type="button"
-            onClick={() => navigate("/subscription/setting", { replace: true })}
+            onClick={() => {
+              return navigate("/subscription/setting", { replace: true });
+            }}
           >
             <Close />
           </button>

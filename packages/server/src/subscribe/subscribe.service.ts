@@ -64,7 +64,9 @@ export class SubscribeService {
   async findBoardByUser(userId: number): Promise<number[]> {
     const boardIdList = await this.subscribeRepository.findBoardByUser(userId);
     // FIXME: 쿼리단에서 number array로 들고왔음 좋겠다
-    const result = boardIdList.map(({ boardId }) => boardId);
+    const result = boardIdList.map(({ boardId }) => {
+      return boardId;
+    });
     return result;
   }
 

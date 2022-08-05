@@ -32,15 +32,17 @@ export default function SettingCafeteria() {
       </div>
 
       <BorderBox className={$["select-cafeteria"]}>
-        {cafeterias.map((label) => (
-          <RadioSelect
-            key={label}
-            label={label}
-            className={$["radio-select"]}
-            isChecked={representative === label}
-            handleChange={setRepresentative}
-          />
-        ))}
+        {cafeterias.map((label) => {
+          return (
+            <RadioSelect
+              key={label}
+              label={label}
+              className={$["radio-select"]}
+              isChecked={representative === label}
+              handleChange={setRepresentative}
+            />
+          );
+        })}
       </BorderBox>
     </SettingTemplate>
   );

@@ -22,11 +22,13 @@ export default function Select({
     <label htmlFor={id} className={classNames($.label, className)}>
       {label}
       <select className={$.select} id={id} {...register()}>
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
+        {options.map((option) => {
+          return (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          );
+        })}
       </select>
     </label>
   );

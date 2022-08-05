@@ -46,7 +46,7 @@ export class WeatherService {
 
     const todayTemp: number[] = [];
     const todayWeather: string[] = [];
- 
+
     weather.data.hourly.forEach((data) => {
       if (new Date(data.dt * 1000).getDate() === new Date().getDate()) {
         todayTemp.push(data.temp);
@@ -104,9 +104,8 @@ export class WeatherService {
       return acc;
     }, {});
 
-    return Object.keys(object).reduce(
-      (acc, cur) => (object[acc] > object[cur] ? acc : cur),
-      "",
-    );
+    return Object.keys(object).reduce((acc, cur) => {
+      return object[acc] > object[cur] ? acc : cur;
+    }, "");
   }
 }

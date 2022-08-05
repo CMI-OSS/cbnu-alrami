@@ -21,7 +21,9 @@ function Detail() {
         <button
           type="button"
           className={$["detail-button"]}
-          onClick={() => navigate(-1)}
+          onClick={() => {
+            return navigate(-1);
+          }}
         >
           <MapArrow />
           <span className="blind">뒤로 가기</span>

@@ -6,19 +6,35 @@ import { User } from "./user.entity";
 
 @Entity("subscribe")
 export class Subscribe extends CommonEntity {
-  @ManyToOne(() => User, (User) => User.id, {
-    cascade: true,
-    nullable: false,
-    onDelete: "CASCADE",
-  })
+  @ManyToOne(
+    () => {
+      return User;
+    },
+    (User) => {
+      return User.id;
+    },
+    {
+      cascade: true,
+      nullable: false,
+      onDelete: "CASCADE",
+    },
+  )
   @JoinColumn()
   user: User;
 
-  @ManyToOne(() => Board, (Board) => Board.id, {
-    cascade: true,
-    nullable: false,
-    onDelete: "CASCADE",
-  })
+  @ManyToOne(
+    () => {
+      return Board;
+    },
+    (Board) => {
+      return Board.id;
+    },
+    {
+      cascade: true,
+      nullable: false,
+      onDelete: "CASCADE",
+    },
+  )
   @JoinColumn()
   board: Board;
 

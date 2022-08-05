@@ -19,9 +19,9 @@ function NotificationList() {
   });
   return (
     <div className={$["notification-list"]}>
-      {articleByBoardId?.map((data) => (
-        <Notification notification={data} />
-      ))}
+      {articleByBoardId?.map((data) => {
+        return <Notification notification={data} />;
+      })}
     </div>
   );
 }

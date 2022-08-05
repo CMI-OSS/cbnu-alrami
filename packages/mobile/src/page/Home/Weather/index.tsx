@@ -2,7 +2,7 @@
 
 import dayjs from "dayjs";
 import find from "lodash/find";
-import {useWeathers} from "src/api/weather";
+import { useWeathers } from "src/api/weather";
 import BorderBox from "src/components/atoms/BorderBox";
 import {
   Info,
@@ -107,11 +107,12 @@ function Weather() {
   const weather = weatherData!.data;
   const time = dayjs().hour() >= 12 ? "밤" : "낮";
   // TODO: 백엔드 값 분류해서 실제 날씨 넣기
-  const timeTarget = find(
-    iconToBackgrounds,
-    (o) => o.key === `천둥번개${time}`,
-  );
-  const target = find(iconToBackgrounds, (o) => o.key === `천둥번개`);
+  const timeTarget = find(iconToBackgrounds, (o) => {
+    return o.key === `천둥번개${time}`;
+  });
+  const target = find(iconToBackgrounds, (o) => {
+    return o.key === `천둥번개`;
+  });
   const iconToBackground = timeTarget ?? target;
 
   return (

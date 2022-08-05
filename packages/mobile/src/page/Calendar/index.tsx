@@ -14,7 +14,7 @@ import RadioBox from "src/page/Calendar/RadioBox";
 import ScheduleCalendar from "src/page/Calendar/ScheduleCalendar";
 import {
   fetchColleageSchedules,
-  fetchPersonalSchedules,
+  fetchStaredSchedules,
   filterTodaySchedules,
   getCalendarMap,
 } from "src/utils/calendarTools";
@@ -24,7 +24,7 @@ import caledarReducer from "./calendarReducer";
 import $ from "./style.module.scss";
 import useSelectedDate from "./useSelectedDate";
 
-export type ScheduleType = "personal" | "college";
+export type ScheduleType = "all" | "bookmark";
 
 export type DateMap = {
   date: Dayjs;
@@ -42,10 +42,9 @@ export type Schedule = {
 };
 
 function Calendar() {
-  const [ toggleSchedule, setToggleSchedule ] =
-    useState<ScheduleType>("personal");
+  const [ toggleSchedule, setToggleSchedule ] = useState<ScheduleType>("all");
   const [ collegeSchedules, setCollegeSchedules ] = useState<Schedule[]>([]);
-  const [ personalSchedule, setPersonalSchedule ] = useState<Schedule[]>([]);
+  const [ staredSchedules, setStartedSchedules ] = useState<Schedule[]>([]);
   const [ { year, month }, dispatchMonth ] = useReducer(caledarReducer, {
     year: dayjs().year(),
     month: dayjs().month(),
@@ -57,13 +56,13 @@ function Calendar() {
   const collegeCalendarMap = useMemo(() => {
     return getCalendarMap(year, month, collegeSchedules);
   }, [ month, collegeSchedules ]);
-  const personalCalendarMap = useMemo(() => {
-    return getCalendarMap(year, month, personalSchedule);
-  }, [ month, personalSchedule ]);
+  const startedCalendarMap = useMemo(() => {
+    return getCalendarMap(year, month, staredSchedules);
+  }, [ month, staredSchedules ]);
 
   useEffect(() => {
     setCollegeSchedules(fetchColleageSchedules());
-    setPersonalSchedule(fetchPersonalSchedules());
+    setStartedSchedules(fetchStaredSchedules());
   }, []);
 
   const handleScheduleToggleChange: ChangeEventHandler<HTMLInputElement> = ({
@@ -89,9 +88,7 @@ function Calendar() {
       <ScheduleCalendar
         {...{ today, month, setSelectedDate, selectedDate }}
         calendarMap={
-          toggleSchedule === "college"
-            ? collegeCalendarMap
-            : personalCalendarMap
+          toggleSchedule === "all" ? collegeCalendarMap : startedCalendarMap
         }
       />
       <RadioBox
@@ -101,11 +98,10 @@ function Calendar() {
       <CardBox
         scheduleType={toggleSchedule}
         schedules={
-          toggleSchedule === "college"
+          toggleSchedule === "all"
             ? filterTodaySchedules(selectedDate, collegeSchedules)
-            : filterTodaySchedules(selectedDate, personalSchedule)
+            : filterTodaySchedules(selectedDate, staredSchedules)
         }
-        selectedDate={selectedDate}
       />
       <Footer />
     </section>

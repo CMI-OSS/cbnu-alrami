@@ -24,7 +24,6 @@ export class UserService {
 
   async findOne(query: FindOneOptions<User>): Promise<User> {
     const user = await this.userRepository.findOne(query);
-    if (!user) throw USER_NOT_FOUND;
     return user;
   }
 
@@ -35,8 +34,9 @@ export class UserService {
 
   async create(userCreateDto: UserCreateDto): Promise<User> {
     const createdUser = await this.userRepository.create(userCreateDto);
-    if (!createdUser) throw DB_ERROR;
-    return createdUser;
+    const user = await this.userRepository.save(createdUser);
+    if (!user) throw DB_ERROR;
+    return user;
   }
 
   async delete(query: FindConditions<User>): Promise<DeleteResult> {

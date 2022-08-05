@@ -1,21 +1,24 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import CardList from "@components/molecules/CardList";
 import Footer from "@components/molecules/Footer";
-import classNames from "classnames";
-import { mockCategory, mockNotification } from "src/__mocks__";
 import guideEmptyStar from "src/assets/guide_empty_star.png";
 import guideEmptySubscription from "src/assets/guide_empty_subscription.png";
-import { Setting, Star } from "src/components/atoms/icon";
+import { Setting } from "src/components/atoms/icon";
 import useSearch from "src/hooks/useSearch";
+import Category from "src/page/Notice/Category";
 
+import NotificationList from "./NotificationList";
 import $ from "./style.module.scss";
 
 function EmptyGuideImage({ major }: { major: string }) {
-  if (major === "즐겨찾기") {
-    return <img src={guideEmptyStar} alt="즐겨찾기 항목 미존재" />;
-  }
-  return <img src={guideEmptySubscription} alt="구독 공지사항 미존재" />;
+  return (
+    <img
+      src={major === "즐겨찾기" ? guideEmptyStar : guideEmptySubscription}
+      alt={
+        major === "즐겨찾기" ? "즐겨찾기 항목 미존재" : "구독 공지사항 미존재"
+      }
+    />
+  );
 }
 
 function Notice() {
@@ -25,44 +28,23 @@ function Notice() {
   const guideImageViewCondition =
     (major === "즐겨찾기" && !mockStarNotification) ||
     (major !== "즐겨찾기" && !mockSubscribeNotification);
+
   return (
-    <section className={$.notification}>
-      <header className={$.header}>
-        공지사항
-        <Link to="/subscription">
-          <Setting width="21px" height="22px" className={$.setting} />
-        </Link>
-      </header>
-      <div className={$.categories}>
-        <NavLink
-          className={({ isActive }) => {
-            return classNames($.category, { [$.active]: isActive });
-          }}
-          to="?major=즐겨찾기"
-        >
-          <Star className={$.star} width="12" height="12" />
-        </NavLink>
-        {mockCategory.map((category) => {
-          return (
-            <NavLink
-              to={category.to}
-              className={({ isActive }) => {
-                return classNames($.category, { [$.active]: isActive });
-              }}
-            >
-              {category.major}
-            </NavLink>
-          );
-        })}
+    <section className={$.notice}>
+      <div className={$["header-wrapper"]}>
+        <header className={$.header}>
+          <span>공지사항</span>
+          <Link to="/subscription/setting">
+            <Setting width="21px" height="22px" className={$.setting} />
+          </Link>
+        </header>
+        <Category />
       </div>
-      <div
-        className={$["notification-list"]}
-        style={guideImageViewCondition ? { alignItems: "center" } : {}}
-      >
+      <div className={$["notification-list-wrapper"]}>
         {guideImageViewCondition ? (
           <EmptyGuideImage {...{ major }} />
         ) : (
-          <CardList notifications={mockNotification} />
+          <NotificationList />
         )}
       </div>
       <Footer />

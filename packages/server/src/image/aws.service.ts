@@ -28,15 +28,35 @@ export class AwsService {
   public async uploadImagesToS3(
     images: Express.Multer.File[],
   ): Promise<UploadImageResponse[]> {
-    const keys = await this.uploadImages(images);
+    const urls = await this.uploadImages(images);
 
-    const urls = this.getAwsS3ImageUrl(keys);
+    // const urls = this.getAwsS3ImageUrl(keys);
 
     const insertResult = await this.saveImage(urls);
 
     const imageIds = AwsService.getImageId(insertResult);
 
     return this.getResult(urls, imageIds);
+  }
+
+  async s3DeleteImages(deleteFiles: string[]): Promise<void> {
+    try {
+      const deleteParams = {
+        Bucket: this.bucketName,
+        Delete: { Objects: [] },
+      };
+
+      deleteFiles.forEach((file) => {
+        const Key = file.split("com/")[1];
+        deleteParams.Delete.Objects.push({ Key });
+      });
+
+      if (deleteParams.Delete.Objects.length > 0) {
+        await this.awsS3.deleteObjects(deleteParams).promise();
+      }
+    } catch (error) {
+      throw new BadRequestException("S3 파일 삭제에 실패했습니다.");
+    }
   }
 
   private async uploadImages(images: Express.Multer.File[]): Promise<string[]> {
@@ -48,8 +68,8 @@ export class AwsService {
           const extension = mimetype.split("/")[1];
           const key = `${fieldname}/${date}.${extension}`;
 
-          await this.awsS3
-            .putObject({
+          const result = await this.awsS3
+            .upload({
               Bucket: this.bucketName,
               Key: key,
               Body: buffer,
@@ -58,18 +78,12 @@ export class AwsService {
             })
             .promise();
 
-          return key;
+          return result.Location;
         }),
       );
     } catch (error) {
       throw new BadRequestException("이미지 업로드에 실패했습니다.");
     }
-  }
-
-  private getAwsS3ImageUrl(keys: string[]): string[] {
-    return keys.map((key) => {
-      return `https://${this.bucketName}.s3.amazonaws.com/${key}`;
-    });
   }
 
   private async saveImage(urls: string[]): Promise<InsertResult[]> {

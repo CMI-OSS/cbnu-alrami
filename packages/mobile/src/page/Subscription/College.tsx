@@ -9,7 +9,7 @@ import SubscriptionModalTemplate from "./SubscriptionModalTemplate";
 
 function College() {
   const { data: collegeBoardTree, breadCrumb } = useCollegeBoardTree();
-
+  const { pathname } = useLocation();
   return (
     <SubscriptionModalTemplate>
       <div className={$.guide}>
@@ -18,7 +18,7 @@ function College() {
       </div>
       {collegeBoardTree?.children.map((college) => {
         return (
-          <Link to={`/subscription/major/${college.id}`} key={college.id}>
+          <Link to={`${pathname}/${college.id}`} key={college.id}>
             <BorderBox
               height={87}
               background="#F6F5FB"

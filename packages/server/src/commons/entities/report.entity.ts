@@ -12,7 +12,11 @@ export class Report extends CommonEntity {
     (User) => {
       return User.id;
     },
-    { cascade: true, nullable: false },
+    {
+      cascade: true,
+      nullable: false,
+      onDelete: "CASCADE",
+    },
   )
   @JoinColumn()
   user: User;

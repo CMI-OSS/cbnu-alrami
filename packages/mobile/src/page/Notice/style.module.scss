@@ -1,52 +1,35 @@
 @import "../../styles/main.scss";
 
-.notification {
+.notice {
   height: calc(100vh - 68px);
 
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 70px;
-    padding: 13px 35px 14px 23px;
-    background: #fff;
-    border-bottom: 1px solid $background-20;
-    @include typography(18);
-    font-weight: 500;
-  }
+  .header-wrapper {
+    position: fixed;
+    top: 0;
 
-  .categories {
-    display: flex;
-    max-height: 55px;
-    padding: 12px;
-    margin-bottom: 8px;
-    align-items: center;
-    overflow-x: auto;
-    background: #fff;
-
-    .category {
-      display: block;
-      white-space: nowrap;
-      max-height: 34px;
-      padding: 8px 12px;
-      margin-right: 11px;
-      background: $black-10;
-      border-radius: 20px;
-
-      path {
-        stroke: $black-60;
-      }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+      padding: 13px 35px 14px 23px;
+      background: #fff;
+      border-bottom: 1px solid $background-20;
+      @include typography(18);
+      font-weight: 500;
     }
   }
 
-  .notification-list {
+  .notification-list-wrapper {
     display: flex;
     justify-content: center;
-    height: calc(100% - 140px);
+    width: 100%;
+    padding: 115px 0 68px 0;
+  }
 
-    img {
-      max-width: 375px;
-      max-height: 405px;
-    }
+  img {
+    width: 100%;
+    padding-top: 50%;
+    object-fit: scale-down;
   }
 }

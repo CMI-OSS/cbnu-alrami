@@ -13,7 +13,11 @@ export class Hit extends CommonEntity {
     (User) => {
       return User.id;
     },
-    { cascade: true, nullable: false },
+    {
+      cascade: true,
+      nullable: false,
+      onDelete: "CASCADE",
+    },
   )
   @JoinColumn()
   user: User;
@@ -28,6 +32,7 @@ export class Hit extends CommonEntity {
     {
       cascade: true,
       nullable: false,
+      onDelete: "CASCADE",
     },
   )
   @JoinColumn()

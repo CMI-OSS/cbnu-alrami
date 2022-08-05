@@ -13,6 +13,9 @@ export class CafeteriaMenu extends UpdatableCommonEntity {
     (cafeteria) => {
       return cafeteria.cafeteriaMenus;
     },
+    {
+      onDelete: "CASCADE",
+    },
   )
   @JoinColumn({ name: "cafeteria_id" })
   cafeteria: Cafeteria;

@@ -43,9 +43,9 @@ function Home() {
           <h1 className={$.title}>충림이</h1>
           <p>오늘은 총 6개의 일정이 있어요</p>
         </div>
-        <button type="button">
+        <Link to="/setting">
           <Setting width="24px" height="25px" />
-        </button>
+        </Link>
       </header>
       <div className={$.schedule}>
         {schedules.map((schedule) => {

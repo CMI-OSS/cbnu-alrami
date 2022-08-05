@@ -2,29 +2,24 @@ import cafeteriaList from "./cafeteriaList";
 import cafeteriaMenu from "./cafeteriaMenu";
 import cafeteriaTimeInfo from "./cafeteriaTimeInfo";
 import constructionInfo from "./constructionInfo";
-import constructionList from "./constructionList";
+import convenientList from "./convenientList";
 import detailImageList from "./detailImageList";
-import foodList from "./foodList";
 import imageList from "./imageList";
 import mapImageList from "./mapImageList";
 import menuList from "./menuList";
-import { mockNotification, mockCategory } from "./notificationList";
-import playList from "./playList";
-import snackList from "./snackList";
+import { mockCategory } from "./notificationList";
+import { settingConfig } from "./settingConfig";
 
 export {
-  constructionList,
-  foodList,
   imageList,
   menuList,
-  playList,
-  snackList,
-  mockNotification,
   mockCategory,
   detailImageList,
   mapImageList,
+  settingConfig,
   cafeteriaTimeInfo,
   cafeteriaMenu,
   cafeteriaList,
   constructionInfo,
+  convenientList,
 };

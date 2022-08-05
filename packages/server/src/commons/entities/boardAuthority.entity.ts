@@ -18,6 +18,7 @@ export class BoardAuthority extends CommonEntity {
     {
       cascade: true,
       nullable: false,
+      onDelete: "CASCADE",
     },
   )
   @JoinColumn()
@@ -33,6 +34,7 @@ export class BoardAuthority extends CommonEntity {
     {
       cascade: true,
       nullable: false,
+      onDelete: "CASCADE",
     },
   )
   @JoinColumn()

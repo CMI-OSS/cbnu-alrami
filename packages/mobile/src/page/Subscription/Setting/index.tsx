@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { LeftArrow, Plus } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
+import guideEmptySubscriptionSetting from "src/assets/guide_empty_subscription_setting.png";
 
 import Card from "./Card";
 import $ from "./style.module.scss";
@@ -25,7 +26,39 @@ function Setting() {
       isNoticing: true,
       name: "경영대학 > 경영정보학과 > 학생회공지",
     },
+    {
+      isSubscribing: false,
+      isNoticing: false,
+      name: "경영대학 > 경영정보학과 > 학과공지",
+    },
+    {
+      isSubscribing: true,
+      isNoticing: false,
+      name: "경영대학 > 경영정보학과 > 대학원공지",
+    },
+    {
+      isSubscribing: true,
+      isNoticing: true,
+      name: "경영대학 > 경영정보학과 > 학생회공지",
+    },
+    {
+      isSubscribing: false,
+      isNoticing: false,
+      name: "경영대학 > 경영정보학과 > 학과공지",
+    },
+    {
+      isSubscribing: true,
+      isNoticing: false,
+      name: "경영대학 > 경영정보학과 > 대학원공지",
+    },
+    {
+      isSubscribing: true,
+      isNoticing: true,
+      name: "경영대학 > 경영정보학과 > 학생회공지",
+    },
   ];
+
+  const guideImageViewCondition = mockSettings.length === 0;
 
   return (
     <div className={$.setting}>
@@ -53,8 +86,11 @@ function Setting() {
         }
       >
         <div className={$.content}>
-          {mockSettings.length === 0 ? (
-            <div>비었어요</div>
+          {guideImageViewCondition ? (
+            <img
+              src={guideEmptySubscriptionSetting}
+              alt="구독 환경설정 목록 미존재"
+            />
           ) : (
             mockSettings.map((data) => {
               return <Card key={data.name} data={data} />;

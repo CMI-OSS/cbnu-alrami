@@ -24,7 +24,9 @@ function ChipGroup({ list, handleSelectMenu, selectedMenu }: Props) {
               key={`menu-${item.id}`}
               to={item.path}
               className={$["menu-link"]}
-              onClick={() => handleSelectMenu()}
+              onClick={() => {
+                return handleSelectMenu();
+              }}
               aria-selected={selectedMenu === idx}
             >
               {item.name}

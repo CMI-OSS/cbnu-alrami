@@ -1,7 +1,7 @@
 import { settingConfig } from "src/__mocks__";
+import SettingContact from "src/page/Setting/SettingContact";
 import SettingMenu from "src/page/Setting/SettingMenu";
 import SettingTemplate from "src/page/Setting/SettingTemplate";
-import SettingContact from "src/page/SettingContact";
 import { useAppSelector } from "src/store";
 
 import { settingMenuList } from "./constants";
@@ -15,10 +15,13 @@ export default function SettingMain() {
   return (
     <SettingTemplate title="설정" className={$["setting-main"]}>
       {settingMenuList.map((route) => {
-        const { label } = route;
-        const config = settingConfig[label];
-
-        return <SettingMenu key={label} route={route} config={config || ""} />;
+        return (
+          <SettingMenu
+            key={route.label}
+            route={route}
+            config={settingConfig[route.label]}
+          />
+        );
       })}
       {isDisplayContact && <SettingContact />}
     </SettingTemplate>

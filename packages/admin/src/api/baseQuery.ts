@@ -9,18 +9,17 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const axiosBaseQuery =
-  (): BaseQueryFn<
-    {
-      url: string;
-      method: AxiosRequestConfig["method"];
-      data?: AxiosRequestConfig["data"];
-      params?: AxiosRequestConfig["params"];
-    },
-    unknown,
-    unknown
-  > =>
-  async ({ url, method, data, params }) => {
+const axiosBaseQuery = (): BaseQueryFn<
+  {
+    url: string;
+    method: AxiosRequestConfig["method"];
+    data?: AxiosRequestConfig["data"];
+    params?: AxiosRequestConfig["params"];
+  },
+  unknown,
+  unknown
+> => {
+  return async ({ url, method, data, params }) => {
     try {
       const result = await axios({
         url: `${import.meta.env.VITE_API_URL}/${url}`,
@@ -43,5 +42,6 @@ const axiosBaseQuery =
       };
     }
   };
+};
 
 export default axiosBaseQuery;

@@ -64,13 +64,23 @@ function Setting() {
     <div className={$.setting}>
       <FullPageModalTemplate
         left={
-          <button type="button" onClick={() => navigate(-1)}>
+          <button
+            type="button"
+            onClick={() => {
+              return navigate(-1);
+            }}
+          >
             <LeftArrow color="#AAAAAA" width="16" height="16" />
           </button>
         }
         title="구독/알림"
         right={
-          <button type="button" onClick={() => navigate("/subscription")}>
+          <button
+            type="button"
+            onClick={() => {
+              return navigate("/subscription");
+            }}
+          >
             <Plus color="#AAAAAA" width="20" height="20" />
           </button>
         }
@@ -82,7 +92,9 @@ function Setting() {
               alt="구독 환경설정 목록 미존재"
             />
           ) : (
-            mockSettings.map((data) => <Card key={data.name} data={data} />)
+            mockSettings.map((data) => {
+              return <Card key={data.name} data={data} />;
+            })
           )}
         </div>
       </FullPageModalTemplate>

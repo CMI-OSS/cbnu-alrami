@@ -47,7 +47,9 @@ export class ArticleImageService {
   async findImageIdByArticle(articleId: number): Promise<number[]> {
     const articleImages =
       await this.articleImageRepository.findImageIdByArticle(articleId);
-    const result = articleImages.map(({ imageId }) => imageId);
+    const result = articleImages.map(({ imageId }) => {
+      return imageId;
+    });
     return result;
   }
 
@@ -56,14 +58,18 @@ export class ArticleImageService {
     const beforeImages = await this.findImageIdByArticle(article.id);
 
     // DESCRIBE: 기존 이미지 차집합은 삭제
-    const beforeDiff = beforeImages.filter((x) => !newImages.includes(x));
+    const beforeDiff = beforeImages.filter((x) => {
+      return !newImages.includes(x);
+    });
     const removes = beforeDiff.map(async (imageId) => {
       await this.removeByImage(imageId);
     });
     await Promise.all(removes);
 
     // DESCRIBE: 신규 이미지 차집합은 새로 등록
-    const newDiff = newImages.filter((x) => !beforeImages.includes(x));
+    const newDiff = newImages.filter((x) => {
+      return !beforeImages.includes(x);
+    });
     const updates = newDiff.map(async (imageId) => {
       const image = await this.imageService.findById(imageId);
       await this.create(image, article);

@@ -207,7 +207,9 @@ abstract class Scraper<T> {
       }
     }
 
-    setTimeout(() => this.run(), SCENARIO_DELAY);
+    setTimeout(() => {
+      return this.run();
+    }, SCENARIO_DELAY);
   }
 
   setScraperState(state: ScraperState) {

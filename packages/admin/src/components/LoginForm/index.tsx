@@ -53,8 +53,12 @@ export default function LoginForm() {
             placeholder="아이디"
             name={id.name}
             onChange={id.onChange}
-            onFocus={() => setFocusId(true)}
-            onBlur={() => setFocusId(false)}
+            onFocus={() => {
+              return setFocusId(true);
+            }}
+            onBlur={() => {
+              return setFocusId(false);
+            }}
             ref={id.ref}
           />
         </div>
@@ -66,7 +70,9 @@ export default function LoginForm() {
           <button
             className={$["lock-box"]}
             type="button"
-            onClick={() => setLock(!isLock)}
+            onClick={() => {
+              return setLock(!isLock);
+            }}
           >
             {isLock ? (
               <AiOutlineLock className={classnames($.icon, $.lock)} />
@@ -79,8 +85,12 @@ export default function LoginForm() {
             placeholder="비밀번호"
             name={password.name}
             onChange={password.onChange}
-            onFocus={() => setFocusPw(true)}
-            onBlur={() => setFocusPw(false)}
+            onFocus={() => {
+              return setFocusPw(true);
+            }}
+            onBlur={() => {
+              return setFocusPw(false);
+            }}
             ref={password.ref}
           />
         </div>

@@ -17,7 +17,9 @@ export default function ScenarioFilter({ isNotice }: Props) {
   const location = useLocation();
   const query = useQuery();
 
-  const getQueryParams = () => queryString.parse(location.search);
+  const getQueryParams = () => {
+    return queryString.parse(location.search);
+  };
 
   const handleGroupChange = ({
     target: { value },
@@ -47,11 +49,13 @@ export default function ScenarioFilter({ isNotice }: Props) {
               <option value="all" key="all">
                 모두
               </option>
-              {getScenarioGroups(scenarios).map((group) => (
-                <option value={group} key={group}>
-                  {group}
-                </option>
-              ))}
+              {getScenarioGroups(scenarios).map((group) => {
+                return (
+                  <option value={group} key={group}>
+                    {group}
+                  </option>
+                );
+              })}
             </select>
           </label>
         </li>

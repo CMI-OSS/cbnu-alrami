@@ -12,11 +12,17 @@ type Props = {
 
 function FullPageModalTemplate({ left, title, right, children }: Props) {
   const navigate = useNavigate();
-  
+
   return (
     <div className={$["full-modal"]}>
       <div className={$.header}>
-        <button type="button" className={$.left} onClick={() => navigate(-1)}>
+        <button
+          type="button"
+          className={$.left}
+          onClick={() => {
+            return navigate(-1);
+          }}
+        >
           {left}
         </button>
         <div className={$.title}>{title}</div>

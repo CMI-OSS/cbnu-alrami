@@ -27,11 +27,11 @@ export default function ScraperManager({ scraperType }: Props) {
     prevScenario,
     currentScenario,
     nextScenario,
-  } = useAppSelector((state) =>
-    state.scraperReducer.scrapers.find(
-      (scraper) => scraper.type === scraperType,
-    ),
-  ) ?? initialScraper;
+  } = useAppSelector((state) => {
+    return state.scraperReducer.scrapers.find((scraper) => {
+      return scraper.type === scraperType;
+    });
+  }) ?? initialScraper;
 
   const startScraping = () => {
     if (scraperState === ScraperState.Running) return;

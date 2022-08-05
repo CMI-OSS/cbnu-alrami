@@ -11,7 +11,13 @@ type Props = {
   handleChange: (label: string) => void;
 } & StyleProps;
 
-function RadioSelect({ className, label, isChecked, handleChange, style }: Props) {
+function RadioSelect({
+  className,
+  label,
+  isChecked,
+  handleChange,
+  style,
+}: Props) {
   return (
     <div className={classnames($["radio-box"], className)} style={style}>
       <label htmlFor="radio" className={$["radio-label"]}>
@@ -25,7 +31,9 @@ function RadioSelect({ className, label, isChecked, handleChange, style }: Props
           checked={isChecked}
           value={label}
           className={classnames($["radio-input"], { [$.checked]: isChecked })}
-          onChange={(e) => handleChange(e.target.value)}
+          onChange={(e) => {
+            return handleChange(e.target.value);
+          }}
         />
       </span>
     </div>

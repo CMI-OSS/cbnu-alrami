@@ -8,9 +8,9 @@ import { settingMenuList } from "./constants";
 import $ from "./style.module.scss";
 
 export default function SettingMain() {
-  const { isDisplayContact } = useAppSelector(
-    (state) => state.settingReducer.setting,
-  );
+  const { isDisplayContact } = useAppSelector((state) => {
+    return state.settingReducer.setting;
+  });
 
   return (
     <SettingTemplate title="설정" className={$["setting-main"]}>

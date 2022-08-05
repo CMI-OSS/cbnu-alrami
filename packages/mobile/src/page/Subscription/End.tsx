@@ -15,19 +15,14 @@ import $ from "src/page/Subscription/style.module.scss";
 import SubscriptionModalTemplate from "./SubscriptionModalTemplate";
 
 export const 구독안함 = () => {
-  return (
-    <UnSubscription color="#AAAAAA" style={{ width: "32px", height: "21px" }} />
-  );
+  return <UnSubscription stroke="#aaa" size={30} />;
 };
 
 export const 구독하고알람함 = () => {
   return (
     <div className={$.구독상태}>
-      <Subscription
-        color="#D66D6E"
-        style={{ width: "32px", height: "21px", marginRight: "20px" }}
-      />
-      <Alarm color="#D66D6E" style={{ width: "22px", height: "22px" }} />
+      <Subscription stroke="#aaa" size={30} style={{ marginRight: "22px" }} />
+      <Alarm stroke="#D66D6E" size={22} />
     </div>
   );
 };
@@ -36,10 +31,11 @@ export const 구독하고알람안함 = () => {
   return (
     <div className={$.구독상태}>
       <Subscription
-        color="#D66D6E"
-        style={{ width: "32px", height: "21px", marginRight: "20px" }}
+        stroke="#D66D6E"
+        size={30}
+        style={{ marginRight: "22px" }}
       />
-      <UnAlarm color="#aaaaaa" style={{ width: "22px", height: "22px" }} />
+      <UnAlarm stroke="#aaa" size={22} />
     </div>
   );
 };
@@ -57,13 +53,7 @@ function End() {
       <div className={$.guide}>
         <div className={$.title}>{breadCrumb}</div>
         <div className={$.content}>
-          <UnSubscription
-            style={{
-              width: "36px",
-              height: "24px",
-            }}
-            color="#aaaaaa"
-          />
+          <UnSubscription size={34} stroke="#aaa" />
           {GUIDE.common_end}
         </div>
       </div>

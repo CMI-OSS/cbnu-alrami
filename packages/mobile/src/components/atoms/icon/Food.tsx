@@ -1,45 +1,35 @@
-import type { StyleProps } from "src/type/props";
+import type { IconProps } from "src/type/props";
 
-type Props = {
-  width?: string;
-  height?: string;
-} & StyleProps;
-
-function Food({ width, height, className, style }: Props) {
+function Food({ size, stroke }: IconProps) {
   return (
     <svg
-      {...{ className, style }}
-      width={width ?? "21"}
-      height={height ?? "24"}
-      viewBox="0 0 21 24"
+      width={size}
+      height="auto"
+      viewBox="0 0 13 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M15.9473 10.4966V22.996"
-        stroke="#D6D6D6"
-        strokeWidth="1.2"
+        d="M9.54785 6.18091V13"
+        stroke={stroke}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M15.9473 10.4269C17.9286 10.4269 19.5348 8.31663 19.5348 5.71346C19.5348 3.11029 17.9286 1 15.9473 1C13.966 1 12.3599 3.11029 12.3599 5.71346C12.3599 8.31663 13.966 10.4269 15.9473 10.4269Z"
-        stroke="#D6D6D6"
-        strokeWidth="1.2"
+        d="M9.54758 6.1429C10.648 6.1429 11.54 4.99162 11.54 3.57145C11.54 2.15128 10.648 1 9.54758 1C8.44721 1 7.55518 2.15128 7.55518 3.57145C7.55518 4.99162 8.44721 6.1429 9.54758 6.1429Z"
+        stroke={stroke}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M4.31201 2.04736V22.9961"
-        stroke="#D6D6D6"
-        strokeWidth="1.2"
+        d="M3.08594 1.57129V12.9999"
+        stroke={stroke}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M7.60281 2.09106V6.21098C7.60281 8.60262 6.12767 10.5753 4.31212 10.5753C2.49656 10.5753 1.0127 8.60262 1.0127 6.21098V2.09106"
-        stroke="#D6D6D6"
-        strokeWidth="1.2"
+        d="M4.91344 1.59521V3.84287C4.91344 5.14765 4.09418 6.22386 3.08585 6.22386C2.07753 6.22386 1.25342 5.14765 1.25342 3.84287V1.59521"
+        stroke={stroke}
         strokeLinecap="round"
         strokeLinejoin="round"
       />

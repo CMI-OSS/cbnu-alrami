@@ -23,7 +23,7 @@ export default function SettingCafeteria() {
   return (
     <SettingTemplate title="대표식당">
       <div className={$["setting-cafeteria"]}>
-        <Food width="32px" height="37.33px" />
+        <Food size={32} stroke="#aaa" />
         <span className={$.text}>
           홈화면에 표시할
           <br />

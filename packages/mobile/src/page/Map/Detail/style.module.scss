@@ -92,16 +92,14 @@
 
 .item {
   display: flex;
+  align-items: center;
   color: $black-80;
+
   &:not(:first-child) {
     margin-top: 25px;
   }
 }
 
-.phone {
-  width: 22px;
-  height: 10px;
-}
 
 .item-text {
   line-height: 23px;

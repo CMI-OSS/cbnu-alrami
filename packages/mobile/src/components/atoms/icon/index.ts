@@ -1,40 +1,36 @@
 export { AddSchedule } from "./AddSchedule";
-export { Alarm } from "./Alarm";
-export { AppVersion } from "./AppVersion";
+export { Alarm } from "./Alarm"; // 완료
+export { AppVersion } from "./AppVersion"; // 완료
 export { Arrow } from "./Arrow";
-export { Calendar } from "./Calendar";
-export { Call } from "./Call";
-export { CallSubmit } from "./CallSubmit";
+export { Calendar } from "./Calendar"; // 완료
+export { Call } from "./Call"; // 완료
+export { Airplane } from "./Airplane";
 export { Close } from "./Close";
-export { ColorStar } from "./ColorStar";
-export { Covid } from "./Covid";
-export { Email } from "./Email";
-export { EmptyStar } from "./EmptyStar";
+export { Email } from "./Email"; // 완료
 export { Experiment } from "./Experiment";
-export { Food } from "./Food";
+export { Food } from "./Food"; // 완료
 export { Help } from "./Help";
-export { Home } from "./Home";
-export { Info } from "./Info";
+export { Home } from "./Home"; // 완료
+export { Info } from "./Info"; // 완료
 export { LeftArrow } from "./LeftArrow";
-export { Map } from "./Map";
+export { Map } from "./Map"; // 완료
 export { MapArrow } from "./MapArrow";
 export { MoreArrow } from "./MoreArrow";
 export { NoMenu } from "./NoMenu";
-export { Person } from "./Person";
+export { Person } from "./Person"; // 완료
 export { PlaceMenu } from "./PlaceMenu";
 export { Plus } from "./Plus";
-export { Position } from "./Position";
-export { Setting } from "./Setting";
+export { Lab } from "./Lab"; // 완료
+export { Setting } from "./Setting"; // 완료
 export { SmallPlaceMenu } from "./SmallPlaceMenu";
-export { Speaker } from "./Speaker";
-export { Star } from "./Star";
-export { Subscribe } from "./Subscribe";
-export { Subscription } from "./Subscription";
-export { Theme } from "./Theme";
-export { Time } from "./Time";
-export { UnAlarm } from "./UnAlarm";
-export { UnSubscription } from "./UnSubscription";
-export { Write } from "./Write";
+export { Speaker } from "./Speaker"; // 완료
+export { Star } from "./Star"; // 완료
+export { Subscription } from "./Subscription"; // 완료
+export { Theme } from "./Theme"; // 완료
+export { Time } from "./Time"; // 완료
+export { UnAlarm } from "./UnAlarm"; // 완료
+export { UnSubscription } from "./UnSubscription"; // 완료
+export { Write } from "./Write"; // 완료
 export { 가끔눈_낮 } from "./가끔눈_낮";
 export { 가끔눈_밤 } from "./가끔눈_밤";
 export { 가끔눈또는비_낮 } from "./가끔눈또는비_낮";

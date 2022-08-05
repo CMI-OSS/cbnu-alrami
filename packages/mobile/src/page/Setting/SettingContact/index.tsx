@@ -1,6 +1,6 @@
 import React from "react";
 
-import Modal from "src/components/templates/Modal";
+import Modal from "@components/templates/Modal";
 import { useAppDispatch } from "src/store";
 import { showSettingContact } from "src/store/settingSlice";
 

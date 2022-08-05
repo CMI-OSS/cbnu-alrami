@@ -23,15 +23,13 @@
 
 .button {
   position: fixed;
-  left: 0;
   right: 14px;
   bottom: 14px;
   text-align: right;
   z-index: 100;
-  background-color: $white;
-
-  svg path {
-    stroke: $white;
-  }
+  width: 62px;
+  height: auto;
+  border-radius: 50%;
+  background-color: $red-50;
 }
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { CallSubmit } from "@components/atoms/icon/CallSubmit";
+import { Airplane } from "@components/atoms/icon";
 import MapHeader from "@components/molecules/MapHeader";
 
 import $ from "./style.module.scss";
@@ -21,7 +21,7 @@ function Call() {
           value={textarea}
         />
         <button type="button" className={$.button}>
-          <CallSubmit className={$.submit} />
+          <Airplane size={34} stroke="#fff" />
         </button>
       </div>
     </>

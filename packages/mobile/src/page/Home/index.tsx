@@ -44,7 +44,7 @@ function Home() {
           <p>오늘은 총 6개의 일정이 있어요</p>
         </div>
         <Link to="/setting">
-          <Setting width="24px" height="25px" />
+          <Setting size={24} stroke="#aaa" />
         </Link>
       </header>
       <div className={$.schedule}>

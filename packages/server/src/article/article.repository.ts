@@ -13,6 +13,12 @@ export class ArticleRepository extends Repository<Article> {
       .getMany();
   }
 
+  async countByBoard(boardId: number): Promise<number> {
+    return this.createQueryBuilder("article")
+      .where("article.board_id = :boardId", { boardId })
+      .getCount();
+  }
+
   async existsByUrl(url: string): Promise<number> {
     return this.createQueryBuilder("article")
       .where("article.url = :url", { url })

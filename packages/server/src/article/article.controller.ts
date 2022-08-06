@@ -18,7 +18,8 @@ import { UserSession } from "src/commons/decorators/UserSession.decorator";
 import { Admin } from "src/commons/entities/admin.entity";
 import { User } from "src/commons/entities/user.entity";
 import { AdminAuthGuard } from "src/commons/guards/admin-auth.guard";
-import { PageRequest } from "src/commons/page/pageRequest";
+import { PageRequest } from "src/commons/page/page.request";
+import { PageResponse } from "src/commons/page/page.response";
 
 import { ArticleService } from "./article.service";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
@@ -55,7 +56,7 @@ export class ArticleController {
   async findByBoard(
     @Param("boardId") boardId: number,
     @Body() PageRequest: PageRequest,
-  ): Promise<ArticleDetailInfoDto[]> {
+  ): Promise<PageResponse<ArticleDetailInfoDto[]>> {
     return this.articleService.findArticleInfoListByBoard(boardId, PageRequest);
   }
 

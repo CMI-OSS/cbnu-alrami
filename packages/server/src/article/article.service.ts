@@ -9,7 +9,8 @@ import { Admin } from "src/commons/entities/admin.entity";
 import { Article } from "src/commons/entities/article.entity";
 import { User } from "src/commons/entities/user.entity";
 import { Errors } from "src/commons/exception/exception.global";
-import { PageRequest } from "src/commons/page/pageRequest";
+import { PageRequest } from "src/commons/page/page.request";
+import { PageResponse } from "src/commons/page/page.response";
 import { HitRepository } from "src/hit/hit.repository";
 import { ImageResponseDto } from "src/image/dto/image.response.dto";
 import { ImageService } from "src/image/image.service";
@@ -189,7 +190,9 @@ export class ArticleService {
   async findArticleInfoListByBoard(
     boardId: number,
     pageRequest: PageRequest,
-  ): Promise<ArticleDetailInfoDto[]> {
+  ): Promise<PageResponse<ArticleDetailInfoDto[]>> {
+    // DESCRIBE: 전체 article 수 조회
+    const articlesCount = await this.articleRepository.countByBoard(boardId);
     // DESCRIBE: 게시판에 해당하는 공지사항 전체 조회
     const articles: Article[] = await this.articlePaginator(
       boardId,
@@ -222,7 +225,7 @@ export class ArticleService {
       return b.date.valueOf() - a.date.valueOf();
     });
 
-    return response.length === 0 ? undefined : response;
+    return new PageResponse(pageRequest, articlesCount, response);
   }
 
   @Transactional()

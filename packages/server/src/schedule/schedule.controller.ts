@@ -1,18 +1,17 @@
-import { Controller, Get, Query } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 
-import { Public } from "../commons/decorators/public.decorator";
 import { Schedule } from "../commons/entities/schedule.entity";
+import { CreateSchedulesRequestDto } from "./dtos/create-schedules-request.dto";
 import { GetSchedulesRequestDto } from "./dtos/get-schedules-request.dto";
 import { ScheduleService } from "./schedule.service";
 
-@Controller()
+@Controller("schedules")
 @ApiTags("[schedule] 학사 일정 API")
 export class ScheduleController {
   constructor(private readonly scheduleService: ScheduleService) {}
 
-  @Public()
-  @Get("schedules")
+  @Get()
   @ApiOperation({
     summary: "학사 일정 조회 API",
     description: "주어진 범위의 학사 일정을 조회합니다.",
@@ -27,5 +26,12 @@ export class ScheduleController {
     @Query() getScheduleRequestDto: GetSchedulesRequestDto,
   ): Promise<Schedule[]> {
     return this.scheduleService.getSchedules(getScheduleRequestDto);
+  }
+
+  @Post()
+  createSchedule(
+    @Body() createSchedulesRequestDto: CreateSchedulesRequestDto,
+  ): Promise<void> {
+    return this.scheduleService.createSchedule(createSchedulesRequestDto);
   }
 }

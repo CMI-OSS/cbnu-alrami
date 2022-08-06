@@ -1,22 +1,21 @@
 import { Entity, JoinColumn, ManyToOne } from "typeorm";
 
-import { Article } from "./article.entity";
 import { CommonEntity } from "./common.entity";
 import { Image } from "./image.entity";
+import { Place } from "./place.entity";
 
-@Entity("article_image")
-export class ArticleImage extends CommonEntity {
+@Entity("place_image")
+export class PlaceImage extends CommonEntity {
   @ManyToOne(
     () => {
-      return Article;
+      return Place;
     },
-    (Article) => {
-      return Article.id;
+    (Place) => {
+      return Place.id;
     },
-    { onDelete: "CASCADE" },
   )
   @JoinColumn()
-  article: Article;
+  place: Place;
 
   @ManyToOne(
     () => {
@@ -24,6 +23,10 @@ export class ArticleImage extends CommonEntity {
     },
     (Image) => {
       return Image.id;
+    },
+    {
+      eager: true,
+      onDelete: "CASCADE",
     },
   )
   @JoinColumn()

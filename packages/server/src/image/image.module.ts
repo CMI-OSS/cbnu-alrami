@@ -15,5 +15,6 @@ import { ImageService } from "./image.service";
   ],
   providers: [ ImageService, AwsService ],
   controllers: [ ImageController ],
+  exports: [ ImageService ],
 })
 export class ImageModule {}

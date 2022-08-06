@@ -7,6 +7,7 @@ import { PlaceArrow } from "@components/atoms/icon/PlaceArrow";
 import { PlaceMenu } from "@components/atoms/icon/PlaceMenu";
 import { SmallPlaceMenu } from "@components/atoms/icon/SmallPlaceMenu";
 import Footer from "@components/molecules/Footer";
+import { useSchool } from "src/api/school";
 import ConstructionInfo from "src/page/Map/ConstructionInfo";
 import { useAppDispatch, useAppSelector } from "src/store";
 import {
@@ -15,7 +16,6 @@ import {
   hideTooltipButtonStatus,
 } from "src/store/statusSlice";
 
-import { placeInfoList } from "../../__mocks__/placeInfoList";
 import $ from "./style.module.scss";
 
 const makeMarker = (map: naver.maps.Map, position: naver.maps.LatLng) => {
@@ -28,6 +28,9 @@ const makeMarker = (map: naver.maps.Map, position: naver.maps.LatLng) => {
 function Map() {
   const CBNU_LATITUDE = 36.62850496903595;
   const CBNU_LONGITUDE = 127.45731862757414;
+  const { data: schoolData } = useSchool();
+
+  const schoolDatas = schoolData!.data;
 
   const { isDisplayFloatingButton, isDisplayTooltip, isConstructionTooltip } =
     useAppSelector((state) => {
@@ -87,10 +90,10 @@ function Map() {
         position: naver.maps.Position.TOP_RIGHT,
       },
     });
-    placeInfoList.forEach((place) => {
+    schoolDatas.forEach((place) => {
       const marker = makeMarker(
         map,
-        new naver.maps.LatLng(place.lat, place.lng),
+        new naver.maps.LatLng(place.latitude, place.longtitude),
       );
       naver.maps.Event.addListener(marker, "click", (e) => {
         map.panTo(e.coord, { duration: 300, easing: "easeOutCubic" });

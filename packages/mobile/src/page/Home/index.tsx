@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
 import Footer from "@components/molecules/Footer";
@@ -15,6 +16,12 @@ import $ from "./style.module.scss";
 function Home() {
   const [ searchParams ] = useSearchParams();
   const noti = searchParams.get("noti") || "popular";
+  const [ data, setData ] = useState(true);
+  const onMessageHandler = (e: any) => {
+    const event = JSON.parse(e.data);
+    console.log(event);
+  };
+
   const {
     data: popularArticleData,
     isLoading: popularArticleLoading,
@@ -25,6 +32,21 @@ function Home() {
     isLoading: scheduleLoading,
     isError: scheduleError,
   } = useSchedule();
+
+  useEffect(() => {
+    const isUIWebView = () => {
+      return navigator.userAgent
+        .toLowerCase()
+        .match(/\(ip.*applewebkit(?!.*(version|crios))/);
+    };
+
+    const receiver = isUIWebView() ? window : document;
+
+    receiver.addEventListener("message", onMessageHandler);
+    return () => {
+      receiver.removeEventListener("message", onMessageHandler);
+    };
+  });
 
   if (popularArticleLoading || scheduleLoading) return <div>로딩중입니다.</div>;
   if (popularArticleError || scheduleError)

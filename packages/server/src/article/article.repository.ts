@@ -9,6 +9,7 @@ export class ArticleRepository extends Repository<Article> {
   async findByBoard(boardId: number): Promise<Article[]> {
     return this.createQueryBuilder("article")
       .where("article.board_id = :boardId", { boardId })
+      .orderBy("article.date", "DESC")
       .getMany();
   }
 
@@ -62,6 +63,19 @@ export class ArticleRepository extends Repository<Article> {
       .leftJoinAndSelect("article.board", "board")
       .orderBy("article.date", "DESC")
       .limit(5)
+      .getMany();
+  }
+
+  async articlePaginator(
+    boardId: number,
+    cursor: number,
+    pageSize: number,
+  ): Promise<Article[]> {
+    return this.createQueryBuilder("article")
+      .where("article.board_id = :boardId", { boardId })
+      .andWhere("article.id < :cursor", { cursor })
+      .orderBy("article.date", "DESC")
+      .limit(pageSize)
       .getMany();
   }
 }

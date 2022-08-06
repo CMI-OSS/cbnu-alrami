@@ -169,6 +169,7 @@ export class ArticleService {
   async findArticleInfoListByBoard(
     boardId: number,
   ): Promise<ArticleDetailInfoDto[]> {
+    // DESCRIBE: 게시판에 해당하는 공지사항 전체 조회
     const articles: Article[] = await this.findByBoard(boardId);
     const board: BoardTreeResponseDto =
       await this.boardTreeService.getBoardTree(boardId);

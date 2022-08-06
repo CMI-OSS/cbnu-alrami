@@ -6,14 +6,29 @@ import { Place } from "./place.entity";
 
 @Entity("place_image")
 export class PlaceImage extends CommonEntity {
-  @ManyToOne(() => Place, (Place) => Place.id)
+  @ManyToOne(
+    () => {
+      return Place;
+    },
+    (Place) => {
+      return Place.id;
+    },
+  )
   @JoinColumn()
   place: Place;
 
-  @ManyToOne(() => Image, (Image) => Image.id, {
-    eager: true,
-    onDelete: "CASCADE",
-  })
+  @ManyToOne(
+    () => {
+      return Image;
+    },
+    (Image) => {
+      return Image.id;
+    },
+    {
+      eager: true,
+      onDelete: "CASCADE",
+    },
+  )
   @JoinColumn()
   image: Image;
 }

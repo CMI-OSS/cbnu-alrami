@@ -25,17 +25,21 @@ export class PlaceService {
 
     return {
       ...place,
-      images: place.images.map((el) => el.image),
+      images: place.images.map((el) => {
+        return el.image;
+      }),
     };
   }
 
   async find() {
     const places = await this.placeRepository.findAll();
 
-    return places.map(({ images, ...place }) => ({
-      ...place,
-      image: images[0]?.image,
-    }));
+    return places.map(({ images, ...place }) => {
+      return {
+        ...place,
+        image: images[0]?.image,
+      };
+    });
   }
 
   @Transactional()

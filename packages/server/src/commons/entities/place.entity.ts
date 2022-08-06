@@ -30,13 +30,29 @@ export class Place extends CommonEntity {
   @Column("varchar", { nullable: true })
   tags: string;
 
-  @OneToOne(() => School, (School) => School.place, {
-    eager: true,
-  })
+  @OneToOne(
+    () => {
+      return School;
+    },
+    (School) => {
+      return School.place;
+    },
+    {
+      eager: true,
+    },
+  )
   school: School;
 
-  @OneToMany(() => PlaceImage, (PlaceImage) => PlaceImage.place, {
-    eager: true,
-  })
+  @OneToMany(
+    () => {
+      return PlaceImage;
+    },
+    (PlaceImage) => {
+      return PlaceImage.place;
+    },
+    {
+      eager: true,
+    },
+  )
   images: PlaceImage[];
 }

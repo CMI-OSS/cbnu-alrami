@@ -9,6 +9,7 @@ import { Admin } from "src/commons/entities/admin.entity";
 import { Article } from "src/commons/entities/article.entity";
 import { User } from "src/commons/entities/user.entity";
 import { Errors } from "src/commons/exception/exception.global";
+import { PageRequest } from "src/commons/page/pageRequest";
 import { HitRepository } from "src/hit/hit.repository";
 import { ImageResponseDto } from "src/image/dto/image.response.dto";
 import { ImageService } from "src/image/image.service";
@@ -105,6 +106,25 @@ export class ArticleService {
     return articles;
   }
 
+  async articlePaginator(
+    boardId: number,
+    page: PageRequest,
+  ): Promise<Article[]> {
+    const articles: Article[] = await this.articleRepository.find({
+      where: {
+        board: boardId,
+      },
+      relations: [ "board", "author" ],
+      order: {
+        date: "DESC",
+      },
+      take: page.getLimit(),
+      skip: page.getOffset(),
+    });
+    if (!Array.isArray(articles) || articles.length === 0) throw NO_DATA_IN_DB;
+    return articles;
+  }
+
   async findTopArticlesByHit(): Promise<ArticleListDto[]> {
     const response = [];
 
@@ -168,12 +188,16 @@ export class ArticleService {
 
   async findArticleInfoListByBoard(
     boardId: number,
+    pageRequest: PageRequest,
   ): Promise<ArticleDetailInfoDto[]> {
     // DESCRIBE: 게시판에 해당하는 공지사항 전체 조회
-    const articles: Article[] = await this.findByBoard(boardId);
+    const articles: Article[] = await this.articlePaginator(
+      boardId,
+      pageRequest,
+    );
     const board: BoardTreeResponseDto =
       await this.boardTreeService.getBoardTree(boardId);
-    const response: ArticleDetailInfoDto[] = [];
+    let response: ArticleDetailInfoDto[] = [];
 
     await Promise.all(
       articles.map(async (article) => {
@@ -193,6 +217,10 @@ export class ArticleService {
         );
       }),
     );
+
+    response = response.sort((a, b) => {
+      return b.date.valueOf() - a.date.valueOf();
+    });
 
     return response.length === 0 ? undefined : response;
   }

@@ -18,6 +18,7 @@ import { UserSession } from "src/commons/decorators/UserSession.decorator";
 import { Admin } from "src/commons/entities/admin.entity";
 import { User } from "src/commons/entities/user.entity";
 import { AdminAuthGuard } from "src/commons/guards/admin-auth.guard";
+import { PageRequest } from "src/commons/page/pageRequest";
 
 import { ArticleService } from "./article.service";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
@@ -42,7 +43,8 @@ export class ArticleController {
   @Get("boards/:boardId/articles")
   @ApiOperation({
     summary: "공지사항 사이트별 공지사항 목록 조회 API",
-    description: "특정 공지사항 사이트에 속한 모든 공지사항들을 조회한다.",
+    description:
+      "특정 공지사항 사이트에 속한 모든 공지사항들을 조회한다. 페이징을 적용하며, 디폴트 페이지 인덱스는 1, 사이즈는 5",
   })
   @ApiResponse({
     status: 200,
@@ -52,8 +54,9 @@ export class ArticleController {
   })
   async findByBoard(
     @Param("boardId") boardId: number,
+    @Body() PageRequest: PageRequest,
   ): Promise<ArticleDetailInfoDto[]> {
-    return this.articleService.findArticleInfoListByBoard(boardId);
+    return this.articleService.findArticleInfoListByBoard(boardId, PageRequest);
   }
 
   @Get("boards/articles/:articleId")

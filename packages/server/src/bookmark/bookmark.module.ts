@@ -1,7 +1,5 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { AdminService } from "src/admin/admin.service";
-import { AdminRepository } from "src/admin/repository/admin.repository";
 import { ArticleRepository } from "src/article/article.repository";
 import { ArticleService } from "src/article/article.service";
 import { ArticleImageRepository } from "src/articleImage/articleImage.repository";
@@ -16,7 +14,9 @@ import { ImageRepository } from "src/image/image.repository";
 import { ImageService } from "src/image/image.service";
 import { SubscribeRepository } from "src/subscribe/subscribe.repository";
 import { SubscribeService } from "src/subscribe/subscribe.service";
+import { UserRepository } from "src/user/repository/user.repository";
 
+import { FcmService } from "../fcm/fcm.service";
 import { BookmarkControlelr } from "./bookmark.controller";
 import { BookmarkRepository } from "./bookmark.repository";
 import { BookmarkService } from "./bookmark.service";
@@ -24,29 +24,28 @@ import { BookmarkService } from "./bookmark.service";
 @Module({
   imports: [
     TypeOrmModule.forFeature([
-      ArticleRepository,
       BookmarkRepository,
-      HitRepository,
+      ArticleRepository,
       BoardRepository,
-      AdminRepository,
       BoardTreeRepository,
+      HitRepository,
       ArticleImageRepository,
       ImageRepository,
       SubscribeRepository,
+      UserRepository,
     ]),
   ],
   controllers: [ BookmarkControlelr ],
   providers: [
+    BoardService,
     BookmarkService,
     ArticleService,
-    BoardService,
-    AdminService,
     BoardTreeService,
-    ArticleImageService,
-    ImageService,
-    SubscribeService,
     AwsService,
+    ArticleImageService,
+    SubscribeService,
     ImageService,
+    FcmService,
   ],
 })
 export class BookmarkModule {}

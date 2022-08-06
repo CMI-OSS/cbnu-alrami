@@ -5,9 +5,8 @@ import { BookmarkRepository } from "./bookmark.repository";
 import { BookmarkService } from "./bookmark.service";
 
 @Module({
-    imports: [ TypeOrmModule.forFeature([ BookmarkRepository ]) ],
-    providers: [ BookmarkService ],
-    exports: [ BookmarkService ],
+  imports: [ TypeOrmModule.forFeature([ BookmarkRepository ]) ],
+  providers: [ BookmarkService ],
+  exports: [ BookmarkService ],
 })
-
 export class BookmarkModule {}

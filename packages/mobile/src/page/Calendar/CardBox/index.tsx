@@ -35,14 +35,16 @@ function CardBox({ scheduleType, schedules }: Props) {
 
   return (
     <section className={$["card-box"]}>
-      {schedules.map(({ id, content, startDate, endDate }) => (
-        <CollegeCard key={id} {...{ content, startDate, endDate }} />
-      ))}
+      {schedules.map(({ id, content, startDate, endDate }) => {
+        return <CollegeCard key={id} {...{ content, startDate, endDate }} />;
+      })}
       {Y > CALLENDAR_UNVISIBLE_POINT && (
         <button
           className={$["floating-button"]}
           type="button"
-          onClick={() => animateScroll.scrollToTop({ duration: 250 })}
+          onClick={() => {
+            return animateScroll.scrollToTop({ duration: 250 });
+          }}
         >
           <Arrow width={10} height={24} color="#828282" />
         </button>

@@ -12,6 +12,7 @@ import $ from "./style.module.scss";
 interface Props {
   menuType: number;
 }
+
 function PlaceTemplate({ menuType }: Props) {
   const dispatch = useAppDispatch();
   const [ menu, setMenu ] = useState(0);
@@ -41,7 +42,9 @@ function PlaceTemplate({ menuType }: Props) {
                 key={`menu-${item.id}`}
                 to={item.path}
                 className={$["menu-link"]}
-                onClick={() => handleMenu(idx)}
+                onClick={() => {
+                  return handleMenu(idx);
+                }}
                 aria-selected={menuType === idx + 1}
               >
                 {item.name}

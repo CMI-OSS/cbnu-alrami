@@ -59,7 +59,9 @@ export default function Navigation() {
   const { pathname } = useLocation();
   const [ active, setActive ] = useState(-1);
   const { boardImgList, boardTitle, boardCategory, boardContent } =
-    useAppSelector((state) => state.boardReducer.board.write);
+    useAppSelector((state) => {
+      return state.boardReducer.board.write;
+    });
   const boardState = {
     ...{ boardImgList, boardTitle, boardCategory, boardContent },
   };
@@ -67,7 +69,12 @@ export default function Navigation() {
 
   useEffect(() => {
     navMenus.forEach(({ menus }, idx) => {
-      if (menus.find(({ path }) => path === pathname)) setActive(idx);
+      if (
+        menus.find(({ path }) => {
+          return path === pathname;
+        })
+      )
+        setActive(idx);
     });
   }, []);
 
@@ -78,33 +85,40 @@ export default function Navigation() {
       <ul className={$["outer-ul"]}>
         <li className={$.logo}>CMI</li>
         <ul>
-          {navMenus.map(({ label, menus }, idx) => (
-            <li key={label}>
-              <p>{label}</p>
-              <ul className={idx === active ? $["list-activated"] : ""}>
-                {menus.map(({ path, label }) => (
-                  <NavLink
-                    key={path}
-                    to={path}
-                    onClick={() => setActive(idx)}
-                    className={({ isActive }) => {
-                      return classnames(
-                        $["nav-link"],
-                        isActive ? $["page-activated"] : "",
-                      );
-                    }}
-                  >
-                    {label}
-                    {label === "게시물 작성" &&
-                      Object.values(boardState).some(
-                        (x) =>
-                          x !== "" && x !== "<p><br></p>" && x.length !== 0,
-                      ) && <span>(작성중)</span>}
-                  </NavLink>
-                ))}
-              </ul>
-            </li>
-          ))}
+          {navMenus.map(({ label, menus }, idx) => {
+            return (
+              <li key={label}>
+                <p>{label}</p>
+                <ul className={idx === active ? $["list-activated"] : ""}>
+                  {menus.map(({ path, label }) => {
+                    return (
+                      <NavLink
+                        key={path}
+                        to={path}
+                        onClick={() => {
+                          return setActive(idx);
+                        }}
+                        className={({ isActive }) => {
+                          return classnames(
+                            $["nav-link"],
+                            isActive ? $["page-activated"] : "",
+                          );
+                        }}
+                      >
+                        {label}
+                        {label === "게시물 작성" &&
+                          Object.values(boardState).some((x) => {
+                            return (
+                              x !== "" && x !== "<p><br></p>" && x.length !== 0
+                            );
+                          }) && <span>(작성중)</span>}
+                      </NavLink>
+                    );
+                  })}
+                </ul>
+              </li>
+            );
+          })}
         </ul>
       </ul>
     </nav>

@@ -17,7 +17,9 @@ type Props = {
 };
 
 function Chips({ list }: Props) {
-  const { hashNumber } = useAppSelector((state) => state.placeReducer.hash);
+  const { hashNumber } = useAppSelector((state) => {
+    return state.placeReducer.hash;
+  });
   const dispatch = useAppDispatch();
 
   return (
@@ -28,7 +30,9 @@ function Chips({ list }: Props) {
             key={`menu-${item.id}`}
             to={item.path}
             className={$.hash_link}
-            onClick={() => dispatch(setHashMenu({ hashNumber: idx }))}
+            onClick={() => {
+              return dispatch(setHashMenu({ hashNumber: idx }));
+            }}
             aria-selected={hashNumber === idx}
           >
             {item.name}

@@ -85,7 +85,7 @@ export class AwsService {
       throw new BadRequestException("이미지 업로드에 실패했습니다.");
     }
   }
-  
+
   private async saveImage(urls: string[]): Promise<InsertResult[]> {
     try {
       return Promise.all(

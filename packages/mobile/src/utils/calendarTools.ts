@@ -17,21 +17,21 @@ export const MINIMUM_DATE = 1;
 export const DAY = [ "일", "월", "화", "수", "목", "금", "토" ] as const;
 
 export const fetchColleageSchedules = () =>
-  COLLEGE_SCHEDULES.map(({ isHoliyday, startDate, endDate, ...last }) => ({
+  {return COLLEGE_SCHEDULES.map(({ isHoliyday, startDate, endDate, ...last }) => {return {
     // tinyint 타입을 boolean으로 변환
     isHoliyday: !!isHoliyday,
     startDate: dayjs(startDate),
     endDate: endDate ? dayjs(endDate) : null,
     ...last,
-  }));
+  }})};
 
 export const fetchStaredSchedules = () =>
-  PERSONAL_SCHEDULES.map(({ isHoliyday, startDate, endDate, ...last }) => ({
+  {return PERSONAL_SCHEDULES.map(({ isHoliyday, startDate, endDate, ...last }) => {return {
     isHoliyday: !!isHoliyday,
     startDate: dayjs(startDate),
     endDate: endDate ? dayjs(endDate) : null,
     ...last,
-  }));
+  }})};
 
 export const filterTodaySchedules = (
   selected: Dayjs,
@@ -63,7 +63,7 @@ export const getDatePeriod = (startDate: Dayjs, endDate: Dayjs | null) => {
 };
 
 const getTimeFormat = (date: Dayjs) =>
-  date.format("a[ ]h[:]mm").replace("am", "오전").replace("pm", "오후");
+  {return date.format("a[ ]h[:]mm").replace("am", "오전").replace("pm", "오후")};
 
 export const getTimePeriod = (
   startDate: Dayjs,
@@ -87,7 +87,7 @@ export const getCalendarMap = (
 ) => {
   const calendarInstance = new Calendar();
   const calendar2D = calendarInstance.monthDates(year, month, (date) =>
-    dayjs(date),
+    {return dayjs(date)},
   );
   const calendar1D = flatten(calendar2D);
   const calendarMap = calendar1D.map((date) => {
@@ -112,4 +112,4 @@ export const getCalendarMap = (
 };
 
 export const caculateDateNum = (year: number, month: number) =>
-  dayjs().year(year).month(month).date(0).date();
+  {return dayjs().year(year).month(month).date(0).date()};

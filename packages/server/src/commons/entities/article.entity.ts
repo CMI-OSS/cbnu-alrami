@@ -6,14 +6,26 @@ import { UpdatableCommonEntity } from "./common.entity";
 
 @Entity("article")
 export class Article extends UpdatableCommonEntity {
-  @ManyToOne(() => Board, (Board) => Board.id, {
-    eager: true,
-    onDelete: "CASCADE",
-  })
+  @ManyToOne(
+    () => {
+      return Board;
+    },
+    (Board) => {
+      return Board.id;
+    },
+    { eager: true, onDelete: "CASCADE" },
+  )
   @JoinColumn()
   board: Board;
 
-  @ManyToOne(() => Admin, (Admin) => Admin.id)
+  @ManyToOne(
+    () => {
+      return Admin;
+    },
+    (Admin) => {
+      return Admin.id;
+    },
+  )
   @JoinColumn()
   author: Admin;
 

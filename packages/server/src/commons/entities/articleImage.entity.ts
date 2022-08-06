@@ -6,11 +6,26 @@ import { Image } from "./image.entity";
 
 @Entity("article_image")
 export class ArticleImage extends CommonEntity {
-  @ManyToOne(() => Article, (Article) => Article.id, { onDelete: "CASCADE" })
+  @ManyToOne(
+    () => {
+      return Article;
+    },
+    (Article) => {
+      return Article.id;
+    },
+    { onDelete: "CASCADE" },
+  )
   @JoinColumn()
   article: Article;
 
-  @ManyToOne(() => Image, (Image) => Image.id)
+  @ManyToOne(
+    () => {
+      return Image;
+    },
+    (Image) => {
+      return Image.id;
+    },
+  )
   @JoinColumn()
   image: Image;
 }

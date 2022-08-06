@@ -39,26 +39,28 @@ function Map() {
   const comparePosition = (latitude: number, longitude: number) => {
     return (
       latitude >= 36.62 &&
-      latitude <= 36.63 &&
+      latitude <= 36.635 &&
       longitude >= 127.44 &&
-      longitude <= 127.46
+      longitude <= 127.465
     );
   };
 
   const success = (position: GeolocationPosition) => {
-    setMyLocation({
-      latitude: comparePosition(
-        position.coords.latitude,
-        position.coords.longitude,
-      )
-        ? position.coords.latitude
-        : CBNU_LATITUDE,
-      longitude: comparePosition(
-        position.coords.latitude,
-        position.coords.longitude,
-      )
-        ? position.coords.longitude
-        : CBNU_LONGITUDE,
+    setMyLocation((previousState: any) => {
+      return {
+        latitude: comparePosition(
+          previousState.latitude,
+          previousState.longitude,
+        )
+          ? position.coords.latitude
+          : CBNU_LATITUDE,
+        longitude: comparePosition(
+          previousState.latitude,
+          previousState.longitude,
+        )
+          ? position.coords.longitude
+          : CBNU_LONGITUDE,
+      };
     });
   };
 

@@ -14,9 +14,9 @@ interface Props {
 
 export default function ImgCard({ data: { id, url } }: Props) {
   const dispatch = useAppDispatch();
-  const { boardImgList, currentImgIdx } = useAppSelector(
-    (state) => state.boardReducer.board.write,
-  );
+  const { boardImgList, currentImgIdx } = useAppSelector((state) => {
+    return state.boardReducer.board.write;
+  });
 
   return (
     <li className={$["img-card"]}>
@@ -30,7 +30,9 @@ export default function ImgCard({ data: { id, url } }: Props) {
         onClick={() => {
           dispatch(
             writeBoard({
-              boardImgList: boardImgList.filter(({ id: x }) => x !== id),
+              boardImgList: boardImgList.filter(({ id: x }) => {
+                return x !== id;
+              }),
             }),
           );
           dispatch(changeCurrentImg(currentImgIdx - 1));

@@ -62,7 +62,9 @@ export default function AdminCard({
     const isExist = searchBoard(id, value);
     if (isExist) {
       setPreSelectedBoard(value);
-      setTimeout(() => setPreSelectedBoard(""), 200);
+      setTimeout(() => {
+        return setPreSelectedBoard("");
+      }, 200);
       return;
     }
     addBoard(id, value);
@@ -90,7 +92,11 @@ export default function AdminCard({
         <button
           type="button"
           className={$["show-detail-button"]}
-          onClick={() => setIsDetailHidden((pre) => !pre)}
+          onClick={() => {
+            return setIsDetailHidden((pre) => {
+              return !pre;
+            });
+          }}
           aria-label={`상세 설정 페이지 ${isDetailHidden ? "보기" : "닫기"}`}
         >
           {isDetailHidden ? <BsArrowBarDown /> : <BsArrowBarUp />}
@@ -112,11 +118,13 @@ export default function AdminCard({
             value={authority}
             onChange={handleAuthorityChange}
           >
-            {AUTHORITY_OPTIONS.map((option, index) => (
-              <option key={option} value={index}>
-                {option}
-              </option>
-            ))}
+            {AUTHORITY_OPTIONS.map((option, index) => {
+              return (
+                <option key={option} value={index}>
+                  {option}
+                </option>
+              );
+            })}
           </select>
         </label>
         <label htmlFor="board-selector">
@@ -127,34 +135,42 @@ export default function AdminCard({
             value="선택"
             onChange={handleBoardSelected}
           >
-            {[ "선택", ...BOARDS ].map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
+            {[ "선택", ...BOARDS ].map((option) => {
+              return (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              );
+            })}
           </select>
         </label>
         <h3 className={$["editor-title"]}>관리중인 보드</h3>
         <ul className={$["selected-board-container"]}>
-          {boards.map((board) => (
-            <SelectedBoard
-              key={board}
-              id={id}
-              title={board}
-              className={classNames(
-                $["selected-board"],
-                preSelectedBoard === board && $.alert,
-              )}
-              deleteBoard={deleteBoard}
-            />
-          ))}
+          {boards.map((board) => {
+            return (
+              <SelectedBoard
+                key={board}
+                id={id}
+                title={board}
+                className={classNames(
+                  $["selected-board"],
+                  preSelectedBoard === board && $.alert,
+                )}
+                deleteBoard={deleteBoard}
+              />
+            );
+          })}
         </ul>
         <h3 className={$["editor-title"]}>위험한 설정</h3>
         {isHiddenConfirmButton ? (
           <button
             className={classNames($["delete-admin-button"], $["delete-button"])}
             type="button"
-            onClick={() => setIsHiddenConfirmButton((pre) => !pre)}
+            onClick={() => {
+              return setIsHiddenConfirmButton((pre) => {
+                return !pre;
+              });
+            }}
             aira-label="관리자 삭제하기"
           >
             관리자 삭제
@@ -167,7 +183,9 @@ export default function AdminCard({
                 $["delete-button"],
               )}
               type="button"
-              onClick={() => deleteAdmin(id)}
+              onClick={() => {
+                return deleteAdmin(id);
+              }}
               aria-label="관리자 정말로 삭제하기"
             >
               정말로 삭제하시겠습니까?
@@ -178,7 +196,11 @@ export default function AdminCard({
                 $["delete-button"],
                 $["cancel-delete-button"],
               )}
-              onClick={() => setIsHiddenConfirmButton((pre) => !pre)}
+              onClick={() => {
+                return setIsHiddenConfirmButton((pre) => {
+                  return !pre;
+                });
+              }}
               aira-label="관리자 삭제 그만두기"
             >
               취소

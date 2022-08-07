@@ -22,9 +22,9 @@ import {
 
 export default function useSocket() {
   const dispatch = useAppDispatch();
-  socket.onAny((event: SOCKET_EVENT, payload: any) =>
-    socketHandler({ event, payload }),
-  );
+  socket.onAny((event: SOCKET_EVENT, payload: any) => {
+    return socketHandler({ event, payload });
+  });
 
   const socketHandler = (message: SocketMessage) => {
     if (isInitScraperMessage(message)) handleInitScraper(message);

@@ -1,20 +1,20 @@
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./mobile.scss";
 
 import Preview from "src/page/Subscription/Preview";
 import Subscription from "src/page/Subscription/Start";
 
-import PlaceTemplate from "./components/templates/PlaceTemplate";
+import "./mobile.scss";
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
 import Home from "./page/Home";
 import Map from "./page/Map";
 import Call from "./page/Map/Call";
-import Detail from "./page/Map/Detail";
+import MapDetail from "./page/Map/Detail";
 import MoreImage from "./page/Map/MoreImage";
 import Report from "./page/Map/Report";
 import Notice from "./page/Notice";
+import PlaceDetail from "./page/Place/Detail";
 import SettingRoute from "./page/Setting";
 import College from "./page/Subscription/College";
 import End from "./page/Subscription/End";
@@ -48,26 +48,9 @@ function App() {
       path: "/subscription/major/:collegeId/:majorId/:detailId",
       element: <Preview />,
     },
-    {  
-      path: "/place/all",
-      element: <PlaceTemplate menuType={1} />,
-    },
     {
-      path: "/place/north",
-      element: <PlaceTemplate menuType={2} />,
-    },
-    {
-      path: "/place/east",
-      element: <PlaceTemplate menuType={3} />,
-    },
-    {
-      path: "/place/south",
-      element: <PlaceTemplate menuType={4} />,
-    },
-    {
-      id: 19,
-      path: "/place/play/*",
-      element: <PlaceTemplate menuType={5} />,
+      path: "/place",
+      element: <PlaceDetail />,
     },
     { id: 20, path: "/setting/*", element: <SettingRoute /> },
   ];
@@ -75,11 +58,13 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {routes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
-        ))}
+        {routes.map((route) => {
+          return (
+            <Route key={route.path} path={route.path} element={route.element} />
+          );
+        })}
         <Route path="*" element={<Navigate replace to="/home" />} />
-        <Route path="/place/:name/detail/:id" element={<Detail />} />
+        <Route path="/place/:name/detail/:id" element={<MapDetail />} />
       </Routes>
     </BrowserRouter>
   );

@@ -18,21 +18,25 @@ export const useBoardTree = () => {
 
 export const useCommonBoardTree = () => {
   return {
-    data: useBoardTree()?.data?.data.find((res) => res.name === "공통"),
+    data: useBoardTree()?.data?.data.find((res) => {
+      return res.name === "공통";
+    }),
   };
 };
 
 export const useCollegeBoardTree = () => {
   return {
-    data: useBoardTree()?.data?.data.find((res) => res.name === "전공"),
+    data: useBoardTree()?.data?.data.find((res) => {
+      return res.name === "전공";
+    }),
     breadCrumb: "전체 > 전공",
   };
 };
 
 export const useMajorBoardTree = (collegeId: number) => {
-  const collegeData = useCollegeBoardTree()?.data?.children.find(
-    (res) => res.id === collegeId,
-  );
+  const collegeData = useCollegeBoardTree()?.data?.children.find((res) => {
+    return res.id === collegeId;
+  });
   const majorData = collegeData?.children;
   return {
     data: majorData,
@@ -42,9 +46,9 @@ export const useMajorBoardTree = (collegeId: number) => {
 
 export const useLastChildBoardTree = (collegeId?: number, majorId?: number) => {
   if (collegeId && majorId) {
-    const parentData = useMajorBoardTree(collegeId).data?.find(
-      (res) => res.id === majorId,
-    );
+    const parentData = useMajorBoardTree(collegeId).data?.find((res) => {
+      return res.id === majorId;
+    });
     const childData = parentData?.children;
 
     return {

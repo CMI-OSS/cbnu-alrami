@@ -1,0 +1,41 @@
+@import "@shared/styles/mixin.scss";
+@import "@shared/styles/color.scss";
+
+.wrap {
+  @include position(absolute, top 50% left 50%);
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  min-width: 329px;
+  background-color: $white;
+}
+
+.dimmed {
+  @include position(absolute, top 0 left 0 right 0 bottom 0);
+  z-index: 10;
+  background-color: rgba(27, 27, 27, 0.85);
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+
+  .cancel {
+    padding: 6px 25px;
+    border-radius: 100px;
+    background-color: $white;
+    color: $black-40;
+    border: 0.3px solid $black-40;
+  }
+
+  .confirm {
+    padding: 6px 25px;
+    border-radius: 100px;
+    background-color: $red-50;
+    color: $white;
+
+    &:not(:first-child) {
+        margin-left: 26px;
+    }
+  }
+}

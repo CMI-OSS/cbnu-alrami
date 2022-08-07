@@ -15,19 +15,23 @@ export default function SelectedBoardList({
     <>
       <h2 className={$["boardlist-title"]}>관리 보드 리스트</h2>
       <ul>
-        {boards.map((board) => (
-          <li key={board} className={$["board-item"]}>
-            <span>{board}</span>
-            <button
-              type="button"
-              aria-label="이 보드 관리 권한 삭제"
-              onClick={() => handleDeleteBoard(board)}
-              className={$["delete-board-button"]}
-            >
-              <MdCancel />
-            </button>
-          </li>
-        ))}
+        {boards.map((board) => {
+          return (
+            <li key={board} className={$["board-item"]}>
+              <span>{board}</span>
+              <button
+                type="button"
+                aria-label="이 보드 관리 권한 삭제"
+                onClick={() => {
+                  return handleDeleteBoard(board);
+                }}
+                className={$["delete-board-button"]}
+              >
+                <MdCancel />
+              </button>
+            </li>
+          );
+        })}
       </ul>
     </>
   );

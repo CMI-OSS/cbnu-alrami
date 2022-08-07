@@ -17,12 +17,15 @@ type Props = {
 
 function CollegeCard({ className, content, startDate, endDate }: Props) {
   const [ isStar, setIsStar ] = useState(false);
-  const period = useMemo(
-    () => getDatePeriod(startDate, endDate),
-    [ startDate, endDate ],
-  );
+  const period = useMemo(() => {
+    return getDatePeriod(startDate, endDate);
+  }, [ startDate, endDate ]);
 
-  const handleStarClick = () => setIsStar((pre) => !pre);
+  const handleStarClick = () => {
+    return setIsStar((pre) => {
+      return !pre;
+    });
+  };
 
   return (
     <BorderBox className={classNames(className, $.card)}>

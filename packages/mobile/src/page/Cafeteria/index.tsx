@@ -29,8 +29,12 @@ function Cafeteria() {
       <header className={$.header}>
         <CalendarHeader
           calendar={{ ...{ year, month, date, day } }}
-          onDecrease={() => dispatchDay({ type: "decrement_date" })}
-          onIncrease={() => dispatchDay({ type: "increment_date" })}
+          onDecrease={() => {
+            return dispatchDay({ type: "decrement_date" });
+          }}
+          onIncrease={() => {
+            return dispatchDay({ type: "increment_date" });
+          }}
         />
       </header>
 

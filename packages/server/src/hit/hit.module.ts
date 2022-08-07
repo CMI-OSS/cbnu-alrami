@@ -5,8 +5,8 @@ import { HitRepository } from "./hit.repository";
 import { HitService } from "./hit.service";
 
 @Module({
-    imports: [ TypeOrmModule.forFeature([ HitRepository ]) ],
-    providers: [ HitService ],
-    exports: [ HitService ],
+  imports: [ TypeOrmModule.forFeature([ HitRepository ]) ],
+  providers: [ HitService ],
+  exports: [ HitService ],
 })
 export class HitModule {}

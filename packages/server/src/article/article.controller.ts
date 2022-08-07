@@ -15,6 +15,8 @@ import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
 import { Admin } from "src/commons/entities/admin.entity";
 import { User } from "src/commons/entities/user.entity";
 import { AdminAuthGuard } from "src/commons/guards/admin-auth.guard";
+import { PageRequest } from "src/commons/page/page.request";
+import { PageResponse } from "src/commons/page/page.response";
 
 import { AdminSession } from "../commons/decorators/admin-session.decorator";
 import { UserSession } from "../commons/decorators/user-session.decorator";
@@ -40,7 +42,8 @@ export class ArticleController {
   @Get("boards/:boardId/articles")
   @ApiOperation({
     summary: "공지사항 사이트별 공지사항 목록 조회 API",
-    description: "특정 공지사항 사이트에 속한 모든 공지사항들을 조회한다.",
+    description:
+      "특정 공지사항 사이트에 속한 모든 공지사항들을 조회한다. 페이징을 적용하며, 디폴트 페이지 인덱스는 1, 사이즈는 15",
   })
   @ApiResponse({
     status: 200,
@@ -50,8 +53,9 @@ export class ArticleController {
   })
   async findByBoard(
     @Param("boardId") boardId: number,
-  ): Promise<ArticleDetailInfoDto[]> {
-    return this.articleService.findArticleInfoListByBoard(boardId);
+    @Body() pageRequest: PageRequest,
+  ): Promise<PageResponse<ArticleDetailInfoDto[]>> {
+    return this.articleService.findArticleInfoListByBoard(boardId, pageRequest);
   }
 
   @Get("boards/articles/:articleId")
@@ -154,7 +158,7 @@ export class ArticleController {
   @ApiOperation({
     summary: "인기 공지사항 조회 API",
     description:
-      "조회수와 공지사항 등록일을 이용, 최근 2주 동안 제일 인기가 많았던 상위 5개의 공지사항들을 조회한다.",
+      "조회수와 공지사항 등록일을 이용, 최근 2주 동안 제일 인기가 많았던 상위 15개의 공지사항들을 조회한다.",
   })
   @ApiResponse({
     status: 200,
@@ -189,7 +193,7 @@ export class ArticleController {
   @ApiOperation({
     summary: "최신 공지사항 조회 API",
     description:
-      "유저가 구독 중인 공지사항 사이트에서 최신 공지사항 5개를 조회한다.",
+      "유저가 구독 중인 공지사항 사이트에서 최신 공지사항을 조회한다. 페이징을 적용하며, 디폴트 페이지 인덱스는 1, 사이즈는 15",
   })
   @ApiResponse({
     status: 200,
@@ -201,7 +205,10 @@ export class ArticleController {
     name: "uuid",
     description: "user uuid",
   })
-  async findSubscribeArticles(@UserSession() user: User) {
-    return this.articleService.findSubscribeArticles(user);
+  async findSubscribeArticles(
+    @UserSession() user: User,
+    @Body() pageRequest: PageRequest,
+  ) {
+    return this.articleService.findSubscribeArticles(user, pageRequest);
   }
 }

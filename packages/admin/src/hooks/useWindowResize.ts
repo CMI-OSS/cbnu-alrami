@@ -1,21 +1,28 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { debounce } from "../lib/debounce";
 
 export default function useWindowResize() {
   const [ size, setSize ] = useState([ 0, 0 ]);
-  const detectSize = () => setSize([ window.innerWidth, window.innerHeight ]);
+  const detectSize = () => {
+    return setSize([ window.innerWidth, window.innerHeight ]);
+  };
   useEffect(() => {
     window.addEventListener(
       "resize",
-      debounce(() => detectSize(), 100),
+      debounce(() => {
+        return detectSize();
+      }, 100),
     );
 
-    return () =>
-      window.removeEventListener(
+    return () => {
+      return window.removeEventListener(
         "resize",
-        debounce(() => detectSize(), 100),
+        debounce(() => {
+          return detectSize();
+        }, 100),
       );
+    };
   }, []);
   return size;
 }

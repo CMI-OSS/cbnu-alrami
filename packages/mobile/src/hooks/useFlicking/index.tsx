@@ -20,7 +20,9 @@ export default function useFlicking(menuList: FlickingMenu[]) {
               [$["menu-clicked"]]: clickedMenu === idx + 1,
               [$["menu-not-clicked"]]: clickedMenu !== idx + 1,
             })}
-            onClick={() => setClickedMenu(idx + 1)}
+            onClick={() => {
+              return setClickedMenu(idx + 1);
+            }}
           >
             {menu.name}
           </button>

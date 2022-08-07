@@ -24,10 +24,17 @@ export class AuthMiddleware implements NestMiddleware {
     }
 
     if (userUuid) {
-      const user = await this.userService.findOne({
+      let user = await this.userService.findOne({
         where: { uuid: req.headers.uuid },
       });
 
+      if (!user) {
+        user = await this.userService.create({
+          uuid: userUuid,
+          fcmToken: req.headers.fcmtoken,
+          device: req.headers.device,
+        });
+      }
       req.user = user;
     }
 

@@ -1,8 +1,9 @@
-export class SubscribeNoticeDto {
+export class SubscribeBaseDto {
   id: number;
-  isNoticing: boolean;
+  name: string;
 }
 
-export class SubscribeInfoDto extends SubscribeNoticeDto {
-  name: string;
+export class SubscribeInfoDto extends SubscribeBaseDto {
+  isNoticing: boolean;
+  parents: SubscribeBaseDto[];
 }

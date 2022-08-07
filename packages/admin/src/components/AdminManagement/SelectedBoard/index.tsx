@@ -23,7 +23,9 @@ export default function SelectedBoard({
       <button
         className={$["delete-button"]}
         type="button"
-        onClick={() => deleteBoard(id, title)}
+        onClick={() => {
+          return deleteBoard(id, title);
+        }}
         aria-label="보드 관리 권한 없애기"
       >
         <MdCancel />

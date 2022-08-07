@@ -6,14 +6,35 @@ import { User } from "./user.entity";
 
 @Entity("notice_history")
 export class NoticeHistory extends CommonEntity {
-  @ManyToOne(() => User, (User) => User.id, { cascade: true, nullable: false })
+  @ManyToOne(
+    () => {
+      return User;
+    },
+    (User) => {
+      return User.id;
+    },
+    {
+      cascade: true,
+      nullable: false,
+      onDelete: "CASCADE",
+    },
+  )
   @JoinColumn()
   user: User;
 
-  @ManyToOne(() => Article, (Article) => Article.id, {
-    cascade: true,
-    nullable: false,
-  })
+  @ManyToOne(
+    () => {
+      return Article;
+    },
+    (Article) => {
+      return Article.id;
+    },
+    {
+      cascade: true,
+      nullable: false,
+      onDelete: "CASCADE",
+    },
+  )
   @JoinColumn()
   article: Article;
 

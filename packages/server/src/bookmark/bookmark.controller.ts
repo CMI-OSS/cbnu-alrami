@@ -1,0 +1,32 @@
+import { Controller, Param, Post, Req, UseGuards } from "@nestjs/common";
+import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { Public } from "src/commons/decorators/public.decorator";
+import { UserAuthGuard } from "src/commons/guards/user-auth.guard";
+
+import { BookmarkService } from "./bookmark.service";
+
+@Public()
+@Controller("bookmark")
+@ApiTags("[subscribe] 게시글 북마크 API")
+export class BookmarkControlelr {
+  constructor(private readonly bookmarkService: BookmarkService) {}
+
+  @Post("articles/:articleId")
+  @ApiOperation({
+    summary: "게시글 북마트 ON API",
+    description: "특정 유저가 북마크한 게시글을 저장합니다.",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "성공 여부",
+  })
+  @ApiHeader({
+    name: "uuid",
+    description: "user uuid",
+  })
+  @UseGuards(UserAuthGuard)
+  async create(@Req() req, @Param("articleId") articleId: number) {
+    const { user } = req;
+    return this.bookmarkService.create(user, articleId);
+  }
+}

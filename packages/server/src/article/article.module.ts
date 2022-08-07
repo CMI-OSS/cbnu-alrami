@@ -15,6 +15,8 @@ import { ImageService } from "src/image/image.service";
 import { SubscribeRepository } from "src/subscribe/subscribe.repository";
 import { SubscribeService } from "src/subscribe/subscribe.service";
 
+import { FcmService } from "../fcm/fcm.service";
+import { UserRepository } from "../user/repository/user.repository";
 import { ArticleController } from "./article.controller";
 import { ArticleRepository } from "./article.repository";
 import { ArticleService } from "./article.service";
@@ -30,6 +32,7 @@ import { ArticleService } from "./article.service";
       ArticleImageRepository,
       ImageRepository,
       SubscribeRepository,
+      UserRepository,
     ]),
     AdminModule,
   ],
@@ -42,6 +45,8 @@ import { ArticleService } from "./article.service";
     ArticleImageService,
     SubscribeService,
     ImageService,
+    FcmService,
   ],
+  exports: [ ArticleService ],
 })
 export class ArticleModule {}

@@ -5,7 +5,19 @@ import { User } from "./user.entity";
 
 @Entity("report")
 export class Report extends CommonEntity {
-  @ManyToOne(() => User, (User) => User.id, { cascade: true, nullable: false })
+  @ManyToOne(
+    () => {
+      return User;
+    },
+    (User) => {
+      return User.id;
+    },
+    {
+      cascade: true,
+      nullable: false,
+      onDelete: "CASCADE",
+    },
+  )
   @JoinColumn()
   user: User;
 

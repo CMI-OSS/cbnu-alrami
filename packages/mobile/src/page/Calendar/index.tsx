@@ -3,7 +3,7 @@ import {
   useEffect,
   useMemo,
   useReducer,
-  useState,
+  useState
 } from "react";
 
 import dayjs, { Dayjs } from "dayjs";
@@ -15,7 +15,7 @@ import ScheduleCalendar from "src/page/Calendar/ScheduleCalendar";
 import {
   fetchBookmarkSchedules,
   filterTodaySchedules,
-  getCalendarMap,
+  getCalendarMap
 } from "src/utils/calendarTools";
 
 import AddScheduleLink from "./AddScheduleLink";
@@ -48,6 +48,7 @@ function Calendar() {
     year: dayjs().year(),
     month: dayjs().month(),
   });
+
   const allSchedules = useAllSchedules(year);
   const today = useMemo(() => dayjs(), []);
   const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
@@ -58,6 +59,7 @@ function Calendar() {
   const bookmarkScheduleMap = useMemo(
     () => getCalendarMap(year, month, bookmarkSchedules),
     [ month, bookmarkSchedules ],
+
   );
 
   useEffect(() => {
@@ -77,8 +79,8 @@ function Calendar() {
         <AddScheduleLink className={$["add-link"]} />
         <CalendarHeader
           calendar={{ ...{ year, month } }}
-          onDecrease={() => dispatchMonth({ type: "decrement_month" })}
-          onIncrease={() => dispatchMonth({ type: "increment_month" })}
+          onDecrease={() => {return dispatchMonth({ type: "decrement_month" })}}
+          onIncrease={() => {return dispatchMonth({ type: "increment_month" })}}
         />
       </div>
       <ScheduleCalendar

@@ -5,7 +5,19 @@ import { User } from "./user.entity";
 
 @Entity("certification")
 export class Certification extends CommonEntity {
-  @OneToOne(() => User, (User) => User.id, { cascade: true, nullable: false })
+  @OneToOne(
+    () => {
+      return User;
+    },
+    (User) => {
+      return User.id;
+    },
+    {
+      cascade: true,
+      nullable: false,
+      onDelete: "CASCADE",
+    },
+  )
   @JoinColumn()
   user: User;
 

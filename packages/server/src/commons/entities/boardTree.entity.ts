@@ -1,16 +1,25 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 
 import { Board } from "./board.entity";
 import { CommonEntity } from "./common.entity";
 
 @Entity("board_tree")
 export class BoardTree extends CommonEntity {
-  @OneToOne(() => Board)
+  @OneToOne(
+    () => {
+      return Board;
+    },
+    { onDelete: "CASCADE" },
+  )
   @JoinColumn()
   board: Board;
 
-  @OneToOne(() => Board)
+  @ManyToOne(
+    () => {
+      return Board;
+    },
+    { onDelete: "CASCADE" },
+  )
   @JoinColumn()
   parentBoard: Board;
 }

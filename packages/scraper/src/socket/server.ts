@@ -31,7 +31,9 @@ const io = new Server({ cors: { origin: "*" } });
 
 const onSocketConnection = (socket: Socket) => {
   sendInitScraper(socket);
-  socket.onAny((event, payload) => socketHandler({ event, payload }));
+  socket.onAny((event, payload) => {
+    return socketHandler({ event, payload });
+  });
 };
 
 io.on("connection", onSocketConnection);
@@ -77,23 +79,28 @@ export const sendInitScraper = (socket: Socket) => {
 export const sendChangeScraperState = (
   type: ScraperType,
   state: ScraperState,
-) =>
-  emitAll<ChangeScraperStateMessage>({
+) => {
+  return emitAll<ChangeScraperStateMessage>({
     event: CHANGE_SCRAPER_STATE_EVENT,
     payload: {
       type,
       state,
     },
   });
+};
 
-export const sendAppendLog = (payload: AppendLogPayload) =>
-  emitAll<AppendLogMessage>({
+export const sendAppendLog = (payload: AppendLogPayload) => {
+  return emitAll<AppendLogMessage>({
     event: APPEND_LOG_EVENT,
     payload,
   });
+};
 
-export const sendChangeScenarioQueue = (payload: ChangeScenarioQueuePayload) =>
-  emitAll<ChangeScenarioQueueMessage>({
+export const sendChangeScenarioQueue = (
+  payload: ChangeScenarioQueuePayload,
+) => {
+  return emitAll<ChangeScenarioQueueMessage>({
     event: CHANGE_SCENARIO_QUEUE_EVENT,
     payload,
   });
+};

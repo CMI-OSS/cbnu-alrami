@@ -2,8 +2,8 @@ import { Calendar } from "calendar";
 import dayjs, { Dayjs } from "dayjs";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
-import { PERSONAL_SCHEDULES } from "src/__mocks__/schedules";
 import { Schedule } from "src/page/Calendar";
+import { PERSONAL_SCHEDULES } from "src/__mocks__/schedules";
 import { flatten } from "underscore";
 
 dayjs.extend(isSameOrAfter);
@@ -15,6 +15,7 @@ export const MAXIMUM_DATE = 31;
 export const MINIMUM_MONTH = 0;
 export const MINIMUM_DATE = 1;
 export const DAY = [ "일", "월", "화", "수", "목", "금", "토" ] as const;
+
 
 export const fetchBookmarkSchedules = () =>
   PERSONAL_SCHEDULES.map(({ isHoliyday, startDate, endDate, ...last }) => ({
@@ -54,7 +55,7 @@ export const getDatePeriod = (startDate: Dayjs, endDate: Dayjs | null) => {
 };
 
 const getTimeFormat = (date: Dayjs) =>
-  date.format("a[ ]h[:]mm").replace("am", "오전").replace("pm", "오후");
+  {return date.format("a[ ]h[:]mm").replace("am", "오전").replace("pm", "오후")};
 
 export const getTimePeriod = (
   startDate: Dayjs,
@@ -78,7 +79,7 @@ export const getCalendarMap = (
 ) => {
   const calendarInstance = new Calendar();
   const calendar2D = calendarInstance.monthDates(year, month, (date) =>
-    dayjs(date),
+    {return dayjs(date)},
   );
   const calendar1D = flatten(calendar2D);
   const calendarMap = calendar1D.map((date) => {
@@ -103,4 +104,4 @@ export const getCalendarMap = (
 };
 
 export const caculateDateNum = (year: number, month: number) =>
-  dayjs().year(year).month(month).date(0).date();
+  {return dayjs().year(year).month(month).date(0).date()};

@@ -22,7 +22,9 @@ export const fetchArticleByBoard = (boardId: number) => {
 export const useArticleByBoard = (boardId: number) => {
   const response = useQuery<AxiosResponse<res.ArticleByBoard[]>, Error>(
     [ "articles", boardId ],
-    () => fetchArticleByBoard(boardId),
+    () => {
+      return fetchArticleByBoard(boardId);
+    },
   );
   return response;
 };

@@ -32,7 +32,9 @@ function ScenarioGroupList({ scenarios }: Props) {
   return (
     <>
       {getScenarioGroups(scenarios)
-        .filter((group) => groupQuery === "all" || groupQuery === group)
+        .filter((group) => {
+          return groupQuery === "all" || groupQuery === group;
+        })
         .map((group) => {
           const scenarios = getFilteredScenarios(group);
           if (scenarios.length === 0) return <></>;

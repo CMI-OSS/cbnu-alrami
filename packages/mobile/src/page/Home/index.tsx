@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { isAndroid, isIOS } from "react-device-detect";
 import { Link, useSearchParams } from "react-router-dom";
 
 import Footer from "@components/molecules/Footer";
@@ -19,7 +20,7 @@ function Home() {
   const [ data, setData ] = useState(true);
   const onMessageHandler = (e: any) => {
     const event = JSON.parse(e.data);
-    console.log(event);
+    localStorage.setItem("item", JSON.stringify(event));
   };
 
   const {
@@ -34,18 +35,14 @@ function Home() {
   } = useSchedule();
 
   useEffect(() => {
-    const isUIWebView = () => {
-      return navigator.userAgent
-        .toLowerCase()
-        .match(/\(ip.*applewebkit(?!.*(version|crios))/);
-    };
-
-    const receiver = isUIWebView() ? window : document;
-
-    receiver.addEventListener("message", onMessageHandler);
-    return () => {
-      receiver.removeEventListener("message", onMessageHandler);
-    };
+    if (window.ReactNativeWebView) {
+      if (isAndroid) {
+        document.addEventListener("message", onMessageHandler);
+      }
+      if (isIOS) {
+        window.addEventListener("message", onMessageHandler);
+      }
+    }
   });
 
   if (popularArticleLoading || scheduleLoading) return <div>로딩중입니다.</div>;

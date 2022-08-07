@@ -6,10 +6,8 @@ import { UserAuthGuard } from "src/commons/guards/user-auth.guard";
 import { BookmarkService } from "./bookmark.service";
 
 @Public()
-@Controller({
-  path: "bookmark",
-})
-@ApiTags("[subscribe]  게시글 북마크 ON API")
+@Controller("bookmark")
+@ApiTags("[subscribe] 게시글 북마크 API")
 export class BookmarkControlelr {
   constructor(private readonly bookmarkService: BookmarkService) {}
 

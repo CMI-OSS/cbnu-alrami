@@ -1,7 +1,6 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { BoardRepository } from "src/board/board.repository";
-import { BoardService } from "src/board/board.service";
+import { BoardModule } from "src/board/board.module";
 import { SubscribeRepository } from "src/subscribe/subscribe.repository";
 import { SubscribeService } from "src/subscribe/subscribe.service";
 
@@ -11,13 +10,10 @@ import { BoardTreeService } from "./boardTree.service";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      BoardTreeRepository,
-      BoardRepository,
-      SubscribeRepository,
-    ]),
+    BoardModule,
+    TypeOrmModule.forFeature([ BoardTreeRepository, SubscribeRepository ]),
   ],
   controllers: [ BoardTreeController ],
-  providers: [ BoardTreeService, BoardService, SubscribeService ],
+  providers: [ BoardTreeService, SubscribeService ],
 })
 export class BoardTreeModule {}

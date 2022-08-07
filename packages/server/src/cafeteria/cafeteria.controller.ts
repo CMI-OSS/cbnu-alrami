@@ -1,12 +1,10 @@
 import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { Public } from "src/commons/decorators/public.decorator";
 
 import { CafeteriaService } from "./cafeteria.service";
 import { CafeteriaCreateDto } from "./dto/cafeteria.create.dto";
 import { CafeteriaResponseDto } from "./dto/cafeteria.response.dto";
 
-@Public()
 @ApiTags("[cafeteria] 학생식당 도메인 API")
 @Controller("cafeterias")
 export class CafeteriaController {

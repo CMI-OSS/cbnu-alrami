@@ -12,13 +12,12 @@ import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Builder } from "builder-pattern";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
 import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
-import { AdminSession } from "src/commons/decorators/AdminSession.decorator";
-import { Public } from "src/commons/decorators/public.decorator";
-import { UserSession } from "src/commons/decorators/UserSession.decorator";
 import { Admin } from "src/commons/entities/admin.entity";
 import { User } from "src/commons/entities/user.entity";
 import { AdminAuthGuard } from "src/commons/guards/admin-auth.guard";
 
+import { AdminSession } from "../commons/decorators/admin-session.decorator";
+import { UserSession } from "../commons/decorators/user-session.decorator";
 import { ArticleService } from "./article.service";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
 import {
@@ -30,7 +29,6 @@ import {
 import { ArticleListDto } from "./dtos/article.list.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
-@Public()
 @Controller()
 @ApiTags("[article] 공지사항 도메인 API")
 export class ArticleController {

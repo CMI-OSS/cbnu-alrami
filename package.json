@@ -61,8 +61,5 @@
     "hooks": {
       "pre-commit": "yarn lint"
     }
-  },
-  "dependencies": {
-    "date-fns": "^2.29.1"
   }
 }

@@ -1,13 +1,11 @@
 import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
 import { ApiOperation, ApiResponse } from "@nestjs/swagger";
-import { Public } from "src/commons/decorators/public.decorator";
 import { Cafeteria } from "src/commons/entities/cafeteria.entity";
 
 import { CafeteriaService } from "./cafeteria.service";
 import { CafeteriaCreateDto } from "./dto/cafeteria.create.dto";
 import { CafeteriaResponseDto } from "./dto/cafeteria.response.dto";
 
-@Public()
 @Controller("cafeterias")
 export class CafeteriaController {
   constructor(private cafeteriaService: CafeteriaService) {}

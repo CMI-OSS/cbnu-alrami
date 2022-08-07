@@ -1,13 +1,11 @@
 import { Controller, Get, Param, Req, UseGuards } from "@nestjs/common";
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { Public } from "src/commons/decorators/public.decorator";
 import { UserAuthGuard } from "src/commons/guards/user-auth.guard";
 
 import { BoardTreeService } from "./boardTree.service";
 import { BoardTreeAllResponseDto } from "./dto/boardTree.all.response.dto";
 import { BoardTreeResponseDto } from "./dto/boardTree.response.dto";
 
-@Public()
 @Controller({
   path: "board-tree",
 })

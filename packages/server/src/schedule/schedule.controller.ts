@@ -7,11 +7,11 @@ import { GetSchedulesRequestDto } from "./dtos/get-schedules-request.dto";
 import { ScheduleService } from "./schedule.service";
 
 @Controller("schedules")
-@ApiTags("[schedule] 학사 일정 API")
 export class ScheduleController {
   constructor(private readonly scheduleService: ScheduleService) {}
 
   @Get()
+  @ApiTags("[schedule] 학사 일정 API")
   @ApiOperation({
     summary: "학사 일정 조회 API",
     description: "주어진 범위의 학사 일정을 조회합니다.",
@@ -29,6 +29,7 @@ export class ScheduleController {
   }
 
   @Post()
+  @ApiTags("[admin] 관리자 API")
   createSchedule(
     @Body() createSchedulesRequestDto: CreateSchedulesRequestDto,
   ): Promise<void> {

@@ -47,5 +47,6 @@ import { ArticleService } from "./article.service";
     ImageService,
     FcmService,
   ],
+  exports: [ ArticleService ],
 })
 export class ArticleModule {}

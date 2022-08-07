@@ -5,13 +5,13 @@ const name = "placeStatus";
 
 type Props = {
   hash: {
-    hashNumber: number;
+    hashString: string;
   };
 };
 
 const initialState: Props = {
   hash: {
-    hashNumber: 0,
+    hashString: "all",
   },
 };
 
@@ -22,10 +22,10 @@ export const placeSlice = createSlice({
     setHashMenu: (
       state,
       action: PayloadAction<{
-        hashNumber: number;
+        hashString: string;
       }>,
     ) => {
-      state.hash.hashNumber = action.payload.hashNumber;
+      state.hash.hashString = action.payload.hashString;
     },
   },
 });

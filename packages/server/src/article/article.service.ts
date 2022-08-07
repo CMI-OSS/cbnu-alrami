@@ -220,31 +220,24 @@ export class ArticleService {
     );
     const board: BoardTreeResponseDto =
       await this.boardTreeService.getBoardTree(boardId);
-    let response: ArticleDetailInfoDto[] = [];
+    let response = [];
 
-    await Promise.all(
+    response = await Promise.all(
       articles.map(async (article) => {
         const hitCnt = await this.hitRepository.countByArticle(article.id);
         const bookmarkCnt = await this.bookmarkRepository.countByArticle(
           article.id,
         );
-        response.push(
-          Builder(ArticleDetailInfoDto)
-            .id(article.id)
-            .board(board)
-            .title(article.title)
-            .hits(hitCnt)
-            .scraps(bookmarkCnt)
-            .date(article.date)
-            .build(),
-        );
+        return Builder(ArticleDetailInfoDto)
+          .id(article.id)
+          .board(board)
+          .title(article.title)
+          .hits(hitCnt)
+          .scraps(bookmarkCnt)
+          .date(article.date)
+          .build();
       }),
     );
-
-    response = response.sort((a, b) => {
-      return b.date.valueOf() - a.date.valueOf();
-    });
-
     return new PageResponse(pageRequest, articlesCount, response);
   }
 

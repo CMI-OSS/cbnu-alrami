@@ -5,9 +5,9 @@ export class PageResponse<T> {
   // 페이징 관련 정보
   pagination: Page;
   // 요청 데이터
-  data: T;
-  constructor(pageRequest: PageRequest, totalItemCount: number, data: T) {
+  contents: T;
+  constructor(pageRequest: PageRequest, totalItemCount: number, contents: T) {
     this.pagination = new Page(pageRequest, totalItemCount);
-    this.data = data;
+    this.contents = contents;
   }
 }

@@ -1,21 +1,21 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 import { MealTime } from "../../commons/constants/enums";
 
 export class CafeteriaCreateDto {
   @IsNotEmpty()
   @IsString()
-  @ApiProperty({ description: "cafeteria 메뉴" })
+  @ApiProperty({ default: "메뉴", description: "학생식당 메뉴" })
   content: string;
 
   @IsNotEmpty()
   @IsString()
-  @ApiProperty({ description: "date uri" })
+  @ApiProperty({ default: "2022-08-08", description: "날짜" })
   date: string;
 
   @IsNotEmpty()
-  @IsString()
-  @ApiProperty({ description: "아침, 점심, 저녁 중 1" })
+  @IsNumber()
+  @ApiProperty({ default: 1, description: "아침(0), 점심(1), 저녁(2)" })
   time: MealTime;
 }

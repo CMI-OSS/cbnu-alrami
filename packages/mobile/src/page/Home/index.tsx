@@ -20,6 +20,7 @@ function Home() {
   const [ data, setData ] = useState(true);
   const onMessageHandler = (e: any) => {
     const event = JSON.parse(e.data);
+    setData(e.data); // Todo: uuid 보내는 api 연결
     localStorage.setItem("item", JSON.stringify(event));
   };
 
@@ -43,7 +44,7 @@ function Home() {
         window.addEventListener("message", onMessageHandler);
       }
     }
-  });
+  }, [ data ]);
 
   if (popularArticleLoading || scheduleLoading) return <div>로딩중입니다.</div>;
   if (popularArticleError || scheduleError)

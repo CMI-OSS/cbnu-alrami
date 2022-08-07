@@ -55,9 +55,9 @@ export class ArticleController {
   })
   async findByBoard(
     @Param("boardId") boardId: number,
-    @Body() PageRequest: PageRequest,
+    @Body() pageRequest: PageRequest,
   ): Promise<PageResponse<ArticleDetailInfoDto[]>> {
-    return this.articleService.findArticleInfoListByBoard(boardId, PageRequest);
+    return this.articleService.findArticleInfoListByBoard(boardId, pageRequest);
   }
 
   @Get("boards/articles/:articleId")
@@ -160,7 +160,7 @@ export class ArticleController {
   @ApiOperation({
     summary: "인기 공지사항 조회 API",
     description:
-      "조회수와 공지사항 등록일을 이용, 최근 2주 동안 제일 인기가 많았던 상위 5개의 공지사항들을 조회한다.",
+      "조회수와 공지사항 등록일을 이용, 최근 2주 동안 제일 인기가 많았던 상위 15개의 공지사항들을 조회한다.",
   })
   @ApiResponse({
     status: 200,

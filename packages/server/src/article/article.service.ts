@@ -134,15 +134,15 @@ export class ArticleService {
       await this.articleRepository.findPopularArticlesByHit();
     response.push(...articlesByHit);
 
-    // DESCRIBE: 만약 조회수 있는 공지사항이 5개보다 적다면
-    if (articlesByHit.length < 5) {
+    // DESCRIBE: 만약 조회수 있는 공지사항이 15개보다 적다면
+    if (articlesByHit.length < 15) {
       // DESCRIBE: hit 테이블에서 가져온 article은 가져오지 않도록 리스트 생성
       const idList: number[] = [];
       articlesByHit.forEach((article) => {
         idList.push(article.id);
       });
       // DESCRIBE: 부족한 수만큼 article 테이블에서 날짜 순으로 공지사항 조회
-      const num = 5 - articlesByHit.length;
+      const num = 15 - articlesByHit.length;
       const articles = await this.articleRepository.findPopularArticles(
         num,
         idList,

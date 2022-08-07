@@ -40,7 +40,7 @@ export class ArticleRepository extends Repository<Article> {
                WHERE article.date >= date_add(now(),interval -2 week)
                GROUP BY hit.article_id) AS A
       GROUP BY count desc, date desc
-      LIMIT 5;
+      LIMIT 15;
       `);
     return findPopularArticles;
   }

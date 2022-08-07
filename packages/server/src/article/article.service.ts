@@ -15,6 +15,7 @@ import { HitRepository } from "src/hit/hit.repository";
 import { ImageResponseDto } from "src/image/dto/image.response.dto";
 import { ImageService } from "src/image/image.service";
 import { SubscribeService } from "src/subscribe/subscribe.service";
+import { In } from "typeorm";
 import { Transactional } from "typeorm-transactional-cls-hooked";
 
 import { FcmService } from "../fcm/fcm.service";
@@ -114,6 +115,25 @@ export class ArticleService {
     const articles: Article[] = await this.articleRepository.find({
       where: {
         board: boardId,
+      },
+      relations: [ "board", "author" ],
+      order: {
+        date: "DESC",
+      },
+      take: page.getLimit(),
+      skip: page.getOffset(),
+    });
+    if (!Array.isArray(articles) || articles.length === 0) throw NO_DATA_IN_DB;
+    return articles;
+  }
+
+  async articleByBoardPaginator(
+    boardIdList: number[],
+    page: PageRequest,
+  ): Promise<Article[]> {
+    const articles: Article[] = await this.articleRepository.find({
+      where: {
+        board: In(boardIdList),
       },
       relations: [ "board", "author" ],
       order: {
@@ -310,30 +330,35 @@ export class ArticleService {
     return response;
   }
 
-  async findSubscribeArticles(user: User): Promise<ArticleListInfoDto[]> {
-    const response = [];
+  async findSubscribeArticles(
+    user: User,
+    pageRequest: PageRequest,
+  ): Promise<PageResponse<ArticleListInfoDto[]>> {
     const boardIdList = await this.subscribeService.findBoardByUser(user.id);
-    const articleList = await this.articleRepository.findRecentArticlesByBoard(
+    const articleList = await this.articleByBoardPaginator(
+      boardIdList,
+      pageRequest,
+    );
+    const totalItemCount = await this.articleRepository.countByBoardList(
       boardIdList,
     );
 
-    await Promise.all(
+    const response = await Promise.all(
       articleList.map(async (article) => {
         const hitCnt = await this.hitRepository.count({ article });
         const bookmarkCnt = await this.bookmarkRepository.count({ article });
-        response.push(
-          Builder(ArticleListInfoDto)
-            .id(article.id)
-            .boardName(article.board.name)
-            .title(article.title)
-            .date(article.date)
-            .hits(hitCnt)
-            .scraps(bookmarkCnt)
-            .build(),
-        );
+
+        return Builder(ArticleListInfoDto)
+          .id(article.id)
+          .boardName(article.board.name)
+          .title(article.title)
+          .date(article.date)
+          .hits(hitCnt)
+          .scraps(bookmarkCnt)
+          .build();
       }),
     );
 
-    return response;
+    return new PageResponse(pageRequest, totalItemCount, response);
   }
 }

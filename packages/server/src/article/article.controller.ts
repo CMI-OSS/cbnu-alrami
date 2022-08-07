@@ -45,7 +45,7 @@ export class ArticleController {
   @ApiOperation({
     summary: "공지사항 사이트별 공지사항 목록 조회 API",
     description:
-      "특정 공지사항 사이트에 속한 모든 공지사항들을 조회한다. 페이징을 적용하며, 디폴트 페이지 인덱스는 1, 사이즈는 5",
+      "특정 공지사항 사이트에 속한 모든 공지사항들을 조회한다. 페이징을 적용하며, 디폴트 페이지 인덱스는 1, 사이즈는 15",
   })
   @ApiResponse({
     status: 200,
@@ -195,7 +195,7 @@ export class ArticleController {
   @ApiOperation({
     summary: "최신 공지사항 조회 API",
     description:
-      "유저가 구독 중인 공지사항 사이트에서 최신 공지사항 5개를 조회한다.",
+      "유저가 구독 중인 공지사항 사이트에서 최신 공지사항을 조회한다. 페이징을 적용하며, 디폴트 페이지 인덱스는 1, 사이즈는 15",
   })
   @ApiResponse({
     status: 200,
@@ -207,7 +207,10 @@ export class ArticleController {
     name: "uuid",
     description: "user uuid",
   })
-  async findSubscribeArticles(@UserSession() user: User) {
-    return this.articleService.findSubscribeArticles(user);
+  async findSubscribeArticles(
+    @UserSession() user: User,
+    @Body() pageRequest: PageRequest,
+  ) {
+    return this.articleService.findSubscribeArticles(user, pageRequest);
   }
 }

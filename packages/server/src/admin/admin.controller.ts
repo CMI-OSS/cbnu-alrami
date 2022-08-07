@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { AdminCredential } from "src/auth/dto/adminCredential.dto";
 import { Admin } from "src/commons/entities/admin.entity";
 
@@ -6,6 +7,7 @@ import { UserSession } from "../commons/decorators/user-session.decorator";
 import { AdminService } from "./admin.service";
 import { AdminCreateDto } from "./dto/adminCreate.dto";
 
+@ApiTags("[admin] 관리자 API")
 @Controller("admins")
 export class AdminController {
   constructor(private adminService: AdminService) {}

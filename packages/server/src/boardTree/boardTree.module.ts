@@ -15,5 +15,6 @@ import { BoardTreeService } from "./boardTree.service";
   ],
   controllers: [ BoardTreeController ],
   providers: [ BoardTreeService ],
+  exports: [ BoardTreeService ],
 })
 export class BoardTreeModule {}

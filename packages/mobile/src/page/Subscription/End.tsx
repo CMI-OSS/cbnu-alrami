@@ -2,7 +2,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 
 import {
   Alarm,
-  Arrow,
+  LeftArrow,
   Subscription,
   UnAlarm,
   UnSubscription,
@@ -69,7 +69,7 @@ function End() {
               <div className={$["subscription-box-base"]}>
                 <div className={$.left}>
                   <span className={$.title}>{child.name}</span>
-                  <Arrow width={4} height={13} color="#AAAAAA" />
+                  <LeftArrow size={4} stroke="#AAAAAA" />
                 </div>
                 <div className={$.right}>
                   {child.isSubscribing && child.isNoticing && (

@@ -14,20 +14,22 @@
   flex-direction: column;
   color: $background-50;
   font-size: 12px;
+
   span {
     margin: 0 auto 11px;
     line-height: 20px;
   }
+
   &-link {
     display: flex;
     align-items: center;
     margin: 0 auto;
-    .icon {
-      height: 8px;
-      path {
-        stroke: $background-50;
-      }
+
+
+    svg {
+      margin-left: 4px;
     }
+
   }
 }
 
@@ -37,17 +39,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   .go-out {
     span {
       margin-top: 20px;
       line-height: 26px;
       font-size: 16px;
     }
-    &-link {
-      font-size: 14px;
-      .icon {
-        height: 10px;
-      }
+
+    svg {
+      margin-left: 4px;
     }
+
   }
 }

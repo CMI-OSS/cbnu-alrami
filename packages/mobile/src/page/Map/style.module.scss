@@ -51,11 +51,6 @@ $linkTooltipDistance: 17px;
   padding: 5px;
 }
 
-.close_icon {
-  width: 11px;
-  height: 10px;
-}
-
 .small_icon {
   margin: 0 3px -1px 0;
 }
@@ -65,18 +60,16 @@ $linkTooltipDistance: 17px;
   top: 30px;
   right: 48px;
   z-index: -1;
-
-  path {
-    stroke: $white;
-  }
 }
 
 .link {
   position: fixed;
+  right: 15px;
+  display: flex;
+  justify-content: center;
   width: 62px;
   height: 62px;
   bottom: $footerHeight + $footerLinkDistance;
-  right: 15px;
   background-color: $red-50;
   border-radius: 50%;
 }

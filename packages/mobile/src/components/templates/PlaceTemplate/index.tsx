@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import { MapArrow } from "@components/atoms/icon/MapArrow";
+import { LeftArrow } from "@components/atoms/icon";
 import BorderBox from "src/components/atoms/BorderBox";
 import { useAppDispatch } from "src/store";
 import { setHashMenu } from "src/store/placeSlice";
@@ -26,7 +26,7 @@ function PlaceTemplate({ menuType }: Props) {
     <>
       <div className={$.header}>
         <NavLink to="/map" className={$.link}>
-          <MapArrow />
+          <LeftArrow stroke="#aaa" size={16} />
           <span className="blind">뒤로가기</span>
         </NavLink>
         <h1 className={$.title}>캠퍼스맵</h1>

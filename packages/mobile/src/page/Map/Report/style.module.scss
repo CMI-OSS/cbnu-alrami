@@ -23,11 +23,14 @@
 
 .button {
   position: fixed;
-  left: 0;
   right: 14px;
   bottom: 14px;
-  text-align: right;
+  display: flex;
+  justify-content: center;
+  height: 62px;
+  width: 62px;
   z-index: 100;
-  background-color: $white;
+  border-radius: 50%;
+  background-color: $red-50;
 }
 

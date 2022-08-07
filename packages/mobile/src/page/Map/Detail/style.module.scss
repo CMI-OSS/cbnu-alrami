@@ -17,18 +17,10 @@
 
 .detail-button {
   position: absolute;
-  width: 30px;
-  height: 30px;
   top: 15px;
   left: 15px;
   padding: 10px;
   margin: -10px;
-  background-color: transparent;
-
-  svg path {
-    fill: $white;
-    stroke: $white;
-  }
 }
 
 .link-call {

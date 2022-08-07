@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-import { MoreArrow } from "@components/atoms/icon/MoreArrow";
+import { LongArrow } from "@components/atoms/icon";
 
 import constructionInfo from "../../../__mocks__/constructionInfo";
 import $ from "./style.module.scss";
@@ -19,7 +19,7 @@ function ConstructionInfo() {
           <span className={$.address}>{constructionInfo.address}</span>
           <NavLink className={$.link} to="">
             <span className={$.text}>더보기</span>
-            <MoreArrow className={$.arrow} />
+            <LongArrow size={3} stroke="#aaa" />
           </NavLink>
         </div>
       </div>

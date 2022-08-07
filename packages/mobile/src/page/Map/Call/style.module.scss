@@ -25,10 +25,11 @@
   position: fixed;
   right: 14px;
   bottom: 14px;
-  text-align: right;
-  z-index: 100;
+  display: flex;
+  justify-content: center;
   width: 62px;
-  height: auto;
+  height: 62px;
+  z-index: 100;
   border-radius: 50%;
   background-color: $red-50;
 }

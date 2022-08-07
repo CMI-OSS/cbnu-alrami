@@ -12,7 +12,7 @@ type Props = {
 export default function SettingTemplate({ className, title, children }: Props) {
   return (
     <FullPageModalTemplate
-      left={<LeftArrow color="#AAAAAA" width="16" height="16" />}
+      left={<LeftArrow stroke="#AAAAAA" size={16} />}
       title={title}
     >
       <div className={classnames($["setting-template"], className)}>

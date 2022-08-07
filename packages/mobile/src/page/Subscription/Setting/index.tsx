@@ -70,7 +70,7 @@ function Setting() {
               return navigate(-1);
             }}
           >
-            <LeftArrow color="#AAAAAA" width="16" height="16" />
+            <LeftArrow stroke="#AAAAAA" size={16} />
           </button>
         }
         title="구독/알림"
@@ -81,7 +81,7 @@ function Setting() {
               return navigate("/subscription");
             }}
           >
-            <Plus color="#AAAAAA" width="20" height="20" />
+            <Plus stroke="#AAAAAA" size={20} />
           </button>
         }
       >

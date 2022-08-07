@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
+import { Hamburger, LeftArrow } from "@components/atoms/icon";
 import { Close } from "@components/atoms/icon/Close";
-import { MapArrow } from "@components/atoms/icon/MapArrow";
 import { PlaceArrow } from "@components/atoms/icon/PlaceArrow";
-import { PlaceMenu } from "@components/atoms/icon/PlaceMenu";
-import { SmallPlaceMenu } from "@components/atoms/icon/SmallPlaceMenu";
 import Footer from "@components/molecules/Footer";
 import ConstructionInfo from "src/page/Map/ConstructionInfo";
 import { useAppDispatch, useAppSelector } from "src/store";
@@ -105,7 +103,7 @@ function Map() {
     <div id="map" className={$.map}>
       {isConstructionTooltip && (
         <NavLink to="/" className={$["place-link"]}>
-          <MapArrow className={$["place-arrow"]} />
+          <LeftArrow stroke="#aaa" size={16} />
         </NavLink>
       )}
       {isDisplayFloatingButton && (
@@ -113,7 +111,7 @@ function Map() {
           {isDisplayTooltip && (
             <div className={$.place_wrap}>
               <span className={$.content}>
-                <SmallPlaceMenu className={$.small_icon} />를 눌러
+                <Hamburger stroke="#363636" size={14} />를 눌러
                 <button
                   type="button"
                   className={$.close_button}
@@ -124,7 +122,7 @@ function Map() {
                     );
                   }}
                 >
-                  <Close className={$.close_icon} />
+                  <Close stroke="#aaa" size={11} />
                 </button>
                 <br />
                 다양한 장소를 탐색해요
@@ -133,7 +131,7 @@ function Map() {
             </div>
           )}
           <NavLink to="/place/all" className={$.link}>
-            <PlaceMenu className={$.icon} />
+            <Hamburger stroke="#fff" size={30} />
             <span className="blind">장소탐색하기</span>
           </NavLink>
         </div>

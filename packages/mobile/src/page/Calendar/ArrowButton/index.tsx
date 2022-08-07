@@ -1,4 +1,4 @@
-import { MoreArrow } from "../../../components/atoms/icon";
+import { Arrow } from "../../../components/atoms/icon";
 import $ from "./style.module.scss";
 
 type Props = {
@@ -15,9 +15,9 @@ function ArrowButton({ direction, onClick }: Props) {
       aria-label={`${direction === "left" ? "이전" : "다음"}으로 이동`}
     >
       {direction === "left" ? (
-        <MoreArrow className={$.rotated} width="7px" height="16px" />
+        <Arrow size={7} stroke="#aaa" />
       ) : (
-        <MoreArrow width="7px" height="16px" />
+        <Arrow size={7} stroke="#aaa" style={{ transform: "rotate(180deg)" }} />
       )}
     </button>
   );

@@ -1,7 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 
-import { Call, Map, Time } from "@components/atoms/icon";
-import { MapArrow } from "@components/atoms/icon/MapArrow";
+import { Call, LeftArrow, Map, Time } from "@components/atoms/icon";
 import ImageList from "@components/molecules/ImageList";
 import BorderBox from "src/components/atoms/BorderBox";
 
@@ -23,8 +22,8 @@ function Detail() {
             return navigate(-1);
           }}
         >
-          <MapArrow />
-          <span className="blind">뒤로 가기</span>
+          <LeftArrow stroke="#fff" size={16} />
+          <span className="blind">ㄴㅁㅇㄹ뒤로 가기</span>
         </button>
         <NavLink to="/call" className={$["link-call"]}>
           <span className="blind">제보하기</span>

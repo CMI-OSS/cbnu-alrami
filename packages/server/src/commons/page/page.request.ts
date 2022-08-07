@@ -6,10 +6,10 @@ export class PageRequest {
   @IsOptional()
   pageNo?: number | 1;
 
-  // DESCRIBE: 한 페이지에 나올 데이터 수. 디폴트 4
+  // DESCRIBE: 한 페이지에 나올 데이터 수. 디폴트 15
   @IsNumber()
   @IsOptional()
-  pageSize?: number | 5;
+  pageSize?: number | 15;
 
   getOffset(): number {
     if (this.pageNo < 1 || this.pageNo === undefined || this.pageNo === null) {
@@ -21,7 +21,7 @@ export class PageRequest {
       this.pageSize === undefined ||
       this.pageSize === null
     ) {
-      this.pageSize = 5;
+      this.pageSize = 15;
     }
 
     return (this.pageNo - 1) * this.pageSize;
@@ -33,7 +33,7 @@ export class PageRequest {
       this.pageSize === undefined ||
       this.pageSize === null
     ) {
-      this.pageSize = 5;
+      this.pageSize = 15;
     }
     return this.pageSize;
   }

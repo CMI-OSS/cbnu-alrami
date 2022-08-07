@@ -130,7 +130,7 @@ function Map() {
               <PlaceArrow className={$.arrow} />
             </div>
           )}
-          <NavLink to="/place/all" className={$.link}>
+          <NavLink to="/place?position=all" className={$.link}>
             <Hamburger stroke="#fff" size={30} />
             <span className="blind">장소탐색하기</span>
           </NavLink>

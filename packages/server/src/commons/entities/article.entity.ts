@@ -13,7 +13,7 @@ export class Article extends UpdatableCommonEntity {
     (Board) => {
       return Board.id;
     },
-    { eager: true },
+    { eager: true, onDelete: "CASCADE" },
   )
   @JoinColumn()
   board: Board;

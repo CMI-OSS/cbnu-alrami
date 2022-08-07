@@ -7,7 +7,7 @@ import BorderBox from "src/components/atoms/BorderBox";
 import detailImageList from "../../../__mocks__/detailImageList";
 import $ from "./style.module.scss";
 
-function Detail() {
+function MapDetail() {
   const navigate = useNavigate();
   const imageUrl =
     "https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20180130_263%2F1517301583613dwuaL_JPEG%2FZh5SeEjUT12rWxcLJ2nstPaB.jpg";
@@ -86,4 +86,4 @@ function Detail() {
   );
 }
 
-export default Detail;
+export default MapDetail;

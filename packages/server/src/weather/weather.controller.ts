@@ -1,7 +1,6 @@
 import { Controller, Get } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 
-import { Public } from "../commons/decorators/public.decorator";
 import { Weather } from "../commons/entities/weather.entity";
 import { GetWeatherResponseDto } from "./dtos/get-weather.response.dto";
 import { WeatherService } from "./weather.service";
@@ -11,7 +10,6 @@ import { WeatherService } from "./weather.service";
 export class WeatherController {
   constructor(private readonly weatherService: WeatherService) {}
 
-  @Public()
   @Get()
   @ApiOperation({
     summary: "날씨 조회 API",

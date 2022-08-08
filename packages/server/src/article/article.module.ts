@@ -20,7 +20,7 @@ import { ArticleService } from "./article.service";
   imports: [
     TypeOrmModule.forFeature([
       ArticleRepository,
-      BookmarkRepository, // circular referenced
+      BookmarkRepository,
       HitRepository,
       SubscribeRepository,
     ]),

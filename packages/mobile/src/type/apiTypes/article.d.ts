@@ -8,7 +8,7 @@ declare namespace res {
     name: string;
     parent?: Board;
   };
-  type ArticleByBoardId = {
+  type ArticleByBoard = {
     id: number;
     board: Board;
     title: string;

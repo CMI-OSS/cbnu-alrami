@@ -3,14 +3,14 @@ import { useParams } from "react-router-dom";
 import { LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import dayjs from "dayjs";
-import { useArticles } from "src/api/article";
+import { useArticle } from "src/api/article";
 
 import Footer from "./Footer";
 import $ from "./style.module.scss";
 
 function NoticeDetail() {
   const { noticeId } = useParams();
-  const { isLoading, error, data } = useArticles(Number(noticeId));
+  const { isLoading, error, data } = useArticle(Number(noticeId));
   if (!data || error || isLoading) return <></>;
   const notice = data.data;
   return (
@@ -21,18 +21,17 @@ function NoticeDetail() {
       >
         <div className={$.children}>
           <div className={$.header}>
-            <div className={$.title}>{notice.title}</div>
+            <h1 className={$.title}>{notice.title}</h1>
             <div className={$.detail}>
-              <div className={$.dates}>
+              <span className={$.dates}>
                 {dayjs(notice.date).format("YY-MM-DD")}&nbsp;/&nbsp;
-              </div>
-              <div className={$.hits}>
+              </span>
+              <span className={$.hits}>
                 조회수&nbsp;{notice.hits}&nbsp;/&nbsp;
-              </div>
-              <div className={$.scraps}>스크랩&nbsp;{notice.scraps}</div>
+              </span>
+              <span className={$.scraps}>스크랩&nbsp;{notice.scraps}</span>
             </div>
           </div>
-          {/* eslint-disable-next-line react/no-danger */}
           <div
             className={$.content}
             dangerouslySetInnerHTML={{ __html: notice.content }}

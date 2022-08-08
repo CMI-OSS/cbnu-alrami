@@ -29,15 +29,15 @@ export const useArticlesByBoard = (boardId: number) => {
   return response;
 };
 
-export const fetchArticles = (articleId: number) => {
+export const fetchArticle = (articleId: number) => {
   return caxios.get<res.Article>(`/boards/articles/${articleId}`);
 };
 
-export const useArticles = (articleId: number) => {
+export const useArticle = (articleId: number) => {
   const response = useQuery<AxiosResponse<res.Article>, Error>(
     [ "article", articleId ],
     () => {
-      return fetchArticles(articleId);
+      return fetchArticle(articleId);
     },
   );
   return response;

@@ -8,18 +8,36 @@
         flex-direction: column;
         align-items: center;
 
+        .final-guide-description {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 52px;
+            @include typography(14);
+
+            .second-line {
+                margin-top: 8px;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        .button {
+            margin-top: 33px;
+        }
+
         .food-icon {
             margin-top: 22px;
         }
 
-        .main-description {
+        .guide-main-description {
             margin-top: 9px;
             @include typography(14);
             color: $black-40;
             font-weight: 500;
         }
 
-        .sub-description {
+        .guide-sub-description {
             display: flex;
             flex-direction: center;
             align-items: center;

@@ -1,13 +1,20 @@
+import classNames from "classnames";
+
 import $ from "./style.module.scss";
 
 type Props = {
   text: string;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
+  className?: string;
 };
 
-function Button({ text, onClick }: Props) {
+function Button({ text, onClick, className }: Props) {
   return (
-    <button type="button" className={$.button} onClick={onClick}>
+    <button
+      type="button"
+      className={classNames(className, $.button)}
+      onClick={onClick}
+    >
       {text}
     </button>
   );

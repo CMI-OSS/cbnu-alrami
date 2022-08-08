@@ -6,6 +6,7 @@ import Button from "src/components/atoms/Button";
 import { Food, Setting, Write } from "src/components/atoms/icon";
 import Line from "src/components/atoms/Line";
 import {
+  get대표식당,
   isShown선택안함가이드,
   set대표식당,
   unset선택안함가이드,
@@ -20,15 +21,15 @@ function FinalGuideRestaurant() {
 
   return (
     <div className={classNames($.cafeteria, $["show-final-guide"])}>
-      <BorderBox height={188}>
-        <p>
+      <BorderBox height={188} className={$["border-box"]}>
+        <p className={$["final-guide-description"]}>
           홈화면에서 다시 식단을 보고싶다면 <br />
-          <span>
-            <Setting width="14" height="15" /> 설정 &gt; 대표식당에서 다시
-            선택해주세요.
+          <span className={$["second-line"]}>
+            <Setting width="14" height="15" stroke="#5E5E5E" /> 설정 &gt;
+            대표식당에서 선택해주세요.
           </span>
         </p>
-        <Button onClick={handleUnshowGuide} text="확인" />
+        <Button onClick={handleUnshowGuide} text="확인" className={$.button} />
       </BorderBox>
     </div>
   );
@@ -45,10 +46,10 @@ function GuideRestaurant() {
     >
       <BorderBox height={188} className={$["border-box"]}>
         <Food width="18" height="22" className={$["food-icon"]} />
-        <span className={$["main-description"]}>
+        <span className={$["guide-main-description"]}>
           화면을 눌러 대표식당을 선택해주세요.
         </span>
-        <p className={$["sub-description"]}>
+        <p className={$["guide-sub-description"]}>
           대표식당을 선택하면
           <br />
           홈화면에서 식단을 볼 수 있어요.
@@ -62,7 +63,7 @@ function GuideRestaurant() {
   );
 }
 function Restaurant() {
-  if (true) {
+  if (!get대표식당()) {
     return <GuideRestaurant />;
   }
   if (isShown선택안함가이드()) {

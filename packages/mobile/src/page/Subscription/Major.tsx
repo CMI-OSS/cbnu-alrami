@@ -20,19 +20,21 @@ function Major() {
         <div className={$.title}>{breadCrumb}</div>
         <div className={$.content}>{GUIDE.all_depth1}</div>
       </div>
-      {majorBoardTree?.map((major) => (
-        <Link to={`${pathname}/${major.id}`} key={major.id}>
-          <BorderBox
-            height={87}
-            background="#F6F5FB"
-            style={{ marginBottom: "12px" }}
-          >
-            <div className={$["subscription-box-base"]}>
-              <span className={$.title}>{major.name}</span>
-            </div>
-          </BorderBox>
-        </Link>
-      ))}
+      {majorBoardTree?.map((major) => {
+        return (
+          <Link to={`${pathname}/${major.id}`} key={major.id}>
+            <BorderBox
+              height={87}
+              background="#F6F5FB"
+              style={{ marginBottom: "12px" }}
+            >
+              <div className={$["subscription-box-base"]}>
+                <span className={$.title}>{major.name}</span>
+              </div>
+            </BorderBox>
+          </Link>
+        );
+      })}
     </SubscriptionModalTemplate>
   );
 }

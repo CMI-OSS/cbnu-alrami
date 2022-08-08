@@ -22,8 +22,11 @@ export class BoardAuthorityService {
         relations: [ "board" ],
       });
 
-    return boardsWithAuthority.map(({ board }) =>
-      Builder(BoardAuthorityResponseDto).id(board.id).name(board.name).build(),
-    );
+    return boardsWithAuthority.map(({ board }) => {
+      return Builder(BoardAuthorityResponseDto)
+        .id(board.id)
+        .name(board.name)
+        .build();
+    });
   }
 }

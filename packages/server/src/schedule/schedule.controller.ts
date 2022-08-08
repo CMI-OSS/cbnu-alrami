@@ -1,7 +1,6 @@
 import { Controller, Get, Query } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 
-import { Public } from "../commons/decorators/public.decorator";
 import { Schedule } from "../commons/entities/schedule.entity";
 import { GetSchedulesRequestDto } from "./dtos/get-schedules-request.dto";
 import { ScheduleService } from "./schedule.service";
@@ -11,7 +10,6 @@ import { ScheduleService } from "./schedule.service";
 export class ScheduleController {
   constructor(private readonly scheduleService: ScheduleService) {}
 
-  @Public()
   @Get("schedules")
   @ApiOperation({
     summary: "학사 일정 조회 API",

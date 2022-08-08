@@ -19,12 +19,14 @@ export default function ExcutionLog({ logs }: Props) {
     <section className={$.container}>
       <h2>실행 로그</h2>
       <div>
-        {logs.map((log, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <p key={index}>
-            {log.prefix ? `[${log.prefix}]` : ""} {log.message}
-          </p>
-        ))}
+        {logs.map((log, index) => {
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <p key={index}>
+              {log.prefix ? `[${log.prefix}]` : ""} {log.message}
+            </p>
+          );
+        })}
       </div>
     </section>
   );

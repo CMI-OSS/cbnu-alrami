@@ -3,14 +3,14 @@ import { useParams } from "react-router-dom";
 import { LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import dayjs from "dayjs";
-import { useArticle } from "src/api/article";
+import { useArticles } from "src/api/article";
 
 import Footer from "./Footer";
 import $ from "./style.module.scss";
 
 function NoticeDetail() {
   const { noticeId } = useParams();
-  const { isLoading, error, data } = useArticle(Number(noticeId));
+  const { isLoading, error, data } = useArticles(Number(noticeId));
   if (!data || error || isLoading) return <></>;
   const notice = data.data;
   return (

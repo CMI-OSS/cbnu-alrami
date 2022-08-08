@@ -1,24 +1,36 @@
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { MapArrow } from "@components/atoms/icon/MapArrow";
+import ChipGroup from "@components/molecules/ChipGroup";
 import BorderBox from "src/components/atoms/BorderBox";
+import useSearch from "src/hooks/useSearch";
 import { useAppDispatch } from "src/store";
 import { setHashMenu } from "src/store/placeSlice";
 
 import { imageList, menuList } from "../../../__mocks__/index";
 import $ from "./style.module.scss";
 
-interface Props {
-  menuType: number;
-}
-function PlaceTemplate({ menuType }: Props) {
+function PlaceDetail() {
   const dispatch = useAppDispatch();
-  const [ menu, setMenu ] = useState(0);
+  const position = useSearch({ target: "position" })!;
 
-  const handleMenu = (idx: number) => {
-    setMenu(idx);
-    dispatch(setHashMenu({ hashNumber: 0 }));
+  const handleMenu = () => {
+    dispatch(setHashMenu({ hashString: position }));
+  };
+
+  const checkMenu = (position: string) => {
+    switch (position) {
+      case "all":
+        return 0;
+      case "north":
+        return 1;
+      case "east":
+        return 2;
+      case "south":
+        return 3;
+      default:
+        return 0;
+    }
   };
 
   return (
@@ -33,23 +45,11 @@ function PlaceTemplate({ menuType }: Props) {
           제보하기
         </NavLink>
       </div>
-      <div className={$.menu}>
-        <div className={$.list}>
-          {menuList.map((item, idx) => {
-            return (
-              <NavLink
-                key={`menu-${item.id}`}
-                to={item.path}
-                className={$["menu-link"]}
-                onClick={() => handleMenu(idx)}
-                aria-selected={menuType === idx + 1}
-              >
-                {item.name}
-              </NavLink>
-            );
-          })}
-        </div>
-      </div>
+      <ChipGroup
+        list={menuList}
+        handleSelectMenu={handleMenu}
+        selectedMenu={checkMenu(position)}
+      />
       <BorderBox className={$.tooltip} style={{ width: "auto" }}>
         <span className={$.tooltip_title}>
           식사는 현재 베타버전으로, 다양한 맛집이 더 추가될 예정입니다.
@@ -84,4 +84,4 @@ function PlaceTemplate({ menuType }: Props) {
   );
 }
 
-export default PlaceTemplate;
+export default PlaceDetail;

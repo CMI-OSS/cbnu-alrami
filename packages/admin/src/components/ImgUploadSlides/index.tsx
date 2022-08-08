@@ -24,9 +24,9 @@ interface Props {
 
 export default function ImgSlides({ imgList }: Props) {
   const dispatch = useAppDispatch();
-  const { boardImgList, currentImgIdx } = useAppSelector(
-    (state) => state.boardReducer.board.write,
-  );
+  const { boardImgList, currentImgIdx } = useAppSelector((state) => {
+    return state.boardReducer.board.write;
+  });
   const [ isFetched, setIsFetched ] = useState(false);
   const [ mouseDownClientX, setMouseDownClientX ] = useState(0);
   const [ mouseUpClientX, setMouseUpClientX ] = useState(0);
@@ -49,7 +49,9 @@ export default function ImgSlides({ imgList }: Props) {
 
   useEffect(() => {
     if (isFetched) {
-      setTimeout(() => setIsFetched(false), 1000);
+      setTimeout(() => {
+        return setIsFetched(false);
+      }, 1000);
     }
   }, [ isFetched ]);
 
@@ -86,8 +88,12 @@ export default function ImgSlides({ imgList }: Props) {
     }
   }
 
-  const onMouseDown = (num: number) => setMouseDownClientX(num);
-  const onMouseUp = (num: number) => setMouseUpClientX(num);
+  const onMouseDown = (num: number) => {
+    return setMouseDownClientX(num);
+  };
+  const onMouseUp = (num: number) => {
+    return setMouseUpClientX(num);
+  };
 
   const doPreventEvent = (e: React.DragEvent) => {
     e.preventDefault();
@@ -115,8 +121,12 @@ export default function ImgSlides({ imgList }: Props) {
           ) : (
             <>
               <ul
-                onMouseDown={(e: React.MouseEvent) => onMouseDown(e.clientX)}
-                onMouseUp={(e: React.MouseEvent) => onMouseUp(e.clientX)}
+                onMouseDown={(e: React.MouseEvent) => {
+                  return onMouseDown(e.clientX);
+                }}
+                onMouseUp={(e: React.MouseEvent) => {
+                  return onMouseUp(e.clientX);
+                }}
                 role="presentation"
                 className={$["img-lists"]}
                 style={{
@@ -124,9 +134,9 @@ export default function ImgSlides({ imgList }: Props) {
                 ${currentImgIdx * -100.6}%`,
                 }}
               >
-                {imgList.map((img, idx) => (
-                  <ImgCard key={`img-${img.url}-${idx}`} data={img} />
-                ))}
+                {imgList.map((img, idx) => {
+                  return <ImgCard key={`img-${img.url}-${idx}`} data={img} />;
+                })}
               </ul>
 
               <label htmlFor="plusFile" className={$["button-add"]}>
@@ -145,7 +155,9 @@ export default function ImgSlides({ imgList }: Props) {
                 type="button"
                 aria-label="이전 이미지 보기"
                 className={$["button-prev"]}
-                onClick={() => dispatch(changeCurrentImg(currentImgIdx - 1))}
+                onClick={() => {
+                  return dispatch(changeCurrentImg(currentImgIdx - 1));
+                }}
               >
                 <MdOutlineArrowBackIosNew />
               </button>
@@ -153,7 +165,9 @@ export default function ImgSlides({ imgList }: Props) {
                 type="button"
                 aria-label="다음 이미지 보기"
                 className={$["button-next"]}
-                onClick={() => dispatch(changeCurrentImg(currentImgIdx + 1))}
+                onClick={() => {
+                  return dispatch(changeCurrentImg(currentImgIdx + 1));
+                }}
               >
                 <MdOutlineArrowForwardIos />
               </button>

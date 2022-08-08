@@ -9,32 +9,36 @@ const fetchPopularArticles = () => {
 
 export const usePopularArticles = () => {
   const response = useQuery<AxiosResponse<res.Popular[]>, Error>(
-    "schedules",
+    "popularArticle",
     fetchPopularArticles,
   );
   return response;
 };
 
-export const fetchArticlesByBoardId = (boardId: number) => {
-  return caxios.get<res.ArticleByBoardId[]>(`/boards/${boardId}/articles`);
+export const fetchArticlesByBoard = (boardId: number) => {
+  return caxios.get<res.ArticleByBoard[]>(`/boards/${boardId}/articles`);
 };
 
-export const useArticlesByBoardId = (boardId: number) => {
-  const response = useQuery<AxiosResponse<res.ArticleByBoardId[]>, Error>(
+export const useArticlesByBoard = (boardId: number) => {
+  const response = useQuery<AxiosResponse<res.ArticleByBoard[]>, Error>(
     [ "articles", boardId ],
-    () => fetchArticlesByBoardId(boardId),
+    () => {
+      return fetchArticlesByBoard(boardId);
+    },
   );
   return response;
 };
 
-export const fetchArticle = (articleId: number) => {
+export const fetchArticles = (articleId: number) => {
   return caxios.get<res.Article>(`/boards/articles/${articleId}`);
 };
 
-export const useArticle = (articleId: number) => {
+export const useArticles = (articleId: number) => {
   const response = useQuery<AxiosResponse<res.Article>, Error>(
     [ "article", articleId ],
-    () => fetchArticle(articleId),
+    () => {
+      return fetchArticles(articleId);
+    },
   );
   return response;
 };

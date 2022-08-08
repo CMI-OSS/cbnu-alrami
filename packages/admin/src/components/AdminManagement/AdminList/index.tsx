@@ -12,27 +12,34 @@ export default function AdminList() {
   const [ adminData, setAdminData ] = useState(admins);
 
   const changeAuthority = (id: number, authority: Authorities) => {
-    setAdminData((pre) =>
-      pre.map((admin) => {
+    setAdminData((pre) => {
+      return pre.map((admin) => {
         if (admin.id === id) return { ...admin, authority };
         return admin;
-      }),
-    );
+      });
+    });
   };
 
-  const deleteAdmin = (id: number) =>
-    setAdminData((pre) => pre.filter((admin) => admin.id !== id));
+  const deleteAdmin = (id: number) => {
+    return setAdminData((pre) => {
+      return pre.filter((admin) => {
+        return admin.id !== id;
+      });
+    });
+  };
 
   const searchBoard = (id: number, board: string) => {
-    const admin = adminData.find((admin) => admin.id === id);
+    const admin = adminData.find((admin) => {
+      return admin.id === id;
+    });
     if (!admin) return false;
     const isExist = admin.boards.includes(board);
     return isExist;
   };
 
   const addBoard = (id: number, board: string) => {
-    setAdminData((pre) =>
-      pre.map((admin) => {
+    setAdminData((pre) => {
+      return pre.map((admin) => {
         if (admin.id === id) {
           const { boards } = admin;
           if (boards.includes(board)) return admin;
@@ -40,21 +47,23 @@ export default function AdminList() {
           return { ...admin, boards };
         }
         return admin;
-      }),
-    );
+      });
+    });
   };
 
   const deleteBoard = (id: number, board: string) => {
-    setAdminData((pre) =>
-      pre.map((admin) => {
+    setAdminData((pre) => {
+      return pre.map((admin) => {
         if (admin.id === id) {
           const { boards } = admin;
-          const newBoards = boards.filter((item) => item !== board);
+          const newBoards = boards.filter((item) => {
+            return item !== board;
+          });
           return { ...admin, boards: newBoards };
         }
         return admin;
-      }),
-    );
+      });
+    });
   };
 
   return (
@@ -65,26 +74,30 @@ export default function AdminList() {
       </h2>
       <ul>
         <li className={$["column-titles"]}>
-          {TABLE_HEADS.map((title) => (
-            <span key={title} className={$.title}>
-              {title}
-            </span>
-          ))}
+          {TABLE_HEADS.map((title) => {
+            return (
+              <span key={title} className={$.title}>
+                {title}
+              </span>
+            );
+          })}
         </li>
       </ul>
       <ul>
-        {adminData.map((admin) => (
-          <AdminCard
-            key={admin.id}
-            admin={admin}
-            changeAuthority={changeAuthority}
-            deleteAdmin={deleteAdmin}
-            className={$.card}
-            addBoard={addBoard}
-            searchBoard={searchBoard}
-            deleteBoard={deleteBoard}
-          />
-        ))}
+        {adminData.map((admin) => {
+          return (
+            <AdminCard
+              key={admin.id}
+              admin={admin}
+              changeAuthority={changeAuthority}
+              deleteAdmin={deleteAdmin}
+              className={$.card}
+              addBoard={addBoard}
+              searchBoard={searchBoard}
+              deleteBoard={deleteBoard}
+            />
+          );
+        })}
       </ul>
     </div>
   );

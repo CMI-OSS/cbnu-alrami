@@ -13,7 +13,9 @@ import $ from "./style.module.scss";
 
 export default function BoardWrite() {
   const { boardImgList, boardTitle, boardCategory, boardContent } =
-    useAppSelector((state) => state.boardReducer.board.write);
+    useAppSelector((state) => {
+      return state.boardReducer.board.write;
+    });
   const dispatch = useAppDispatch();
   const [ error, setError ] = useState({
     title: false,
@@ -31,7 +33,9 @@ export default function BoardWrite() {
 
   useEffect(() => {
     autoResizeTextArea();
-    return () => autoResizeTextArea();
+    return () => {
+      return autoResizeTextArea();
+    };
   }, [ width ]);
 
   useEffect(() => {
@@ -129,9 +133,9 @@ export default function BoardWrite() {
             }}
           />
           <datalist id="boardList">
-            {boardCategories.map(({ name }) => (
-              <option key={name} value={name} aria-label={name} />
-            ))}
+            {boardCategories.map(({ name }) => {
+              return <option key={name} value={name} aria-label={name} />;
+            })}
           </datalist>
         </div>
 
@@ -146,7 +150,9 @@ export default function BoardWrite() {
           className={$.submit}
           type="submit"
           value="출간하기"
-          onClick={(e) => handleSubmit(e)}
+          onClick={(e) => {
+            return handleSubmit(e);
+          }}
         />
       </form>
 

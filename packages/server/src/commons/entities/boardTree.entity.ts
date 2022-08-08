@@ -1,15 +1,25 @@
-import { Entity, JoinColumn, OneToOne } from "typeorm";
+import { Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 
 import { Board } from "./board.entity";
 import { CommonEntity } from "./common.entity";
 
 @Entity("board_tree")
 export class BoardTree extends CommonEntity {
-  @OneToOne(() => Board, { onDelete: "CASCADE" })
+  @OneToOne(
+    () => {
+      return Board;
+    },
+    { onDelete: "CASCADE" },
+  )
   @JoinColumn()
   board: Board;
 
-  @OneToOne(() => Board, { onDelete: "CASCADE" })
+  @ManyToOne(
+    () => {
+      return Board;
+    },
+    { onDelete: "CASCADE" },
+  )
   @JoinColumn()
   parentBoard: Board;
 }

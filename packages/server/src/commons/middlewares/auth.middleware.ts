@@ -27,7 +27,7 @@ export class AuthMiddleware implements NestMiddleware {
       let user = await this.userService.findOne({
         where: { uuid: req.headers.uuid },
       });
- 
+
       if (!user) {
         user = await this.userService.create({
           uuid: userUuid,

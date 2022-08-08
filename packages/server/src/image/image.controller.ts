@@ -6,7 +6,6 @@ import {
 } from "@nestjs/common";
 import { FilesInterceptor } from "@nestjs/platform-express";
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { Public } from "src/commons/decorators/public.decorator";
 
 import { UploadImageResponse } from "./dto/upload-image.response.dto";
 import { ImageService } from "./image.service";
@@ -16,7 +15,6 @@ import { ImageService } from "./image.service";
 export class ImageController {
   constructor(private readonly imageService: ImageService) {}
 
-  @Public()
   @Post("upload/images")
   @UseInterceptors(FilesInterceptor("image", 10))
   @ApiOperation({

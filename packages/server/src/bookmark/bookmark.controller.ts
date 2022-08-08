@@ -1,11 +1,9 @@
 import { Controller, Param, Post, Req, UseGuards } from "@nestjs/common";
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { Public } from "src/commons/decorators/public.decorator";
 import { UserAuthGuard } from "src/commons/guards/user-auth.guard";
 
 import { BookmarkService } from "./bookmark.service";
 
-@Public()
 @Controller("bookmark")
 @ApiTags("[subscribe] 게시글 북마크 API")
 export class BookmarkControlelr {

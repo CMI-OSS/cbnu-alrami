@@ -38,7 +38,7 @@ export class ScheduleRepository extends Repository<Schedule> {
       .into(Schedule)
       .values({
         content: `${content}`,
-        isHoliday: 1,
+        isHoliday: true,
         startDate: `${startDate}`,
       })
       .execute();

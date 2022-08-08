@@ -6,7 +6,9 @@ import { Place } from "../commons/entities/place.entity";
 import { School } from "../commons/entities/school.entity";
 import { ImageService } from "../image/image.service";
 import { PlaceCreateRequestDto } from "./dtos/place.create.request.dto";
+import { PlaceResponseDto } from "./dtos/place.response.dto";
 import { PlaceUpdateRequestDto } from "./dtos/place.update.request.dto";
+import { PlacesResponseDto } from "./dtos/places.response.dto";
 import { PlaceImageRepository } from "./repository/place.image.repository";
 import { PlaceRepository } from "./repository/place.repository";
 import { SchoolRepository } from "./repository/school.repository";
@@ -20,7 +22,7 @@ export class PlaceService {
     private readonly placeImageRepository: PlaceImageRepository,
   ) {}
 
-  async findOne(placeId: number) {
+  async findOne(placeId: number): Promise<PlaceResponseDto> {
     const place = await this.placeRepository.findOne(placeId);
 
     return {
@@ -31,7 +33,7 @@ export class PlaceService {
     };
   }
 
-  async find() {
+  async find(): Promise<PlacesResponseDto[]> {
     const places = await this.placeRepository.findAll();
 
     return places.map(({ images, ...place }) => {

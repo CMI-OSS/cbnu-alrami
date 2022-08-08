@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 
 import { Hamburger, LeftArrow } from "@components/atoms/icon";
 import { Close } from "@components/atoms/icon/Close";
-import { PlaceArrow } from "@components/atoms/icon/PlaceArrow";
 import Footer from "@components/molecules/Footer";
 import ConstructionInfo from "src/page/Map/ConstructionInfo";
 import { useAppDispatch, useAppSelector } from "src/store";
@@ -109,25 +108,24 @@ function Map() {
       {isDisplayFloatingButton && (
         <div className={$.wrap}>
           {isDisplayTooltip && (
-            <div className={$.place_wrap}>
+            <div className={$.balloon}>
               <span className={$.content}>
                 <Hamburger stroke="#363636" size={14} />를 눌러
-                <button
-                  type="button"
-                  className={$.close_button}
-                  aria-label="닫기 버튼"
-                  onClick={() => {
-                    return dispatch(
-                      hideTooltipButtonStatus({ isDisplayTooltip: false }),
-                    );
-                  }}
-                >
-                  <Close stroke="#aaa" size={11} />
-                </button>
-                <br />
-                다양한 장소를 탐색해요
               </span>
-              <PlaceArrow className={$.arrow} />
+              <button
+                type="button"
+                className={$.close_button}
+                aria-label="닫기 버튼"
+                onClick={() => {
+                  return dispatch(
+                    hideTooltipButtonStatus({ isDisplayTooltip: false }),
+                  );
+                }}
+              >
+                <Close stroke="#aaa" size={11} />
+              </button>
+              <br />
+              다양한 장소를 탐색해요
             </div>
           )}
           <NavLink to="/place?position=all" className={$.link}>

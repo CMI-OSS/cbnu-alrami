@@ -10,10 +10,10 @@ import Calendar from "./page/Calendar";
 import Home from "./page/Home";
 import Map from "./page/Map";
 import MapDetail from "./page/Map/Detail";
-import MoreImage from "./page/Map/MoreImage";
 import Notice from "./page/Notice";
 import PlaceDetail from "./page/Place/Detail";
 import Error from "./page/Place/Error";
+import MoreImage from "./page/Place/MoreImage";
 import Report from "./page/Place/Report";
 import SettingRoute from "./page/Setting";
 import College from "./page/Subscription/College";
@@ -28,8 +28,6 @@ function App() {
     { path: "/home", element: <Home /> },
     { path: "/cafeteria", element: <Cafeteria /> },
     { path: "/map", element: <Map /> },
-    // TODO: more 라우팅 서브로 넣어야 함
-    { path: "/more", element: <MoreImage /> },
     { path: "/subscription", element: <Subscription /> },
     { path: "/subscription/setting", element: <SubscriptionSetting /> },
     { path: "/subscription/common", element: <End /> },
@@ -53,6 +51,7 @@ function App() {
     },
     { path: "/place/report", element: <Report /> },
     { path: "/place/error", element: <Error /> },
+    { path: "/place/more", element: <MoreImage /> },
     { path: "/setting/*", element: <SettingRoute /> },
   ];
 

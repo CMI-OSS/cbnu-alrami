@@ -1,6 +1,6 @@
 import { settingConfig } from "src/__mocks__";
-import SettingContact from "src/page/Setting/SettingContact";
-import SettingMenu from "src/page/Setting/SettingMenu";
+import SettingContact from "src/page/Setting/Contact";
+import SettingMenu from "src/page/Setting/Menu";
 import SettingTemplate from "src/page/Setting/SettingTemplate";
 import { useAppSelector } from "src/store";
 

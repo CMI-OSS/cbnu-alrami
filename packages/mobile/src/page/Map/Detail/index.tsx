@@ -23,7 +23,7 @@ function MapDetail() {
           }}
         >
           <LeftArrow stroke="#fff" size={16} />
-          <span className="blind">ㄴㅁㅇㄹ뒤로 가기</span>
+          <span className="blind">뒤로 가기</span>
         </button>
         <NavLink to="/call" className={$["link-call"]}>
           <span className="blind">제보하기</span>

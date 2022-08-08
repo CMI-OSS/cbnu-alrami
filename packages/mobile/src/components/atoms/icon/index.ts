@@ -61,3 +61,5 @@ export { 연무 } from "./연무";
 export { 천둥번개 } from "./천둥번개";
 export { 황사 } from "./황사";
 export { 흐림 } from "./흐림";
+export { Internet } from "./Internet";
+export { Share } from "./Share";

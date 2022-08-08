@@ -3,27 +3,41 @@ import { useQuery } from "react-query";
 import { AxiosResponse } from "axios";
 import caxios from "src/api/caxios";
 
-const fetchPopularArticle = () => {
+const fetchPopularArticles = () => {
   return caxios.get<res.Popular[]>("/articles/popular");
 };
 
-export const usePopularArticle = () => {
+export const usePopularArticles = () => {
   const response = useQuery<AxiosResponse<res.Popular[]>, Error>(
     "popularArticle",
-    fetchPopularArticle,
+    fetchPopularArticles,
   );
   return response;
 };
 
-export const fetchArticleByBoard = (boardId: number) => {
+export const fetchArticlesByBoard = (boardId: number) => {
   return caxios.get<res.ArticleByBoard[]>(`/boards/${boardId}/articles`);
 };
 
-export const useArticleByBoard = (boardId: number) => {
+export const useArticlesByBoard = (boardId: number) => {
   const response = useQuery<AxiosResponse<res.ArticleByBoard[]>, Error>(
     [ "articles", boardId ],
     () => {
-      return fetchArticleByBoard(boardId);
+      return fetchArticlesByBoard(boardId);
+    },
+  );
+  return response;
+};
+
+export const fetchArticle = (articleId: number) => {
+  return caxios.get<res.Article>(`/boards/articles/${articleId}`);
+};
+
+export const useArticle = (articleId: number) => {
+  const response = useQuery<AxiosResponse<res.Article>, Error>(
+    [ "article", articleId ],
+    () => {
+      return fetchArticle(articleId);
     },
   );
   return response;

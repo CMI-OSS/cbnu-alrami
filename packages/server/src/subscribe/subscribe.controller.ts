@@ -8,14 +8,12 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { Public } from "src/commons/decorators/public.decorator";
-import { UserSession } from "src/commons/decorators/UserSession.decorator";
 import { User } from "src/commons/entities/user.entity";
 import { UserAuthGuard } from "src/commons/guards/user-auth.guard";
 
+import { UserSession } from "../commons/decorators/user-session.decorator";
 import { SubscribeService } from "./subscribe.service";
 
-@Public()
 @Controller()
 @ApiTags("[subscribe] 공지사항 사이트 구독 관련 API")
 export class SubscribeController {

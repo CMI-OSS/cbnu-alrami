@@ -1,11 +1,11 @@
 import { useReducer } from "react";
 import { Link } from "react-router-dom";
 
+import { LongArrow } from "@components/atoms/icon";
 import classnames from "classnames";
 import dayjs from "dayjs";
 import { cafeteriaList, cafeteriaMenu } from "src/__mocks__";
 import noMenu from "src/assets/no_menu.png";
-import { Arrow } from "src/components/atoms/icon/Arrow";
 import CafeteriaMenuCard from "src/components/molecules/CafeteriaMenuCard";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
 import Footer from "src/components/molecules/Footer";
@@ -60,7 +60,7 @@ function Cafeteria() {
               <span>다른 메뉴가 먹고싶다면?</span>
               <Link to="/place/food" className={$["go-out-link"]}>
                 나가서 먹기
-                <Arrow width={3} height={19} color="#A3B9D6" />
+                <LongArrow size={4} stroke="#a3b9d6" />
               </Link>
             </div>
           </>
@@ -69,8 +69,8 @@ function Cafeteria() {
             <img src={noMenu} alt="메뉴가 없습니다." width="130" height="130" />
             <span>오늘은 식단이 없어요</span>
             <Link to="/place/food" className={$["go-out-link"]}>
-              대신 나가서 먹기
-              <Arrow width={3} height={19} color="#A3B9D6" />
+              <span>대신 나가서 먹기</span>
+              <LongArrow size={5} stroke="#a3b9d6" />
             </Link>
           </div>
         )}

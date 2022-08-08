@@ -1,4 +1,4 @@
-import { Entity, JoinColumn, OneToOne } from "typeorm";
+import { Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 
 import { Board } from "./board.entity";
 import { CommonEntity } from "./common.entity";
@@ -14,7 +14,7 @@ export class BoardTree extends CommonEntity {
   @JoinColumn()
   board: Board;
 
-  @OneToOne(
+  @ManyToOne(
     () => {
       return Board;
     },

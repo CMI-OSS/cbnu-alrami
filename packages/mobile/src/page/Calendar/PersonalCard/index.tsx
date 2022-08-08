@@ -33,7 +33,7 @@ function PersonalCard({
       <em className={$.content}>{content}</em>
       <span className={$.period}>{period}</span>
       <NavLink to="" className={$.link}>
-        <Write width="16px" height="16.5px" />
+        <Write size={16} stroke="#aaa" />
       </NavLink>
     </BorderBox>
   );

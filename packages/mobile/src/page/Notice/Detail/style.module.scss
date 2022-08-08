@@ -1,0 +1,31 @@
+@import '../../../styles/main.scss';
+
+.notice-detail {
+  background: #fff;
+
+  .children {
+    height: calc(100vh - 60px);
+    padding: 18px 22px;
+    border-top: 1px solid $background-20;
+    background: #fff;
+
+    .header {
+      .title {
+        margin-bottom: 8px;
+        color: $black-100;
+        @include typography(14);
+        font-weight: 500;
+      }
+
+      .detail {
+        display: flex;
+        color: $black-40;
+        @include typography(12);
+      }
+    }
+
+    .content {
+      padding: 18px 0 84px;
+    }
+  }
+}

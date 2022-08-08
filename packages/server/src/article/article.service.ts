@@ -9,10 +9,13 @@ import { Admin } from "src/commons/entities/admin.entity";
 import { Article } from "src/commons/entities/article.entity";
 import { User } from "src/commons/entities/user.entity";
 import { Errors } from "src/commons/exception/exception.global";
+import { PageRequest } from "src/commons/page/page.request";
+import { PageResponse } from "src/commons/page/page.response";
 import { HitRepository } from "src/hit/hit.repository";
 import { ImageResponseDto } from "src/image/dto/image.response.dto";
 import { ImageService } from "src/image/image.service";
 import { SubscribeService } from "src/subscribe/subscribe.service";
+import { In } from "typeorm";
 import { Transactional } from "typeorm-transactional-cls-hooked";
 
 import { FcmService } from "../fcm/fcm.service";
@@ -105,6 +108,44 @@ export class ArticleService {
     return articles;
   }
 
+  async articlePaginator(
+    boardId: number,
+    page: PageRequest,
+  ): Promise<Article[]> {
+    const articles: Article[] = await this.articleRepository.find({
+      where: {
+        board: boardId,
+      },
+      relations: [ "board", "author" ],
+      order: {
+        date: "DESC",
+      },
+      take: page.getLimit(),
+      skip: page.getOffset(),
+    });
+    if (!Array.isArray(articles) || articles.length === 0) throw NO_DATA_IN_DB;
+    return articles;
+  }
+
+  async articleByBoardPaginator(
+    boardIdList: number[],
+    page: PageRequest,
+  ): Promise<Article[]> {
+    const articles: Article[] = await this.articleRepository.find({
+      where: {
+        board: In(boardIdList),
+      },
+      relations: [ "board", "author" ],
+      order: {
+        date: "DESC",
+      },
+      take: page.getLimit(),
+      skip: page.getOffset(),
+    });
+    if (!Array.isArray(articles) || articles.length === 0) throw NO_DATA_IN_DB;
+    return articles;
+  }
+
   async findTopArticlesByHit(): Promise<ArticleListDto[]> {
     const response = [];
 
@@ -113,15 +154,15 @@ export class ArticleService {
       await this.articleRepository.findPopularArticlesByHit();
     response.push(...articlesByHit);
 
-    // DESCRIBE: 만약 조회수 있는 공지사항이 5개보다 적다면
-    if (articlesByHit.length < 5) {
+    // DESCRIBE: 만약 조회수 있는 공지사항이 15개보다 적다면
+    if (articlesByHit.length < 15) {
       // DESCRIBE: hit 테이블에서 가져온 article은 가져오지 않도록 리스트 생성
       const idList: number[] = [];
       articlesByHit.forEach((article) => {
         idList.push(article.id);
       });
       // DESCRIBE: 부족한 수만큼 article 테이블에서 날짜 순으로 공지사항 조회
-      const num = 5 - articlesByHit.length;
+      const num = 15 - articlesByHit.length;
       const articles = await this.articleRepository.findPopularArticles(
         num,
         idList,
@@ -168,32 +209,36 @@ export class ArticleService {
 
   async findArticleInfoListByBoard(
     boardId: number,
-  ): Promise<ArticleDetailInfoDto[]> {
-    const articles: Article[] = await this.findByBoard(boardId);
+    pageRequest: PageRequest,
+  ): Promise<PageResponse<ArticleDetailInfoDto[]>> {
+    // DESCRIBE: 전체 article 수 조회
+    const articlesCount = await this.articleRepository.countByBoard(boardId);
+    // DESCRIBE: 게시판에 해당하는 공지사항 전체 조회
+    const articles: Article[] = await this.articlePaginator(
+      boardId,
+      pageRequest,
+    );
     const board: BoardTreeResponseDto =
       await this.boardTreeService.getBoardTree(boardId);
-    const response: ArticleDetailInfoDto[] = [];
+    let response = [];
 
-    await Promise.all(
+    response = await Promise.all(
       articles.map(async (article) => {
         const hitCnt = await this.hitRepository.countByArticle(article.id);
         const bookmarkCnt = await this.bookmarkRepository.countByArticle(
           article.id,
         );
-        response.push(
-          Builder(ArticleDetailInfoDto)
-            .id(article.id)
-            .board(board)
-            .title(article.title)
-            .hits(hitCnt)
-            .scraps(bookmarkCnt)
-            .date(article.date)
-            .build(),
-        );
+        return Builder(ArticleDetailInfoDto)
+          .id(article.id)
+          .board(board)
+          .title(article.title)
+          .hits(hitCnt)
+          .scraps(bookmarkCnt)
+          .date(article.date)
+          .build();
       }),
     );
-
-    return response.length === 0 ? undefined : response;
+    return new PageResponse(pageRequest, articlesCount, response);
   }
 
   @Transactional()
@@ -278,30 +323,35 @@ export class ArticleService {
     return response;
   }
 
-  async findSubscribeArticles(user: User): Promise<ArticleListInfoDto[]> {
-    const response = [];
+  async findSubscribeArticles(
+    user: User,
+    pageRequest: PageRequest,
+  ): Promise<PageResponse<ArticleListInfoDto[]>> {
     const boardIdList = await this.subscribeService.findBoardByUser(user.id);
-    const articleList = await this.articleRepository.findRecentArticlesByBoard(
+    const articleList = await this.articleByBoardPaginator(
+      boardIdList,
+      pageRequest,
+    );
+    const totalItemCount = await this.articleRepository.countByBoardList(
       boardIdList,
     );
 
-    await Promise.all(
+    const response = await Promise.all(
       articleList.map(async (article) => {
         const hitCnt = await this.hitRepository.count({ article });
         const bookmarkCnt = await this.bookmarkRepository.count({ article });
-        response.push(
-          Builder(ArticleListInfoDto)
-            .id(article.id)
-            .boardName(article.board.name)
-            .title(article.title)
-            .date(article.date)
-            .hits(hitCnt)
-            .scraps(bookmarkCnt)
-            .build(),
-        );
+
+        return Builder(ArticleListInfoDto)
+          .id(article.id)
+          .boardName(article.board.name)
+          .title(article.title)
+          .date(article.date)
+          .hits(hitCnt)
+          .scraps(bookmarkCnt)
+          .build();
       }),
     );
 
-    return response;
+    return new PageResponse(pageRequest, totalItemCount, response);
   }
 }

@@ -5,6 +5,7 @@ import { Cron, CronExpression } from "@nestjs/schedule";
 import { firstValueFrom } from "rxjs";
 
 import { Schedule } from "../commons/entities/schedule.entity";
+import { CreateSchedulesRequestDto } from "./dtos/create-schedules-request.dto";
 import { GetSchedulesRequestDto } from "./dtos/get-schedules-request.dto";
 import { ScheduleRepository } from "./schedule.repository";
 
@@ -62,6 +63,15 @@ export class ScheduleService {
     const holidayData: holidayData[] = holiday.data.response.body.items.item;
 
     await this.saveHoliday(holidayData);
+  }
+
+  public async createSchedule(
+    createScheduleRequestDto: CreateSchedulesRequestDto,
+  ): Promise<void> {
+    const schedule = await this.scheduleRepository.create(
+      createScheduleRequestDto,
+    );
+    await this.scheduleRepository.save(schedule);
   }
 
   private async saveHoliday(holidayData): Promise<void> {

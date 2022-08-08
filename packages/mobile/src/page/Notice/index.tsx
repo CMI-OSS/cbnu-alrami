@@ -35,7 +35,7 @@ function Notice() {
         <header className={$.header}>
           <span>공지사항</span>
           <Link to="/subscription/setting">
-            <Setting width="21px" height="22px" className={$.setting} />
+            <Setting size={20} stroke="#aaa" />
           </Link>
         </header>
         <Category />

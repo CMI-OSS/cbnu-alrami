@@ -10,5 +10,6 @@ import { BookmarkService } from "./bookmark.service";
   imports: [ ArticleModule, TypeOrmModule.forFeature([ BookmarkRepository ]) ],
   controllers: [ BookmarkControlelr ],
   providers: [ BookmarkService ],
+  exports: [ BookmarkService ],
 })
 export class BookmarkModule {}

@@ -36,8 +36,6 @@ export class SubscribeController {
   })
   @UseGuards(UserAuthGuard)
   async create(@Req() req, @Param("boardId") boardId: number) {
-    console.log("req 객체", req);
-    console.log("============================");
     const { user } = req;
     return this.subscribeService.create(user, boardId);
   }
@@ -58,6 +56,7 @@ export class SubscribeController {
   @UseGuards(UserAuthGuard)
   async remove(@Req() req, @Param("boardId") boardId: number) {
     const { user } = req;
+    console.log(user);
     return this.subscribeService.remove(user, boardId);
   }
 

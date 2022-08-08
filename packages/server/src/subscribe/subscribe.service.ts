@@ -44,6 +44,7 @@ export class SubscribeService {
 
     // DESCRIBE: 요청한 유저가 board를 구독하고 있는지 확인
     const subscribe = await this.findByUserAndBoard(user.id, boardId);
+    console.log("subscribe", subscribe);
     if (!subscribe) throw NOT_SUBSCRIBED_BOARD;
 
     // DESCRIBE: 이미 구독 중인 board라면 구독 해제

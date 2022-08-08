@@ -71,7 +71,7 @@ function Restaurant() {
   }
   return (
     <div className={$.cafeteria}>
-      <BorderBox height={188}>
+      <BorderBox height="auto" className={$["menu-box"]}>
         <div className={$.title}>
           <div className={$.location}>
             본관 아침

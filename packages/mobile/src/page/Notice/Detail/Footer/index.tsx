@@ -7,7 +7,7 @@ function Footer({ className }: StyleProps) {
   return (
     <div className={$.footer}>
       <Share width="24" height="24" color="#C3C3C3" />
-      <Star className={$.star} width="27" height="27" color="#C3C3C3" />
+      <Star size={27} stroke="#C3C3C3" />
       <Internet width="28" height="28" color="#C3C3C3" />
     </div>
   );

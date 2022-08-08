@@ -7,9 +7,8 @@ import { Food, Setting, Write } from "src/components/atoms/icon";
 import Line from "src/components/atoms/Line";
 import {
   isShown선택안함가이드,
-  unset선택안함가이드,
-  get대표식당,
   set대표식당,
+  unset선택안함가이드,
 } from "src/utils/storage";
 
 import $ from "./style.module.scss";
@@ -44,10 +43,12 @@ function GuideRestaurant() {
       className={classNames($.cafeteria, $["show-guide"])}
       onClick={handleShowModal}
     >
-      <BorderBox height={188}>
-        <Food width="18" height="22" />
-        <span>화면을 눌러 대표식당을 선택해주세요.</span>
-        <p>
+      <BorderBox height={188} className={$["border-box"]}>
+        <Food width="18" height="22" className={$["food-icon"]} />
+        <span className={$["main-description"]}>
+          화면을 눌러 대표식당을 선택해주세요.
+        </span>
+        <p className={$["sub-description"]}>
           대표식당을 선택하면
           <br />
           홈화면에서 식단을 볼 수 있어요.
@@ -61,7 +62,7 @@ function GuideRestaurant() {
   );
 }
 function Restaurant() {
-  if (!get대표식당()) {
+  if (true) {
     return <GuideRestaurant />;
   }
   if (isShown선택안함가이드()) {

@@ -3,8 +3,31 @@
 .cafeteria {
     margin-bottom: 35px;
 
-    > div {
-        padding: 17px;
+    .border-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .food-icon {
+            margin-top: 22px;
+        }
+
+        .main-description {
+            margin-top: 9px;
+            @include typography(14);
+            color: $black-40;
+            font-weight: 500;
+        }
+
+        .sub-description {
+            display: flex;
+            flex-direction: center;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            text-align: center;
+            color: $black-40;
+        }
     }
     .title {
         display: flex;

@@ -16,4 +16,18 @@ declare namespace res {
     scraps: number;
     dates: string;
   };
+  type Image = {
+    id: number;
+    url: string;
+  };
+  type Article = {
+    id: number;
+    board: Board;
+    title: string;
+    content: string;
+    hits: number;
+    scraps: number;
+    date: string;
+    images: Image[];
+  };
 }

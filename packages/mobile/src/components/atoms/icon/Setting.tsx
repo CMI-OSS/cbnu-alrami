@@ -1,18 +1,10 @@
-import type { StyleProps } from "src/type/props";
+import type { IconProps } from "src/type/props";
 
-type Props = {
-  width?: string;
-  height?: string;
-  stroke: string;
-} & StyleProps;
-
-function Setting({ className, style, width, height, stroke }: Props) {
+function Setting({ size, stroke }: IconProps) {
   return (
     <svg
-      className={className}
-      style={style}
-      width={width}
-      height={height}
+      width={size}
+      height="auto"
       viewBox="0 0 24 26"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -34,4 +26,5 @@ function Setting({ className, style, width, height, stroke }: Props) {
     </svg>
   );
 }
+
 export { Setting };

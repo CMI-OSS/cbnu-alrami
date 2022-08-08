@@ -30,7 +30,7 @@ $linkTooltipDistance: 17px;
   z-index: 100;
 }
 
-.place_wrap {
+.balloon {
   position: fixed;
   bottom: $footerHeight + $footerLinkDistance + $linkHeight + $linkTooltipDistance;
   right: 26px;
@@ -39,8 +39,28 @@ $linkTooltipDistance: 17px;
   background-color: $white;
   font-size: 12px;
   letter-spacing: -0.02em;
-  line-height: 17px;
+  line-height: 12px;
   color: $black-80;
+
+  .content {
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-right: 3px;
+    }
+  }
+}
+
+.balloon:after {
+  position: absolute;
+  top: 60px;
+  left: 70px;
+  border-top: 15px solid #fff;
+  border-left: 20px solid transparent;
+  border-right: 0px solid transparent;
+  border-bottom: 0px solid transparent;
+  content: "";
 }
 
 .close_button {
@@ -49,11 +69,6 @@ $linkTooltipDistance: 17px;
   right: 5px;
   background-color: transparent;
   padding: 5px;
-}
-
-.close_icon {
-  width: 11px;
-  height: 10px;
 }
 
 .small_icon {
@@ -65,18 +80,16 @@ $linkTooltipDistance: 17px;
   top: 30px;
   right: 48px;
   z-index: -1;
-
-  path {
-    stroke: $white;
-  }
 }
 
 .link {
   position: fixed;
+  right: 15px;
+  display: flex;
+  justify-content: center;
   width: 62px;
   height: 62px;
   bottom: $footerHeight + $footerLinkDistance;
-  right: 15px;
   background-color: $red-50;
   border-radius: 50%;
 }

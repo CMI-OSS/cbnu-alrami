@@ -1,9 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 
-import { MapArrow } from "@components/atoms/icon/MapArrow";
-import { Phone } from "@components/atoms/icon/Phone";
-import { Position } from "@components/atoms/icon/Position";
-import { Time } from "@components/atoms/icon/Time";
+import { Call, LeftArrow, Map, Time } from "@components/atoms/icon";
 import ImageList from "@components/molecules/ImageList";
 import BorderBox from "src/components/atoms/BorderBox";
 
@@ -25,7 +22,7 @@ function MapDetail() {
             return navigate(-1);
           }}
         >
-          <MapArrow />
+          <LeftArrow stroke="#fff" size={16} />
           <span className="blind">뒤로 가기</span>
         </button>
         <NavLink to="/call" className={$["link-call"]}>
@@ -46,20 +43,20 @@ function MapDetail() {
           <strong className={$.title}>충북대학교 사회과학대학</strong>
           <ul className={$.list}>
             <li className={$.item}>
-              <Position />
+              <Map size={14} stroke="#aaa" />
               <span className={$["item-text"]}>
                 충청북도 청주시 흥덕구 사창동 470
               </span>
             </li>
             <li className={$.item}>
-              <Phone className={$.phone} />
+              <Call size={18} stroke="#aaa" />
               <span className={$["item-text"]}>
                 000-0000-0000 <br />
                 000-0000-000
               </span>
             </li>
             <li className={$.item}>
-              <Time />
+              <Time size={18} stroke="#aaa" />
               <span className={$["item-text"]}>오전 9:00 ~ 오후 6:00</span>
             </li>
           </ul>

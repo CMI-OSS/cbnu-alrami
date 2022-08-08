@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-import { MapArrow } from "@components/atoms/icon/MapArrow";
+import { LeftArrow } from "@components/atoms/icon";
 import ChipGroup from "@components/molecules/ChipGroup";
 import BorderBox from "src/components/atoms/BorderBox";
 import useSearch from "src/hooks/useSearch";
@@ -37,7 +37,7 @@ function PlaceDetail() {
     <>
       <div className={$.header}>
         <NavLink to="/map" className={$.link}>
-          <MapArrow />
+          <LeftArrow stroke="#aaa" size={16} />
           <span className="blind">뒤로가기</span>
         </NavLink>
         <h1 className={$.title}>캠퍼스맵</h1>

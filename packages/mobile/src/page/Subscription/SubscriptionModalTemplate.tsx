@@ -15,7 +15,7 @@ function SubscriptionModalTemplate({ children }: Props) {
   return (
     <div className={$.modal}>
       <FullPageModalTemplate
-        left={<LeftArrow color="#AAAAAA" width="16" height="16" />}
+        left={<LeftArrow stroke="#AAAAAA" size={16} />}
         right={
           <button
             type="button"
@@ -23,7 +23,7 @@ function SubscriptionModalTemplate({ children }: Props) {
               return navigate("/subscription/setting", { replace: true });
             }}
           >
-            <Close />
+            <Close stroke="#aaa" size={14} />
           </button>
         }
       >

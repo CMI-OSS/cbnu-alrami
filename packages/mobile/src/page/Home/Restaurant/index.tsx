@@ -24,9 +24,9 @@ function FinalGuideRestaurant() {
       <BorderBox height={188} className={$["border-box"]}>
         <p className={$["final-guide-description"]}>
           홈화면에서 다시 식단을 보고싶다면 <br />
-          <span className={$["second-line"]}>
-            <Setting width="14" height="15" stroke="#5E5E5E" /> 설정 &gt;
-            대표식당에서 선택해주세요.
+          <span>
+            <Setting size={14} stroke="#5e5e5e" /> 설정 &gt; 대표식당에서 다시
+            선택해주세요.
           </span>
         </p>
         <Button onClick={handleUnshowGuide} text="확인" className={$.button} />
@@ -45,7 +45,9 @@ function GuideRestaurant() {
       onClick={handleShowModal}
     >
       <BorderBox height={188} className={$["border-box"]}>
-        <Food width="18" height="22" className={$["food-icon"]} />
+        <div className={$["food-icon"]}>
+          <Food size={18} stroke="#aaa" />
+        </div>
         <span className={$["guide-main-description"]}>
           화면을 눌러 대표식당을 선택해주세요.
         </span>
@@ -62,6 +64,7 @@ function GuideRestaurant() {
     </div>
   );
 }
+
 function Restaurant() {
   if (!get대표식당()) {
     return <GuideRestaurant />;
@@ -75,7 +78,7 @@ function Restaurant() {
         <div className={$.title}>
           <div className={$.location}>
             본관 아침
-            <Write />
+            <Write stroke="#aaa" size={12} />
           </div>
           <span className={$.time}>7:30~9:00</span>
         </div>

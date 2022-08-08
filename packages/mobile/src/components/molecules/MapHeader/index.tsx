@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-import { MapArrow } from "@components/atoms/icon/MapArrow";
+import { LeftArrow } from "@components/atoms/icon";
 
 import $ from "./style.module.scss";
 
@@ -12,7 +12,7 @@ function MapHeader({ title }: Props) {
   return (
     <div className={$.header}>
       <NavLink to="./" className={$.link}>
-        <MapArrow />
+        <LeftArrow stroke="#aaa" size={16} />
         <span className="blind">뒤로 가기</span>
       </NavLink>
       <strong className={$.title}>{title}</strong>

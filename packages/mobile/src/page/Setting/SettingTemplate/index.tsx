@@ -9,7 +9,7 @@ type Props = {
   title: string;
 } & DefaultProps;
 
-export default function SettingTemplate({ className, title, children }: Props) {
+function SettingTemplate({ className, title, children }: Props) {
   return (
     <FullPageModalTemplate
       left={<LeftArrow stroke="#AAAAAA" size={16} />}
@@ -21,3 +21,5 @@ export default function SettingTemplate({ className, title, children }: Props) {
     </FullPageModalTemplate>
   );
 }
+
+export default SettingTemplate;

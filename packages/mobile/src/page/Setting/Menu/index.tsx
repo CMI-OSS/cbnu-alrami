@@ -14,7 +14,7 @@ interface Props {
   config?: string;
 }
 
-export default function SettingMenu({ route, config }: Props) {
+function Menu({ route, config }: Props) {
   const { label, to } = route;
   const dispatch = useAppDispatch();
 
@@ -43,3 +43,5 @@ export default function SettingMenu({ route, config }: Props) {
     </>
   );
 }
+
+export default Menu;

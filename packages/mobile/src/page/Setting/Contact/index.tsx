@@ -6,7 +6,7 @@ import { showSettingContact } from "src/store/settingSlice";
 
 import $ from "./style.module.scss";
 
-export default function Contact() {
+function Contact() {
   const dispatch = useAppDispatch();
 
   const handleModalClose = (e: React.MouseEvent) => {
@@ -26,3 +26,5 @@ export default function Contact() {
     </Modal>
   );
 }
+
+export default Contact;

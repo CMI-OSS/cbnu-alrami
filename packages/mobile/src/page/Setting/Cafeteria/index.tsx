@@ -17,7 +17,7 @@ const cafeterias = [
   "한빛식당",
 ];
 
-export default function SettingCafeteria() {
+function Cafeteria() {
   const [ representative, setRepresentative ] = useState("표시 안함");
 
   return (
@@ -47,3 +47,5 @@ export default function SettingCafeteria() {
     </SettingTemplate>
   );
 }
+
+export default Cafeteria;

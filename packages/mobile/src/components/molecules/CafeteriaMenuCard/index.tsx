@@ -3,14 +3,14 @@ import Line from "src/components/atoms/Line";
 
 import $ from "./style.module.scss";
 
-interface Props {
+type Props = {
   mealTime: string;
   timeInfo: string;
   mealMenu: string;
   calory: string;
-}
+};
 
-export default function index({ mealTime, timeInfo, mealMenu, calory }: Props) {
+function CafeteriaMenuCard({ mealTime, timeInfo, mealMenu, calory }: Props) {
   return (
     <BorderBox className={$["cafeteria-menu-card"]} height="fit-content">
       <div className={$.time}>
@@ -25,3 +25,5 @@ export default function index({ mealTime, timeInfo, mealMenu, calory }: Props) {
     </BorderBox>
   );
 }
+
+export default CafeteriaMenuCard;

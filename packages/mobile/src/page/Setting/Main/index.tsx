@@ -7,7 +7,7 @@ import { useAppSelector } from "src/store";
 import { settingMenuList } from "./constants";
 import $ from "./style.module.scss";
 
-export default function SettingMain() {
+function Main() {
   const { isDisplayContact } = useAppSelector((state) => {
     return state.settingReducer.setting;
   });
@@ -27,3 +27,5 @@ export default function SettingMain() {
     </SettingTemplate>
   );
 }
+
+export default Main;

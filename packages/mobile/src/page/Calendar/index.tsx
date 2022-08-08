@@ -3,7 +3,7 @@ import {
   useEffect,
   useMemo,
   useReducer,
-  useState
+  useState,
 } from "react";
 
 import dayjs, { Dayjs } from "dayjs";
@@ -15,10 +15,9 @@ import ScheduleCalendar from "src/page/Calendar/ScheduleCalendar";
 import {
   fetchBookmarkSchedules,
   filterTodaySchedules,
-  getCalendarMap
+  getCalendarMap,
 } from "src/utils/calendarTools";
 
-import AddScheduleLink from "./AddScheduleLink";
 import caledarReducer from "./calendarReducer";
 import $ from "./style.module.scss";
 import useAllSchedules from "./useAllSchedules";
@@ -50,17 +49,16 @@ function Calendar() {
   });
 
   const allSchedules = useAllSchedules(year);
-  const today = useMemo(() => dayjs(), []);
+  const today = useMemo(() => {
+    return dayjs();
+  }, []);
   const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
-  const allScheduleMap = useMemo(
-    () => getCalendarMap(year, month, allSchedules),
-    [ month, allSchedules ],
-  );
-  const bookmarkScheduleMap = useMemo(
-    () => getCalendarMap(year, month, bookmarkSchedules),
-    [ month, bookmarkSchedules ],
-
-  );
+  const allScheduleMap = useMemo(() => {
+    return getCalendarMap(year, month, allSchedules);
+  }, [ month, allSchedules ]);
+  const bookmarkScheduleMap = useMemo(() => {
+    return getCalendarMap(year, month, bookmarkSchedules);
+  }, [ month, bookmarkSchedules ]);
 
   useEffect(() => {
     // TODO: 목데이터 즐겨찾기 API로 교체하기
@@ -76,11 +74,14 @@ function Calendar() {
   return (
     <section className={$.calendar}>
       <div className={$["sticky-box"]}>
-        <AddScheduleLink className={$["add-link"]} />
         <CalendarHeader
           calendar={{ ...{ year, month } }}
-          onDecrease={() => {return dispatchMonth({ type: "decrement_month" })}}
-          onIncrease={() => {return dispatchMonth({ type: "increment_month" })}}
+          onDecrease={() => {
+            return dispatchMonth({ type: "decrement_month" });
+          }}
+          onIncrease={() => {
+            return dispatchMonth({ type: "increment_month" });
+          }}
         />
       </div>
       <ScheduleCalendar

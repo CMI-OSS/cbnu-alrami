@@ -4,8 +4,7 @@ import Footer from "@components/molecules/Footer";
 import { usePopularArticles } from "src/api/article";
 import { useSchedule } from "src/api/schedule";
 import BorderBox from "src/components/atoms/BorderBox";
-import { Setting } from "src/components/atoms/icon";
-import { Arrow } from "src/components/atoms/icon/Arrow";
+import { LeftArrow, Setting } from "src/components/atoms/icon";
 import Line from "src/components/atoms/Line";
 import Weather from "src/page/Home/Weather";
 
@@ -44,7 +43,7 @@ function Home() {
           <p>오늘은 총 6개의 일정이 있어요</p>
         </div>
         <Link to="/setting">
-          <Setting width="24px" height="25px" />
+          <Setting size={24} stroke="#aaa" />
         </Link>
       </header>
       <div className={$.schedule}>
@@ -52,7 +51,7 @@ function Home() {
           return (
             <BorderBox key={schedule.id} width={271} height={101}>
               <p>{schedule.content}</p>
-              <Arrow width={7} height={25} color="#AAAAAA" />
+              <LeftArrow size={7} stroke="#aaa" />
             </BorderBox>
           );
         })}

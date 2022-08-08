@@ -1,33 +1,29 @@
-import type { StyleProps } from "src/type/props";
+import { IconProps } from "src/type/props";
 
-function Home({ className, style }: StyleProps) {
+function Home({ size, stroke }: IconProps) {
   return (
     <svg
-      style={style}
-      width="25"
-      height="22"
-      viewBox="0 0 25 22"
+      width={size}
+      height="auto"
+      viewBox="0 0 16 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M1 11.195L12.6127 1L23.6944 11.195"
-        stroke="#CE5455"
-        strokeWidth="1.2"
+        d="M1.48535 6.99993L8.44274 1L15.082 6.99993"
+        stroke={stroke}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M3.80591 8.74219V21.3902H20.8975V8.74219"
-        stroke="#CE5455"
-        strokeWidth="1.2"
+        d="M3.1665 5.55664V13.0001H13.4064V5.55664"
+        stroke={stroke}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M12.3473 11.9885C12.8408 11.9873 13.3296 12.0869 13.7855 12.2814C14.2415 12.476 14.6555 12.7617 15.0036 13.1221C15.3517 13.4824 15.6271 13.9103 15.8138 14.3809C16.0005 14.8516 16.0948 15.3557 16.0913 15.8641V21.3355H8.61206V15.8641C8.61206 14.8435 9.00559 13.8647 9.70607 13.143C10.4066 12.4213 11.3566 12.0159 12.3473 12.0159V11.9885Z"
-        stroke="#CE5455"
-        strokeWidth="1.2"
+        d="M8.28372 7.4668C8.57938 7.46609 8.87225 7.52467 9.14541 7.63917C9.41857 7.75368 9.66661 7.92183 9.87518 8.13391C10.0838 8.34599 10.2487 8.59779 10.3606 8.87478C10.4724 9.15176 10.5289 9.44843 10.5268 9.74764V12.9677H6.0459V9.74764C6.0459 9.147 6.28167 8.57095 6.70134 8.14623C7.12101 7.72151 7.69021 7.4829 8.28372 7.4829V7.4668Z"
+        stroke={stroke}
         strokeLinecap="round"
         strokeLinejoin="round"
       />

@@ -15,7 +15,7 @@ function Category() {
         }}
         to="?major=즐겨찾기"
       >
-        <Star className={$.star} width="12" height="12" color="#5E5E5E" />
+        <Star size={12} stroke="#5e5e5e" fill="#5e5e5e" />
       </NavLink>
       <NavLink
         className={({ isActive }) => {

@@ -1,24 +1,24 @@
-import type { StyleProps } from "src/type/props";
+import * as React from "react";
+
+import { IconProps } from "src/type/props";
 
 type Props = {
-  width: number;
-  height: number;
-  color: string;
-} & StyleProps;
+  style?: React.CSSProperties;
+} & IconProps;
 
-function Arrow({ width, height, color, style, className }: Props) {
+function Arrow({ size, stroke, style }: Props) {
   return (
     <svg
+      width={size}
+      height="auto"
       style={style}
-      width={width}
-      height={height}
-      viewBox="0 0 10 27"
+      viewBox="0 0 7 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M1.06006 1L8.72084 13.5L1.06006 26"
-        stroke={color}
+        d="M6.25342 13.3633L1.00342 7.36328L6.25342 1.36328"
+        stroke={stroke}
         strokeLinecap="round"
         strokeLinejoin="round"
       />

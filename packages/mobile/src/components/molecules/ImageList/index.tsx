@@ -24,14 +24,11 @@ function ImageList({ isMoreContents, detailImageList }: Props) {
               <img className={$["menu-image"]} src={item.src} alt={item.alt} />
               {isMoreContents && index === 2 && (
                 <NavLink to="/more" className={$["more-status"]}>
-                  <Plus
-                    className={$["more-plus"]}
-                    width="35"
-                    height="36"
-                    color="#FFFFFF"
-                  />
-                  {/* <ImagePlus className={$["more-plus"]} /> */}
-                  <span className={$["more-text"]}>더보기</span>
+                  <div className={$["more-plus"]}>
+                    <Plus stroke="#fff" size={35} />
+                    {/* <ImagePlus className={$["more-plus"]} /> */}
+                    <span className={$["more-text"]}>더보기</span>
+                  </div>
                 </NavLink>
               )}
             </li>

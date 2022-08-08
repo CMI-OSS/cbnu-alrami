@@ -5,12 +5,7 @@ import BorderBox from "src/components/atoms/BorderBox";
 import Button from "src/components/atoms/Button";
 import { Food, Setting, Write } from "src/components/atoms/icon";
 import Line from "src/components/atoms/Line";
-import {
-  isShown선택안함가이드,
-  unset선택안함가이드,
-  get대표식당,
-  set대표식당,
-} from "src/utils/storage";
+import { get대표식당, isShown선택안함가이드, set대표식당, unset선택안함가이드 } from "src/utils/storage";
 
 import $ from "./style.module.scss";
 
@@ -25,7 +20,7 @@ function FinalGuideRestaurant() {
         <p>
           홈화면에서 다시 식단을 보고싶다면 <br />
           <span>
-            <Setting width="14" height="15" /> 설정 &gt; 대표식당에서 다시
+            <Setting size={14} stroke="#5e5e5e" /> 설정 &gt; 대표식당에서 다시
             선택해주세요.
           </span>
         </p>
@@ -45,7 +40,7 @@ function GuideRestaurant() {
       onClick={handleShowModal}
     >
       <BorderBox height={188}>
-        <Food width="18" height="22" />
+        <Food size={18} stroke="#aaa" />
         <span>화면을 눌러 대표식당을 선택해주세요.</span>
         <p>
           대표식당을 선택하면
@@ -60,6 +55,7 @@ function GuideRestaurant() {
     </div>
   );
 }
+
 function Restaurant() {
   if (!get대표식당()) {
     return <GuideRestaurant />;
@@ -73,7 +69,7 @@ function Restaurant() {
         <div className={$.title}>
           <div className={$.location}>
             본관 아침
-            <Write />
+            <Write stroke="#aaa" size={12} />
           </div>
           <span className={$.time}>7:30~9:00</span>
         </div>

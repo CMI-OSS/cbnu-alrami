@@ -9,7 +9,7 @@ function Preview() {
     <FullPageModalTemplate
       left={
         <>
-          <LeftArrow color="#AAAAAA" width="16" height="16" />
+          <LeftArrow stroke="#AAAAAA" size={16} />
           <span
             style={{ marginLeft: "21px", fontSize: "18px", fontWeight: 500 }}
           >

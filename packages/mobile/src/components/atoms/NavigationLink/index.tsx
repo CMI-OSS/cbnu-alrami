@@ -22,7 +22,7 @@ function NavigationLink({ route }: Props) {
         return classNames($.link, { [$.active]: isActive });
       }}
     >
-      <route.icon />
+      <route.icon size="22" stroke="#c3c3c3" />
       <p className={$.label}>{route.label}</p>
     </NavLink>
   );

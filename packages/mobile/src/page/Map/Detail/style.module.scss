@@ -17,18 +17,10 @@
 
 .detail-button {
   position: absolute;
-  width: 30px;
-  height: 30px;
   top: 15px;
   left: 15px;
   padding: 10px;
   margin: -10px;
-  background-color: transparent;
-
-  svg path {
-    fill: $white;
-    stroke: $white;
-  }
 }
 
 .link-call {
@@ -92,16 +84,14 @@
 
 .item {
   display: flex;
+  align-items: center;
   color: $black-80;
+
   &:not(:first-child) {
     margin-top: 25px;
   }
 }
 
-.phone {
-  width: 22px;
-  height: 10px;
-}
 
 .item-text {
   line-height: 23px;

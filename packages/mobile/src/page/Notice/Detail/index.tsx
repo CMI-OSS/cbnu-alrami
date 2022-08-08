@@ -16,7 +16,7 @@ function NoticeDetail() {
   return (
     <div className={$["notice-detail"]}>
       <FullPageModalTemplate
-        left={<LeftArrow width="16" height="16" color="#AAAAAA" />}
+        left={<LeftArrow size={16} stroke="#AAAAA6A" />}
         title={notice.board.name}
       >
         <div className={$.children}>

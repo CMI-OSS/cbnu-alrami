@@ -131,7 +131,7 @@ function Weather() {
             {iconToBackground?.icon}
           </div>
           <div className={$.more}>
-            <Info width="14" height="14" />
+            <Info size={14} stroke="#aaa" />
             기온별 옷차림
           </div>
         </div>

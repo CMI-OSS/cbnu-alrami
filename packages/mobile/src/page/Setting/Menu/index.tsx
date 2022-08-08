@@ -5,14 +5,14 @@ import { showSettingContact } from "src/store/settingSlice";
 
 import $ from "./style.module.scss";
 
-interface Props {
+type Props = {
   route: {
     icon: any;
     label: string;
     to: string;
   };
   config?: string;
-}
+};
 
 function Menu({ route, config }: Props) {
   const { label, to } = route;

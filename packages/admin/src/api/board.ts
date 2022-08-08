@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQuery from "src/api/baseQuery";
 
-import { imgType } from "../types/index";
+import type { imgType } from "../types";
 
 export const boardWriteApi = createApi({
   reducerPath: "boardWriteApi",

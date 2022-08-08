@@ -9,6 +9,7 @@ import { CafeteriaMenuRepository } from "./repository/cafeteria-menu.repository"
 import { CafeteriaRepository } from "./repository/cafeteria.repository";
 
 const { CAFETERIA_NOT_FOUND } = errors;
+
 @Injectable()
 export class CafeteriaService {
   constructor(
@@ -23,9 +24,12 @@ export class CafeteriaService {
     return cafeterias;
   }
 
-  async findById(id: number, date: string): Promise<CafeteriaResponseDto[]> {
+  async findByIdAndDate(
+    cafeteriaId: number,
+    date: string,
+  ): Promise<CafeteriaResponseDto[]> {
     const cafeterias = await this.cafeteriaMenuRepository.findByIdAndDate(
-      id,
+      cafeteriaId,
       date,
     );
     if (!cafeterias) throw CAFETERIA_NOT_FOUND;

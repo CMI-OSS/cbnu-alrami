@@ -1,13 +1,26 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsObject, IsString } from "class-validator";
+import {
+  IsArray,
+  IsNotEmpty,
+  IsNumber,
+  IsObject,
+  IsOptional,
+  IsString,
+} from "class-validator";
 
+import { Image } from "../../commons/entities/image.entity";
 import { School } from "../../commons/entities/school.entity";
 
-export class PlacesResponseDto {
+export class PlaceResponseDto {
   @IsNotEmpty()
   @IsNumber()
   @ApiProperty({ default: 1, description: "PK" })
   id: number;
+
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({ default: "school", description: "건물 타입" })
+  type: string;
 
   @IsNotEmpty()
   @IsString()
@@ -32,6 +45,16 @@ export class PlacesResponseDto {
   })
   address: string;
 
+  @IsOptional()
+  @IsString()
+  @ApiProperty({ default: "0432613675", description: "건물 전화번호" })
+  contact: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({ default: "설명", description: "건물 설명" })
+  description: string;
+
   @IsNotEmpty()
   @IsObject()
   @ApiProperty({
@@ -45,4 +68,9 @@ export class PlacesResponseDto {
     description: "건물 번호",
   })
   school: School;
+
+  @IsOptional()
+  @IsArray()
+  @ApiProperty({ default: "[]", description: "건물 이미지" })
+  images: Image[];
 }

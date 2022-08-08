@@ -11,6 +11,7 @@ import Home from "./page/Home";
 import Map from "./page/Map";
 import MapDetail from "./page/Map/Detail";
 import Notice from "./page/Notice";
+import NoticeDetail from "./page/Notice/Detail";
 import PlaceDetail from "./page/Place/Detail";
 import Error from "./page/Place/Error";
 import MoreImage from "./page/Place/MoreImage";
@@ -24,6 +25,7 @@ import SubscriptionSetting from "./page/Subscription/Setting";
 function App() {
   const routes = [
     { path: "/notice", element: <Notice /> },
+    { path: "/notice/:noticeId", element: <NoticeDetail /> },
     { path: "/calendar", element: <Calendar /> },
     { path: "/home", element: <Home /> },
     { path: "/cafeteria", element: <Cafeteria /> },

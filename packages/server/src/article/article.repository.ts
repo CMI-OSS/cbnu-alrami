@@ -1,5 +1,6 @@
 import { addHours, subWeeks } from "date-fns";
 import { Article } from "src/commons/entities/article.entity";
+import { PageRequest } from "src/commons/page/page.request";
 import { EntityRepository, getManager, Repository } from "typeorm";
 
 import { ArticleListDto } from "./dtos/article.list.dto";
@@ -9,7 +10,20 @@ export class ArticleRepository extends Repository<Article> {
   async findByBoard(boardId: number): Promise<Article[]> {
     return this.createQueryBuilder("article")
       .where("article.board_id = :boardId", { boardId })
+      .orderBy("article.date", "DESC")
       .getMany();
+  }
+
+  async countByBoard(boardId: number): Promise<number> {
+    return this.createQueryBuilder("article")
+      .where("article.board_id = :boardId", { boardId })
+      .getCount();
+  }
+
+  async countByBoardList(boardIdList: number[]): Promise<number> {
+    return this.createQueryBuilder("article")
+      .where("article.board_id In (:boardIdList)", { boardIdList })
+      .getCount();
   }
 
   async existsByUrl(url: string): Promise<number> {
@@ -33,7 +47,7 @@ export class ArticleRepository extends Repository<Article> {
                WHERE article.date >= date_add(now(),interval -2 week)
                GROUP BY hit.article_id) AS A
       GROUP BY count desc, date desc
-      LIMIT 5;
+      LIMIT 15;
       `);
     return findPopularArticles;
   }
@@ -56,12 +70,28 @@ export class ArticleRepository extends Repository<Article> {
     return articles;
   }
 
-  async findRecentArticlesByBoard(boardIdList: number[]): Promise<Article[]> {
+  async findRecentArticlesByBoard(
+    boardIdList: number[],
+    page: PageRequest,
+  ): Promise<Article[]> {
     return this.createQueryBuilder("article")
       .where("article.board_id IN (:boardIdList)", { boardIdList })
       .leftJoinAndSelect("article.board", "board")
       .orderBy("article.date", "DESC")
       .limit(5)
+      .getMany();
+  }
+
+  async articlePaginator(
+    boardId: number,
+    cursor: number,
+    pageSize: number,
+  ): Promise<Article[]> {
+    return this.createQueryBuilder("article")
+      .where("article.board_id = :boardId", { boardId })
+      .andWhere("article.id < :cursor", { cursor })
+      .orderBy("article.date", "DESC")
+      .limit(pageSize)
       .getMany();
   }
 }

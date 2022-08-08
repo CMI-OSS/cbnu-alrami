@@ -5,7 +5,6 @@ import {
   DeepPartial,
   DeleteResult,
   FindConditions,
-  FindManyOptions,
   FindOneOptions,
   ObjectLiteral,
 } from "typeorm";
@@ -29,10 +28,9 @@ export class AdminService {
     return res;
   }
 
-  async find(query: FindManyOptions<Admin>): Promise<Admin[]> {
+  async find(): Promise<Admin[]> {
     const res = await this.adminRepository.find({
       select: [ "loginId", "nickname", "authority" ],
-      ...query,
     });
     return res;
   }
@@ -61,7 +59,7 @@ export class AdminService {
     });
     const admin = this.adminRepository.create(adminCreateDto);
     if (!admin) throw DB_ERROR;
-    admin.save();
+    await admin.save();
     return admin;
   }
 

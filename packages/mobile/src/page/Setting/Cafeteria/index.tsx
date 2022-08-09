@@ -1,24 +1,22 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import BorderBox from "src/components/atoms/BorderBox";
 import { Food } from "src/components/atoms/icon";
 import RadioSelect from "src/components/molecules/RadioSelect";
 import SettingTemplate from "src/page/Setting/SettingTemplate";
 
+import { cafeterias } from "../Main/constants";
 import $ from "./style.module.scss";
 
-const cafeterias = [
-  "표시 안함",
-  "본관",
-  "양성재",
-  "양진재",
-  "별빛식당",
-  "은하수식당",
-  "한빛식당",
-];
-
 function Cafeteria() {
-  const [ representative, setRepresentative ] = useState("표시 안함");
+  const representativeCafeteria =
+    localStorage.getItem("representativeCafeteria") || "표시 안함";
+  const [ representative, setRepresentative ] = useState(representativeCafeteria);
+
+  const handleRepresentative = useCallback((label: string) => {
+    setRepresentative(label);
+    localStorage.setItem("representativeCafeteria", label);
+  }, []);
 
   return (
     <SettingTemplate title="대표식당">
@@ -39,7 +37,7 @@ function Cafeteria() {
               label={label}
               className={$["radio-select"]}
               isChecked={representative === label}
-              handleChange={setRepresentative}
+              handleChange={handleRepresentative}
             />
           );
         })}

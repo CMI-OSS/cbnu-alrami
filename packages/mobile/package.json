@@ -32,6 +32,7 @@
     "classnames": "^2.3.1",
     "file-loader": "^6.2.0",
     "qs": "^6.11.0",
+    "react-device-detect": "^2.2.2",
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.2.2",
     "redux-logger": "^3.0.6",

@@ -1,4 +1,5 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { isAndroid, isIOS } from "react-device-detect";
 import { Link, useSearchParams } from "react-router-dom";
 
 import Footer from "@components/molecules/Footer";
@@ -18,6 +19,13 @@ import $ from "./style.module.scss";
 function Home() {
   const [ searchParams ] = useSearchParams();
   const noti = searchParams.get("noti") || "popular";
+  const [ data, setData ] = useState(true);
+  const onMessageHandler = (e: any) => {
+    const event = JSON.parse(e.data);
+    setData(e.data); // Todo: uuid 보내는 api 연결
+    localStorage.setItem("item", JSON.stringify(event));
+  };
+
   const {
     data: popularArticleData,
     isLoading: popularArticleLoading,
@@ -31,6 +39,17 @@ function Home() {
   const today = useMemo(() => {
     return dayjs();
   }, []);
+
+  useEffect(() => {
+    if (window.ReactNativeWebView) {
+      if (isAndroid) {
+        document.addEventListener("message", onMessageHandler);
+      }
+      if (isIOS) {
+        window.addEventListener("message", onMessageHandler);
+      }
+    }
+  }, [ data ]);
 
   if (popularArticleLoading || scheduleLoading) return <div>로딩중입니다.</div>;
   if (popularArticleError || scheduleError)

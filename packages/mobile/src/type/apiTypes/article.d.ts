@@ -37,6 +37,16 @@ declare namespace res {
   };
 }
 
+// [
+//   {
+//     "id": 315,
+//     "boardName": "학부공지",
+//     "title": "[공지] 2022-2 1학년 지정반 수업시간표 안내",
+//     "date": "2022-07-25T00:00:00.000Z",
+//     "hits": 0,
+//     "scraps": 1
+//   },
+
 declare namespace req {
   type Pagination = {
     pageNo: number;

@@ -1,4 +1,10 @@
 .notification-list {
   width: 100%;
+  padding: 115px 0 68px 0;
   margin-top: 8px;
+}
+
+.empty-img {
+  padding-top: 50%;
+  object-fit: scale-down;
 }

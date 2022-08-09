@@ -15,7 +15,7 @@ function Category() {
         className={({ isActive }) => {
           return classNames($.category, { [$.active]: isActive });
         }}
-        to="?type=즐겨찾기"
+        to="?type=bookmark"
       >
         <Star size={12} stroke="#5e5e5e" fill="#5e5e5e" />
       </NavLink>
@@ -23,7 +23,7 @@ function Category() {
         className={({ isActive }) => {
           return classNames($.category, { [$.active]: isActive });
         }}
-        to="?type=최신"
+        to="?type=new"
       >
         최신
       </NavLink>
@@ -31,7 +31,7 @@ function Category() {
         className={({ isActive }) => {
           return classNames($.category, { [$.active]: isActive });
         }}
-        to="?type=인기"
+        to="?type=popular"
       >
         인기
       </NavLink>
@@ -39,13 +39,14 @@ function Category() {
         return (
           <NavLink
             key={category.id}
-            to={`?major=${category.name}`}
+            to={`?major=${category.id}`}
             className={({ isActive }) => {
               return classNames($.category, { [$.active]: isActive });
             }}
           >
-            {category.parents.length ? `${category.parents[0].name} - ` : ""}
-            {category.name}
+            {category.parents.length
+              ? `${category.parents[0].name} - ${category.name}`
+              : category.name}
           </NavLink>
         );
       })}

@@ -15,15 +15,17 @@ export const usePopularArticles = () => {
   return response;
 };
 
-export const fetchArticlesByBoard = (boardId: number) => {
-  return caxios.get<res.ArticleByBoard[]>(`/boards/${boardId}/articles`);
+export const fetchArticlesByBoard = (boardId: number, data: req.Pagination) => {
+  return caxios.get<res.ArticleByBoard>(`/boards/${boardId}/articles`, {
+    data,
+  });
 };
 
-export const useArticlesByBoard = (boardId: number) => {
-  const response = useQuery<AxiosResponse<res.ArticleByBoard[]>, Error>(
+export const useArticlesByBoard = (boardId: number, data: req.Pagination) => {
+  const response = useQuery<AxiosResponse<res.ArticleByBoard>, Error>(
     [ "articles", boardId ],
     () => {
-      return fetchArticlesByBoard(boardId);
+      return fetchArticlesByBoard(boardId, data);
     },
   );
   return response;

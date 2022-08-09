@@ -4,8 +4,9 @@ import Notification from "src/page/Notice/Notification";
 import $ from "./style.module.scss";
 
 function NotificationList() {
-  const { data: articleByBoardIdData } = useArticlesByBoard(1);
-  const articleByBoardId = articleByBoardIdData?.data.map((data) => {
+  const { data } = useArticlesByBoard(1, { pageNo: 2 });
+  const articleByBoardIdData = data?.data.contents;
+  const articleByBoardId = articleByBoardIdData?.map((data) => {
     const { id, title, hits, scraps, dates } = data;
     const breadcrumb = `${data.board.parent?.name} > ${data.board.name}`;
     return {
@@ -24,6 +25,7 @@ function NotificationList() {
       })}
     </div>
   );
+  return <div>hi</div>;
 }
 
 export default NotificationList;

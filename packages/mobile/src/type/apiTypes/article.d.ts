@@ -9,12 +9,17 @@ declare namespace res {
     parent?: Board;
   };
   type ArticleByBoard = {
-    id: number;
-    board: Board;
-    title: string;
-    hits: number;
-    scraps: number;
-    dates: string;
+    pagination: {
+      isEnd: boolean;
+    };
+    contents: {
+      id: number;
+      board: Board;
+      title: string;
+      hits: number;
+      scraps: number;
+      dates: string;
+    }[];
   };
   type Image = {
     id: number;
@@ -29,5 +34,11 @@ declare namespace res {
     scraps: number;
     date: string;
     images: Image[];
+  };
+}
+
+declare namespace req {
+  type Pagination = {
+    pageNo: number;
   };
 }

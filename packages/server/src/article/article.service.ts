@@ -175,7 +175,6 @@ export class ArticleService {
     // DESCRIBE: 각 article에 대해 조회수, 스크랩 수 카운트
     response = await Promise.all(
       response.map(async (article) => {
-        console.log({ article });
         const board: BoardTreeResponseDto =
           await this.boardTreeService.getBoardTree(article.boardId);
         const hitCnt = await this.hitRepository.countByArticle(article.id);
@@ -347,7 +346,7 @@ export class ArticleService {
   async findSubscribeArticles(
     user: User,
     pageRequest: PageRequest,
-  ): Promise<PageResponse<ArticleListInfoDto[]>> {
+  ): Promise<PageResponse<ArticleDetailInfoDto[]>> {
     const boardIdList = await this.subscribeService.findBoardByUser(user.id);
     const articleList = await this.articleByBoardPaginator(
       boardIdList,
@@ -359,12 +358,14 @@ export class ArticleService {
 
     const response = await Promise.all(
       articleList.map(async (article) => {
+        const board: BoardTreeResponseDto =
+          await this.boardTreeService.getBoardTree(article.board.id);
         const hitCnt = await this.hitRepository.count({ article });
         const bookmarkCnt = await this.bookmarkRepository.count({ article });
 
-        return Builder(ArticleListInfoDto)
+        return Builder(ArticleDetailInfoDto)
           .id(article.id)
-          .boardName(article.board.name)
+          .board(board)
           .title(article.title)
           .date(article.date)
           .hits(hitCnt)

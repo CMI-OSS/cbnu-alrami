@@ -6,7 +6,7 @@ import {
   Param,
   Post,
   Put,
-  UseGuards
+  UseGuards,
 } from "@nestjs/common";
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Builder } from "builder-pattern";
@@ -26,7 +26,7 @@ import {
   ArticleDetailInfoDto,
   ArticleDto,
   ArticleListInfoDto,
-  ArticleResponseDto
+  ArticleResponseDto,
 } from "./dtos/article.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
@@ -197,7 +197,7 @@ export class ArticleController {
   @ApiResponse({
     status: 200,
     description: "공지사항 정보",
-    type: ArticleListInfoDto,
+    type: ArticleDetailInfoDto,
     isArray: true,
   })
   @ApiHeader({

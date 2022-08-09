@@ -1,20 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Admin } from "src/commons/entities/admin.entity";
-import {
-  DeepPartial,
-  DeleteResult,
-  FindConditions,
-  FindOneOptions,
-  ObjectLiteral,
-} from "typeorm";
+import { FindOneOptions } from "typeorm";
 
 import { errors } from "../commons/error";
-import { AdminCreateDto } from "./dto/adminCreate.dto";
+import { AdminCreateDto } from "./dto/admin-create.dto";
+import { AdminUpdateDto } from "./dto/admin-update.dto";
 import { AdminRepository } from "./repository/admin.repository";
 
-const { ADMIN_NOT_FOUND, NICKNAME_DUPLICATED, LOGIN_ID_DUPLICATED, DB_ERROR } =
-  errors;
+const { ADMIN_NOT_FOUND, NICKNAME_DUPLICATED, LOGIN_ID_DUPLICATED } = errors;
 
 @Injectable()
 export class AdminService {
@@ -35,46 +29,38 @@ export class AdminService {
     return res;
   }
 
-  async delete(query: FindConditions<Admin>): Promise<DeleteResult> {
-    const res = await this.adminRepository.delete(query);
-    if (!res.raw) throw ADMIN_NOT_FOUND;
-    return res;
-  }
+  async create(adminCreateDto: AdminCreateDto): Promise<number> {
+    const { loginId, nickname } = adminCreateDto;
 
-  async create(adminCreateDto: AdminCreateDto): Promise<Admin> {
-    const foundAdmins = await this.adminRepository.find({
+    const admins = await this.adminRepository.find({
       where: [
         { loginId: adminCreateDto.loginId },
         { nickname: adminCreateDto.nickname },
       ],
     });
-    foundAdmins.forEach((foundAdmin) => {
-      if (foundAdmin.loginId === adminCreateDto.loginId)
-        throw LOGIN_ID_DUPLICATED;
+
+    admins.forEach((admin) => {
+      if (admin.loginId === loginId) throw LOGIN_ID_DUPLICATED;
     });
-    // DB조회를 줄이기 위해 이렇게 했습니다.
-    foundAdmins.forEach((foundAdmin) => {
-      if (foundAdmin.nickname === adminCreateDto.nickname)
-        throw NICKNAME_DUPLICATED;
+    admins.forEach((admin) => {
+      if (admin.nickname === nickname) throw NICKNAME_DUPLICATED;
     });
-    const admin = this.adminRepository.create(adminCreateDto);
-    if (!admin) throw DB_ERROR;
-    await admin.save();
-    return admin;
+    const adminEntity = await this.adminRepository.create(adminCreateDto);
+    const { id } = await this.adminRepository.save(adminEntity);
+
+    return id;
   }
 
-  async update(
-    query: FindConditions<Admin>,
-    adminDto: DeepPartial<AdminCreateDto>,
-  ): Promise<ObjectLiteral[]> {
-    const updateResult = await this.adminRepository.update(query, adminDto);
-    if (!updateResult.raw) throw DB_ERROR;
-    return updateResult.generatedMaps;
+  async update(adminId: number, adminUpdateDto: AdminUpdateDto) {
+    const { loginId, nickname, authority } = adminUpdateDto;
+    await this.adminRepository.update(adminId, {
+      loginId,
+      nickname,
+      authority,
+    });
   }
 
-  async findById(id: number): Promise<Admin> {
-    const admin = await this.adminRepository.findOne({ id });
-    if (!admin) throw ADMIN_NOT_FOUND;
-    return admin;
+  async delete(adminId: number): Promise<void> {
+    await this.adminRepository.delete({ id: adminId });
   }
 }

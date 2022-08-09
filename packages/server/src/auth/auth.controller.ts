@@ -1,15 +1,26 @@
-import { Body, Controller, Inject, Post } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Inject,
+  Patch,
+  Post,
+  UseGuards,
+} from "@nestjs/common";
 import {
   ApiBody,
   ApiCreatedResponse,
   ApiOperation,
   ApiTags,
 } from "@nestjs/swagger";
-import { AdminCreateDto } from "src/admin/dto/adminCreate.dto";
+import { AdminCreateDto } from "src/admin/dto/admin-create.dto";
 
+import { AdminSession } from "../commons/decorators/admin-session.decorator";
+import { Admin } from "../commons/entities/admin.entity";
+import { AdminCouncilGuard } from "../commons/guards/admin-council.guard";
 import { AuthService } from "./auth.service";
-import { AdminLoginDto } from "./dto/adminLogin.dto";
+import { AdminLoginDto } from "./dto/admin-login.dto";
 import { TokenDto } from "./dto/token.dto";
+import { UpdatePasswordDto } from "./dto/update-password.dto";
 
 @Controller("auth")
 @ApiTags("[auth] 인증 API")
@@ -48,5 +59,16 @@ export class AuthController {
   })
   async adminLogin(@Body() admin: AdminLoginDto): Promise<TokenDto> {
     return this.authService.adminLogin(admin);
+  }
+
+  @Patch()
+  @UseGuards(AdminCouncilGuard)
+  async updatePassword(
+    @Body() updatePasswordDto: UpdatePasswordDto,
+    @AdminSession() admin: Admin,
+  ) {
+    const { loginId } = admin;
+
+    return this.authService.updatePassword(loginId, updatePasswordDto);
   }
 }

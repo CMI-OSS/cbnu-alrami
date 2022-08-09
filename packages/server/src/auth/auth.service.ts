@@ -3,22 +3,25 @@ import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcrypt";
 import { AdminService } from "src/admin/admin.service";
-import { AdminCreateDto } from "src/admin/dto/adminCreate.dto";
+import { AdminCreateDto } from "src/admin/dto/admin-create.dto";
 import { errors } from "src/commons/error";
 import { UserService } from "src/user/user.service";
 
-import { AdminCredential } from "./dto/adminCredential.dto";
-import { AdminLoginDto } from "./dto/adminLogin.dto";
+import { AdminRepository } from "../admin/repository/admin.repository";
+import { AdminCredential } from "./dto/admin-credential.dto";
+import { AdminLoginDto } from "./dto/admin-login.dto";
 import { TokenDto } from "./dto/token.dto";
+import { UpdatePasswordDto } from "./dto/update-password.dto";
 
 const { LOGIN_INFO_NOT_FOUND } = errors;
 
 @Injectable()
 export class AuthService {
   constructor(
-    private userService: UserService,
-    private adminService: AdminService,
-    private jwtService: JwtService,
+    private readonly userService: UserService,
+    private readonly adminService: AdminService,
+    private readonly jwtService: JwtService,
+    private readonly adminRepository: AdminRepository,
   ) {}
 
   private static matchPassword(
@@ -49,7 +52,7 @@ export class AuthService {
   }: AdminLoginDto): Promise<AdminCredential> {
     const { password: hashedPassword, ...admin } =
       await this.adminService.findOne({
-        select: [ "id", "authority", "nickname", "password" ],
+        select: [ "id", "loginId", "authority", "nickname", "password" ],
         where: { loginId },
       });
 
@@ -60,7 +63,14 @@ export class AuthService {
     return admin;
   }
 
-  // modifyPassword(newPassword:string, entityPassword:string): boolean{
-  //   return true;
-  // }
+  async updatePassword(loginId: string, updatePasswordDto: UpdatePasswordDto) {
+    const { newPassword, password } = updatePasswordDto;
+
+    const { id } = await this.validate({ loginId, password });
+
+    const salt = await bcrypt.genSalt();
+    const hashedNewPassword = await bcrypt.hash(newPassword, salt);
+    
+    await this.adminRepository.update(id, { password: hashedNewPassword });
+  }
 }

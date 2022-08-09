@@ -12,6 +12,5 @@ export const useSubscribeBoards = () => {
     "subscribeBoards",
     fetchSubscribeBoards,
   );
-
   return response;
 };

@@ -1,15 +1,31 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IsNumber, IsOptional } from "class-validator";
 
 export class PageRequest {
   // DESCRIBE: 요청 페이지 인덱스. 디폴트 1
   @IsNumber()
   @IsOptional()
-  pageNo?: number | 1;
+  @ApiProperty({
+    default: 1,
+  })
+  pageNo?: number;
 
   // DESCRIBE: 한 페이지에 나올 데이터 수. 디폴트 15
   @IsNumber()
   @IsOptional()
-  pageSize?: number | 15;
+  @ApiProperty({
+    default: 15,
+  })
+  pageSize?: number;
+
+  constructor(pageNo: number, pageSize: number) {
+    this.pageNo =
+      pageNo < 1 || pageNo === undefined || pageNo === null ? 1 : pageNo;
+    this.pageSize =
+      pageSize < 1 || pageSize === undefined || pageSize === null
+        ? 15
+        : pageSize;
+  }
 
   getOffset(): number {
     if (this.pageNo < 1 || this.pageNo === undefined || this.pageNo === null) {

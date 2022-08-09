@@ -35,11 +35,9 @@ export class ArticleRepository extends Repository<Article> {
   async findPopularArticlesByHit(): Promise<ArticleListDto[]> {
     const entityManager = getManager();
     const findPopularArticles = await entityManager.query(`
-      SELECT id, title
+      SELECT id as id, title as title, board_id as boardId, date as date
       FROM (
-               SELECT article.title,
-                      article.date,
-                      article.id,
+               SELECT article.id, article.board_id, article.title, article.date,
                       COUNT(hit.id) AS count
                FROM hit
                         LEFT JOIN article
@@ -58,14 +56,19 @@ export class ArticleRepository extends Repository<Article> {
   ): Promise<ArticleListDto[]> {
     const afterDate = subWeeks(addHours(new Date(), 9), 2);
     const articles = this.createQueryBuilder("article")
-      .select([ "article.id", "article.title" ])
+      .select([
+        "article.id AS id",
+        "article.title AS title",
+        "article.date AS date",
+        "article.board AS boardId",
+      ])
       .andWhere(idList.length > 0 ? "article.id NOT IN (:...idList)" : "1=1", {
         idList,
       })
       .andWhere("article.date >= :afterDate", { afterDate })
       .orderBy("article.date", "DESC")
       .limit(num)
-      .getMany();
+      .getRawMany();
 
     return articles;
   }

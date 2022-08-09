@@ -2,11 +2,13 @@ import { NavLink } from "react-router-dom";
 
 import { Star } from "@components/atoms/icon";
 import classNames from "classnames";
-import { mockCategory } from "src/__mocks__";
+import { useSubscribeBoards } from "src/api/subscribe";
 
 import $ from "./style.module.scss";
 
 function Category() {
+  const { data: categoryData } = useSubscribeBoards();
+  
   return (
     <div className={$.categories}>
       <NavLink
@@ -34,15 +36,18 @@ function Category() {
         인기
       </NavLink>
 
-      {mockCategory.map((category) => {
+      {categoryData?.data.map((category) => {
         return (
           <NavLink
-            to={category.to}
+            key={category.id}
+            to={`?major=${category.name}`}
             className={({ isActive }) => {
               return classNames($.category, { [$.active]: isActive });
             }}
           >
-            {category.major}
+            {category.parents.length
+              ? `${category.parents[0]?.name} - ${category.name}`
+              : category.name}
           </NavLink>
         );
       })}

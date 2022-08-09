@@ -21,7 +21,7 @@ function NotificationList() {
   return (
     <div className={$["notification-list"]}>
       {articleByBoardId?.map((data) => {
-        return <Notification notification={data} />;
+        return <Notification key={data.id} notification={data} />;
       })}
     </div>
   );

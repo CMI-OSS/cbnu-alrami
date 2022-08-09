@@ -1,14 +1,18 @@
+import { useMemo } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
 import Footer from "@components/molecules/Footer";
+import dayjs from "dayjs";
+import { COLLEGE_SCHEDULES } from "src/__mocks__/schedules";
 import { usePopularArticles } from "src/api/article";
 import { useSchedule } from "src/api/schedule";
 import BorderBox from "src/components/atoms/BorderBox";
-import { LeftArrow, Setting } from "src/components/atoms/icon";
+import { Setting } from "src/components/atoms/icon";
 import Line from "src/components/atoms/Line";
 import Weather from "src/page/Home/Weather";
 
 import Restaurant from "./Restaurant";
+import Schedule from "./Schedule";
 import $ from "./style.module.scss";
 
 function Home() {
@@ -24,6 +28,9 @@ function Home() {
     isLoading: scheduleLoading,
     isError: scheduleError,
   } = useSchedule();
+  const today = useMemo(() => {
+    return dayjs();
+  }, []);
 
   if (popularArticleLoading || scheduleLoading) return <div>로딩중입니다.</div>;
   if (popularArticleError || scheduleError)
@@ -40,19 +47,16 @@ function Home() {
       <header className={$.header}>
         <div className={$["header-content"]}>
           <h1 className={$.title}>충림이</h1>
-          <p>오늘은 총 6개의 일정이 있어요</p>
+          <p>오늘은 총 {COLLEGE_SCHEDULES.length}개의 일정이 있어요</p>
         </div>
         <Link to="/setting">
           <Setting size={24} stroke="#aaa" />
         </Link>
       </header>
       <div className={$.schedule}>
-        {schedules.map((schedule) => {
+        {COLLEGE_SCHEDULES.map(({ id, content, startDate, endDate }) => {
           return (
-            <BorderBox key={schedule.id} width={271} height={101}>
-              <p>{schedule.content}</p>
-              <LeftArrow size={7} stroke="#aaa" />
-            </BorderBox>
+            <Schedule key={id} {...{ content, startDate, endDate, today }} />
           );
         })}
       </div>

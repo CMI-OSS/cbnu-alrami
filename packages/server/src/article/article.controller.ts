@@ -6,7 +6,7 @@ import {
   Param,
   Post,
   Put,
-  UseGuards,
+  UseGuards
 } from "@nestjs/common";
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Builder } from "builder-pattern";
@@ -26,9 +26,8 @@ import {
   ArticleDetailInfoDto,
   ArticleDto,
   ArticleListInfoDto,
-  ArticleResponseDto,
+  ArticleResponseDto
 } from "./dtos/article.dto";
-import { ArticleListDto } from "./dtos/article.list.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
 @Controller()
@@ -163,10 +162,10 @@ export class ArticleController {
   @ApiResponse({
     status: 200,
     description: "공지사항 제목과 id",
-    type: ArticleListDto,
+    type: ArticleDetailInfoDto,
     isArray: true,
   })
-  async findPopularArticles(): Promise<ArticleListDto[]> {
+  async findPopularArticles(): Promise<ArticleDetailInfoDto[]> {
     return this.articleService.findTopArticlesByHit();
   }
 

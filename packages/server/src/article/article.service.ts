@@ -26,7 +26,6 @@ import {
   ArticleListInfoDto,
   ArticleResponseDto,
 } from "./dtos/article.dto";
-import { ArticleListDto } from "./dtos/article.list.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
 const { NO_DATA_IN_DB, ARTICLE_URL_EXISTS } = Errors;
@@ -146,10 +145,10 @@ export class ArticleService {
     return articles;
   }
 
-  async findTopArticlesByHit(): Promise<ArticleListDto[]> {
-    const response = [];
+  async findTopArticlesByHit(): Promise<ArticleDetailInfoDto[]> {
+    let response = [];
 
-    // DESCRIBE: hit 테이블에서 조회수 순으로 상위 5개 공지사항 조회
+    // DESCRIBE: hit 테이블에서 조회수 순으로 상위 15개 공지사항 조회
     const articlesByHit =
       await this.articleRepository.findPopularArticlesByHit();
     response.push(...articlesByHit);
@@ -172,6 +171,28 @@ export class ArticleService {
 
     // DESCRIBE: hit 테이블 조회 결과와 article 테이블 조회 결과 합쳐서 리턴
     if (!Array.isArray(response) || response.length === 0) throw NO_DATA_IN_DB;
+
+    // DESCRIBE: 각 article에 대해 조회수, 스크랩 수 카운트
+    response = await Promise.all(
+      response.map(async (article) => {
+        console.log({ article });
+        const board: BoardTreeResponseDto =
+          await this.boardTreeService.getBoardTree(article.boardId);
+        const hitCnt = await this.hitRepository.countByArticle(article.id);
+        const bookmarkCnt = await this.bookmarkRepository.countByArticle(
+          article.id,
+        );
+        return Builder(ArticleDetailInfoDto)
+          .id(article.id)
+          .board(board)
+          .title(article.title)
+          .hits(hitCnt)
+          .scraps(bookmarkCnt)
+          .date(article.date)
+          .build();
+      }),
+    );
+
     return response;
   }
 

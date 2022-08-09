@@ -5,6 +5,7 @@ import logger from "redux-logger";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
+import cafeteriaReducer from "./cafeteriaSlice";
 import placeReducer from "./placeSlice";
 import settingReducer from "./settingSlice";
 import statusReducer from "./statusSlice";
@@ -17,6 +18,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   place: placeReducer,
   status: statusReducer,
+  cafeteria: cafeteriaReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -26,6 +28,7 @@ export const store = configureStore({
     statusReducer,
     placeReducer,
     settingReducer,
+    cafeteriaReducer,
     persistedReducer,
   },
   middleware: (getDefaultMiddleware) => {

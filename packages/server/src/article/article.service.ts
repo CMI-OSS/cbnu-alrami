@@ -21,11 +21,7 @@ import { Transactional } from "typeorm-transactional-cls-hooked";
 import { FcmService } from "../fcm/fcm.service";
 import { ArticleRepository } from "./article.repository";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
-import {
-  ArticleDetailInfoDto,
-  ArticleListInfoDto,
-  ArticleResponseDto,
-} from "./dtos/article.dto";
+import { ArticleDetailInfoDto, ArticleResponseDto } from "./dtos/article.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
 const { NO_DATA_IN_DB, ARTICLE_URL_EXISTS } = Errors;
@@ -313,7 +309,7 @@ export class ArticleService {
     return true;
   }
 
-  async findBookmarkArticles(user: User): Promise<ArticleListInfoDto[]> {
+  async findBookmarkArticles(user: User): Promise<ArticleDetailInfoDto[]> {
     const response = [];
     const bookmarkList = await this.bookmarkRepository.find({
       where: {
@@ -325,12 +321,14 @@ export class ArticleService {
     await Promise.all(
       bookmarkList.map(async (bookmark) => {
         const { article } = bookmark;
+        const board: BoardTreeResponseDto =
+          await this.boardTreeService.getBoardTree(article.board.id);
         const hitCnt = await this.hitRepository.count({ article });
         const bookmarkCnt = await this.bookmarkRepository.count({ article });
         response.push(
-          Builder(ArticleListInfoDto)
+          Builder(ArticleDetailInfoDto)
             .id(article.id)
-            .boardName(article.board.name)
+            .board(board)
             .title(article.title)
             .date(article.date)
             .hits(hitCnt)

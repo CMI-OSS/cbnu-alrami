@@ -1,11 +1,12 @@
+import { useEffect, useState } from "react";
+import { isAndroid, isIOS } from "react-device-detect";
 import { Link, useSearchParams } from "react-router-dom";
 
 import Footer from "@components/molecules/Footer";
-import { usePopularArticle } from "src/api/article";
+import { usePopularArticles } from "src/api/article";
 import { useSchedule } from "src/api/schedule";
 import BorderBox from "src/components/atoms/BorderBox";
-import { Setting } from "src/components/atoms/icon";
-import { Arrow } from "src/components/atoms/icon/Arrow";
+import { LeftArrow, Setting } from "src/components/atoms/icon";
 import Line from "src/components/atoms/Line";
 import Weather from "src/page/Home/Weather";
 
@@ -15,16 +16,34 @@ import $ from "./style.module.scss";
 function Home() {
   const [ searchParams ] = useSearchParams();
   const noti = searchParams.get("noti") || "popular";
+  const [ data, setData ] = useState(true);
+  const onMessageHandler = (e: any) => {
+    const event = JSON.parse(e.data);
+    setData(e.data); // Todo: uuid 보내는 api 연결
+    localStorage.setItem("item", JSON.stringify(event));
+  };
+
   const {
     data: popularArticleData,
     isLoading: popularArticleLoading,
     isError: popularArticleError,
-  } = usePopularArticle();
+  } = usePopularArticles();
   const {
     data: scheduleData,
     isLoading: scheduleLoading,
     isError: scheduleError,
   } = useSchedule();
+
+  useEffect(() => {
+    if (window.ReactNativeWebView) {
+      if (isAndroid) {
+        document.addEventListener("message", onMessageHandler);
+      }
+      if (isIOS) {
+        window.addEventListener("message", onMessageHandler);
+      }
+    }
+  }, [ data ]);
 
   if (popularArticleLoading || scheduleLoading) return <div>로딩중입니다.</div>;
   if (popularArticleError || scheduleError)
@@ -44,7 +63,7 @@ function Home() {
           <p>오늘은 총 6개의 일정이 있어요</p>
         </div>
         <Link to="/setting">
-          <Setting width="24px" height="25px" />
+          <Setting size={24} stroke="#aaa" />
         </Link>
       </header>
       <div className={$.schedule}>
@@ -52,7 +71,7 @@ function Home() {
           return (
             <BorderBox key={schedule.id} width={271} height={101}>
               <p>{schedule.content}</p>
-              <Arrow width={7} height={25} color="#AAAAAA" />
+              <LeftArrow size={7} stroke="#aaa" />
             </BorderBox>
           );
         })}

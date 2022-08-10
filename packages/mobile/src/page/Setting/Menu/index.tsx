@@ -5,20 +5,17 @@ import { showSettingContact } from "src/store/settingSlice";
 
 import $ from "./style.module.scss";
 
-interface Props {
+type Props = {
   route: {
-    id: number;
-    icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+    icon: any;
     label: string;
     to: string;
-    width: string;
-    height: string;
   };
   config?: string;
-}
+};
 
-export default function SettingMenu({ route, config }: Props) {
-  const { id, label, to, width, height } = route;
+function Menu({ route, config }: Props) {
+  const { label, to } = route;
   const dispatch = useAppDispatch();
 
   const modalList = label === "문의하기";
@@ -32,13 +29,13 @@ export default function SettingMenu({ route, config }: Props) {
   return (
     <>
       <NavLink
-        key={id}
+        key={to}
         to={to}
         className={$["setting-menu"]}
         onClick={handleModalShow}
       >
         <div className={$["icon-box"]}>
-          <route.icon className={$.icon} style={{ width, height }} />
+          <route.icon size={16} stroke="#5e5e5e" />
         </div>
         <span className={$.label}>{label}</span>
         {config && <span className={$.config}>{config}</span>}
@@ -46,3 +43,5 @@ export default function SettingMenu({ route, config }: Props) {
     </>
   );
 }
+
+export default Menu;

@@ -1,30 +1,25 @@
-import type { StyleProps } from "src/type/props";
+import { IconProps } from "src/type/props";
 
-type Props = {
-  width?: string;
-  height?: string;
-} & StyleProps;
-
-function Info({ className, style, width = "10", height = "10" }: Props) {
+function Info({ size, stroke }: IconProps) {
   return (
     <svg
-      className={className}
-      style={style}
-      width={width}
-      height={height}
-      viewBox="0 0 10 10"
+      width={size}
+      height="auto"
+      viewBox="0 0 13 13"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="5" cy="5" r="4.6" stroke="#999999" strokeWidth="0.8" />
       <path
-        d="M5 4.30005V7.30005"
-        stroke="#999999"
-        strokeWidth="0.8"
+        d="M11.9854 6.17568C11.9854 9.29046 9.51344 11.7981 6.48535 11.7981C3.45726 11.7981 0.985352 9.29046 0.985352 6.17568C0.985352 3.06091 3.45726 0.553223 6.48535 0.553223C9.51344 0.553223 11.9854 3.06091 11.9854 6.17568Z"
+        stroke={stroke}
+      />
+      <path
+        d="M6.48535 5.3186V8.99208"
+        stroke={stroke}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <circle cx="5" cy="2.80005" r="0.5" fill="#999999" />
+      <ellipse cx="6.48574" cy="3.48188" rx="0.6" ry="0.612246" fill={stroke} />
     </svg>
   );
 }

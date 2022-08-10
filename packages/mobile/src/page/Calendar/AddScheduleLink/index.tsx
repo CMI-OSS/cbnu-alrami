@@ -1,13 +1,12 @@
 import { NavLink } from "react-router-dom";
 
+import { Plus } from "src/components/atoms/icon";
 import { StyleProps } from "src/type/props";
-
-import { AddSchedule } from "../../../components/atoms/icon";
 
 function AddScheduleLink({ className }: StyleProps) {
   return (
     <NavLink to="" className={className}>
-      <AddSchedule />
+      <Plus size={16} stroke="#aaa" />
     </NavLink>
   );
 }

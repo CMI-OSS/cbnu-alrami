@@ -1,5 +1,5 @@
 @import "@shared/styles/color.scss";
-@import "../../../styles/main.scss";
+@import "../../../styles/main";
 
 .wrap {
   position: relative;
@@ -23,15 +23,14 @@
 
 .button {
   position: fixed;
-  left: 0;
   right: 14px;
   bottom: 14px;
-  text-align: right;
+  display: flex;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
   z-index: 100;
-  background-color: $white;
-
-  svg path {
-    stroke: $white;
-  }
+  border-radius: 50%;
+  background-color: $red-50;
 }
 

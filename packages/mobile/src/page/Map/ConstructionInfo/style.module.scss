@@ -38,18 +38,15 @@
 
 .link {
   display: block;
-}
 
-.text {
-  display: inline-block;
-  @include typography(12);
-  color: $black-40;
-  margin-top: 16px;
-}
+  .text {
+    display: inline-block;
+    margin-top: 16px;
+    @include typography(12);
+    color: $black-40;
+  }
 
-.arrow {
-  display: inline-block;
-  margin-left: 3px;
-  padding-top: 2px;
-  color: $black-40;
+  svg {
+    margin-left: 3px;
+  }
 }

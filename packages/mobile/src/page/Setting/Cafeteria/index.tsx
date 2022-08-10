@@ -17,13 +17,13 @@ const cafeterias = [
   "한빛식당",
 ];
 
-export default function SettingCafeteria() {
+function Cafeteria() {
   const [ representative, setRepresentative ] = useState("표시 안함");
 
   return (
     <SettingTemplate title="대표식당">
       <div className={$["setting-cafeteria"]}>
-        <Food width="32px" height="37.33px" />
+        <Food size={32} stroke="#aaa" />
         <span className={$.text}>
           홈화면에 표시할
           <br />
@@ -47,3 +47,5 @@ export default function SettingCafeteria() {
     </SettingTemplate>
   );
 }
+
+export default Cafeteria;

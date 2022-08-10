@@ -1,12 +1,12 @@
 import React from "react";
 
-import Modal from "src/components/templates/Modal";
+import Modal from "@components/templates/Modal";
 import { useAppDispatch } from "src/store";
 import { showSettingContact } from "src/store/settingSlice";
 
 import $ from "./style.module.scss";
 
-export default function SettingContact() {
+function Contact() {
   const dispatch = useAppDispatch();
 
   const handleModalClose = (e: React.MouseEvent) => {
@@ -26,3 +26,5 @@ export default function SettingContact() {
     </Modal>
   );
 }
+
+export default Contact;

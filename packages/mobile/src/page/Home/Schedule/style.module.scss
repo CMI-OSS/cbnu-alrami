@@ -1,0 +1,34 @@
+@import "src/styles/main.scss";
+@import "@shared/styles/mixin.scss";
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 270px;
+  padding: 0 20px;
+  margin: 0 23px 35px 0;
+
+  .schedule-name {
+    width: 195px;
+    @include ellipsis(2);
+    @include typography(16);
+    font-weight: 500;
+    line-height: 23px;
+    color: $black-80;
+  }
+
+  .long-schedule-name {
+    font-size: 14px;
+  }
+
+  .period {
+    margin-top: 9px;
+    @include typography(12);
+    color: $black-40;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}

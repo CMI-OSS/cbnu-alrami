@@ -2,7 +2,7 @@ import { Calendar } from "calendar";
 import dayjs, { Dayjs } from "dayjs";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
-import { PERSONAL_SCHEDULES } from "src/__mocks__/schedules";
+import { BOOKMARK_SCHEDULES } from "src/__mocks__/schedules";
 import { Schedule } from "src/page/Calendar";
 import { flatten } from "underscore";
 
@@ -17,7 +17,7 @@ export const MINIMUM_DATE = 1;
 export const DAY = [ "일", "월", "화", "수", "목", "금", "토" ] as const;
 
 export const fetchBookmarkSchedules = () => {
-  return PERSONAL_SCHEDULES.map(
+  return BOOKMARK_SCHEDULES.map(
     ({ isHoliyday, startDate, endDate, ...last }) => {
       return {
         isHoliyday: !!isHoliyday,

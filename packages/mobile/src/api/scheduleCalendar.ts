@@ -12,7 +12,9 @@ const fetchSchedules = (year: number) => {
 export const useScheduleCalendar = (year: number) => {
   const response = useQuery<AxiosResponse<res.Schedule[]>, Error>(
     "schedule",
-    () => fetchSchedules(year),
+    () => {
+      return fetchSchedules(year);
+    },
   );
   return response;
 };

@@ -7,13 +7,13 @@ function useAllSchedules(year: number) {
   if (isLoading || scheduleData === undefined || error) return [];
   // TODO: 에러 핸들링 구현하기
 
-  return scheduleData.data.map(
-    ({ isHoliday, startDate, endDate, ...last }) => ({
+  return scheduleData.data.map(({ isHoliday, startDate, endDate, ...last }) => {
+    return {
       isHoliyday: !!isHoliday,
       startDate: dayjs(startDate),
       endDate: endDate ? dayjs(endDate) : null,
       ...last,
-    }),
-  );
+    };
+  });
 }
 export default useAllSchedules;

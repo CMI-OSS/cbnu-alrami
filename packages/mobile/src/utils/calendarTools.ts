@@ -2,8 +2,8 @@ import { Calendar } from "calendar";
 import dayjs, { Dayjs } from "dayjs";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
-import { Schedule } from "src/page/Calendar";
 import { PERSONAL_SCHEDULES } from "src/__mocks__/schedules";
+import { Schedule } from "src/page/Calendar";
 import { flatten } from "underscore";
 
 dayjs.extend(isSameOrAfter);
@@ -16,14 +16,18 @@ export const MINIMUM_MONTH = 0;
 export const MINIMUM_DATE = 1;
 export const DAY = [ "일", "월", "화", "수", "목", "금", "토" ] as const;
 
-
-export const fetchBookmarkSchedules = () =>
-  PERSONAL_SCHEDULES.map(({ isHoliyday, startDate, endDate, ...last }) => ({
-    isHoliyday: !!isHoliyday,
-    startDate: dayjs(startDate),
-    endDate: endDate ? dayjs(endDate) : null,
-    ...last,
-  }));
+export const fetchBookmarkSchedules = () => {
+  return PERSONAL_SCHEDULES.map(
+    ({ isHoliyday, startDate, endDate, ...last }) => {
+      return {
+        isHoliyday: !!isHoliyday,
+        startDate: dayjs(startDate),
+        endDate: endDate ? dayjs(endDate) : null,
+        ...last,
+      };
+    },
+  );
+};
 
 export const filterTodaySchedules = (
   selected: Dayjs,
@@ -54,8 +58,9 @@ export const getDatePeriod = (startDate: Dayjs, endDate: Dayjs | null) => {
   return period;
 };
 
-const getTimeFormat = (date: Dayjs) =>
-  {return date.format("a[ ]h[:]mm").replace("am", "오전").replace("pm", "오후")};
+const getTimeFormat = (date: Dayjs) => {
+  return date.format("a[ ]h[:]mm").replace("am", "오전").replace("pm", "오후");
+};
 
 export const getTimePeriod = (
   startDate: Dayjs,
@@ -78,9 +83,9 @@ export const getCalendarMap = (
   schedules: Schedule[],
 ) => {
   const calendarInstance = new Calendar();
-  const calendar2D = calendarInstance.monthDates(year, month, (date) =>
-    {return dayjs(date)},
-  );
+  const calendar2D = calendarInstance.monthDates(year, month, (date) => {
+    return dayjs(date);
+  });
   const calendar1D = flatten(calendar2D);
   const calendarMap = calendar1D.map((date) => {
     for (let i = 0; i < schedules.length; i += 1) {
@@ -103,5 +108,6 @@ export const getCalendarMap = (
   return calendarMap;
 };
 
-export const caculateDateNum = (year: number, month: number) =>
-  {return dayjs().year(year).month(month).date(0).date()};
+export const caculateDateNum = (year: number, month: number) => {
+  return dayjs().year(year).month(month).date(0).date();
+};

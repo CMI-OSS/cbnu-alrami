@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import Footer from "@components/molecules/Footer";
+import useSearch from "@hooks/useSearch";
 import { Setting } from "src/components/atoms/icon";
 import Category from "src/page/Notice/Category";
 
@@ -8,6 +9,8 @@ import NotificationList from "./NotificationList";
 import $ from "./style.module.scss";
 
 function Notice() {
+  const target = useSearch({ target: "type" }) || "new";
+
   return (
     <section className={$.notice}>
       <div className={$["header-wrapper"]}>
@@ -17,10 +20,10 @@ function Notice() {
             <Setting size={20} stroke="#aaa" />
           </Link>
         </header>
-        <Category />
+        <Category target={target} />
       </div>
       <div className={$["notification-list-wrapper"]}>
-        <NotificationList />
+        <NotificationList target={target} />
       </div>
       <Footer />
     </section>

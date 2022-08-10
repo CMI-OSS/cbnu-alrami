@@ -6,31 +6,29 @@ import { useSubscribeBoards } from "src/api/subscribe";
 
 import $ from "./style.module.scss";
 
-function Category() {
+type Props = {
+  target: string;
+};
+
+function Category({ target }: Props) {
   const { data: categoryData } = useSubscribeBoards();
 
   return (
     <div className={$.categories}>
       <NavLink
-        className={({ isActive }) => {
-          return classNames($.category, { [$.active]: isActive });
-        }}
+        className={classNames($.category, target === "bookmark" && $.active)}
         to="?type=bookmark"
       >
         <Star size={12} stroke="#5e5e5e" fill="#5e5e5e" />
       </NavLink>
       <NavLink
-        className={({ isActive }) => {
-          return classNames($.category, { [$.active]: isActive });
-        }}
+        className={classNames($.category, target === "new" && $.active)}
         to="?type=new"
       >
         최신
       </NavLink>
       <NavLink
-        className={({ isActive }) => {
-          return classNames($.category, { [$.active]: isActive });
-        }}
+        className={classNames($.category, target === "popular" && $.active)}
         to="?type=popular"
       >
         인기
@@ -39,10 +37,11 @@ function Category() {
         return (
           <NavLink
             key={category.id}
-            to={`?major=${category.id}`}
-            className={({ isActive }) => {
-              return classNames($.category, { [$.active]: isActive });
-            }}
+            to={`?type=${category.id}`}
+            className={classNames(
+              $.category,
+              Number(target) === category.id && $.active,
+            )}
           >
             {category.parents.length
               ? `${category.parents[0].name} - ${category.name}`

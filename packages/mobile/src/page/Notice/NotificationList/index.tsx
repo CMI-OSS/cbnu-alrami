@@ -1,4 +1,3 @@
-import useSearch from "@hooks/useSearch";
 import {
   useArticlesByBoard,
   useBookmarkArticles,
@@ -42,12 +41,14 @@ const useNotifications = (target: string) => {
   });
 };
 
-function NotificationList() {
-  const type = useSearch({ target: "type" }) as "bookmark" | "new" | "popular";
-  const major = useSearch({ target: "major" });
-  const notifications = useNotifications(type || major);
+type Props = {
+  target: string;
+};
 
-  if (!notifications?.length && type === "bookmark") {
+function NotificationList({ target }: Props) {
+  const notifications = useNotifications(target!);
+
+  if (!notifications?.length && target === "bookmark") {
     return (
       <img
         className={$["empty-img"]}
@@ -57,7 +58,7 @@ function NotificationList() {
     );
   }
 
-  if (!notifications?.length && type === "new") {
+  if (!notifications?.length && target === "new") {
     return (
       <img
         className={$["empty-img"]}

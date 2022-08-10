@@ -5,6 +5,37 @@ declare namespace res {
     latitude: number;
     longtitude: number;
     address: string;
-    school: string;
+    school: {
+      id: number;
+      createdAt: string;
+      buildingNumber: string;
+      oldBuildingNumber: string;
+      area: string;
+    };
+  };
+  type SchoolById = {
+    id: number;
+    createdAt: string;
+    type: string;
+    name: string;
+    latitude: number;
+    longtitude: number;
+    address: string;
+    contact: string;
+    description: string;
+    tags: string;
+    school: {
+      id: number;
+      createdAt: string;
+      buildingNumber: string;
+      oldBuildingNumber: string;
+      area: string;
+    };
+    images: SchoolImage[];
+  };
+  type SchoolImage = {
+    id: number;
+    createdAt: string;
+    url: string;
   };
 }

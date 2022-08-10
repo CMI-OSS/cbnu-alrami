@@ -28,14 +28,7 @@ const makeMarker = (map: naver.maps.Map, position: naver.maps.LatLng) => {
 function Map() {
   const CBNU_LATITUDE = 36.62850496903595;
   const CBNU_LONGITUDE = 127.45731862757414;
-  const { data: schoolData } = useSchool();
-
-  const schoolDatas = schoolData!.data;
-
-  const { isDisplayFloatingButton, isDisplayTooltip, isConstructionTooltip } =
-    useAppSelector((state) => {
-      return state.statusReducer.map;
-    });
+  const [ constructionId, setConstructionId ] = useState(9);
   const [ myLocation, setMyLocation ] = useState({ latitude: 0, longitude: 0 });
   const dispatch = useAppDispatch();
 
@@ -48,18 +41,23 @@ function Map() {
     );
   };
 
+  const { isDisplayFloatingButton, isDisplayTooltip, isConstructionTooltip } =
+    useAppSelector((state) => {
+      return state.statusReducer.map;
+    });
+
   const success = (position: GeolocationPosition) => {
     setMyLocation((previousState: any) => {
       return {
         latitude: comparePosition(
-          previousState.latitude,
-          previousState.longitude,
+          position.coords.latitude,
+          position.coords.longitude,
         )
           ? position.coords.latitude
           : CBNU_LATITUDE,
         longitude: comparePosition(
-          previousState.latitude,
-          previousState.longitude,
+          position.coords.latitude,
+          position.coords.longitude,
         )
           ? position.coords.longitude
           : CBNU_LONGITUDE,
@@ -71,11 +69,19 @@ function Map() {
     alert("현재 위치를 알 수 없습니다.");
   };
 
+  const {
+    data: schoolData,
+    isLoading: schoolLoading,
+    isError: schoolError,
+  } = useSchool();
+
   useEffect(() => {
     const initMap = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success, error);
       }
+      dispatch(hideConstructionTooltipStatus({ isConstructionTooltip: false }));
+      dispatch(hideFloatingButtonStatus({ isDisplayFloatingButton: true }));
     };
     initMap();
   }, []);
@@ -90,20 +96,25 @@ function Map() {
         position: naver.maps.Position.TOP_RIGHT,
       },
     });
-    schoolDatas.forEach((place) => {
-      const marker = makeMarker(
-        map,
-        new naver.maps.LatLng(place.latitude, place.longtitude),
-      );
-      naver.maps.Event.addListener(marker, "click", (e) => {
-        map.panTo(e.coord, { duration: 300, easing: "easeOutCubic" });
-        e.domEvent.stopPropagation();
-        dispatch(hideFloatingButtonStatus({ isDisplayFloatingButton: false }));
-        dispatch(
-          hideConstructionTooltipStatus({ isConstructionTooltip: true }),
+    if (!schoolLoading) {
+      schoolData!.data.forEach((place) => {
+        const marker = makeMarker(
+          map,
+          new naver.maps.LatLng(place.latitude, place.longtitude),
         );
+        naver.maps.Event.addListener(marker, "click", (e) => {
+          map.panTo(e.coord, { duration: 300, easing: "easeOutCubic" });
+          e.domEvent.stopPropagation();
+          setConstructionId(place.id);
+          dispatch(
+            hideFloatingButtonStatus({ isDisplayFloatingButton: false }),
+          );
+          dispatch(
+            hideConstructionTooltipStatus({ isConstructionTooltip: true }),
+          );
+        });
       });
-    });
+    }
   }, [ myLocation ]);
 
   return (
@@ -143,7 +154,7 @@ function Map() {
           </NavLink>
         </div>
       )}
-      {isConstructionTooltip && <ConstructionInfo />}
+      {isConstructionTooltip && <ConstructionInfo placeId={constructionId} />}
       <Footer />
     </div>
   );

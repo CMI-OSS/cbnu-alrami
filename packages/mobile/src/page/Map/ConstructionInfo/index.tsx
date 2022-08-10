@@ -9,12 +9,12 @@ import $ from "./style.module.scss";
 type Props = {
   placeId: number;
 };
-function ConstructionInfo(placeId: Props) {
+function ConstructionInfo({ placeId }: Props) {
   const {
     data: schoolData,
     isLoading: schoolLoading,
     isError: schoolError,
-  } = useSchoolById(placeId.placeId);
+  } = useSchoolById(placeId);
   let schoolPlaceData;
   if (!schoolLoading) {
     schoolPlaceData = schoolData!.data;

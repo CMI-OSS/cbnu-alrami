@@ -23,7 +23,7 @@ function NoticeDetail() {
           <div className={$.header}>
             <h1 className={$.title}>{notice.title}</h1>
             <div className={$.detail}>
-              <span className={$.dates}>
+              <span className={$.date}>
                 {dayjs(notice.date).format("YY-MM-DD")}&nbsp;/&nbsp;
               </span>
               <span className={$.hits}>

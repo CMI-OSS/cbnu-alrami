@@ -1,5 +1,10 @@
 import useSearch from "@hooks/useSearch";
-import { useArticlesByBoard } from "src/api/article";
+import {
+  useArticlesByBoard,
+  useBookmarkArticles,
+  useNewArticles,
+  usePopularArticles,
+} from "src/api/article";
 import guideEmptyBookmark from "src/assets/guide_empty_bookmark.png";
 import guideEmptySubscription from "src/assets/guide_empty_subscription.png";
 import Notification from "src/page/Notice/Notification";
@@ -7,38 +12,33 @@ import Notification from "src/page/Notice/Notification";
 import $ from "./style.module.scss";
 
 const useNotifications = (target: string) => {
-  let articles;
-  if (target === "bookmark") {
-    articles = [];
-    return articles;
+  if (target === "bookmark" || target === "popular") {
+    const { data: articlesData } =
+      target === "bookmark" ? useBookmarkArticles() : usePopularArticles();
+    return articlesData?.data.map((data) => {
+      return {
+        ...data,
+        breadcrumb: data.board.parent
+          ? `${data.board.parent.name} > ${data.board.name}`
+          : data.board.name,
+      };
+    });
   }
-  if (target === "new") {
-    articles = [];
-    return articles;
-  }
-  if (target === "popular") {
-    articles = [
-      {
-        id: 1,
-        title: "popular",
-        dates: "2022-02-02",
-        hits: 333,
-        breadcrumb: "a>b",
-        scraps: 3,
-      },
-    ];
-    return articles;
-  }
-  const { data } = useArticlesByBoard(Number(target), { pageNo: 2 });
-  articles = data?.data.contents?.map((data) => {
+  const { data: articlesData } =
+    target === "new"
+      ? useNewArticles({ pageNo: 2 })
+      : useArticlesByBoard(Number(target), {
+          pageNo: 2,
+        });
+
+  return articlesData?.data.contents?.map((data) => {
     return {
       ...data,
       breadcrumb: data.board.parent
-        ? `${data.board.parent} >${data.board.name}`
+        ? `${data.board.parent.name} > ${data.board.name}`
         : data.board.name,
     };
   });
-  return articles;
 };
 
 function NotificationList() {

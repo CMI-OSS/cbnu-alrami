@@ -1,7 +1,8 @@
 const COLLEGE_SCHEDULES = [
   {
     id: 0,
-    content: "학사일정",
+    content:
+      "학사일정 학사일정학사일정학사일정학사일정학사일정학사일정학사일정학사일정학사일정학사일정학사일정학사일정학사일정학사일정",
     priority: 0,
     isHoliyday: 0 as const,
     startDate: "2022-05-30T00:00:00",

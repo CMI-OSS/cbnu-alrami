@@ -1,21 +1,17 @@
 @import "../../../styles/main.scss";
+@import "../../../../../shared/src/styles/mixin.scss";
 
 .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   min-width: 270px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-right: 23px;
-  margin-bottom: 35px;
+  padding: 0 20px;
+  margin: 0 23px 35px 0;
 
   .schedule-name {
     width: 195px;
-    display: -webkit-box;
-    overflow: hidden;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    @include ellipsis(2);
     @include typography(16);
     font-weight: 500;
     line-height: 23px;

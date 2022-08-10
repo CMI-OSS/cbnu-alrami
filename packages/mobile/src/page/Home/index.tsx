@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { isAndroid, isIOS } from "react-device-detect";
 import { Link, useSearchParams } from "react-router-dom";
 
@@ -36,9 +36,7 @@ function Home() {
     isLoading: scheduleLoading,
     isError: scheduleError,
   } = useSchedule();
-  const today = useMemo(() => {
-    return dayjs();
-  }, []);
+  const today = dayjs();
 
   useEffect(() => {
     if (window.ReactNativeWebView) {

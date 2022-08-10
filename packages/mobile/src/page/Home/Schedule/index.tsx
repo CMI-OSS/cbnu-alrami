@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import classNames from "classnames";
 import dayjs, { Dayjs } from "dayjs";
@@ -18,12 +18,9 @@ type Props = {
 };
 
 function Schedule({ content, startDate, endDate, today }: Props) {
-  const period = useMemo(() => {
-    const start = dayjs(startDate);
-    const end = endDate ? dayjs(endDate) : null;
-    const period = getTimePeriod(start, end, today);
-    return period;
-  }, [ startDate, endDate ]);
+  const start = dayjs(startDate);
+  const end = endDate ? dayjs(endDate) : null;
+  const period = getTimePeriod(start, end, today);
   const ref = useRef<HTMLSpanElement>(null);
   const [ isLong, setIsLong ] = useState(false);
 

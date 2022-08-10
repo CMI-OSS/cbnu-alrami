@@ -8,33 +8,29 @@ import { useArticle } from "src/api/article";
 import Footer from "./Footer";
 import $ from "./style.module.scss";
 
-function NoticeDetail() {
-  const { noticeId } = useParams();
-  const { isLoading, error, data } = useArticle(Number(noticeId));
+function Detail() {
+  const { articleId } = useParams();
+  const { isLoading, error, data } = useArticle(Number(articleId));
   if (!data || error || isLoading) return <></>;
-  const notice = data.data;
+  const article = data.data;
   return (
     <div className={$["notice-detail"]}>
       <FullPageModalTemplate
-        left={<LeftArrow size={16} stroke="#AAAAA6A" />}
-        title={notice.board.name}
+        left={<LeftArrow size={16} stroke="#AAAAAA" />}
+        title={article.board.name}
       >
         <div className={$.children}>
           <div className={$.header}>
-            <h1 className={$.title}>{notice.title}</h1>
+            <h1 className={$.title}>{article.title}</h1>
             <div className={$.detail}>
-              <span className={$.date}>
-                {dayjs(notice.date).format("YY-MM-DD")}&nbsp;/&nbsp;
-              </span>
-              <span className={$.hits}>
-                조회수&nbsp;{notice.hits}&nbsp;/&nbsp;
-              </span>
-              <span className={$.scraps}>스크랩&nbsp;{notice.scraps}</span>
+              <span>{dayjs(article.date).format("YY-MM-DD")}&nbsp;/&nbsp;</span>
+              <span>조회수&nbsp;{article.hits}&nbsp;/&nbsp;</span>
+              <span>스크랩&nbsp;{article.scraps}</span>
             </div>
           </div>
           <div
             className={$.content}
-            dangerouslySetInnerHTML={{ __html: notice.content }}
+            dangerouslySetInnerHTML={{ __html: article.content }}
           />
         </div>
         <Footer className={$.footer} />
@@ -43,4 +39,4 @@ function NoticeDetail() {
   );
 }
 
-export default NoticeDetail;
+export default Detail;

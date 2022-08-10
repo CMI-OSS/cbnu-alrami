@@ -13,7 +13,7 @@ type Props = {
   scraps: number;
 };
 
-function NoticeItem({ id, title, date, hits, breadcrumb, scraps }: Props) {
+function Article({ id, title, date, hits, breadcrumb, scraps }: Props) {
   const { pathname } = useLocation();
   return (
     <Link to={`${pathname}/${id}`}>
@@ -32,4 +32,4 @@ function NoticeItem({ id, title, date, hits, breadcrumb, scraps }: Props) {
   );
 }
 
-export default NoticeItem;
+export default Article;

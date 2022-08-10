@@ -1,3 +1,4 @@
+import useSearch from "@hooks/useSearch";
 import {
   useArticlesByBoard,
   useBookmarkArticles,
@@ -7,26 +8,24 @@ import {
 import guideEmptyBookmark from "src/assets/guide_empty_bookmark.png";
 import guideEmptyNotice from "src/assets/guide_empty_notice.png";
 import guideEmptySubscription from "src/assets/guide_empty_subscription.png";
-import NoticeItem from "src/page/Notice/NoticeItem";
+import Article from "src/page/Notice/Article";
 
 import $ from "./style.module.scss";
 
-type Props = {
-  target: string;
-};
-
-const useNotices = (target: string) => {
+const useArticles = (target: string) => {
   if (target === "bookmark") return useBookmarkArticles();
   if (target === "popular") return usePopularArticles();
   if (target === "new") return useNewArticles({ pageNo: 2 });
   return useArticlesByBoard(Number(target), { pageNo: 2 });
 };
 
-function NoticeList({ target }: Props) {
-  const { data } = useNotices(target);
-  const notices = data?.contents;
+function ArticleList() {
+  const target = useSearch({ target: "type" }) || "new";
 
-  if (!notices?.length && target === "bookmark") {
+  const { data } = useArticles(target);
+  const articles = data?.contents;
+
+  if (!articles?.length && target === "bookmark") {
     return (
       <img
         className={$["empty-img"]}
@@ -36,7 +35,7 @@ function NoticeList({ target }: Props) {
     );
   }
 
-  if (!notices?.length && target === "new") {
+  if (!articles?.length && target === "new") {
     return (
       <img
         className={$["empty-img"]}
@@ -46,7 +45,7 @@ function NoticeList({ target }: Props) {
     );
   }
 
-  if (!notices?.length) {
+  if (!articles?.length) {
     return (
       <img
         className={$["empty-img"]}
@@ -57,9 +56,9 @@ function NoticeList({ target }: Props) {
   }
   return (
     <div className={$["notification-list"]}>
-      {notices?.map(({ id, title, date, hits, breadcrumb, scraps }) => {
+      {articles?.map(({ id, title, date, hits, breadcrumb, scraps }) => {
         return (
-          <NoticeItem
+          <Article
             key={id}
             {...{ id, title, date, hits, breadcrumb, scraps }}
           />
@@ -69,4 +68,4 @@ function NoticeList({ target }: Props) {
   );
 }
 
-export default NoticeList;
+export default ArticleList;

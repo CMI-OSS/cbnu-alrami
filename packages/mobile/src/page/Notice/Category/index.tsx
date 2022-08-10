@@ -11,7 +11,7 @@ type Props = {
 };
 
 function Category({ target }: Props) {
-  const { data: categoryData } = useSubscribeBoards();
+  const { data: categories } = useSubscribeBoards();
 
   return (
     <div className={$.categories}>
@@ -33,7 +33,7 @@ function Category({ target }: Props) {
       >
         인기
       </NavLink>
-      {categoryData?.data.map((category) => {
+      {categories?.data.map((category) => {
         return (
           <NavLink
             key={category.id}

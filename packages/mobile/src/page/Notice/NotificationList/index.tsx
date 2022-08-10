@@ -11,44 +11,22 @@ import Notification from "src/page/Notice/Notification";
 
 import $ from "./style.module.scss";
 
-const useNotifications = (target: string) => {
-  if (target === "bookmark" || target === "popular") {
-    const { data: articlesData } =
-      target === "bookmark" ? useBookmarkArticles() : usePopularArticles();
-    return articlesData?.data.map((data) => {
-      return {
-        ...data,
-        breadcrumb: data.board.parent
-          ? `${data.board.parent.name} > ${data.board.name}`
-          : data.board.name,
-      };
-    });
-  }
-  const { data: articlesData } =
-    target === "new"
-      ? useNewArticles({ pageNo: 2 })
-      : useArticlesByBoard(Number(target), {
-          pageNo: 2,
-        });
-
-  return articlesData?.data.contents?.map((data) => {
-    return {
-      ...data,
-      breadcrumb: data.board.parent
-        ? `${data.board.parent.name} > ${data.board.name}`
-        : data.board.name,
-    };
-  });
-};
-
 type Props = {
   target: string;
 };
 
-function NotificationList({ target }: Props) {
-  const notifications = useNotifications(target!);
+const useNotices = (target: string) => {
+  if (target === "bookmark") return useBookmarkArticles();
+  if (target === "popular") return usePopularArticles();
+  if (target === "new") return useNewArticles({ pageNo: 2 });
+  return useArticlesByBoard(Number(target), { pageNo: 2 });
+};
 
-  if (!notifications?.length && target === "bookmark") {
+function NotificationList({ target }: Props) {
+  const { data } = useNotices(target);
+  const notices = data?.contents;
+
+  if (!notices?.length && target === "bookmark") {
     return (
       <img
         className={$["empty-img"]}
@@ -58,7 +36,7 @@ function NotificationList({ target }: Props) {
     );
   }
 
-  if (!notifications?.length && target === "new") {
+  if (!notices?.length && target === "new") {
     return (
       <img
         className={$["empty-img"]}
@@ -68,7 +46,7 @@ function NotificationList({ target }: Props) {
     );
   }
 
-  if (!notifications?.length) {
+  if (!notices?.length) {
     return (
       <img
         className={$["empty-img"]}
@@ -79,8 +57,13 @@ function NotificationList({ target }: Props) {
   }
   return (
     <div className={$["notification-list"]}>
-      {notifications?.map((data) => {
-        return <Notification key={data.id} notification={data} />;
+      {notices?.map(({ id, title, date, hits, breadcrumb, scraps }) => {
+        return (
+          <Notification
+            key={id}
+            {...{ id, title, date, hits, breadcrumb, scraps }}
+          />
+        );
       })}
     </div>
   );

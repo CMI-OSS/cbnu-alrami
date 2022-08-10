@@ -12,12 +12,6 @@ declare namespace res {
     name: string;
     parent?: Board;
   };
-  type ArticleByBoardPagination = {
-    pagination: {
-      isEnd: boolean;
-    };
-    contents: ArticleByBoard[];
-  };
   type Image = {
     id: number;
     url: string;

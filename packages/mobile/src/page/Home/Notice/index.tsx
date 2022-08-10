@@ -17,7 +17,7 @@ function Notice() {
   const target = useSearch({ target: "type" }) || "popular";
   const data = useArticles(target);
   const articles = data.data?.contents.slice(0, 5);
-  
+
   return (
     <BorderBox height={300} className={$.notice}>
       <header className={$.header}>
@@ -41,11 +41,7 @@ function Notice() {
       <div className={$.contents}>
         {articles?.map((article) => {
           return (
-            <Link
-              to={`/notice/${article.id}`}
-              key={article.id}
-              className={$.content}
-            >
+            <Link to={`/notice/${article.id}`} key={article.id}>
               {article.title}
             </Link>
           );

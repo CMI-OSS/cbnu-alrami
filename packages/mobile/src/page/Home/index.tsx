@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { isAndroid, isIOS } from "react-device-detect";
+import { Link } from "react-router-dom";
 
 import Footer from "@components/molecules/Footer";
 import { useSchedule } from "src/api/schedule";
@@ -13,7 +14,7 @@ import $ from "./style.module.scss";
 
 function Home() {
   const { data } = useSchedule();
-  const [ uuid, setUuid ] = useState('');
+  const [ uuid, setUuid ] = useState("");
   const onMessageHandler = (e: any) => {
     const event = JSON.parse(e.data);
     setUuid(e.data); // Todo: uuid 보내는 api 연결

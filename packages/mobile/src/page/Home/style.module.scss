@@ -17,6 +17,7 @@
             }
 
             > p {
+                margin-top: 10px;
                 @include typography(16);
                 color: $black-50;
             }

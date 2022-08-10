@@ -1,4 +1,4 @@
-const COLLEGE_SCHEDULES = [
+export const COLLEGE_SCHEDULES = [
   {
     id: 0,
     content:
@@ -66,7 +66,7 @@ const COLLEGE_SCHEDULES = [
   },
 ];
 
-const STARED_SCHEDULES = [
+export const BOOKMARK_SCHEDULES = [
   {
     id: 0,
     content: "학사일정",
@@ -92,5 +92,3 @@ const STARED_SCHEDULES = [
     endDate: "2022-06-10T00:00:00",
   },
 ];
-
-export { COLLEGE_SCHEDULES, STARED_SCHEDULES as PERSONAL_SCHEDULES };

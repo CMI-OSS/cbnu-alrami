@@ -13,7 +13,7 @@ type Props = {
   scraps: number;
 };
 
-function Notification({ id, title, date, hits, breadcrumb, scraps }: Props) {
+function NoticeItem({ id, title, date, hits, breadcrumb, scraps }: Props) {
   const { pathname } = useLocation();
   return (
     <Link to={`${pathname}/${id}`}>
@@ -32,4 +32,4 @@ function Notification({ id, title, date, hits, breadcrumb, scraps }: Props) {
   );
 }
 
-export default Notification;
+export default NoticeItem;

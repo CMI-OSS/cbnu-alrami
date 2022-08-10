@@ -7,7 +7,7 @@ import {
 import guideEmptyBookmark from "src/assets/guide_empty_bookmark.png";
 import guideEmptyNotice from "src/assets/guide_empty_notice.png";
 import guideEmptySubscription from "src/assets/guide_empty_subscription.png";
-import Notification from "src/page/Notice/Notification";
+import NoticeItem from "src/page/Notice/NoticeItem";
 
 import $ from "./style.module.scss";
 
@@ -22,7 +22,7 @@ const useNotices = (target: string) => {
   return useArticlesByBoard(Number(target), { pageNo: 2 });
 };
 
-function NotificationList({ target }: Props) {
+function NoticeList({ target }: Props) {
   const { data } = useNotices(target);
   const notices = data?.contents;
 
@@ -59,7 +59,7 @@ function NotificationList({ target }: Props) {
     <div className={$["notification-list"]}>
       {notices?.map(({ id, title, date, hits, breadcrumb, scraps }) => {
         return (
-          <Notification
+          <NoticeItem
             key={id}
             {...{ id, title, date, hits, breadcrumb, scraps }}
           />
@@ -69,4 +69,4 @@ function NotificationList({ target }: Props) {
   );
 }
 
-export default NotificationList;
+export default NoticeList;

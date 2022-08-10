@@ -1,6 +1,6 @@
 import { LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
-import NotificationList from "src/page/Notice/NotificationList";
+import NotificationList from "src/page/Notice/NoticeList";
 
 import { 구독하고알람안함 } from "./End";
 

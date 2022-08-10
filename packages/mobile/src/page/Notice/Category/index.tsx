@@ -12,7 +12,6 @@ type Props = {
 
 function Category({ target }: Props) {
   const { data: categories } = useSubscribeBoards();
-
   return (
     <div className={$.categories}>
       <NavLink
@@ -33,7 +32,7 @@ function Category({ target }: Props) {
       >
         인기
       </NavLink>
-      {categories?.data.map((category) => {
+      {categories?.map((category) => {
         return (
           <NavLink
             key={category.id}
@@ -43,9 +42,7 @@ function Category({ target }: Props) {
               Number(target) === category.id && $.active,
             )}
           >
-            {category.parents.length
-              ? `${category.parents[0].name} - ${category.name}`
-              : category.name}
+            {category.name}
           </NavLink>
         );
       })}

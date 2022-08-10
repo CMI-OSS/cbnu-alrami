@@ -8,9 +8,21 @@ const fetchSubscribeBoards = () => {
 };
 
 export const useSubscribeBoards = () => {
-  const response = useQuery<AxiosResponse<res.SubscriptionBoard[]>, Error>(
-    "subscribeBoards",
-    fetchSubscribeBoards,
-  );
+  const response = useQuery<
+    AxiosResponse<res.SubscriptionBoard[]>,
+    Error,
+    res.SubscriptionBoard[]
+  >("subscribeBoards", fetchSubscribeBoards, {
+    select: (data) => {
+      return data.data.map((category) => {
+        return {
+          ...category,
+          name: category.parents.length
+            ? `${category.parents[0].name} - ${category.name}`
+            : category.name,
+        };
+      });
+    },
+  });
   return response;
 };

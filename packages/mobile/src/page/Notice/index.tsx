@@ -5,7 +5,7 @@ import useSearch from "@hooks/useSearch";
 import { Setting } from "src/components/atoms/icon";
 import Category from "src/page/Notice/Category";
 
-import NotificationList from "./NotificationList";
+import NoticeList from "./NoticeList";
 import $ from "./style.module.scss";
 
 function Notice() {
@@ -23,7 +23,7 @@ function Notice() {
         <Category target={target} />
       </div>
       <div className={$["notification-list-wrapper"]}>
-        <NotificationList target={target} />
+        <NoticeList target={target} />
       </div>
       <Footer />
     </section>

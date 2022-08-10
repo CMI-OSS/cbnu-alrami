@@ -3,11 +3,14 @@ import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { Cron, CronExpression } from "@nestjs/schedule";
 import { firstValueFrom } from "rxjs";
+import { Errors } from "src/commons/exception/exception.global";
 
 import { Schedule } from "../commons/entities/schedule.entity";
 import { CreateSchedulesRequestDto } from "./dtos/create-schedules-request.dto";
 import { GetSchedulesRequestDto } from "./dtos/get-schedules-request.dto";
 import { ScheduleRepository } from "./schedule.repository";
+
+const { NO_DATA_IN_DB } = Errors;
 
 interface holidayData {
   dateKind: "01";
@@ -82,5 +85,16 @@ export class ScheduleService {
         return this.scheduleRepository.saveHoliday(dateName, locdate);
       }),
     );
+  }
+
+  async findById(id: number): Promise<Schedule> {
+    const schedule = await this.scheduleRepository.findOne({
+      where: {
+        id,
+      },
+      relations: [ "schedule", "author" ],
+    });
+    if (!schedule) throw NO_DATA_IN_DB;
+    return schedule;
   }
 }

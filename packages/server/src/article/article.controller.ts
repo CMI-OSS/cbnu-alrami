@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   Query,
+  Req,
   UseGuards,
 } from "@nestjs/common";
 import {
@@ -81,15 +82,22 @@ export class ArticleController {
     description:
       "공지사항 id(pk)를 이용, 해당 공지사항의 상세 정보를 조회한다.",
   })
+  @ApiHeader({
+    name: "uuid",
+    description: "로그인 유저 uuid",
+    required: false,
+  })
   @ApiResponse({
     status: 200,
     description: "요청 공지사항의 상세 정보",
     type: ArticleResponseDto,
   })
   async findById(
+    @Req() req,
     @Param("articleId") articleId: number,
   ): Promise<ArticleResponseDto> {
-    return this.articleService.findArticleRes(articleId);
+    const { user } = req;
+    return this.articleService.findArticleRes(articleId, user);
   }
 
   @Post("/boards/:boardId/article")

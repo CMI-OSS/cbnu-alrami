@@ -39,10 +39,9 @@ function Schedule({ content, startDate, endDate, today }: Props) {
       <div>
         <span
           ref={ref}
-          className={classNames(
-            $["schedule-name"],
-            isLong && $["long-schedule-name"],
-          )}
+          className={classNames($["schedule-name"], {
+            [$["long-schedule-name"]]: isLong,
+          })}
         >
           {content}
         </span>

@@ -3,14 +3,16 @@ import { useQuery } from "react-query";
 import { AxiosResponse } from "axios";
 import caxios from "src/api/caxios";
 
-const fetchSchedules = () => {
-  return caxios.get<res.Schedule[]>("/schedules?startDate=2022-01-01");
+const fetchSchedules = (today: string) => {
+  return caxios.get<res.Schedule[]>(`/schedules?startDate=${today}`);
 };
 
-export const useSchedule = () => {
+export const useSchedule = (today: string) => {
   const response = useQuery<AxiosResponse<res.Schedule[]>, Error>(
     "schedule",
-    fetchSchedules,
+    () => {
+      return fetchSchedules(today);
+    },
   );
   return response;
 };

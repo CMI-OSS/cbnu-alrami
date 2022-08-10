@@ -5,6 +5,7 @@
 }
 
 .empty-img {
-  padding-top: 50%;
-  object-fit: scale-down;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }

@@ -6,6 +6,7 @@ import {
   usePopularArticles,
 } from "src/api/article";
 import guideEmptyBookmark from "src/assets/guide_empty_bookmark.png";
+import guideEmptyNotice from "src/assets/guide_empty_notice.png";
 import guideEmptySubscription from "src/assets/guide_empty_subscription.png";
 import Notification from "src/page/Notice/Notification";
 
@@ -56,12 +57,22 @@ function NotificationList() {
     );
   }
 
-  if (!notifications?.length) {
+  if (!notifications?.length && type === "new") {
     return (
       <img
         className={$["empty-img"]}
         src={guideEmptySubscription}
         alt="구독하는 공지사항 게시판 미존재"
+      />
+    );
+  }
+
+  if (!notifications?.length) {
+    return (
+      <img
+        className={$["empty-img"]}
+        src={guideEmptyNotice}
+        alt="공지사항 미존재"
       />
     );
   }

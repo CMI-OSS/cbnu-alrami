@@ -133,10 +133,10 @@ function Weather() {
     <div className={$.weather}>
       <BorderBox height={155} background={iconToBackground?.backgroundColor}>
         <div className={$.first}>
-          <span className={$.amount}>{weather.currentTemp}°C</span>
+          <span className={$.amount}>{weather.currentTemp.slice(0, 4)}°C</span>
           <span className={$.description}>청주, {iconToBackground?.text}</span>
           <span className={$.celsius}>
-            {weather.minTemp} °C / {weather.maxTemp}°C
+            {weather.minTemp.slice(0, 4)} °C / {weather.maxTemp.slice(0, 4)}°C
           </span>
         </div>
         <div className={$.second}>

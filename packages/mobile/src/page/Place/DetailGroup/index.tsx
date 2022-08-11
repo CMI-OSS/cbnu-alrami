@@ -32,7 +32,6 @@ function DetailGroup({ schoolDatas }: Props) {
           })}
         </div>
       </div>
-      ;
     </>
   );
 }

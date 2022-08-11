@@ -15,13 +15,12 @@ function ConstructionInfo({ placeId }: Props) {
     isLoading: schoolLoading,
     isError: schoolError,
   } = useSchoolById(placeId);
-  let schoolPlaceData;
-  if (!schoolLoading) {
-    schoolPlaceData = schoolData!.data;
-  }
+
   if (schoolLoading) return <div>로딩중입니다.</div>;
   if (schoolError) return <div>에러가 발생했습니다.</div>;
+  if (schoolData === undefined) return <div>위치 정보 가져오기 실패</div>;
 
+  const schoolPlaceData = schoolData!.data;
   return (
     <>
       <div className={$.wrap}>

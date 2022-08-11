@@ -1,20 +1,16 @@
 declare namespace res {
-  type Popular = {
-    id: number;
-    title: string;
-  };
-  type Board = {
-    id: number;
-    name: string;
-    parent?: Board;
-  };
   type ArticleByBoard = {
     id: number;
     board: Board;
     title: string;
     hits: number;
     scraps: number;
-    dates: string;
+    date: string;
+  };
+  type Board = {
+    id: number;
+    name: string;
+    parent?: Board;
   };
   type Image = {
     id: number;
@@ -29,5 +25,12 @@ declare namespace res {
     scraps: number;
     date: string;
     images: Image[];
+    isBookmark?: boolean;
+  };
+}
+
+declare namespace req {
+  type Pagination = {
+    pageNo: number;
   };
 }

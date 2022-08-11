@@ -5,11 +5,8 @@ import { Link } from "react-router-dom";
 import Footer from "@components/molecules/Footer";
 import dayjs from "dayjs";
 import { COLLEGE_SCHEDULES } from "src/__mocks__/schedules";
-import { usePopularArticles } from "src/api/article";
 import { useSchedule } from "src/api/schedule";
-import BorderBox from "src/components/atoms/BorderBox";
 import { Setting } from "src/components/atoms/icon";
-import Line from "src/components/atoms/Line";
 import Weather from "src/page/Home/Weather";
 
 import Notice from "./Notice";
@@ -25,6 +22,7 @@ function Home() {
     setUuid(e.data); // Todo: uuid 보내는 api 연결
     localStorage.setItem("item", JSON.stringify(event));
   };
+  const today = dayjs();
 
   useEffect(() => {
     if (window.ReactNativeWebView) {
@@ -49,7 +47,7 @@ function Home() {
         </Link>
       </header>
       <div className={$.schedule}>
-        {data?.data.map((schedule) => {
+        {COLLEGE_SCHEDULES.map(({ id, content, startDate, endDate }) => {
           return (
             <Schedule key={id} {...{ content, startDate, endDate, today }} />
           );

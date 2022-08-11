@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Cafeteria from "src/page/Setting/Cafeteria";
 import Main from "src/page/Setting/Main";
 
-export default function SettingRoute() {
+function SettingRoute() {
   return (
     <Routes>
       <Route index element={<Main />} />
@@ -11,3 +11,5 @@ export default function SettingRoute() {
     </Routes>
   );
 }
+
+export default SettingRoute;

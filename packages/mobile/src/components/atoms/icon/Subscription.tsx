@@ -1,18 +1,16 @@
-import type { StyleProps } from "src/type/props";
+import * as React from "react";
 
-type Props = {
-  color: string;
-} & StyleProps;
+import { IconProps } from "src/type/props";
 
-function Subscription({ style, color }: Props) {
+function Subscription({ size, stroke, style }: IconProps) {
   return (
     <svg
-      width="21"
-      height="13"
+      width={size}
+      height="auto"
+      style={style}
       viewBox="0 0 21 13"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      style={style}
     >
       <rect
         x="1.32471"
@@ -20,10 +18,14 @@ function Subscription({ style, color }: Props) {
         width="18.4286"
         height="11"
         rx="1.423"
-        stroke={color}
+        stroke={stroke}
       />
-      <path d="M4.25293 5.2915H16.8244" stroke={color} strokeLinecap="round" />
-      <path d="M4.25293 8.14844H16.8244" stroke={color} strokeLinecap="round" />
+      <path d="M4.25293 5.2915H16.8244" stroke={stroke} strokeLinecap="round" />
+      <path
+        d="M4.25293 8.14844H16.8244"
+        stroke={stroke}
+        strokeLinecap="round"
+      />
     </svg>
   );
 }

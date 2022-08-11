@@ -6,7 +6,6 @@ import {
   ApiTags,
 } from "@nestjs/swagger";
 import { AdminCreateDto } from "src/admin/dto/adminCreate.dto";
-import { Public } from "src/commons/decorators/public.decorator";
 
 import { AuthService } from "./auth.service";
 import { AdminLoginDto } from "./dto/adminLogin.dto";
@@ -34,7 +33,6 @@ export class AuthController {
     return this.authService.join(adminCreateDto);
   }
 
-  @Public()
   @Post("admins/login")
   @ApiOperation({
     summary: "관리자 로그인",

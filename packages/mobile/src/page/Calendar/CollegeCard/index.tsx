@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import classNames from "classnames";
 import { Dayjs } from "dayjs";
 import BorderBox from "src/components/atoms/BorderBox";
-import { ColorStar, EmptyStar } from "src/components/atoms/icon";
+import { Star } from "src/components/atoms/icon";
 import { DefaultProps } from "src/type/props";
 import { getDatePeriod } from "src/utils/calendarTools";
 
@@ -32,7 +32,11 @@ function CollegeCard({ className, content, startDate, endDate }: Props) {
       <em className={$.content}>{content}</em>
       <span className={$.period}>{period}</span>
       <button type="button" className={$.star} onClick={handleStarClick}>
-        {isStar ? <ColorStar /> : <EmptyStar />}
+        {isStar ? (
+          <Star size={20} fill="#d66d6e" stroke="#d66d6e" />
+        ) : (
+          <Star size={20} stroke="#c3c3c3" />
+        )}
       </button>
     </BorderBox>
   );

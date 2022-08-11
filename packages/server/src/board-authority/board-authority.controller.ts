@@ -1,8 +1,8 @@
 import { Controller, Get, UseGuards } from "@nestjs/common";
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { AdminSession } from "src/commons/decorators/AdminSession.decorator";
 import { AdminAuthGuard } from "src/commons/guards/admin-auth.guard";
 
+import { AdminSession } from "../commons/decorators/admin-session.decorator";
 import { BoardAuthorityService } from "./board-authority.service";
 import { BoardAuthorityResponseDto } from "./dto/board-authority.response.dto";
 

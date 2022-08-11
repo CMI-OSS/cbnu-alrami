@@ -1,7 +1,7 @@
 import { animateScroll } from "react-scroll";
 
+import { Arrow } from "@components/atoms/icon";
 import guideEmptyFavoritesSchedule from "src/assets/guide_empty_favorites_schedule.png";
-import { Arrow } from "src/components/atoms/icon/Arrow";
 import useScroll from "src/hooks/useScroll";
 import { Schedule, ScheduleType } from "src/page/Calendar";
 
@@ -46,7 +46,7 @@ function CardBox({ scheduleType, schedules }: Props) {
             return animateScroll.scrollToTop({ duration: 250 });
           }}
         >
-          <Arrow width={10} height={24} color="#828282" />
+          <Arrow size={10} stroke="#828282" />
         </button>
       )}
     </section>

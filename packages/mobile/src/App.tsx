@@ -4,17 +4,18 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Preview from "src/page/Subscription/Preview";
 import Subscription from "src/page/Subscription/Start";
 
-import PlaceTemplate from "./components/templates/PlaceTemplate";
 import "./mobile.scss";
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
 import Home from "./page/Home";
 import Map from "./page/Map";
-import Call from "./page/Map/Call";
-import Detail from "./page/Map/Detail";
-import MoreImage from "./page/Map/MoreImage";
-import Report from "./page/Map/Report";
+import MapDetail from "./page/Map/Detail";
 import Notice from "./page/Notice";
+import NoticeDetail from "./page/Notice/Detail";
+import PlaceDetail from "./page/Place/Detail";
+import Error from "./page/Place/Error";
+import MoreImage from "./page/Place/MoreImage";
+import Report from "./page/Place/Report";
 import SettingRoute from "./page/Setting";
 import College from "./page/Subscription/College";
 import End from "./page/Subscription/End";
@@ -24,13 +25,11 @@ import SubscriptionSetting from "./page/Subscription/Setting";
 function App() {
   const routes = [
     { path: "/notice", element: <Notice /> },
+    { path: "/notice/:noticeId", element: <NoticeDetail /> },
     { path: "/calendar", element: <Calendar /> },
     { path: "/home", element: <Home /> },
     { path: "/cafeteria", element: <Cafeteria /> },
     { path: "/map", element: <Map /> },
-    { path: "/more", element: <MoreImage /> },
-    { path: "/call", element: <Call /> },
-    { path: "/error", element: <Report /> },
     { path: "/subscription", element: <Subscription /> },
     { path: "/subscription/setting", element: <SubscriptionSetting /> },
     { path: "/subscription/common", element: <End /> },
@@ -49,27 +48,13 @@ function App() {
       element: <Preview />,
     },
     {
-      path: "/place/all",
-      element: <PlaceTemplate menuType={1} />,
+      path: "/place",
+      element: <PlaceDetail />,
     },
-    {
-      path: "/place/north",
-      element: <PlaceTemplate menuType={2} />,
-    },
-    {
-      path: "/place/east",
-      element: <PlaceTemplate menuType={3} />,
-    },
-    {
-      path: "/place/south",
-      element: <PlaceTemplate menuType={4} />,
-    },
-    {
-      id: 19,
-      path: "/place/play/*",
-      element: <PlaceTemplate menuType={5} />,
-    },
-    { id: 20, path: "/setting/*", element: <SettingRoute /> },
+    { path: "/place/report", element: <Report /> },
+    { path: "/place/error", element: <Error /> },
+    { path: "/place/more", element: <MoreImage /> },
+    { path: "/setting/*", element: <SettingRoute /> },
   ];
 
   return (
@@ -81,7 +66,7 @@ function App() {
           );
         })}
         <Route path="*" element={<Navigate replace to="/home" />} />
-        <Route path="/place/:name/detail/:id" element={<Detail />} />
+        <Route path="/place/:name/detail/:id" element={<MapDetail />} />
       </Routes>
     </BrowserRouter>
   );

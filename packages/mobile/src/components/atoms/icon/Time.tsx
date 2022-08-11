@@ -1,23 +1,23 @@
-import type { StyleProps } from "src/type/props";
+import { IconProps } from "src/type/props";
 
-function Time({ className, style }: StyleProps) {
+function Time({ size, stroke }: IconProps) {
   return (
     <svg
-      width="19"
-      height="18"
-      viewBox="0 0 19 18"
+      width={size}
+      height="auto"
+      viewBox="0 0 14 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="9.59831" cy="8.96364" r="8.46364" stroke="#AAAAAA" />
+      <circle cx="6.75342" cy="6.55322" r="6" stroke={stroke} />
       <path
-        d="M9.59782 9.85984V3.5853"
-        stroke="#AAAAAA"
+        d="M6.75342 7.20308V2.65308"
+        stroke={stroke}
         strokeLinecap="round"
       />
       <path
-        d="M9.59863 9.90796L13.1841 6.2749"
-        stroke="#AAAAAA"
+        d="M6.75338 7.23792L9.3534 4.60339"
+        stroke={stroke}
         strokeLinecap="round"
       />
     </svg>

@@ -1,10 +1,8 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { ArticleImageModule } from "src/articleImage/articleImage.module";
+import { ImageModule } from "src/image/image.module";
 
-import { ArticleImageRepository } from "../articleImage/articleImage.repository";
-import { AwsService } from "../image/aws.service";
-import { ImageRepository } from "../image/image.repository";
-import { ImageService } from "../image/image.service";
 import { PlaceController } from "./place.controller";
 import { PlaceService } from "./place.service";
 import { PlaceImageRepository } from "./repository/place.image.repository";
@@ -17,11 +15,11 @@ import { SchoolRepository } from "./repository/school.repository";
       PlaceRepository,
       SchoolRepository,
       PlaceImageRepository,
-      ImageRepository,
-      ArticleImageRepository,
     ]),
+    ImageModule,
+    ArticleImageModule,
   ],
   controllers: [ PlaceController ],
-  providers: [ PlaceService, ImageService, AwsService ],
+  providers: [ PlaceService ],
 })
 export class PlaceModule {}

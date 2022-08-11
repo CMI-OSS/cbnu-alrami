@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-import { MoreArrow } from "@components/atoms/icon/MoreArrow";
+import { LongArrow } from "@components/atoms/icon";
 import { useSchoolById } from "src/api/school";
 
 import constructionInfo from "../../../__mocks__/constructionInfo";
@@ -35,7 +35,7 @@ function ConstructionInfo({ placeId }: Props) {
           <span className={$.address}>{schoolPlaceData?.address}</span>
           <NavLink className={$.link} to="">
             <span className={$.text}>더보기</span>
-            <MoreArrow className={$.arrow} />
+            <LongArrow size={4} stroke="#aaa" />
           </NavLink>
         </div>
       </div>

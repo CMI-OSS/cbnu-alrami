@@ -5,10 +5,11 @@ export enum Authority {
 }
 
 export enum MealTime {
-  Morning,
-  Lunch,
-  Dinner,
+  Morning = 0,
+  Lunch = 1,
+  Dinner = 2,
 }
+
 export enum BoardAuthorityRole {
   READ = "read",
   WRITE = "write",

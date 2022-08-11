@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
+import { Hamburger, LeftArrow } from "@components/atoms/icon";
 import { Close } from "@components/atoms/icon/Close";
-import { MapArrow } from "@components/atoms/icon/MapArrow";
-import { PlaceArrow } from "@components/atoms/icon/PlaceArrow";
-import { PlaceMenu } from "@components/atoms/icon/PlaceMenu";
-import { SmallPlaceMenu } from "@components/atoms/icon/SmallPlaceMenu";
 import Footer from "@components/molecules/Footer";
 import { useSchool } from "src/api/school";
 import ConstructionInfo from "src/page/Map/ConstructionInfo";
@@ -121,35 +118,34 @@ function Map() {
     <div id="map" className={$.map}>
       {isConstructionTooltip && (
         <NavLink to="/" className={$["place-link"]}>
-          <MapArrow className={$["place-arrow"]} />
+          <LeftArrow stroke="#aaa" size={16} />
         </NavLink>
       )}
       {isDisplayFloatingButton && (
         <div className={$.wrap}>
           {isDisplayTooltip && (
-            <div className={$.place_wrap}>
+            <div className={$.balloon}>
               <span className={$.content}>
-                <SmallPlaceMenu className={$.small_icon} />를 눌러
-                <button
-                  type="button"
-                  className={$.close_button}
-                  aria-label="닫기 버튼"
-                  onClick={() => {
-                    return dispatch(
-                      hideTooltipButtonStatus({ isDisplayTooltip: false }),
-                    );
-                  }}
-                >
-                  <Close className={$.close_icon} />
-                </button>
-                <br />
-                다양한 장소를 탐색해요
+                <Hamburger stroke="#363636" size={14} />를 눌러
               </span>
-              <PlaceArrow className={$.arrow} />
+              <button
+                type="button"
+                className={$.close_button}
+                aria-label="닫기 버튼"
+                onClick={() => {
+                  return dispatch(
+                    hideTooltipButtonStatus({ isDisplayTooltip: false }),
+                  );
+                }}
+              >
+                <Close stroke="#aaa" size={11} />
+              </button>
+              <br />
+              다양한 장소를 탐색해요
             </div>
           )}
-          <NavLink to="/place/all" className={$.link}>
-            <PlaceMenu className={$.icon} />
+          <NavLink to="/place?position=all" className={$.link}>
+            <Hamburger stroke="#fff" size={30} />
             <span className="blind">장소탐색하기</span>
           </NavLink>
         </div>

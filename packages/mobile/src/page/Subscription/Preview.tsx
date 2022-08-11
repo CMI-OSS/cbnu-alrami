@@ -1,6 +1,6 @@
 import { LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
-import NotificationList from "src/page/Notice/NotificationList";
+import ArticleList from "src/page/Notice/ArticleList";
 
 import { 구독하고알람안함 } from "./End";
 
@@ -19,7 +19,7 @@ function Preview() {
       }
       right={<구독하고알람안함 />}
     >
-      <NotificationList />
+      <ArticleList />
     </FullPageModalTemplate>
   );
 }

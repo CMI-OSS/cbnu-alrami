@@ -1,31 +1,27 @@
 import { useEffect, useState } from "react";
 import { isAndroid, isIOS } from "react-device-detect";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Footer from "@components/molecules/Footer";
 import dayjs from "dayjs";
 import { usePopularArticles } from "src/api/article";
 import { useSchedule } from "src/api/schedule";
-import BorderBox from "src/components/atoms/BorderBox";
 import { Setting } from "src/components/atoms/icon";
-import Line from "src/components/atoms/Line";
 import Weather from "src/page/Home/Weather";
 
+import Notice from "./Notice";
 import Restaurant from "./Restaurant";
 import Schedule from "./Schedule";
 import $ from "./style.module.scss";
 
 function Home() {
-  const [ searchParams ] = useSearchParams();
-  const noti = searchParams.get("noti") || "popular";
-  const [ data, setData ] = useState(true);
+  const today = dayjs();
+  const [ uuid, setUuid ] = useState("");
   const onMessageHandler = (e: any) => {
     const event = JSON.parse(e.data);
-    setData(e.data); // Todo: uuid 보내는 api 연결
+    setUuid(e.data); // Todo: uuid 보내는 api 연결
     localStorage.setItem("item", JSON.stringify(event));
   };
-  const today = dayjs();
-
   const {
     data: popularArticleData,
     isLoading: popularArticleLoading,
@@ -46,7 +42,7 @@ function Home() {
         window.addEventListener("message", onMessageHandler);
       }
     }
-  }, [ data ]);
+  }, [ uuid ]);
 
   if (popularArticleLoading || scheduleLoading) return <div>로딩중입니다.</div>;
   if (popularArticleError || scheduleError)
@@ -79,37 +75,7 @@ function Home() {
       </div>
       <Weather />
       <Restaurant />
-      <div className={$.notification}>
-        <BorderBox height={300}>
-          <div className={$.title}>
-            공지사항
-            <div className={$.category}>
-              <Link
-                to="?noti=popular"
-                className={noti === "popular" ? $.active : $.inactive}
-              >
-                인기
-              </Link>
-              <Link
-                to="?noti=latest"
-                className={noti === "latest" ? $.active : $.inactive}
-              >
-                최신
-              </Link>
-            </div>
-          </div>
-          <Line />
-          <div className={$["notification-content"]}>
-            {noti === "popular"
-              ? popularNotifications?.map((notification) => {
-                  return <p key={notification.id}>{notification.title}</p>;
-                })
-              : lastestNotifications.map((notification) => {
-                  return <p key={notification}>{notification}</p>;
-                })}
-          </div>
-        </BorderBox>
-      </div>
+      <Notice />
       <Footer />
     </section>
   );

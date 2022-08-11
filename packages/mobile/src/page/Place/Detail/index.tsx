@@ -2,21 +2,36 @@ import { NavLink } from "react-router-dom";
 
 import { LeftArrow } from "@components/atoms/icon";
 import ChipGroup from "@components/molecules/ChipGroup";
+import { useSchool } from "src/api/school";
 import BorderBox from "src/components/atoms/BorderBox";
 import useSearch from "src/hooks/useSearch";
 import { useAppDispatch } from "src/store";
 import { setHashMenu } from "src/store/placeSlice";
 
-import { imageList, menuList } from "../../../__mocks__/index";
+import { menuList } from "../../../__mocks__/index";
 import $ from "./style.module.scss";
 
 function PlaceDetail() {
   const dispatch = useAppDispatch();
   const position = useSearch({ target: "position" })!;
+  const {
+    data: schoolData,
+    isLoading: schoolLoading,
+    isError: schoolError,
+  } = useSchool();
+  if (schoolLoading) return <div>로딩중입니다.</div>;
+  if (schoolError) return <div>에러가 발생했습니다.</div>;
+  if (schoolData === undefined)
+    return <div>캠퍼스 장소 리스트 불러오기 실패</div>;
 
   const handleMenu = () => {
     dispatch(setHashMenu({ hashString: position }));
   };
+
+  const currentPosition = position.split("")[0].toUpperCase();
+  const schoolDatas = schoolData!.data.filter((item: res.School) => {
+    return item?.school?.area === currentPosition || currentPosition === "A";
+  });
 
   const checkMenu = (position: string) => {
     switch (position) {
@@ -57,7 +72,7 @@ function PlaceDetail() {
       </BorderBox>
       <div className={$.content}>
         <div className={$.image_list}>
-          {imageList.map((item, idx) => {
+          {schoolDatas.map((item, idx) => {
             return (
               <NavLink
                 to={`/place/school/detail/${idx + 1}`}
@@ -66,14 +81,12 @@ function PlaceDetail() {
               >
                 <img
                   className={$.school_image}
-                  src={item.src}
+                  src={item?.images?.url}
                   alt={item.name}
                 />
                 <div className={$.summary}>
                   <strong className={$.summary_title}>{item.name}</strong>
-                  <span className={$.summary_description}>
-                    {item.description}
-                  </span>
+                  <span className={$.summary_description}>{item.address}</span>
                 </div>
               </NavLink>
             );

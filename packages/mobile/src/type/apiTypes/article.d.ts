@@ -25,6 +25,7 @@ declare namespace res {
     scraps: number;
     date: string;
     images: Image[];
+    isBookmark?: boolean;
   };
 }
 

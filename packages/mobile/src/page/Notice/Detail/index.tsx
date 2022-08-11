@@ -13,6 +13,7 @@ function Detail() {
   const { isLoading, error, data } = useArticle(Number(articleId));
   if (!data || error || isLoading) return <></>;
   const article = data.data;
+
   return (
     <div className={$["notice-detail"]}>
       <FullPageModalTemplate
@@ -33,7 +34,11 @@ function Detail() {
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
         </div>
-        <Footer className={$.footer} />
+        <Footer
+          className={$.footer}
+          articleId={Number(articleId)}
+          bookmark={article?.isBookmark}
+        />
       </FullPageModalTemplate>
     </div>
   );

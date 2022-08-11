@@ -3,6 +3,18 @@ import { useQuery } from "react-query";
 import { AxiosResponse } from "axios";
 import caxios from "src/api/caxios";
 
+type BoardTreeChildrenProps = {
+  description: string;
+  link: string;
+  children?: BoardTreeChildrenProps[];
+} & res.BoardTreeChildren;
+
+type Props = {
+  breadcrumb: string;
+  guide: string;
+  children: BoardTreeChildrenProps[];
+} & res.BoardTree;
+
 const fetchBoardTree = () => {
   return caxios.get<res.BoardTree[]>("/board-tree");
 };
@@ -16,48 +28,35 @@ export const useBoardTree = () => {
   return response;
 };
 
-export const useCommonBoardTree = () => {
+export const useBeginningBoardTree = () => {
+  const boardTrees = useBoardTree()?.data?.data;
+
+  const getDescription = (name: string) => {
+    if (name === "공통") return "충북대학교의 다양한 공지사항을 확인해요";
+    if (name === "전공") return "전공 별 공지사항을 확인해요";
+    return "학생회의 공지를 받아볼 수 있어요";
+  };
+
   return {
-    data: useBoardTree()?.data?.data.find((res) => {
-      return res.name === "공통";
+    breadcrumb: "전체",
+    guide: "어떤 공지를\n받아볼까요?",
+    content: boardTrees?.map((boardTree) => {
+      return {
+        ...boardTree,
+        description: getDescription(boardTree.name),
+      };
     }),
   };
 };
 
-export const useCollegeBoardTree = () => {
-  return {
-    data: useBoardTree()?.data?.data.find((res) => {
-      return res.name === "전공";
-    }),
-    breadCrumb: "전체 > 전공",
-  };
-};
+export const useBoardTreeByBoard = (boardIds: string[]) => {
+  let boardTrees = useBoardTree()?.data?.data;
 
-export const useMajorBoardTree = (collegeId: number) => {
-  const collegeData = useCollegeBoardTree()?.data?.children.find((res) => {
-    return res.id === collegeId;
-  });
-  const majorData = collegeData?.children;
-  return {
-    data: majorData,
-    breadCrumb: `전체 > 전공 > ${collegeData?.name}`,
-  };
-};
-
-export const useLastChildBoardTree = (collegeId?: number, majorId?: number) => {
-  if (collegeId && majorId) {
-    const parentData = useMajorBoardTree(collegeId).data?.find((res) => {
-      return res.id === majorId;
-    });
-    const childData = parentData?.children;
-
-    return {
-      data: childData,
-      breadCrumb: `전체 > 전공 > ${parentData?.name}`,
-    };
+  for (let i = 0; i < boardIds.length; i += 1) {
+    boardTrees = boardTrees?.find((boardTree) => {
+      return boardTree.id === Number(boardIds[i]);
+    })?.children;
   }
-  return {
-    data: useCommonBoardTree()?.data?.children,
-    breadCrumb: "전체 > 공통",
-  };
+
+  return { content: boardTrees };
 };

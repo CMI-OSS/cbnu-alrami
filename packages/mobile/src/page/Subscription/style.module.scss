@@ -13,44 +13,33 @@
   padding-bottom: 73px;
   white-space: pre-wrap;
 
-  .title {
+  .breadcrumb {
     margin-bottom: 12px;
     @include typography(14);
     color: $black-40;
   }
 
-  .content {
+  .phrase {
     @include typography(25);
     color: $black-80;
     font-weight: 500;
   }
 }
 
-.subscription-box-base {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 32px 20px 32px 21px;
-
-  .title {
-    margin-right: 7px;
-    font-weight: 500;
-    @include typography(18);
-  }
-}
-
-.subscription-box-content {
+.content {
   display: flex;
   flex-direction: column;
-  padding: 18px 21px;
+  justify-content: center;
+  padding: 0 21px;
+  margin-bottom: 12px;
 
-  .title {
-    margin-bottom: 13px;
+  .name {
     font-weight: 500;
     @include typography(18);
   }
 
-  .content {
+  .description {
+    margin-top: 13px;
     @include typography(14);
     color: $black-40;
   }

@@ -1,10 +1,10 @@
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Preview from "src/page/Subscription/Preview";
-import Subscription from "src/page/Subscription/Start";
+import Subscription from "src/page/Subscription";
 
 import "./mobile.scss";
+
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
 import Home from "./page/Home";
@@ -17,10 +17,6 @@ import Error from "./page/Place/Error";
 import MoreImage from "./page/Place/MoreImage";
 import Report from "./page/Place/Report";
 import SettingRoute from "./page/Setting";
-import College from "./page/Subscription/College";
-import End from "./page/Subscription/End";
-import Major from "./page/Subscription/Major";
-import SubscriptionSetting from "./page/Subscription/Setting";
 
 function App() {
   const routes = [
@@ -31,22 +27,6 @@ function App() {
     { path: "/cafeteria", element: <Cafeteria /> },
     { path: "/map", element: <Map /> },
     { path: "/subscription", element: <Subscription /> },
-    { path: "/subscription/setting", element: <SubscriptionSetting /> },
-    { path: "/subscription/common", element: <End /> },
-    { path: "/subscription/common/:detailId", element: <Preview /> },
-    { path: "/subscription/major", element: <College /> },
-    {
-      path: "/subscription/major/:collegeId",
-      element: <Major />,
-    },
-    {
-      path: "/subscription/major/:collegeId/:majorId",
-      element: <End />,
-    },
-    {
-      path: "/subscription/major/:collegeId/:majorId/:detailId",
-      element: <Preview />,
-    },
     {
       path: "/place",
       element: <PlaceDetail />,

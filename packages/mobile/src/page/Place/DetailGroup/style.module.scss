@@ -1,0 +1,74 @@
+@import "@shared/styles/color.scss";
+@import "@shared/styles/variables.scss";
+@import "@shared/styles/mixin.scss";
+
+.content {
+  padding: 11px 15px 0 13px;
+  background-color: $background;
+}
+
+.tooltip {
+  margin: 129px 8px 0;
+  border-radius: 4px;
+  background-color: $white;
+  padding: 7px 21px;
+
+  & + .content {
+    .image_list {
+      margin-top: 0;
+    }
+  }
+
+  .tooltip_title {
+    font-size: 12px;
+    line-height: 20px;
+    color: $black-60;
+  }
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: inherit;
+  background-color: $white;
+  padding: 15px 35px 15px 15px;
+  border-radius: 20px;
+
+  &:not(:first-child) {
+    margin-top: 11px;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.school_image {
+  width: 90px;
+  height: 90px;
+  border-radius: 20px;
+  flex: 0 0 auto;
+}
+
+.summary {
+  flex: 1 1 auto;
+
+  &:not(:first-child) {
+    margin-left: 23px;
+  }
+}
+
+.summary_title {
+  display: block;
+  padding-top: 20px;
+  color: $black-100;
+  line-height: 18px;
+}
+
+.summary_description {
+  display: block;
+  font-size: 12px;
+  margin-top: 6px;
+  color: $black-40;
+}

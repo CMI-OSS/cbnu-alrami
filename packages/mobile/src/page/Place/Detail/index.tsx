@@ -5,6 +5,7 @@ import ChipGroup from "@components/molecules/ChipGroup";
 import { useSchool } from "src/api/school";
 import BorderBox from "src/components/atoms/BorderBox";
 import useSearch from "src/hooks/useSearch";
+import DetailGroup from "src/page/Place/DetailGroup";
 import { useAppDispatch } from "src/store";
 import { setHashMenu } from "src/store/placeSlice";
 
@@ -70,29 +71,7 @@ function PlaceDetail() {
           식사는 현재 베타버전으로, 다양한 맛집이 더 추가될 예정입니다.
         </span>
       </BorderBox>
-      <div className={$.content}>
-        <div className={$.image_list}>
-          {schoolDatas.map((item, idx) => {
-            return (
-              <NavLink
-                to={`/place/school/detail/${idx + 1}`}
-                className={$.item}
-                key={item.id}
-              >
-                <img
-                  className={$.school_image}
-                  src={item?.images?.url}
-                  alt={item.name}
-                />
-                <div className={$.summary}>
-                  <strong className={$.summary_title}>{item.name}</strong>
-                  <span className={$.summary_description}>{item.address}</span>
-                </div>
-              </NavLink>
-            );
-          })}
-        </div>
-      </div>
+      <DetailGroup schoolDatas={schoolDatas} />
     </>
   );
 }

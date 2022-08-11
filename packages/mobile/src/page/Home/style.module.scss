@@ -1,127 +1,97 @@
 @import "../../styles/main.scss";
 
 .home {
-    padding: 34px 25px 100px 35px;
-    background: #f5f6fa;
+  padding: 34px 25px 100px 35px;
+  background: #f5f6fa;
 
-    .header {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 30px;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
 
-        .header-content {
-            .title {
-                @include typography(25);
-                font-weight: 500;
-                color: $black-100;
-            }
+    .header-content {
+      .title {
+        @include typography(25);
+        font-weight: 500;
+        color: $black-100;
+      }
 
-            > p {
-                @include typography(16);
-                color: $black-50;
-            }
-        }
-
-        > button {
-            background: transparent;
-            padding: 10px;
-            cursor: pointer;
-        }
+      > p {
+        @include typography(16);
+        color: $black-50;
+      }
     }
+
+    > button {
+      background: transparent;
+      padding: 10px;
+      cursor: pointer;
+    }
+
     .schedule {
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
     }
 
-    .show-guide {
-        > div {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 22px 0 16px 0;
-            text-align: center;
-            color: $black-40;
-
-            > span {
-                margin-top: 9px;
-                @include typography(14);
-                font-weight: 500;
-            }
-            > p {
-                margin-top: 9px;
-                @include typography(12);
-                line-height: 18px;
-            }
-        }
+    > div:last-child {
+      margin-right: 0;
     }
 
-    .show-final-guide {
-        > div {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-            padding: 24px 0 24px 0;
-            text-align: center;
-
-            > p {
-                @include typography(14);
-                line-height: 18px;
-                color: $black-80;
-
-                span {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-
-                    svg {
-                        margin-right: 5px;
-                    }
-                }
-            }
-        }
+    > p {
+      padding-right: 10px;
+      line-height: 24px;
     }
+  }
 
-    .notification {
-        > div {
-            padding: 20px 25px 24px;
-        }
+  .show-guide {
+    > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 22px 0 16px 0;
+      text-align: center;
+      color: $black-40;
 
-        .title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            @include typography(16);
-            color: $black-100;
+      > span {
+        margin-top: 9px;
+        @include typography(14);
+        font-weight: 500;
+      }
 
-            .category {
-                @include typography(14);
-                color: $black-40;
-
-                > a:first-child {
-                    margin-right: 13px;
-                }
-
-                .active {
-                    color: $red-50;
-                }
-            }
-        }
-        .notification-content {
-            > p {
-                margin-bottom: 28px;
-                @include typography(13);
-                color: $black-80;
-            }
-            > p:first-child {
-                margin-top: 25px;
-            }
-            > p:last-child {
-                margin: 0;
-            }
-        }
+      > p {
+        margin-top: 9px;
+        @include typography(12);
+        line-height: 18px;
+      }
     }
+  }
+
+  .show-final-guide {
+    > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      padding: 24px 0 24px 0;
+      text-align: center;
+
+      > p {
+        @include typography(14);
+        line-height: 18px;
+        color: $black-80;
+
+        span {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          svg {
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
 }

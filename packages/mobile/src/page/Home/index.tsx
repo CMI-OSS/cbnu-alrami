@@ -1,41 +1,27 @@
 import { useEffect, useState } from "react";
 import { isAndroid, isIOS } from "react-device-detect";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Footer from "@components/molecules/Footer";
 import dayjs from "dayjs";
 import { COLLEGE_SCHEDULES } from "src/__mocks__/schedules";
-import { usePopularArticles } from "src/api/article";
 import { useSchedule } from "src/api/schedule";
-import BorderBox from "src/components/atoms/BorderBox";
 import { Setting } from "src/components/atoms/icon";
-import Line from "src/components/atoms/Line";
 import Weather from "src/page/Home/Weather";
 
+import Notice from "./Notice";
 import Restaurant from "./Restaurant";
 import Schedule from "./Schedule";
 import $ from "./style.module.scss";
 
 function Home() {
-  const [ searchParams ] = useSearchParams();
-  const noti = searchParams.get("noti") || "popular";
-  const [ data, setData ] = useState(true);
+  const { data } = useSchedule();
+  const [ uuid, setUuid ] = useState("");
   const onMessageHandler = (e: any) => {
     const event = JSON.parse(e.data);
-    setData(e.data); // Todo: uuid 보내는 api 연결
+    setUuid(e.data); // Todo: uuid 보내는 api 연결
     localStorage.setItem("item", JSON.stringify(event));
   };
-
-  const {
-    data: popularArticleData,
-    isLoading: popularArticleLoading,
-    isError: popularArticleError,
-  } = usePopularArticles();
-  const {
-    data: scheduleData,
-    isLoading: scheduleLoading,
-    isError: scheduleError,
-  } = useSchedule();
   const today = dayjs();
 
   useEffect(() => {
@@ -47,17 +33,7 @@ function Home() {
         window.addEventListener("message", onMessageHandler);
       }
     }
-  }, [ data ]);
-
-  if (popularArticleLoading || scheduleLoading) return <div>로딩중입니다.</div>;
-  if (popularArticleError || scheduleError)
-    return <div>에러가 발생했습니다.</div>;
-
-  const popularNotifications = popularArticleData!.data;
-  // TODO: 백엔드 api 확인 후 수정
-  const schedules = scheduleData!.data;
-
-  const lastestNotifications = [ "최신1", "최신2", "최신3", "최신4", "최신5" ];
+  }, [ uuid ]);
 
   return (
     <section className={$.home}>
@@ -79,37 +55,7 @@ function Home() {
       </div>
       <Weather />
       <Restaurant />
-      <div className={$.notification}>
-        <BorderBox height={300}>
-          <div className={$.title}>
-            공지사항
-            <div className={$.category}>
-              <Link
-                to="?noti=popular"
-                className={noti === "popular" ? $.active : $.inactive}
-              >
-                인기
-              </Link>
-              <Link
-                to="?noti=latest"
-                className={noti === "latest" ? $.active : $.inactive}
-              >
-                최신
-              </Link>
-            </div>
-          </div>
-          <Line />
-          <div className={$["notification-content"]}>
-            {noti === "popular"
-              ? popularNotifications?.map((notification) => {
-                  return <p key={notification.id}>{notification.title}</p>;
-                })
-              : lastestNotifications.map((notification) => {
-                  return <p key={notification}>{notification}</p>;
-                })}
-          </div>
-        </BorderBox>
-      </div>
+      <Notice />
       <Footer />
     </section>
   );

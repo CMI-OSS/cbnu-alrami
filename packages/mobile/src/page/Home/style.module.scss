@@ -27,25 +27,11 @@
       padding: 10px;
       cursor: pointer;
     }
-  }
 
-  .schedule {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-
-    > div {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-left: 20px;
-      padding-right: 20px;
-      margin-right: 23px;
-      margin-bottom: 35px;
-      min-width: 70%;
-      @include typography(16);
-      font-weight: 500;
-      color: $black-80;
+    .schedule {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
     }
 
     > div:last-child {

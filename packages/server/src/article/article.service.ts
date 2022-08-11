@@ -191,7 +191,7 @@ export class ArticleService {
     return response;
   }
 
-  async findArticleRes(id: number): Promise<ArticleResponseDto> {
+  async findArticleRes(id: number, user: User): Promise<ArticleResponseDto> {
     const article = await this.findById(id);
     const board: BoardTreeResponseDto =
       await this.boardTreeService.getBoardTree(article.board.id);
@@ -199,6 +199,15 @@ export class ArticleService {
     const bookmarkCnt = await this.bookmarkRepository.countByArticle(
       article.id,
     );
+
+    // DESCRIBE: articleid와 uuid로 bookmark 여부 확인
+    const isBookmark: boolean =
+      user === undefined
+        ? undefined
+        : (await this.bookmarkRepository.existsByUserAndArticle(
+            user.id,
+            article.id,
+          )) === 1;
 
     let images = [];
     const articleImages = await this.articleImageService.findImageByArticle(id);
@@ -219,6 +228,7 @@ export class ArticleService {
       .hits(hitCnt)
       .scraps(bookmarkCnt)
       .date(article.date)
+      .isBookmark(isBookmark)
       .images(images)
       .build();
   }

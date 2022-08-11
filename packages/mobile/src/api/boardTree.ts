@@ -50,13 +50,22 @@ export const useBeginningBoardTree = () => {
 };
 
 export const useBoardTreeByBoard = (boardIds: string[]) => {
-  let boardTrees = useBoardTree()?.data?.data;
-
+  const boardTrees = useBoardTree()?.data?.data;
+  let content: res.BoardTree[] | res.BoardTreeChildren["children"] = boardTrees;
+  let breadcrumb = "전체";
   for (let i = 0; i < boardIds.length; i += 1) {
-    boardTrees = boardTrees?.find((boardTree) => {
-      return boardTree.id === Number(boardIds[i]);
-    })?.children;
+    const parent: res.BoardTree | res.BoardTreeChildren = content?.find(
+      (boardTree) => {
+        return boardTree.id === Number(boardIds[i]);
+      },
+    );
+    content = parent?.children;
+    breadcrumb += `>${parent.name}`;
   }
 
-  return { content: boardTrees };
+  // const getGuide = () => {};
+
+  console.log(content, "ss");
+
+  return { breadcrumb, content };
 };

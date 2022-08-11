@@ -15,10 +15,11 @@ function Subscription() {
     ? useBoardTreeByBoard(boardIds)
     : useBeginningBoardTree();
 
+  console.log(boardTrees);
   return (
     <SubscriptionModalTemplate>
       <div className={$.guide}>
-        {/* <div className={$.breadcrumb}>{boardTrees.breadcrumb}</div> */}
+        <div className={$.breadcrumb}>{boardTrees.breadcrumb}</div>
         {/* <div className={$.phrase}>{boardTrees.guide}</div> */}
       </div>
       {boardTrees?.content?.map((boardTree) => {

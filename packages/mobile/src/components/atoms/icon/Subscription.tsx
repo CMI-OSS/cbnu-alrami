@@ -1,12 +1,10 @@
-import * as React from "react";
-
 import { IconProps } from "src/type/props";
 
 function Subscription({ size, stroke, style }: IconProps) {
   return (
     <svg
       width={size}
-      height="auto"
+      height="100%"
       style={style}
       viewBox="0 0 21 13"
       fill="none"

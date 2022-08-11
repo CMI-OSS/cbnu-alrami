@@ -6,9 +6,10 @@ import $ from "./style.module.scss";
 type Props = {
   articleId: number;
   bookmark?: boolean;
+  isCouncil: boolean;
 } & StyleProps;
 
-function Footer({ articleId, bookmark, className }: Props) {
+function Footer({ articleId, bookmark, isCouncil, className }: Props) {
   const handleBookmark = () => {
     console.log(articleId, "hi");
   };
@@ -23,7 +24,7 @@ function Footer({ articleId, bookmark, className }: Props) {
           fill={bookmark ? "#D66D6E" : ""}
         />
       </button>
-      <Internet size={28} stroke="#C3C3C3" />
+      {!isCouncil && <Internet size={28} stroke="#C3C3C3" />}
     </div>
   );
 }

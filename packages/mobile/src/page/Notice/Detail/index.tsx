@@ -38,6 +38,7 @@ function Detail() {
           className={$.footer}
           articleId={Number(articleId)}
           bookmark={article?.isBookmark}
+          isCouncil={String(article?.board.id)[0] === "3"}
         />
       </FullPageModalTemplate>
     </div>

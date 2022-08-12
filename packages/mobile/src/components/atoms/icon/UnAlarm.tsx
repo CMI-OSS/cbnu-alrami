@@ -1,9 +1,4 @@
-import type { StyleProps } from "src/type/props";
 import { IconProps } from "src/type/props";
-
-type Props = {
-  color: string;
-} & StyleProps;
 
 function UnAlarm({ size, stroke }: IconProps) {
   return (

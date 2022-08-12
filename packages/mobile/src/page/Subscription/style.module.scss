@@ -32,20 +32,28 @@
   justify-content: center;
   padding: 0 21px;
   margin-bottom: 12px;
+}
 
-  .name {
-    font-weight: 500;
-    @include typography(18);
-  }
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 21px;
+  margin-bottom: 12px;
+}
 
-  .description {
-    margin-top: 13px;
-    @include typography(14);
-    color: $black-40;
+
+.name {
+  font-weight: 500;
+  @include typography(18);
+
+  svg {
+    margin-left: 4px;
   }
 }
 
-.구독상태 {
-  display: flex;
-  align-items: center;
+.description {
+  margin-top: 13px;
+  @include typography(14);
+  color: $black-40;
 }

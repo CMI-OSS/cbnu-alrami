@@ -13,7 +13,7 @@ function Notice() {
       <div className={$["header-wrapper"]}>
         <header className={$.header}>
           <span>공지사항</span>
-          <Link to="/subscription/setting">
+          <Link to="/subscription">
             <Setting size={20} stroke="#aaa" />
           </Link>
         </header>

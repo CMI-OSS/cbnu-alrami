@@ -3,18 +3,6 @@ import { useQuery } from "react-query";
 import { AxiosResponse } from "axios";
 import caxios from "src/api/caxios";
 
-type BoardTreeChildrenProps = {
-  description: string;
-  link: string;
-  children?: BoardTreeChildrenProps[];
-} & res.BoardTreeChildren;
-
-type Props = {
-  breadcrumb: string;
-  guide: string;
-  children: BoardTreeChildrenProps[];
-} & res.BoardTree;
-
 const fetchBoardTree = () => {
   return caxios.get<res.BoardTree[]>("/board-tree");
 };
@@ -28,44 +16,22 @@ export const useBoardTree = () => {
   return response;
 };
 
-export const useBeginningBoardTree = () => {
-  const boardTrees = useBoardTree()?.data?.data;
-
-  const getDescription = (name: string) => {
-    if (name === "공통") return "충북대학교의 다양한 공지사항을 확인해요";
-    if (name === "전공") return "전공 별 공지사항을 확인해요";
-    return "학생회의 공지를 받아볼 수 있어요";
-  };
-
-  return {
-    breadcrumb: "전체",
-    guide: "어떤 공지를\n받아볼까요?",
-    content: boardTrees?.map((boardTree) => {
-      return {
-        ...boardTree,
-        description: getDescription(boardTree.name),
-      };
-    }),
-  };
-};
-
 export const useBoardTreeByBoard = (boardIds: string[]) => {
   const boardTrees = useBoardTree()?.data?.data;
-  let content: res.BoardTree[] | res.BoardTreeChildren["children"] = boardTrees;
-  let breadcrumb = "전체";
+
+  let content = boardTrees;
+  let breadcrumb = `전체`;
+
   for (let i = 0; i < boardIds.length; i += 1) {
-    const parent: res.BoardTree | res.BoardTreeChildren = content?.find(
-      (boardTree) => {
-        return boardTree.id === Number(boardIds[i]);
-      },
-    );
+    const parent = content?.find((boardTree) => {
+      return boardTree.id === Number(boardIds[i]);
+    });
     content = parent?.children;
-    breadcrumb += `>${parent.name}`;
+    breadcrumb += `> ${parent?.name}`;
   }
 
-  // const getGuide = () => {};
-
-  console.log(content, "ss");
-
-  return { breadcrumb, content };
+  return {
+    breadcrumb,
+    content,
+  };
 };

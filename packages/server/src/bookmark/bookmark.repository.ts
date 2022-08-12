@@ -13,9 +13,9 @@ export class BookmarkRepository extends Repository<Bookmark> {
     userId: number,
     articleId: number,
   ): Promise<number> {
-    return this.createQueryBuilder("article")
-      .where("article.user_id = :userId", { userId })
-      .andWhere("article.article_id = :articleId", { articleId })
+    return this.createQueryBuilder("bookmark")
+      .where("bookmark.user_id = :userId", { userId })
+      .andWhere("bookmark.article_id = :articleId", { articleId })
       .getCount();
   }
 }

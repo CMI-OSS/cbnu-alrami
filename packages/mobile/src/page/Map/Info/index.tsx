@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 
 import BorderBox from "src/components/atoms/BorderBox";
-import { Call, Map, Time } from "src/components/atoms/icon";
+import { Map } from "src/components/atoms/icon";
 
 import $ from "./style.module.scss";
 
@@ -17,25 +17,13 @@ function Info({ buildingNumber, oldBuildingNumber, name, address }: Props) {
       <BorderBox className={$.info}>
         <div className={$["info-inner"]}>
           <span className={$.text}>
-            {buildingNumber} /{oldBuildingNumber}
+            {buildingNumber} / {oldBuildingNumber}
           </span>
           <strong className={$.title}>{name}</strong>
           <ul className={$.list}>
             <li className={$.item}>
               <Map size={14} stroke="#aaa" />
               <span className={$["item-text"]}>{address}</span>
-            </li>
-            <li className={$.item}>
-              <Call size={18} stroke="#aaa" />
-              <span className={$["item-text"]}>
-                000-0000-0000
-                <br />
-                000-0000-000
-              </span>
-            </li>
-            <li className={$.item}>
-              <Time size={18} stroke="#aaa" />
-              <span className={$["item-text"]}>오전 9:00 ~ 오후 6:00</span>
             </li>
           </ul>
           <div className={$.error}>

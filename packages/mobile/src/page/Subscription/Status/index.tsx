@@ -31,7 +31,8 @@ function Status({ boardId, isSubscribing, isNoticing }: Props) {
       <div className={$.status}>
         <button
           type="button"
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             removeSubscribe.mutate({ boardId });
           }}
         >
@@ -39,7 +40,8 @@ function Status({ boardId, isSubscribing, isNoticing }: Props) {
         </button>
         <button
           type="button"
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             removeAlarm.mutate({ boardId });
           }}
         >
@@ -53,7 +55,8 @@ function Status({ boardId, isSubscribing, isNoticing }: Props) {
       <div className={$.status}>
         <button
           type="button"
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             removeSubscribe.mutate({ boardId });
           }}
         >
@@ -61,7 +64,8 @@ function Status({ boardId, isSubscribing, isNoticing }: Props) {
         </button>
         <button
           type="button"
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             addAlarm.mutate({ boardId });
           }}
         >
@@ -75,7 +79,8 @@ function Status({ boardId, isSubscribing, isNoticing }: Props) {
     <button
       type="button"
       className={$.status}
-      onClick={() => {
+      onClick={(e) => {
+        e.preventDefault();
         addSubscribe.mutate({ boardId });
       }}
     >

@@ -23,7 +23,7 @@ function ConstructionInfo({ schoolData, type, placeId }: Props) {
           <div className={$.info}>
             <strong className={$.title}>{schoolData?.name}</strong>
             <span className={$.address}>{schoolData?.address}</span>
-            <NavLink className={$.link} to="">
+            <NavLink className={$.link} to={`/place/school?id=${placeId}`}>
               <span className={$.text}>더보기</span>
               <LongArrow size={4} stroke="#aaa" />
             </NavLink>
@@ -31,10 +31,7 @@ function ConstructionInfo({ schoolData, type, placeId }: Props) {
         </div>
       ) : (
         <>
-          <NavLink
-            to={`/place/school/detail/${placeId + 1}`}
-            className={$.item}
-          >
+          <NavLink to={`/place/school?id=${placeId}`} className={$.item}>
             <img
               className={$.school_image}
               src={schoolData?.images?.url}

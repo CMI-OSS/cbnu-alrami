@@ -66,7 +66,7 @@ function App() {
           );
         })}
         <Route path="*" element={<Navigate replace to="/home" />} />
-        <Route path="/place/:name/detail/:id" element={<MapDetail />} />
+        <Route path="/place/:name" element={<MapDetail />} />
       </Routes>
     </BrowserRouter>
   );

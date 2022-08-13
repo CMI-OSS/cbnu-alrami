@@ -2,4 +2,4 @@ import "src/common/env";
 import { login } from "./api/login";
 import "./socket/server";
 
-login("cmi", "cmi1234");
+login(process.env.SCRAPER_ID as string, process.env.SCRAPER_PWD as string);

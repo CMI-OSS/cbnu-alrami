@@ -40,7 +40,7 @@ export class ScheduleBookmarkController {
   @Delete("schedule/:scheduleId")
   @ApiOperation({
     summary: "스케줄 북마크 OFF API",
-    description: "특정 유저가 북마크한 학사일정을 삭제합니다.",
+    description: "특정 유저가 북마크한 스케줄을 삭제합니다.",
   })
   @ApiResponse({
     status: 200,

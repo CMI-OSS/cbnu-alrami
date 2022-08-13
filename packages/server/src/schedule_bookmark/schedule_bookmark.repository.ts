@@ -9,7 +9,7 @@ export class ScheduleBookmarkRepository extends Repository<ScheduleBookmark> {
       .getCount();
   }
 
-  async existsByUserAndArticle(
+  async existsByUserAndSchedule(
     userId: number,
     scheduleId: number,
   ): Promise<number> {

@@ -92,7 +92,7 @@ export class ScheduleService {
       where: {
         id,
       },
-      relations: [ "schedule", "author" ],
+      // relations: [ "schedule" ],
     });
     if (!schedule) throw NO_DATA_IN_DB;
     return schedule;

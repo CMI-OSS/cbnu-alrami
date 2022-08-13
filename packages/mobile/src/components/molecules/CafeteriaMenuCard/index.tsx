@@ -7,7 +7,7 @@ type Props = {
   mealTime: string;
   timeInfo: string;
   mealMenu: string;
-  calory: string;
+  calory?: string;
 };
 
 function CafeteriaMenuCard({ mealTime, timeInfo, mealMenu, calory }: Props) {
@@ -20,7 +20,7 @@ function CafeteriaMenuCard({ mealTime, timeInfo, mealMenu, calory }: Props) {
       <Line />
       <div className={$.meal}>
         <span>{mealMenu}</span>
-        <span className={$["meal-calory"]}>{calory}</span>
+        {calory && <span className={$["meal-calory"]}>{calory}</span>}
       </div>
     </BorderBox>
   );

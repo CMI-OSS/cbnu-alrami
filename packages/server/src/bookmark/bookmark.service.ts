@@ -32,7 +32,6 @@ export class BookmarkService {
 
   async remove(user: User, articleId: number) {
     // DESCRIBE: 요청한 유저가 article을 구독하고 있는지 확인
-
     const subscribe = await this.findByUserAndArticle(user.id, articleId);
     if (!subscribe) throw ALREADY_SUBSCRIBE_BOOKMARK;
 

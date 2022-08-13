@@ -6,9 +6,17 @@ import {
   Param,
   Post,
   Put,
+  Query,
+  Req,
   UseGuards,
 } from "@nestjs/common";
-import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import {
+  ApiHeader,
+  ApiOperation,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from "@nestjs/swagger";
 import { Builder } from "builder-pattern";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
 import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
@@ -25,10 +33,8 @@ import { ArticleCreateDto } from "./dtos/article.create.dto";
 import {
   ArticleDetailInfoDto,
   ArticleDto,
-  ArticleListInfoDto,
   ArticleResponseDto,
 } from "./dtos/article.dto";
-import { ArticleListDto } from "./dtos/article.list.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
 @Controller()
@@ -40,6 +46,16 @@ export class ArticleController {
   ) {}
 
   @Get("boards/:boardId/articles")
+  @ApiQuery({
+    name: "pageNo",
+    required: false,
+    description: "페이지 인덱스. 디폴트 1",
+  })
+  @ApiQuery({
+    name: "pageSize",
+    required: false,
+    description: "페이지 사이즈. 디폴트 15",
+  })
   @ApiOperation({
     summary: "공지사항 사이트별 공지사항 목록 조회 API",
     description:
@@ -53,8 +69,10 @@ export class ArticleController {
   })
   async findByBoard(
     @Param("boardId") boardId: number,
-    @Body() pageRequest: PageRequest,
+    @Query("pageNo") pageNo: number,
+    @Query("pageSize") pageSize: number,
   ): Promise<PageResponse<ArticleDetailInfoDto[]>> {
+    const pageRequest: PageRequest = new PageRequest(pageNo, pageSize);
     return this.articleService.findArticleInfoListByBoard(boardId, pageRequest);
   }
 
@@ -64,15 +82,22 @@ export class ArticleController {
     description:
       "공지사항 id(pk)를 이용, 해당 공지사항의 상세 정보를 조회한다.",
   })
+  @ApiHeader({
+    name: "uuid",
+    description: "로그인 유저 uuid",
+    required: false,
+  })
   @ApiResponse({
     status: 200,
     description: "요청 공지사항의 상세 정보",
     type: ArticleResponseDto,
   })
   async findById(
+    @Req() req,
     @Param("articleId") articleId: number,
   ): Promise<ArticleResponseDto> {
-    return this.articleService.findArticleRes(articleId);
+    const { user } = req;
+    return this.articleService.findArticleRes(articleId, user);
   }
 
   @Post("/boards/:boardId/article")
@@ -163,10 +188,10 @@ export class ArticleController {
   @ApiResponse({
     status: 200,
     description: "공지사항 제목과 id",
-    type: ArticleListDto,
+    type: ArticleDetailInfoDto,
     isArray: true,
   })
-  async findPopularArticles(): Promise<ArticleListDto[]> {
+  async findPopularArticles(): Promise<ArticleDetailInfoDto[]> {
     return this.articleService.findTopArticlesByHit();
   }
 
@@ -178,7 +203,7 @@ export class ArticleController {
   @ApiResponse({
     status: 200,
     description: "공지사항 정보",
-    type: ArticleListInfoDto,
+    type: ArticleDetailInfoDto,
     isArray: true,
   })
   @ApiHeader({
@@ -195,10 +220,20 @@ export class ArticleController {
     description:
       "유저가 구독 중인 공지사항 사이트에서 최신 공지사항을 조회한다. 페이징을 적용하며, 디폴트 페이지 인덱스는 1, 사이즈는 15",
   })
+  @ApiQuery({
+    name: "pageNo",
+    required: false,
+    description: "페이지 인덱스. 디폴트 1",
+  })
+  @ApiQuery({
+    name: "pageSize",
+    required: false,
+    description: "페이지 사이즈. 디폴트 15",
+  })
   @ApiResponse({
     status: 200,
     description: "공지사항 정보",
-    type: ArticleListInfoDto,
+    type: ArticleDetailInfoDto,
     isArray: true,
   })
   @ApiHeader({
@@ -207,8 +242,13 @@ export class ArticleController {
   })
   async findSubscribeArticles(
     @UserSession() user: User,
-    @Body() pageRequest: PageRequest,
+    @Query("pageNo") pageNo: number,
+    @Query("pageSize") pageSize: number,
   ) {
+    console.log(pageNo);
+    console.log(pageSize);
+    const pageRequest: PageRequest = new PageRequest(pageNo, pageSize);
+    console.log("확인", pageRequest);
     return this.articleService.findSubscribeArticles(user, pageRequest);
   }
 }

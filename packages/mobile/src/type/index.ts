@@ -7,7 +7,7 @@ export type Restaurant =
   | "한빛식당"
   | "선택안함";
 
-export type FlickingMenu = { id: number; name: string };
+export type Menu = { id: number; name: string };
 
 export type CalendarInfo = {
   year: number;

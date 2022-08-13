@@ -9,20 +9,28 @@ import noMenu from "src/assets/no_menu.png";
 import CafeteriaMenuCard from "src/components/molecules/CafeteriaMenuCard";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
 import Footer from "src/components/molecules/Footer";
-import useFlicking from "src/hooks/useFlicking";
+import MenuList from "src/components/molecules/MenuList";
+import { useAppDispatch, useAppSelector } from "src/store";
+import { selectMenu } from "src/store/cafeteriaSlice";
 import { cafeteriaTime } from "src/utils/cafeteriaTime";
 
 import caledarReducer from "../Calendar/calendarReducer";
 import $ from "./style.module.scss";
 
 function Cafeteria() {
-  const [ clickedMenu, Flicking ] = useFlicking(cafeteriaList);
   const [ { year, month, date, day }, dispatchDay ] = useReducer(caledarReducer, {
     year: dayjs().year(),
     month: dayjs().month(),
     date: dayjs().date(),
     day: dayjs().day(),
   });
+  const dispatch = useAppDispatch();
+  const { selectedMenu } = useAppSelector((state) => {
+    return state.persistedReducer.cafeteria.cafeteria;
+  });
+  const handleMenu = (id: number) => {
+    dispatch(selectMenu({ selectedMenu: id }));
+  };
 
   return (
     <>
@@ -38,7 +46,12 @@ function Cafeteria() {
         />
       </header>
 
-      {Flicking}
+      <MenuList
+        menuList={cafeteriaList}
+        onClick={handleMenu}
+        clickedMenu={selectedMenu}
+      />
+
       <main
         className={classnames($.cafeteria, {
           [$["no-menu"]]: !cafeteriaMenu.length,
@@ -74,6 +87,7 @@ function Cafeteria() {
             </Link>
           </div>
         )}
+
         <Footer />
       </main>
     </>

@@ -22,6 +22,11 @@ const makeMarker = (map: naver.maps.Map, position: naver.maps.LatLng) => {
   });
 };
 
+const INITIAL_SMALL_LATITUDE = 36.62;
+const INITIAL_LARGE_LATITUDE = 36.635;
+const INITIAL_SMALL_LONGITUDE = 127.44;
+const INITIAL_LARGE_LONGITUDE = 127.465;
+
 function Map() {
   const CBNU_LATITUDE = 36.62850496903595;
   const CBNU_LONGITUDE = 127.45731862757414;
@@ -31,10 +36,10 @@ function Map() {
 
   const comparePosition = (latitude: number, longitude: number) => {
     return (
-      latitude >= 36.62 &&
-      latitude <= 36.635 &&
-      longitude >= 127.44 &&
-      longitude <= 127.465
+      latitude >= INITIAL_SMALL_LATITUDE &&
+      latitude <= INITIAL_LARGE_LATITUDE &&
+      longitude >= INITIAL_SMALL_LONGITUDE &&
+      longitude <= INITIAL_LARGE_LONGITUDE
     );
   };
 

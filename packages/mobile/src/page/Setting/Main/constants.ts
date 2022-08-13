@@ -6,6 +6,7 @@ import {
   Person,
   Speaker,
 } from "src/components/atoms/icon";
+import { Restaurant } from "src/type";
 
 const settingMenuList = [
   {
@@ -40,8 +41,8 @@ const settingMenuList = [
   },
 ];
 
-const cafeterias = [
-  "표시 안함",
+const cafeterias: Restaurant[] = [
+  "선택안함",
   "본관",
   "양성재",
   "양진재",
@@ -56,7 +57,7 @@ type Props = {
 
 const settingConfig = (cafeteria: string): Props => {
   return {
-    대표식당: cafeteria || "설정 안함",
+    대표식당: cafeteria,
     "앱 버전": "최신버전(0.0.0)",
   };
 };

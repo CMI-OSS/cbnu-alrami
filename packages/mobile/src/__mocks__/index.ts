@@ -7,14 +7,12 @@ import detailImageList from "./detailImageList";
 import imageList from "./imageList";
 import mapImageList from "./mapImageList";
 import menuList from "./menuList";
-import { settingConfig } from "./settingConfig";
 
 export {
   imageList,
   menuList,
   detailImageList,
   mapImageList,
-  settingConfig,
   cafeteriaTimeInfo,
   cafeteriaMenu,
   cafeteriaList,

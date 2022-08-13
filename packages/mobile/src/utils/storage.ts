@@ -6,7 +6,8 @@ const SHOW_REPRESENTATIVE_RESTAURANT_GUIDE =
 
 export const get대표식당 = () => {
   const item = localStorage.getItem(REPRESENTATIVE_RESTAURANT);
-  return item;
+  if (!item) localStorage.setItem(REPRESENTATIVE_RESTAURANT, "선택안함");
+  return item || "선택안함";
 };
 
 export const set대표식당 = (restaurant: Restaurant) => {

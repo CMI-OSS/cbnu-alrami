@@ -12,6 +12,7 @@ import { Errors } from "src/commons/exception/exception.global";
 import { PageRequest } from "src/commons/page/page.request";
 import { PageResponse } from "src/commons/page/page.response";
 import { HitRepository } from "src/hit/hit.repository";
+import { HitService } from "src/hit/hit.service";
 import { ImageResponseDto } from "src/image/dto/image.response.dto";
 import { ImageService } from "src/image/image.service";
 import { SubscribeService } from "src/subscribe/subscribe.service";
@@ -31,6 +32,7 @@ export class ArticleService {
   constructor(
     private readonly articleRepository: ArticleRepository,
     private readonly bookmarkRepository: BookmarkRepository,
+    private readonly hitService: HitService,
     private readonly hitRepository: HitRepository,
     private readonly boardService: BoardService,
     private readonly boardTreeService: BoardTreeService,
@@ -191,10 +193,18 @@ export class ArticleService {
     return response;
   }
 
+  @Transactional()
   async findArticleRes(id: number, user: User): Promise<ArticleResponseDto> {
     const article = await this.findById(id);
     const board: BoardTreeResponseDto =
       await this.boardTreeService.getBoardTree(article.board.id);
+
+    // DESCRIBE: 유저가 존재한다면
+    if (user !== undefined) {
+      // DESCRIBE: 조회수 증가 (-> 중복 체크는 hit 모듈에서 처리)
+      await this.hitService.create(user, article);
+    }
+
     const hitCnt = await this.hitRepository.countByArticle(article.id);
     const bookmarkCnt = await this.bookmarkRepository.countByArticle(
       article.id,

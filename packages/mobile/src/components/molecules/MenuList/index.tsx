@@ -3,13 +3,13 @@ import { Menu } from "src/type";
 
 import $ from "./style.module.scss";
 
-interface Props {
+type Props = {
   menuList: Menu[];
   onClick: (id: number) => void;
   clickedMenu: number;
-}
+};
 
-export default function MenuList({ menuList, onClick, clickedMenu }: Props) {
+function MenuList({ menuList, onClick: handleClick, clickedMenu }: Props) {
   return (
     <div className={$["menu-list"]}>
       {menuList.map((menu, idx) => {
@@ -22,7 +22,7 @@ export default function MenuList({ menuList, onClick, clickedMenu }: Props) {
               [$["menu-not-clicked"]]: clickedMenu !== idx + 1,
             })}
             onClick={() => {
-              return onClick(idx + 1);
+              return handleClick(idx + 1);
             }}
           >
             {menu.name}
@@ -32,3 +32,5 @@ export default function MenuList({ menuList, onClick, clickedMenu }: Props) {
     </div>
   );
 }
+
+export default MenuList;

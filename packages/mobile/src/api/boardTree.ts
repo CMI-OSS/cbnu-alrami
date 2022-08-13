@@ -19,18 +19,20 @@ export const useBoardTree = () => {
 export const useBoardTreeByBoard = (boardIds: string[]) => {
   const boardTrees = useBoardTree()?.data?.data;
 
+  let parent;
   let content = boardTrees;
   let breadcrumb = `전체`;
 
   for (let i = 0; i < boardIds.length; i += 1) {
-    const parent = content?.find((boardTree) => {
+    parent = content?.find((boardTree) => {
       return boardTree.id === Number(boardIds[i]);
     });
     content = parent?.children;
-    breadcrumb += `> ${parent?.name}`;
+    breadcrumb += ` > ${parent?.name}`;
   }
 
   return {
+    parent,
     breadcrumb,
     content,
   };

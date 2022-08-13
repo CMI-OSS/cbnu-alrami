@@ -17,6 +17,7 @@ import Error from "./page/Place/Error";
 import MoreImage from "./page/Place/MoreImage";
 import Report from "./page/Place/Report";
 import SettingRoute from "./page/Setting";
+import Preview from "./page/Subscription/Preview";
 
 function App() {
   const routes = [
@@ -27,6 +28,7 @@ function App() {
     { path: "/cafeteria", element: <Cafeteria /> },
     { path: "/map", element: <Map /> },
     { path: "/subscription", element: <Subscription /> },
+    { path: "/preview", element: <Preview /> },
     {
       path: "/place",
       element: <PlaceDetail />,

@@ -41,11 +41,9 @@ const getGuide = (content: res.BoardTree[]) => {
 };
 
 function Subscription() {
-  const originBoardIds = useSearch({ target: "boardId" });
-  const boardIds = originBoardIds?.split(",");
+  const boardIds = useSearch({ target: "boardId" })?.split(",");
 
   const boardTrees = useBoardTreeByBoard(boardIds || []);
-
   if (!boardTrees.content) return <></>;
   return (
     <SubscriptionModalTemplate>
@@ -59,11 +57,15 @@ function Subscription() {
         </div>
       </div>
       {boardTrees.content.map((boardTree) => {
-        const { id, name, isSubscribing, isNoticing } = boardTree;
+        const { id, name, isSubscribing, isNoticing, children } = boardTree;
         const newBoardIds = boardIds ? [ ...boardIds, id ] : [ id ];
         return (
           <Link
-            to={`${useLocation().pathname}?boardId=${newBoardIds}`}
+            to={
+              children
+                ? `${useLocation().pathname}?boardId=${newBoardIds}`
+                : `/preview?boardId=${newBoardIds}`
+            }
             key={id}
           >
             <BorderBox

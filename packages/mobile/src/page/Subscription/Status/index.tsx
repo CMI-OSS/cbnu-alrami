@@ -5,9 +5,9 @@ import {
   UnSubscription,
 } from "@components/atoms/icon";
 import {
-  useAddNotice,
+  useAddAlarm,
   useAddSubscribe,
-  useRemoveNotice,
+  useRemoveAlarm,
   useRemoveSubscribe,
 } from "src/api/subscribe";
 
@@ -20,6 +20,10 @@ type Props = {
 };
 
 function Status({ boardId, isSubscribing, isNoticing }: Props) {
+  const addAlarm = useAddAlarm();
+  const removeAlarm = useRemoveAlarm();
+  const addSubscribe = useAddSubscribe();
+  const removeSubscribe = useRemoveSubscribe();
   if (!boardId) return <></>;
 
   if (isSubscribing && isNoticing) {
@@ -28,7 +32,7 @@ function Status({ boardId, isSubscribing, isNoticing }: Props) {
         <button
           type="button"
           onClick={() => {
-            return useRemoveSubscribe(boardId);
+            removeSubscribe.mutate({ boardId });
           }}
         >
           <Subscription size={30} stroke="#D66D6E" />
@@ -36,7 +40,7 @@ function Status({ boardId, isSubscribing, isNoticing }: Props) {
         <button
           type="button"
           onClick={() => {
-            return useRemoveNotice(boardId);
+            removeAlarm.mutate({ boardId });
           }}
         >
           <Alarm size={20} stroke="#D66D6E" />
@@ -50,7 +54,7 @@ function Status({ boardId, isSubscribing, isNoticing }: Props) {
         <button
           type="button"
           onClick={() => {
-            return useRemoveSubscribe(boardId);
+            removeSubscribe.mutate({ boardId });
           }}
         >
           <Subscription size={30} stroke="#D66D6E" />
@@ -58,7 +62,7 @@ function Status({ boardId, isSubscribing, isNoticing }: Props) {
         <button
           type="button"
           onClick={() => {
-            return useAddNotice(boardId);
+            addAlarm.mutate({ boardId });
           }}
         >
           <UnAlarm size={20} stroke="#aaaaaa" />
@@ -72,10 +76,10 @@ function Status({ boardId, isSubscribing, isNoticing }: Props) {
       type="button"
       className={$.status}
       onClick={() => {
-        return useAddSubscribe(boardId);
+        addSubscribe.mutate({ boardId });
       }}
     >
-      <UnSubscription size={30} stroke="#aaaaaa" />;{" "}
+      <UnSubscription size={30} stroke="#aaaaaa" />
     </button>
   );
 }

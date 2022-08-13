@@ -1,7 +1,6 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import logger from "redux-logger";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
@@ -32,7 +31,7 @@ export const store = configureStore({
     persistedReducer,
   },
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware({ serializableCheck: false }).concat(logger);
+    return getDefaultMiddleware({ serializableCheck: false });
   },
   devTools: process.env.NODE_ENV !== "production",
 });

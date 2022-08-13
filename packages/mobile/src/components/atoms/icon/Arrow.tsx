@@ -10,7 +10,7 @@ function Arrow({ size, stroke, style }: Props) {
   return (
     <svg
       width={size}
-      height="auto"
+      height="100%"
       style={style}
       viewBox="0 0 7 14"
       fill="none"

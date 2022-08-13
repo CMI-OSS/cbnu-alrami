@@ -19,6 +19,7 @@ type Props = {
   isNoticing?: boolean;
 };
 
+// TODO: 구독알림 API 사용
 function Status({ boardId, isSubscribing, isNoticing }: Props) {
   const addAlarm = useAddAlarm();
   const removeAlarm = useRemoveAlarm();

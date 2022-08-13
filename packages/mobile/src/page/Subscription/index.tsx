@@ -87,7 +87,10 @@ function Subscription() {
                 <span className={$.description}>{getDescription(name)}</span>
               )}
               {isSubscribing !== undefined && isNoticing !== undefined && (
-                <Status {...{ isSubscribing, isNoticing }} />
+                <Status
+                  boardId={boardTree.id}
+                  {...{ isSubscribing, isNoticing }}
+                />
               )}
             </BorderBox>
           </Link>

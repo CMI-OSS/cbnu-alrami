@@ -23,6 +23,7 @@ function Preview() {
       title={boardTrees?.parent?.name}
       right={
         <Status
+          boardId={boardTrees?.parent?.id}
           isNoticing={boardTrees?.parent?.isNoticing}
           isSubscribing={boardTrees?.parent?.isSubscribing}
         />

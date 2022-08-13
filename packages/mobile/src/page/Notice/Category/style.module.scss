@@ -17,9 +17,16 @@
     margin-right: 11px;
     background: $black-10;
     border-radius: 20px;
+  }
 
-    path {
-      stroke: $black-60;
+  .active {
+    background: $red-20;
+    color: $red-100;
+
+    svg {
+      path {
+        fill: $red-100;
+      }
     }
   }
 }

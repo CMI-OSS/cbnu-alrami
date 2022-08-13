@@ -4,7 +4,7 @@ function AppVersion({ size, stroke }: IconProps) {
   return (
     <svg
       width={size}
-      height="auto"
+      height="100%"
       viewBox="0 0 14 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

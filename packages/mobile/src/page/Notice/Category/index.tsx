@@ -1,48 +1,47 @@
 import { NavLink } from "react-router-dom";
 
 import { Star } from "@components/atoms/icon";
+import useSearch from "@hooks/useSearch";
 import classNames from "classnames";
-import { mockCategory } from "src/__mocks__";
+import { useSubscribeBoards } from "src/api/subscribe";
 
 import $ from "./style.module.scss";
 
 function Category() {
+  const target = useSearch({ target: "type" }) || "new";
+  const { data: categories } = useSubscribeBoards();
+  
   return (
     <div className={$.categories}>
       <NavLink
-        className={({ isActive }) => {
-          return classNames($.category, { [$.active]: isActive });
-        }}
-        to="?major=즐겨찾기"
+        className={classNames($.category, target === "bookmark" && $.active)}
+        to="?type=bookmark"
       >
         <Star size={12} stroke="#5e5e5e" fill="#5e5e5e" />
       </NavLink>
       <NavLink
-        className={({ isActive }) => {
-          return classNames($.category, { [$.active]: isActive });
-        }}
-        to="?major=최신"
+        className={classNames($.category, target === "new" && $.active)}
+        to="?type=new"
       >
         최신
       </NavLink>
       <NavLink
-        className={({ isActive }) => {
-          return classNames($.category, { [$.active]: isActive });
-        }}
-        to="?major=인기"
+        className={classNames($.category, target === "popular" && $.active)}
+        to="?type=popular"
       >
         인기
       </NavLink>
-
-      {mockCategory.map((category) => {
+      {categories?.map((category) => {
         return (
           <NavLink
-            to={category.to}
-            className={({ isActive }) => {
-              return classNames($.category, { [$.active]: isActive });
-            }}
+            key={category.id}
+            to={`?type=${category.id}`}
+            className={classNames(
+              $.category,
+              Number(target) === category.id && $.active,
+            )}
           >
-            {category.major}
+            {category.name}
           </NavLink>
         );
       })}

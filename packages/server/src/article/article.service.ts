@@ -21,12 +21,7 @@ import { Transactional } from "typeorm-transactional-cls-hooked";
 import { FcmService } from "../fcm/fcm.service";
 import { ArticleRepository } from "./article.repository";
 import { ArticleCreateDto } from "./dtos/article.create.dto";
-import {
-  ArticleDetailInfoDto,
-  ArticleListInfoDto,
-  ArticleResponseDto,
-} from "./dtos/article.dto";
-import { ArticleListDto } from "./dtos/article.list.dto";
+import { ArticleDetailInfoDto, ArticleResponseDto } from "./dtos/article.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
 const { NO_DATA_IN_DB, ARTICLE_URL_EXISTS } = Errors;
@@ -146,10 +141,10 @@ export class ArticleService {
     return articles;
   }
 
-  async findTopArticlesByHit(): Promise<ArticleListDto[]> {
-    const response = [];
+  async findTopArticlesByHit(): Promise<ArticleDetailInfoDto[]> {
+    let response = [];
 
-    // DESCRIBE: hit 테이블에서 조회수 순으로 상위 5개 공지사항 조회
+    // DESCRIBE: hit 테이블에서 조회수 순으로 상위 15개 공지사항 조회
     const articlesByHit =
       await this.articleRepository.findPopularArticlesByHit();
     response.push(...articlesByHit);
@@ -172,10 +167,31 @@ export class ArticleService {
 
     // DESCRIBE: hit 테이블 조회 결과와 article 테이블 조회 결과 합쳐서 리턴
     if (!Array.isArray(response) || response.length === 0) throw NO_DATA_IN_DB;
+
+    // DESCRIBE: 각 article에 대해 조회수, 스크랩 수 카운트
+    response = await Promise.all(
+      response.map(async (article) => {
+        const board: BoardTreeResponseDto =
+          await this.boardTreeService.getBoardTree(article.boardId);
+        const hitCnt = await this.hitRepository.countByArticle(article.id);
+        const bookmarkCnt = await this.bookmarkRepository.countByArticle(
+          article.id,
+        );
+        return Builder(ArticleDetailInfoDto)
+          .id(article.id)
+          .board(board)
+          .title(article.title)
+          .hits(hitCnt)
+          .scraps(bookmarkCnt)
+          .date(article.date)
+          .build();
+      }),
+    );
+
     return response;
   }
 
-  async findArticleRes(id: number): Promise<ArticleResponseDto> {
+  async findArticleRes(id: number, user: User): Promise<ArticleResponseDto> {
     const article = await this.findById(id);
     const board: BoardTreeResponseDto =
       await this.boardTreeService.getBoardTree(article.board.id);
@@ -183,6 +199,15 @@ export class ArticleService {
     const bookmarkCnt = await this.bookmarkRepository.countByArticle(
       article.id,
     );
+
+    // DESCRIBE: articleid와 uuid로 bookmark 여부 확인
+    const isBookmark: boolean =
+      user === undefined
+        ? undefined
+        : (await this.bookmarkRepository.existsByUserAndArticle(
+            user.id,
+            article.id,
+          )) === 1;
 
     let images = [];
     const articleImages = await this.articleImageService.findImageByArticle(id);
@@ -203,6 +228,7 @@ export class ArticleService {
       .hits(hitCnt)
       .scraps(bookmarkCnt)
       .date(article.date)
+      .isBookmark(isBookmark)
       .images(images)
       .build();
   }
@@ -293,7 +319,7 @@ export class ArticleService {
     return true;
   }
 
-  async findBookmarkArticles(user: User): Promise<ArticleListInfoDto[]> {
+  async findBookmarkArticles(user: User): Promise<ArticleDetailInfoDto[]> {
     const response = [];
     const bookmarkList = await this.bookmarkRepository.find({
       where: {
@@ -305,12 +331,14 @@ export class ArticleService {
     await Promise.all(
       bookmarkList.map(async (bookmark) => {
         const { article } = bookmark;
+        const board: BoardTreeResponseDto =
+          await this.boardTreeService.getBoardTree(article.board.id);
         const hitCnt = await this.hitRepository.count({ article });
         const bookmarkCnt = await this.bookmarkRepository.count({ article });
         response.push(
-          Builder(ArticleListInfoDto)
+          Builder(ArticleDetailInfoDto)
             .id(article.id)
-            .boardName(article.board.name)
+            .board(board)
             .title(article.title)
             .date(article.date)
             .hits(hitCnt)
@@ -326,7 +354,7 @@ export class ArticleService {
   async findSubscribeArticles(
     user: User,
     pageRequest: PageRequest,
-  ): Promise<PageResponse<ArticleListInfoDto[]>> {
+  ): Promise<PageResponse<ArticleDetailInfoDto[]>> {
     const boardIdList = await this.subscribeService.findBoardByUser(user.id);
     const articleList = await this.articleByBoardPaginator(
       boardIdList,
@@ -338,12 +366,14 @@ export class ArticleService {
 
     const response = await Promise.all(
       articleList.map(async (article) => {
+        const board: BoardTreeResponseDto =
+          await this.boardTreeService.getBoardTree(article.board.id);
         const hitCnt = await this.hitRepository.count({ article });
         const bookmarkCnt = await this.bookmarkRepository.count({ article });
 
-        return Builder(ArticleListInfoDto)
+        return Builder(ArticleDetailInfoDto)
           .id(article.id)
-          .boardName(article.board.name)
+          .board(board)
           .title(article.title)
           .date(article.date)
           .hits(hitCnt)

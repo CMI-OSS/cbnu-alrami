@@ -25,7 +25,7 @@ import SubscriptionSetting from "./page/Subscription/Setting";
 function App() {
   const routes = [
     { path: "/notice", element: <Notice /> },
-    { path: "/notice/:noticeId", element: <NoticeDetail /> },
+    { path: "/notice/:articleId", element: <NoticeDetail /> },
     { path: "/calendar", element: <Calendar /> },
     { path: "/home", element: <Home /> },
     { path: "/cafeteria", element: <Cafeteria /> },

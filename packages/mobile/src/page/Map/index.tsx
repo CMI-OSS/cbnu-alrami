@@ -26,10 +26,10 @@ const INITIAL_SMALL_LATITUDE = 36.62;
 const INITIAL_LARGE_LATITUDE = 36.635;
 const INITIAL_SMALL_LONGITUDE = 127.44;
 const INITIAL_LARGE_LONGITUDE = 127.465;
+const INITIAL_CBNU_LATITUDE = 36.62850496903595;
+const INITIAL_CBNU_LONGITUDE = 127.45731862757414;
 
 function Map() {
-  const CBNU_LATITUDE = 36.62850496903595;
-  const CBNU_LONGITUDE = 127.45731862757414;
   const [ constructionId, setConstructionId ] = useState(9);
   const [ myLocation, setMyLocation ] = useState({ latitude: 0, longitude: 0 });
   const dispatch = useAppDispatch();
@@ -56,13 +56,13 @@ function Map() {
           position.coords.longitude,
         )
           ? position.coords.latitude
-          : CBNU_LATITUDE,
+          : INITIAL_CBNU_LATITUDE,
         longitude: comparePosition(
           position.coords.latitude,
           position.coords.longitude,
         )
           ? position.coords.longitude
-          : CBNU_LONGITUDE,
+          : INITIAL_CBNU_LONGITUDE,
       };
     });
   };

@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { Hamburger, LeftArrow } from "@components/atoms/icon";
 import { Close } from "@components/atoms/icon/Close";
 import Footer from "@components/molecules/Footer";
-import { useSchool } from "src/api/school";
+import { useSchool, useSchoolById } from "src/api/school";
 import ConstructionInfo from "src/page/Map/ConstructionInfo";
 import { useAppDispatch, useAppSelector } from "src/store";
 import {
@@ -30,7 +30,7 @@ const INITIAL_CBNU_LATITUDE = 36.62850496903595;
 const INITIAL_CBNU_LONGITUDE = 127.45731862757414;
 
 function Map() {
-  const [ constructionId, setConstructionId ] = useState(9);
+  const [ constructionId, setConstructionId ] = useState(253);
   const [ myLocation, setMyLocation ] = useState({ latitude: 0, longitude: 0 });
   const dispatch = useAppDispatch();
 
@@ -76,6 +76,12 @@ function Map() {
     isLoading: schoolLoading,
     isError: schoolError,
   } = useSchool();
+
+  const {
+    data: schoolSeveralData,
+    isLoading: schoolSeveralLoading,
+    isError: schoolSeveralError,
+  } = useSchoolById(constructionId);
 
   useEffect(() => {
     const initMap = () => {
@@ -155,7 +161,13 @@ function Map() {
           </NavLink>
         </div>
       )}
-      {isConstructionTooltip && <ConstructionInfo placeId={constructionId} />}
+      {isConstructionTooltip && !schoolSeveralLoading && (
+        <ConstructionInfo
+          schoolData={schoolSeveralData!.data}
+          type="map"
+          placeId={constructionId}
+        />
+      )}
       <Footer />
     </div>
   );

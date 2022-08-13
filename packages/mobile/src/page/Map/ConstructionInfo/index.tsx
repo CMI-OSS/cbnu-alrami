@@ -1,43 +1,54 @@
 import { NavLink } from "react-router-dom";
 
 import { LongArrow } from "@components/atoms/icon";
-import { useSchoolById } from "src/api/school";
 
 import constructionInfo from "../../../__mocks__/constructionInfo";
 import $ from "./style.module.scss";
 
 type Props = {
+  schoolData?: res.SchoolById | res.School;
+  type: string;
   placeId: number;
 };
-function ConstructionInfo({ placeId }: Props) {
-  const {
-    data: schoolData,
-    isLoading: schoolLoading,
-    isError: schoolError,
-  } = useSchoolById(placeId);
-
-  if (schoolLoading) return <div>로딩중입니다.</div>;
-  if (schoolError) return <div>에러가 발생했습니다.</div>;
-  if (schoolData === undefined) return <div>위치 정보 가져오기 실패</div>;
-
-  const schoolPlaceData = schoolData!.data;
+function ConstructionInfo({ schoolData, type, placeId }: Props) {
   return (
     <>
-      <div className={$.wrap}>
-        <img
-          className={$.image}
-          src={constructionInfo.src}
-          alt={constructionInfo.alt}
-        />
-        <div className={$.info}>
-          <strong className={$.title}>{schoolPlaceData?.name}</strong>
-          <span className={$.address}>{schoolPlaceData?.address}</span>
-          <NavLink className={$.link} to="">
-            <span className={$.text}>더보기</span>
-            <LongArrow size={4} stroke="#aaa" />
-          </NavLink>
+      {type === "map" ? (
+        <div className={$.wrap}>
+          <img
+            className={$.image}
+            src={constructionInfo.src}
+            alt={constructionInfo.alt}
+          />
+          <div className={$.info}>
+            <strong className={$.title}>{schoolData?.name}</strong>
+            <span className={$.address}>{schoolData?.address}</span>
+            <NavLink className={$.link} to="">
+              <span className={$.text}>더보기</span>
+              <LongArrow size={4} stroke="#aaa" />
+            </NavLink>
+          </div>
         </div>
-      </div>
+      ) : (
+        <>
+          <NavLink
+            to={`/place/school/detail/${placeId + 1}`}
+            className={$.item}
+          >
+            <img
+              className={$.school_image}
+              src={schoolData?.images?.url}
+              alt={schoolData?.name}
+            />
+            <div className={$.summary}>
+              <strong className={$.summary_title}>{schoolData?.name}</strong>
+              <span className={$.summary_description}>
+                {schoolData?.address}
+              </span>
+            </div>
+          </NavLink>
+        </>
+      )}
     </>
   );
 }

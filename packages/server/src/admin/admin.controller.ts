@@ -1,11 +1,22 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { AdminCredential } from "src/auth/dto/adminCredential.dto";
 import { Admin } from "src/commons/entities/admin.entity";
 
-import { UserSession } from "../commons/decorators/user-session.decorator";
+import { AdminSession } from "../commons/decorators/admin-session.decorator";
+import { AdminAuthGuard } from "../commons/guards/admin-auth.guard";
+import { AdminMasterGuard } from "../commons/guards/admin-master.guard";
 import { AdminService } from "./admin.service";
-import { AdminCreateDto } from "./dto/adminCreate.dto";
+import { AdminCreateDto } from "./dto/admin-create.dto";
+import { AdminUpdateDto } from "./dto/admin-update.dto";
 
 @ApiTags("[admin] 관리자 API")
 @Controller("admins")
@@ -13,17 +24,35 @@ export class AdminController {
   constructor(private adminService: AdminService) {}
 
   @Get("me")
-  async getMe(@UserSession() user: AdminCredential): Promise<AdminCredential> {
-    return user;
+  @UseGuards(AdminAuthGuard)
+  async findOne(@AdminSession() admin: Admin): Promise<Admin> {
+    return admin;
   }
 
   @Get()
+  @UseGuards(AdminMasterGuard)
   async find(): Promise<Admin[]> {
     return this.adminService.find();
   }
 
   @Post()
-  async create(@Body() adminCreateDto: AdminCreateDto): Promise<Admin> {
+  @UseGuards(AdminMasterGuard)
+  async create(@Body() adminCreateDto: AdminCreateDto) {
     return this.adminService.create(adminCreateDto);
+  }
+
+  @Put(":adminId")
+  @UseGuards(AdminMasterGuard)
+  async update(
+    @Param("adminId") adminId: number,
+    @Body() adminUpdateDto: AdminUpdateDto,
+  ) {
+    return this.adminService.update(adminId, adminUpdateDto);
+  }
+
+  @Delete(":adminId")
+  @UseGuards(AdminMasterGuard)
+  async delete(@Param("adminId") adminId: number) {
+    return this.adminService.delete(adminId);
   }
 }

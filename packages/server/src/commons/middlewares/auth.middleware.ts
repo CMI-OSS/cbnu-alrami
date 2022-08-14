@@ -17,6 +17,7 @@ export class AuthMiddleware implements NestMiddleware {
     if (adminToken) {
       try {
         const admin = await this.jwtService.verify(adminToken);
+
         req.admin = admin;
       } catch (error) {
         req.admin = null;

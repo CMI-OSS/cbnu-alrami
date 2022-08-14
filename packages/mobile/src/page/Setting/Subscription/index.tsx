@@ -9,7 +9,7 @@ import $ from "./style.module.scss";
 
 function Subscription() {
   const { data: subscribeBoards } = useSubscribeBoards();
-  console.log(subscribeBoards, "하");
+
   return (
     <SettingTemplate
       title="구독/알림"

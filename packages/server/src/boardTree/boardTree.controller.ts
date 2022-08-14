@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Req, UseGuards } from "@nestjs/common";
+import { Controller, Get, Param, UseGuards } from "@nestjs/common";
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { UserSession } from "src/commons/decorators/user-session.decorator";
 import { User } from "src/commons/entities/user.entity";
@@ -18,27 +18,6 @@ export class BoardTreeController {
   @Get()
   @ApiOperation({
     summary: "공지사항 사이트 전체 계층구조 조회 API",
-    description: "모든 board의 계층 구조를 조회한다.",
-  })
-  @ApiResponse({
-    status: 200,
-    description: "공지사항 사이트 전체 계층 구조",
-    type: BoardTreeAllResponseDto,
-    isArray: true,
-  })
-  @ApiHeader({
-    name: "uuid",
-    description: "user uuid",
-  })
-  @UseGuards(UserAuthGuard)
-  async findAll(@Req() req) {
-    const { user } = req;
-    return this.boardTreeService.findAll(user.id);
-  }
-
-  @Get("refactor")
-  @ApiOperation({
-    summary: "[REFACTOR] 공지사항 사이트 전체 계층구조 조회 API",
     description: "모든 board의 계층 구조를 조회한다.",
   })
   @ApiResponse({

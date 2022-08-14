@@ -21,6 +21,6 @@ interface IsDuplicationArticleProps {
 
 export function isDuplicationArticle({ url }: IsDuplicationArticleProps) {
   return axios.get<{ isDuplication: boolean }>(
-    `/articles/duplication?url=${url}`,
+    `/articles/duplication?url=${encodeURIComponent(url)}`,
   );
 }

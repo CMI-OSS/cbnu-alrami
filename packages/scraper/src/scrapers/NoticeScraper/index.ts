@@ -33,23 +33,28 @@ class NoticeScraper extends Scraper<NoticeScript> {
         message: `${notice.title} 게시물의 내용을 스크래핑합니다`,
       });
 
-      const {
-        data: { isDuplication },
-      } = await isDuplicationArticle({ url: notice.url });
+      try {
+        const {
+          data: { isDuplication },
+        } = await isDuplicationArticle({ url: notice.url.trim() });
 
-      if (!isDuplication) {
-        await createArticle({
-          boardId: notice.site_id.toString(),
-          article: {
-            title: notice.title,
-            content: await this.getContents(scenario, notice),
-            date: notice.date,
-            url: notice.url,
-            images: [],
-          },
-        });
+        if (!isDuplication) {
+          await createArticle({
+            boardId: notice.site_id.toString(),
+            article: {
+              title: notice.title,
+              content: await this.getContents(scenario, notice),
+              date: notice.date,
+              url: notice.url,
+              images: [],
+            },
+          });
 
-        await this.scraper?.waitForTimeout(1000);
+          await this.scraper?.waitForTimeout(1000);
+        }
+      } catch (error) {
+        // @ts-ignore
+        console.log(error.response ?? error);
       }
     }
 

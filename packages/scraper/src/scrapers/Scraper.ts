@@ -203,9 +203,6 @@ abstract class Scraper<T> {
           prefix: "ERROR",
           message: `${this.currentScenario?.title} 시나리오의 스크립트 실행도중 에러가 발생했습니다 \n ${error}`,
         });
-
-        // @ts-ignore
-        console.log(error);
       }
     }
 

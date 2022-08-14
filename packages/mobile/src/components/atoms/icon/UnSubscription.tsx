@@ -4,7 +4,7 @@ function UnSubscription({ size, stroke, style }: IconProps) {
   return (
     <svg
       width={size}
-      height="auto"
+      height="100%"
       style={style}
       viewBox="0 0 22 15"
       fill="none"

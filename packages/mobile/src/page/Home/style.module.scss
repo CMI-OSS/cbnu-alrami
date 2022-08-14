@@ -28,12 +28,6 @@
       cursor: pointer;
     }
 
-    .schedule {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-    }
-
     > div:last-child {
       margin-right: 0;
     }
@@ -42,6 +36,12 @@
       padding-right: 10px;
       line-height: 24px;
     }
+  }
+
+  .schedule {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
   }
 
   .show-guide {

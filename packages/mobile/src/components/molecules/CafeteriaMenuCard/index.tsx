@@ -7,10 +7,10 @@ type Props = {
   mealTime: string;
   timeInfo: string;
   mealMenu: string;
-  calory: string;
+  calorie?: string;
 };
 
-function CafeteriaMenuCard({ mealTime, timeInfo, mealMenu, calory }: Props) {
+function CafeteriaMenuCard({ mealTime, timeInfo, mealMenu, calorie }: Props) {
   return (
     <BorderBox className={$["cafeteria-menu-card"]} height="fit-content">
       <div className={$.time}>
@@ -20,7 +20,7 @@ function CafeteriaMenuCard({ mealTime, timeInfo, mealMenu, calory }: Props) {
       <Line />
       <div className={$.meal}>
         <span>{mealMenu}</span>
-        <span className={$["meal-calory"]}>{calory}</span>
+        {calorie && <span className={$["meal-calorie"]}>{calorie}</span>}
       </div>
     </BorderBox>
   );

@@ -1,5 +1,5 @@
 export class SubscribeBaseDto {
-  id: number;
+  boardId: number;
   name: string;
 }
 

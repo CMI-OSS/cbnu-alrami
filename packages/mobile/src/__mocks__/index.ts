@@ -6,13 +6,11 @@ import convenientList from "./convenientList";
 import detailImageList from "./detailImageList";
 import mapImageList from "./mapImageList";
 import menuList from "./menuList";
-import { settingConfig } from "./settingConfig";
 
 export {
   menuList,
   detailImageList,
   mapImageList,
-  settingConfig,
   cafeteriaTimeInfo,
   cafeteriaMenu,
   cafeteriaList,

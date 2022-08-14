@@ -1,4 +1,4 @@
-import ConstructionInfo from "src/page/Map/ConstructionInfo";
+import Spot from "src/page/Map/Spot";
 
 import $ from "./style.module.scss";
 
@@ -13,7 +13,7 @@ function DetailGroup({ schoolDatas }: Props) {
         <div className={$.image_list}>
           {schoolDatas.map((item) => {
             return (
-              <ConstructionInfo
+              <Spot
                 schoolData={item}
                 key={`contruction-${item.id}`}
                 type="place"

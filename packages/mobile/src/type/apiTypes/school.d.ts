@@ -12,7 +12,7 @@ declare namespace res {
       oldBuildingNumber: string;
       area: string;
     };
-    images: SchoolImage;
+    image: SchoolImage;
   };
   type SchoolById = {
     id: number;

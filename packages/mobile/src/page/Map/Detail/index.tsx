@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { LeftArrow } from "@components/atoms/icon";
 import ImageList from "@components/molecules/ImageList";
@@ -7,7 +7,6 @@ import BorderBox from "src/components/atoms/BorderBox";
 import useSearch from "src/hooks/useSearch";
 import Info from "src/page/Map/Info";
 
-import detailImageList from "../../../__mocks__/detailImageList";
 import $ from "./style.module.scss";
 
 function MapDetail() {
@@ -41,15 +40,16 @@ function MapDetail() {
           <LeftArrow stroke="#fff" size={16} />
           <span className="blind">뒤로 가기</span>
         </button>
-        <NavLink to="/call" className={$["link-call"]}>
+        {/* [D] 식당 스펙 추가 후 작업 진행 예정 */}
+        {/* <NavLink to="/call" className={$["link-call"]}>
           <span className="blind">제보하기</span>
-        </NavLink>
+        </NavLink> */}
       </div>
       <div
         className={$["back-image"]}
         style={{
           backgroundImage: `url(
-            ${imageUrl}
+            ${detailSeveralData?.images[0]?.url}
           )`,
         }}
       />
@@ -67,7 +67,11 @@ function MapDetail() {
       </BorderBox>
       <BorderBox className={$.detail}>
         <strong className={$["detail-title"]}>상세이미지</strong>
-        <ImageList isMoreContents detailImageList={detailImageList} />
+        <ImageList
+          isMoreContents
+          name={detailSeveralData?.name}
+          detailImageList={detailSeveralData?.images}
+        />
       </BorderBox>
     </div>
   );

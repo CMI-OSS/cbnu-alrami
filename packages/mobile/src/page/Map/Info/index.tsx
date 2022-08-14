@@ -1,5 +1,3 @@
-import { NavLink } from "react-router-dom";
-
 import BorderBox from "src/components/atoms/BorderBox";
 import { Map } from "src/components/atoms/icon";
 
@@ -26,11 +24,12 @@ function Info({ buildingNumber, oldBuildingNumber, name, address }: Props) {
               <span className={$["item-text"]}>{address}</span>
             </li>
           </ul>
-          <div className={$.error}>
+          {/* [D] 식당 스펙 적용 후 작업 예정 */}
+          {/* <div className={$.error}>
             <NavLink className={$["error-link"]} to="/error">
               오류 신고
             </NavLink>
-          </div>
+          </div> */}
         </div>
       </BorderBox>
     </>

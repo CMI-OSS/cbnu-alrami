@@ -13,8 +13,6 @@ type Props = {
 function FullPageModalTemplate({ left, title, right, children }: Props) {
   const navigate = useNavigate();
 
-  console.log("title", title);
-
   return (
     <div className={$["full-modal"]}>
       <div className={$.header}>

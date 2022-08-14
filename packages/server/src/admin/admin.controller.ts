@@ -12,7 +12,7 @@ import { ApiTags } from "@nestjs/swagger";
 import { Admin } from "src/commons/entities/admin.entity";
 
 import { AdminSession } from "../commons/decorators/admin-session.decorator";
-import { AdminCouncilGuard } from "../commons/guards/admin-council.guard";
+import { AdminAuthGuard } from "../commons/guards/admin-auth.guard";
 import { AdminMasterGuard } from "../commons/guards/admin-master.guard";
 import { AdminService } from "./admin.service";
 import { AdminCreateDto } from "./dto/admin-create.dto";
@@ -24,7 +24,7 @@ export class AdminController {
   constructor(private adminService: AdminService) {}
 
   @Get("me")
-  @UseGuards(AdminCouncilGuard)
+  @UseGuards(AdminAuthGuard)
   async findOne(@AdminSession() admin: Admin): Promise<Admin> {
     return admin;
   }

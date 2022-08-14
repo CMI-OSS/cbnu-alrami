@@ -33,6 +33,7 @@ import { ArticleCreateDto } from "./dtos/article.create.dto";
 import {
   ArticleDetailInfoDto,
   ArticleDto,
+  ArticleDuplicationResponseDto,
   ArticleResponseDto,
 } from "./dtos/article.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
@@ -250,5 +251,23 @@ export class ArticleController {
     const pageRequest: PageRequest = new PageRequest(pageNo, pageSize);
     console.log("확인", pageRequest);
     return this.articleService.findSubscribeArticles(user, pageRequest);
+  }
+
+  @Get("articles/duplication")
+  @ApiOperation({
+    summary: "공지사항 중복 확인",
+    description: "URL을 사용하여 공지사항 존재 여부확인",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "중복 true/false",
+    type: ArticleDuplicationResponseDto,
+  })
+  async findByUrl(
+    @Query("url") url: string,
+  ): Promise<ArticleDuplicationResponseDto> {
+    return {
+      isDuplication: await this.articleService.findByUrl(url),
+    };
   }
 }

@@ -33,3 +33,7 @@ export class ArticleResponseDto extends ArticleDetailInfoDto {
   isBookmark: boolean;
   images: ImageResponseDto[];
 }
+
+export class ArticleDuplicationResponseDto {
+  isDuplication: boolean;
+}

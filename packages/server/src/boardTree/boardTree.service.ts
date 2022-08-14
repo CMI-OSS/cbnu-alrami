@@ -121,25 +121,8 @@ export class BoardTreeService {
       await this.refactorFindAll();
     const response: BoardTreeAllResponseDto[] = [];
 
-    // const response = await Promise.all(
-    //   boardTreeHierarchy.map(async (boardTree) => {
-    //     return await this.getBoardTreeResponse(boardTree, subscribeList);
-    //   }),
-    // );
-
-    // for (let i = 0; i < boardTreeHierarchy.length; i++) {
-    //   const boardTree = boardTreeHierarchy[i];
-    //   // const result = await this.getBoardTreeResponse(boardTree, subscribeList);
-    //   // response.push(...result);
-    //   boardTreeHierarchy[i] = await this.getBoardTreeResponse(
-    //     boardTree,
-    //     subscribeList,
-    //   );
-    // }
-
     await Promise.all(
       boardTreeHierarchy.map(async (boardTree) => {
-        // boardTree = await this.getBoardTreeResponse(boardTree, subscribeList);
         Object.assign(
           boardTree,
           await this.getBoardTreeResponse(boardTree, subscribeList),
@@ -147,7 +130,6 @@ export class BoardTreeService {
       }),
     );
 
-    // return response;
     return boardTreeHierarchy;
   }
 
@@ -157,33 +139,14 @@ export class BoardTreeService {
   ): Promise<BoardTreeAllResponseDto> {
     const { children } = boardTree;
     if (Array.isArray(children)) {
-      // response = await Promise.all(
-      //   children.map(async (child) => {
-      //     return await this.getBoardTreeResponse(child, subscribeList);
-      //   }),
-      // );
-
-      // for (let i = 0; i < children.length; i++) {
-      //   children[i] = await this.getBoardTreeResponse(
-      //     children[i],
-      //     subscribeList,
-      //   );
-      //   // response.push(...result);
-      // }
-
       await Promise.all(
         children.map(async (child) => {
           Object.assign(
             child,
             await this.getBoardTreeResponse(child, subscribeList),
           );
-          // child = await this.getBoardTreeResponse(child, subscribeList);
         }),
       );
-
-      // children.forEach(async function (child) {
-      //   response = await this.getBoardTreeResponse(child, subscribeList);
-      // });
     } else {
       const boardId = boardTree.id;
       const subscribeInfo: Subscribe = subscribeList.find((subscribe) => {
@@ -202,7 +165,6 @@ export class BoardTreeService {
 
       boardTree.setIsSubscribing(isSubscribing);
       boardTree.setIsNoticing(isNoticing);
-      // response.push(boardTree);
     }
     return boardTree;
   }

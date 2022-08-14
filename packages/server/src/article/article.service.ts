@@ -95,6 +95,16 @@ export class ArticleService {
     return article;
   }
 
+  async findByUrl(url: string): Promise<boolean> {
+    const article = await this.articleRepository.findOne({
+      where: {
+        url,
+      },
+      relations: [ "board", "author" ],
+    });
+    return !!article;
+  }
+
   async findByBoard(boardId: number): Promise<Article[]> {
     const articles: Article[] = await this.articleRepository.findByBoard(
       boardId,

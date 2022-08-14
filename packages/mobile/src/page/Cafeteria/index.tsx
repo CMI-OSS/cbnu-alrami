@@ -1,10 +1,9 @@
 import { useReducer } from "react";
-import { Link } from "react-router-dom";
 
-import { LongArrow } from "@components/atoms/icon";
 import classnames from "classnames";
 import dayjs from "dayjs";
-import { cafeteriaList, cafeteriaMenu } from "src/__mocks__";
+import { cafeteriaList } from "src/__mocks__";
+import { useCafeteria } from "src/api/cafeteria";
 import noMenu from "src/assets/no_menu.png";
 import CafeteriaMenuCard from "src/components/molecules/CafeteriaMenuCard";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
@@ -24,6 +23,7 @@ function Cafeteria() {
     date: dayjs().date(),
     day: dayjs().day(),
   });
+
   const dispatch = useAppDispatch();
   const { selectedMenu } = useAppSelector((state) => {
     return state.persistedReducer.cafeteria.cafeteria;
@@ -31,6 +31,9 @@ function Cafeteria() {
   const handleMenu = (id: number) => {
     dispatch(selectMenu({ selectedMenu: id }));
   };
+  const allCafeteriaData = useCafeteria(`${year}-${month + 1}-${date}`);
+  const { isLoading, data, isError } = allCafeteriaData[selectedMenu - 1];
+  const cafeteriaMenu = data?.data;
 
   return (
     <>
@@ -54,40 +57,37 @@ function Cafeteria() {
 
       <main
         className={classnames($.cafeteria, {
-          [$["no-menu"]]: !cafeteriaMenu.length,
+          [$["no-menu"]]: cafeteriaMenu && !cafeteriaMenu.length,
         })}
       >
-        {cafeteriaMenu.length > 0 ? (
-          <>
-            {cafeteriaMenu.map(({ id, content, calory, time }) => {
-              const [ mealTime, timeInfo ] = cafeteriaTime(id, time);
-              return (
-                <CafeteriaMenuCard
-                  key={content}
-                  {...{ mealTime, timeInfo, calory }}
-                  mealMenu={content}
-                />
-              );
-            })}
-            <div className={$["go-out"]}>
-              <span>다른 메뉴가 먹고싶다면?</span>
-              <Link to="/place/food" className={$["go-out-link"]}>
-                나가서 먹기
-                <LongArrow size={4} stroke="#a3b9d6" />
-              </Link>
-            </div>
-          </>
-        ) : (
-          <div className={$["go-out"]}>
-            <img src={noMenu} alt="메뉴가 없습니다." width="130" height="130" />
-            <span>오늘은 식단이 없어요</span>
-            <Link to="/place/food" className={$["go-out-link"]}>
-              <span>대신 나가서 먹기</span>
-              <LongArrow size={5} stroke="#a3b9d6" />
-            </Link>
-          </div>
-        )}
+        {isLoading && <span>로딩 중..</span>}
+        {isError && <span>에러 발생</span>}
 
+        {cafeteriaMenu &&
+          cafeteriaMenu.length > 0 &&
+          cafeteriaMenu.map(({ content, time }) => {
+            const [ mealTime, timeInfo ] = cafeteriaTime(selectedMenu, time);
+            return (
+              <CafeteriaMenuCard
+                key={content}
+                {...{ mealTime, timeInfo }}
+                mealMenu={content}
+              />
+            );
+          })}
+
+        {!cafeteriaMenu ||
+          (!cafeteriaMenu.length && (
+            <div className={$["go-out"]}>
+              <img
+                src={noMenu}
+                alt="메뉴가 없습니다."
+                width="130"
+                height="130"
+              />
+              <span>오늘은 식단이 없어요</span>
+            </div>
+          ))}
         <Footer />
       </main>
     </>

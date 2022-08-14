@@ -117,33 +117,94 @@ export class BoardTreeService {
 
   async getBoardTreeHierarchy(userId: number) {
     const subscribeList = await this.subscribeService.findByUser(userId);
-    let response: BoardTreeAllResponseDto[] = await this.refactorFindAll();
+    const boardTreeHierarchy: BoardTreeAllResponseDto[] =
+      await this.refactorFindAll();
+    const response: BoardTreeAllResponseDto[] = [];
 
-    response = await Promise.all(
-      response.map(async (boardTree) => {
-        const boardId = boardTree.id;
-        const subscribeInfo: Subscribe = subscribeList.find((subscribe) => {
-          return subscribe.board.id === boardId;
-        });
+    // const response = await Promise.all(
+    //   boardTreeHierarchy.map(async (boardTree) => {
+    //     return await this.getBoardTreeResponse(boardTree, subscribeList);
+    //   }),
+    // );
 
-        // DESCRIBE: 구독 중인 board만 알림 받아볼 수 있음 -> 둘 다 디폴트 값 false
-        let isSubscribing = false;
-        let isNoticing = false;
+    // for (let i = 0; i < boardTreeHierarchy.length; i++) {
+    //   const boardTree = boardTreeHierarchy[i];
+    //   // const result = await this.getBoardTreeResponse(boardTree, subscribeList);
+    //   // response.push(...result);
+    //   boardTreeHierarchy[i] = await this.getBoardTreeResponse(
+    //     boardTree,
+    //     subscribeList,
+    //   );
+    // }
 
-        // DESCRIBE: subscribe 존재하면 구독 true, 이후 알림 여부 확인
-        if (typeof subscribeInfo !== "undefined") {
-          isSubscribing = true;
-          isNoticing = subscribeInfo.notice;
-        }
-
-        boardTree.setIsSubscribing(isSubscribing);
-        boardTree.setIsNoticing(isNoticing);
-
-        return boardTree;
+    await Promise.all(
+      boardTreeHierarchy.map(async (boardTree) => {
+        // boardTree = await this.getBoardTreeResponse(boardTree, subscribeList);
+        Object.assign(
+          boardTree,
+          await this.getBoardTreeResponse(boardTree, subscribeList),
+        );
       }),
     );
 
-    return response;
+    // return response;
+    return boardTreeHierarchy;
+  }
+
+  async getBoardTreeResponse(
+    boardTree: BoardTreeAllResponseDto,
+    subscribeList: Subscribe[],
+  ): Promise<BoardTreeAllResponseDto> {
+    const { children } = boardTree;
+    if (Array.isArray(children)) {
+      // response = await Promise.all(
+      //   children.map(async (child) => {
+      //     return await this.getBoardTreeResponse(child, subscribeList);
+      //   }),
+      // );
+
+      // for (let i = 0; i < children.length; i++) {
+      //   children[i] = await this.getBoardTreeResponse(
+      //     children[i],
+      //     subscribeList,
+      //   );
+      //   // response.push(...result);
+      // }
+
+      await Promise.all(
+        children.map(async (child) => {
+          Object.assign(
+            child,
+            await this.getBoardTreeResponse(child, subscribeList),
+          );
+          // child = await this.getBoardTreeResponse(child, subscribeList);
+        }),
+      );
+
+      // children.forEach(async function (child) {
+      //   response = await this.getBoardTreeResponse(child, subscribeList);
+      // });
+    } else {
+      const boardId = boardTree.id;
+      const subscribeInfo: Subscribe = subscribeList.find((subscribe) => {
+        return subscribe.board.id === boardId;
+      });
+
+      // DESCRIBE: 구독 중인 board만 알림 받아볼 수 있음 -> 둘 다 디폴트 값 false
+      let isSubscribing = false;
+      let isNoticing = false;
+
+      // DESCRIBE: subscribe 존재하면 구독 true, 이후 알림 여부 확인
+      if (typeof subscribeInfo !== "undefined") {
+        isSubscribing = true;
+        isNoticing = subscribeInfo.notice;
+      }
+
+      boardTree.setIsSubscribing(isSubscribing);
+      boardTree.setIsNoticing(isNoticing);
+      // response.push(boardTree);
+    }
+    return boardTree;
   }
 
   async findAll(userId: number) {

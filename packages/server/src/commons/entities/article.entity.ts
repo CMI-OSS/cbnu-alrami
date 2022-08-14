@@ -32,7 +32,7 @@ export class Article extends UpdatableCommonEntity {
   @Column({ type: "varchar" })
   title: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "mediumtext" })
   content: string;
 
   @Column({ type: "varchar", nullable: true })

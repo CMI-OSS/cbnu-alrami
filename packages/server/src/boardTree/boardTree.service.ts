@@ -115,6 +115,18 @@ export class BoardTreeService {
     return response.length === 0 ? undefined : response;
   }
 
+  async getBoardTreeHierarchy(userId: number) {
+    const subscribeList = await this.subscribeService.findByUser(userId);
+    console.log({ subscribeList });
+
+    const boardId = 20201;
+
+    const result = subscribeList.filter((subscribe) => {
+      return subscribe.board.id === boardId;
+    });
+    console.log({ result });
+  }
+
   async findAll(userId: number) {
     const rootList: BoardTree[] = await this.boardTreeRepository.find({
       where: {

@@ -75,14 +75,11 @@ const root = {
       수의예과: { 공지사항: {} },
       수의학과: { 공지사항: {} },
     },
-    약학대학: {
-      공지사항: {},
-    },
+    약학대학: { 약학과: { 공지사항: {} }, 제약학과: { 공지사항: {} } },
     융합학과군: {
       디자인학과: { 공지사항: {} },
       조형예술학과: { 공지사항: {} },
     },
-    약학대학: { 약학과: { 공지사항: {} }, 제약학과: { 공지사항: {} } },
     의과대학: {
       의예과: { 공지사항: {} },
       의학과: { 공지사항: {} },
@@ -140,7 +137,9 @@ let insertBoardTreeSql = ``;
 function genBoardId(parent) {
   let num = 1;
 
-  const format = (num) => (num < 10 ? `0${num}` : num.toString());
+  const format = (num) => {
+    return num < 10 ? `0${num}` : num.toString();
+  };
 
   const parentId = parent?.id ?? "";
   // eslint-disable-next-line no-restricted-syntax, guard-for-in
@@ -164,7 +163,7 @@ genBoardId(root);
 
 writeFileSync(
   "board-tree.generated.js",
-  `export const boardTree = ${JSON.stringify(root)}`,
+  `module.exports.boardTree = ${JSON.stringify(root)}`,
 );
 writeFileSync(
   "board-tree.generated.sql",

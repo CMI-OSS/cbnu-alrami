@@ -11,6 +11,6 @@ export async function login(loginId: string, password: string) {
       axios.defaults.headers.common["x-access-token"] = xAccessToken;
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
     });
 }

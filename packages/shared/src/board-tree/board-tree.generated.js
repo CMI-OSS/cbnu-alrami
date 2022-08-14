@@ -1,4 +1,4 @@
-export const boardTree = {
+module.exports.boardTree = {
   전공: {
     id: 1,
     경영대학: {

@@ -1,5 +1,5 @@
 import { ScraperState, ScraperType } from "@shared/types";
-import { createNotice } from "src/api/createNotice";
+import { createArticle, isDuplicationArticle } from "src/api/article";
 import { Notice, NoticeScript } from "src/types";
 
 import { Scenario } from "../Scenario";
@@ -33,22 +33,24 @@ class NoticeScraper extends Scraper<NoticeScript> {
         message: `${notice.title} 게시물의 내용을 스크래핑합니다`,
       });
 
-      await createNotice({
-        boardId: notice.site_id.toString(),
-        article: {
-          title: notice.title,
-          content: await this.getContents(scenario, notice),
-          date: notice.date,
-          url: notice.url,
-          images: [],
-        },
-      });
+      const {
+        data: { isDuplication },
+      } = await isDuplicationArticle({ url: notice.url });
 
-      // await createNotice({
-      //   ...notice,
-      //   contents: await this.getContents(scenario, notice),
-      // });
-      await this.scraper?.waitForTimeout(1000);
+      if (!isDuplication) {
+        await createArticle({
+          boardId: notice.site_id.toString(),
+          article: {
+            title: notice.title,
+            content: await this.getContents(scenario, notice),
+            date: notice.date,
+            url: notice.url,
+            images: [],
+          },
+        });
+
+        await this.scraper?.waitForTimeout(1000);
+      }
     }
 
     // 사용자에게 알림

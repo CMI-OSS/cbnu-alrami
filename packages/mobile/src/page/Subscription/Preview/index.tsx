@@ -1,7 +1,8 @@
 import { LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import { useArticlesByBoard } from "src/api/article";
-import { useBoardTreeByBoard } from "src/api/boardTree";
+import { useBoardTree } from "src/api/boardTree";
+import { useSubscribeBoards } from "src/api/subscribe";
 import guideEmptyNotice from "src/assets/guide_empty_notice.png";
 import useSearch from "src/hooks/useSearch";
 import Article from "src/page/Notice/Article";
@@ -10,22 +11,26 @@ import Status from "../Status";
 import $ from "./style.module.scss";
 
 function Preview() {
-  const boardIds = useSearch({ target: "boardId" })?.split(",") || [];
-  const boardTrees = useBoardTreeByBoard(boardIds);
-  const { data } = useArticlesByBoard(Number(boardIds.at(-1)), {
+  const boardId = Number(useSearch({ target: "boardId" }));
+  const { data: boardData } = useBoardTree(boardId);
+  const { data: articleData } = useArticlesByBoard(boardId, {
     pageNo: 1,
   });
-  const articles = data?.contents;
+  const { data: subscribeData } = useSubscribeBoards();
+  const articles = articleData?.contents;
+  const subscribe = subscribeData?.find((data) => {
+    return data.id === boardId;
+  });
 
   return (
     <FullPageModalTemplate
       left={<LeftArrow stroke="#AAAAAA" size={16} />}
-      title={boardTrees?.parent?.name}
+      title={boardData?.data.name}
       right={
         <Status
-          boardId={boardTrees?.parent?.id}
-          isNoticing={boardTrees?.parent?.isNoticing}
-          isSubscribing={boardTrees?.parent?.isSubscribing}
+          boardId={boardId}
+          isNoticing={!!subscribe?.isNoticing}
+          isSubscribing={!!subscribe}
         />
       }
     >

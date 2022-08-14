@@ -19,7 +19,7 @@ export const useSubscribeBoards = () => {
         return {
           ...category,
           name: category.parents.length
-            ? `${category.parents[0].name} - ${category.name}`
+            ? `${category.parents[0].name} > ${category.name}`
             : category.name,
         };
       });

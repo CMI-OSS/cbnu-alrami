@@ -14,18 +14,16 @@ import {
 import $ from "./style.module.scss";
 
 type Props = {
-  boardId?: number;
-  isSubscribing?: boolean;
-  isNoticing?: boolean;
+  boardId: number;
+  isSubscribing: boolean;
+  isNoticing: boolean;
 };
 
-// TODO: 구독알림 API 사용
 function Status({ boardId, isSubscribing, isNoticing }: Props) {
   const addAlarm = useAddAlarm();
   const removeAlarm = useRemoveAlarm();
   const addSubscribe = useAddSubscribe();
   const removeSubscribe = useRemoveSubscribe();
-  if (!boardId) return <></>;
 
   if (isSubscribing && isNoticing) {
     return (

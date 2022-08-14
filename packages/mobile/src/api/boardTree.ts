@@ -3,21 +3,21 @@ import { useQuery } from "react-query";
 import { AxiosResponse } from "axios";
 import caxios from "src/api/caxios";
 
-const fetchBoardTree = () => {
-  return caxios.get<res.BoardTree[]>("/board-tree");
+const fetchBoardTrees = () => {
+  return caxios.get<res.BoardTrees[]>("/board-tree");
 };
 
-export const useBoardTree = () => {
-  const response = useQuery<AxiosResponse<res.BoardTree[]>, Error>(
-    "boardTree",
-    fetchBoardTree,
+export const useBoardTrees = () => {
+  const response = useQuery<AxiosResponse<res.BoardTrees[]>, Error>(
+    "boardTrees",
+    fetchBoardTrees,
     { staleTime: 3000, cacheTime: 3000 },
   );
   return response;
 };
 
-export const useBoardTreeByBoard = (boardIds: string[]) => {
-  const boardTrees = useBoardTree()?.data?.data;
+export const useBoardTreesByBoard = (boardIds: string[]) => {
+  const boardTrees = useBoardTrees()?.data?.data;
 
   let parent;
   let content = boardTrees;
@@ -36,4 +36,18 @@ export const useBoardTreeByBoard = (boardIds: string[]) => {
     breadcrumb,
     content,
   };
+};
+
+const fetchBoardTree = (boardId: number) => {
+  return caxios.get<res.BoardTree>(`/board-tree/${boardId}`);
+};
+
+export const useBoardTree = (boardId: number) => {
+  const response = useQuery<AxiosResponse<res.BoardTree>, Error>(
+    "boardTree",
+    () => {
+      return fetchBoardTree(boardId);
+    },
+  );
+  return response;
 };

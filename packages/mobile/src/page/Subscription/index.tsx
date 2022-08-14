@@ -5,7 +5,7 @@ import {
   Subscription as SubscriptionIcon,
 } from "@components/atoms/icon";
 import classNames from "classnames";
-import { useBoardTreeByBoard } from "src/api/boardTree";
+import { useBoardTreesByBoard } from "src/api/boardTree";
 import BorderBox from "src/components/atoms/BorderBox";
 import useSearch from "src/hooks/useSearch";
 import SubscriptionModalTemplate from "src/page/Subscription/SubscriptionModalTemplate";
@@ -43,7 +43,7 @@ const getGuide = (content: res.BoardTree[]) => {
 function Subscription() {
   const boardIds = useSearch({ target: "boardId" })?.split(",");
 
-  const boardTrees = useBoardTreeByBoard(boardIds || []);
+  const boardTrees = useBoardTreesByBoard(boardIds || []);
   if (!boardTrees.content) return <></>;
   return (
     <SubscriptionModalTemplate>
@@ -58,13 +58,14 @@ function Subscription() {
       </div>
       {boardTrees.content.map((boardTree) => {
         const { id, name, isSubscribing, isNoticing, children } = boardTree;
+
         const newBoardIds = boardIds ? [ ...boardIds, id ] : [ id ];
         return (
           <Link
             to={
               children
                 ? `${useLocation().pathname}?boardId=${newBoardIds}`
-                : `/preview?boardId=${newBoardIds}`
+                : `/preview?boardId=${id}`
             }
             key={id}
           >

@@ -10,6 +10,7 @@ import {
   useRemoveAlarm,
   useRemoveSubscribe,
 } from "src/api/subscribe";
+import { DefaultProps } from "src/type/props";
 
 import $ from "./style.module.scss";
 
@@ -17,9 +18,9 @@ type Props = {
   boardId: number;
   isSubscribing: boolean;
   isNoticing: boolean;
-};
+} & DefaultProps;
 
-function Status({ boardId, isSubscribing, isNoticing }: Props) {
+function Status({ boardId, isSubscribing, isNoticing, className }: Props) {
   const addAlarm = useAddAlarm();
   const removeAlarm = useRemoveAlarm();
   const addSubscribe = useAddSubscribe();

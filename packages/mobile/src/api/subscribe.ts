@@ -39,7 +39,7 @@ export const useAddSubscribe = () => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries([ "boardTree" ]);
+        queryClient.invalidateQueries([ "boardTree", "subscribeBoards" ]);
       },
     },
   );
@@ -56,7 +56,7 @@ export const useRemoveSubscribe = () => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries([ "boardTree" ]);
+        queryClient.invalidateQueries([ "boardTree", "subscribeBoards" ]);
       },
     },
   );
@@ -73,7 +73,7 @@ export const useAddAlarm = () => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries([ "boardTree" ]);
+        queryClient.invalidateQueries([ "boardTree", "subscribeBoards" ]);
       },
     },
   );
@@ -90,7 +90,7 @@ export const useRemoveAlarm = () => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries([ "boardTree" ]);
+        queryClient.invalidateQueries([ "boardTree", "subscribeBoards" ]);
       },
     },
   );

@@ -20,7 +20,7 @@ const getDescription = (name: string) => {
   return "";
 };
 
-const getGuide = (content: res.BoardTree[]) => {
+const getGuide = (content: res.BoardTrees[]) => {
   const id = String(content[0].id);
   if ((id === "1" || id === "2") && id.length === 1) {
     return `어떤 공지를\n받아볼까요?`;

@@ -7,13 +7,15 @@ import $ from "./style.module.scss";
 
 type Props = {
   title: string;
+  right?: JSX.Element;
 } & DefaultProps;
 
-function SettingTemplate({ className, title, children }: Props) {
+function SettingTemplate({ className, title, children, right }: Props) {
   return (
     <FullPageModalTemplate
       left={<LeftArrow stroke="#AAAAAA" size={16} />}
       title={title}
+      right={right}
     >
       <div className={classnames($["setting-template"], className)}>
         {children}

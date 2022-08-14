@@ -20,7 +20,7 @@ function SubscriptionModalTemplate({ children }: Props) {
           <button
             type="button"
             onClick={() => {
-              return navigate("/subscription/setting", { replace: true });
+              return navigate("/notice", { replace: true });
             }}
           >
             <Close stroke="#aaa" size={14} />

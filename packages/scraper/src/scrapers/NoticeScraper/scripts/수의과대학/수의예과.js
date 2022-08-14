@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "https://vmp.cbnu.ac.kr/dsoft/vmp/index.html?pg_idx=40",
-  site_id: 70101,
+  site_id: boardTree.전공.수의과대학.수의예과.공지사항.id,
   site: "수의예과",
   category: "공지사항",
   noticeListSelector: "#data_list > tbody >tr",

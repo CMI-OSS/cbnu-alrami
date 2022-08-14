@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "http://me.chungbuk.ac.kr/index.php?mid=me_sub04",
-  site_id: 20401,
+  site_id: boardTree.전공.공과대학.기계공학부.공지사항.id,
   site: "기계공학부",
   category: "공지사항",
   noticeListSelector: "#bd_839_0 > div.bd_lst_wrp > table > tbody > tr",

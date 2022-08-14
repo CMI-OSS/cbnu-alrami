@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "https://dorm.chungbuk.ac.kr/home/sub.php?menukey=20039",
-  site_id: 140201,
+  site_id: boardTree.공통.학생생활관.공지사항.id,
   site: "학생생활관",
   category: "공지사항",
   noticeListSelector:

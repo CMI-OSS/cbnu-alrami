@@ -122,7 +122,10 @@ const root = {
     국제교류본부: { 공지사항: {} },
     linc사업단: { 공지사항: {} },
     sw중심대학사업단: { 공지사항: {} },
-    취업지원본부: { 공지사항: {} },
+    취업지원본부: {
+      공지사항: {},
+      채용설명회: {},
+    },
   },
   학생회: {
     총학생회: { 공지사항: {} },
@@ -148,7 +151,7 @@ function genBoardId(parent) {
     if (key === "id") continue;
     // eslint-disable-next-line no-param-reassign
     parent[key] = {
-      id: Number(parentId + format(num)),
+      id: parent[key].id ?? Number(parentId + format(num)),
       ...parent[key],
     };
     insertBoardSql += `INSERT INTO board (id, name, url) VALUES(${parent[key].id},'${key}','');\n`;

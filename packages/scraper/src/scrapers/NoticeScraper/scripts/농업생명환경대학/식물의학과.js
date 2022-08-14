@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "https://www.plantmed.chungbuk.ac.kr/forum/gongjisahang",
-  site_id: 30501,
+  site_id: boardTree.전공.농업생명환경대학.식물의학과.공지사항.id,
   site: "식물의학과",
   category: "공지사항",
   noticeListSelector: `tr[data-hook="post-list-item"]`,

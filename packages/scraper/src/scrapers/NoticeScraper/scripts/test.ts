@@ -3,7 +3,6 @@ import "src/socket/server";
 import { NoticeScript } from "src/types";
 import { Scenario } from "../../Scenario";
 import NoticeScraper from "../index";
-import { createBoard } from "./board";
 
 function loadScripts(scriptPath: string): Promise<Array<NoticeScript>> {
   return new Promise((resolve, _) => {
@@ -59,8 +58,6 @@ async function checkNoticeList() {
     if (!start) continue;
 
     try {
-      await createBoard({id:target.site_id,url:target.url,name:target.site})
-      continue;
       const scenario = new Scenario(target.site,target);
       const notices = await NoticeScraper.getNoticeList(scenario);
       console.log(notices)

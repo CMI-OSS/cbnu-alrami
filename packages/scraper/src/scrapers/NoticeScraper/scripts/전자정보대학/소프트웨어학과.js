@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "https://software.cbnu.ac.kr/sub0401",
-  site_id: 130101,
+  site_id: boardTree.전공.전자정보대학.소프트웨어학부.공지사항.id,
   site: "소프트웨어학과",
   category: "공지사항",
   noticeListSelector: `tr.notice`,

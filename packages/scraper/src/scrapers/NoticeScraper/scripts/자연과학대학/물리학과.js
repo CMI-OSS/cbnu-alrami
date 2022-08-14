@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "https://physics.chungbuk.ac.kr/?pg_idx=145",
-  site_id: 120101,
+  site_id: boardTree.전공.자연과학대학.물리학과.공지사항.id,
   site: "물리학과",
   category: "공지사항",
   noticeListSelector: `.dambbs_list > table > tbody > tr`,

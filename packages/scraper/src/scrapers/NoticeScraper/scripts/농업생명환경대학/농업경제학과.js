@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "https://agecon.cbnu.ac.kr/?pg_idx=119",
-  site_id: 30101,
+  site_id: boardTree.전공.농업생명환경대학.농업경제학과.공지사항.id,
   site: "농업경제학과",
   category: "공지사항",
   noticeListSelector: "#bbs_contnets tbody > tr",

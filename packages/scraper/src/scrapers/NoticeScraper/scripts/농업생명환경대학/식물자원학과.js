@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "http://crop.chungbuk.ac.kr/dsoft/index.html?pg_idx=40",
-  site_id: 30601,
+  site_id: boardTree.전공.농업생명환경대학.식물자원학과.공지사항.id,
   site: "식물자원학과",
   category: "공지사항",
   noticeListSelector: "#data_list > tbody > tr",

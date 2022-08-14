@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "http://cbnuae.cbnu.ac.kr/index.php?mid=cbnuae_sub05",
-  site_id: 20101,
+  site_id: boardTree.전공.공과대학.건축공학과.공지사항.id,
   site: "건축공학과",
   category: "공지사항",
   noticeListSelector: "div.bd_lst_wrp > table > tbody > tr",

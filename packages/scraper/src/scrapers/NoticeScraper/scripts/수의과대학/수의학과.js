@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "https://vetmed.chungbuk.ac.kr/board/notice",
-  site_id: 70201,
+  site_id: boardTree.전공.수의과대학.수의학과.공지사항.id,
   site: "수의학과",
   category: "공지사항",
   noticeListSelector: ".boardList > table > tbody > tr",

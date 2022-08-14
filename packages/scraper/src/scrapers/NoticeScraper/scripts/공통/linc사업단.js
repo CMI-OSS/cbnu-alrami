@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "https://linc.chungbuk.ac.kr/board/notice.do",
-  site_id: 140401,
+  site_id: boardTree.공통.linc사업단.공지사항.id,
   site: "linc사업단",
   category: "공지사항",
   noticeListSelector:

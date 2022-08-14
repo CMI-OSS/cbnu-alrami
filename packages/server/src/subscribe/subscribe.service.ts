@@ -110,7 +110,7 @@ export class SubscribeService {
         const { board } = subscribe;
         const parentList = await this.getParentBoardList(board);
         return Builder(SubscribeInfoDto)
-          .id(subscribe.id)
+          .boardId(subscribe.board.id)
           .name(board.name)
           .isNoticing(subscribe.notice)
           .parents(parentList)
@@ -135,7 +135,7 @@ export class SubscribeService {
       const { parentBoard } = boardTree;
       response.push(
         Builder(SubscribeBaseDto)
-          .id(parentBoard.id)
+          .boardId(parentBoard.id)
           .name(parentBoard.name)
           .build(),
       );

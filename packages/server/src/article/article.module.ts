@@ -6,6 +6,7 @@ import { BoardModule } from "src/board/board.module";
 import { BoardTreeModule } from "src/boardTree/boardTree.module";
 import { BookmarkRepository } from "src/bookmark/bookmark.repository";
 import { FcmModule } from "src/fcm/fcm.module";
+import { HitModule } from "src/hit/hit.module";
 import { HitRepository } from "src/hit/hit.repository";
 import { ImageModule } from "src/image/image.module";
 import { SubscribeModule } from "src/subscribe/subscribe.module";
@@ -29,6 +30,7 @@ import { ArticleService } from "./article.service";
     BoardTreeModule,
     SubscribeModule,
     ImageModule,
+    HitModule,
     FcmModule,
     UserModule,
     ArticleImageModule,

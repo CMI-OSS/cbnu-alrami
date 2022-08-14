@@ -1,7 +1,7 @@
 @import "../../styles/main.scss";
 
 .cafeteria {
-  padding: 155px 35px 102px;
+  padding: 155px 35px 68px;
 }
 
 .header {
@@ -12,6 +12,7 @@
 .go-out {
   display: flex;
   flex-direction: column;
+  align-items: center;
   color: $background-50;
   font-size: 12px;
 

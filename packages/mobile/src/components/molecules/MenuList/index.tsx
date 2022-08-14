@@ -1,15 +1,16 @@
-import { useState } from "react";
-
 import classnames from "classnames";
-import { FlickingMenu } from "src/type";
+import { Menu } from "src/type";
 
 import $ from "./style.module.scss";
 
-export default function useFlicking(menuList: FlickingMenu[]) {
-  const [ clickedMenu, setClickedMenu ] = useState(1);
+type Props = {
+  menuList: Menu[];
+  onClick: (id: number) => void;
+  clickedMenu: number;
+};
 
-  return [
-    clickedMenu,
+function MenuList({ menuList, onClick: handleClick, clickedMenu }: Props) {
+  return (
     <div className={$["menu-list"]}>
       {menuList.map((menu, idx) => {
         return (
@@ -21,13 +22,15 @@ export default function useFlicking(menuList: FlickingMenu[]) {
               [$["menu-not-clicked"]]: clickedMenu !== idx + 1,
             })}
             onClick={() => {
-              return setClickedMenu(idx + 1);
+              return handleClick(idx + 1);
             }}
           >
             {menu.name}
           </button>
         );
       })}
-    </div>,
-  ];
+    </div>
+  );
 }
+
+export default MenuList;

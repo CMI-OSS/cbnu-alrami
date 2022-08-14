@@ -19,7 +19,7 @@ function Preview() {
   const { data: subscribeData } = useSubscribeBoards();
   const articles = articleData?.contents;
   const subscribe = subscribeData?.find((data) => {
-    return data.id === boardId;
+    return data.boardId === boardId;
   });
 
   return (

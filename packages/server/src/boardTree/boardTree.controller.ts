@@ -34,6 +34,21 @@ export class BoardTreeController {
     return this.boardTreeService.findAll(user.id);
   }
 
+  @Get("refactor")
+  @ApiOperation({
+    summary: "[REFACTOR] 공지사항 사이트 전체 계층구조 조회 API",
+    description: "모든 board의 계층 구조를 조회한다.",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "공지사항 사이트 전체 계층 구조",
+    type: BoardTreeAllResponseDto,
+    isArray: true,
+  })
+  async refactorFindAll() {
+    return this.boardTreeService.refactorFindAll();
+  }
+
   @Get(":boardId")
   @ApiOperation({
     summary: "특정 공지사항 사이트(board)의 상위 board 조회 API",

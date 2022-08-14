@@ -47,6 +47,74 @@ export class BoardTreeService {
       .build();
   }
 
+  async refactorFindAll() {
+    const rootList: BoardTree[] = await this.boardTreeRepository.find({
+      where: {
+        parentBoard: null,
+      },
+      relations: [ "board", "parentBoard" ],
+    });
+
+    const response: BoardTreeAllResponseDto[] = [];
+
+    await Promise.all(
+      rootList.map(async (root) => {
+        const children = await this.refactorFindChildren(root.board.id);
+        response.push(
+          Builder(BoardTreeAllResponseDto)
+            .id(root.board.id)
+            .name(root.board.name)
+            .children(children)
+            .build(),
+        );
+      }),
+    );
+
+    return response;
+  }
+
+  async refactorFindChildren(parentId: number) {
+    const children = await this.boardTreeRepository.find({
+      where: {
+        parentBoard: parentId,
+      },
+      relations: [ "board", "parentBoard" ],
+    });
+
+    const response: BoardTreeAllResponseDto[] = [];
+
+    await Promise.all(
+      children.map(async (child) => {
+        const grandChildren: BoardTreeAllResponseDto[] =
+          children.length > 0
+            ? await this.refactorFindChildren(child.board.id)
+            : undefined;
+
+        // DESCRIBE: 리프노드인 경우에만 url, board 구독 여부, 알림 여부을 보낸다.
+        if (grandChildren !== undefined) {
+          response.push(
+            Builder(BoardTreeAllResponseDto)
+              .id(child.board.id)
+              .name(child.board.name)
+              .children(grandChildren)
+              .build(),
+          );
+        } else {
+          response.push(
+            Builder(BoardTreeAllResponseDto)
+              .id(child.board.id)
+              .name(child.board.name)
+              .url(child.board.url)
+              .children(grandChildren)
+              .build(),
+          );
+        }
+      }),
+    );
+
+    return response.length === 0 ? undefined : response;
+  }
+
   async findAll(userId: number) {
     const rootList: BoardTree[] = await this.boardTreeRepository.find({
       where: {

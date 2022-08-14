@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import Spot from "src/page/Map/Spot";
 
 import $ from "./style.module.scss";
 
@@ -11,23 +11,14 @@ function DetailGroup({ schoolDatas }: Props) {
     <>
       <div className={$.content}>
         <div className={$.image_list}>
-          {schoolDatas.map((item, idx) => {
+          {schoolDatas.map((item) => {
             return (
-              <NavLink
-                to={`/place/school/detail/${idx + 1}`}
-                className={$.item}
-                key={item.id}
-              >
-                <img
-                  className={$.school_image}
-                  src={item?.images?.url}
-                  alt={item.name}
-                />
-                <div className={$.summary}>
-                  <strong className={$.summary_title}>{item.name}</strong>
-                  <span className={$.summary_description}>{item.address}</span>
-                </div>
-              </NavLink>
+              <Spot
+                schoolData={item}
+                key={`contruction-${item.id}`}
+                type="place"
+                placeId={item.id}
+              />
             );
           })}
         </div>

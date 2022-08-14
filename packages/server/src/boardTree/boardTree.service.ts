@@ -117,14 +117,33 @@ export class BoardTreeService {
 
   async getBoardTreeHierarchy(userId: number) {
     const subscribeList = await this.subscribeService.findByUser(userId);
-    console.log({ subscribeList });
+    let response: BoardTreeAllResponseDto[] = await this.refactorFindAll();
 
-    const boardId = 20201;
+    response = await Promise.all(
+      response.map(async (boardTree) => {
+        const boardId = boardTree.id;
+        const subscribeInfo: Subscribe = subscribeList.find((subscribe) => {
+          return subscribe.board.id === boardId;
+        });
 
-    const result = subscribeList.filter((subscribe) => {
-      return subscribe.board.id === boardId;
-    });
-    console.log({ result });
+        // DESCRIBE: 구독 중인 board만 알림 받아볼 수 있음 -> 둘 다 디폴트 값 false
+        let isSubscribing = false;
+        let isNoticing = false;
+
+        // DESCRIBE: subscribe 존재하면 구독 true, 이후 알림 여부 확인
+        if (typeof subscribeInfo !== "undefined") {
+          isSubscribing = true;
+          isNoticing = subscribeInfo.notice;
+        }
+
+        boardTree.setIsSubscribing(isSubscribing);
+        boardTree.setIsNoticing(isNoticing);
+
+        return boardTree;
+      }),
+    );
+
+    return response;
   }
 
   async findAll(userId: number) {

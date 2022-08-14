@@ -30,8 +30,6 @@ export class AwsService {
   ): Promise<UploadImageResponse[]> {
     const urls = await this.uploadImages(images);
 
-    // const urls = this.getAwsS3ImageUrl(keys);
-
     const insertResult = await this.saveImage(urls);
 
     const imageIds = AwsService.getImageId(insertResult);

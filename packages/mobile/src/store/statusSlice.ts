@@ -26,26 +26,27 @@ export const statusSlice = createSlice({
     hideFloatingButtonStatus: (
       state,
       action: PayloadAction<{
-        isDisplayFloatingButton?: boolean;
+        isDisplayFloatingButton: boolean;
       }>,
     ) => {
-      state.map.isDisplayFloatingButton = false;
+      state.map.isDisplayFloatingButton =
+        action.payload.isDisplayFloatingButton;
     },
     hideTooltipButtonStatus: (
       state,
       action: PayloadAction<{
-        isDisplayTooltip?: boolean;
+        isDisplayTooltip: boolean;
       }>,
     ) => {
-      state.map.isDisplayTooltip = false;
+      state.map.isDisplayTooltip = action.payload.isDisplayTooltip;
     },
     hideConstructionTooltipStatus: (
       state,
       action: PayloadAction<{
-        isConstructionTooltip?: boolean;
+        isConstructionTooltip: boolean;
       }>,
     ) => {
-      state.map.isConstructionTooltip = true;
+      state.map.isConstructionTooltip = action.payload.isConstructionTooltip;
     },
   },
 });

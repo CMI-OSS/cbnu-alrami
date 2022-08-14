@@ -1,12 +1,13 @@
 const script = {
   url: "https://www.cbnucoop.com/service/restaurant/",
   waitSelector: "#menu-table",
-  cafeteria: 2,
+  tab: 2,
+  cafeteriaId:5,
   cafeteria_name: "별빛식당",
   getMenus: function () {
 
     const tabs = document.querySelectorAll('#restaurant-menu > div.navbar.navbar-bg.mb-3.nav.nav-pills > nav > a')
-    tabs[this.cafeteria-1].click()
+    tabs[this.tab-1].click()
 
     const weekMenus = document.querySelectorAll('.active table > tbody > tr')
     const weekTitle =  document.querySelectorAll('.weekday-title')
@@ -36,6 +37,7 @@ const script = {
     
                         result.push({
                             id:this.cafeteria,
+                            cafeteriaId:this.cafeteriaId,
                             cafeteria_name:this.cafeteria_name,
                             menu,
                             time,

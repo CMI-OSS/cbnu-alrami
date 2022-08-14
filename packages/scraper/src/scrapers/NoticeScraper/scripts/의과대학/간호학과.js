@@ -2,7 +2,7 @@ const { boardTree } = require("../../../../../../shared/src/board-tree/board-tre
 
 const script = {
   url: "https://nursing.chungbuk.ac.kr/board/board.php?id=op01",
-  site_id: boardTree.전공.의과대학.의학과.공지사항.id,
+  site_id: boardTree.전공.의과대학.간호학과.공지사항.id,
   site: "간호학과",
   category: "공지사항",
   noticeListSelector: `.basicList tbody tr`,

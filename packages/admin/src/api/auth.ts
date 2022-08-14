@@ -5,7 +5,7 @@ export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery,
   tagTypes: [ "login" ],
-  endpoints: (build) => ({
+  endpoints: (build) => {return {
     login: build.mutation<
       {
         xAccessToken: string;
@@ -21,7 +21,7 @@ export const authApi = createApi({
       },
       invalidatesTags: [ "login" ],
     }),
-  }),
+  }},
 });
 
 export const { useLoginMutation } = authApi;

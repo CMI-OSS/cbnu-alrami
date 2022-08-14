@@ -4,6 +4,7 @@ const script = {
   category: "식단",
   domitory: "본관",
   typeQuery: "1",
+  cafeteriaId:1,
   timeIndex: {
     morning: "1",
     lunch: "2",
@@ -34,6 +35,7 @@ const script = {
           food_name: eachCell.innerText,
           date:eachRow.id,
           time: Number(this.timeIndex[eachCell.className]),
+          cafeteriaId:this.cafeteriaId
         });
       }
     }

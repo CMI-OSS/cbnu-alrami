@@ -1,7 +1,8 @@
 /* eslint-disable no-plusplus */
 import { ScraperType } from "@shared/types";
+import { createSchedule } from "src/api/schedule";
 import Scraper from "src/scrapers/Scraper";
-import { CalendarScript } from "src/types";
+import { Calendar, CalendarScript } from "src/types";
 
 import { Scenario } from "../Scenario";
 import ArrayToDate from "./ArrayToDate";
@@ -35,19 +36,34 @@ class CalendarScraper extends Scraper<CalendarScript> {
 
     const refinedData = [];
 
-    await this.scraper.goto(calendarScript.url);
-    await this.scraper.waitForSelector(calendarScript.waitCalendarSelector);
-    await this.evaluateScript(calendarScript);
-    const mockData = await this.scraper.evaluate("script.getSchedules()");
-    for (let j = 0; j < mockData.length; j++) {
-      refinedData.push({
-        ...ArrayToDate(calendarScript.year, mockData[j][0]),
-        content: mockData[j][1],
+    try {
+      await this.scraper.goto(calendarScript.url);
+      await this.scraper.waitForSelector(calendarScript.waitCalendarSelector, {
+        timeout: 5000,
       });
+      await this.evaluateScript(calendarScript);
+      const mockData = await this.scraper.evaluate("script.getSchedules()");
+      for (let j = 0; j < mockData.length; j++) {
+        refinedData.push({
+          ...ArrayToDate(calendarScript.year, mockData[j][0]),
+          content: mockData[j][1],
+        });
+      }
+    } catch (error) {
+      console.log({ error });
     }
 
-    for (const schedule of refinedData) {
-      // await createSchedule(schedule as Calendar);
+    for (const schedule of refinedData as Calendar[]) {
+      try {
+        await createSchedule({
+          content: schedule.content,
+          startDate: schedule.start_date,
+          endDate: schedule.end_date,
+          isHoliday: false,
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 }

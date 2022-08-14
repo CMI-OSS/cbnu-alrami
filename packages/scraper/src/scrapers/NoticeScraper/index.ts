@@ -39,11 +39,13 @@ class NoticeScraper extends Scraper<NoticeScript> {
         } = await isDuplicationArticle({ url: notice.url.trim() });
 
         if (!isDuplication) {
+          const content = await this.getContents(scenario, notice);
+
           await createArticle({
             boardId: notice.site_id.toString(),
             article: {
               title: notice.title,
-              content: await this.getContents(scenario, notice),
+              content,
               date: notice.date,
               url: notice.url,
               images: [],
@@ -99,7 +101,7 @@ class NoticeScraper extends Scraper<NoticeScript> {
         message: `공지사항 목록을 가져옵니다.`,
       });
       const noticeList: Notice[] = await this.scraper.evaluate(
-        `script.getNoticeList()`,
+        `script.getNoticeList();`,
       );
 
       if (noticeList.length === 0) {
@@ -129,13 +131,17 @@ class NoticeScraper extends Scraper<NoticeScript> {
 
     try {
       this.log({ prefix: "INFO", message: `${notice.url}로 이동합니다` });
-      await this.scraper.goto(notice.url);
+      await this.scraper.goto(notice.url, {
+        referer: scenario.jsScript?.url,
+      });
 
       this.log({
         prefix: "INFO",
         message: `${noticeScript.noticeContentsSelector}를 기다립니다`,
       });
-      await this.scraper.waitForSelector(noticeScript.noticeContentsSelector);
+      await this.scraper.waitForSelector(noticeScript.noticeContentsSelector, {
+        timeout: 10000,
+      });
 
       this.log({
         prefix: "INFO",
@@ -148,7 +154,9 @@ class NoticeScraper extends Scraper<NoticeScript> {
         message: `공지사항 내용을 가져옵니다`,
       });
       const contents: string = await this.scraper.evaluate(
-        `script.getContentsHtml()`,
+        `document.querySelectorAll('img').forEach(el=>el.src=el.src);
+        document.querySelectorAll('iframe').forEach(el=>el.src=el.src);
+        script.getContentsHtml()`,
       );
 
       if (contents === "") {

@@ -6,7 +6,7 @@ const script = {
   site: "식물의학과",
   category: "공지사항",
   noticeListSelector: `tr[data-hook="post-list-item"]`,
-  noticeContentsSelector: "h1[data-hook='post-title']+div",
+  noticeContentsSelector: ".post-content__body",
   getNoticeList: function () {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list).map((item) => {

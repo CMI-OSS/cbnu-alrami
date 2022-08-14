@@ -7,4 +7,3 @@ const script = {
 
 module.exports = { ...year2020, ...script };
 
-module.exports = script;

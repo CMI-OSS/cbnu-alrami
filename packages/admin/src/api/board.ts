@@ -9,7 +9,7 @@ export const boardWriteApi = createApi({
   reducerPath: "boardWriteApi",
   baseQuery,
   tagTypes: [ "ImgUpload", "writeArticle" ],
-  endpoints: (build) => ({
+  endpoints: (build) => {return {
     imgUpload: build.mutation<imgType[], FormData>({
       query(data) {
         return {
@@ -38,7 +38,7 @@ export const boardWriteApi = createApi({
       },
       invalidatesTags: [ "writeArticle" ],
     }),
-  }),
+  }},
 });
 
 export const { useImgUploadMutation, useWriteArticleMutation } = boardWriteApi;

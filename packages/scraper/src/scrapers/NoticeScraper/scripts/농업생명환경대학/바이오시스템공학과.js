@@ -6,6 +6,7 @@ const script = {
   site_id: boardTree.전공.농업생명환경대학.바이오시스템공학과.공지사항.id,
   site: "바이오시스템공학과",
   category: "공지사항",
+  noticeContentsSelector:'.rd_body'
 };
 
 module.exports = { ...농업경제학과, ...script };

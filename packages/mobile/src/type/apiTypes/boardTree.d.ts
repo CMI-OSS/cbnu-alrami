@@ -1,17 +1,20 @@
 declare namespace res {
-  type BoardTreeChildren = {
+  type BoardTrees = {
     id: number;
     name: string;
-    url: string;
-    isSubscribing: boolean;
-    isNoticing: boolean;
-    children?: BoardTreeChildren[];
+    url?: string;
+    isSubscribing?: boolean;
+    isNoticing?: boolean;
+    children?: BoardTrees[];
   };
+
   type BoardTree = {
-    id: number;
-    name: string;
-    children: BoardTreeChildren[];
-  };
+    "id": number,
+    "name": string,
+    "parent": {
+      BoardTree
+    }
+  }
 }
 
 declare namespace req {

@@ -10,7 +10,7 @@ import $ from "./style.module.scss";
 function Category() {
   const target = useSearch({ target: "type" }) || "new";
   const { data: categories } = useSubscribeBoards();
-  
+
   return (
     <div className={$.categories}>
       <NavLink
@@ -34,11 +34,11 @@ function Category() {
       {categories?.map((category) => {
         return (
           <NavLink
-            key={category.id}
-            to={`?type=${category.id}`}
+            key={category.boardId}
+            to={`?type=${category.boardId}`}
             className={classNames(
               $.category,
-              Number(target) === category.id && $.active,
+              Number(target) === category.boardId && $.active,
             )}
           >
             {category.name}

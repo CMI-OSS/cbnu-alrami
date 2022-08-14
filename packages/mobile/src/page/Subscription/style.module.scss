@@ -13,50 +13,47 @@
   padding-bottom: 73px;
   white-space: pre-wrap;
 
-  .title {
+  .breadcrumb {
     margin-bottom: 12px;
     @include typography(14);
     color: $black-40;
   }
 
-  .content {
+  .phrase {
     @include typography(25);
     color: $black-80;
     font-weight: 500;
   }
 }
 
-.subscription-box-base {
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 21px;
+  margin-bottom: 12px;
+}
+
+.status {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 32px 20px 32px 21px;
+  padding: 0 21px;
+  margin-bottom: 12px;
+}
 
-  .title {
-    margin-right: 7px;
-    font-weight: 500;
-    @include typography(18);
+
+.name {
+  font-weight: 500;
+  @include typography(18);
+
+  svg {
+    margin-left: 4px;
   }
 }
 
-.subscription-box-content {
-  display: flex;
-  flex-direction: column;
-  padding: 18px 21px;
-
-  .title {
-    margin-bottom: 13px;
-    font-weight: 500;
-    @include typography(18);
-  }
-
-  .content {
-    @include typography(14);
-    color: $black-40;
-  }
-}
-
-.구독상태 {
-  display: flex;
-  align-items: center;
+.description {
+  margin-top: 13px;
+  @include typography(14);
+  color: $black-40;
 }

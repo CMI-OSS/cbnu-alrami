@@ -1,6 +1,6 @@
 declare namespace res {
   type SubscriptionBoard = {
-    id: number;
+    boardId: number;
     name: string;
     isNoticing: boolean;
     parents: {

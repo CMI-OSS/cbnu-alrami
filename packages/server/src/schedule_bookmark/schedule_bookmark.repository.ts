@@ -3,12 +3,6 @@ import { EntityRepository, Repository } from "typeorm";
 
 @EntityRepository(ScheduleBookmark)
 export class ScheduleBookmarkRepository extends Repository<ScheduleBookmark> {
-  async countByArticle(scheduleId: number): Promise<number> {
-    return this.createQueryBuilder("schedulebookmark")
-      .where("schedulebookmark.schedule_id = :scheduleId", { scheduleId })
-      .getCount();
-  }
-
   async existsByUserAndSchedule(
     userId: number,
     scheduleId: number,

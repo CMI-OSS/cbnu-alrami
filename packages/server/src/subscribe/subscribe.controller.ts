@@ -54,7 +54,6 @@ export class SubscribeController {
   @UseGuards(UserAuthGuard)
   async remove(@Req() req, @Param("boardId") boardId: number) {
     const { user } = req;
-    console.log(user);
     return this.subscribeService.remove(user, boardId);
   }
 

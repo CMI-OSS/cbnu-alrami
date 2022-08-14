@@ -12,7 +12,7 @@ import { UserAuthGuard } from "src/commons/guards/user-auth.guard";
 import { ScheduleBookmarkService } from "./schedule_bookmark.service";
 
 @Controller("bookmark")
-@ApiTags("[schedule] 스케줄 북마크 ON API")
+@ApiTags("[schedule] 스케줄 북마크 API")
 export class ScheduleBookmarkController {
   constructor(
     private readonly scheduleBookmarkService: ScheduleBookmarkService,

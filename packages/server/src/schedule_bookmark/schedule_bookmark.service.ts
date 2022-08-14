@@ -31,7 +31,6 @@ export class ScheduleBookmarkService {
       .schedule(schedule)
       .user(user)
       .build();
-
     await this.scheduleBookmarkRepository.save(scheduleBookmark);
     return "success";
   }

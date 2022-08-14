@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { Hamburger, LeftArrow } from "@components/atoms/icon";
 import { Close } from "@components/atoms/icon/Close";
 import Footer from "@components/molecules/Footer";
 import { useSchool, useSchoolById } from "src/api/school";
-import ConstructionInfo from "src/page/Map/ConstructionInfo";
+import Spot from "src/page/Map/Spot";
 import { useAppDispatch, useAppSelector } from "src/store";
 import {
   hideConstructionTooltipStatus,
@@ -162,7 +162,7 @@ function Map() {
         </div>
       )}
       {isConstructionTooltip && !schoolSeveralLoading && (
-        <ConstructionInfo
+        <Spot
           schoolData={schoolSeveralData!.data}
           type="map"
           placeId={constructionId}

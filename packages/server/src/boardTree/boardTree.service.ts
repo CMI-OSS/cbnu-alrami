@@ -1,5 +1,6 @@
-import { Injectable } from "@nestjs/common";
+import { CACHE_MANAGER, Inject, Injectable } from "@nestjs/common";
 import { Builder } from "builder-pattern";
+import { Cache } from "cache-manager";
 import { BoardResponseDto } from "src/board/dto/board.response.dto";
 import { BoardTree } from "src/commons/entities/boardTree.entity";
 import { Subscribe } from "src/commons/entities/subscribe.entity";
@@ -12,6 +13,7 @@ import { BoardTreeResponseDto } from "./dto/boardTree.response.dto";
 @Injectable()
 export class BoardTreeService {
   constructor(
+    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
     private readonly boardTreeRepository: BoardTreeRepository,
     private readonly subscribeService: SubscribeService,
   ) {}
@@ -47,7 +49,16 @@ export class BoardTreeService {
       .build();
   }
 
-  async refactorFindAll() {
+  async refactorFindAll(): Promise<BoardTreeAllResponseDto[]> {
+    const cache: BoardTreeAllResponseDto[] = await this.cacheManager.get(
+      "BoardTreeHierarchy",
+    );
+
+    console.log("캐시 ", { cache });
+    if (cache) {
+      return cache;
+    }
+
     const rootList: BoardTree[] = await this.boardTreeRepository.find({
       where: {
         parentBoard: null,
@@ -69,6 +80,8 @@ export class BoardTreeService {
         );
       }),
     );
+
+    await this.cacheManager.set("BoardTreeHierarchy", response);
 
     return response;
   }
@@ -119,7 +132,6 @@ export class BoardTreeService {
     const subscribeList = await this.subscribeService.findByUser(userId);
     const boardTreeHierarchy: BoardTreeAllResponseDto[] =
       await this.refactorFindAll();
-    const response: BoardTreeAllResponseDto[] = [];
 
     await Promise.all(
       boardTreeHierarchy.map(async (boardTree) => {

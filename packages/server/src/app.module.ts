@@ -25,7 +25,10 @@ import { WeatherModule } from "./weather/weather.module";
 
 @Module({
   imports: [
-    CacheModule.register(),
+    CacheModule.register({
+      ttl: 3600, // seconds
+      isGlobal: true,
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       load: [ configuration ],

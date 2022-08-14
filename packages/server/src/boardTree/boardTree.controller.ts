@@ -31,7 +31,7 @@ export class BoardTreeController {
     description: "user uuid",
   })
   @UseGuards(UserAuthGuard)
-  async refactorFindAll(@UserSession() user: User) {
+  async findAll(@UserSession() user: User) {
     return this.boardTreeService.getBoardTreeHierarchy(user.id);
   }
 

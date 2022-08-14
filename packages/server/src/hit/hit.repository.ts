@@ -8,4 +8,14 @@ export class HitRepository extends Repository<Hit> {
       .where("hit.article_id = :articleId", { articleId })
       .getCount();
   }
+
+  async existsByUserAndArticle(
+    userId: number,
+    articleId: number,
+  ): Promise<number> {
+    return this.createQueryBuilder("hit")
+      .where("hit.user_id = :userId", { userId })
+      .andWhere("hit.article_id = :articleId", { articleId })
+      .getCount();
+  }
 }

@@ -33,7 +33,7 @@ function Cafeteria() {
   };
   const allCafeteriaData = useCafeteria(`${year}-${month + 1}-${date}`);
   const { isLoading, data, isError } = allCafeteriaData[selectedMenu - 1];
-  const cafeteriaMenu: res.Cafeteria[] | undefined = data?.data;
+  const cafeteriaMenu = data?.data;
 
   return (
     <>
@@ -63,25 +63,31 @@ function Cafeteria() {
         {isLoading && <span>로딩 중..</span>}
         {isError && <span>에러 발생</span>}
 
-        {cafeteriaMenu && cafeteriaMenu.length > 0 ? (
-          <>
-            {cafeteriaMenu.map(({ id, content, time }) => {
-              const [ mealTime, timeInfo ] = cafeteriaTime(id, time);
-              return (
-                <CafeteriaMenuCard
-                  key={content}
-                  {...{ mealTime, timeInfo }}
-                  mealMenu={content}
-                />
-              );
-            })}
-          </>
-        ) : (
-          <div className={$["go-out"]}>
-            <img src={noMenu} alt="메뉴가 없습니다." width="130" height="130" />
-            <span>오늘은 식단이 없어요</span>
-          </div>
-        )}
+        {cafeteriaMenu &&
+          cafeteriaMenu.length > 0 &&
+          cafeteriaMenu.map(({ content, time }) => {
+            const [ mealTime, timeInfo ] = cafeteriaTime(selectedMenu, time);
+            return (
+              <CafeteriaMenuCard
+                key={content}
+                {...{ mealTime, timeInfo }}
+                mealMenu={content}
+              />
+            );
+          })}
+
+        {!cafeteriaMenu ||
+          (!cafeteriaMenu.length && (
+            <div className={$["go-out"]}>
+              <img
+                src={noMenu}
+                alt="메뉴가 없습니다."
+                width="130"
+                height="130"
+              />
+              <span>오늘은 식단이 없어요</span>
+            </div>
+          ))}
         <Footer />
       </main>
     </>

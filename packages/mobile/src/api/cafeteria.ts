@@ -3,14 +3,16 @@ import { useQueries } from "react-query";
 import { AxiosResponse } from "axios";
 import caxios from "src/api/caxios";
 
+const fetchCafeteria = (id: number, date: string) => {
+  return caxios.get<res.Cafeteria[]>(`/cafeterias/${id}/menus?date=${date}`);
+};
+
 const queryOption = (date: string) => {
   return Array.from({ length: 6 }, (_, idx) => {
     return {
       queryKey: [ "cafeteria", date, idx + 1 ],
       queryFn: () => {
-        return caxios.get<res.Cafeteria[]>(
-          `/cafeterias/${idx + 1}/menus?${date}`,
-        );
+        return fetchCafeteria(idx + 1, date);
       },
     };
   });

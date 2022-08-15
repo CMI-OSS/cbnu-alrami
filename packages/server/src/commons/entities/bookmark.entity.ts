@@ -32,6 +32,7 @@ export class Bookmark extends UpdatableCommonEntity {
     {
       cascade: true,
       nullable: false,
+      onDelete: "CASCADE",
     },
   )
   @JoinColumn()

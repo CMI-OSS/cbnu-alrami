@@ -18,4 +18,12 @@ export class BoardTreeAllResponseDto {
 
   @ApiProperty({ description: "하위 board" })
   children: BoardTreeAllResponseDto[];
+
+  setIsSubscribing(newIsSubscribing) {
+    this.isSubscribing = newIsSubscribing;
+  }
+
+  setIsNoticing(newIsNoticiing) {
+    this.isNoticing = newIsNoticiing;
+  }
 }

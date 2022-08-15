@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module } from "@nestjs/common";
+import { CacheModule, MiddlewareConsumer, Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
 import { TypeOrmModule } from "@nestjs/typeorm";
@@ -26,6 +26,10 @@ import { WeatherModule } from "./weather/weather.module";
 
 @Module({
   imports: [
+    CacheModule.register({
+      ttl: 3600, // seconds
+      isGlobal: true,
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       load: [ configuration ],

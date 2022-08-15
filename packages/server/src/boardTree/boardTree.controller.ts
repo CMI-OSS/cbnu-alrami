@@ -1,5 +1,7 @@
-import { Controller, Get, Param, Req, UseGuards } from "@nestjs/common";
+import { Controller, Get, Param, UseGuards } from "@nestjs/common";
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { UserSession } from "src/commons/decorators/user-session.decorator";
+import { User } from "src/commons/entities/user.entity";
 import { UserAuthGuard } from "src/commons/guards/user-auth.guard";
 
 import { BoardTreeService } from "./boardTree.service";
@@ -29,9 +31,8 @@ export class BoardTreeController {
     description: "user uuid",
   })
   @UseGuards(UserAuthGuard)
-  async findAll(@Req() req) {
-    const { user } = req;
-    return this.boardTreeService.findAll(user.id);
+  async findAll(@UserSession() user: User) {
+    return this.boardTreeService.getBoardTreeHierarchy(user.id);
   }
 
   @Get(":boardId")

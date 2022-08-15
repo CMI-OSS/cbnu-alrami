@@ -1,5 +1,6 @@
-import { Injectable } from "@nestjs/common";
+import { CACHE_MANAGER, Inject, Injectable } from "@nestjs/common";
 import { Builder } from "builder-pattern";
+import { Cache } from "cache-manager";
 import { BoardResponseDto } from "src/board/dto/board.response.dto";
 import { BoardTree } from "src/commons/entities/boardTree.entity";
 import { Subscribe } from "src/commons/entities/subscribe.entity";
@@ -12,6 +13,7 @@ import { BoardTreeResponseDto } from "./dto/boardTree.response.dto";
 @Injectable()
 export class BoardTreeService {
   constructor(
+    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
     private readonly boardTreeRepository: BoardTreeRepository,
     private readonly subscribeService: SubscribeService,
   ) {}
@@ -47,7 +49,14 @@ export class BoardTreeService {
       .build();
   }
 
-  async findAll(userId: number) {
+  async findAll(): Promise<BoardTreeAllResponseDto[]> {
+    const cache: BoardTreeAllResponseDto[] = await this.cacheManager.get(
+      "BoardTreeHierarchy",
+    );
+    if (cache) {
+      return cache;
+    }
+
     const rootList: BoardTree[] = await this.boardTreeRepository.find({
       where: {
         parentBoard: null,
@@ -59,7 +68,7 @@ export class BoardTreeService {
 
     await Promise.all(
       rootList.map(async (root) => {
-        const children = await this.findChildren(root.board.id, userId);
+        const children = await this.findChildren(root.board.id);
         response.push(
           Builder(BoardTreeAllResponseDto)
             .id(root.board.id)
@@ -70,13 +79,12 @@ export class BoardTreeService {
       }),
     );
 
+    await this.cacheManager.set("BoardTreeHierarchy", response);
+
     return response;
   }
 
-  async findChildren(
-    parentId: number,
-    userId: number,
-  ): Promise<BoardTreeAllResponseDto[]> {
+  async findChildren(parentId: number) {
     const children = await this.boardTreeRepository.find({
       where: {
         parentBoard: parentId,
@@ -90,7 +98,7 @@ export class BoardTreeService {
       children.map(async (child) => {
         const grandChildren: BoardTreeAllResponseDto[] =
           children.length > 0
-            ? await this.findChildren(child.board.id, userId)
+            ? await this.findChildren(child.board.id)
             : undefined;
 
         // DESCRIBE: 리프노드인 경우에만 url, board 구독 여부, 알림 여부을 보낸다.
@@ -103,28 +111,11 @@ export class BoardTreeService {
               .build(),
           );
         } else {
-          // DESCRIBE: 구독 중인 board만 알림 받아볼 수 있음 -> 둘 다 디폴트 값 false
-          let isSubscribing = false;
-          let isNoticing = false;
-          const subscribe: Subscribe =
-            await this.subscribeService.findByUserAndBoard(
-              userId,
-              child.board.id,
-            );
-
-          // DESCRIBE: subscribe 존재하면 구독 true, 이후 알림 여부 확인
-          if (typeof subscribe !== "undefined") {
-            isSubscribing = true;
-            isNoticing = subscribe.notice;
-          }
-
           response.push(
             Builder(BoardTreeAllResponseDto)
               .id(child.board.id)
               .name(child.board.name)
               .url(child.board.url)
-              .isSubscribing(isSubscribing)
-              .isNoticing(isNoticing)
               .children(grandChildren)
               .build(),
           );
@@ -133,5 +124,57 @@ export class BoardTreeService {
     );
 
     return response.length === 0 ? undefined : response;
+  }
+
+  async getBoardTreeHierarchy(userId: number) {
+    const subscribeList = await this.subscribeService.findByUser(userId);
+    const boardTreeHierarchy: BoardTreeAllResponseDto[] = await this.findAll();
+
+    await Promise.all(
+      boardTreeHierarchy.map(async (boardTree) => {
+        Object.assign(
+          boardTree,
+          await this.getBoardTreeResponse(boardTree, subscribeList),
+        );
+      }),
+    );
+
+    return boardTreeHierarchy;
+  }
+
+  async getBoardTreeResponse(
+    boardTree: BoardTreeAllResponseDto,
+    subscribeList: Subscribe[],
+  ): Promise<BoardTreeAllResponseDto> {
+    const { children } = boardTree;
+    if (Array.isArray(children)) {
+      await Promise.all(
+        children.map(async (child) => {
+          Object.assign(
+            child,
+            await this.getBoardTreeResponse(child, subscribeList),
+          );
+        }),
+      );
+    } else {
+      const boardId = boardTree.id;
+      const subscribeInfo: Subscribe = subscribeList.find((subscribe) => {
+        return subscribe.board.id === boardId;
+      });
+
+      // DESCRIBE: 구독 중인 board만 알림 받아볼 수 있음 -> 둘 다 디폴트 값 false
+      let isSubscribing = false;
+      let isNoticing = false;
+
+      // DESCRIBE: subscribe 존재하면 구독 true, 이후 알림 여부 확인
+      if (typeof subscribeInfo !== "undefined") {
+        isSubscribing = true;
+        isNoticing = subscribeInfo.notice;
+      }
+
+      boardTree.setIsSubscribing(isSubscribing);
+      boardTree.setIsNoticing(isNoticing);
+    }
+    return boardTree;
   }
 }

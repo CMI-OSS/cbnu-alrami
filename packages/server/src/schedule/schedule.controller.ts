@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, Query } from "@nestjs/common";
-import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 
 import { Schedule } from "../commons/entities/schedule.entity";
 import { CreateSchedulesRequestDto } from "./dtos/create-schedules-request.dto";
@@ -30,6 +30,17 @@ export class ScheduleController {
 
   @Post()
   @ApiTags("[admin] 관리자 API")
+  @ApiOperation({
+    summary: "학사일정 추가",
+    description: "학사일정을 추가합니다",
+  })
+  @ApiBody({
+    description: "학사일정 세부 정보",
+    type: CreateSchedulesRequestDto,
+  })
+  @ApiResponse({
+    status: 201,
+  })
   createSchedule(
     @Body() createSchedulesRequestDto: CreateSchedulesRequestDto,
   ): Promise<void> {

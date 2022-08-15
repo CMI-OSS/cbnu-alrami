@@ -19,6 +19,7 @@ import { HitModule } from "./hit/hit.module";
 import { ImageModule } from "./image/image.module";
 import { PlaceModule } from "./place/place.module";
 import { SchedulesModule } from "./schedule/schedule.module";
+import { ScheduleBookmarkModule } from "./schedule_bookmark/schedule_bookmark.module";
 import { SubscribeModule } from "./subscribe/subscribe.module";
 import { UserModule } from "./user/user.module";
 import { WeatherModule } from "./weather/weather.module";
@@ -49,6 +50,7 @@ import { WeatherModule } from "./weather/weather.module";
     BoardTreeModule,
     BoardModule,
     BookmarkModule,
+    ScheduleBookmarkModule,
     UserModule,
     CafeteriaModule,
     PlaceModule,

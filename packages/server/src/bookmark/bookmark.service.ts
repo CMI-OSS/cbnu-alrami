@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { Builder } from "builder-pattern";
 import { ArticleService } from "src/article/article.service";
 import { Bookmark } from "src/commons/entities/bookmark.entity";
 import { User } from "src/commons/entities/user.entity";
@@ -23,7 +24,9 @@ export class BookmarkService {
     )
       throw ALREADY_SUBSCRIBE_BOOKMARK;
 
-    await this.bookmarkRepository.save(article);
+    const bookmark = Builder(Bookmark).article(article).user(user).build();
+
+    await this.bookmarkRepository.save(bookmark);
     return "success";
   }
 

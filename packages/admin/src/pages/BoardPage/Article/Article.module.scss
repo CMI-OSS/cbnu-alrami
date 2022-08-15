@@ -1,0 +1,42 @@
+.article {
+  margin: 20px;
+  padding: 20px;
+  background-color: white;
+  .title {
+    font-size: 25px;
+  }
+
+  .content {
+    margin: 20px 0px;
+  }
+
+  .hr {
+    margin: 10px 0px;
+    background-color: rgb(209, 209, 209);
+    height: 1px;
+    border: 0;
+  }
+
+  .image-list {
+    overflow: auto;
+    display: flex;
+
+    .image-card {
+      width: 150px;
+      height: 150px;
+      margin-right: 15px;
+      cursor: pointer;
+      position: relative;
+      background-color: rgba(0, 0, 0, 0.138);
+
+      .image {
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 150px;
+        height: 150px;
+        resize: both;
+      }
+    }
+  }
+}

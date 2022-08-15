@@ -5,7 +5,7 @@ import { LongArrow } from "@components/atoms/icon";
 import $ from "./style.module.scss";
 
 type Props = {
-  schoolData?: res.SchoolById | res.School;
+  schoolData?: res.SchoolById & res.School;
   type: "map" | "place";
   placeId: number;
 };

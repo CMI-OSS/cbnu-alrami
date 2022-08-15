@@ -29,40 +29,10 @@ export class ImageService {
   @Cron(CronExpression.EVERY_DAY_AT_2AM)
   async deleteUnusedArticleImages(): Promise<void> {
     const images = await this.imageRepository.find();
+
     const articleImages = await this.articleImageRepository.find({
       relations: [ "image" ],
     });
-
-    const imageInfo = Object.values(images).map((image) => {
-      return { id: image.id, url: image.url };
-    });
-
-    const articleImageId = Object.values(articleImages).map((articleImage) => {
-      return articleImage.image.id;
-    });
-
-    const filteredArticleImageInfo = imageInfo.filter((image) => {
-      return !articleImageId.includes(image.id);
-    });
-
-    const deleteImages = filteredArticleImageInfo.map((image) => {
-      return image.url;
-    });
-
-    try {
-      filteredArticleImageInfo.forEach((image) => {
-        this.imageRepository.delete({ id: image.id });
-      });
-    } catch (error) {
-      throw new BadRequestException("데이터베이스 파일 삭제에 실패했습니다");
-    } finally {
-      await this.awsService.s3DeleteImages(deleteImages);
-    }
-  }
-
-  @Cron(CronExpression.EVERY_DAY_AT_2AM)
-  async deleteUnusedPlaceImages(): Promise<void> {
-    const images = await this.imageRepository.find();
 
     const placeImages = await this.placeImageRepository.find({
       relations: [ "image" ],
@@ -73,19 +43,25 @@ export class ImageService {
     });
 
     const placeImageId = Object.values(placeImages).map((placeImage) => {
-      return placeImage.image.id;
+      return placeImage.image?.id;
     });
 
-    const filteredPlaceImageInfo = imageInfo.filter((image) => {
-      return !placeImageId.includes(image.id);
+    const articleImageId = Object.values(articleImages).map((articleImage) => {
+      return articleImage.image?.id;
     });
 
-    const deleteImages = filteredPlaceImageInfo.map((image) => {
+    const filteredArticleImageInfo = imageInfo.filter((image) => {
+      return (
+        !articleImageId.includes(image.id) && !placeImageId.includes(image.id)
+      );
+    });
+
+    const deleteImages = filteredArticleImageInfo.map((image) => {
       return image.url;
     });
 
     try {
-      filteredPlaceImageInfo.forEach((image) => {
+      filteredArticleImageInfo.forEach((image) => {
         this.imageRepository.delete({ id: image.id });
       });
     } catch (error) {

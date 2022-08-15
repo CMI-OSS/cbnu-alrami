@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { Cron } from "@nestjs/schedule";
+import { Cron, CronExpression } from "@nestjs/schedule";
 import { Image } from "src/commons/entities/image.entity";
 import { Errors } from "src/commons/exception/exception.global";
 
@@ -26,7 +26,7 @@ export class ImageService {
     return this.awsService.uploadImagesToS3(images);
   }
 
-  @Cron("0/5 * * * * *")
+  @Cron(CronExpression.EVERY_DAY_AT_2AM)
   async deleteUnusedArticleImages(): Promise<void> {
     const images = await this.imageRepository.find();
 

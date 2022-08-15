@@ -24,9 +24,6 @@ function MapDetail() {
 
   const detailSeveralData = detailData!.data;
 
-  const imageUrl =
-    "https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20180130_263%2F1517301583613dwuaL_JPEG%2FZh5SeEjUT12rWxcLJ2nstPaB.jpg";
-
   return (
     <div className={$.wrap}>
       <div className={$.header}>

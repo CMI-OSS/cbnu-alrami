@@ -1,20 +1,5 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsEnum, IsNotEmpty, IsString } from "class-validator";
-import { Authority } from "src/commons/constants/enums";
+import { OmitType } from "@nestjs/swagger";
 
-export class AdminUpdateDto {
-  @IsNotEmpty()
-  @IsString()
-  @ApiProperty()
-  loginId: string;
+import { AdminCreateDto } from "./admin-create.dto";
 
-  @IsNotEmpty()
-  @IsString()
-  @ApiProperty()
-  nickname: string;
-
-  @IsNotEmpty()
-  @IsEnum(Authority)
-  @ApiProperty()
-  authority: Authority;
-}
+export class AdminUpdateDto extends OmitType(AdminCreateDto, [ "password" ]) {}

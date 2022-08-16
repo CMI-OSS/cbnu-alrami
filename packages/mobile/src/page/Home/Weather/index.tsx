@@ -21,6 +21,10 @@ import {
 
 import $ from "./style.module.scss";
 
+type Props = {
+  onSuggestionClick: () => void;
+};
+
 const colors = {
   morning: "#E0F0FF",
   night: "#E6ECFA",
@@ -108,7 +112,7 @@ const iconToBackgrounds = [
   },
 ];
 
-function Weather() {
+function Weather({ onSuggestionClick }: Props) {
   const {
     data: weatherData,
     isLoading: weatherLoading,
@@ -141,10 +145,10 @@ function Weather() {
         </div>
         <div className={$.second}>
           {iconToBackground?.icon}
-          <div className={$.more}>
+          <button className={$.more} type="button" onClick={onSuggestionClick}>
             <Info size={14} stroke="#aaa" />
             기온별 옷차림
-          </div>
+          </button>
         </div>
       </BorderBox>
     </div>

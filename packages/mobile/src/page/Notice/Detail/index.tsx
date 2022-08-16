@@ -4,6 +4,7 @@ import { LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import dayjs from "dayjs";
 import { useArticle } from "src/api/article";
+import { isWebView } from "src/utils/webview";
 
 import Footer from "./Footer";
 import $ from "./style.module.scss";
@@ -13,11 +14,10 @@ function Detail() {
   const { isLoading, error, data } = useArticle(Number(articleId));
   if (!data || error || isLoading) return <></>;
   const article = data.data;
-
   return (
     <div className={$["notice-detail"]}>
       <FullPageModalTemplate
-        left={<LeftArrow size={16} stroke="#AAAAAA" />}
+        left={isWebView ? <></> : <LeftArrow size={16} stroke="#AAAAAA" />}
         title={article.board.name}
       >
         <div className={$.children}>

@@ -1,9 +1,10 @@
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Subscription from "src/page/Subscription";
-
 import "./mobile.scss";
+
+import Subscription from "src/page/Subscription";
+import { isWebView, isDev } from "src/utils/webview";
 
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
@@ -20,24 +21,29 @@ import SettingRoute from "./page/Setting";
 import Preview from "./page/Subscription/Preview";
 
 function App() {
-  const routes = [
-    { path: "/notice", element: <Notice /> },
-    { path: "/notice/:articleId", element: <NoticeDetail /> },
-    { path: "/calendar", element: <Calendar /> },
-    { path: "/home", element: <Home /> },
-    { path: "/cafeteria", element: <Cafeteria /> },
-    { path: "/map", element: <Map /> },
-    { path: "/subscription", element: <Subscription /> },
-    { path: "/preview", element: <Preview /> },
-    {
-      path: "/place",
-      element: <PlaceDetail />,
-    },
-    { path: "/place/report", element: <Report /> },
-    { path: "/place/error", element: <Error /> },
-    { path: "/place/more", element: <MoreImage /> },
-    { path: "/setting/*", element: <SettingRoute /> },
-  ];
+  const routes =
+    isWebView || isDev
+      ? [
+          { path: "/notice", element: <Notice /> },
+          { path: "/notice/:articleId", element: <NoticeDetail /> },
+          { path: "/calendar", element: <Calendar /> },
+          { path: "/home", element: <Home /> },
+          { path: "/cafeteria", element: <Cafeteria /> },
+          { path: "/map", element: <Map /> },
+          { path: "/subscription", element: <Subscription /> },
+          { path: "/preview", element: <Preview /> },
+          {
+            path: "/place",
+            element: <PlaceDetail />,
+          },
+          { path: "/place/report", element: <Report /> },
+          { path: "/place/error", element: <Error /> },
+          { path: "/place/more", element: <MoreImage /> },
+          { path: "/place/:name/detail/:id", element: <MapDetail /> },
+          { path: "/setting/*", element: <SettingRoute /> },
+          { path: "/*", element: <Navigate replace to="/home" /> },
+        ]
+      : [ { path: "/notice/:articleId", element: <NoticeDetail /> } ];
 
   return (
     <BrowserRouter>
@@ -47,8 +53,6 @@ function App() {
             <Route key={route.path} path={route.path} element={route.element} />
           );
         })}
-        <Route path="*" element={<Navigate replace to="/home" />} />
-        <Route path="/place/:name/detail/:id" element={<MapDetail />} />
       </Routes>
     </BrowserRouter>
   );

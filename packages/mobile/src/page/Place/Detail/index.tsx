@@ -57,9 +57,10 @@ function PlaceDetail() {
           <span className="blind">뒤로가기</span>
         </NavLink>
         <h1 className={$.title}>캠퍼스맵</h1>
-        <NavLink to="/call" className={$.place_link}>
+        {/* [D] 식당 작업 후 진행 예정 */}
+        {/* <NavLink to="/call" className={$.place_link}>
           제보하기
-        </NavLink>
+        </NavLink> */}
       </div>
       <ChipGroup
         list={menuList}

@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from "src/store";
 import { selectMenu } from "src/store/cafeteriaSlice";
 
 import caledarReducer from "../Calendar/calendarReducer";
-import { cafeteriaTime } from "./constants";
+import getCafeteriaTime from "./constants";
 import $ from "./style.module.scss";
 
 function Cafeteria() {
@@ -67,7 +67,7 @@ function Cafeteria() {
         {cafeteriaMenu &&
           cafeteriaMenu.length > 0 &&
           cafeteriaMenu.map(({ content, time }) => {
-            const [ mealTime, timeInfo ] = cafeteriaTime(isHoliday, selectedMenu, time);
+            const [ mealTime, timeInfo ] = getCafeteriaTime(isHoliday, selectedMenu, time);
             return (
               <CafeteriaMenuCard
                 key={content}

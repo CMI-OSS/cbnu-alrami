@@ -1,57 +1,58 @@
 const dormitoryWeekTime = {
-  breakfastInfo: "07:20 ~ 09:00",
-  lunchInfo: "11:30 ~ 13:30",
-  dinnerInfo: "17:30 ~ 19:10",
+  breakfast: "07:20 ~ 09:00",
+  lunch: "11:30 ~ 13:30",
+  dinner: "17:30 ~ 19:10",
 };
 
-const dormitoryHolidayInfo = {
-  breakfastInfo: "08:00 ~ 09:00",
-  lunchInfo: "12:00 ~ 13:00",
-  dinnerInfo: "17:30 ~ 19:00",
+const dormitoryHolidayTime = {
+  breakfast: "08:00 ~ 09:00",
+  lunch: "12:00 ~ 13:00",
+  dinner: "17:30 ~ 19:00",
 };
 
-const cafeteriaTimeInfo = (isHoliday: boolean) => {
+const cafeteriaTimeData = (isHoliday: boolean) => {
+  const time = isHoliday ? dormitoryHolidayTime : dormitoryWeekTime;
   return [
     {
       id: 1,
       name: "본관",
-      ...(isHoliday ? dormitoryHolidayInfo : dormitoryWeekTime),
+      ...time,
     },
     {
       id: 2,
       name: "양성재",
-      ...(isHoliday ? dormitoryHolidayInfo : dormitoryWeekTime),
+      ...time,
     },
     {
       id: 3,
       name: "양진재",
-      ...(isHoliday ? dormitoryHolidayInfo : dormitoryWeekTime),
+      ...time,
     },
     {
       id: 4,
       name: "한빛식당",
-      breakfastInfo: "10:00 ~ 13:00",
-      lunchInfo: "11:00 ~ 14:00",
-      dinnerInfo: "16:30 ~ 17:30",
+      breakfast: "10:00 ~ 13:00",
+      lunch: "11:00 ~ 14:00",
+      dinner: "16:30 ~ 17:30",
     },
     {
       id: 5,
       name: "별빛식당",
-      breakfastInfo: "09:00 ~ 11:00",
-      lunchInfo: "11:30 ~ 14:00",
-      dinnerInfo: "18:00 ~ 20:00",
+      breakfast: "09:00 ~ 11:00",
+      lunch: "11:30 ~ 14:00",
+      dinner: "18:00 ~ 20:00",
     },
     {
       id: 6,
       name: "은하수식당",
-      breakfastInfo: "09:00 ~ 11:00",
-      lunchInfo: "11:30 ~ 13:30",
-      dinnerInfo: "17:30 ~ 19:00",
+      breakfast: "09:00 ~ 11:00",
+      lunch: "11:30 ~ 13:30",
+      dinner: "17:30 ~ 19:00",
     },
   ];
 };
 
-export const cafeteriaTime = (
+export const getCafeteriaTime = (
   isHoliday: boolean,
   cafeteriaId: number,
   timeId: number,
@@ -60,11 +61,11 @@ export const cafeteriaTime = (
   if (timeId === 1)
     return [
       breakFastName,
-      cafeteriaTimeInfo(isHoliday)[cafeteriaId - 1].breakfastInfo,
+      cafeteriaTimeData(isHoliday)[cafeteriaId - 1].breakfast,
     ];
   if (timeId === 2)
-    return [ "점심", cafeteriaTimeInfo(isHoliday)[cafeteriaId - 1].lunchInfo ];
-  return [ "저녁", cafeteriaTimeInfo(isHoliday)[cafeteriaId - 1].dinnerInfo ];
+    return [ "점심", cafeteriaTimeData(isHoliday)[cafeteriaId - 1].lunch ];
+  return [ "저녁", cafeteriaTimeData(isHoliday)[cafeteriaId - 1].dinner ];
 };
 
-export default cafeteriaTimeInfo;
+export default getCafeteriaTime;

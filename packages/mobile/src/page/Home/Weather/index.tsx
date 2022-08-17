@@ -2,7 +2,6 @@
 
 import dayjs from "dayjs";
 import find from "lodash/find";
-import { useWeathers } from "src/api/weather";
 import BorderBox from "src/components/atoms/BorderBox";
 import {
   Info,
@@ -22,6 +21,7 @@ import {
 import $ from "./style.module.scss";
 
 type Props = {
+  weather: res.Weather;
   onSuggestionClick: () => void;
 };
 
@@ -112,17 +112,7 @@ const iconToBackgrounds = [
   },
 ];
 
-function Weather({ onSuggestionClick }: Props) {
-  const {
-    data: weatherData,
-    isLoading: weatherLoading,
-    isError: weatherError,
-  } = useWeathers();
-  if (weatherLoading) return <div>로딩중입니다.</div>;
-  if (weatherError) return <div>에러가 발생했습니다.</div>;
-  if (!weatherData) return <div>날씨 정보가 없습니다.</div>;
-
-  const weather = weatherData.data;
+function Weather({ weather, onSuggestionClick }: Props) {
   const currentTime = dayjs().hour() >= 12 ? "night" : "morning";
   const { currentWeather } = weather;
   const timeTarget = find(iconToBackgrounds, ({ type, time }) => {

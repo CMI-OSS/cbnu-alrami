@@ -6,13 +6,15 @@ import Footer from "@components/molecules/Footer";
 import classNames from "classnames";
 import dayjs from "dayjs";
 import { useSchedule } from "src/api/schedule";
-import { Close, Setting } from "src/components/atoms/icon";
+import { useWeathers } from "src/api/weather";
+import { Setting } from "src/components/atoms/icon";
 import Weather from "src/page/Home/Weather";
 
 import Notice from "./Notice";
 import Restaurant from "./Restaurant";
 import Schedule from "./Schedule";
 import $ from "./style.module.scss";
+import SuggestionModal from "./SuggestionModal";
 
 function Home() {
   const [ uuid, setUuid ] = useState("");
@@ -23,7 +25,8 @@ function Home() {
   };
   const today = dayjs();
   const { data: scheduleData } = useSchedule(today.format("YYYY-MM-DD"));
-  const [ isSuggestionClicked, setIsSuggestionClicked ] = useState(true);
+  const { data: weatherData } = useWeathers();
+  const [ isSuggestionClicked, setIsSuggestionClicked ] = useState(false);
 
   useEffect(() => {
     if (window.ReactNativeWebView) {
@@ -35,6 +38,9 @@ function Home() {
       }
     }
   }, [ uuid ]);
+
+  if (!weatherData) return <div>날씨 로딩 실패</div>;
+  const weather = weatherData.data;
 
   const handleSuggestionClick = () => {
     setIsSuggestionClicked((pre) => {
@@ -49,64 +55,10 @@ function Home() {
       })}
     >
       {isSuggestionClicked && (
-        <div className={$["suggestion-modal"]}>
-          <div className={$["content-box"]}>
-            <button
-              className={$["close-button"]}
-              type="button"
-              aria-label="옷차림 추천 닫기"
-              onClick={handleSuggestionClick}
-            >
-              <Close size={14} stroke="#828282" />
-            </button>
-            <ul className={$["temperature-list"]}>
-              <li>28°C~</li>
-              <li>23~27°C</li>
-              <li>20~22°C</li>
-              <li>17~19°C</li>
-              <li>9~11°C</li>
-              <li>5~8°C</li>
-              <li>~4°C</li>
-            </ul>
-            <div className={$["temperature-bar"]}></div>
-            <ul className={$["suggestion-list"]}>
-              <li>
-                민소매, 반팔, 반바지,
-                <br /> 원피스
-              </li>
-              <li>
-                반팔, 얇은 셔츠, 반바지,
-                <br />
-                면바지
-              </li>
-              <li>
-                얇은 가디건, 긴팔,
-                <br />
-                면바지, 청바지
-              </li>
-              <li>
-                얇은 니트, 맨투맨,
-                <br />
-                가디건, 청바지
-              </li>
-              <li>
-                자켓, 트렌치코트, 야상,
-                <br />
-                니트, 청바지, 스타킹
-              </li>
-              <li>
-                코트, 가죽자켓, 히트텍,
-                <br />
-                니트, 레깅스
-              </li>
-              <li>
-                패딩, 두꺼운코트,
-                <br />
-                목도리, 기모제품
-              </li>
-            </ul>
-          </div>
-        </div>
+        <SuggestionModal
+          currentTemperature={parseInt(weather.currentTemp, 10)}
+          onClick={handleSuggestionClick}
+        />
       )}
       <header className={$.header}>
         <div className={$["header-content"]}>
@@ -124,7 +76,7 @@ function Home() {
           );
         })}
       </div>
-      <Weather onSuggestionClick={handleSuggestionClick} />
+      <Weather weather={weather} onSuggestionClick={handleSuggestionClick} />
       <Restaurant />
       <Notice />
       <Footer />

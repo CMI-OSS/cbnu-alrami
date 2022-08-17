@@ -6,22 +6,23 @@ import $ from "./style.module.scss";
 
 type detailImageType = {
   id: number;
-  src: string;
-  alt: string;
+  createdAt: string;
+  url: string;
 };
 type Props = {
   isMoreContents: boolean;
   detailImageList: detailImageType[];
+  name: string;
 };
 
-function ImageList({ isMoreContents, detailImageList }: Props) {
+function ImageList({ isMoreContents, detailImageList, name }: Props) {
   return (
     <ul className={$["menu-list"]}>
       {detailImageList.map((item, index) => {
         return (
           <>
             <li key={item.id} className={$["menu-item"]}>
-              <img className={$["menu-image"]} src={item.src} alt={item.alt} />
+              <img className={$["menu-image"]} src={item.url} alt={name} />
               {isMoreContents && index === 2 && (
                 <NavLink to="/more" className={$["more-status"]}>
                   <div className={$["more-plus"]}>

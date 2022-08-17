@@ -1,17 +1,27 @@
+import {
+  useAddArticleBookmark,
+  useRemoveArticleBookmark,
+} from "src/api/bookmark";
 import { Internet, Share, Star } from "src/components/atoms/icon";
-import { StyleProps } from "src/type/props";
 
 import $ from "./style.module.scss";
 
 type Props = {
   articleId: number;
-  bookmark?: boolean;
+  isBookmark?: boolean;
   isCouncil: boolean;
-} & StyleProps;
+};
 
-function Footer({ articleId, bookmark, isCouncil, className }: Props) {
+function Footer({ articleId, isBookmark, isCouncil }: Props) {
+  const addArticleBookmark = useAddArticleBookmark();
+  const removeArticleBookmark = useRemoveArticleBookmark();
+
   const handleBookmark = () => {
-    console.log(articleId, "hi");
+    if (isBookmark) {
+      removeArticleBookmark.mutate({ articleId });
+      return;
+    }
+    addArticleBookmark.mutate({ articleId });
   };
 
   return (
@@ -20,8 +30,8 @@ function Footer({ articleId, bookmark, isCouncil, className }: Props) {
       <button type="button" onClick={handleBookmark}>
         <Star
           size={27}
-          stroke={bookmark ? "#D66D6E" : "#C3C3C3"}
-          fill={bookmark ? "#D66D6E" : ""}
+          stroke={isBookmark ? "#D66D6E" : "#C3C3C3"}
+          fill={isBookmark ? "#D66D6E" : ""}
         />
       </button>
       {!isCouncil && <Internet size={28} stroke="#C3C3C3" />}

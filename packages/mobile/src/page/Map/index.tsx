@@ -30,7 +30,7 @@ const INITIAL_CBNU_LATITUDE = 36.62850496903595;
 const INITIAL_CBNU_LONGITUDE = 127.45731862757414;
 
 function Map() {
-  const [ constructionId, setConstructionId ] = useState(253);
+  const [ constructionId, setConstructionId ] = useState(280);
   const [ myLocation, setMyLocation ] = useState({ latitude: 0, longitude: 0 });
   const dispatch = useAppDispatch();
 
@@ -164,6 +164,7 @@ function Map() {
       {isConstructionTooltip && !schoolSeveralLoading && (
         <Spot
           schoolData={schoolSeveralData!.data}
+          url={schoolSeveralData!.data.images[0]?.url}
           type="map"
           placeId={constructionId}
         />

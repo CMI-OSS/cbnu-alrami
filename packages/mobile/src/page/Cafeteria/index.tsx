@@ -11,9 +11,9 @@ import Footer from "src/components/molecules/Footer";
 import MenuList from "src/components/molecules/MenuList";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { selectMenu } from "src/store/cafeteriaSlice";
-import { cafeteriaTime } from "src/utils/cafeteriaTime";
 
 import caledarReducer from "../Calendar/calendarReducer";
+import getCafeteriaTime from "./constants";
 import $ from "./style.module.scss";
 
 function Cafeteria() {
@@ -32,6 +32,7 @@ function Cafeteria() {
     dispatch(selectMenu({ selectedMenu: id }));
   };
   const allCafeteriaData = useCafeteria(`${year}-${month + 1}-${date}`);
+  const isHoliday = day === 6 || day === 0;
   const { isLoading, data, isError } = allCafeteriaData[selectedMenu - 1];
   const cafeteriaMenu = data?.data;
 
@@ -66,7 +67,7 @@ function Cafeteria() {
         {cafeteriaMenu &&
           cafeteriaMenu.length > 0 &&
           cafeteriaMenu.map(({ content, time }) => {
-            const [ mealTime, timeInfo ] = cafeteriaTime(selectedMenu, time);
+            const [ mealTime, timeInfo ] = getCafeteriaTime(isHoliday, selectedMenu, time);
             return (
               <CafeteriaMenuCard
                 key={content}

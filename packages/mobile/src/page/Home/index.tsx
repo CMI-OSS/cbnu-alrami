@@ -21,7 +21,22 @@ function Home() {
     localStorage.setItem("item", JSON.stringify(event));
   };
   const today = dayjs();
-  const { data: scheduleData } = useSchedule(today.format("YYYY-MM-DD"));
+  const {
+    data: scheduleData,
+    isLoading: isScheduleLoading,
+    error,
+  } = useSchedule(today.format("YYYY-MM-DD"));
+
+  const detectHoliday = (schedules: res.Schedule[]) => {
+    const today = dayjs();
+    const isWeekend = today.day() >= 5;
+    if (isWeekend) return true;
+    let isHoliday = false;
+    schedules.forEach((schedule) => {
+      if (schedule.isHoliday) isHoliday = true;
+    });
+    return isHoliday;
+  };
 
   useEffect(() => {
     if (window.ReactNativeWebView) {
@@ -33,6 +48,9 @@ function Home() {
       }
     }
   }, [ uuid ]);
+
+  if (isScheduleLoading) return <div>학사일정 로딩중...</div>;
+  if (scheduleData === undefined) return <div>학사일정 불러오기 실패</div>;
 
   return (
     <section className={$.home}>
@@ -53,7 +71,7 @@ function Home() {
         })}
       </div>
       <Weather />
-      <Restaurant />
+      <Restaurant today={today} isHoliday={detectHoliday(scheduleData.data)} />
       <Notice />
       <Footer />
     </section>

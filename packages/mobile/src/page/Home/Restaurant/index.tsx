@@ -107,8 +107,7 @@ function Restaurant({ today, isHoliday }: Props) {
   let menu;
   let mealType;
   let period;
-  // const currentHour = today.hour();
-  const currentHour = 12;
+  const currentHour = today.hour();
 
   const [ breakfast, lunch, dinner ] = data.data;
 
@@ -141,8 +140,12 @@ function Restaurant({ today, isHoliday }: Props) {
           <span className={$.time}>{period}</span>
         </div>
         <Line />
-        <div className={$["cafeteria-content"]}>
-          {menu ? menu.content : "지금은 식단이 없어요"}
+        <div className={$["food-box"]}>
+          {menu ? (
+            <p className={$["cafeteria-content"]}>{menu.content}</p>
+          ) : (
+            <span className={$["empty-menu"]}>지금은 식단이 없어요</span>
+          )}
         </div>
       </BorderBox>
     </div>

@@ -73,15 +73,22 @@
             color: $black-40;
         }
     }
-    .cafeteria-content {
-        padding: 21px 20px 0px 0px;
-        line-height: 35px;
-        font-size: 13px;
-        color: $black-80;
+    .food-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-        > p {
-            margin-bottom: 28px;
+        .cafeteria-content {
+            margin-top: 14px;
+            line-height: 35px;
+            font-size: 13px;
             color: $black-80;
+        }
+
+        .empty-menu {
+            @include typography(13);
+            margin: 39px 0 27px;
+            color: $black-40;
         }
     }
 }

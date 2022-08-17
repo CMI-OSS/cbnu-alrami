@@ -9,12 +9,12 @@ declare namespace res {
   };
 
   type BoardTree = {
-    "id": number,
-    "name": string,
-    "parent": {
-      BoardTree
-    }
-  }
+    id: number;
+    name: string;
+    parent: {
+      BoardTree;
+    };
+  };
 }
 
 declare namespace req {

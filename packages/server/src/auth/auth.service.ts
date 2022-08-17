@@ -70,7 +70,7 @@ export class AuthService {
 
     const salt = await bcrypt.genSalt();
     const hashedNewPassword = await bcrypt.hash(newPassword, salt);
-    
+
     await this.adminRepository.update(id, { password: hashedNewPassword });
   }
 }

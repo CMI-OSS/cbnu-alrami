@@ -3,6 +3,7 @@ import {
   useRemoveArticleBookmark,
 } from "src/api/bookmark";
 import { Internet, Share, Star } from "src/components/atoms/icon";
+import { isWebView } from "src/utils/webview";
 
 import $ from "./style.module.scss";
 
@@ -27,13 +28,16 @@ function Footer({ articleId, isBookmark, isCouncil }: Props) {
   return (
     <div className={$.footer}>
       <Share size={24} stroke="#C3C3C3" />
-      <button type="button" onClick={handleBookmark}>
-        <Star
-          size={27}
-          stroke={isBookmark ? "#D66D6E" : "#C3C3C3"}
-          fill={isBookmark ? "#D66D6E" : ""}
-        />
-      </button>
+      {!isWebView && (
+        <button type="button" onClick={handleBookmark}>
+          <Star
+            size={27}
+            stroke={isBookmark ? "#D66D6E" : "#C3C3C3"}
+            fill={isBookmark ? "#D66D6E" : ""}
+          />
+        </button>
+      )}
+
       {!isCouncil && <Internet size={28} stroke="#C3C3C3" />}
     </div>
   );

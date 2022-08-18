@@ -5,6 +5,7 @@ import { User } from "src/commons/entities/user.entity";
 import { Errors } from "src/commons/exception/exception.global";
 import { ScheduleService } from "src/schedule/schedule.service";
 
+import { Schedule } from "../commons/entities/schedule.entity";
 import { ScheduleBookmarkRepository } from "./schedule_bookmark.repository";
 
 const { ALREADY_SUBSCRIBE_BOOKMARK, NOT_SUBSCRIBED_BOARD } = Errors;
@@ -57,5 +58,16 @@ export class ScheduleBookmarkService {
       relations: [ "user", "schedule" ],
     });
     return subscribe;
+  }
+
+  async find(user: User): Promise<Schedule[]> {
+    const schedule = await this.scheduleBookmarkRepository.find({
+      where: { user },
+      relations: [ "schedule" ],
+    });
+
+    return schedule.map((el) => {
+      return el.schedule;
+    });
   }
 }

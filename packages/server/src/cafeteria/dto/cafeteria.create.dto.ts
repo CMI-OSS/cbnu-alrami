@@ -16,6 +16,6 @@ export class CafeteriaCreateDto {
 
   @IsNotEmpty()
   @IsNumber()
-  @ApiProperty({ default: 1, description: "아침(0), 점심(1), 저녁(2)" })
+  @ApiProperty({ default: 1, description: "아침(1), 점심(2), 저녁(3)" })
   time: MealTime;
 }

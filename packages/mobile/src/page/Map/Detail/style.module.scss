@@ -57,8 +57,13 @@
   }
 }
 
+.description {
+  padding: 20px 23px 24px;
+}
+
 .description-title {
   @include typography(16);
+  line-height: 25px;
   color: $black-80;
 }
 
@@ -71,7 +76,7 @@
 }
 
 .detail {
-  padding: 25px 23px 26px;
+  padding: 25px 24px 18px;
   background-color: $white;
 
   &:not(:first-child) {

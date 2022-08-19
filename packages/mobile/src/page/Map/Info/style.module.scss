@@ -8,7 +8,7 @@
 }
 
 .info-inner {
-  padding: 29px 30px;
+  padding: 29px 24px;
   background-color: $white;
   border-radius: 20px;
 }
@@ -20,13 +20,14 @@
 
 .title {
   @include typography(18);
+  line-height: 28px;
   letter-spacing: 0.02em;
   color: $black-80;
 
   @include ellipsis;
 
   &:not(:first-child) {
-    margin-top: 19px;
+    margin-top: 20px;
   }
 }
 

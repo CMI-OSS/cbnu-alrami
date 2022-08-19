@@ -21,29 +21,26 @@ import SettingRoute from "./page/Setting";
 import Preview from "./page/Subscription/Preview";
 
 function App() {
-  const routes =
-    isWebView || isDev
-      ? [
-          { path: "/notice", element: <Notice /> },
-          { path: "/notice/:articleId", element: <NoticeDetail /> },
-          { path: "/calendar", element: <Calendar /> },
-          { path: "/home", element: <Home /> },
-          { path: "/cafeteria", element: <Cafeteria /> },
-          { path: "/map", element: <Map /> },
-          { path: "/subscription", element: <Subscription /> },
-          { path: "/preview", element: <Preview /> },
-          {
-            path: "/place",
-            element: <PlaceDetail />,
-          },
-          { path: "/place/report", element: <Report /> },
-          { path: "/place/error", element: <Error /> },
-          { path: "/place/more", element: <MoreImage /> },
-          { path: "/place/:name", element: <MapDetail /> },
-          { path: "/setting/*", element: <SettingRoute /> },
-          { path: "/*", element: <Navigate replace to="/home" /> },
-        ]
-      : [ { path: "/notice/:articleId", element: <NoticeDetail /> } ];
+  const routes = [
+    { path: "/notice", element: <Notice /> },
+    { path: "/notice/:articleId", element: <NoticeDetail /> },
+    { path: "/calendar", element: <Calendar /> },
+    { path: "/home", element: <Home /> },
+    { path: "/cafeteria", element: <Cafeteria /> },
+    { path: "/map", element: <Map /> },
+    { path: "/subscription", element: <Subscription /> },
+    { path: "/preview", element: <Preview /> },
+    {
+      path: "/place",
+      element: <PlaceDetail />,
+    },
+    { path: "/place/report", element: <Report /> },
+    { path: "/place/error", element: <Error /> },
+    { path: "/place/more", element: <MoreImage /> },
+    { path: "/place/:name", element: <MapDetail /> },
+    { path: "/setting/*", element: <SettingRoute /> },
+    { path: "/*", element: <Navigate replace to="/home" /> },
+  ]
 
   return (
     <BrowserRouter>

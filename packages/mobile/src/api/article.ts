@@ -28,9 +28,11 @@ export const fetchArticlesByBoard = (boardId: number, data: req.Pagination) => {
 };
 
 export const useArticlesByBoard = (boardId: number, data: req.Pagination) => {
-  const response = useQuery<AxiosResponse<Pagination<res.ArticleByBoard>>,
+  const response = useQuery<
+    AxiosResponse<Pagination<res.ArticleByBoard>>,
     Error,
-    Pagination<res.ArticleByBoard & { breadcrumb: string }>>(
+    Pagination<res.ArticleByBoard & { breadcrumb: string }>
+  >(
     [ "articles", boardId ],
     () => {
       return fetchArticlesByBoard(boardId, data);
@@ -59,9 +61,11 @@ export const fetchNewArticles = (data: req.Pagination) => {
 };
 
 export const useNewArticles = (data: req.Pagination) => {
-  const response = useQuery<AxiosResponse<Pagination<res.ArticleByBoard>>,
+  const response = useQuery<
+    AxiosResponse<Pagination<res.ArticleByBoard>>,
     Error,
-    Pagination<res.ArticleByBoard & { breadcrumb: string }>>(
+    Pagination<res.ArticleByBoard & { breadcrumb: string }>
+  >(
     "newArticles",
     () => {
       return fetchNewArticles(data);
@@ -88,22 +92,23 @@ export const fetchPopularArticles = () => {
 };
 
 export const usePopularArticles = () => {
-  const response = useQuery<AxiosResponse<res.ArticleByBoard[]>,
+  const response = useQuery<
+    AxiosResponse<res.ArticleByBoard[]>,
     Error,
-    Pagination<res.ArticleByBoard & { breadcrumb: string }>>("popularArticles", fetchPopularArticles,
-    {
-      select: (data) => {
-        const contents = data?.data.map((article) => {
-          return {
-            ...article,
-            breadcrumb: article.board.parent
-              ? `${article.board.parent.name} > ${article.board.name}`
-              : article.board.name,
-          };
-        });
-        return { pagination: { isEnd: true }, contents };
-      },
-    });
+    Pagination<res.ArticleByBoard & { breadcrumb: string }>
+  >("popularArticles", fetchPopularArticles, {
+    select: (data) => {
+      const contents = data?.data.map((article) => {
+        return {
+          ...article,
+          breadcrumb: article.board.parent
+            ? `${article.board.parent.name} > ${article.board.name}`
+            : article.board.name,
+        };
+      });
+      return { pagination: { isEnd: true }, contents };
+    },
+  });
   return response;
 };
 
@@ -112,21 +117,22 @@ export const fetchBookmarkArticles = () => {
 };
 
 export const useBookmarkArticles = () => {
-  const response = useQuery<AxiosResponse<res.ArticleByBoard[]>,
+  const response = useQuery<
+    AxiosResponse<res.ArticleByBoard[]>,
     Error,
-    Pagination<res.ArticleByBoard & { breadcrumb: string }>>("bookmarkArticles", fetchBookmarkArticles,
-    {
-      select: (data) => {
-        const contents = data?.data.map((article) => {
-          return {
-            ...article,
-            breadcrumb: article.board.parent
-              ? `${article.board.parent.name} > ${article.board.name}`
-              : article.board.name,
-          };
-        });
-        return { pagination: { isEnd: true }, contents };
-      },
-    });
+    Pagination<res.ArticleByBoard & { breadcrumb: string }>
+  >("bookmarkArticles", fetchBookmarkArticles, {
+    select: (data) => {
+      const contents = data?.data.map((article) => {
+        return {
+          ...article,
+          breadcrumb: article.board.parent
+            ? `${article.board.parent.name} > ${article.board.name}`
+            : article.board.name,
+        };
+      });
+      return { pagination: { isEnd: true }, contents };
+    },
+  });
   return response;
 };

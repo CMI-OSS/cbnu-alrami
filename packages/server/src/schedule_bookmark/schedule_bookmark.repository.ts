@@ -7,9 +7,9 @@ export class ScheduleBookmarkRepository extends Repository<ScheduleBookmark> {
     userId: number,
     scheduleId: number,
   ): Promise<number> {
-    return this.createQueryBuilder("schedulebookmark")
-      .where("schedulebookmark.user_id = :userId", { userId })
-      .andWhere("schedulebookmark.schedule_id = :scheduleId", { scheduleId })
+    return this.createQueryBuilder("scheduleBookmark")
+      .where("scheduleBookmark.user_id = :userId", { userId })
+      .andWhere("scheduleBookmark.schedule_id = :scheduleId", { scheduleId })
       .getCount();
   }
 }

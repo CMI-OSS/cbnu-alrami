@@ -13,7 +13,7 @@ type Props = {
 function FinalGuide({ onClick, className }: Props) {
   return (
     <BorderBox height="auto" className={classNames($.box, className)}>
-      <p className={$.description}>
+      <div className={$.description}>
         홈화면에서 다시 식단을 보고싶다면
         <span className={$.second}>
           <div className={$.icon}>
@@ -21,7 +21,7 @@ function FinalGuide({ onClick, className }: Props) {
           </div>
           설정 &gt; 대표식당에서 다시 선택해주세요.
         </span>
-      </p>
+      </div>
       <Button
         onClick={onClick}
         text="확인"

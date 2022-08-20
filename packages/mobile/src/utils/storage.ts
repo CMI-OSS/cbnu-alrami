@@ -7,7 +7,7 @@ const IS_NOT_FIRST_UNSELECT = "IS_FIRST_UNSELECT" as const;
 export const getFavoriteCafeteria = () => {
   const item = localStorage.getItem(REPRESENTATIVE_RESTAURANT);
   if (!item) localStorage.setItem(REPRESENTATIVE_RESTAURANT, "선택안함");
-  return item || "선택안함";
+  return (item || "선택안함") as Restaurant;
 };
 
 export const setFavoriteCafeteria = (restaurant: Restaurant) => {

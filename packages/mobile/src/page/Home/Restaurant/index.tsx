@@ -24,11 +24,18 @@ type Props = {
   isHoliday: boolean;
 };
 
+type SelectorItems =
+  | "greeting"
+  | "selector"
+  | "selected"
+  | "none"
+  | "finalGuide";
+
 function Restaurant({ today, isHoliday }: Props) {
-  const [ cardType, setCardType ] = useState<
-    "greeting" | "selector" | "selected" | "none" | "finalGuide"
-  >();
-  const [ cafeteriaName, setCafeteriaName ] = useState(getFavoriteCafeteria());
+  const [ cardType, setCardType ] = useState<SelectorItems>();
+  const [ cafeteriaName, setCafeteriaName ] = useState<RestaurantType>(
+    getFavoriteCafeteria(),
+  );
 
   const handleSelectorClick = () => {
     setCardType("selector");
@@ -46,7 +53,7 @@ function Restaurant({ today, isHoliday }: Props) {
     setCardType("greeting");
   };
 
-  const handleCafeteriaSelect = (name: RestaurantType | "선택안함") => {
+  const handleCafeteriaSelect = (name: RestaurantType) => {
     if (!getIsVisited()) setVisited();
     setCafeteriaName(name);
     setFavoriteCafeteria(name);

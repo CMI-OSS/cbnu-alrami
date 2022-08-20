@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
-import {Airplane} from "@components/atoms/icon/Airplane";
+import { Airplane } from "@components/atoms/icon/Airplane";
 import MapHeader from "@components/molecules/MapHeader";
 
 import $ from "./style.module.scss";

@@ -1,9 +1,10 @@
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Subscription from "src/page/Subscription";
-
 import "./mobile.scss";
+
+import Subscription from "src/page/Subscription";
+import { isWebView, isDev } from "src/utils/webview";
 
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
@@ -36,8 +37,10 @@ function App() {
     { path: "/place/report", element: <Report /> },
     { path: "/place/error", element: <Error /> },
     { path: "/place/more", element: <MoreImage /> },
+    { path: "/place/:name", element: <MapDetail /> },
     { path: "/setting/*", element: <SettingRoute /> },
-  ];
+    { path: "/*", element: <Navigate replace to="/home" /> },
+  ]
 
   return (
     <BrowserRouter>
@@ -47,8 +50,6 @@ function App() {
             <Route key={route.path} path={route.path} element={route.element} />
           );
         })}
-        <Route path="*" element={<Navigate replace to="/home" />} />
-        <Route path="/place/:name" element={<MapDetail />} />
       </Routes>
     </BrowserRouter>
   );

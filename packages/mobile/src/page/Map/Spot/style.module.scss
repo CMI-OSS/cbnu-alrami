@@ -33,7 +33,7 @@
   @include typography(12);
   display: block;
   margin-top: 12px;
-  color: $black-40;
+  color: $black-50;
 }
 
 .link {
@@ -43,7 +43,7 @@
     display: inline-block;
     margin-top: 16px;
     @include typography(12);
-    color: $black-40;
+    color: $black-50;
   }
 
   svg {

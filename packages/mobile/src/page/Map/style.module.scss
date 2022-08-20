@@ -18,6 +18,11 @@ $linkTooltipDistance: 17px;
   height: 49px;
   border-radius: 50%;
   background-color: $white;
+
+  svg {
+    position: relative;
+    left: 16px;
+  }
 }
 
 .place-arrow {

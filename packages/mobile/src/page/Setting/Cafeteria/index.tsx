@@ -5,18 +5,18 @@ import { Food } from "src/components/atoms/icon";
 import RadioSelect from "src/components/molecules/RadioSelect";
 import SettingTemplate from "src/page/Setting/SettingTemplate";
 import { Restaurant } from "src/type";
-import { get대표식당, set대표식당 } from "src/utils/storage";
+import { getFavoriteCafeteria, setFavoriteCafeteria } from "src/utils/storage";
 
 import { cafeterias } from "../Main/constants";
 import $ from "./style.module.scss";
 
 function Cafeteria() {
-  const representativeCafeteria = get대표식당();
+  const representativeCafeteria = getFavoriteCafeteria();
   const [ representative, setRepresentative ] = useState(representativeCafeteria);
 
   const handleRepresentative = useCallback((label: Restaurant) => {
     setRepresentative(label);
-    set대표식당(label);
+    setFavoriteCafeteria(label);
   }, []);
 
   return (

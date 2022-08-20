@@ -21,11 +21,9 @@ function Home() {
     localStorage.setItem("item", JSON.stringify(event));
   };
   const today = dayjs();
-  const {
-    data: scheduleData,
-    isLoading: isScheduleLoading,
-    error,
-  } = useSchedule(today.format("YYYY-MM-DD"));
+  const { data: scheduleData, isLoading: isScheduleLoading } = useSchedule(
+    today.format("YYYY-MM-DD"),
+  );
 
   const detectHoliday = (schedules: res.Schedule[]) => {
     const today = dayjs();

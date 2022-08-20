@@ -1,4 +1,4 @@
-const cafeteriaList = [
+const CAFETERIA_LIST = [
   { id: 1, name: "본관" },
   { id: 2, name: "양진재" },
   { id: 3, name: "양성재" },
@@ -7,4 +7,4 @@ const cafeteriaList = [
   { id: 6, name: "은하수식당" },
 ];
 
-export default cafeteriaList;
+export default CAFETERIA_LIST;

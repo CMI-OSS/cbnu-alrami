@@ -2,7 +2,7 @@ import { useReducer } from "react";
 
 import classnames from "classnames";
 import dayjs from "dayjs";
-import { cafeteriaList } from "src/__mocks__";
+import { CAFETERIA_LIST } from "src/__mocks__";
 import { useCafeteria } from "src/api/cafeteria";
 import noMenu from "src/assets/no_menu.png";
 import CafeteriaMenuCard from "src/components/molecules/CafeteriaMenuCard";
@@ -50,7 +50,7 @@ function Cafeteria() {
       </header>
 
       <MenuList
-        menuList={cafeteriaList}
+        menuList={CAFETERIA_LIST}
         onClick={handleMenu}
         clickedMenu={selectedMenu}
       />

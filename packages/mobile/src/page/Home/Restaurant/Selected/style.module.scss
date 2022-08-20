@@ -1,0 +1,45 @@
+@import "../../../../styles/main.scss";
+
+.menu-box {
+  padding: 22px 24px 15px;
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    color: $black-100;
+
+    .location {
+      @include typography(16);
+      font-weight: 500;
+
+      > button {
+        margin-left: 10px;
+      }
+    }
+
+    .time {
+      color: $black-40;
+    }
+  }
+
+  .food-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .cafeteria-content {
+      margin-top: 14px;
+      line-height: 35px;
+      font-size: 13px;
+      color: $black-80;
+    }
+
+    .empty-menu {
+      @include typography(13);
+      margin: 39px 0 27px;
+      color: $black-40;
+    }
+  }
+}

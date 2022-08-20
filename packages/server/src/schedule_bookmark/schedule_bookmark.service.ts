@@ -61,13 +61,11 @@ export class ScheduleBookmarkService {
   }
 
   async find(user: User): Promise<Schedule[]> {
-    const schedule = await this.scheduleBookmarkRepository.find({
+    const schedules = await this.scheduleBookmarkRepository.find({
       where: { user },
       relations: [ "schedule" ],
     });
 
-    return schedule.map((el) => {
-      return el.schedule;
-    });
+    return schedules.map((el) => el.schedule);
   }
 }

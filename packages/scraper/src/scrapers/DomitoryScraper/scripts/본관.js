@@ -30,6 +30,9 @@ const script = {
       for (const eachCell of foodCells) {
         if(eachCell.className === 'foodday') continue;
 
+        const food = eachCell.innerText.replace(/\\n/g,'').trim()
+        if(!food || food === ''  || food === '.') continue
+
         result.push({
           restaurant_name,
           food_name: eachCell.innerText,

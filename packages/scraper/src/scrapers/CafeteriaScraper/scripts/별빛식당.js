@@ -34,15 +34,20 @@ const script = {
                         const mainMenu = day.querySelector('.card-header').innerText
                         const subMeuns = Array.from(day.querySelectorAll('.card-body .side')).map(m=>m.innerText).join(' ')
                         const menu = mainMenu + ' ' +subMeuns
+
+                        const food = menu.replace(/\\n/g,'').trim()
+
+                        if(food !== '' || food === '.'){
     
-                        result.push({
-                            id:this.cafeteria,
-                            cafeteriaId:this.cafeteriaId,
-                            cafeteria_name:this.cafeteria_name,
-                            menu,
-                            time,
-                            date:new Date().getFullYear() +'.'+MMDD
-                        })
+                            result.push({
+                                id:this.cafeteria,
+                                cafeteriaId:this.cafeteriaId,
+                                cafeteria_name:this.cafeteria_name,
+                                menu,
+                                time,
+                                date:new Date().getFullYear() +'.'+MMDD
+                            })
+                        }
                     }
                 } catch (error) {
                     console.log(error,day)

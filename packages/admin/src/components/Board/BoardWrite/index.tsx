@@ -1,11 +1,12 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 
+import "@toast-ui/editor/dist/toastui-editor.css";
+import { Editor } from "@toast-ui/react-editor";
 import classNames from "classnames";
 import { boardCategories } from "src/__mockData__";
-import Editor from "src/components/Editor";
-import ImgUploadSlides from "src/components/ImgUploadSlides";
 import { useDebounceInput, useWindowResize } from "src/hooks";
+import ImgUploadSlides from "src/pages/BoardPage/ArticleWrite/ImgUploadSlides";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { writeBoard } from "src/store/boardSlice";
 
@@ -103,7 +104,6 @@ export default function BoardWrite() {
           />
           <hr />
         </header>
-
         <span
           id="category-hint"
           className={$.hint}
@@ -138,14 +138,24 @@ export default function BoardWrite() {
             })}
           </datalist>
         </div>
-
-        <ImgUploadSlides imgList={boardImgList} />
-
-        <Editor />
+        <Editor
+          placeholder="내용을 입력해주세요."
+          previewStyle="vertical" // 미리보기 스타일 지정
+          height="300px" // 에디터 창 높이
+          initialEditType="wysiwyg" // 초기 입력모드 설정(디폴트 markdown)
+          toolbarItems={[
+            // 툴바 옵션 설정
+            [ "heading", "bold", "italic", "strike" ],
+            [ "hr", "quote" ],
+            [ "ul", "ol", "task", "indent", "outdent" ],
+            [ "table", "image", "link" ],
+            [ "code", "codeblock" ],
+          ]}
+        ></Editor>
         <span className={$["content-error"]}>
           {error.content ? "내용을 입력해주세요." : ""}
         </span>
-
+        <ImgUploadSlides imgList={boardImgList} />
         <input
           className={$.submit}
           type="submit"

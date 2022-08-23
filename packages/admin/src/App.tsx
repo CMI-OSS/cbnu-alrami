@@ -5,9 +5,8 @@ import useSocket from "src/hooks/useSocket";
 import ScraperPage from "src/pages/Scraper/Scraper.route";
 
 import "./admin.scss";
-import Navigation from "./components/Navigation";
 import AdminManagementPage from "./pages/AdminManagementPage";
-import BoardPage from "./pages/BoardPage";
+import BoardPage from "./pages/BoardPage/Board.route";
 import LoginPage from "./pages/Login";
 import { store } from "./store";
 
@@ -17,7 +16,6 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Navigation />
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/board/*" element={<BoardPage />} />

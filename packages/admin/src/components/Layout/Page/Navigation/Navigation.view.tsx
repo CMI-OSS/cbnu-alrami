@@ -4,7 +4,7 @@ import { NavLink, useLocation, useMatch } from "react-router-dom";
 import classnames from "classnames";
 import { useAppSelector } from "src/store";
 
-import $ from "./style.module.scss";
+import $ from "./Navigation.module.scss";
 
 const SCRAPER_MENUS = {
   label: "스크래퍼",

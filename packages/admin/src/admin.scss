@@ -4,3 +4,11 @@ body {
   font-family: "Roboto", sans-serif;
   line-height: initial;
 }
+
+.quill > .ql-toolbar:first-child {
+  display: none !important;
+}
+
+.ql-editor {
+  min-height: 300px;
+}

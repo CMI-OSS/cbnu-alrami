@@ -9,6 +9,7 @@ yarn-error.log
 dev.yaml
 prod.yaml
 access.private.key
+.idea
 
 *.log
 *.key

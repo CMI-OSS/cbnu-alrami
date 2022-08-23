@@ -68,7 +68,6 @@ export class AuthController {
     name: "x-access-token",
     description: "Admin JWT",
   })
-  @UseGuards(AdminAuthGuard)
   async adminLogin(@Body() admin: AdminLoginDto): Promise<TokenDto> {
     return this.authService.adminLogin(admin);
   }

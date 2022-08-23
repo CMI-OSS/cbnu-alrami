@@ -18,24 +18,19 @@ import SuggestionModal from "./SuggestionModal";
 
 function Home() {
   const [ uuid, setUuid ] = useState("");
-  const onMessageHandler = (e: any) => {
-    const event = JSON.parse(e.data);
-    setUuid(e.data); // Todo: uuid 보내는 api 연결
-    localStorage.setItem("item", JSON.stringify(event));
-  };
   const today = dayjs();
   const { data: scheduleData } = useSchedule(today.format("YYYY-MM-DD"));
   const { data: weatherData } = useWeathers();
   const [ isSuggestionClicked, setIsSuggestionClicked ] = useState(false);
 
   useEffect(() => {
-    if (window.ReactNativeWebView) {
-      if (isAndroid) {
-        document.addEventListener("message", onMessageHandler);
-      }
-      if (isIOS) {
-        window.addEventListener("message", onMessageHandler);
-      }
+    if (isAndroid) {
+      setUuid(JSON.stringify(localStorage.getItem("token")));
+      alert(uuid);
+    }
+    if (isIOS) {
+      setUuid(JSON.stringify(localStorage.getItem("token")));
+      alert(uuid);
     }
   }, [ uuid ]);
 

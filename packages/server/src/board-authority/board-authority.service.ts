@@ -1,17 +1,18 @@
 import { Injectable } from "@nestjs/common";
-import { Builder } from "builder-pattern";
+import { BoardTreeService } from "src/boardTree/boardTree.service";
+import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
 import { BoardAuthority } from "src/commons/entities/boardAuthority.entity";
 
 import { BoardAuthorityRepository } from "./board-authoirty.repository";
-import { BoardAuthorityResponseDto } from "./dto/board-authority.response.dto";
 
 @Injectable()
 export class BoardAuthorityService {
   constructor(
     private readonly boardAuthorityRepository: BoardAuthorityRepository,
+    private readonly boardTreeService: BoardTreeService,
   ) {}
 
-  async findAll(adminId: number): Promise<BoardAuthorityResponseDto[]> {
+  async findAll(adminId: number): Promise<BoardTreeResponseDto[]> {
     const boardsWithAuthority: BoardAuthority[] =
       await this.boardAuthorityRepository.find({
         where: {
@@ -22,11 +23,11 @@ export class BoardAuthorityService {
         relations: [ "board" ],
       });
 
-    return boardsWithAuthority.map(({ board }) => {
-      return Builder(BoardAuthorityResponseDto)
-        .id(board.id)
-        .name(board.name)
-        .build();
-    });
+    return Promise.all(
+      boardsWithAuthority.map(async ({ board }) => {
+        const boardTree = await this.boardTreeService.getBoardTree(board.id);
+        return boardTree;
+      }),
+    );
   }
 }

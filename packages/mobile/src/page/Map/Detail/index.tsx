@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import { LeftArrow } from "@components/atoms/icon";
 import ImageList from "@components/molecules/ImageList";
+import classNames from "classnames";
 import { useSchoolById } from "src/api/school";
 import BorderBox from "src/components/atoms/BorderBox";
 import useSearch from "src/hooks/useSearch";
@@ -55,8 +56,9 @@ function MapDetail() {
         oldBuildingNumber={detailSeveralData?.school?.oldBuildingNumber}
         name={detailSeveralData?.name}
         address={detailSeveralData?.address}
+        contact={detailSeveralData?.contact}
       />
-      <BorderBox className={$.menu}>
+      <BorderBox className={classNames($.menu, $.description)}>
         <strong className={$["description-title"]}>설명</strong>
         <p className={$["description-text"]}>
           {detailSeveralData?.description}

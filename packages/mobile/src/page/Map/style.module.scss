@@ -14,14 +14,18 @@ $linkTooltipDistance: 17px;
 .place-link {
   @include position(absolute, top 15px left 15px);
   z-index: 1000;
-  width: 49px;
-  height: 49px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background-color: $white;
 
   svg {
     position: relative;
     left: 16px;
+
+    path {
+      fill: $black-80;
+    }
   }
 }
 
@@ -40,7 +44,7 @@ $linkTooltipDistance: 17px;
   bottom: $footerHeight + $footerLinkDistance + $linkHeight + $linkTooltipDistance;
   right: 26px;
   border-radius: 10px;
-  padding: 15px 10px 10px 14px;
+  padding: 18px 12px 13px;
   background-color: $white;
   font-size: 12px;
   letter-spacing: -0.02em;
@@ -58,9 +62,7 @@ $linkTooltipDistance: 17px;
 }
 
 .balloon:after {
-  position: absolute;
-  top: 60px;
-  left: 70px;
+  @include position(absolute, top 67px left 70px);
   border-top: 15px solid #fff;
   border-left: 20px solid transparent;
   border-right: 0px solid transparent;
@@ -69,9 +71,7 @@ $linkTooltipDistance: 17px;
 }
 
 .close_button {
-  position: absolute;
-  top: 3px;
-  right: 5px;
+  @include position(absolute, top 6px right 5px);
   background-color: transparent;
   padding: 5px;
 }
@@ -92,8 +92,8 @@ $linkTooltipDistance: 17px;
   right: 15px;
   display: flex;
   justify-content: center;
-  width: 62px;
-  height: 62px;
+  width: 60px;
+  height: 60px;
   bottom: $footerHeight + $footerLinkDistance;
   background-color: $red-50;
   border-radius: 50%;

@@ -48,7 +48,6 @@
 }
 
 .menu {
-  padding: 29px 23px 24px;
   background-color: #fff;
   border-radius: 20px;
 
@@ -57,8 +56,13 @@
   }
 }
 
+.description {
+  padding: 20px 26px 24px;
+}
+
 .description-title {
   @include typography(16);
+  line-height: 25px;
   color: $black-80;
 }
 
@@ -71,7 +75,7 @@
 }
 
 .detail {
-  padding: 25px 23px 26px;
+  padding: 24px 26px 18px;
   background-color: $white;
 
   &:not(:first-child) {

@@ -6,7 +6,7 @@
   @include position(fixed, left 25px right 25px bottom 94px);
   display: flex;
   align-items: center;
-  padding: 20px 24px 30px 17px;
+  padding: 20px 24px 30px 16px;
   background-color: $white;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -26,8 +26,8 @@
 }
 
 .info {
-  padding-top: 15px;
-  margin-left: 15px;
+  padding-top: 16px;
+  margin-left: 16px;
   flex: 1 1 auto;
 }
 
@@ -75,7 +75,7 @@
   align-items: center;
   justify-content: left;
   background-color: $white;
-  padding: 15px 35px 15px 15px;
+  padding: 16px 36px 16px 16px;
   border-radius: 20px;
 
   &:not(:first-child) {

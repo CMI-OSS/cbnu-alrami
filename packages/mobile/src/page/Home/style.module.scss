@@ -1,4 +1,5 @@
 @import "../../styles/main.scss";
+@import "@shared/styles/mixin.scss";
 
 .home {
   padding: 34px 25px 100px 35px;
@@ -94,4 +95,9 @@
       }
     }
   }
+}
+
+.suggestion-mode {
+  height: 100vh;
+  overflow-y: hidden;
 }

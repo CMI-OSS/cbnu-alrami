@@ -1,14 +1,14 @@
 import classNames from "classnames";
 import { Dayjs } from "dayjs";
-import { CAFETERIA_LIST } from "src/__mocks__";
 import { useCafeteria } from "src/api/cafeteria";
 import BorderBox from "src/components/atoms/BorderBox";
 import { Write } from "src/components/atoms/icon";
 import Line from "src/components/atoms/Line";
+import { CAFETERIA_LIST } from "src/constants";
+import getCafeteriaTime from "src/page/Cafeteria/constants";
 import { Restaurant } from "src/type";
 
-import Empty from "../Empty";
-import { getMealPeriod, getMealType, getMealTypeIndex } from "./cafeteriaTools";
+import EmptyCafeteria from "../EmptyCafeteria";
 import $ from "./style.module.scss";
 
 type Props = {
@@ -17,6 +17,12 @@ type Props = {
   isHoliday: boolean;
   onClick: () => void;
   className?: string;
+};
+
+const getMealTypeIndex = (hour: number) => {
+  if (hour >= 0 && hour < 10) return 0;
+  if (hour >= 10 && hour < 13) return 1;
+  return 2;
 };
 
 function Selected({
@@ -32,23 +38,35 @@ function Selected({
   });
 
   if (!target)
-    return <Empty className={$["empty-box"]} {...{ cafeteriaName, onClick }} />;
+    return (
+      <EmptyCafeteria
+        className={$["empty-box"]}
+        {...{ cafeteriaName, onClick }}
+      />
+    );
 
-  const { data, isLoading, error } = allCafeteriaData[target!.id - 1];
+  const { data, isLoading, error } = allCafeteriaData[target.id - 1];
+  const menuData = data?.data[getMealTypeIndex(today.hour())];
 
-  if (error || isLoading || !data)
-    return <Empty className={$["empty-box"]} {...{ cafeteriaName, onClick }} />;
+  if (error || isLoading || !menuData)
+    return (
+      <EmptyCafeteria
+        className={$["empty-box"]}
+        {...{ cafeteriaName, onClick }}
+      />
+    );
 
-  const menuData = data.data[getMealTypeIndex(today.hour())];
-
-  if (!menuData)
-    return <Empty className={$["empty-box"]} {...{ cafeteriaName, onClick }} />;
+  const [ mealType, mealPeriod ] = getCafeteriaTime(
+    isHoliday,
+    target.id,
+    menuData.time,
+  );
 
   return (
     <BorderBox height="auto" className={classNames($["menu-box"], className)}>
       <div className={$.title}>
         <div className={$.location}>
-          <span>{`${cafeteriaName} ${getMealType(menuData.time)}`}</span>
+          <span>{`${cafeteriaName} ${mealType}`}</span>
           <button
             type="button"
             aria-label="대표 식당 변경하기"
@@ -57,9 +75,7 @@ function Selected({
             <Write stroke="#aaa" size={12} />
           </button>
         </div>
-        <span className={$.time}>
-          {getMealPeriod(menuData.time, isHoliday)}
-        </span>
+        <span className={$.time}>{mealPeriod}</span>
       </div>
       <Line />
       <div className={$["food-box"]}>

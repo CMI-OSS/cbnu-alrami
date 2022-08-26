@@ -2,13 +2,13 @@ import { useReducer } from "react";
 
 import classnames from "classnames";
 import dayjs from "dayjs";
-import { CAFETERIA_LIST } from "src/__mocks__";
 import { useCafeteria } from "src/api/cafeteria";
 import noMenu from "src/assets/no_menu.png";
 import CafeteriaMenuCard from "src/components/molecules/CafeteriaMenuCard";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
 import Footer from "src/components/molecules/Footer";
 import MenuList from "src/components/molecules/MenuList";
+import { CAFETERIA_LIST } from "src/constants";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { selectMenu } from "src/store/cafeteriaSlice";
 
@@ -67,7 +67,11 @@ function Cafeteria() {
         {cafeteriaMenu &&
           cafeteriaMenu.length > 0 &&
           cafeteriaMenu.map(({ content, time }) => {
-            const [ mealTime, timeInfo ] = getCafeteriaTime(isHoliday, selectedMenu, time);
+            const [ mealTime, timeInfo ] = getCafeteriaTime(
+              isHoliday,
+              selectedMenu,
+              time,
+            );
             return (
               <CafeteriaMenuCard
                 key={content}

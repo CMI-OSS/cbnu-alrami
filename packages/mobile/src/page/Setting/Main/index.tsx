@@ -8,11 +8,11 @@ import { settingConfig, settingMenuList } from "./constants";
 import $ from "./style.module.scss";
 
 function Main() {
-  const representativeCafeteria = getFavoriteCafeteria();
+  const favoriteCafeteria = getFavoriteCafeteria();
   const { isDisplayContact } = useAppSelector((state) => {
     return state.settingReducer.setting;
   });
-  const settingData = settingConfig(representativeCafeteria);
+  const settingData = settingConfig(favoriteCafeteria);
 
   return (
     <SettingTemplate title="설정" className={$["setting-main"]}>

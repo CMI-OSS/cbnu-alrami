@@ -11,8 +11,8 @@ import { cafeterias } from "../Main/constants";
 import $ from "./style.module.scss";
 
 function Cafeteria() {
-  const representativeCafeteria = getFavoriteCafeteria();
-  const [ representative, setRepresentative ] = useState(representativeCafeteria);
+  const favoriteCafeteria = getFavoriteCafeteria();
+  const [ representative, setRepresentative ] = useState(favoriteCafeteria);
 
   const handleRepresentative = useCallback((label: Restaurant) => {
     setRepresentative(label);

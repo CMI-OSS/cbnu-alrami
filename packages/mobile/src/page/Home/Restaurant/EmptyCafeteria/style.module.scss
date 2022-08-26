@@ -3,20 +3,17 @@
 .menu-box {
   padding: 22px 24px 15px;
 
-  .title {
+  .cafeteria-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
     color: $black-100;
 
-    .location {
+    .cafeteria-name {
       @include typography(16);
+      margin-right: 10px;
       font-weight: 500;
-
-      > button {
-        margin-left: 10px;
-      }
     }
   }
 
@@ -28,6 +25,7 @@
     .empty-menu {
       @include typography(13);
       margin: 39px 0 27px;
+      line-height: 18px;
       color: $black-40;
     }
   }

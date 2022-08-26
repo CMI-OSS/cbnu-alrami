@@ -28,16 +28,6 @@ function Home() {
     today.format("YYYY-MM-DD"),
   );
 
-  const detectHoliday = (schedules: res.Schedule[]) => {
-    const today = dayjs();
-    const isWeekend = today.day() >= 5;
-    if (isWeekend) return true;
-    let isHoliday = false;
-    schedules.forEach((schedule) => {
-      if (schedule.isHoliday) isHoliday = true;
-    });
-    return isHoliday;
-  };
   const { data: weatherData } = useWeathers();
   const [ isSuggestionClicked, setIsSuggestionClicked ] = useState(false);
 
@@ -91,8 +81,8 @@ function Home() {
           );
         })}
       </div>
-      <Restaurant today={today} isHoliday={detectHoliday(scheduleData.data)} />
       <Weather weather={weather} onSuggestionClick={handleSuggestionClick} />
+      <Restaurant today={today} isHoliday={scheduleData.isHoliday} />
       <Notice />
       <Footer />
     </section>

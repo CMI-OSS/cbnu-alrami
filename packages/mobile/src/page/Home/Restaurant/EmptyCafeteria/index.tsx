@@ -12,20 +12,14 @@ type Props = {
   onClick: () => void;
 };
 
-function Empty({ className, cafeteriaName, onClick }: Props) {
+function EmptyCafeteria({ className, cafeteriaName, onClick }: Props) {
   return (
     <BorderBox height="auto" className={classNames($["menu-box"], className)}>
-      <div className={$.title}>
-        <div className={$.location}>
-          <span>{cafeteriaName}</span>
-          <button
-            type="button"
-            aria-label="대표 식당 변경하기"
-            onClick={onClick}
-          >
-            <Write stroke="#aaa" size={12} />
-          </button>
-        </div>
+      <div className={$["cafeteria-header"]}>
+        <button type="button" aria-label="대표 식당 변경하기" onClick={onClick}>
+          <span className={$["cafeteria-name"]}>{cafeteriaName}</span>
+          <Write stroke="#aaa" size={12} />
+        </button>
         <span className={$.time}></span>
       </div>
       <Line />
@@ -36,4 +30,4 @@ function Empty({ className, cafeteriaName, onClick }: Props) {
   );
 }
 
-export default Empty;
+export default EmptyCafeteria;

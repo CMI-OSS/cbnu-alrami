@@ -11,7 +11,7 @@ import {
   useRemoveSubscribe,
 } from "src/api/subscribe";
 import { DefaultProps } from "src/type/props";
-import { toastSuccess } from "src/utils/toast";
+import { toastError, toastSuccess } from "src/utils/toast";
 
 import $ from "./style.module.scss";
 
@@ -35,7 +35,11 @@ function Status({ boardId, isSubscribing, isNoticing, className }: Props) {
           onClick={(e) => {
             e.preventDefault();
             removeSubscribe.mutate({ boardId });
-            toastSuccess({ message: "구독이 해제되었습니다." });
+            try {
+              toastSuccess({ message: "구독이 해제되었습니다." });
+            } catch (e) {
+              toastError({ message: "구독설정에 실패했습니다" });
+            }
           }}
         >
           <Subscription size={30} stroke="#D66D6E" />
@@ -45,7 +49,11 @@ function Status({ boardId, isSubscribing, isNoticing, className }: Props) {
           onClick={(e) => {
             e.preventDefault();
             removeAlarm.mutate({ boardId });
-            toastSuccess({ message: "알림이 해제되었습니다." });
+            try {
+              toastSuccess({ message: "알림이 해제되었습니다." });
+            } catch (e) {
+              toastError({ message: "알림설정에 실패했습니다" });
+            }
           }}
         >
           <Alarm size={20} stroke="#D66D6E" />
@@ -61,7 +69,11 @@ function Status({ boardId, isSubscribing, isNoticing, className }: Props) {
           onClick={(e) => {
             e.preventDefault();
             removeSubscribe.mutate({ boardId });
-            toastSuccess({ message: "구독이 해제되었습니다." });
+            try {
+              toastSuccess({ message: "구독이 해제되었습니다." });
+            } catch (e) {
+              toastError({ message: "구독설정에 실패했습니다" });
+            }
           }}
         >
           <Subscription size={30} stroke="#D66D6E" />
@@ -71,7 +83,11 @@ function Status({ boardId, isSubscribing, isNoticing, className }: Props) {
           onClick={(e) => {
             e.preventDefault();
             addAlarm.mutate({ boardId });
-            toastSuccess({ message: "알림이 설정되었습니다." });
+            try {
+              toastSuccess({ message: "알림이 설정되었습니다." });
+            } catch (e) {
+              toastError({ message: "알림설정에 실패했습니다" });
+            }
           }}
         >
           <UnAlarm size={20} stroke="#aaaaaa" />
@@ -86,8 +102,12 @@ function Status({ boardId, isSubscribing, isNoticing, className }: Props) {
       className={$.status}
       onClick={(e) => {
         e.preventDefault();
-        addSubscribe.mutate({ boardId });
-        toastSuccess({ message: "구독이 설정되었습니다." });
+        try {
+          addSubscribe.mutate({ boardId });
+          toastSuccess({ message: "구독이 설정되었습니다." });
+        } catch (e) {
+          toastError({ message: "구독설정에 실패했습니다" });
+        }
       }}
     >
       <UnSubscription size={30} stroke="#aaaaaa" />

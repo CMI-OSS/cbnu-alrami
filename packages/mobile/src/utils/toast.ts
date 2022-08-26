@@ -12,3 +12,10 @@ export const toastSuccess = ({ message, style }: Props) => {
     style: { background: "#363636", color: "#fff", ...style },
   });
 };
+
+export const toastError = ({ message, style }: Props) => {
+  toast.error(message, {
+    icon: null,
+    style: { background: "#363636", color: "#fff", ...style },
+  });
+};

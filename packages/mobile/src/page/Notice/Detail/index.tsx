@@ -1,10 +1,11 @@
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 
-import { LeftArrow } from "@components/atoms/icon";
+import { Close, LeftArrow, LongArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import dayjs from "dayjs";
 import { useArticle } from "src/api/article";
-import { toastSuccess } from "src/utils/toast";
 import { isWebView } from "src/utils/webview";
 
 import Footer from "./Footer";
@@ -13,6 +14,25 @@ import $ from "./style.module.scss";
 function Detail() {
   const { articleId } = useParams();
   const { isLoading, error, data } = useArticle(Number(articleId));
+
+  useEffect(() => {
+    toast.dismiss();
+    toast.custom(
+      <div className={$.toast}>
+        <div className={$.download}>
+          충림이 앱으로 보기
+          <LongArrow size={6} stroke="#fff" style={{ marginLeft: "8px" }} />
+        </div>
+        <button type="button">
+          <Close size={10} stroke="#fff" />
+        </button>
+      </div>,
+      {
+        duration: Infinity,
+      },
+    );
+  }, []);
+
   if (!data || error || isLoading) return <></>;
   const article = data.data;
   return (
@@ -34,17 +54,6 @@ function Detail() {
             className={$.content}
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
-          <button
-            type="button"
-            onClick={() => {
-              return toastSuccess({
-                message: "공지 링크가 클립보드에 복사되었습니다.",
-                style: { marginBottom: "58px" },
-              });
-            }}
-          >
-            클릭
-          </button>
         </div>
         <Footer
           articleId={Number(articleId)}

@@ -4,6 +4,7 @@ import { LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import dayjs from "dayjs";
 import { useArticle } from "src/api/article";
+import { toastSuccess } from "src/utils/toast";
 import { isWebView } from "src/utils/webview";
 
 import Footer from "./Footer";
@@ -33,6 +34,17 @@ function Detail() {
             className={$.content}
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
+          <button
+            type="button"
+            onClick={() => {
+              return toastSuccess({
+                message: "공지 링크가 클립보드에 복사되었습니다.",
+                style: { marginBottom: "58px" },
+              });
+            }}
+          >
+            클릭
+          </button>
         </div>
         <Footer
           articleId={Number(articleId)}

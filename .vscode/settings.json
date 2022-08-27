@@ -7,6 +7,9 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
   },
+  "[scss]": {
+    "editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter"
+  },
   "[javascript]": {
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
   },
@@ -17,14 +20,5 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
-  "eslint.workingDirectories": ["./packages/admin"],
-  "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "**/Thumbs.db": true,
-    "**/node_modules": true
-  }
+  "eslint.workingDirectories": ["./packages/admin"]
 }

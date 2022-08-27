@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { isAndroid, isIOS } from "react-device-detect";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Footer from "@components/molecules/Footer";
@@ -22,17 +21,6 @@ function Home() {
   const { data: scheduleData } = useSchedule(today.format("YYYY-MM-DD"));
   const { data: weatherData } = useWeathers();
   const [ isSuggestionClicked, setIsSuggestionClicked ] = useState(false);
-
-  useEffect(() => {
-    if (isAndroid) {
-      setUuid(JSON.stringify(localStorage.getItem("token")));
-      alert(uuid);
-    }
-    if (isIOS) {
-      setUuid(JSON.stringify(localStorage.getItem("token")));
-      alert(uuid);
-    }
-  }, [ uuid ]);
 
   if (!weatherData) return <div>날씨 로딩 실패</div>;
   const weather = weatherData.data;

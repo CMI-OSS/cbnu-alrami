@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { isAndroid, isIOS } from "react-device-detect";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -19,6 +21,8 @@ import SettingRoute from "./page/Setting";
 import Preview from "./page/Subscription/Preview";
 
 function App() {
+  const [ uuid, setUuid ] = useState("");
+
   const routes = [
     { path: "/notice", element: <Notice /> },
     { path: "/notice/:articleId", element: <NoticeDetail /> },
@@ -39,6 +43,13 @@ function App() {
     { path: "/setting/*", element: <SettingRoute /> },
     { path: "/*", element: <Navigate replace to="/home" /> },
   ];
+
+  useEffect(() => {
+    if (isAndroid || isIOS) {
+      setUuid(JSON.stringify(localStorage.getItem("token")));
+      alert(uuid);
+    }
+  }, [ uuid ]);
 
   return (
     <BrowserRouter>

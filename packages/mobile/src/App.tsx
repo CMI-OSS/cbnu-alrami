@@ -1,10 +1,10 @@
+import React from "react";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import "./mobile.scss";
-
+import DeepLink from "src/page/Notice/Detail/DeepLink";
 import Subscription from "src/page/Subscription";
-import { isWebView, isDev } from "src/utils/webview";
 
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
@@ -40,10 +40,11 @@ function App() {
     { path: "/place/:name", element: <MapDetail /> },
     { path: "/setting/*", element: <SettingRoute /> },
     { path: "/*", element: <Navigate replace to="/home" /> },
-  ]
+  ];
 
   return (
     <BrowserRouter>
+      <DeepLink />
       <Routes>
         {routes.map((route) => {
           return (

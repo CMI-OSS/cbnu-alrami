@@ -12,6 +12,7 @@ import $ from "./style.module.scss";
 function Detail() {
   const { articleId } = useParams();
   const { isLoading, error, data } = useArticle(Number(articleId));
+
   if (!data || error || isLoading) return <></>;
   const article = data.data;
   return (

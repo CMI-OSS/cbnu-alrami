@@ -21,6 +21,7 @@ export class ArticleDto {
 export class ArticleDetailInfoDto extends ArticleBaseDto {
   board: BoardTreeResponseDto;
   date: Date;
+  updatedAt!: Date;
 }
 
 export class ArticleListInfoDto extends ArticleBaseDto {

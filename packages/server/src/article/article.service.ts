@@ -282,6 +282,7 @@ export class ArticleService {
           .hits(hitCnt)
           .scraps(bookmarkCnt)
           .date(article.date)
+          .updatedAt(article.updatedAt)
           .build();
       }),
     );

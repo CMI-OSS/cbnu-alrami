@@ -18,6 +18,14 @@ function Footer({ articleId, isBookmark, isCouncil }: Props) {
   const addArticleBookmark = useAddArticleBookmark();
   const removeArticleBookmark = useRemoveArticleBookmark();
 
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    return toastSuccess({
+      message: "공지 링크가 클립보드에 복사되었습니다.",
+      style: { marginBottom: "58px" },
+    });
+  };
+
   const handleBookmark = () => {
     if (isBookmark) {
       removeArticleBookmark.mutate({ articleId });
@@ -28,15 +36,7 @@ function Footer({ articleId, isBookmark, isCouncil }: Props) {
 
   return (
     <div className={$.footer}>
-      <button
-        type="button"
-        onClick={() => {
-          return toastSuccess({
-            message: "공지 링크가 클립보드에 복사되었습니다.",
-            style: { marginBottom: "58px" },
-          });
-        }}
-      >
+      <button type="button" onClick={handleCopy}>
         <Share size={24} stroke="#C3C3C3" />
       </button>
       {!isWebView && (

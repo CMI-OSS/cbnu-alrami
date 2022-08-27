@@ -16,7 +16,6 @@ import $ from "./style.module.scss";
 import SuggestionModal from "./SuggestionModal";
 
 function Home() {
-  const [ uuid, setUuid ] = useState("");
   const today = dayjs();
   const { data: scheduleData } = useSchedule(today.format("YYYY-MM-DD"));
   const { data: weatherData } = useWeathers();

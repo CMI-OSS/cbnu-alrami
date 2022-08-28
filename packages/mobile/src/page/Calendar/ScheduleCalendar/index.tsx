@@ -29,7 +29,7 @@ function ScheduleCalendar({
         {DAY.map((day) => {
           return <Day key={day} className={$.fraction} day={day} />;
         })}
-        {calendarMap.map(({ date, isSchedule, isHoliyday }, index) => {
+        {calendarMap.map(({ date, isSchedule, isHoliday }, index) => {
           return (
             <Date
               key={date.format()}
@@ -37,7 +37,7 @@ function ScheduleCalendar({
               {...{
                 date,
                 isSchedule,
-                isHoliyday,
+                isHoliday,
                 today,
                 month,
                 index,

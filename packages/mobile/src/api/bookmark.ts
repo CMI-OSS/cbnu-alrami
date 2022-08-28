@@ -1,8 +1,15 @@
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
+import { AxiosResponse } from "axios";
+import dayjs, { Dayjs } from "dayjs";
 import { queryClient } from "src/main";
 
 import caxios from "./caxios";
+
+type Schedule = Omit<res.Schedule, "startDate" | "endDate"> & {
+  startDate: Dayjs;
+  endDate: Dayjs | null;
+};
 
 const postArticleBookmark = (articleId: number) => {
   return caxios.post(`/bookmark/articles/${articleId}`);
@@ -36,4 +43,34 @@ export const useRemoveArticleBookmark = () => {
       },
     },
   );
+};
+
+const fetchBookmarkedSchedules = (uuid: string) => {
+  return caxios.get("/bookmark/schedules", {
+    headers: {
+      uuid,
+    },
+  });
+};
+
+export const useFetchBookmarkedSchedules = (uuid: string) => {
+  const response = useQuery<AxiosResponse<res.Schedule[]>, Error, Schedule[]>(
+    "bookmarkedSchedule",
+    () => {
+      return fetchBookmarkedSchedules(uuid);
+    },
+    {
+      select: (data) => {
+        const schedules = data.data.map(({ startDate, endDate, ...last }) => {
+          return {
+            startDate: dayjs(startDate),
+            endDate: endDate ? dayjs(endDate) : null,
+            ...last,
+          };
+        });
+        return schedules;
+      },
+    },
+  );
+  return response;
 };

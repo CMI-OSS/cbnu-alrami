@@ -2,6 +2,7 @@ import { ChangeEventHandler, useMemo, useReducer, useState } from "react";
 
 import dayjs, { Dayjs } from "dayjs";
 import { useFetchBookmarkedSchedules } from "src/api/bookmark";
+import { useFetchScheduleCalendar } from "src/api/scheduleCalendar";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
 import Footer from "src/components/molecules/Footer";
 import CardBox from "src/page/Calendar/CardBox";
@@ -11,7 +12,6 @@ import { filterTodaySchedules, getCalendarMap } from "src/utils/calendarTools";
 
 import caledarReducer from "./calendarReducer";
 import $ from "./style.module.scss";
-import useAllSchedules from "./useAllSchedules";
 import useSelectedDate from "./useSelectedDate";
 
 export type ScheduleType = "all" | "bookmark";
@@ -38,7 +38,11 @@ function Calendar() {
     month: dayjs().month(),
   });
 
-  const allSchedules = useAllSchedules(year);
+  const {
+    data: allSchedules,
+    isError: isAllSchedulesError,
+    isLoading: isAllSchedulesLoading,
+  } = useFetchScheduleCalendar(year);
   const {
     data: bookmarkedSchedules,
     isError,
@@ -50,7 +54,7 @@ function Calendar() {
   }, []);
   const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
   const allScheduleMap = useMemo(() => {
-    return getCalendarMap(year, month, allSchedules);
+    return getCalendarMap(year, month, allSchedules || []);
   }, [ month, allSchedules ]);
 
   const bookmarkedScheduleMap = useMemo(() => {
@@ -91,7 +95,7 @@ function Calendar() {
         bookmarkedSchedules={bookmarkedSchedules || []}
         todaysSchedules={
           toggleSchedule === "all"
-            ? filterTodaySchedules(selectedDate, allSchedules)
+            ? filterTodaySchedules(selectedDate, allSchedules || [])
             : filterTodaySchedules(selectedDate, bookmarkedSchedules || [])
         }
       />

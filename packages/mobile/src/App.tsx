@@ -3,10 +3,10 @@ import { isAndroid, isIOS } from "react-device-detect";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import "./mobile.scss";
 import DeepLink from "src/page/Notice/Detail/DeepLink";
 import Subscription from "src/page/Subscription";
 
+import "./mobile.scss";
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
 import Home from "./page/Home";
@@ -48,6 +48,8 @@ function App() {
   useEffect(() => {
     if (isAndroid || isIOS) {
       setUuid(JSON.stringify(localStorage.getItem("token")));
+    }
+    if (uuid) {
       alert(uuid);
     }
   }, [ uuid ]);

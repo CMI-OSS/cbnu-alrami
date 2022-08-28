@@ -18,17 +18,8 @@ export type ScheduleType = "all" | "bookmark";
 
 export type DateMap = {
   date: Dayjs;
-  isSchedule: boolean;
+  isScheduleExists: boolean;
   isHoliday: boolean;
-};
-
-export type Schedule = {
-  id: number;
-  content: string;
-  priority: number;
-  isHoliday: boolean;
-  startDate: Dayjs;
-  endDate: Dayjs | null;
 };
 
 function Calendar() {

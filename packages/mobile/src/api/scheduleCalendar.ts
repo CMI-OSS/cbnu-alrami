@@ -1,15 +1,11 @@
 import { useQuery } from "react-query";
 
 import { AxiosResponse } from "axios";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import caxios from "src/api/caxios";
+import { Schedule } from "src/type";
 
-type Schedule = Omit<res.Schedule, "startDate" | "endDate"> & {
-  startDate: Dayjs;
-  endDate: Dayjs | null;
-};
-
-const fetchSchedules = (year: number) => {
+export const fetchSchedules = (year: number) => {
   return caxios.get<res.Schedule[]>(
     `/schedules?startDate=${year}-01-01&endDate=${year}-12-31`,
   );

@@ -1,15 +1,11 @@
 import { useMutation, useQuery } from "react-query";
 
 import { AxiosResponse } from "axios";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { queryClient } from "src/main";
+import { Schedule } from "src/type";
 
 import caxios from "./caxios";
-
-type Schedule = Omit<res.Schedule, "startDate" | "endDate"> & {
-  startDate: Dayjs;
-  endDate: Dayjs | null;
-};
 
 const postArticleBookmark = (articleId: number) => {
   return caxios.post(`/bookmark/articles/${articleId}`);

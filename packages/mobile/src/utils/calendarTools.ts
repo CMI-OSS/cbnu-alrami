@@ -2,7 +2,7 @@ import { Calendar } from "calendar";
 import dayjs, { Dayjs } from "dayjs";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
-import { Schedule } from "src/page/Calendar";
+import { Schedule } from "src/type";
 import { flatten } from "underscore";
 
 dayjs.extend(isSameOrAfter);
@@ -82,14 +82,14 @@ export const getCalendarMap = (
           startDate.isSameOrBefore(date, "date") &&
           endDate.isSameOrAfter(date, "date")
         ) {
-          return { date, isSchedule: true, isHoliday };
+          return { date, isScheduleExists: true, isHoliday };
         }
       }
       if (startDate.isSame(date, "date")) {
-        return { date, isSchedule: true, isHoliday };
+        return { date, isScheduleExists: true, isHoliday };
       }
     }
-    return { date, isSchedule: false, isHoliday: false };
+    return { date, isScheduleExists: false, isHoliday: false };
   });
   return calendarMap;
 };

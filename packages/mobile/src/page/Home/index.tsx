@@ -45,6 +45,7 @@ function Home() {
   if (isScheduleLoading) return <div>학사일정 로딩중...</div>;
   if (scheduleData === undefined) return <div>학사일정 불러오기 실패</div>;
   if (!weatherData) return <div>날씨 로딩 실패</div>;
+  const { isHoliday } = scheduleData;
   const weather = weatherData.data;
 
   const handleSuggestionClick = () => {
@@ -82,7 +83,7 @@ function Home() {
         })}
       </div>
       <Weather weather={weather} onSuggestionClick={handleSuggestionClick} />
-      <Restaurant today={today} isHoliday={scheduleData.isHoliday} />
+      <Restaurant {...{ today, isHoliday }} />
       <Notice />
       <Footer />
     </section>

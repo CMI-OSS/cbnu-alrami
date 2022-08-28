@@ -9,9 +9,11 @@ const detectHoliday = (schedules: res.Schedule[]) => {
   const isWeekend = day === 6 || day === 0;
   if (isWeekend) return true;
   let isHoliday = false;
-  schedules.forEach((schedule) => {
-    if (schedule.isHoliday) isHoliday = true;
-  });
+  for (let i = 0; i < schedules.length; i += 1)
+    if (schedules[i].isHoliday) {
+      isHoliday = true;
+      break;
+    }
   return isHoliday;
 };
 

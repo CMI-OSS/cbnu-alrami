@@ -6,18 +6,20 @@ import ErrorBoundary from "./ErrorBoundary";
 interface Props {
   suspenseFallback: ReactElement;
   errorFallback: (...args: any[]) => ReactElement;
+  fallBackHeight: string;
   keys?: any;
 }
 
 const AsyncBoundary = (props: PropsWithChildren<Props>) => {
-  const { suspenseFallback, errorFallback, children, keys } = props;
+  const { suspenseFallback, errorFallback, children, keys, fallBackHeight } =
+    props;
   const { reset } = useQueryErrorResetBoundary();
   const resetHandler = useCallback(() => {
     reset();
   }, [ reset ]);
 
   return (
-    <ErrorBoundary resetQuery={resetHandler} {...{ errorFallback, keys }}>
+    <ErrorBoundary resetQuery={resetHandler} {...{ errorFallback, fallBackHeight, keys }}>
       <Suspense fallback={suspenseFallback}>{children}</Suspense>
     </ErrorBoundary>
   );

@@ -3,6 +3,7 @@ import React, { ReactElement } from "react";
 interface Props {
   resetQuery?: () => void;
   errorFallback: (...args: any[]) => ReactElement;
+  fallBackHeight: string;
   children: ReactElement;
   keys: any;
 }
@@ -20,7 +21,6 @@ export default class ErrorBoundary extends React.Component<Props, State> {
   }
 
   static getDerivedStateFromError(error: Error) {
-    console.log("error", error);
     return { hasError: true, error };
   }
 
@@ -39,9 +39,17 @@ export default class ErrorBoundary extends React.Component<Props, State> {
 
   render() {
     const { hasError, error } = this.state;
-    const { errorFallback: ErrorFallback, children } = this.props;
+    const { errorFallback: ErrorFallback, fallBackHeight } = this.props;
+    const { children } = this.props;
+
     if (hasError) {
-      return <ErrorFallback error={error} reset={this.resetBoundary} />;
+      return (
+        <ErrorFallback
+          error={error}
+          reset={this.resetBoundary}
+          height={fallBackHeight}
+        />
+      );
     }
 
     return children;

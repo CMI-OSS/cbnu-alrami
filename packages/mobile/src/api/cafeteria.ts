@@ -1,29 +1,33 @@
-import { useQueries } from "react-query";
+import { useQuery } from "react-query";
 
-import { AxiosResponse } from "axios";
 import caxios from "src/api/caxios";
 
-const fetchCafeteria = (id: number, date: string) => {
-  return caxios.get<res.Cafeteria[]>(`/cafeterias/${id}/menus?date=${date}`);
+const fetchCafeteria = async (id: number, date: string) => {
+  try {
+    const response = await caxios.get<res.Cafeteria[]>(
+      `/cafeterias/${id}/menus?date=${date}`,
+    );
+    return response;
+  } catch (err) {
+    throw new Error("네트워크 오류");
+  }
 };
 
-const queryOption = (date: string) => {
-  return Array.from({ length: 6 }, (_, idx) => {
-    return {
-      queryKey: [ "cafeteria", date, idx + 1 ],
-      queryFn: () => {
-        return fetchCafeteria(idx + 1, date);
-      },
-    };
+export const useCafeteria = (id: number, date: string) => {
+  const response = useQuery([ "cafeteria", date, id ], () => {
+    return fetchCafeteria(id, date);
   });
+  return response;
 };
 
-export const useCafeteria = (date: string) => {
-  const response = useQueries<
-    {
-      queryKey: (string | number)[];
-      queryFn: () => Promise<AxiosResponse<res.Cafeteria[], Error>>;
-    }[]
-  >(queryOption(date));
-  return response;
+export const useCafeterias = (date: string) => {
+  return [ 1, 2, 3, 4, 5, 6 ].map((id) => {
+    return useQuery(
+      [ "cafeteria", date, id ],
+      () => {
+        return fetchCafeteria(id, date);
+      },
+      { suspense: true },
+    );
+  });
 };

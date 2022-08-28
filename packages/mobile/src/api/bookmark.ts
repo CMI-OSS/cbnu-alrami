@@ -68,7 +68,7 @@ export const useFetchBookmarkedSchedules = (uuid: string) => {
       },
     },
   );
-  return response;
+  return { ...response, data: response.data || [] };
 };
 
 const postScheduleBookmark = (scheduleId: number, uuid: string) => {

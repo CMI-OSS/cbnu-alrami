@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useMemo, useReducer, useState } from "react";
+import { ChangeEventHandler, useReducer, useState } from "react";
 
 import dayjs, { Dayjs } from "dayjs";
 import { useFetchBookmarkedSchedules } from "src/api/bookmark";
@@ -29,28 +29,17 @@ function Calendar() {
     month: dayjs().month(),
   });
 
-  const {
-    data: allSchedules,
-    isError: isAllSchedulesError,
-    isLoading: isAllSchedulesLoading,
-  } = useFetchScheduleCalendar(year);
-  const {
-    data: bookmarkedSchedules,
-    isError,
-    isLoading,
-  } = useFetchBookmarkedSchedules("1111");
+  const { data: allSchedules } = useFetchScheduleCalendar(year);
+  const { data: bookmarkedSchedules } = useFetchBookmarkedSchedules("1111");
 
-  const today = useMemo(() => {
-    return dayjs();
-  }, []);
+  const today = dayjs();
   const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
-  const allScheduleMap = useMemo(() => {
-    return getCalendarMap(year, month, allSchedules || []);
-  }, [ month, allSchedules ]);
-
-  const bookmarkedScheduleMap = useMemo(() => {
-    return getCalendarMap(year, month, bookmarkedSchedules || []);
-  }, [ month, bookmarkedSchedules ]);
+  const allScheduleMap = getCalendarMap(year, month, allSchedules);
+  const bookmarkedScheduleMap = getCalendarMap(
+    year,
+    month,
+    bookmarkedSchedules,
+  );
 
   const handleScheduleToggleChange: ChangeEventHandler<HTMLInputElement> = ({
     target: { value },
@@ -83,11 +72,11 @@ function Calendar() {
       />
       <CardBox
         scheduleType={toggleSchedule}
-        bookmarkedSchedules={bookmarkedSchedules || []}
+        bookmarkedSchedules={bookmarkedSchedules}
         todaysSchedules={
           toggleSchedule === "all"
-            ? filterTodaySchedules(selectedDate, allSchedules || [])
-            : filterTodaySchedules(selectedDate, bookmarkedSchedules || [])
+            ? filterTodaySchedules(selectedDate, allSchedules)
+            : filterTodaySchedules(selectedDate, bookmarkedSchedules)
         }
       />
       <Footer />

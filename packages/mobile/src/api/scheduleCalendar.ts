@@ -30,5 +30,5 @@ export const useFetchScheduleCalendar = (year: number) => {
       },
     },
   );
-  return response;
+  return { ...response, data: response.data || [] };
 };

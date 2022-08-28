@@ -74,3 +74,25 @@ export const useFetchBookmarkedSchedules = (uuid: string) => {
   );
   return response;
 };
+
+const postScheduleBookmark = (scheduleId: number, uuid: string) => {
+  return caxios.post(`/bookmark/schedule/${scheduleId}`, {
+    headers: {
+      uuid,
+    },
+  });
+};
+
+export const useAddScheduleBookmark = () => {
+  const response = useMutation(
+    ({ scheduleId, uuid }: { scheduleId: number; uuid: string }) => {
+      return postScheduleBookmark(scheduleId, uuid);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([ "bookmarkedSchedule" ]);
+      },
+    },
+  );
+  return response;
+};

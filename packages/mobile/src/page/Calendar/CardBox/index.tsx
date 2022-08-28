@@ -11,14 +11,22 @@ import $ from "./style.module.scss";
 const CALLENDAR_UNVISIBLE_POINT = 320;
 
 type Props = {
+  bookmarkedSchedules: Schedule[];
   scheduleType: ScheduleType;
-  schedules: Schedule[];
+  todaysSchedules: Schedule[];
 };
 
-function CardBox({ scheduleType, schedules }: Props) {
+function CardBox({
+  scheduleType,
+  todaysSchedules,
+  bookmarkedSchedules,
+}: Props) {
   const { Y } = useScroll();
+  const bookmarkedIDList = bookmarkedSchedules.map(({ id }) => {
+    return id;
+  });
 
-  if (schedules.length === 0)
+  if (todaysSchedules.length === 0)
     return (
       <section className={$["empty-box"]}>
         {scheduleType === "all" ? (
@@ -35,8 +43,14 @@ function CardBox({ scheduleType, schedules }: Props) {
 
   return (
     <section className={$["card-box"]}>
-      {schedules.map(({ id, content, startDate, endDate }) => {
-        return <CollegeCard key={id} {...{ content, startDate, endDate }} />;
+      {todaysSchedules.map(({ id, content, startDate, endDate }) => {
+        return (
+          <CollegeCard
+            key={id}
+            isStared={bookmarkedIDList.includes(id)}
+            {...{ id, content, startDate, endDate }}
+          />
+        );
       })}
       {Y > CALLENDAR_UNVISIBLE_POINT && (
         <button

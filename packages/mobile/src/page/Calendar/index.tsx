@@ -88,7 +88,8 @@ function Calendar() {
       />
       <CardBox
         scheduleType={toggleSchedule}
-        schedules={
+        bookmarkedSchedules={bookmarkedSchedules || []}
+        todaysSchedules={
           toggleSchedule === "all"
             ? filterTodaySchedules(selectedDate, allSchedules)
             : filterTodaySchedules(selectedDate, bookmarkedSchedules || [])

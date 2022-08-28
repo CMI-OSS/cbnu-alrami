@@ -1,56 +1,5 @@
-@import "../../styles/main.scss";
-
-.cafeteria {
-  padding: 155px 35px 68px;
-}
-
 .header {
+  z-index: 1;
   position: fixed;
   width: 100%;
-}
-
-.go-out {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: $background-50;
-  font-size: 12px;
-
-  span {
-    margin: 0 auto 11px;
-    line-height: 20px;
-  }
-
-  &-link {
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-
-
-    svg {
-      margin-left: 4px;
-    }
-
-  }
-}
-
-.no-menu {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  .go-out {
-    span {
-      margin-top: 20px;
-      line-height: 26px;
-      font-size: 16px;
-    }
-
-    svg {
-      margin-left: 4px;
-    }
-
-  }
 }

@@ -1,19 +1,18 @@
 import { useReducer } from "react";
 
-import classnames from "classnames";
 import dayjs from "dayjs";
 import { cafeteriaList } from "src/__mocks__";
-import { useCafeteria } from "src/api/cafeteria";
-import noMenu from "src/assets/no_menu.png";
-import CafeteriaMenuCard from "src/components/molecules/CafeteriaMenuCard";
+import ErrorFallback from "src/components/atoms/ErrorFallback";
+import SuspenseFallback from "src/components/atoms/SuspenseFallback";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
 import Footer from "src/components/molecules/Footer";
 import MenuList from "src/components/molecules/MenuList";
+import AsyncBoundary from "src/components/templates/AsyncBoundary";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { selectMenu } from "src/store/cafeteriaSlice";
-import { cafeteriaTime } from "src/utils/cafeteriaTime";
 
 import caledarReducer from "../Calendar/calendarReducer";
+import CafeteriaBody from "./CafateriaBody";
 import $ from "./style.module.scss";
 
 function Cafeteria() {
@@ -31,9 +30,7 @@ function Cafeteria() {
   const handleMenu = (id: number) => {
     dispatch(selectMenu({ selectedMenu: id }));
   };
-  const allCafeteriaData = useCafeteria(`${year}-${month + 1}-${date}`);
-  const { isLoading, data, isError } = allCafeteriaData[selectedMenu - 1];
-  const cafeteriaMenu = data?.data;
+  const fullDate = `${year}-${month + 1}-${date}`;
 
   return (
     <>
@@ -55,41 +52,15 @@ function Cafeteria() {
         clickedMenu={selectedMenu}
       />
 
-      <main
-        className={classnames($.cafeteria, {
-          [$["no-menu"]]: cafeteriaMenu && !cafeteriaMenu.length,
-        })}
+      <AsyncBoundary
+        suspenseFallback={<SuspenseFallback height="100vh" />}
+        errorFallback={ErrorFallback}
+        fallBackHeight="100vh"
       >
-        {isLoading && <span>로딩 중..</span>}
-        {isError && <span>에러 발생</span>}
+        <CafeteriaBody {...{ fullDate, selectedMenu }} />
+      </AsyncBoundary>
 
-        {cafeteriaMenu &&
-          cafeteriaMenu.length > 0 &&
-          cafeteriaMenu.map(({ content, time }) => {
-            const [ mealTime, timeInfo ] = cafeteriaTime(selectedMenu, time);
-            return (
-              <CafeteriaMenuCard
-                key={content}
-                {...{ mealTime, timeInfo }}
-                mealMenu={content}
-              />
-            );
-          })}
-
-        {!cafeteriaMenu ||
-          (!cafeteriaMenu.length && (
-            <div className={$["go-out"]}>
-              <img
-                src={noMenu}
-                alt="메뉴가 없습니다."
-                width="130"
-                height="130"
-              />
-              <span>오늘은 식단이 없어요</span>
-            </div>
-          ))}
-        <Footer />
-      </main>
+      <Footer />
     </>
   );
 }

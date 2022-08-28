@@ -130,7 +130,6 @@ export class ArticleService {
       take: page.getLimit(),
       skip: page.getOffset(),
     });
-    if (!Array.isArray(articles) || articles.length === 0) throw NO_DATA_IN_DB;
     return articles;
   }
 

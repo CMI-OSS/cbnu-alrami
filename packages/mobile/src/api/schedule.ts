@@ -23,7 +23,7 @@ export const useSchedule = (today: string) => {
   const response = useQuery<
     AxiosResponse<res.Schedule[]>,
     Error,
-    AxiosResponse<res.Schedule[]> & { isHoliday: boolean }
+    { schedules: res.Schedule[]; isHoliday: boolean }
   >(
     "schedule",
     () => {
@@ -33,7 +33,7 @@ export const useSchedule = (today: string) => {
       select: (data) => {
         const schedules = data.data;
         const isHoliday = detectHoliday(data.data);
-        return { ...data, data: schedules, isHoliday };
+        return { schedules, isHoliday };
       },
     },
   );

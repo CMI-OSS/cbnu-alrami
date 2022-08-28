@@ -68,14 +68,14 @@ function Home() {
       <header className={$.header}>
         <div className={$["header-content"]}>
           <h1 className={$.title}>충림이</h1>
-          <p>오늘은 총 {scheduleData?.data.length}개의 일정이 있어요</p>
+          <p>오늘은 총 {scheduleData.schedules.length}개의 일정이 있어요</p>
         </div>
         <Link to="/setting">
           <Setting size={24} stroke="#aaa" />
         </Link>
       </header>
       <div className={$.schedule}>
-        {scheduleData?.data.map(({ id, content, startDate, endDate }) => {
+        {scheduleData.schedules.map(({ id, content, startDate, endDate }) => {
           return (
             <Schedule key={id} {...{ content, startDate, endDate, today }} />
           );

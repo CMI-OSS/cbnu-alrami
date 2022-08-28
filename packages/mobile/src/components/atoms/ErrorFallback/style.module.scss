@@ -8,12 +8,14 @@
   &-box {
     display: flex;
     flex-direction: column;
+    align-items: center;
     .error-msg {
       margin-bottom: 10px;
       @include typography(16);
     }
     .reset-btn {
-      padding: 5px;
+      width: fit-content;
+      padding: 5px 10px;
       border-radius: 100px;
       background-color: $red-50;
       color: $black-0;

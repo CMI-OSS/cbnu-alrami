@@ -49,10 +49,7 @@ function App() {
     if (isAndroid || isIOS) {
       setUuid(JSON.stringify(localStorage.getItem("token")));
     }
-    if (uuid) {
-      alert(uuid);
-    }
-  }, [ uuid ]);
+  }, []);
 
   return (
     <BrowserRouter>

@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Provider } from "react-redux";
 
+import Toast from "@components/atoms/Toast";
 import { PersistGate } from "redux-persist/integration/react";
 
 import App from "./App";
@@ -26,6 +27,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <React.StrictMode>
         <PersistGate loading={null} persistor={persistor}>
           <App />
+          <Toast />
         </PersistGate>
       </React.StrictMode>
     </QueryClientProvider>

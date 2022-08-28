@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 
 import { LongArrow } from "@components/atoms/icon";
+import classNames from "classnames";
 
 import $ from "./style.module.scss";
 
@@ -17,10 +18,21 @@ function Spot({ schoolData, type, placeId, url }: Props) {
         className={type === "place" ? $.item : $.wrap}
         to={`/place/school?id=${placeId}`}
       >
-        <img className={$.image} alt={schoolData?.name} src={url} />
-        <div className={$.info}>
+        <img
+          className={classNames($.image, type === "place" && $["place-image"])}
+          alt={schoolData?.name}
+          src={url}
+        />
+        <div className={type === "map" ? $.info : $["place-info"]}>
           <strong className={$.title}>{schoolData?.name}</strong>
-          <span className={$.address}>{schoolData?.address}</span>
+          <span
+            className={classNames(
+              $.address,
+              type === "place" && $["place-address"],
+            )}
+          >
+            {schoolData?.address}
+          </span>
           {type === "map" && (
             <span className={$.link}>
               <span className={$.text}>더보기</span>

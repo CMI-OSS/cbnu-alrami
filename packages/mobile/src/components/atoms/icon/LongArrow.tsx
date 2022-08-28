@@ -1,6 +1,6 @@
 import { IconProps } from "src/type/props";
 
-function LongArrow({ size, stroke }: IconProps) {
+function LongArrow({ size, stroke, style }: IconProps) {
   return (
     <svg
       width={size}
@@ -8,6 +8,7 @@ function LongArrow({ size, stroke }: IconProps) {
       viewBox="0 0 6 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={style}
     >
       <path
         d="M1.91166 0.470177C1.76737 0.234733 1.45953 0.160842 1.22408 0.305137C0.98864 0.449431 0.914749 0.75727 1.05904 0.992714L1.91166 0.470177ZM5.16252 6.73145L5.58883 6.99271C5.68709 6.83239 5.68709 6.6305 5.58883 6.47018L5.16252 6.73145ZM1.05904 12.4702C0.914749 12.7056 0.98864 13.0135 1.22408 13.1578C1.45953 13.302 1.76737 13.2282 1.91166 12.9927L1.05904 12.4702ZM1.05904 0.992714L4.73622 6.99271L5.58883 6.47018L1.91166 0.470177L1.05904 0.992714ZM4.73622 6.47018L1.05904 12.4702L1.91166 12.9927L5.58883 6.99271L4.73622 6.47018Z"

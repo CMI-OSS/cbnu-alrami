@@ -84,7 +84,7 @@ const postScheduleBookmark = (scheduleId: number, uuid: string) => {
 };
 
 export const useAddScheduleBookmark = () => {
-  const response = useMutation(
+  return useMutation(
     ({ scheduleId, uuid }: { scheduleId: number; uuid: string }) => {
       return postScheduleBookmark(scheduleId, uuid);
     },
@@ -94,5 +94,25 @@ export const useAddScheduleBookmark = () => {
       },
     },
   );
-  return response;
+};
+
+const deleteScheduleBookmark = (scheduleId: number, uuid: string) => {
+  return caxios.delete(`/bookmark/schedule/${scheduleId}`, {
+    headers: {
+      uuid,
+    },
+  });
+};
+
+export const useRemoveScheduleBookmark = () => {
+  return useMutation(
+    ({ scheduleId, uuid }: { scheduleId: number; uuid: string }) => {
+      return deleteScheduleBookmark(scheduleId, uuid);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([ "bookmarkedSchedule" ]);
+      },
+    },
+  );
 };

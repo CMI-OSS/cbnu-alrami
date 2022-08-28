@@ -2,7 +2,10 @@ import { useMemo } from "react";
 
 import classNames from "classnames";
 import { Dayjs } from "dayjs";
-import { useAddScheduleBookmark } from "src/api/bookmark";
+import {
+  useAddScheduleBookmark,
+  useRemoveScheduleBookmark,
+} from "src/api/bookmark";
 import BorderBox from "src/components/atoms/BorderBox";
 import { Star } from "src/components/atoms/icon";
 import { DefaultProps } from "src/type/props";
@@ -15,7 +18,7 @@ type Props = {
   content: string;
   startDate: Dayjs;
   endDate: Dayjs | null;
-  isStared: boolean;
+  isBookmarked: boolean;
 } & DefaultProps;
 
 function CollegeCard({
@@ -24,15 +27,20 @@ function CollegeCard({
   content,
   startDate,
   endDate,
-  isStared,
+  isBookmarked,
 }: Props) {
   const addScheduleBookmark = useAddScheduleBookmark();
+  const removeScheduleBookmark = useRemoveScheduleBookmark();
   const period = useMemo(() => {
     return getDatePeriod(startDate, endDate);
   }, [ startDate, endDate ]);
 
   const handleStarClick = () => {
-    if (!isStared) addScheduleBookmark.mutate({ scheduleId: id, uuid: "1111" });
+    if (isBookmarked) {
+      removeScheduleBookmark.mutate({ scheduleId: id, uuid: "1111" });
+      return;
+    }
+    addScheduleBookmark.mutate({ scheduleId: id, uuid: "1111" });
   };
 
   return (
@@ -40,7 +48,7 @@ function CollegeCard({
       <em className={$.content}>{content}</em>
       <span className={$.period}>{period}</span>
       <button type="button" className={$.star} onClick={handleStarClick}>
-        {isStared ? (
+        {isBookmarked ? (
           <Star size={20} fill="#d66d6e" stroke="#d66d6e" />
         ) : (
           <Star size={20} stroke="#c3c3c3" />

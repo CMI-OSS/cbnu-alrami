@@ -47,7 +47,7 @@ function CardBox({
         return (
           <CollegeCard
             key={id}
-            isStared={bookmarkedIDList.includes(id)}
+            isBookmarked={bookmarkedIDList.includes(id)}
             {...{ id, content, startDate, endDate }}
           />
         );

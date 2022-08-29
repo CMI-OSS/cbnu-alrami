@@ -20,22 +20,36 @@ export class PageRequest {
 
   constructor(pageNo: number, pageSize: number) {
     this.pageNo =
-      pageNo < 1 || pageNo === undefined || pageNo === null ? 1 : pageNo;
+      pageNo < 1 ||
+      pageNo === undefined ||
+      pageNo === null ||
+      Number.isNaN(Number(pageNo))
+        ? 1
+        : pageNo;
     this.pageSize =
-      pageSize < 1 || pageSize === undefined || pageSize === null
+      pageSize < 1 ||
+      pageSize === undefined ||
+      pageSize === null ||
+      Number.isNaN(Number(pageSize))
         ? 15
         : pageSize;
   }
 
   getOffset(): number {
-    if (this.pageNo < 1 || this.pageNo === undefined || this.pageNo === null) {
+    if (
+      this.pageNo < 1 ||
+      this.pageNo === undefined ||
+      this.pageNo === null ||
+      Number.isNaN(Number(this.pageNo))
+    ) {
       this.pageNo = 1;
     }
 
     if (
       this.pageSize < 1 ||
       this.pageSize === undefined ||
-      this.pageSize === null
+      this.pageSize === null ||
+      Number.isNaN(Number(this.pageSize))
     ) {
       this.pageSize = 15;
     }
@@ -47,7 +61,8 @@ export class PageRequest {
     if (
       this.pageSize < 1 ||
       this.pageSize === undefined ||
-      this.pageSize === null
+      this.pageSize === null ||
+      Number.isNaN(Number(this.pageSize))
     ) {
       this.pageSize = 15;
     }

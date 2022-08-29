@@ -1,11 +1,12 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { isAndroid, isIOS } from "react-device-detect";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import "./mobile.scss";
 import DeepLink from "src/page/Notice/Detail/DeepLink";
 import Subscription from "src/page/Subscription";
 
+import "./mobile.scss";
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
 import Home from "./page/Home";
@@ -21,6 +22,8 @@ import SettingRoute from "./page/Setting";
 import Preview from "./page/Subscription/Preview";
 
 function App() {
+  const [ uuid, setUuid ] = useState("");
+
   const routes = [
     { path: "/notice", element: <Notice /> },
     { path: "/notice/:articleId", element: <NoticeDetail /> },
@@ -41,6 +44,12 @@ function App() {
     { path: "/setting/*", element: <SettingRoute /> },
     { path: "/*", element: <Navigate replace to="/home" /> },
   ];
+
+  useEffect(() => {
+    if (isAndroid || isIOS) {
+      setUuid(JSON.stringify(localStorage.getItem("token")));
+    }
+  }, []);
 
   return (
     <BrowserRouter>

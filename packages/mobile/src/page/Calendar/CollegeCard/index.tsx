@@ -21,14 +21,8 @@ type Props = {
   isBookmarked: boolean;
 } & DefaultProps;
 
-function CollegeCard({
-  id,
-  className,
-  content,
-  startDate,
-  endDate,
-  isBookmarked,
-}: Props) {
+function CollegeCard(props: Props) {
+  const { id, className, content, startDate, endDate, isBookmarked } = props;
   const addScheduleBookmark = useAddScheduleBookmark();
   const removeScheduleBookmark = useRemoveScheduleBookmark();
   const period = useMemo(() => {
@@ -37,10 +31,10 @@ function CollegeCard({
 
   const handleStarClick = () => {
     if (isBookmarked) {
-      removeScheduleBookmark.mutate({ scheduleId: id, uuid: "1111" });
+      removeScheduleBookmark.mutate({ scheduleId: id });
       return;
     }
-    addScheduleBookmark.mutate({ scheduleId: id, uuid: "1111" });
+    addScheduleBookmark.mutate({ scheduleId: id });
   };
 
   return (

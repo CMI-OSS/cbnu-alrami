@@ -1,15 +1,19 @@
 @import "../../../../styles/main.scss";
 
-.box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 20px;
+.button {
+  width: 100%;
 
-  .message {
-    @include typography(16);
-    text-align: center;
-    line-height: 26px;
-    color: $black-50;
+  .box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+
+    .message {
+      @include typography(16);
+      text-align: center;
+      line-height: 26px;
+      color: $black-50;
+    }
   }
 }

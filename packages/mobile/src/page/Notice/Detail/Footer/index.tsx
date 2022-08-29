@@ -18,8 +18,8 @@ function Footer({ articleId, isBookmark, isCouncil }: Props) {
   const addArticleBookmark = useAddArticleBookmark();
   const removeArticleBookmark = useRemoveArticleBookmark();
 
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(window.location.href);
+  const handleCopy = () => {
+    baseApp.postMessage(window.location.href);
     return toastSuccess({
       message: "공지 링크가 클립보드에 복사되었습니다.",
       style: { marginBottom: "58px" },

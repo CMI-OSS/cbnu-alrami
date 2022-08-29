@@ -18,24 +18,24 @@ export const useArticle = (articleId: number) => {
   return response;
 };
 
-export const fetchArticlesByBoard = (boardId: number, data: req.Pagination) => {
+export const fetchArticlesByBoard = (data: req.Pagination) => {
   return caxios.get<Pagination<res.ArticleByBoard>>(
-    `/boards/${boardId}/articles`,
+    `/boards/${data.boardId}/articles`,
     {
       data,
     },
   );
 };
 
-export const useArticlesByBoard = (boardId: number, data: req.Pagination) => {
+export const useArticlesByBoard = (data: req.Pagination) => {
   const response = useQuery<
     AxiosResponse<Pagination<res.ArticleByBoard>>,
     Error,
     Pagination<res.ArticleByBoard & { breadcrumb: string }>
   >(
-    [ "articles", boardId ],
+    [ "articles", data.boardId ],
     () => {
-      return fetchArticlesByBoard(boardId, data);
+      return fetchArticlesByBoard(data);
     },
     {
       select: (data) => {
@@ -61,13 +61,11 @@ export const useArticlesByBoard = (boardId: number, data: req.Pagination) => {
   return response;
 };
 
-export const fetchNewArticles = (data: req.Pagination) => {
-  return caxios.get<Pagination<res.ArticleByBoard>>(`/articles/subscribe`, {
-    data,
-  });
+export const fetchNewArticles = () => {
+  return caxios.get<Pagination<res.ArticleByBoard>>(`/articles/subscribe`);
 };
 
-export const useNewArticles = (data: req.Pagination) => {
+export const useNewArticles = () => {
   const response = useQuery<
     AxiosResponse<Pagination<res.ArticleByBoard>>,
     Error,
@@ -75,7 +73,7 @@ export const useNewArticles = (data: req.Pagination) => {
   >(
     "newArticles",
     () => {
-      return fetchNewArticles(data);
+      return fetchNewArticles();
     },
     {
       select: (data) => {

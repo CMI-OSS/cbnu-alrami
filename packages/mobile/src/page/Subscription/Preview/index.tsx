@@ -13,9 +13,7 @@ import $ from "./style.module.scss";
 function Preview() {
   const boardId = Number(useSearch({ target: "boardId" }));
   const { data: boardData } = useBoardTree(boardId);
-  const { data: articleData } = useArticlesByBoard(boardId, {
-    pageNo: 1,
-  });
+  const { data: articleData } = useArticlesByBoard({ boardId });
   const { data: subscribeData } = useSubscribeBoards();
   const articles = articleData?.contents;
   const subscribe = subscribeData?.find((data) => {

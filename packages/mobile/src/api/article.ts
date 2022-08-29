@@ -49,6 +49,13 @@ export const useArticlesByBoard = (boardId: number, data: req.Pagination) => {
         });
         return { pagination: data.data.pagination, contents };
       },
+      getNextPageParam: ({
+        data: {
+          pagination: { isEnd, pageNumber },
+        },
+      }) => {
+        return isEnd ? undefined : pageNumber + 1;
+      },
     },
   );
   return response;
@@ -95,7 +102,7 @@ export const usePopularArticles = () => {
   const response = useQuery<
     AxiosResponse<res.ArticleByBoard[]>,
     Error,
-    Pagination<res.ArticleByBoard & { breadcrumb: string }>
+    { contents: (res.ArticleByBoard & { breadcrumb: string })[] }
   >("popularArticles", fetchPopularArticles, {
     select: (data) => {
       const contents = data?.data.map((article) => {
@@ -106,7 +113,7 @@ export const usePopularArticles = () => {
             : article.board.name,
         };
       });
-      return { pagination: { isEnd: true }, contents };
+      return { contents };
     },
   });
   return response;
@@ -120,7 +127,7 @@ export const useBookmarkArticles = () => {
   const response = useQuery<
     AxiosResponse<res.ArticleByBoard[]>,
     Error,
-    Pagination<res.ArticleByBoard & { breadcrumb: string }>
+    { contents: (res.ArticleByBoard & { breadcrumb: string })[] }
   >("bookmarkArticles", fetchBookmarkArticles, {
     select: (data) => {
       const contents = data?.data.map((article) => {
@@ -131,7 +138,7 @@ export const useBookmarkArticles = () => {
             : article.board.name,
         };
       });
-      return { pagination: { isEnd: true }, contents };
+      return { contents };
     },
   });
   return response;

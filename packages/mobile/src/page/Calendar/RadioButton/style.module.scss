@@ -1,10 +1,11 @@
 @import "../../../styles/main.scss";
 
-$label-hight: 36.75px;
+$label-hight: 37px;
 
 .label {
+    @include typography(14);
     display: block;
-    width: 143.5px;
+    width: 143px;
     margin: 0;
     height: $label-hight;
     border-radius: calc($label-hight / 2);

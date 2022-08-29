@@ -2,7 +2,7 @@ import { ChangeEventHandler, useReducer, useState } from "react";
 
 import dayjs, { Dayjs } from "dayjs";
 import { useFetchBookmarkedSchedules } from "src/api/bookmark";
-import { useFetchScheduleCalendar } from "src/api/scheduleCalendar";
+import { useFetchFullSchedules } from "src/api/schedule";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
 import Footer from "src/components/molecules/Footer";
 import CardBox from "src/page/Calendar/CardBox";
@@ -29,7 +29,7 @@ function Calendar() {
     month: dayjs().month(),
   });
 
-  const { data: allSchedules } = useFetchScheduleCalendar(year);
+  const { data: allSchedules } = useFetchFullSchedules(year);
   const { data: bookmarkedSchedules } = useFetchBookmarkedSchedules("1111");
 
   const today = dayjs();

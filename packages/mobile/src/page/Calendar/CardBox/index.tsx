@@ -3,7 +3,8 @@ import { animateScroll } from "react-scroll";
 import { Arrow } from "@components/atoms/icon";
 import guideEmptyFavoritesSchedule from "src/assets/guide_empty_favorites_schedule.png";
 import useScroll from "src/hooks/useScroll";
-import { Schedule, ScheduleType } from "src/page/Calendar";
+import { ScheduleType } from "src/page/Calendar";
+import { Schedule } from "src/type";
 
 import CollegeCard from "../CollegeCard";
 import $ from "./style.module.scss";
@@ -21,7 +22,7 @@ function CardBox({
   todaysSchedules,
   bookmarkedSchedules,
 }: Props) {
-  const { Y } = useScroll();
+  const { y } = useScroll();
   const bookmarkedIDList = bookmarkedSchedules.map(({ id }) => {
     return id;
   });
@@ -52,7 +53,7 @@ function CardBox({
           />
         );
       })}
-      {Y > CALLENDAR_UNVISIBLE_POINT && (
+      {y > CALLENDAR_UNVISIBLE_POINT && (
         <button
           className={$["floating-button"]}
           type="button"

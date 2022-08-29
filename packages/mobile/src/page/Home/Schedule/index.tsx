@@ -8,7 +8,7 @@ import { getTimePeriod } from "src/utils/calendarTools";
 
 import $ from "./style.module.scss";
 
-const MAX_WIDTH = 23 as const;
+const MAX_HEIGHT = 23 as const;
 
 type Props = {
   content: string;
@@ -27,7 +27,7 @@ function Schedule({ content, startDate, endDate, today }: Props) {
   useEffect(() => {
     const spanHeight = ref.current?.clientHeight;
     if (!spanHeight) return;
-    if (spanHeight > MAX_WIDTH) {
+    if (spanHeight > MAX_HEIGHT) {
       setIsLong(true);
       return;
     }
@@ -35,7 +35,7 @@ function Schedule({ content, startDate, endDate, today }: Props) {
   }, []);
 
   return (
-    <BorderBox width={270} height={100} className={$.container}>
+    <BorderBox width={272} height={104} className={$.container}>
       <div>
         <span
           ref={ref}

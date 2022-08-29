@@ -1,33 +1,46 @@
 import { Restaurant } from "src/type";
 
-const REPRESENTATIVE_RESTAURANT = "REPRESENTATIVE_RESTAURANT" as const;
-const VISITED = "VISITED" as const;
-const IS_NOT_FIRST_UNSELECT = "IS_FIRST_UNSELECT" as const;
+const SELECTED_CAFETERIA = "SELECTED_CAFETERIA" as const;
+const SHOW_CAFETERIA_SELECT_GUIDE = "SHOW_CAFETERIA_SELECT_GUIDE" as const;
+const SHOW_CAFETERIA_SELECT_FINAL_GUIDE =
+  "SHOW_CAFETERIA_SELECT_FINAL_GUIDE" as const;
 
-export const getFavoriteCafeteria = () => {
-  const item = localStorage.getItem(REPRESENTATIVE_RESTAURANT);
-  if (!item) localStorage.setItem(REPRESENTATIVE_RESTAURANT, "선택안함");
+export const getSelectedCafeteria = () => {
+  const item = localStorage.getItem(SELECTED_CAFETERIA);
+  if (!item) localStorage.setItem(SELECTED_CAFETERIA, "선택안함");
   return (item || "선택안함") as Restaurant;
 };
 
-export const setFavoriteCafeteria = (restaurant: Restaurant) => {
-  localStorage.setItem(REPRESENTATIVE_RESTAURANT, restaurant);
+export const setSelectedCafeteria = (restaurant: Restaurant) => {
+  localStorage.setItem(SELECTED_CAFETERIA, restaurant);
 };
 
-export const setVisited = () => {
-  localStorage.setItem(VISITED, "true");
+export const setShowCafeteriaSelectGuide = () => {
+  localStorage.setItem(SHOW_CAFETERIA_SELECT_GUIDE, "true");
 };
 
-export const getIsVisited = () => {
-  const isVisited = localStorage.getItem(VISITED);
-  return !!isVisited;
+export const unsetShowCafeteriaSelectGuide = () => {
+  localStorage.setItem(SHOW_CAFETERIA_SELECT_GUIDE, "false");
 };
 
-export const setIsNotFirstUnselect = () => {
-  localStorage.setItem(IS_NOT_FIRST_UNSELECT, "true");
+export const getShowCafeteriaSelectGuide = () => {
+  const showCafeteriaSelectGuide = localStorage.getItem(
+    SHOW_CAFETERIA_SELECT_GUIDE,
+  );
+  return showCafeteriaSelectGuide;
 };
 
-export const getIsNotFirstUnselect = () => {
-  const isNotFirstUnselect = localStorage.getItem(IS_NOT_FIRST_UNSELECT);
-  return !!isNotFirstUnselect;
+export const setShowCafeteriaSelectFinalGuide = () => {
+  localStorage.setItem(SHOW_CAFETERIA_SELECT_FINAL_GUIDE, "true");
+};
+
+export const unsetShowCafeteriaSelectFinalGuide = () => {
+  localStorage.setItem(SHOW_CAFETERIA_SELECT_FINAL_GUIDE, "false");
+};
+
+export const getShowCafeteriaSelectFinalGuide = () => {
+  const showCafeteriaSelectFinalGuide = localStorage.getItem(
+    SHOW_CAFETERIA_SELECT_FINAL_GUIDE,
+  );
+  return showCafeteriaSelectFinalGuide;
 };

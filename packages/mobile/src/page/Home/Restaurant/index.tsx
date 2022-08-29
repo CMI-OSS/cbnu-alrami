@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 import { Dayjs } from "dayjs";
 import { Restaurant as RestaurantType } from "src/type";
 import {
-  getFavoriteCafeteria,
-  getIsNotFirstUnselect,
-  getIsVisited,
-  setFavoriteCafeteria,
-  setIsNotFirstUnselect,
-  setVisited,
+  getSelectedCafeteria,
+  getShowCafeteriaSelectFinalGuide,
+  getShowCafeteriaSelectGuide,
+  setSelectedCafeteria,
+  setShowCafeteriaSelectFinalGuide,
+  setShowCafeteriaSelectGuide,
+  unsetShowCafeteriaSelectFinalGuide,
+  unsetShowCafeteriaSelectGuide,
 } from "src/utils/storage";
 
 import FinalGuide from "./FinalGuide";
@@ -34,7 +36,7 @@ type SelectorItems =
 function Restaurant({ today, isHoliday }: Props) {
   const [ cardType, setCardType ] = useState<SelectorItems>();
   const [ cafeteriaName, setCafeteriaName ] = useState<RestaurantType>(
-    getFavoriteCafeteria(),
+    getSelectedCafeteria(),
   );
 
   const handleSelectorClick = () => {
@@ -42,8 +44,8 @@ function Restaurant({ today, isHoliday }: Props) {
   };
 
   const handleSelectorCancel = () => {
-    if (getIsVisited()) {
-      if (getFavoriteCafeteria() === "선택안함") {
+    if (getShowCafeteriaSelectGuide()) {
+      if (getSelectedCafeteria() === "선택안함") {
         setCardType("none");
         return;
       }
@@ -54,27 +56,32 @@ function Restaurant({ today, isHoliday }: Props) {
   };
 
   const handleCafeteriaSelect = (name: RestaurantType) => {
-    if (!getIsVisited()) setVisited();
+    if (getShowCafeteriaSelectGuide() === "true")
+      unsetShowCafeteriaSelectGuide();
     setCafeteriaName(name);
-    setFavoriteCafeteria(name);
+    setSelectedCafeteria(name);
     if (name === "선택안함") {
-      if (getIsNotFirstUnselect()) {
-        setCardType("none");
+      if (getShowCafeteriaSelectFinalGuide() === "true") {
+        unsetShowCafeteriaSelectFinalGuide();
+        setCardType("finalGuide");
         return;
       }
-      setCardType("finalGuide");
+      setCardType("none");
       return;
     }
     setCardType("selected");
   };
 
   const handleFinalGuideCancel = () => {
-    setIsNotFirstUnselect();
+    setShowCafeteriaSelectFinalGuide();
     setCardType("none");
   };
 
   useEffect(() => {
-    if (!getIsVisited()) {
+    if (getShowCafeteriaSelectGuide() === null) setShowCafeteriaSelectGuide();
+    if (getShowCafeteriaSelectFinalGuide() === null)
+      setShowCafeteriaSelectFinalGuide();
+    if (getShowCafeteriaSelectGuide() === "true") {
       setCardType("greeting");
       return;
     }

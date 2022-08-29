@@ -30,7 +30,7 @@ function Calendar() {
   });
 
   const { data: allSchedules } = useFetchFullSchedules(year);
-  const { data: bookmarkedSchedules } = useFetchBookmarkedSchedules("1111");
+  const { data: bookmarkedSchedules } = useFetchBookmarkedSchedules();
 
   const today = dayjs();
   const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);

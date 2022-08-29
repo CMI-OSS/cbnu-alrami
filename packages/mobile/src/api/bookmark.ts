@@ -41,19 +41,15 @@ export const useRemoveArticleBookmark = () => {
   );
 };
 
-const fetchBookmarkedSchedules = (uuid: string) => {
-  return caxios.get("/bookmark/schedules", {
-    headers: {
-      uuid,
-    },
-  });
+const fetchBookmarkedSchedules = () => {
+  return caxios.get("/bookmark/schedules");
 };
 
-export const useFetchBookmarkedSchedules = (uuid: string) => {
+export const useFetchBookmarkedSchedules = () => {
   const response = useQuery<AxiosResponse<res.Schedule[]>, Error, Schedule[]>(
     "bookmarkedSchedule",
     () => {
-      return fetchBookmarkedSchedules(uuid);
+      return fetchBookmarkedSchedules();
     },
     {
       select: (data) => {
@@ -71,18 +67,14 @@ export const useFetchBookmarkedSchedules = (uuid: string) => {
   return { ...response, data: response.data || [] };
 };
 
-const postScheduleBookmark = (scheduleId: number, uuid: string) => {
-  return caxios.post(`/bookmark/schedule/${scheduleId}`, {
-    headers: {
-      uuid,
-    },
-  });
+const postScheduleBookmark = (scheduleId: number) => {
+  return caxios.post(`/bookmark/schedule/${scheduleId}`);
 };
 
 export const useAddScheduleBookmark = () => {
   return useMutation(
-    ({ scheduleId, uuid }: { scheduleId: number; uuid: string }) => {
-      return postScheduleBookmark(scheduleId, uuid);
+    ({ scheduleId }: { scheduleId: number }) => {
+      return postScheduleBookmark(scheduleId);
     },
     {
       onSuccess: () => {
@@ -92,18 +84,14 @@ export const useAddScheduleBookmark = () => {
   );
 };
 
-const deleteScheduleBookmark = (scheduleId: number, uuid: string) => {
-  return caxios.delete(`/bookmark/schedule/${scheduleId}`, {
-    headers: {
-      uuid,
-    },
-  });
+const deleteScheduleBookmark = (scheduleId: number) => {
+  return caxios.delete(`/bookmark/schedule/${scheduleId}`);
 };
 
 export const useRemoveScheduleBookmark = () => {
   return useMutation(
-    ({ scheduleId, uuid }: { scheduleId: number; uuid: string }) => {
-      return deleteScheduleBookmark(scheduleId, uuid);
+    ({ scheduleId }: { scheduleId: number }) => {
+      return deleteScheduleBookmark(scheduleId);
     },
     {
       onSuccess: () => {

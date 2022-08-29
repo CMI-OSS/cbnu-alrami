@@ -13,7 +13,7 @@ type Props = {
   index: number;
   month: number;
   isSchedule: boolean;
-  isHoliyday: boolean;
+  isHoliday: boolean;
   selectedDate: Dayjs;
   setSelectedDate: Dispatch<Dayjs>;
 } & StyleProps;
@@ -25,7 +25,7 @@ function Date({
   index,
   month,
   isSchedule,
-  isHoliyday,
+  isHoliday,
   selectedDate,
   setSelectedDate,
 }: Props) {
@@ -33,7 +33,7 @@ function Date({
     today,
     selectedDate,
     date,
-    isHoliyday,
+    isHoliday,
     month,
     index,
   });

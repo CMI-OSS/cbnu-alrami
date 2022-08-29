@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Footer from "@components/molecules/Footer";
 import classNames from "classnames";
 import dayjs from "dayjs";
-import { useSchedule } from "src/api/schedule";
+import { useFetchTodaysSchedules } from "src/api/schedule";
 import { useWeathers } from "src/api/weather";
 import { Setting } from "src/components/atoms/icon";
 import Weather from "src/page/Home/Weather";
@@ -17,11 +17,17 @@ import SuggestionModal from "./SuggestionModal";
 
 function Home() {
   const today = dayjs();
-  const { data: scheduleData } = useSchedule(today.format("YYYY-MM-DD"));
+  const { data: scheduleData, isLoading: isScheduleLoading } =
+    useFetchTodaysSchedules(today.format("YYYY-MM-DD"));
+
   const { data: weatherData } = useWeathers();
   const [ isSuggestionClicked, setIsSuggestionClicked ] = useState(false);
 
+  if (isScheduleLoading) return <div>학사일정 로딩중...</div>;
+  if (scheduleData === undefined) return <div>학사일정 불러오기 실패</div>;
   if (!weatherData) return <div>날씨 로딩 실패</div>;
+
+  const { isHoliday } = scheduleData;
   const weather = weatherData.data;
 
   const handleSuggestionClick = () => {
@@ -45,21 +51,21 @@ function Home() {
       <header className={$.header}>
         <div className={$["header-content"]}>
           <h1 className={$.title}>충림이</h1>
-          <p>오늘은 총 {scheduleData?.data.length}개의 일정이 있어요</p>
+          <p>오늘은 총 {scheduleData.schedules.length}개의 일정이 있어요</p>
         </div>
         <Link to="/setting">
           <Setting size={24} stroke="#aaa" />
         </Link>
       </header>
       <div className={$.schedule}>
-        {scheduleData?.data.map(({ id, content, startDate, endDate }) => {
+        {scheduleData.schedules.map(({ id, content, startDate, endDate }) => {
           return (
             <Schedule key={id} {...{ content, startDate, endDate, today }} />
           );
         })}
       </div>
       <Weather weather={weather} onSuggestionClick={handleSuggestionClick} />
-      <Restaurant />
+      <Restaurant {...{ today, isHoliday }} />
       <Notice />
       <Footer />
     </section>

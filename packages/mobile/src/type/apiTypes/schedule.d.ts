@@ -3,7 +3,7 @@ declare namespace res {
     id: number;
     content: string;
     priority: number;
-    isHoliday: number;
+    isHoliday: boolean;
     startDate: string;
     endDate: string;
   };

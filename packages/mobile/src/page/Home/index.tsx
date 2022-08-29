@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Footer from "@components/molecules/Footer";
 import classNames from "classnames";
 import dayjs from "dayjs";
-import { useSchedule } from "src/api/schedule";
+import { useFetchTodaysSchedules } from "src/api/schedule";
 import { useWeathers } from "src/api/weather";
 import { Setting } from "src/components/atoms/icon";
 import Weather from "src/page/Home/Weather";
@@ -17,9 +17,8 @@ import SuggestionModal from "./SuggestionModal";
 
 function Home() {
   const today = dayjs();
-  const { data: scheduleData, isLoading: isScheduleLoading } = useSchedule(
-    today.format("YYYY-MM-DD"),
-  );
+  const { data: scheduleData, isLoading: isScheduleLoading } =
+    useFetchTodaysSchedules(today.format("YYYY-MM-DD"));
 
   const { data: weatherData } = useWeathers();
   const [ isSuggestionClicked, setIsSuggestionClicked ] = useState(false);

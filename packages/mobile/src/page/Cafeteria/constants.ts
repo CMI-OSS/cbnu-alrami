@@ -20,12 +20,12 @@ const cafeteriaTimeData = (isHoliday: boolean) => {
     },
     {
       id: 2,
-      name: "양성재",
+      name: "양진재",
       ...time,
     },
     {
       id: 3,
-      name: "양진재",
+      name: "양성재",
       ...time,
     },
     {

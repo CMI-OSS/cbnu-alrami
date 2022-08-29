@@ -1,3 +1,4 @@
+import { useIntersect } from "@hooks/UseIntersect";
 import useSearch from "@hooks/useSearch";
 import {
   useArticlesByBoard,
@@ -20,9 +21,17 @@ const useArticles = (target: string) => {
 };
 
 function ArticleList() {
+  // TODO: 확인
   const target = useSearch({ target: "type" }) || "new";
-  const { data } = useArticles(target);
+  const { data, hasNextPage, isFetching, fetchNextPage } = useArticles(target);
   const articles = data?.contents;
+
+  const ref = useIntersect(async (entry, observer) => {
+    observer.unobserve(entry.target);
+    if (hasNextPage && isFetching) {
+      fetchNextPage();
+    }
+  });
 
   if (!articles?.length && target === "bookmark") {
     return (
@@ -54,7 +63,7 @@ function ArticleList() {
     );
   }
   return (
-    <div className={$["notification-list"]}>
+    <div className={$["notification-list"]} ref={ref}>
       {articles?.map(({ id, title, date, hits, breadcrumb, scraps }) => {
         return (
           <Article

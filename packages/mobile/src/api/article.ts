@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useInfiniteQuery, useQuery } from "react-query";
 
 import { AxiosResponse } from "axios";
 import caxios from "src/api/caxios";
@@ -28,7 +28,7 @@ export const fetchArticlesByBoard = (data: req.Pagination) => {
 };
 
 export const useArticlesByBoard = (data: req.Pagination) => {
-  const response = useQuery<
+  const response = useInfiniteQuery<
     AxiosResponse<Pagination<res.ArticleByBoard>>,
     Error,
     Pagination<res.ArticleByBoard & { breadcrumb: string }>
@@ -37,6 +37,7 @@ export const useArticlesByBoard = (data: req.Pagination) => {
     () => {
       return fetchArticlesByBoard(data);
     },
+    // TODO: select return type
     {
       select: (data) => {
         const contents = data.data.contents.map((notice) => {
@@ -66,7 +67,7 @@ export const fetchNewArticles = () => {
 };
 
 export const useNewArticles = () => {
-  const response = useQuery<
+  const response = useInfiniteQuery<
     AxiosResponse<Pagination<res.ArticleByBoard>>,
     Error,
     Pagination<res.ArticleByBoard & { breadcrumb: string }>
@@ -76,6 +77,7 @@ export const useNewArticles = () => {
       return fetchNewArticles();
     },
     {
+      // TODO: select return type
       select: (data) => {
         const contents = data.data.contents.map((notice) => {
           return {

@@ -7,8 +7,8 @@ const SHOW_CAFETERIA_SELECT_FINAL_GUIDE =
 
 export const getSelectedCafeteria = () => {
   const item = localStorage.getItem(SELECTED_CAFETERIA);
-  if (!item) localStorage.setItem(SELECTED_CAFETERIA, "선택안함");
-  return (item || "선택안함") as Restaurant;
+  if (!item) localStorage.setItem(SELECTED_CAFETERIA, "표시 안함");
+  return (item || "표시 안함") as Restaurant;
 };
 
 export const setSelectedCafeteria = (restaurant: Restaurant) => {

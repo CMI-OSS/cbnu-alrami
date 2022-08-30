@@ -14,7 +14,7 @@ type Props = {
 
 const SELECTOR_ITEMS = [
   ...CAFETERIA_LIST,
-  { name: "선택안함", id: 0 },
+  { name: "표시 안함", id: 0 },
 ] as const;
 
 function Selector({

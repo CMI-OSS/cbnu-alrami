@@ -29,7 +29,7 @@ $empty-box-height: calc(100vh - $top-height - $footer-height);
     justify-content: center;
     width: 54px;
     height: 54px;
-    transform: rotate(270deg);
+    transform: rotate(90deg);
     border-radius: 27px;
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.06);
     background-color: $black-0;

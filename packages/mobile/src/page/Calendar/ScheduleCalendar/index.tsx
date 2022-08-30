@@ -34,7 +34,7 @@ function ScheduleCalendar({
             return (
               <Date
                 key={date.format()}
-                className={$.fraction}
+                className={$.date}
                 {...{ date, isSchedule, isHoliday, today }}
                 {...{ month, index, selectedDate, setSelectedDate }}
               />

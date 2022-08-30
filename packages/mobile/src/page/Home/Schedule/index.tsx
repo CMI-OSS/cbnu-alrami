@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import classNames from "classnames";
 import dayjs, { Dayjs } from "dayjs";
@@ -18,6 +19,7 @@ type Props = {
 };
 
 function Schedule({ content, startDate, endDate, today }: Props) {
+  const navigate = useNavigate();
   const start = dayjs(startDate);
   const end = endDate ? dayjs(endDate) : null;
   const period = getTimePeriod(start, end, today);
@@ -34,21 +36,27 @@ function Schedule({ content, startDate, endDate, today }: Props) {
     setIsLong(false);
   }, []);
 
+  const handleCardClick = () => {
+    navigate("/calendar");
+  };
+
   return (
-    <BorderBox width={270} height={100} className={$.container}>
-      <div>
-        <span
-          ref={ref}
-          className={classNames($["schedule-name"], {
-            [$["long-schedule-name"]]: isLong,
-          })}
-        >
-          {content}
-        </span>
-        <time className={$.period}>{period}</time>
-      </div>
-      <LongArrow size={8} stroke="#aaa" />
-    </BorderBox>
+    <button type="button" className={$.button} onClick={handleCardClick}>
+      <BorderBox width={270} height={100} className={$.container}>
+        <div>
+          <span
+            ref={ref}
+            className={classNames($["schedule-name"], {
+              [$["long-schedule-name"]]: isLong,
+            })}
+          >
+            {content}
+          </span>
+          <time className={$.period}>{period}</time>
+        </div>
+        <LongArrow size={8} stroke="#aaa" />
+      </BorderBox>
+    </button>
   );
 }
 

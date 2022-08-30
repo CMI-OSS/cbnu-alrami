@@ -1,9 +1,8 @@
 @import "../../../../styles/main.scss";
+@import "@shared/styles/mixin.scss";
 
 .dimmed-box {
-  position: absolute;
-  top: 0;
-  left: 0;
+  @include position(absolute, top 0 left 0);
   z-index: 6;
   display: flex;
   align-items: center;

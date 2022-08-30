@@ -12,7 +12,6 @@ import Status from "../Status";
 import $ from "./style.module.scss";
 
 function Preview() {
-  // TODO: 확인
   const boardId = Number(useSearch({ target: "boardId" }));
   const { data: boardData } = useBoardTree(boardId);
   const {
@@ -22,13 +21,15 @@ function Preview() {
     fetchNextPage,
   } = useArticlesByBoard({ boardId });
   const { data: subscribeData } = useSubscribeBoards();
-  const articles = articleData?.contents;
+  const articles = articleData?.pages;
+
   const ref = useIntersect(async (entry, observer) => {
     observer.unobserve(entry.target);
-    if (hasNextPage && isFetching) {
-      fetchNextPage();
+    if (hasNextPage && !isFetching) {
+      await fetchNextPage();
     }
   });
+
   const subscribe = subscribeData?.find((data) => {
     return data.boardId === boardId;
   });
@@ -52,15 +53,19 @@ function Preview() {
           alt="공지사항 미존재"
         />
       )}
-      <div className={$["notification-list"]} ref={ref}>
-        {articles?.map(({ id, title, date, hits, breadcrumb, scraps }) => {
-          return (
-            <Article
-              key={id}
-              {...{ id, title, date, hits, breadcrumb, scraps }}
-            />
-          );
+      <div className={$["notification-list"]}>
+        {articles?.map((article) => {
+          return article.map((articleData) => {
+            const { id, title, date, hits, breadcrumb, scraps } = articleData;
+            return (
+              <Article
+                key={id}
+                {...{ id, title, date, hits, breadcrumb, scraps }}
+              />
+            );
+          });
         })}
+        <div ref={ref} />
       </div>
     </FullPageModalTemplate>
   );

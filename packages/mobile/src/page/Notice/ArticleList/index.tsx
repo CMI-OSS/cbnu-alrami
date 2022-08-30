@@ -21,15 +21,13 @@ const useArticles = (target: string) => {
 };
 
 function ArticleList() {
-  // TODO: 확인
   const target = useSearch({ target: "type" }) || "new";
   const { data, hasNextPage, isFetching, fetchNextPage } = useArticles(target);
-  const articles = data?.contents;
-
+  const articles = data?.pages;
   const ref = useIntersect(async (entry, observer) => {
     observer.unobserve(entry.target);
-    if (hasNextPage && isFetching) {
-      fetchNextPage();
+    if (hasNextPage && !isFetching) {
+      await fetchNextPage();
     }
   });
 
@@ -63,15 +61,19 @@ function ArticleList() {
     );
   }
   return (
-    <div className={$["notification-list"]} ref={ref}>
-      {articles?.map(({ id, title, date, hits, breadcrumb, scraps }) => {
-        return (
-          <Article
-            key={id}
-            {...{ id, title, date, hits, breadcrumb, scraps }}
-          />
-        );
+    <div className={$["notification-list"]}>
+      {articles?.map((article) => {
+        return article.map((articleData) => {
+          const { id, title, date, hits, breadcrumb, scraps } = articleData;
+          return (
+            <Article
+              key={id}
+              {...{ id, title, date, hits, breadcrumb, scraps }}
+            />
+          );
+        });
       })}
+      <div ref={ref} />
     </div>
   );
 }

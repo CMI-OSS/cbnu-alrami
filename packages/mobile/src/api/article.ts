@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQuery } from "react-query";
+import { QueryFunctionContext, useInfiniteQuery, useQuery } from "react-query";
 
 import { AxiosResponse } from "axios";
 import caxios from "src/api/caxios";
@@ -18,37 +18,56 @@ export const useArticle = (articleId: number) => {
   return response;
 };
 
-export const fetchArticlesByBoard = (data: req.Pagination) => {
+export const fetchArticlesByBoard = (params: any) => {
   return caxios.get<Pagination<res.ArticleByBoard>>(
-    `/boards/${data.boardId}/articles`,
+    `/boards/${params.boardId}/articles`,
     {
-      data,
+      params,
     },
   );
 };
 
+// TODO: select 리팩토링
 export const useArticlesByBoard = (data: req.Pagination) => {
   const response = useInfiniteQuery<
     AxiosResponse<Pagination<res.ArticleByBoard>>,
     Error,
-    Pagination<res.ArticleByBoard & { breadcrumb: string }>
+    (res.ArticleByBoard & { breadcrumb: string })[]
   >(
     [ "articles", data.boardId ],
-    () => {
-      return fetchArticlesByBoard(data);
+    ({ pageParam = 1 }: QueryFunctionContext) => {
+      return fetchArticlesByBoard({ pageNo: pageParam, ...data });
     },
-    // TODO: select return type
     {
       select: (data) => {
-        const contents = data.data.contents.map((notice) => {
-          return {
-            ...notice,
-            breadcrumb: notice.board.parent
-              ? `${notice.board.parent.name} > ${notice.board.name}`
-              : notice.board.name,
-          };
+        const pageParam = data.pageParams.at(-1) as number;
+        const pageIndexes = Array.from(Array(pageParam), (_, index) => {
+          return index;
         });
-        return { pagination: data.data.pagination, contents };
+        const pages = pageIndexes.reduce(
+          (
+            acc: (res.ArticleByBoard & { breadcrumb: string })[][],
+            cur: number,
+          ) => {
+            acc.push(
+              data.pages[cur].data.contents.map((notice) => {
+                return {
+                  ...notice,
+                  breadcrumb: notice.board.parent
+                    ? `${notice.board.parent.name} > ${notice.board.name}`
+                    : notice.board.name,
+                };
+              }),
+            );
+            return acc;
+          },
+          [],
+        );
+
+        return {
+          pages,
+          pageParams: data.pageParams,
+        };
       },
       getNextPageParam: ({
         data: {
@@ -62,32 +81,59 @@ export const useArticlesByBoard = (data: req.Pagination) => {
   return response;
 };
 
-export const fetchNewArticles = () => {
-  return caxios.get<Pagination<res.ArticleByBoard>>(`/articles/subscribe`);
+export const fetchNewArticles = (params: any) => {
+  return caxios.get<Pagination<res.ArticleByBoard>>(`/articles/subscribe`, {
+    params,
+  });
 };
 
 export const useNewArticles = () => {
   const response = useInfiniteQuery<
     AxiosResponse<Pagination<res.ArticleByBoard>>,
     Error,
-    Pagination<res.ArticleByBoard & { breadcrumb: string }>
+    (res.ArticleByBoard & { breadcrumb: string })[]
   >(
     "newArticles",
-    () => {
-      return fetchNewArticles();
+    ({ pageParam = 1 }: QueryFunctionContext) => {
+      return fetchNewArticles({ pageNo: pageParam });
     },
     {
-      // TODO: select return type
       select: (data) => {
-        const contents = data.data.contents.map((notice) => {
-          return {
-            ...notice,
-            breadcrumb: notice.board.parent
-              ? `${notice.board.parent.name} > ${notice.board.name}`
-              : notice.board.name,
-          };
+        const pageParam = data.pageParams.at(-1) as number;
+        const pageIndexes = Array.from(Array(pageParam), (_, index) => {
+          return index;
         });
-        return { pagination: data.data.pagination, contents };
+        const pages = pageIndexes.reduce(
+          (
+            acc: (res.ArticleByBoard & { breadcrumb: string })[][],
+            cur: number,
+          ) => {
+            acc.push(
+              data.pages[cur].data.contents.map((notice) => {
+                return {
+                  ...notice,
+                  breadcrumb: notice.board.parent
+                    ? `${notice.board.parent.name} > ${notice.board.name}`
+                    : notice.board.name,
+                };
+              }),
+            );
+            return acc;
+          },
+          [],
+        );
+
+        return {
+          pages,
+          pageParams: data.pageParams,
+        };
+      },
+      getNextPageParam: ({
+        data: {
+          pagination: { isEnd, pageNumber },
+        },
+      }) => {
+        return isEnd ? undefined : pageNumber + 1;
       },
     },
   );
@@ -95,50 +141,55 @@ export const useNewArticles = () => {
 };
 
 export const fetchPopularArticles = () => {
-  return caxios.get<res.ArticleByBoard[]>(`/articles/popular`);
+  return caxios.get<Pagination<res.ArticleByBoard>>(`/articles/popular`);
 };
 
+// TODO: 백엔드 res바뀌면 확인
 export const usePopularArticles = () => {
-  const response = useQuery<
-    AxiosResponse<res.ArticleByBoard[]>,
+  const response = useInfiniteQuery<
+    AxiosResponse<Pagination<res.ArticleByBoard>>,
     Error,
-    { contents: (res.ArticleByBoard & { breadcrumb: string })[] }
+    (res.ArticleByBoard & { breadcrumb: string })[]
   >("popularArticles", fetchPopularArticles, {
     select: (data) => {
-      const contents = data?.data.map((article) => {
-        return {
-          ...article,
-          breadcrumb: article.board.parent
-            ? `${article.board.parent.name} > ${article.board.name}`
-            : article.board.name,
-        };
-      });
-      return { contents };
+      const pages = [
+        data.pages[0].data.contents.map((article) => {
+          return {
+            ...article,
+            breadcrumb: article.board.parent
+              ? `${article.board.parent.name} > ${article.board.name}`
+              : article.board.name,
+          };
+        }),
+      ];
+      return { pages, pageParams: data.pageParams };
     },
   });
   return response;
 };
 
 export const fetchBookmarkArticles = () => {
-  return caxios.get<res.ArticleByBoard[]>(`/articles/bookmarks`);
+  return caxios.get<Pagination<res.ArticleByBoard>>(`/articles/bookmarks`);
 };
 
 export const useBookmarkArticles = () => {
-  const response = useQuery<
-    AxiosResponse<res.ArticleByBoard[]>,
+  const response = useInfiniteQuery<
+    AxiosResponse<Pagination<res.ArticleByBoard>>,
     Error,
-    { contents: (res.ArticleByBoard & { breadcrumb: string })[] }
+    (res.ArticleByBoard & { breadcrumb: string })[]
   >("bookmarkArticles", fetchBookmarkArticles, {
     select: (data) => {
-      const contents = data?.data.map((article) => {
-        return {
-          ...article,
-          breadcrumb: article.board.parent
-            ? `${article.board.parent.name} > ${article.board.name}`
-            : article.board.name,
-        };
-      });
-      return { contents };
+      const pages = [
+        data.pages[0].data.contents.map((article) => {
+          return {
+            ...article,
+            breadcrumb: article.board.parent
+              ? `${article.board.parent.name} > ${article.board.name}`
+              : article.board.name,
+          };
+        }),
+      ];
+      return { pages, pageParams: data.pageParams };
     },
   });
   return response;

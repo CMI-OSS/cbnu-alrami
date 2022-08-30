@@ -19,10 +19,10 @@ type Props = {
   className?: string;
 };
 
-const getMealTypeIndex = (hour: number) => {
-  if (hour >= 0 && hour < 10) return 0;
-  if (hour >= 10 && hour < 13) return 1;
-  return 2;
+const getMealTimeIndex = (hour: number) => {
+  if (hour >= 0 && hour < 10) return 1;
+  if (hour >= 10 && hour < 13) return 2;
+  return 3;
 };
 
 function Selected({
@@ -46,7 +46,9 @@ function Selected({
     );
 
   const { data, isLoading, error } = allCafeteriaData[target.id - 1];
-  const menuData = data?.data[getMealTypeIndex(today.hour())];
+  const menuData = data?.data.find(({ time }) => {
+    return time === getMealTimeIndex(today.hour());
+  });
 
   if (error || isLoading || !menuData)
     return (

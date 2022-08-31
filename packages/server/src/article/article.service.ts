@@ -340,7 +340,9 @@ export class ArticleService {
     return true;
   }
 
-  async findBookmarkArticles(user: User): Promise<ArticleDetailInfoDto[]> {
+  async findBookmarkArticles(
+    user: User,
+  ): Promise<PageResponse<ArticleDetailInfoDto[]>> {
     const response = [];
     const bookmarkList = await this.bookmarkRepository.find({
       where: {
@@ -369,7 +371,7 @@ export class ArticleService {
       }),
     );
 
-    return response;
+    return new PageResponse(undefined, undefined, response);
   }
 
   async findSubscribeArticles(

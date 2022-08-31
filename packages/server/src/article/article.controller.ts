@@ -8,14 +8,14 @@ import {
   Put,
   Query,
   Req,
-  UseGuards
+  UseGuards,
 } from "@nestjs/common";
 import {
   ApiHeader,
   ApiOperation,
   ApiQuery,
   ApiResponse,
-  ApiTags
+  ApiTags,
 } from "@nestjs/swagger";
 import { Builder } from "builder-pattern";
 import { BoardTreeService } from "src/boardTree/boardTree.service";
@@ -34,7 +34,7 @@ import {
   ArticleDetailInfoDto,
   ArticleDto,
   ArticleDuplicationResponseDto,
-  ArticleResponseDto
+  ArticleResponseDto,
 } from "./dtos/article.dto";
 import { ArticleUpdateDto } from "./dtos/article.update.dto";
 
@@ -211,7 +211,9 @@ export class ArticleController {
     name: "uuid",
     description: "user uuid",
   })
-  async findBookmarkArticles(@UserSession() user: User) {
+  async findBookmarkArticles(
+    @UserSession() user: User,
+  ): Promise<PageResponse<ArticleDetailInfoDto[]>> {
     return this.articleService.findBookmarkArticles(user);
   }
 

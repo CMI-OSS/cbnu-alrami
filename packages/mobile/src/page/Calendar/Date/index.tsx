@@ -45,7 +45,7 @@ function Date({
   };
 
   return (
-    <li className={className}>
+    <li className={classNames(className, $.container)}>
       <button
         type="button"
         className={classNames($["date-button"], {

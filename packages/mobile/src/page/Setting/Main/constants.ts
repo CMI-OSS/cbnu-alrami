@@ -42,7 +42,7 @@ const settingMenuList = [
 ];
 
 const cafeterias: Restaurant[] = [
-  "선택안함",
+  "표시 안함",
   "본관",
   "양성재",
   "양진재",

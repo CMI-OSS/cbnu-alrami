@@ -7,7 +7,7 @@ export type Restaurant =
   | "별빛식당"
   | "은하수식당"
   | "한빛식당"
-  | "선택안함";
+  | "표시 안함";
 
 export type Menu = { id: number; name: string };
 

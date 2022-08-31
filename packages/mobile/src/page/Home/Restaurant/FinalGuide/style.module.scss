@@ -27,6 +27,10 @@
   }
 
   .button {
+    @include typography(14);
+    width: 96px;
+    height: 40px;
     margin: 31px 0;
+    line-height: 30px;
   }
 }

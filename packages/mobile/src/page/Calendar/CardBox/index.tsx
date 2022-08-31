@@ -34,7 +34,7 @@ function CardBox({
           <span className={$.discription}>오늘은 일정이 없어요</span>
         ) : (
           <img
-            className={$["empty-bookmark-board"]}
+            width={239}
             src={guideEmptyFavoritesSchedule}
             alt="즐겨찾기된 학사일정 없음"
           />

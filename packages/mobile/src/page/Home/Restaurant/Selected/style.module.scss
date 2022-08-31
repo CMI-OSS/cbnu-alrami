@@ -3,16 +3,22 @@
 .menu-box {
   padding: 22px 24px 15px;
 
-  .title {
+  .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 17px;
     color: $black-100;
 
-    .location {
+    .title-box {
       @include typography(16);
       font-weight: 500;
+
+      .title {
+        @include typography(16);
+        line-height: 25px;
+        font-weight: 500;
+      }
 
       > button {
         margin-left: 10px;
@@ -20,6 +26,8 @@
     }
 
     .time {
+      @include typography(14);
+      line-height: 30px;
       color: $black-40;
     }
   }
@@ -30,9 +38,9 @@
     justify-content: center;
 
     .cafeteria-content {
+      @include typography(13);
       margin-top: 14px;
       line-height: 35px;
-      font-size: 13px;
       color: $black-80;
     }
 

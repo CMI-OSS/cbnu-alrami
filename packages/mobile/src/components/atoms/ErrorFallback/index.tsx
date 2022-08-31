@@ -13,7 +13,7 @@ function ErrorFallback(props: Props) {
       <div className={$["error-fallback-box"]}>
         <span className={$["error-msg"]}>{error?.message}</span>
         <button type="button" onClick={reset} className={$["reset-btn"]}>
-          try again
+          다시 시도
         </button>
       </div>
     </div>

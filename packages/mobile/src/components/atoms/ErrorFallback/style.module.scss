@@ -10,16 +10,16 @@
     flex-direction: column;
     align-items: center;
     .error-msg {
-      margin-bottom: 10px;
-      @include typography(16);
+      margin-bottom: 31px;
+      @include typography(14);
     }
     .reset-btn {
       width: fit-content;
-      padding: 5px 10px;
+      padding: 8px 20px;
       border-radius: 100px;
       background-color: $red-50;
       color: $black-0;
-      @include typography(16);
+      @include typography(14);
     }
   }
 }

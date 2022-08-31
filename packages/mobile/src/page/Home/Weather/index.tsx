@@ -77,6 +77,13 @@ const iconToBackgrounds = [
   },
   {
     backgroundColor: colors.cloudy,
+    icon: <비 />,
+    text: "이슬비",
+    type: "Drizzle",
+    time: "morning",
+  },
+  {
+    backgroundColor: colors.cloudy,
     icon: <안개 />,
     text: "안개",
     type: "Fog",

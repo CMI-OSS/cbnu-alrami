@@ -1,34 +1,38 @@
 @import "src/styles/main.scss";
 @import "@shared/styles/mixin.scss";
 
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-width: 270px;
-  padding: 0 20px;
+.button {
   margin: 0 23px 35px 0;
+  text-align: left;
 
-  .schedule-name {
-    width: 195px;
-    @include ellipsis(2);
-    @include typography(16);
-    font-weight: 500;
-    line-height: 23px;
-    color: $black-80;
-  }
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 270px;
+    padding: 0 20px;
 
-  .long-schedule-name {
-    font-size: 14px;
-  }
+    .schedule-name {
+      width: 195px;
+      @include ellipsis(2);
+      @include typography(16);
+      font-weight: 500;
+      line-height: 23px;
+      color: $black-80;
+    }
 
-  .period {
-    margin-top: 9px;
-    @include typography(12);
-    color: $black-50;
-  }
+    .long-schedule-name {
+      font-size: 14px;
+    }
 
-  &:last-child {
-    margin-right: 0;
+    .period {
+      margin-top: 9px;
+      @include typography(12);
+      color: $black-50;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }

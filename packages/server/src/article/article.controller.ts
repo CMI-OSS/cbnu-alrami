@@ -192,7 +192,7 @@ export class ArticleController {
     type: ArticleDetailInfoDto,
     isArray: true,
   })
-  async findPopularArticles(): Promise<ArticleDetailInfoDto[]> {
+  async findPopularArticles(): Promise<PageResponse<ArticleDetailInfoDto[]>> {
     return this.articleService.findTopArticlesByHit();
   }
 
@@ -211,7 +211,9 @@ export class ArticleController {
     name: "uuid",
     description: "user uuid",
   })
-  async findBookmarkArticles(@UserSession() user: User) {
+  async findBookmarkArticles(
+    @UserSession() user: User,
+  ): Promise<PageResponse<ArticleDetailInfoDto[]>> {
     return this.articleService.findBookmarkArticles(user);
   }
 

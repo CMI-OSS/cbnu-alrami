@@ -14,20 +14,12 @@ const fetchCafeteria = async (id: number, date: string) => {
 };
 
 export const useCafeteria = (id: number, date: string) => {
-  const response = useQuery([ "cafeteria", date, id ], () => {
-    return fetchCafeteria(id, date);
-  });
+  const response = useQuery(
+    [ "cafeteria", date, id ],
+    () => {
+      return fetchCafeteria(id, date);
+    },
+    { suspense: true },
+  );
   return response;
-};
-
-export const useCafeterias = (date: string) => {
-  return [ 1, 2, 3, 4, 5, 6 ].map((id) => {
-    return useQuery(
-      [ "cafeteria", date, id ],
-      () => {
-        return fetchCafeteria(id, date);
-      },
-      { suspense: true },
-    );
-  });
 };

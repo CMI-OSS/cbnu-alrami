@@ -1,5 +1,7 @@
+import { memo } from "react";
+
 import classnames from "classnames";
-import { useCafeterias } from "src/api/cafeteria";
+import { useCafeteria } from "src/api/cafeteria";
 import noMenu from "src/assets/no_menu.png";
 import CafeteriaMenuCard from "src/components/molecules/CafeteriaMenuCard";
 import { cafeteriaTime } from "src/utils/cafeteriaTime";
@@ -12,8 +14,15 @@ type Props = {
 };
 
 function CafeteriaBody({ fullDate, selectedMenu }: Props) {
-  const allCafeteriaData = useCafeterias(fullDate);
-  const { data } = allCafeteriaData[selectedMenu - 1];
+  const { data: data1 } = useCafeteria(1, fullDate);
+  const { data: data2 } = useCafeteria(2, fullDate);
+  const { data: data3 } = useCafeteria(3, fullDate);
+  const { data: data4 } = useCafeteria(4, fullDate);
+  const { data: data5 } = useCafeteria(5, fullDate);
+  const { data: data6 } = useCafeteria(6, fullDate);
+
+  const allCafeteriaData = [ data1, data2, data3, data4, data5, data6 ];
+  const data = allCafeteriaData[selectedMenu - 1];
   const cafeteriaMenu = data?.data;
 
   return (
@@ -45,4 +54,4 @@ function CafeteriaBody({ fullDate, selectedMenu }: Props) {
   );
 }
 
-export default CafeteriaBody;
+export default memo(CafeteriaBody);

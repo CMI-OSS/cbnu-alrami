@@ -1,9 +1,10 @@
-@import '../../../../styles/main.scss';
+@import "../../../../styles/main.scss";
 
 .deeplink {
   position: fixed;
   left: 50%;
   bottom: 74px;
+  z-index: 20;
   transform: translate(-50%, 0);
   display: flex;
   align-items: center;

@@ -1,40 +1,59 @@
 @import "../../../../styles/main.scss";
+@import "@shared/styles/mixin.scss";
 
-.selector {
+.dimmed-box {
+  @include position(absolute, top 0 left 0);
+  z-index: 6;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  padding: 28px 0;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(27, 27, 27, 0.85);
 
-  .selector-title {
-    @include typography(18);
-    color: $black-100;
-  }
+  .selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 0 27px;
 
-  .item {
-    @include typography(16);
-    margin-top: 38px;
-    text-align: center;
-
-    .button {
-      margin: -10px;
-      padding: 10px;
-      color: $black-40;
-    }
-
-    .selected {
+    .selector-title {
+      @include typography(18);
+      font-weight: 500;
+      line-height: 28px;
       color: $black-100;
     }
-  }
 
-  .cancel {
-    @include typography(14);
-    width: 96px;
-    height: 40px;
-    margin-top: 37px;
-    color: $black-60;
-    background-color: $black-0;
-    border: 0.3px solid $black-50;
-    border-radius: 100px;
+    .item {
+      margin-top: 38px;
+      text-align: center;
+
+      .button {
+        @include typography(16);
+        margin: -10px;
+        padding: 10px;
+        line-height: 26px;
+        color: $black-40;
+      }
+
+      .selected {
+        @include typography(18);
+        line-height: 28px;
+        font-weight: 500;
+        color: $black-100;
+      }
+    }
+
+    .cancel {
+      @include typography(14);
+      width: 96px;
+      height: 40px;
+      margin-top: 37px;
+      color: $black-60;
+      background-color: $black-0;
+      border: 0.3px solid $black-50;
+      border-radius: 100px;
+      line-height: 30px;
+    }
   }
 }

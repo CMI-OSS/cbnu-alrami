@@ -45,7 +45,7 @@ function Restaurant({ today, isHoliday }: Props) {
 
   const handleSelectorCancel = () => {
     if (getShowCafeteriaSelectGuide()) {
-      if (getSelectedCafeteria() === "선택안함") {
+      if (getSelectedCafeteria() === "표시 안함") {
         setCardType("none");
         return;
       }
@@ -60,7 +60,7 @@ function Restaurant({ today, isHoliday }: Props) {
       unsetShowCafeteriaSelectGuide();
     setCafeteriaName(name);
     setSelectedCafeteria(name);
-    if (name === "선택안함") {
+    if (name === "표시 안함") {
       if (getShowCafeteriaSelectFinalGuide() === "true") {
         unsetShowCafeteriaSelectFinalGuide();
         setCardType("finalGuide");
@@ -85,7 +85,7 @@ function Restaurant({ today, isHoliday }: Props) {
       setCardType("greeting");
       return;
     }
-    if (cafeteriaName === "선택안함") {
+    if (cafeteriaName === "표시 안함") {
       setCardType("none");
       return;
     }

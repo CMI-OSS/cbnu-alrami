@@ -13,7 +13,7 @@ import $ from "./style.module.scss";
 
 type Props = {
   today: Dayjs;
-  cafeteriaName: Omit<Restaurant, "선택안함">;
+  cafeteriaName: Omit<Restaurant, "표시 안함">;
   isHoliday: boolean;
   onClick: () => void;
   className?: string;
@@ -66,9 +66,9 @@ function Selected({
 
   return (
     <BorderBox height="auto" className={classNames($["menu-box"], className)}>
-      <div className={$.title}>
-        <div className={$.location}>
-          <span>{`${cafeteriaName} ${mealType}`}</span>
+      <div className={$.header}>
+        <div className={$["title-box"]}>
+          <span className={$.title}>{`${cafeteriaName} ${mealType}`}</span>
           <button
             type="button"
             aria-label="대표 식당 변경하기"

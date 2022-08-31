@@ -132,7 +132,7 @@ function Weather({ weather, onSuggestionClick }: Props) {
 
   return (
     <div className={$.weather}>
-      <BorderBox height={155} background={iconToBackground?.backgroundColor}>
+      <BorderBox height={156} background={iconToBackground?.backgroundColor}>
         <div className={$.first}>
           <span className={$.amount}>{weather.currentTemp.slice(0, 4)}°C</span>
           <span className={$.description}>청주, {iconToBackground?.text}</span>

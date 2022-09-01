@@ -152,7 +152,7 @@ export class ArticleService {
     return articles;
   }
 
-  async findTopArticlesByHit(): Promise<ArticleDetailInfoDto[]> {
+  async findTopArticlesByHit(): Promise<PageResponse<ArticleDetailInfoDto[]>> {
     let response = [];
 
     // DESCRIBE: hit 테이블에서 조회수 순으로 상위 15개 공지사항 조회
@@ -199,7 +199,7 @@ export class ArticleService {
       }),
     );
 
-    return response;
+    return new PageResponse(undefined, undefined, response);
   }
 
   @Transactional()
@@ -340,7 +340,9 @@ export class ArticleService {
     return true;
   }
 
-  async findBookmarkArticles(user: User): Promise<ArticleDetailInfoDto[]> {
+  async findBookmarkArticles(
+    user: User,
+  ): Promise<PageResponse<ArticleDetailInfoDto[]>> {
     const response = [];
     const bookmarkList = await this.bookmarkRepository.find({
       where: {
@@ -369,7 +371,7 @@ export class ArticleService {
       }),
     );
 
-    return response;
+    return new PageResponse(undefined, undefined, response);
   }
 
   async findSubscribeArticles(

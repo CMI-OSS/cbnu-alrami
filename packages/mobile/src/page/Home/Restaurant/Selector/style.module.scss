@@ -3,7 +3,7 @@
 
 .dimmed-box {
   @include position(absolute, top 0 left 0);
-  z-index: 6;
+  z-index: 120;
   display: flex;
   align-items: center;
   justify-content: center;

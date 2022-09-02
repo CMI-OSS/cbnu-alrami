@@ -21,7 +21,7 @@ function Footer({ articleId, isBookmark, isCouncil }: Props) {
   const removeArticleBookmark = useRemoveArticleBookmark();
 
   const handleCopy = async () => {
-    if (isMobile) {
+    if (isMobile && baseApp) {
       baseApp.postMessage(window.location.href);
     } else {
       await navigator.clipboard.writeText(window.location.href);

@@ -30,6 +30,9 @@ declare namespace res {
 }
 
 declare namespace req {
+  type Article = {
+    articleId: number;
+  };
   type Pagination = {
     boardId: number;
   };

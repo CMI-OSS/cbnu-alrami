@@ -1,22 +1,8 @@
-import { QueryFunctionContext, useInfiniteQuery, useQuery } from "react-query";
+import { QueryFunctionContext, useInfiniteQuery } from "react-query";
 
 import { AxiosResponse } from "axios";
 import caxios from "src/api/caxios";
 import { Pagination } from "src/type/api";
-
-export const fetchArticle = (articleId: number) => {
-  return caxios.get<res.Article>(`/boards/articles/${articleId}`);
-};
-
-export const useArticle = (articleId: number) => {
-  const response = useQuery<AxiosResponse<res.Article>, Error>(
-    [ "article", articleId ],
-    () => {
-      return fetchArticle(articleId);
-    },
-  );
-  return response;
-};
 
 export const fetchArticlesByBoard = (params: any) => {
   return caxios.get<Pagination<res.ArticleByBoard>>(

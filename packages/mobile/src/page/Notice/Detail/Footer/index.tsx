@@ -1,3 +1,5 @@
+import { isMobile } from "react-device-detect";
+
 import {
   useAddArticleBookmark,
   useRemoveArticleBookmark,
@@ -19,7 +21,11 @@ function Footer({ articleId, isBookmark, isCouncil }: Props) {
   const removeArticleBookmark = useRemoveArticleBookmark();
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(window.location.href);
+    if (isMobile && baseApp) {
+      baseApp.postMessage(window.location.href);
+    } else {
+      await navigator.clipboard.writeText(window.location.href);
+    }
     return toastSuccess({
       message: "공지 링크가 클립보드에 복사되었습니다.",
       style: { marginBottom: "58px" },

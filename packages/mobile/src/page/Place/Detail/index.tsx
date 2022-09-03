@@ -31,7 +31,7 @@ function PlaceDetail() {
 
   const currentPosition = position.split("")[0].toUpperCase();
   const schoolDatas = schoolData.filter((item: res.School) => {
-    return item?.school?.area === currentPosition || currentPosition === "A";
+    return item?.school === currentPosition || currentPosition === "A";
   });
 
   const checkMenu = (position: string) => {

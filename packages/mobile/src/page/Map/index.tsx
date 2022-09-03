@@ -105,7 +105,7 @@ function Map() {
       },
     });
     if (!schoolLoading) {
-      schoolData!.data.forEach((place) => {
+      schoolData?.forEach((place) => {
         const marker = makeMarker(
           map,
           new naver.maps.LatLng(place.latitude, place.longtitude),
@@ -124,7 +124,6 @@ function Map() {
       });
     }
   }, [ myLocation ]);
-
   return (
     <div id="map" className={$.map}>
       {isConstructionTooltip && (
@@ -161,10 +160,10 @@ function Map() {
           </NavLink>
         </div>
       )}
-      {isConstructionTooltip && !schoolSeveralLoading && (
+      {isConstructionTooltip && !schoolSeveralLoading && schoolSeveralData && (
         <Spot
-          schoolData={schoolSeveralData!.data}
-          url={schoolSeveralData!.data.images[0]?.url}
+          schoolData={schoolSeveralData}
+          url={schoolSeveralData.images[0]?.url}
           type="map"
           placeId={constructionId}
         />

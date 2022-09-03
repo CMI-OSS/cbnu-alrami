@@ -5,7 +5,8 @@ declare namespace res {
     latitude: number;
     longtitude: number;
     address: string;
-    school: "S" | "N" | "E";
+    // TODO: "S" | "N" | "E";
+    school: string;
     image: Image;
   };
 
@@ -25,7 +26,8 @@ declare namespace res {
       createdAt: string;
       buildingNumber: string;
       oldBuildingNumber: string;
-      area: "S" | "N" | "E";
+      // TODO: "S" | "N" | "E";
+      area: string;
     };
     images: Image[];
   };

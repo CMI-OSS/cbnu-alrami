@@ -1,4 +1,3 @@
-import caxios from "src/api/caxios";
 import http from "src/api/core";
 
 export const postArticleBookmark = (articleId: req.Bookmark["articleId"]) => {
@@ -16,11 +15,11 @@ export const getBookmarkSchedules = (): Promise<res.Schedule[]> => {
 export const postScheduleBookmark = (
   scheduleId: req.Bookmark["scheduleId"],
 ) => {
-  return caxios.post(`/bookmark/schedule/${scheduleId}`);
+  return http.post(`/bookmark/schedule/${scheduleId}`);
 };
 
 export const deleteScheduleBookmark = (
   scheduleId: req.Bookmark["scheduleId"],
 ) => {
-  return caxios.delete(`/bookmark/schedule/${scheduleId}`);
+  return http.delete(`/bookmark/schedule/${scheduleId}`);
 };

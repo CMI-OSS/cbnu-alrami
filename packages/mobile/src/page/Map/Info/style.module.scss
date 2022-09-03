@@ -20,6 +20,7 @@
 
 .title {
   @include typography(18);
+  font-weight: 500;
   line-height: 28px;
   letter-spacing: 0.02em;
   color: $black-80;
@@ -44,7 +45,7 @@
   color: $black-80;
 
   &:not(:first-child) {
-    margin-top: 24px;
+    margin-top: 28px;
   }
 }
 

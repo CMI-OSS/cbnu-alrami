@@ -26,7 +26,7 @@
 }
 
 .info {
-  padding-top: 16px;
+  padding-top: 19px;
   margin-left: 16px;
   flex: 1 1 auto;
 }
@@ -46,7 +46,7 @@
   @include typography(12);
   display: block;
   line-height: 20px;
-  margin-top: 12px;
+  margin-top: 8px;
   color: $black-50;
 }
 
@@ -65,7 +65,7 @@
   }
 
   svg {
-    margin-left: 3px;
+    margin: 0 0 -1px 3px;
   }
 }
 

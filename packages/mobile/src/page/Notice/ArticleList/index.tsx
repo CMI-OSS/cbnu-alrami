@@ -1,3 +1,4 @@
+import { useIntersect } from "@hooks/UseIntersect";
 import useSearch from "@hooks/useSearch";
 import {
   useArticlesByBoard,
@@ -15,15 +16,20 @@ import $ from "./style.module.scss";
 const useArticles = (target: string) => {
   if (target === "bookmark") return useBookmarkArticles();
   if (target === "popular") return usePopularArticles();
-  if (target === "new") return useNewArticles({ pageNo: 2 });
-  return useArticlesByBoard(Number(target), { pageNo: 2 });
+  if (target === "new") return useNewArticles();
+  return useArticlesByBoard({ boardId: Number(target) });
 };
 
 function ArticleList() {
   const target = useSearch({ target: "type" }) || "new";
-
-  const { data } = useArticles(target);
-  const articles = data?.contents;
+  const { data, hasNextPage, isFetching, fetchNextPage } = useArticles(target);
+  const articles = data?.pages;
+  const ref = useIntersect(async (entry, observer) => {
+    observer.unobserve(entry.target);
+    if (hasNextPage && !isFetching) {
+      await fetchNextPage();
+    }
+  });
 
   if (!articles?.length && target === "bookmark") {
     return (
@@ -56,14 +62,18 @@ function ArticleList() {
   }
   return (
     <div className={$["notification-list"]}>
-      {articles?.map(({ id, title, date, hits, breadcrumb, scraps }) => {
-        return (
-          <Article
-            key={id}
-            {...{ id, title, date, hits, breadcrumb, scraps }}
-          />
-        );
+      {articles?.map((article) => {
+        return article.map((articleData) => {
+          const { id, title, date, hits, breadcrumb, scraps } = articleData;
+          return (
+            <Article
+              key={id}
+              {...{ id, title, date, hits, breadcrumb, scraps }}
+            />
+          );
+        });
       })}
+      <div ref={ref} />
     </div>
   );
 }

@@ -31,6 +31,6 @@ declare namespace res {
 
 declare namespace req {
   type Pagination = {
-    pageNo: number;
+    boardId: number;
   };
 }

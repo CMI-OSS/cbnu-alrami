@@ -2,12 +2,14 @@ import type {
   MutationFunction,
   QueryFunction,
   QueryKey,
+  UseInfiniteQueryOptions,
+  UseInfiniteQueryResult,
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
   UseQueryResult,
 } from "react-query";
-import { useMutation, useQuery } from "react-query";
+import { useInfiniteQuery, useMutation, useQuery } from "react-query";
 
 import type { AxiosError } from "axios";
 
@@ -29,6 +31,22 @@ export function useCoreMutation<T, U>(
   options?: Omit<UseMutationOptions<T, AxiosError, U>, "mutationKey">,
 ): UseMutationResult<T, AxiosError, U> {
   return useMutation(mutation, {
+    onError: (err) => {
+      return console.error(err);
+    },
+    ...options,
+  });
+}
+
+export function useCoreInfiniteQuery<T>(
+  keyName: QueryKey,
+  query: QueryFunction<T, QueryKey>,
+  options?: Omit<
+    UseInfiniteQueryOptions<T, AxiosError>,
+    "queryKey" | "queryFn"
+  >,
+): UseInfiniteQueryResult<T, AxiosError> {
+  return useInfiniteQuery(keyName, query, {
     onError: (err) => {
       return console.error(err);
     },

@@ -1,5 +1,5 @@
 declare namespace res {
-  type ArticleByBoard = {
+  type BoardArticle = {
     id: number;
     board: Board;
     title: string;
@@ -32,8 +32,10 @@ declare namespace res {
 declare namespace req {
   type Article = {
     articleId: number;
+    boardId: number;
   };
   type Pagination = {
-    boardId: number;
+    pageNo: number;
+    boardId?: number;
   };
 }

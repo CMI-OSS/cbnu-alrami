@@ -1,7 +1,7 @@
 import { LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
+import { useBoardArticlesQuery } from "@hooks/api/article";
 import { useIntersect } from "@hooks/UseIntersect";
-import { useArticlesByBoard } from "src/api/article";
 import { useBoardTree } from "src/api/boardTree";
 import { useSubscribeBoards } from "src/api/subscribe";
 import guideEmptyNotice from "src/assets/guide_empty_notice.png";
@@ -19,7 +19,7 @@ function Preview() {
     hasNextPage,
     isFetching,
     fetchNextPage,
-  } = useArticlesByBoard({ boardId });
+  } = useBoardArticlesQuery(boardId);
   const { data: subscribeData } = useSubscribeBoards();
   const articles = articleData?.pages;
 
@@ -55,12 +55,13 @@ function Preview() {
       )}
       <div className={$["notification-list"]}>
         {articles?.map((article) => {
-          return article.map((articleData) => {
-            const { id, title, date, hits, breadcrumb, scraps } = articleData;
+          return article.contents.map((articleData) => {
+            const { id, title, date, hits, scraps } = articleData;
+            const breadcrumb = `${articleData.board.parent?.name} > ${articleData.board.name}`;
             return (
               <Article
                 key={id}
-                {...{ id, title, date, hits, breadcrumb, scraps }}
+                {...{ id, title, date, hits, scraps, breadcrumb }}
               />
             );
           });

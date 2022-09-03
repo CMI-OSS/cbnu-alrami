@@ -47,6 +47,7 @@ function Subscription() {
         const newBoardIds = boardIds ? [ ...boardIds, `${id}` ] : [ `${id}` ];
         return (
           <Selector
+            key={id}
             boardNames={newBoardNames}
             boardIds={newBoardIds}
             boardTree={boardTree}

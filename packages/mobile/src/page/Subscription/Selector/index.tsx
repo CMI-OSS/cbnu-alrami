@@ -21,7 +21,7 @@ const getDescription = (name: string) => {
 };
 
 function Selector({ boardNames, boardIds, boardTree }: Props) {
-  const { id, isSubscribing, isNoticing, name, url, children } = boardTree;
+  const { id, isSubscribing, isNoticing, name } = boardTree;
   const isLast = isSubscribing !== undefined && isNoticing !== undefined;
   const to = isLast
     ? `/preview?boardId=${id}`
@@ -42,9 +42,7 @@ function Selector({ boardNames, boardIds, boardTree }: Props) {
           {(name === "공통" || name === "전공" || name === "학생회") && (
             <span className={$.description}>{getDescription(name)}</span>
           )}
-          {isLast && (
-            <Status boardId={boardTree.id} {...{ isSubscribing, isNoticing }} />
-          )}
+          {isLast && <Status boardId={boardTree.id} />}
         </BorderBox>
       </Link>
     </div>

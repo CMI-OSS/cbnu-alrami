@@ -7,8 +7,11 @@ export const queryKey = {
   },
   bookmarkArticles: [ "bookmarkArticles" ],
   newArticles: [ "newArticles" ],
-  popularArtucles: [ "popularArticles" ],
+  popularArticles: [ "popularArticles" ],
   boardTrees: [ "boardTrees" ],
-  boardTree: [ "boardTree" ],
+  boardTree: (boardId: req.BoardTree["boardId"]) => {
+    return [ "boardTree", boardId ];
+  },
   bookmarkSchedules: [ "bookmarkSchedules" ],
+  subscribeBoards: [ "subscribeBoards" ],
 };

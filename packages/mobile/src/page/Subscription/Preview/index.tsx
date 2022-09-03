@@ -3,7 +3,6 @@ import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import { useBoardArticlesQuery } from "@hooks/api/article";
 import { useBoardTreeQuery } from "@hooks/api/boardTree";
 import { useIntersect } from "@hooks/UseIntersect";
-import { useSubscribeBoards } from "src/api/subscribe";
 import guideEmptyNotice from "src/assets/guide_empty_notice.png";
 import useSearch from "src/hooks/useSearch";
 import Article from "src/page/Notice/Article";
@@ -20,7 +19,6 @@ function Preview() {
     isFetching,
     fetchNextPage,
   } = useBoardArticlesQuery(boardId);
-  const { data: subscribeData } = useSubscribeBoards();
   const articles = articleData?.pages;
 
   const ref = useIntersect(async (entry, observer) => {
@@ -30,21 +28,11 @@ function Preview() {
     }
   });
 
-  const subscribe = subscribeData?.find((data) => {
-    return data.boardId === boardId;
-  });
-
   return (
     <FullPageModalTemplate
       left={<LeftArrow stroke="#AAAAAA" size={16} />}
       title={boardData?.name}
-      right={
-        <Status
-          boardId={boardId}
-          isNoticing={!!subscribe?.isNoticing}
-          isSubscribing={!!subscribe}
-        />
-      }
+      right={<Status boardId={boardId} />}
     >
       {!articles?.length && (
         <img

@@ -60,7 +60,7 @@ export const useNewArticlesQuery = () => {
 
 export const usePopularArticlesQuery = () => {
   return useCoreInfiniteQuery(
-    queryKey.popularArtucles,
+    queryKey.popularArticles,
     ({ pageParam = 1 }) => {
       return getPopularArticles();
     },

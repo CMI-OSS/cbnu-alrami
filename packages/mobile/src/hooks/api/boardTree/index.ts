@@ -12,7 +12,7 @@ export const useBoardTreesQuery = () => {
 };
 
 export const useBoardTreeQuery = (boardId: req.BoardTree["boardId"]) => {
-  return useCoreQuery(queryKey.boardTree, () => {
+  return useCoreQuery(queryKey.boardTree(boardId), () => {
     return getBoardTree(boardId);
   });
 };

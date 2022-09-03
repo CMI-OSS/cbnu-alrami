@@ -1,16 +1,16 @@
 import { useCoreInfiniteQuery, useCoreQuery } from "@hooks/api/core";
 import {
-  fetchArticle,
-  fetchBoardArticles,
-  fetchBookmarkArticles,
-  fetchNewArticles,
-  fetchPopularArticles,
+  getArticle,
+  getBoardArticles,
+  getBookmarkArticles,
+  getNewArticles,
+  getPopularArticles,
 } from "src/api/article";
 import { queryKey } from "src/consts/react-query";
 
 export const useArticleQuery = (articleId: req.Article["articleId"]) => {
   return useCoreQuery(queryKey.article(articleId), () => {
-    return fetchArticle(articleId);
+    return getArticle(articleId);
   });
 };
 
@@ -20,7 +20,7 @@ export const useBoardArticlesQuery = (boardId: req.Article["boardId"]) => {
   return useCoreInfiniteQuery(
     queryKey.boardArticles(boardId),
     ({ pageParam = 1 }) => {
-      return fetchBoardArticles({ boardId, pageNo: pageParam });
+      return getBoardArticles({ boardId, pageNo: pageParam });
     },
     {
       getNextPageParam: ({ pagination: { isEnd, pageNumber } }) => {
@@ -34,7 +34,7 @@ export const useBookmarkArticlesQuery = () => {
   return useCoreInfiniteQuery(
     queryKey.bookmarkArticles,
     ({ pageParam = 1 }) => {
-      return fetchBookmarkArticles();
+      return getBookmarkArticles();
     },
     {
       getNextPageParam: ({ pagination: { isEnd, pageNumber } }) => {
@@ -48,7 +48,7 @@ export const useNewArticlesQuery = () => {
   return useCoreInfiniteQuery(
     queryKey.newArticles,
     ({ pageParam = 1 }) => {
-      return fetchNewArticles({ pageNo: pageParam });
+      return getNewArticles({ pageNo: pageParam });
     },
     {
       getNextPageParam: ({ pagination: { isEnd, pageNumber } }) => {
@@ -62,7 +62,7 @@ export const usePopularArticlesQuery = () => {
   return useCoreInfiniteQuery(
     queryKey.popularArtucles,
     ({ pageParam = 1 }) => {
-      return fetchPopularArticles();
+      return getPopularArticles();
     },
     {
       getNextPageParam: ({ pagination: { isEnd, pageNumber } }) => {

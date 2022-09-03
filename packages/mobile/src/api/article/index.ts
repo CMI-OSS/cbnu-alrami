@@ -1,32 +1,30 @@
 import http from "src/api/core";
 import { Pagination } from "src/type/api";
 
-export const fetchArticle = (
+export const getArticle = (
   articleId: req.Article["articleId"],
 ): Promise<res.Article> => {
   return http.get(`/boards/articles/${articleId}`);
 };
 
-export const fetchBoardArticles = (
+export const getBoardArticles = (
   params: req.Pagination,
 ): Promise<Pagination<res.BoardArticle>> => {
   return http.get(`/boards/${params.boardId}/articles`, { params });
 };
 
-export const fetchBookmarkArticles = (): Promise<
+export const getBookmarkArticles = (): Promise<
   Pagination<res.BoardArticle>
 > => {
   return http.get(`/articles/bookmarks`);
 };
 
-export const fetchNewArticles = (
+export const getNewArticles = (
   params: req.Pagination,
 ): Promise<Pagination<res.BoardArticle>> => {
   return http.get(`/articles/subscribe`, { params });
 };
 
-export const fetchPopularArticles = (): Promise<
-  Pagination<res.BoardArticle>
-> => {
+export const getPopularArticles = (): Promise<Pagination<res.BoardArticle>> => {
   return http.get(`/articles/popular`);
 };

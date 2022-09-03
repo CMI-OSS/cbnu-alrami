@@ -22,12 +22,12 @@ const settingMenuList = [
   {
     icon: Speaker,
     label: "공지사항",
-    to: "./notice",
+    to: "/preview?boardId=30101",
   },
   {
     icon: AppVersion,
     label: "앱 버전",
-    to: "./appversion",
+    to: "./",
   },
   {
     icon: Email,

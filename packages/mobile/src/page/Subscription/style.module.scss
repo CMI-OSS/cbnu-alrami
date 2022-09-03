@@ -26,34 +26,3 @@
   }
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 21px;
-  margin-bottom: 12px;
-}
-
-.status {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 21px;
-  margin-bottom: 12px;
-}
-
-
-.name {
-  font-weight: 500;
-  @include typography(18);
-
-  svg {
-    margin-left: 4px;
-  }
-}
-
-.description {
-  margin-top: 13px;
-  @include typography(14);
-  color: $black-40;
-}

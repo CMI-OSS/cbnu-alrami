@@ -8,4 +8,6 @@ export const queryKey = {
   bookmarkArticles: [ "bookmarkArticles" ],
   newArticles: [ "newArticles" ],
   popularArtucles: [ "popularArticles" ],
+  boardTrees: [ "boardTrees" ],
+  boardTree: [ "boardTree" ],
 };

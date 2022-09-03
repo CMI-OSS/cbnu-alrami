@@ -21,7 +21,7 @@ type Props = {
   isNoticing: boolean;
 } & DefaultProps;
 
-function Status({ boardId, isSubscribing, isNoticing, className }: Props) {
+function Status({ boardId, isSubscribing, isNoticing, ...props }: Props) {
   const addAlarm = useAddAlarm();
   const removeAlarm = useRemoveAlarm();
   const addSubscribe = useAddSubscribe();

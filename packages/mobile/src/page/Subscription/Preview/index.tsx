@@ -1,8 +1,8 @@
 import { LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import { useBoardArticlesQuery } from "@hooks/api/article";
+import { useBoardTreeQuery } from "@hooks/api/boardTree";
 import { useIntersect } from "@hooks/UseIntersect";
-import { useBoardTree } from "src/api/boardTree";
 import { useSubscribeBoards } from "src/api/subscribe";
 import guideEmptyNotice from "src/assets/guide_empty_notice.png";
 import useSearch from "src/hooks/useSearch";
@@ -13,7 +13,7 @@ import $ from "./style.module.scss";
 
 function Preview() {
   const boardId = Number(useSearch({ target: "boardId" }));
-  const { data: boardData } = useBoardTree(boardId);
+  const { data: boardData } = useBoardTreeQuery(boardId);
   const {
     data: articleData,
     hasNextPage,
@@ -37,7 +37,7 @@ function Preview() {
   return (
     <FullPageModalTemplate
       left={<LeftArrow stroke="#AAAAAA" size={16} />}
-      title={boardData?.data.name}
+      title={boardData?.name}
       right={
         <Status
           boardId={boardId}

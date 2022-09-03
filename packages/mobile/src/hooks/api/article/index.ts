@@ -14,6 +14,8 @@ export const useArticleQuery = (articleId: req.Article["articleId"]) => {
   });
 };
 
+// TODO: pages[0]으로 접근안하고 가지고오기
+
 export const useBoardArticlesQuery = (boardId: req.Article["boardId"]) => {
   return useCoreInfiniteQuery(
     queryKey.boardArticles(boardId),

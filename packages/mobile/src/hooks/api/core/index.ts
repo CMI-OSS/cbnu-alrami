@@ -8,16 +8,18 @@ import type {
   UseMutationResult,
   UseQueryOptions,
   UseQueryResult,
-} from "react-query";
-import { useInfiniteQuery, useMutation, useQuery } from "react-query";
-
+} from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 
-export function useCoreQuery<T>(
+export function useCoreQuery<T, U = null>(
   keyName: QueryKey,
   query: QueryFunction<T, QueryKey>,
-  options?: Omit<UseQueryOptions<T, AxiosError>, "queryKey" | "queryFn">,
-): UseQueryResult<T, AxiosError> {
+  options?: Omit<
+    UseQueryOptions<T, AxiosError, U extends null ? T : U>,
+    "queryKey" | "queryFn"
+  >,
+): UseQueryResult<U extends null ? T : U, AxiosError> {
   return useQuery(keyName, query, {
     onError: (err) => {
       return console.error(err);

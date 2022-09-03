@@ -1,10 +1,10 @@
 import classNames from "classnames";
 import { Dayjs } from "dayjs";
-import { useCafeteria } from "src/api/cafeteria";
 import BorderBox from "src/components/atoms/BorderBox";
 import { Write } from "src/components/atoms/icon";
 import Line from "src/components/atoms/Line";
 import { CAFETERIA_LIST } from "src/constants";
+import { useCafeteriasQuery } from "src/hooks/api/cafeteria";
 import getCafeteriaTime from "src/page/Cafeteria/constants";
 import { Restaurant } from "src/type";
 
@@ -32,7 +32,7 @@ function Selected({
   onClick,
   className,
 }: Props) {
-  const allCafeteriaData = useCafeteria(today.format("YYYY-MM-DD"));
+  const allCafeteriaData = useCafeteriasQuery(today.format("YYYY-MM-DD"));
   const target = CAFETERIA_LIST.find((cafeteria) => {
     return cafeteria.name === cafeteriaName;
   });
@@ -46,7 +46,7 @@ function Selected({
     );
 
   const { data, isLoading, error } = allCafeteriaData[target.id - 1];
-  const menuData = data?.data.find(({ time }) => {
+  const menuData = data?.find(({ time }) => {
     return time === getMealTimeIndex(today.hour());
   });
 

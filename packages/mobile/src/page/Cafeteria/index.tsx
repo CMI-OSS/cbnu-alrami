@@ -90,7 +90,7 @@ function Cafeteria() {
                 width="130"
                 height="130"
               />
-              <span>오늘은 식단이 없어요</span>
+              <span className={$["go-out-text"]}>오늘은 식단이 없어요</span>
             </div>
           ))}
         <Footer />

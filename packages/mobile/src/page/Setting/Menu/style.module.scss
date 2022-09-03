@@ -8,11 +8,10 @@
   padding: 24px 0;
 
   .icon-box {
-    width: 20px;
+    width: 18px;
     display: flex;
     justify-content: center;
-    margin-right: 18px;
-
+    margin-right: 15px;
   }
 
   .label {
@@ -26,8 +25,8 @@
   .config {
     margin: auto 0 auto auto;
     font-size: 14px;
-    line-height: 23px;
+    line-height: 30px;
     letter-spacing: 0.01em;
-    color: $black-40;
+    color: $black-50;
   }
 }

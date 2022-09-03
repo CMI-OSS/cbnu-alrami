@@ -10,13 +10,15 @@ import $ from "./style.module.scss";
 
 const useArticles = (target: string) => {
   if (target === "popular") return usePopularArticles();
-  return useNewArticles({ pageNo: 2 });
+  return useNewArticles();
 };
 
 function Notice() {
   const target = useSearch({ target: "type" }) || "popular";
   const data = useArticles(target);
-  const articles = data.data?.contents.slice(0, 5);
+  const articles = data.data?.pages[0].slice(0, 5);
+
+  if (!articles) return <div>없음</div>;
 
   return (
     <BorderBox height={300} className={$.notice}>
@@ -39,7 +41,7 @@ function Notice() {
       </header>
       <Line />
       <div className={$.contents}>
-        {articles?.map((article) => {
+        {articles.map((article) => {
           return (
             <Link to={`/notice/${article.id}`} key={article.id}>
               {article.title}

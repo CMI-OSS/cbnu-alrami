@@ -12,7 +12,7 @@ $linkTooltipDistance: 17px;
 }
 
 .place-link {
-  @include position(absolute, top 15px left 15px);
+  @include position(absolute, top 15px left 17px);
   z-index: 1000;
   width: 48px;
   height: 48px;
@@ -46,9 +46,9 @@ $linkTooltipDistance: 17px;
   border-radius: 10px;
   padding: 18px 12px 13px;
   background-color: $white;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: -0.02em;
-  line-height: 12px;
+  line-height: 14px;
   color: $black-80;
 
   .content {
@@ -56,26 +56,32 @@ $linkTooltipDistance: 17px;
     align-items: center;
 
     svg {
-      margin-right: 3px;
+      margin-right: 2px;
     }
   }
 }
 
 .balloon:after {
-  @include position(absolute, top 67px left 70px);
-  border-top: 15px solid #fff;
-  border-left: 20px solid transparent;
-  border-right: 0px solid transparent;
-  border-bottom: 0px solid transparent;
+  @include position(absolute, top 27px left 45px);
+  border-top: 59px solid #fff;
+  border-left: 63px solid transparent;
+  border-right: 0 solid transparent;
+  border-bottom: 0 solid transparent;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
   content: "";
+  z-index: -1;
 }
 
 .close_button {
-  @include position(absolute, top 6px right 5px);
+  @include position(absolute, top 6px right 7px);
   background-color: transparent;
   padding: 5px;
 }
 
+.text {
+  margin-top: 6px;
+}
 .small_icon {
   margin: 0 3px -1px 0;
 }

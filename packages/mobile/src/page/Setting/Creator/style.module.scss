@@ -15,9 +15,10 @@
 
     .cmi-text {
       margin-top: 30px;
-      @include typography(25);
-      letter-spacing: 0.015em;
+      font-size: 25px;
       font-weight: 500;
+      line-height: 38px;
+      letter-spacing: 0.015em;
     }
   }
 }

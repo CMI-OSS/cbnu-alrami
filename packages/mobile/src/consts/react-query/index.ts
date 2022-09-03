@@ -10,4 +10,5 @@ export const queryKey = {
   popularArtucles: [ "popularArticles" ],
   boardTrees: [ "boardTrees" ],
   boardTree: [ "boardTree" ],
+  bookmarkSchedules: [ "bookmarkSchedules" ],
 };

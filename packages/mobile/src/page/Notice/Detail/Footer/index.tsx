@@ -1,7 +1,7 @@
 import {
-  useAddArticleBookmark,
-  useRemoveArticleBookmark,
-} from "src/api/bookmark";
+  useAddArticleBookmarkMutation,
+  useRemoveArticleBookmarkMutation,
+} from "@hooks/api/bookmark";
 import { Internet, Share, Star } from "src/components/atoms/icon";
 import { toastSuccess } from "src/utils/toast";
 import { isWebView } from "src/utils/webview";
@@ -15,8 +15,8 @@ type Props = {
 };
 
 function Footer({ articleId, isBookmark, isCouncil }: Props) {
-  const addArticleBookmark = useAddArticleBookmark();
-  const removeArticleBookmark = useRemoveArticleBookmark();
+  const addArticleBookmark = useAddArticleBookmarkMutation(articleId);
+  const removeArticleBookmark = useRemoveArticleBookmarkMutation(articleId);
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(window.location.href);
@@ -28,10 +28,10 @@ function Footer({ articleId, isBookmark, isCouncil }: Props) {
 
   const handleBookmark = () => {
     if (isBookmark) {
-      removeArticleBookmark.mutate({ articleId });
+      removeArticleBookmark.mutate(articleId);
       return;
     }
-    addArticleBookmark.mutate({ articleId });
+    addArticleBookmark.mutate(articleId);
   };
 
   return (

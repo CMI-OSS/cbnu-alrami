@@ -15,4 +15,5 @@ export const queryKey = {
   bookmarkSchedules: [ "bookmarkSchedules" ],
   subscribeBoards: [ "subscribeBoards" ],
   weathers: [ "weathers" ],
+  schedules: [ "schedules" ],
 };

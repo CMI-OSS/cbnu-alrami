@@ -8,3 +8,10 @@ declare namespace res {
     endDate: string;
   };
 }
+
+declare namespace req {
+  type Schedule = {
+    year: number;
+    today: string;
+  };
+}

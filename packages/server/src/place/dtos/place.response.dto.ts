@@ -71,6 +71,15 @@ export class PlaceResponseDto {
 
   @IsOptional()
   @IsArray()
-  @ApiProperty({ default: "[]", description: "건물 이미지" })
+  @ApiProperty({
+    default: [
+      {
+        id: 1,
+        createdAt: "2022-07-29T18:27:41.923Z",
+        url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1659119261554.jpeg",
+      },
+    ],
+    description: "건물 이미지",
+  })
   images: Image[];
 }

@@ -52,7 +52,7 @@ function CafeteriaBody({ fullDate, day, selectedMenu }: Props) {
       {cafeteriaMenu && !cafeteriaMenu.length && (
         <div className={$["go-out"]}>
           <img src={noMenu} alt="메뉴가 없습니다." width="130" height="130" />
-          <span>오늘은 식단이 없어요</span>
+          <span className={$["go-out-text"]}>오늘은 식단이 없어요</span>
         </div>
       )}
     </main>

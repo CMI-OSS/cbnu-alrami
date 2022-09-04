@@ -1,30 +1,7 @@
 @import "../../../styles/main.scss";
 
 .cafeteria {
-  padding: 155px 35px 68px;
-}
-
-.go-out {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: $background-50;
-  font-size: 12px;
-
-  span {
-    margin: 0 auto 11px;
-    line-height: 20px;
-  }
-
-  &-link {
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-
-    svg {
-      margin-left: 4px;
-    }
-  }
+  padding: 133px 24px 88px;
 }
 
 .no-menu {
@@ -35,14 +12,14 @@
   justify-content: center;
 
   .go-out {
-    span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &-text {
       margin-top: 20px;
       line-height: 26px;
       font-size: 16px;
-    }
-
-    svg {
-      margin-left: 4px;
+      color: $background-50;
     }
   }
 }

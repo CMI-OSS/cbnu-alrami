@@ -5,7 +5,7 @@ interface Props {
   errorFallback: (...args: any[]) => ReactElement;
   fallBackHeight: string;
   children: ReactElement;
-  keys: any;
+  keys?: Array<unknown>;
 }
 
 interface State {
@@ -13,6 +13,18 @@ interface State {
   error?: Error | null;
 }
 const initialState = { hasError: false, error: null };
+
+const changedArray = (
+  prevArray: Array<unknown> = [],
+  nextArray: Array<unknown> = [],
+) => {
+  return (
+    prevArray.length !== nextArray.length ||
+    prevArray.some((item, index) => {
+      return !Object.is(item, nextArray[index]);
+    })
+  );
+};
 
 export default class ErrorBoundary extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -24,9 +36,15 @@ export default class ErrorBoundary extends React.Component<Props, State> {
     return { hasError: true, error };
   }
 
-  componentDidUpdate(prev: Props) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    const { error } = this.state;
     const { keys } = this.props;
-    if (prev.keys !== keys) {
+
+    if (
+      error !== null &&
+      prevState.error !== null &&
+      changedArray(prevProps.keys, keys)
+    ) {
       this.resetBoundary();
     }
   }

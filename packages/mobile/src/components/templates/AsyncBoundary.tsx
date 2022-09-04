@@ -7,7 +7,7 @@ interface Props {
   suspenseFallback: ReactElement;
   errorFallback: (...args: any[]) => ReactElement;
   fallBackHeight: string;
-  keys?: any;
+  keys?: Array<unknown>;
 }
 
 const AsyncBoundary = (props: PropsWithChildren<Props>) => {
@@ -19,7 +19,10 @@ const AsyncBoundary = (props: PropsWithChildren<Props>) => {
   }, [ reset ]);
 
   return (
-    <ErrorBoundary resetQuery={resetHandler} {...{ errorFallback, fallBackHeight, keys }}>
+    <ErrorBoundary
+      resetQuery={resetHandler}
+      {...{ errorFallback, fallBackHeight, keys }}
+    >
       <Suspense fallback={suspenseFallback}>{children}</Suspense>
     </ErrorBoundary>
   );

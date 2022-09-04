@@ -1,5 +1,4 @@
-import { useQuery } from "react-query";
-
+import { QueryKey, useQuery } from "@tanstack/react-query";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 
 import AsyncBoundary from ".";
@@ -17,20 +16,20 @@ const ErrorFallback = ({
 }) => {
   return (
     <>
-      <span data-testid="error-message">{error.message}</span>
-      <button type="button" data-testid="retry-button" onClick={reset}>
-        재시도
+      <span data-testid="errorMsg">{error.message}</span>
+      <button type="button" data-testid="retryButton" onClick={reset}>
+        다시 시도
       </button>
     </>
   );
 };
 
-const renderAsyncBoundary = (key: string, mock: jest.Mock<any, any>) => {
+const renderAsyncBoundary = (key: QueryKey, mock: jest.Mock<any, any>) => {
   const Component = () => {
     useQuery(key, () => {
       return mock();
     });
-    return <span data-testid="fetched-data">성공</span>;
+    return <span data-testid="fetchedData">성공</span>;
   };
 
   return (
@@ -46,7 +45,9 @@ const renderAsyncBoundary = (key: string, mock: jest.Mock<any, any>) => {
 
 describe("AsyncBoundary", () => {
   it("로딩", async () => {
-    const { findByTestId } = render(renderAsyncBoundary("로딩", jest.fn()));
+    const { findByTestId } = render(
+      renderAsyncBoundary([ "로딩", 1 ], jest.fn()),
+    );
     await waitFor(() => {
       return expect(findByTestId("isLoading")).toBeTruthy();
     });
@@ -55,10 +56,10 @@ describe("AsyncBoundary", () => {
   describe("에러 핸들링", () => {
     it("에러 발생", async () => {
       const mock = jest.fn().mockRejectedValue(new Error("에러"));
-      const { findByTestId } = render(renderAsyncBoundary("에러", mock));
+      const { findByTestId } = render(renderAsyncBoundary([ "에러", -1 ], mock));
 
       await waitFor(() => {
-        return expect(findByTestId("error-message")).toBeTruthy();
+        return expect(findByTestId("errorMsg")).toBeTruthy();
       });
     });
 
@@ -69,33 +70,33 @@ describe("AsyncBoundary", () => {
         .mockResolvedValueOnce({ data: "성공" });
 
       const { getByTestId, findByTestId } = render(
-        renderAsyncBoundary("retry", mock),
+        renderAsyncBoundary([ "retry", 2 ], mock),
       );
 
       await waitFor(() => {
-        return expect(findByTestId("retry-button")).toBeTruthy();
+        return expect(findByTestId("retryButton")).toBeTruthy();
       });
 
-      fireEvent.click(getByTestId("retry-button"));
+      fireEvent.click(getByTestId("retryButton"));
 
       await waitFor(() => {
         return expect(findByTestId("isLoading")).toBeTruthy();
       });
       await waitFor(() => {
-        return expect(findByTestId("fetched-data")).toBeTruthy();
+        return expect(findByTestId("fetchedData")).toBeTruthy();
       });
     });
 
     it("데이터 fetch 완료", async () => {
       const mock = jest.fn().mockResolvedValueOnce({ data: "성공" });
 
-      const { findByTestId } = render(renderAsyncBoundary("완료", mock));
+      const { findByTestId } = render(renderAsyncBoundary([ "완료", 3 ], mock));
 
       await waitFor(() => {
         return expect(findByTestId("isLoading")).toBeTruthy();
       });
       await waitFor(() => {
-        return expect(findByTestId("fetched-data")).toBeTruthy();
+        return expect(findByTestId("fetchedData")).toBeTruthy();
       });
     });
   });

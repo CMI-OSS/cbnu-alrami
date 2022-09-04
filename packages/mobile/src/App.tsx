@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import DeepLink from "src/page/Notice/Detail/DeepLink";
 import Subscription from "src/page/Subscription";
 
+import useWindowSizeDetect from "./hooks/useWindowSizeDetect";
 import "./mobile.scss";
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
@@ -23,6 +24,22 @@ import Preview from "./page/Subscription/Preview";
 
 function App() {
   const [ uuid, setUuid ] = useState("");
+  const [ _, height ] = useWindowSizeDetect();
+
+  const setScreenSize = () => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  };
+
+  useEffect(() => {
+    if (isAndroid || isIOS) {
+      setUuid(JSON.stringify(localStorage.getItem("token")));
+    }
+  }, []);
+
+  useEffect(() => {
+    setScreenSize();
+  }, [ height ]);
 
   const routes = [
     { path: "/notice", element: <Notice /> },
@@ -44,12 +61,6 @@ function App() {
     { path: "/setting/*", element: <SettingRoute /> },
     { path: "/*", element: <Navigate replace to="/home" /> },
   ];
-
-  useEffect(() => {
-    if (isAndroid || isIOS) {
-      setUuid(JSON.stringify(localStorage.getItem("token")));
-    }
-  }, []);
 
   return (
     <BrowserRouter>

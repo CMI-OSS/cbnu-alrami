@@ -33,8 +33,7 @@ function Cafeteria() {
   };
   const allCafeteriaData = useCafeteriasQuery(`${year}-${month + 1}-${date}`);
   const isHoliday = day === 6 || day === 0;
-  const { isLoading, data, isError } = allCafeteriaData[selectedMenu - 1];
-  const cafeteriaMenu = data?.data;
+  const { isLoading, data: cafeteriaMenu, isError } = allCafeteriaData[selectedMenu - 1];
 
   return (
     <>
@@ -56,7 +55,7 @@ function Cafeteria() {
       />
       <main
         className={classnames($.cafeteria, {
-          [$["no-menu"]]: cafeteriaMenuData && !cafeteriaMenuData.length,
+          [$["no-menu"]]: cafeteriaMenu && !cafeteriaMenu.length,
         })}
       >
         {isLoading && <span>로딩 중..</span>}

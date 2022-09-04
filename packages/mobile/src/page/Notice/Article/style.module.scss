@@ -1,4 +1,5 @@
 @import '../../../styles/main.scss';
+@import "@shared/styles/mixin.scss";
 
 .notification {
   display: flex;
@@ -20,9 +21,19 @@
     color: $black-100;
     @include typography(14);
     font-weight: 500;
+    @include ellipsis;
   }
 
   .detail {
     display: flex;
+  }
+
+  &.cmi {
+    justify-content: space-around;
+    height: 84px;
+
+    .breadcrumb, .hits, .scraps {
+      display: none;
+    }
   }
 }

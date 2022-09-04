@@ -23,7 +23,7 @@ export const useCafeteriaQuery = (
   date: req.Cafeteria["date"],
 ) => {
   return useCoreQuery<res.Cafeteria[], res.Cafeteria[]>(
-    [ queryKey.cafeteria(cafeteriaId, date), date, cafeteriaId ],
+    queryKey.cafeteria(cafeteriaId, date),
     () => {
       return getCafeteria({ cafeteriaId, date });
     },

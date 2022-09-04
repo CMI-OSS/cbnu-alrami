@@ -1,10 +1,10 @@
 import $ from "./style.module.scss";
 
-interface Props {
+type Props = {
   width: number;
   borderWidth: number;
   color: string;
-}
+};
 
 export default function LoadingSpinner({ width, borderWidth, color }: Props) {
   return (

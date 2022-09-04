@@ -4,12 +4,12 @@ import { useQueryErrorResetBoundary } from "@tanstack/react-query";
 
 import ErrorBoundary from "../ErrorBoundary";
 
-interface Props {
+type Props = {
   suspenseFallback: ReactElement;
   errorFallback: (...args: any[]) => ReactElement;
   fallBackHeight: string;
   keys?: Array<unknown>;
-}
+};
 
 const AsyncBoundary = (props: PropsWithChildren<Props>) => {
   const { suspenseFallback, errorFallback, children, keys, fallBackHeight } =

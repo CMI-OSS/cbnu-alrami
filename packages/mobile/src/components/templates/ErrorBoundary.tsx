@@ -1,17 +1,17 @@
 import React, { ReactElement } from "react";
 
-interface Props {
+type Props = {
   resetQuery?: () => void;
   errorFallback: (...args: any[]) => ReactElement;
   fallBackHeight: string;
   children: ReactElement;
   keys?: Array<unknown>;
-}
+};
 
-interface State {
+type State = {
   hasError: boolean;
   error?: Error | null;
-}
+};
 const initialState = { hasError: false, error: null };
 
 const changedArray = (

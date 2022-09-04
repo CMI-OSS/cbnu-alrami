@@ -33,12 +33,7 @@ function Cafeteria() {
   };
   const allCafeteriaData = useCafeteriasQuery(`${year}-${month + 1}-${date}`);
   const isHoliday = day === 6 || day === 0;
-  const {
-    isLoading,
-    data: cafeteriaMenuData,
-    error,
-  } = allCafeteriaData[selectedMenu - 1];
-  if (!cafeteriaMenuData || isLoading || error) return <></>;
+  const { isLoading, data: cafeteriaMenu, isError } = allCafeteriaData[selectedMenu - 1];
 
   return (
     <>
@@ -60,29 +55,41 @@ function Cafeteria() {
       />
       <main
         className={classnames($.cafeteria, {
-          [$["no-menu"]]: cafeteriaMenuData && !cafeteriaMenuData.length,
+          [$["no-menu"]]: cafeteriaMenu && !cafeteriaMenu.length,
         })}
       >
-        {cafeteriaMenuData?.map(({ content, time }) => {
-          const [ mealTime, timeInfo ] = getCafeteriaTime(
-            isHoliday,
-            selectedMenu,
-            time,
-          );
-          return (
-            <CafeteriaMenuCard
-              key={content}
-              {...{ mealTime, timeInfo }}
-              mealMenu={content}
-            />
-          );
-        })}
-        {cafeteriaMenuData.length === 0 && (
-          <div className={$["go-out"]}>
-            <img src={noMenu} alt="메뉴가 없습니다." width="130" height="130" />
-            <span>오늘은 식단이 없어요</span>
-          </div>
-        )}
+        {isLoading && <span>로딩 중..</span>}
+        {isError && <span>에러 발생</span>}
+
+        {cafeteriaMenu &&
+          cafeteriaMenu.length > 0 &&
+          cafeteriaMenu.map(({ content, time }) => {
+            const [ mealTime, timeInfo ] = getCafeteriaTime(
+              isHoliday,
+              selectedMenu,
+              time,
+            );
+            return (
+              <CafeteriaMenuCard
+                key={content}
+                {...{ mealTime, timeInfo }}
+                mealMenu={content}
+              />
+            );
+          })}
+
+        {!cafeteriaMenu ||
+          (!cafeteriaMenu.length && (
+            <div className={$["go-out"]}>
+              <img
+                src={noMenu}
+                alt="메뉴가 없습니다."
+                width="130"
+                height="130"
+              />
+              <span className={$["go-out-text"]}>오늘은 식단이 없어요</span>
+            </div>
+          ))}
         <Footer />
       </main>
     </>

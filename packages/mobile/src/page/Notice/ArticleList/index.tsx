@@ -69,6 +69,7 @@ function ArticleList() {
           return (
             <Article
               key={id}
+              type="cbnu"
               {...{ id, title, date, hits, breadcrumb, scraps }}
             />
           );

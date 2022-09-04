@@ -31,7 +31,7 @@ function ArticleList() {
     }
   });
 
-  if (!articles?.length && target === "bookmark") {
+  if (!articles || (!articles[0].contents.length && target === "bookmark")) {
     return (
       <img
         className={$["empty-img"]}
@@ -41,7 +41,7 @@ function ArticleList() {
     );
   }
 
-  if (!articles?.length && target === "new") {
+  if (!articles || (!articles[0].contents.length && target === "new")) {
     return (
       <img
         className={$["empty-img"]}

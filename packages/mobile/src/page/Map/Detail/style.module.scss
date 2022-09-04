@@ -17,8 +17,8 @@
 
 .detail-button {
   position: absolute;
-  top: 15px;
-  left: 15px;
+  top: 24px;
+  left: 24px;
   padding: 10px;
   margin: -10px;
 }
@@ -57,11 +57,12 @@
 }
 
 .description {
-  padding: 20px 26px 24px;
+  padding: 20px 24px 20px;
 }
 
 .description-title {
   @include typography(16);
+  font-weight: 500;
   line-height: 25px;
   color: $black-80;
 }
@@ -75,7 +76,7 @@
 }
 
 .detail {
-  padding: 24px 26px 18px;
+  padding: 22px 24px 20px;
   background-color: $white;
 
   &:not(:first-child) {

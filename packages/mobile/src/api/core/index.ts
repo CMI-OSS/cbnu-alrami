@@ -19,7 +19,8 @@ const handleRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
 };
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: `${import.meta.env.VITE_API_URL}`,
+  // baseURL: `${import.meta.env.VITE_API_URL}`,
+  baseURL:'https://dev-server.cmi.kro.kr/',
   timeout: 1000,
   headers: {
     "Content-Type": "application/json",

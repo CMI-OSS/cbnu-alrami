@@ -1,11 +1,11 @@
+import {
+  useBoardArticlesQuery,
+  useBookmarkArticlesQuery,
+  useNewArticlesQuery,
+  usePopularArticlesQuery,
+} from "@hooks/api/article";
 import { useIntersect } from "@hooks/UseIntersect";
 import useSearch from "@hooks/useSearch";
-import {
-  useArticlesByBoard,
-  useBookmarkArticles,
-  useNewArticles,
-  usePopularArticles,
-} from "src/api/article";
 import guideEmptyBookmark from "src/assets/guide_empty_bookmark.png";
 import guideEmptyNotice from "src/assets/guide_empty_notice.png";
 import guideEmptySubscription from "src/assets/guide_empty_subscription.png";
@@ -14,10 +14,10 @@ import Article from "src/page/Notice/Article";
 import $ from "./style.module.scss";
 
 const useArticles = (target: string) => {
-  if (target === "bookmark") return useBookmarkArticles();
-  if (target === "popular") return usePopularArticles();
-  if (target === "new") return useNewArticles();
-  return useArticlesByBoard({ boardId: Number(target) });
+  if (target === "bookmark") return useBookmarkArticlesQuery();
+  if (target === "popular") return usePopularArticlesQuery();
+  if (target === "new") return useNewArticlesQuery();
+  return useBoardArticlesQuery(Number(target));
 };
 
 function ArticleList() {
@@ -63,8 +63,9 @@ function ArticleList() {
   return (
     <div className={$["notification-list"]}>
       {articles?.map((article) => {
-        return article.map((articleData) => {
-          const { id, title, date, hits, breadcrumb, scraps } = articleData;
+        return article.contents.map((articleData) => {
+          const breadcrumb = `${articleData.board.parent?.name} > ${articleData.board.name}`;
+          const { id, title, date, hits, scraps } = articleData;
           return (
             <Article
               key={id}

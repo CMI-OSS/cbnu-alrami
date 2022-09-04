@@ -1,8 +1,8 @@
 import { ChangeEventHandler, useReducer, useState } from "react";
 
+import { useBookmarkSchedulesQuery } from "@hooks/api/bookmark";
+import { useFullSchedulesQuery } from "@hooks/api/schedule";
 import dayjs, { Dayjs } from "dayjs";
-import { useFetchBookmarkedSchedules } from "src/api/bookmark";
-import { useFetchFullSchedules } from "src/api/schedule";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
 import Footer from "src/components/molecules/Footer";
 import CardBox from "src/page/Calendar/CardBox";
@@ -29,8 +29,9 @@ function Calendar() {
     month: dayjs().month(),
   });
 
-  const { data: allSchedules } = useFetchFullSchedules(year);
-  const { data: bookmarkedSchedules } = useFetchBookmarkedSchedules();
+  const { data: allSchedules } = useFullSchedulesQuery(year);
+  const { data: bookmarkedSchedules } = useBookmarkSchedulesQuery();
+  if (!bookmarkedSchedules || !allSchedules) return <div>없음</div>;
 
   const today = dayjs();
   const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);

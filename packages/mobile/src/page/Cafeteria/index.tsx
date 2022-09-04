@@ -2,13 +2,13 @@ import { useReducer } from "react";
 
 import classnames from "classnames";
 import dayjs from "dayjs";
-import { useCafeteria } from "src/api/cafeteria";
 import noMenu from "src/assets/no_menu.png";
 import CafeteriaMenuCard from "src/components/molecules/CafeteriaMenuCard";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
 import Footer from "src/components/molecules/Footer";
 import MenuList from "src/components/molecules/MenuList";
 import { CAFETERIA_LIST } from "src/constants";
+import { useCafeteriasQuery } from "src/hooks/api/cafeteria";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { selectMenu } from "src/store/cafeteriaSlice";
 
@@ -17,13 +17,13 @@ import getCafeteriaTime from "./constants";
 import $ from "./style.module.scss";
 
 function Cafeteria() {
+  const today = dayjs();
   const [ { year, month, date, day }, dispatchDay ] = useReducer(caledarReducer, {
-    year: dayjs().year(),
-    month: dayjs().month(),
-    date: dayjs().date(),
-    day: dayjs().day(),
+    year: today.year(),
+    month: today.month(),
+    date: today.date(),
+    day: today.day(),
   });
-
   const dispatch = useAppDispatch();
   const { selectedMenu } = useAppSelector((state) => {
     return state.persistedReducer.cafeteria.cafeteria;
@@ -31,7 +31,7 @@ function Cafeteria() {
   const handleMenu = (id: number) => {
     dispatch(selectMenu({ selectedMenu: id }));
   };
-  const allCafeteriaData = useCafeteria(`${year}-${month + 1}-${date}`);
+  const allCafeteriaData = useCafeteriasQuery(`${year}-${month + 1}-${date}`);
   const isHoliday = day === 6 || day === 0;
   const { isLoading, data, isError } = allCafeteriaData[selectedMenu - 1];
   const cafeteriaMenu = data?.data;
@@ -49,16 +49,14 @@ function Cafeteria() {
           }}
         />
       </header>
-
       <MenuList
         menuList={CAFETERIA_LIST}
         onClick={handleMenu}
         clickedMenu={selectedMenu}
       />
-
       <main
         className={classnames($.cafeteria, {
-          [$["no-menu"]]: cafeteriaMenu && !cafeteriaMenu.length,
+          [$["no-menu"]]: cafeteriaMenuData && !cafeteriaMenuData.length,
         })}
       >
         {isLoading && <span>로딩 중..</span>}

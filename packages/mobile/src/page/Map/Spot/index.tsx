@@ -6,11 +6,12 @@ import classNames from "classnames";
 import $ from "./style.module.scss";
 
 type Props = {
-  schoolData: res.School | res.SchoolById;
+  schoolData: res.School | res.SchoolDetail;
   type: "map" | "place";
   url: string;
   placeId: number;
 };
+
 function Spot({ schoolData, type, placeId, url }: Props) {
   return (
     <>

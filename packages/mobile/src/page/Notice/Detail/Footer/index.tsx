@@ -1,7 +1,9 @@
+import { isMobile } from "react-device-detect";
+
 import {
-  useAddArticleBookmark,
-  useRemoveArticleBookmark,
-} from "src/api/bookmark";
+  useAddArticleBookmarkMutation,
+  useRemoveArticleBookmarkMutation,
+} from "@hooks/api/bookmark";
 import { Internet, Share, Star } from "src/components/atoms/icon";
 import { toastSuccess } from "src/utils/toast";
 import { isWebView } from "src/utils/webview";
@@ -15,11 +17,15 @@ type Props = {
 };
 
 function Footer({ articleId, isBookmark, isCouncil }: Props) {
-  const addArticleBookmark = useAddArticleBookmark();
-  const removeArticleBookmark = useRemoveArticleBookmark();
+  const addArticleBookmark = useAddArticleBookmarkMutation(articleId);
+  const removeArticleBookmark = useRemoveArticleBookmarkMutation(articleId);
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(window.location.href);
+    if (isMobile && baseApp) {
+      baseApp.postMessage(window.location.href);
+    } else {
+      await navigator.clipboard.writeText(window.location.href);
+    }
     return toastSuccess({
       message: "공지 링크가 클립보드에 복사되었습니다.",
       style: { marginBottom: "58px" },
@@ -28,10 +34,10 @@ function Footer({ articleId, isBookmark, isCouncil }: Props) {
 
   const handleBookmark = () => {
     if (isBookmark) {
-      removeArticleBookmark.mutate({ articleId });
+      removeArticleBookmark.mutate(articleId);
       return;
     }
-    addArticleBookmark.mutate({ articleId });
+    addArticleBookmark.mutate(articleId);
   };
 
   return (

@@ -2,12 +2,12 @@ import { useMemo } from "react";
 
 import classNames from "classnames";
 import { Dayjs } from "dayjs";
-import {
-  useAddScheduleBookmark,
-  useRemoveScheduleBookmark,
-} from "src/api/bookmark";
 import BorderBox from "src/components/atoms/BorderBox";
 import { Star } from "src/components/atoms/icon";
+import {
+  useAddScheduleBookmarkMutation,
+  useRemoveScheduleBookmarkMutation,
+} from "src/hooks/api/bookmark";
 import { DefaultProps } from "src/type/props";
 import { getDatePeriod } from "src/utils/calendarTools";
 
@@ -23,18 +23,18 @@ type Props = {
 
 function CollegeCard(props: Props) {
   const { id, className, content, startDate, endDate, isBookmarked } = props;
-  const addScheduleBookmark = useAddScheduleBookmark();
-  const removeScheduleBookmark = useRemoveScheduleBookmark();
+  const addScheduleBookmark = useAddScheduleBookmarkMutation();
+  const removeScheduleBookmark = useRemoveScheduleBookmarkMutation();
   const period = useMemo(() => {
     return getDatePeriod(startDate, endDate);
   }, [ startDate, endDate ]);
 
   const handleStarClick = () => {
     if (isBookmarked) {
-      removeScheduleBookmark.mutate({ scheduleId: id });
+      removeScheduleBookmark.mutate(id);
       return;
     }
-    addScheduleBookmark.mutate({ scheduleId: id });
+    addScheduleBookmark.mutate(id);
   };
 
   return (

@@ -7,7 +7,7 @@ function Creator() {
   return (
     <SettingTemplate title="만든이" className={$.creator}>
       <div className={$["team-intro"]}>
-        <CMILogo size={100} />
+        <CMILogo size={70} />
         <span className={$["cmi-text"]}>CMI</span>
       </div>
     </SettingTemplate>

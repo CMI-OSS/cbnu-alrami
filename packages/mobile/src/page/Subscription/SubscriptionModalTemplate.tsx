@@ -13,7 +13,7 @@ function SubscriptionModalTemplate({ children }: Props) {
   const navigate = useNavigate();
 
   return (
-    <div className={$.modal}>
+    <div className={$["subscription-modal"]}>
       <FullPageModalTemplate
         left={<LeftArrow stroke="#AAAAAA" size={16} />}
         right={

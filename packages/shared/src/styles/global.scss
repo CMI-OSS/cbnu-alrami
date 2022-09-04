@@ -1,6 +1,9 @@
 @import "./main.scss";
 @import "./font.scss";
 
+:root {
+  --vh: 100%;
+}
 html,
 body,
 div,

@@ -3,14 +3,14 @@
 
 $top-height: 446px;
 $footer-height: 64px;
-$empty-box-height: calc(100vh - $top-height - $footer-height);
+$empty-box-height: calc(var(--vh, 1vh) * 100 - $top-height - $footer-height);
 
 .empty-box {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - $top-height - $footer-height);
+  height: calc(var(--vh, 1vh) * 100 - $top-height - $footer-height);
 
   .discription {
     @include typography(14);

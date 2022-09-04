@@ -1,9 +1,8 @@
 import { LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
+import { useBoardArticlesQuery } from "@hooks/api/article";
+import { useBoardTreeQuery } from "@hooks/api/boardTree";
 import { useIntersect } from "@hooks/UseIntersect";
-import { useArticlesByBoard } from "src/api/article";
-import { useBoardTree } from "src/api/boardTree";
-import { useSubscribeBoards } from "src/api/subscribe";
 import guideEmptyNotice from "src/assets/guide_empty_notice.png";
 import useSearch from "src/hooks/useSearch";
 import Article from "src/page/Notice/Article";
@@ -13,14 +12,13 @@ import $ from "./style.module.scss";
 
 function Preview() {
   const boardId = Number(useSearch({ target: "boardId" }));
-  const { data: boardData } = useBoardTree(boardId);
+  const { data: boardData } = useBoardTreeQuery(boardId);
   const {
     data: articleData,
     hasNextPage,
     isFetching,
     fetchNextPage,
-  } = useArticlesByBoard({ boardId });
-  const { data: subscribeData } = useSubscribeBoards();
+  } = useBoardArticlesQuery(boardId);
   const articles = articleData?.pages;
 
   const ref = useIntersect(async (entry, observer) => {
@@ -30,21 +28,11 @@ function Preview() {
     }
   });
 
-  const subscribe = subscribeData?.find((data) => {
-    return data.boardId === boardId;
-  });
-
   return (
     <FullPageModalTemplate
       left={<LeftArrow stroke="#AAAAAA" size={16} />}
-      title={boardData?.data.name}
-      right={
-        <Status
-          boardId={boardId}
-          isNoticing={!!subscribe?.isNoticing}
-          isSubscribing={!!subscribe}
-        />
-      }
+      title={boardData?.name}
+      right={<Status boardId={boardId} />}
     >
       {!articles?.length && (
         <img
@@ -55,12 +43,13 @@ function Preview() {
       )}
       <div className={$["notification-list"]}>
         {articles?.map((article) => {
-          return article.map((articleData) => {
-            const { id, title, date, hits, breadcrumb, scraps } = articleData;
+          return article.contents.map((articleData) => {
+            const { id, title, date, hits, scraps } = articleData;
+            const breadcrumb = `${articleData.board.parent?.name} > ${articleData.board.name}`;
             return (
               <Article
                 key={id}
-                {...{ id, title, date, hits, breadcrumb, scraps }}
+                {...{ id, title, date, hits, scraps, breadcrumb }}
               />
             );
           });

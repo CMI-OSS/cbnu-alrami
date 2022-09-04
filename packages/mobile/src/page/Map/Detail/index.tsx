@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 
 import { LeftArrow } from "@components/atoms/icon";
 import ImageList from "@components/molecules/ImageList";
+import { useSchoolQuery } from "@hooks/api/school";
 import classNames from "classnames";
-import { useSchoolById } from "src/api/school";
 import BorderBox from "src/components/atoms/BorderBox";
 import useSearch from "src/hooks/useSearch";
 import Info from "src/page/Map/Info";
@@ -17,13 +17,11 @@ function MapDetail() {
     data: detailData,
     isLoading: detailLoading,
     isError: detailError,
-  } = useSchoolById(detailId);
+  } = useSchoolQuery(detailId);
   if (detailLoading) return <div>로딩중입니다.</div>;
   if (detailError) return <div>에러가 발생했습니다.</div>;
   if (detailData === undefined)
     return <div>캠퍼스 장소 리스트 불러오기 실패</div>;
-
-  const detailSeveralData = detailData!.data;
 
   return (
     <div className={$.wrap}>
@@ -47,29 +45,27 @@ function MapDetail() {
         className={$["back-image"]}
         style={{
           backgroundImage: `url(
-            ${detailSeveralData?.images[0]?.url}
+            ${detailData.images[0]?.url}
           )`,
         }}
       />
       <Info
-        buildingNumber={detailSeveralData?.school?.buildingNumber}
-        oldBuildingNumber={detailSeveralData?.school?.oldBuildingNumber}
-        name={detailSeveralData?.name}
-        address={detailSeveralData?.address}
-        contact={detailSeveralData?.contact}
+        buildingNumber={detailData.school?.buildingNumber}
+        oldBuildingNumber={detailData.school?.oldBuildingNumber}
+        name={detailData.name}
+        address={detailData.address}
+        contact={detailData.contact}
       />
       <BorderBox className={classNames($.menu, $.description)}>
         <strong className={$["description-title"]}>설명</strong>
-        <p className={$["description-text"]}>
-          {detailSeveralData?.description}
-        </p>
+        <p className={$["description-text"]}>{detailData.description}</p>
       </BorderBox>
       <BorderBox className={$.detail}>
         <strong className={$["detail-title"]}>상세이미지</strong>
         <ImageList
           isMoreContents
-          name={detailSeveralData?.name}
-          detailImageList={detailSeveralData?.images}
+          name={detailData.name}
+          detailImageList={detailData.images}
         />
       </BorderBox>
     </div>

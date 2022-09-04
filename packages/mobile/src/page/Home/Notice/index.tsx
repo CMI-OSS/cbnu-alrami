@@ -2,21 +2,24 @@ import { Link } from "react-router-dom";
 
 import BorderBox from "@components/atoms/BorderBox";
 import Line from "@components/atoms/Line";
+import {
+  useNewArticlesQuery,
+  usePopularArticlesQuery,
+} from "@hooks/api/article";
 import useSearch from "@hooks/useSearch";
 import classNames from "classnames";
-import { useNewArticles, usePopularArticles } from "src/api/article";
 
 import $ from "./style.module.scss";
 
-const useArticles = (target: string) => {
-  if (target === "popular") return usePopularArticles();
-  return useNewArticles();
+const useArticles = (type: string) => {
+  if (type === "popular") return usePopularArticlesQuery();
+  return useNewArticlesQuery();
 };
 
 function Notice() {
-  const target = useSearch({ target: "type" }) || "popular";
-  const data = useArticles(target);
-  const articles = data.data?.pages[0].slice(0, 5);
+  const type = useSearch({ target: "type" }) || "popular";
+  const { data, isLoading, isError } = useArticles(type);
+  const articles = data?.pages[0].contents.slice(0, 5);
 
   if (!articles) return <div>없음</div>;
 
@@ -27,13 +30,13 @@ function Notice() {
         <div className={$.categories}>
           <Link
             to="?type=popular"
-            className={classNames($.category, target === "popular" && $.active)}
+            className={classNames($.category, type === "popular" && $.active)}
           >
             인기
           </Link>
           <Link
             to="?type=new"
-            className={classNames($.category, target === "new" && $.active)}
+            className={classNames($.category, type === "new" && $.active)}
           >
             최신
           </Link>

@@ -1,13 +1,13 @@
 import { useReducer } from "react";
 
 import dayjs from "dayjs";
-import { cafeteriaList } from "src/__mocks__";
 import ErrorFallback from "src/components/atoms/ErrorFallback";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
 import Footer from "src/components/molecules/Footer";
 import MenuList from "src/components/molecules/MenuList";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
+import { CAFETERIA_LIST } from "src/constants";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { selectMenu } from "src/store/cafeteriaSlice";
 
@@ -47,7 +47,7 @@ function Cafeteria() {
       </header>
 
       <MenuList
-        menuList={cafeteriaList}
+        menuList={CAFETERIA_LIST}
         onClick={handleMenu}
         clickedMenu={selectedMenu}
       />
@@ -57,7 +57,7 @@ function Cafeteria() {
         errorFallback={ErrorFallback}
         fallBackHeight="100vh"
       >
-        <CafeteriaBody {...{ fullDate, selectedMenu }} />
+        <CafeteriaBody day={day || 1} {...{ fullDate, selectedMenu }} />
       </AsyncBoundary>
 
       <Footer />

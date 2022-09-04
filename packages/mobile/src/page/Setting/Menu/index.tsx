@@ -35,7 +35,7 @@ function Menu({ route, config }: Props) {
         onClick={handleModalShow}
       >
         <div className={$["icon-box"]}>
-          <route.icon size={16} stroke="#5e5e5e" />
+          <route.icon size={18} stroke="#5e5e5e" />
         </div>
         <span className={$.label}>{label}</span>
         {config && <span className={$.config}>{config}</span>}

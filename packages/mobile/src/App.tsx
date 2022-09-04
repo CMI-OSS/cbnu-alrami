@@ -1,6 +1,9 @@
+import { useEffect, useState } from "react";
+import { isAndroid, isIOS } from "react-device-detect";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import DeepLink from "src/page/Notice/Detail/DeepLink";
 import Subscription from "src/page/Subscription";
 
 import "./mobile.scss";
@@ -19,6 +22,8 @@ import SettingRoute from "./page/Setting";
 import Preview from "./page/Subscription/Preview";
 
 function App() {
+  const [ uuid, setUuid ] = useState("");
+
   const routes = [
     { path: "/notice", element: <Notice /> },
     { path: "/notice/:articleId", element: <NoticeDetail /> },
@@ -35,19 +40,26 @@ function App() {
     { path: "/place/report", element: <Report /> },
     { path: "/place/error", element: <Error /> },
     { path: "/place/more", element: <MoreImage /> },
+    { path: "/place/:name", element: <MapDetail /> },
     { path: "/setting/*", element: <SettingRoute /> },
+    { path: "/*", element: <Navigate replace to="/home" /> },
   ];
+
+  useEffect(() => {
+    if (isAndroid || isIOS) {
+      setUuid(JSON.stringify(localStorage.getItem("token")));
+    }
+  }, []);
 
   return (
     <BrowserRouter>
+      <DeepLink />
       <Routes>
         {routes.map((route) => {
           return (
             <Route key={route.path} path={route.path} element={route.element} />
           );
         })}
-        <Route path="*" element={<Navigate replace to="/home" />} />
-        <Route path="/place/:name" element={<MapDetail />} />
       </Routes>
     </BrowserRouter>
   );

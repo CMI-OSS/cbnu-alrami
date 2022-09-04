@@ -3,7 +3,8 @@ import { animateScroll } from "react-scroll";
 import { Arrow } from "@components/atoms/icon";
 import guideEmptyFavoritesSchedule from "src/assets/guide_empty_favorites_schedule.png";
 import useScroll from "src/hooks/useScroll";
-import { Schedule, ScheduleType } from "src/page/Calendar";
+import { ScheduleType } from "src/page/Calendar";
+import { Schedule } from "src/type";
 
 import CollegeCard from "../CollegeCard";
 import $ from "./style.module.scss";
@@ -11,21 +12,29 @@ import $ from "./style.module.scss";
 const CALLENDAR_UNVISIBLE_POINT = 320;
 
 type Props = {
+  bookmarkedSchedules: Schedule[];
   scheduleType: ScheduleType;
-  schedules: Schedule[];
+  todaysSchedules: Schedule[];
 };
 
-function CardBox({ scheduleType, schedules }: Props) {
-  const { Y } = useScroll();
+function CardBox({
+  scheduleType,
+  todaysSchedules,
+  bookmarkedSchedules,
+}: Props) {
+  const { y } = useScroll();
+  const bookmarkedIDList = bookmarkedSchedules.map(({ id }) => {
+    return id;
+  });
 
-  if (schedules.length === 0)
+  if (todaysSchedules.length === 0)
     return (
       <section className={$["empty-box"]}>
         {scheduleType === "all" ? (
           <span className={$.discription}>오늘은 일정이 없어요</span>
         ) : (
           <img
-            className={$["empty-bookmark-board"]}
+            width={239}
             src={guideEmptyFavoritesSchedule}
             alt="즐겨찾기된 학사일정 없음"
           />
@@ -35,10 +44,16 @@ function CardBox({ scheduleType, schedules }: Props) {
 
   return (
     <section className={$["card-box"]}>
-      {schedules.map(({ id, content, startDate, endDate }) => {
-        return <CollegeCard key={id} {...{ content, startDate, endDate }} />;
+      {todaysSchedules.map(({ id, content, startDate, endDate }) => {
+        return (
+          <CollegeCard
+            key={id}
+            isBookmarked={bookmarkedIDList.includes(id)}
+            {...{ id, content, startDate, endDate }}
+          />
+        );
       })}
-      {Y > CALLENDAR_UNVISIBLE_POINT && (
+      {y > CALLENDAR_UNVISIBLE_POINT && (
         <button
           className={$["floating-button"]}
           type="button"

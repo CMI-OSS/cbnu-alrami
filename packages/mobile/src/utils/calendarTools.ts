@@ -2,8 +2,7 @@ import { Calendar } from "calendar";
 import dayjs, { Dayjs } from "dayjs";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
-import { BOOKMARK_SCHEDULES } from "src/__mocks__/schedules";
-import { Schedule } from "src/page/Calendar";
+import { Schedule } from "src/type";
 import { flatten } from "underscore";
 
 dayjs.extend(isSameOrAfter);
@@ -15,19 +14,6 @@ export const MAXIMUM_DATE = 31;
 export const MINIMUM_MONTH = 0;
 export const MINIMUM_DATE = 1;
 export const DAY = [ "일", "월", "화", "수", "목", "금", "토" ] as const;
-
-export const fetchBookmarkSchedules = () => {
-  return BOOKMARK_SCHEDULES.map(
-    ({ isHoliyday, startDate, endDate, ...last }) => {
-      return {
-        isHoliyday: !!isHoliyday,
-        startDate: dayjs(startDate),
-        endDate: endDate ? dayjs(endDate) : null,
-        ...last,
-      };
-    },
-  );
-};
 
 export const filterTodaySchedules = (
   selected: Dayjs,
@@ -90,20 +76,20 @@ export const getCalendarMap = (
   const calendarMap = calendar1D.map((date) => {
     for (let i = 0; i < schedules.length; i += 1) {
       const schedule = schedules[i];
-      const { startDate, endDate, isHoliyday } = schedule;
+      const { startDate, endDate, isHoliday } = schedule;
       if (endDate) {
         if (
           startDate.isSameOrBefore(date, "date") &&
           endDate.isSameOrAfter(date, "date")
         ) {
-          return { date, isSchedule: true, isHoliyday };
+          return { date, isScheduleExists: true, isHoliday };
         }
       }
       if (startDate.isSame(date, "date")) {
-        return { date, isSchedule: true, isHoliyday };
+        return { date, isScheduleExists: true, isHoliday };
       }
     }
-    return { date, isSchedule: false, isHoliyday: false };
+    return { date, isScheduleExists: false, isHoliday: false };
   });
   return calendarMap;
 };

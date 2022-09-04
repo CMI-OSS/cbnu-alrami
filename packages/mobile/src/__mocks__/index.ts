@@ -1,6 +1,4 @@
-import cafeteriaList from "./cafeteriaList";
 import cafeteriaMenu from "./cafeteriaMenu";
-import cafeteriaTimeInfo from "./cafeteriaTimeInfo";
 import constructionInfo from "./constructionInfo";
 import convenientList from "./convenientList";
 import detailImageList from "./detailImageList";
@@ -11,9 +9,7 @@ export {
   menuList,
   detailImageList,
   mapImageList,
-  cafeteriaTimeInfo,
   cafeteriaMenu,
-  cafeteriaList,
   constructionInfo,
   convenientList,
 };

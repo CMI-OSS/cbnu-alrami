@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import $ from "./style.module.scss";
 
 type Props = {
-  left: JSX.Element;
+  left?: JSX.Element;
   title?: string;
   right?: JSX.Element;
   children: React.ReactNode;

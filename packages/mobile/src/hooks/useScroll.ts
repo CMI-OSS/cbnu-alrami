@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 
 const useScroll = () => {
   const [ position, setPosition ] = useState({
-    X: 0,
-    Y: 0,
+    x: 0,
+    y: 0,
   });
   const onScroll = () => {
     setPosition({
-      X: window.scrollX,
-      Y: window.scrollY,
+      x: window.scrollX,
+      y: window.scrollY,
     });
   };
   useEffect(() => {

@@ -2,22 +2,26 @@ import { useParams } from "react-router-dom";
 
 import { LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
+import { useArticleQuery } from "@hooks/api/article";
 import dayjs from "dayjs";
-import { useArticle } from "src/api/article";
+import { isWebView } from "src/utils/webview";
 
 import Footer from "./Footer";
 import $ from "./style.module.scss";
 
 function Detail() {
   const { articleId } = useParams();
-  const { isLoading, error, data } = useArticle(Number(articleId));
-  if (!data || error || isLoading) return <></>;
-  const article = data.data;
+  const {
+    data: article,
+    error,
+    isLoading,
+  } = useArticleQuery(Number(articleId)!);
 
+  if (!article || error || isLoading) return <></>;
   return (
     <div className={$["notice-detail"]}>
       <FullPageModalTemplate
-        left={<LeftArrow size={16} stroke="#AAAAAA" />}
+        left={isWebView ? <></> : <LeftArrow size={16} stroke="#AAAAAA" />}
         title={article.board.name}
       >
         <div className={$.children}>

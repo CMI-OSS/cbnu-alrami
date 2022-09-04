@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 import { LeftArrow } from "@components/atoms/icon";
 import ChipGroup from "@components/molecules/ChipGroup";
-import { useSchool } from "src/api/school";
+import { useSchoolsQuery } from "@hooks/api/school";
 import BorderBox from "src/components/atoms/BorderBox";
 import useSearch from "src/hooks/useSearch";
 import DetailGroup from "src/page/Place/DetailGroup";
@@ -19,7 +19,7 @@ function PlaceDetail() {
     data: schoolData,
     isLoading: schoolLoading,
     isError: schoolError,
-  } = useSchool();
+  } = useSchoolsQuery();
   if (schoolLoading) return <div>로딩중입니다.</div>;
   if (schoolError) return <div>에러가 발생했습니다.</div>;
   if (schoolData === undefined)
@@ -30,8 +30,8 @@ function PlaceDetail() {
   };
 
   const currentPosition = position.split("")[0].toUpperCase();
-  const schoolDatas = schoolData!.data.filter((item: res.School) => {
-    return item?.school?.area === currentPosition || currentPosition === "A";
+  const schoolDatas = schoolData.filter((item: res.School) => {
+    return item?.school === currentPosition || currentPosition === "A";
   });
 
   const checkMenu = (position: string) => {

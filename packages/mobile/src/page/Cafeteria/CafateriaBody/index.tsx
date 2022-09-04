@@ -1,29 +1,30 @@
 import { memo } from "react";
 
 import classnames from "classnames";
-import { useCafeteria } from "src/api/cafeteria";
 import noMenu from "src/assets/no_menu.png";
 import CafeteriaMenuCard from "src/components/molecules/CafeteriaMenuCard";
-import { cafeteriaTime } from "src/utils/cafeteriaTime";
+import { useCafeteriaQuery } from "src/hooks/api/cafeteria";
+import getCafeteriaTime from "src/page/Cafeteria/constants";
 
 import $ from "./style.module.scss";
 
 type Props = {
   fullDate: string;
+  day: number;
   selectedMenu: number;
 };
 
-function CafeteriaBody({ fullDate, selectedMenu }: Props) {
-  const { data: data1 } = useCafeteria(1, fullDate);
-  const { data: data2 } = useCafeteria(2, fullDate);
-  const { data: data3 } = useCafeteria(3, fullDate);
-  const { data: data4 } = useCafeteria(4, fullDate);
-  const { data: data5 } = useCafeteria(5, fullDate);
-  const { data: data6 } = useCafeteria(6, fullDate);
+function CafeteriaBody({ fullDate, day, selectedMenu }: Props) {
+  const { data: data1 } = useCafeteriaQuery(1, fullDate);
+  const { data: data2 } = useCafeteriaQuery(2, fullDate);
+  const { data: data3 } = useCafeteriaQuery(3, fullDate);
+  const { data: data4 } = useCafeteriaQuery(4, fullDate);
+  const { data: data5 } = useCafeteriaQuery(5, fullDate);
+  const { data: data6 } = useCafeteriaQuery(6, fullDate);
 
+  const isHoliday = day === 6 || day === 0;
   const allCafeteriaData = [ data1, data2, data3, data4, data5, data6 ];
-  const data = allCafeteriaData[selectedMenu - 1];
-  const cafeteriaMenu = data?.data;
+  const cafeteriaMenu = allCafeteriaData[selectedMenu - 1];
 
   return (
     <main
@@ -34,7 +35,11 @@ function CafeteriaBody({ fullDate, selectedMenu }: Props) {
       {cafeteriaMenu &&
         cafeteriaMenu.length > 0 &&
         cafeteriaMenu.map(({ content, time }) => {
-          const [ mealTime, timeInfo ] = cafeteriaTime(selectedMenu, time);
+          const [ mealTime, timeInfo ] = getCafeteriaTime(
+            isHoliday,
+            selectedMenu,
+            time,
+          );
           return (
             <CafeteriaMenuCard
               key={content}

@@ -2,7 +2,6 @@
 
 import dayjs from "dayjs";
 import find from "lodash/find";
-import { useWeathers } from "src/api/weather";
 import BorderBox from "src/components/atoms/BorderBox";
 import {
   Info,
@@ -20,6 +19,11 @@ import {
 } from "src/components/atoms/icon";
 
 import $ from "./style.module.scss";
+
+type Props = {
+  weather: res.Weather;
+  onSuggestionClick: () => void;
+};
 
 const colors = {
   morning: "#E0F0FF",
@@ -73,6 +77,13 @@ const iconToBackgrounds = [
   },
   {
     backgroundColor: colors.cloudy,
+    icon: <비 />,
+    text: "이슬비",
+    type: "Drizzle",
+    time: "morning",
+  },
+  {
+    backgroundColor: colors.cloudy,
     icon: <안개 />,
     text: "안개",
     type: "Fog",
@@ -108,17 +119,7 @@ const iconToBackgrounds = [
   },
 ];
 
-function Weather() {
-  const {
-    data: weatherData,
-    isLoading: weatherLoading,
-    isError: weatherError,
-  } = useWeathers();
-  if (weatherLoading) return <div>로딩중입니다.</div>;
-  if (weatherError) return <div>에러가 발생했습니다.</div>;
-  if (!weatherData) return <div>날씨 정보가 없습니다.</div>;
-
-  const weather = weatherData.data;
+function Weather({ weather, onSuggestionClick }: Props) {
   const currentTime = dayjs().hour() >= 12 ? "night" : "morning";
   const { currentWeather } = weather;
   const timeTarget = find(iconToBackgrounds, ({ type, time }) => {
@@ -131,7 +132,7 @@ function Weather() {
 
   return (
     <div className={$.weather}>
-      <BorderBox height={155} background={iconToBackground?.backgroundColor}>
+      <BorderBox height={156} background={iconToBackground?.backgroundColor}>
         <div className={$.first}>
           <span className={$.amount}>{weather.currentTemp.slice(0, 4)}°C</span>
           <span className={$.description}>청주, {iconToBackground?.text}</span>
@@ -141,10 +142,10 @@ function Weather() {
         </div>
         <div className={$.second}>
           {iconToBackground?.icon}
-          <div className={$.more}>
+          <button className={$.more} type="button" onClick={onSuggestionClick}>
             <Info size={14} stroke="#aaa" />
             기온별 옷차림
-          </div>
+          </button>
         </div>
       </BorderBox>
     </div>

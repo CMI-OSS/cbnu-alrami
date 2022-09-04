@@ -15,6 +15,6 @@ export const getCafeteria = async (
     }
     return response;
   } catch (err) {
-    throw new Error("네트워크 오류");
+    throw new Error("네트워크 오류가 발생했습니다.<br>다시 시도해주세요.");
   }
 };

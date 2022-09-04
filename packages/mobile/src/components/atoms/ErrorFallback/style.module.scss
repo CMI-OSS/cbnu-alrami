@@ -12,9 +12,11 @@
     .error-msg {
       margin-bottom: 31px;
       @include typography(14);
+      text-align: center;
     }
     .reset-btn {
-      width: fit-content;
+      width: 96px;
+      height: 40px;
       padding: 8px 20px;
       border-radius: 100px;
       background-color: $red-50;

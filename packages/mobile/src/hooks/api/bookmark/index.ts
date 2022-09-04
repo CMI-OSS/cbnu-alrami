@@ -1,4 +1,4 @@
-import { useCoreMutation, useCoreQuery } from "@hooks/api/core";
+import {useCoreMutation, useCoreQuery} from "@hooks/api/core";
 import dayjs from "dayjs";
 import {
   deleteArticleBookmark,
@@ -7,10 +7,11 @@ import {
   postArticleBookmark,
   postScheduleBookmark,
 } from "src/api/bookmark";
-import { queryKey } from "src/consts/react-query";
-import { queryClient } from "src/main";
-import { Schedule } from "src/type";
+import {queryKey} from "src/consts/react-query";
+import {queryClient} from "src/main";
+import {Schedule} from "src/type";
 
+// TODO: queryKey.bookmarkArticles invalidate
 export const useAddArticleBookmarkMutation = (
   articleId: req.Bookmark["articleId"],
 ) => {

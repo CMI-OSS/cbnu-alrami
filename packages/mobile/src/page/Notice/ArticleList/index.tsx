@@ -51,7 +51,7 @@ function ArticleList() {
     );
   }
 
-  if (!articles?.length) {
+  if (!articles || !articles[0].contents.length) {
     return (
       <img
         className={$["empty-img"]}

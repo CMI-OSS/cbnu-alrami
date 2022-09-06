@@ -21,6 +21,7 @@ export class ArticleDto {
 export class ArticleDetailInfoDto extends ArticleBaseDto {
   board: BoardTreeResponseDto;
   date: Date;
+  updatedAt!: Date;
 }
 
 export class ArticleListInfoDto extends ArticleBaseDto {
@@ -29,6 +30,7 @@ export class ArticleListInfoDto extends ArticleBaseDto {
 }
 
 export class ArticleResponseDto extends ArticleDetailInfoDto {
+  updatedAt!: Date;
   content!: string;
   isBookmark: boolean;
   images: ImageResponseDto[];

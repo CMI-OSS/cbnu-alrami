@@ -3,18 +3,25 @@
 
 .card {
     position: relative;
-    margin-top: 10px;
-    padding: 16px 22px;
+    height: 80px;
+    padding: 22px 20px 18px;
+
+    &:not(:first-child) {
+        margin-top: 10px;
+    }
 
     .content {
+        @include typography(14);
         display: block;
+        line-height: 23px;
         font-weight: 500;
     }
 
     .period {
-        margin-top: 8px;
-        color: $black-50;
         @include typography(12);
+        margin-top: 9px;
+        color: $black-50;
+        line-height: 20px;
     }
 
     .star {

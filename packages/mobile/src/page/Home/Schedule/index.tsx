@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import classNames from "classnames";
 import dayjs, { Dayjs } from "dayjs";
@@ -8,7 +9,7 @@ import { getTimePeriod } from "src/utils/calendarTools";
 
 import $ from "./style.module.scss";
 
-const MAX_WIDTH = 23 as const;
+const MAX_HEIGHT = 23 as const;
 
 type Props = {
   content: string;
@@ -18,6 +19,7 @@ type Props = {
 };
 
 function Schedule({ content, startDate, endDate, today }: Props) {
+  const navigate = useNavigate();
   const start = dayjs(startDate);
   const end = endDate ? dayjs(endDate) : null;
   const period = getTimePeriod(start, end, today);
@@ -27,28 +29,34 @@ function Schedule({ content, startDate, endDate, today }: Props) {
   useEffect(() => {
     const spanHeight = ref.current?.clientHeight;
     if (!spanHeight) return;
-    if (spanHeight > MAX_WIDTH) {
+    if (spanHeight > MAX_HEIGHT) {
       setIsLong(true);
       return;
     }
     setIsLong(false);
   }, []);
 
+  const handleCardClick = () => {
+    navigate("/calendar");
+  };
+
   return (
-    <BorderBox width={270} height={100} className={$.container}>
-      <div>
-        <span
-          ref={ref}
-          className={classNames($["schedule-name"], {
-            [$["long-schedule-name"]]: isLong,
-          })}
-        >
-          {content}
-        </span>
-        <time className={$.period}>{period}</time>
-      </div>
-      <LongArrow size={8} stroke="#aaa" />
-    </BorderBox>
+    <button type="button" className={$.button} onClick={handleCardClick}>
+      <BorderBox width={272} height={104} className={$.container}>
+        <div>
+          <span
+            ref={ref}
+            className={classNames($["schedule-name"], {
+              [$["long-schedule-name"]]: isLong,
+            })}
+          >
+            {content}
+          </span>
+          <time className={$.period}>{period}</time>
+        </div>
+        <LongArrow size={8} stroke="#aaa" />
+      </BorderBox>
+    </button>
   );
 }
 

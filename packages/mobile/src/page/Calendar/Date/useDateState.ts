@@ -7,7 +7,7 @@ type Props = {
   today: Dayjs;
   selectedDate: Dayjs;
   date: Dayjs;
-  isHoliyday: boolean;
+  isHoliday: boolean;
   month: number;
   index: number;
 };
@@ -15,7 +15,7 @@ type Props = {
 function useDateState({
   today,
   selectedDate,
-  isHoliyday,
+  isHoliday,
   date,
   month,
   index,
@@ -44,7 +44,7 @@ function useDateState({
       return;
     }
     const isSunday = index % DAY.length === 0;
-    setIsRed(isSunday || isHoliyday);
+    setIsRed(isSunday || isHoliday);
     setIsGray(currentMonth !== month);
   }, [ date, isSelected, month ]);
 

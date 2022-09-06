@@ -1,10 +1,11 @@
-import useSearch from "@hooks/useSearch";
 import {
-  useArticlesByBoard,
-  useBookmarkArticles,
-  useNewArticles,
-  usePopularArticles,
-} from "src/api/article";
+  useBoardArticlesQuery,
+  useBookmarkArticlesQuery,
+  useNewArticlesQuery,
+  usePopularArticlesQuery,
+} from "@hooks/api/article";
+import { useIntersect } from "@hooks/UseIntersect";
+import useSearch from "@hooks/useSearch";
 import guideEmptyBookmark from "src/assets/guide_empty_bookmark.png";
 import guideEmptyNotice from "src/assets/guide_empty_notice.png";
 import guideEmptySubscription from "src/assets/guide_empty_subscription.png";
@@ -13,19 +14,24 @@ import Article from "src/page/Notice/Article";
 import $ from "./style.module.scss";
 
 const useArticles = (target: string) => {
-  if (target === "bookmark") return useBookmarkArticles();
-  if (target === "popular") return usePopularArticles();
-  if (target === "new") return useNewArticles({ pageNo: 2 });
-  return useArticlesByBoard(Number(target), { pageNo: 2 });
+  if (target === "bookmark") return useBookmarkArticlesQuery();
+  if (target === "popular") return usePopularArticlesQuery();
+  if (target === "new") return useNewArticlesQuery();
+  return useBoardArticlesQuery(Number(target));
 };
 
 function ArticleList() {
   const target = useSearch({ target: "type" }) || "new";
+  const { data, hasNextPage, isFetching, fetchNextPage } = useArticles(target);
+  const articles = data?.pages;
+  const ref = useIntersect(async (entry, observer) => {
+    observer.unobserve(entry.target);
+    if (hasNextPage && !isFetching) {
+      await fetchNextPage();
+    }
+  });
 
-  const { data } = useArticles(target);
-  const articles = data?.contents;
-
-  if (!articles?.length && target === "bookmark") {
+  if (!articles || (!articles[0].contents.length && target === "bookmark")) {
     return (
       <img
         className={$["empty-img"]}
@@ -35,7 +41,7 @@ function ArticleList() {
     );
   }
 
-  if (!articles?.length && target === "new") {
+  if (!articles || (!articles[0].contents.length && target === "new")) {
     return (
       <img
         className={$["empty-img"]}
@@ -45,7 +51,7 @@ function ArticleList() {
     );
   }
 
-  if (!articles?.length) {
+  if (!articles || !articles[0].contents.length) {
     return (
       <img
         className={$["empty-img"]}
@@ -56,14 +62,20 @@ function ArticleList() {
   }
   return (
     <div className={$["notification-list"]}>
-      {articles?.map(({ id, title, date, hits, breadcrumb, scraps }) => {
-        return (
-          <Article
-            key={id}
-            {...{ id, title, date, hits, breadcrumb, scraps }}
-          />
-        );
+      {articles?.map((article) => {
+        return article.contents.map((articleData) => {
+          const breadcrumb = `${articleData.board.parent?.name} > ${articleData.board.name}`;
+          const { id, title, date, hits, scraps } = articleData;
+          return (
+            <Article
+              key={id}
+              type="cbnu"
+              {...{ id, title, date, hits, breadcrumb, scraps }}
+            />
+          );
+        });
       })}
+      <div ref={ref} />
     </div>
   );
 }

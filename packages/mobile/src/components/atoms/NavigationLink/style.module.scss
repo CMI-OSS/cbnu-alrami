@@ -1,3 +1,5 @@
+@import '../../../styles/main.scss';
+
 .link {
   display: flex;
   flex-direction: column;
@@ -8,16 +10,16 @@
 
   .label {
     margin-top: 6px;
-    color: #aaa;
+    color: $black-60;
   }
 }
 
 .active {
   svg path {
-    stroke: #d66d6e;
+    stroke: $red-50;
   }
 
   .label {
-    color: #d66d6e;
+    color: $red-50;
   }
 }

@@ -77,6 +77,13 @@ const iconToBackgrounds = [
   },
   {
     backgroundColor: colors.cloudy,
+    icon: <비 />,
+    text: "이슬비",
+    type: "Drizzle",
+    time: "morning",
+  },
+  {
+    backgroundColor: colors.cloudy,
     icon: <안개 />,
     text: "안개",
     type: "Fog",
@@ -125,7 +132,7 @@ function Weather({ weather, onSuggestionClick }: Props) {
 
   return (
     <div className={$.weather}>
-      <BorderBox height={155} background={iconToBackground?.backgroundColor}>
+      <BorderBox height={156} background={iconToBackground?.backgroundColor}>
         <div className={$.first}>
           <span className={$.amount}>{weather.currentTemp.slice(0, 4)}°C</span>
           <span className={$.description}>청주, {iconToBackground?.text}</span>

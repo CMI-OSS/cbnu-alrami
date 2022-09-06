@@ -1,3 +1,5 @@
+import { Dayjs } from "dayjs";
+
 export type Restaurant =
   | "본관"
   | "양성재"
@@ -5,7 +7,7 @@ export type Restaurant =
   | "별빛식당"
   | "은하수식당"
   | "한빛식당"
-  | "선택안함";
+  | "표시 안함";
 
 export type Menu = { id: number; name: string };
 
@@ -14,4 +16,9 @@ export type CalendarInfo = {
   month: number;
   date?: number;
   day?: number;
+};
+
+export type Schedule = Omit<res.Schedule, "startDate" | "endDate"> & {
+  startDate: Dayjs;
+  endDate: Dayjs | null;
 };

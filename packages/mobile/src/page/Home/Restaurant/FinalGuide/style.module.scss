@@ -1,0 +1,36 @@
+@import "../../../../styles/main.scss";
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .description {
+    @include typography(14);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 52px;
+    line-height: 30px;
+    color: $black-80;
+
+    .second {
+      display: flex;
+      align-items: center;
+
+      .icon {
+        display: flex;
+        align-items: center;
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .button {
+    @include typography(14);
+    width: 96px;
+    height: 40px;
+    margin: 31px 0;
+    line-height: 30px;
+  }
+}

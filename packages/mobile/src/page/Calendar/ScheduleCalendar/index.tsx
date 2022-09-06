@@ -27,26 +27,20 @@ function ScheduleCalendar({
     <section className={$.box}>
       <ul className={$.calendar}>
         {DAY.map((day) => {
-          return <Day key={day} className={$.fraction} day={day} />;
+          return <Day key={day} className={$.day} day={day} />;
         })}
-        {calendarMap.map(({ date, isSchedule, isHoliyday }, index) => {
-          return (
-            <Date
-              key={date.format()}
-              className={$.fraction}
-              {...{
-                date,
-                isSchedule,
-                isHoliyday,
-                today,
-                month,
-                index,
-                selectedDate,
-                setSelectedDate,
-              }}
-            />
-          );
-        })}
+        {calendarMap.map(
+          ({ date, isScheduleExists: isSchedule, isHoliday }, index) => {
+            return (
+              <Date
+                key={date.format()}
+                className={$.date}
+                {...{ date, isSchedule, isHoliday, today }}
+                {...{ month, index, selectedDate, setSelectedDate }}
+              />
+            );
+          },
+        )}
       </ul>
     </section>
   );

@@ -9,7 +9,7 @@ type Props = {
 function ErrorFallback(props: Props) {
   const { error, reset, height } = props;
   return (
-    <div className={$["error-fallback"]} style={{ ...{ height } }}>
+    <div className={$["error-fallback"]} style={{ height }}>
       <div className={$["error-fallback-box"]}>
         <span
           className={$["error-msg"]}

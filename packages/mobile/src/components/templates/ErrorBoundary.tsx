@@ -3,7 +3,7 @@ import React, { ReactElement } from "react";
 type Props = {
   resetQuery?: () => void;
   errorFallback: (...args: any[]) => ReactElement;
-  fallBackHeight: string;
+  fallBackHeight?: string;
   children: ReactElement;
   keys?: Array<unknown>;
 };

@@ -7,7 +7,7 @@ import ErrorBoundary from "../ErrorBoundary";
 type Props = {
   suspenseFallback: ReactElement;
   errorFallback: (...args: any[]) => ReactElement;
-  fallBackHeight: string;
+  fallBackHeight?: string;
   keys?: Array<unknown>;
 };
 

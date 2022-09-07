@@ -6,14 +6,14 @@ type Props = {
   color: string;
 };
 
-export default function LoadingSpinner({ width, borderWidth, color }: Props) {
+function Loading({ width, borderWidth, color }: Props) {
   return (
     <div className={$.loading}>
       <div
         style={{
-          width: `${width}rem`,
-          height: `${width}rem`,
-          borderWidth: `${borderWidth}rem`,
+          width: `${width}px`,
+          height: `${width}px`,
+          borderWidth: `${borderWidth}px`,
           borderTopColor: color,
           borderRightColor: color,
           borderBottomColor: color,
@@ -23,3 +23,5 @@ export default function LoadingSpinner({ width, borderWidth, color }: Props) {
     </div>
   );
 }
+
+export default Loading;

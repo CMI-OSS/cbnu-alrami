@@ -1,4 +1,4 @@
-import LoadingSpinner from "../LoadingSpinner";
+import Loading from "../Loading";
 import $ from "./style.module.scss";
 
 type Props = {
@@ -8,8 +8,8 @@ type Props = {
 function SuspenseFallback(props: Props) {
   const { height } = props;
   return (
-    <div className={$["suspense-fallback"]} style={{ ...{ height } }}>
-      <LoadingSpinner width={4} borderWidth={0.3} color="#D66D6E" />
+    <div className={$["suspense-fallback"]} style={{ height }}>
+      <Loading width={64} borderWidth={4} color="#D66D6E" />
     </div>
   );
 }

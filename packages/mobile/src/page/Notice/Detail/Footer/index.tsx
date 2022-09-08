@@ -19,6 +19,7 @@ type Props = {
 function Footer({ articleId, isBookmark, isCouncil }: Props) {
   const addArticleBookmark = useAddArticleBookmarkMutation(articleId);
   const removeArticleBookmark = useRemoveArticleBookmarkMutation(articleId);
+  const url = window.location.href;
 
   const handleCopy = async () => {
     if (isMobile && baseApp) {
@@ -54,7 +55,11 @@ function Footer({ articleId, isBookmark, isCouncil }: Props) {
           />
         </button>
       )}
-      {!isCouncil && <Internet size={28} stroke="#C3C3C3" />}
+      {!isCouncil && (
+        <a href={url}>
+          <Internet size={28} stroke="#C3C3C3" />
+        </a>
+      )}
     </div>
   );
 }

@@ -53,9 +53,11 @@ function Cafeteria() {
       />
 
       <AsyncBoundary
-        suspenseFallback={<SuspenseFallback height="100vh" />}
+        suspenseFallback={
+          <SuspenseFallback height="calc(var(--vh, 1vh) * 100)" />
+        }
         errorFallback={ErrorFallback}
-        fallBackHeight="100vh"
+        fallBackHeight="calc(var(--vh, 1vh) * 100)"
         keys={[ fullDate, selectedMenu ]}
       >
         <CafeteriaBody day={day || 1} {...{ fullDate, selectedMenu }} />

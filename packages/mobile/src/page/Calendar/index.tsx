@@ -29,10 +29,12 @@ function Calendar() {
     year: today.year(),
     month: today.month(),
   });
+  const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
+
   const { data: allSchedules } = useFullSchedulesQuery(year);
   const { data: bookmarkedSchedules } = useBookmarkSchedulesQuery();
-  const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
   if (!bookmarkedSchedules || !allSchedules) return <div>없음</div>;
+
   const allScheduleMap = getCalendarMap(year, month, allSchedules);
   const bookmarkedScheduleMap = getCalendarMap(
     year,

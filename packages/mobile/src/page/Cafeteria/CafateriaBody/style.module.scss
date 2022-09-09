@@ -1,0 +1,25 @@
+@import "../../../styles/main.scss";
+
+.cafeteria {
+  padding: 133px 24px 88px;
+}
+
+.no-menu {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .go-out {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &-text {
+      margin-top: 20px;
+      line-height: 26px;
+      font-size: 16px;
+      color: $background-50;
+    }
+  }
+}

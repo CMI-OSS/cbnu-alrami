@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   z-index: 120;
   background-color: rgba(27, 27, 27, 0.85);
 

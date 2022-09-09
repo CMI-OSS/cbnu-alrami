@@ -23,18 +23,18 @@ export type DateMap = {
 };
 
 function Calendar() {
+  const today = dayjs();
   const [ toggleSchedule, setToggleSchedule ] = useState<ScheduleType>("all");
   const [ { year, month }, dispatchMonth ] = useReducer(caledarReducer, {
     year: dayjs().year(),
     month: dayjs().month(),
   });
+  const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
 
   const { data: allSchedules } = useFullSchedulesQuery(year);
   const { data: bookmarkedSchedules } = useBookmarkSchedulesQuery();
   if (!bookmarkedSchedules || !allSchedules) return <div>없음</div>;
 
-  const today = dayjs();
-  const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
   const allScheduleMap = getCalendarMap(year, month, allSchedules);
   const bookmarkedScheduleMap = getCalendarMap(
     year,

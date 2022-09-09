@@ -150,8 +150,7 @@ function Map() {
               >
                 <Close stroke="#aaa" size={11} />
               </button>
-              <br />
-              다양한 장소를 탐색해요
+              <p className={$.text}>다양한 장소를 탐색해요</p>
             </div>
           )}
           <NavLink to="/place?position=all" className={$.link}>

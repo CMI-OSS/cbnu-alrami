@@ -20,7 +20,7 @@ function Preview() {
     fetchNextPage,
   } = useBoardArticlesQuery(boardId);
   const articles = articleData?.pages;
-
+  const type = boardId === 1010101 ? "cmi" : "cbnu";
   const ref = useIntersect(async (entry, observer) => {
     observer.unobserve(entry.target);
     if (hasNextPage && !isFetching) {
@@ -32,7 +32,7 @@ function Preview() {
     <FullPageModalTemplate
       left={<LeftArrow stroke="#AAAAAA" size={16} />}
       title={boardData?.name}
-      right={<Status boardId={boardId} />}
+      right={type === "cbnu" ? <Status boardId={boardId} /> : <></>}
     >
       {!articles?.length && (
         <img
@@ -49,7 +49,7 @@ function Preview() {
             return (
               <Article
                 key={id}
-                {...{ id, title, date, hits, scraps, breadcrumb }}
+                {...{ id, title, date, hits, scraps, breadcrumb, type }}
               />
             );
           });

@@ -41,19 +41,21 @@ function Subscription() {
         <div className={$.breadcrumb}>{breadcrumb}</div>
         <Guide boardTrees={boardTrees} />
       </div>
-      {boardTrees.map((boardTree) => {
-        const { name, id } = boardTree;
-        const newBoardNames = boardNames ? [ ...boardNames, name ] : [ name ];
-        const newBoardIds = boardIds ? [ ...boardIds, `${id}` ] : [ `${id}` ];
-        return (
-          <Selector
-            key={id}
-            boardNames={newBoardNames}
-            boardIds={newBoardIds}
-            boardTree={boardTree}
-          />
-        );
-      })}
+      <div className={$.selectors}>
+        {boardTrees.map((boardTree) => {
+          const { name, id } = boardTree;
+          const newBoardNames = boardNames ? [ ...boardNames, name ] : [ name ];
+          const newBoardIds = boardIds ? [ ...boardIds, `${id}` ] : [ `${id}` ];
+          return (
+            <Selector
+              key={id}
+              boardNames={newBoardNames}
+              boardIds={newBoardIds}
+              boardTree={boardTree}
+            />
+          );
+        })}
+      </div>
     </SubscriptionModalTemplate>
   );
 }

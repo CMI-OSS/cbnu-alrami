@@ -1,4 +1,4 @@
-import { Subscription as SubscriptionIcon } from "@components/atoms/icon";
+import { UnSubscription } from "@components/atoms/icon";
 import $ from "src/page/Subscription/style.module.scss";
 
 type Props = {
@@ -54,7 +54,8 @@ function Guide({ boardTrees }: Props) {
   }
   return (
     <div className={$.phrase}>
-      <SubscriptionIcon size={36} stroke="#aaaaaa" />를 터치하여
+      <UnSubscription size={36} stroke="#aaaaaa" />
+      를 터치하여
       <br />
       원하는 공지를 구독해요!
     </div>

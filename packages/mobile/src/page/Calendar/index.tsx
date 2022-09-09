@@ -26,8 +26,8 @@ function Calendar() {
   const today = dayjs();
   const [ toggleSchedule, setToggleSchedule ] = useState<ScheduleType>("all");
   const [ { year, month }, dispatchMonth ] = useReducer(caledarReducer, {
-    year: dayjs().year(),
-    month: dayjs().month(),
+    year: today.year(),
+    month: today.month(),
   });
   const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
 

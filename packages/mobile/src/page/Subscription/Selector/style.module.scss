@@ -18,11 +18,13 @@
   }
 
   .name {
+    display: flex;
+    align-items: center;
     font-weight: 500;
     @include typography(18);
 
     svg {
-      margin-left: 4px;
+      margin-left: 8px;
     }
   }
 

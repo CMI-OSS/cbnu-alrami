@@ -9,5 +9,6 @@ const isFromAndroidApp = getUA.includes(CBNU_ALRAMI_ANDROID_USER_AGENT);
 const isFromApp = isFromIosApp || isFromAndroidApp;
 
 const isWebView = isMobile && isFromApp;
+const isStaging = /stage-mobile\.cmi\.kro\.kr/.test(window.location.href);
 
-export { isWebView };
+export { isWebView, isStaging };

@@ -72,7 +72,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {mode === "prodction" && <DeepLink />}
+      {mode === "production" && isWebView && <DeepLink />}
       <Routes>
         {routes.map((route) => {
           return (

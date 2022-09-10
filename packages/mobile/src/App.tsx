@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import DeepLink from "src/page/Notice/Detail/DeepLink";
 import Subscription from "src/page/Subscription";
+import { isWebView } from "src/utils/webview";
 
 import useWindowSizeDetect from "./hooks/useWindowSizeDetect";
 import "./mobile.scss";
@@ -64,7 +65,10 @@ function App() {
   const webRoutes = [ { path: "/notice/:articleId", element: <NoticeDetail /> } ];
 
   const mode = import.meta.env.MODE;
-  const routes = mode === "production" ? webRoutes : appRoutes;
+  const routes =
+    (mode === "production" && isWebView) || mode === "development"
+      ? webRoutes
+      : appRoutes;
 
   return (
     <BrowserRouter>

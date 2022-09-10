@@ -65,10 +65,7 @@ function App() {
   const webRoutes = [ { path: "/notice/:articleId", element: <NoticeDetail /> } ];
 
   const mode = import.meta.env.MODE;
-  const routes =
-    (mode === "production" && isStaging) || mode === "development"
-      ? appRoutes
-      : webRoutes;
+  const routes = isStaging && !isWebView ? webRoutes : appRoutes;
 
   return (
     <BrowserRouter>

@@ -16,7 +16,7 @@ type Props = {
   isCouncil: boolean;
 };
 
-function Footer({ articleId, isBookmark, isCouncil }: Props) {
+function Footer({articleId, isBookmark, isCouncil}: Props) {
   const addArticleBookmark = useAddArticleBookmarkMutation(articleId);
   const removeArticleBookmark = useRemoveArticleBookmarkMutation(articleId);
 
@@ -28,7 +28,7 @@ function Footer({ articleId, isBookmark, isCouncil }: Props) {
     }
     return toastSuccess({
       message: "공지 링크가 클립보드에 복사되었습니다.",
-      style: { marginBottom: "58px" },
+      style: {marginBottom: "58px"},
     });
   };
 
@@ -41,21 +41,22 @@ function Footer({ articleId, isBookmark, isCouncil }: Props) {
   };
 
   return (
-    <div className={$.footer}>
-      <button type="button" onClick={handleCopy}>
-        <Share size={24} stroke="#C3C3C3" />
-      </button>
-      {!isWebView && (
-        <button type="button" onClick={handleBookmark}>
-          <Star
-            size={27}
-            stroke={isBookmark ? "#D66D6E" : "#C3C3C3"}
-            fill={isBookmark ? "#D66D6E" : ""}
-          />
+      <div className={$.footer}>
+        <button type="button" onClick={handleCopy}>
+          <Share size={24} stroke="#C3C3C3" />
         </button>
-      )}
-      {!isCouncil && <Internet size={28} stroke="#C3C3C3" />}
-    </div>
+        {!isWebView && (
+            <button type="button" onClick={handleBookmark}>
+              <Star
+                  size={27}
+                  stroke={isBookmark ? "#D66D6E" : "#C3C3C3"}
+                  fill={isBookmark ? "#D66D6E" : ""}
+              />
+            </button>
+        )}
+        {!isCouncil && <Internet size={28} stroke="#C3C3C3" />}
+
+      </div>
   );
 }
 

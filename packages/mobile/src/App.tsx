@@ -41,7 +41,7 @@ function App() {
     setScreenSize();
   }, [ height ]);
 
-  const routes = [
+  const appRoutes = [
     { path: "/notice", element: <Notice /> },
     { path: "/notice/:articleId", element: <NoticeDetail /> },
     { path: "/calendar", element: <Calendar /> },
@@ -61,10 +61,14 @@ function App() {
     { path: "/setting/*", element: <SettingRoute /> },
     { path: "/*", element: <Navigate replace to="/home" /> },
   ];
+  const webRoutes = [ { path: "/notice/:articleId", element: <NoticeDetail /> } ];
+
+  const mode = import.meta.env.MODE;
+  const routes = mode === "production" ? webRoutes : appRoutes;
 
   return (
     <BrowserRouter>
-      <DeepLink />
+      {mode === "prodction" && <DeepLink />}
       <Routes>
         {routes.map((route) => {
           return (

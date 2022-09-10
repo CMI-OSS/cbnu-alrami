@@ -67,12 +67,12 @@ function App() {
   const mode = import.meta.env.MODE;
   const routes =
     (mode === "production" && isWebView) || mode === "development"
-      ? webRoutes
-      : appRoutes;
+      ? appRoutes
+      : webRoutes;
 
   return (
     <BrowserRouter>
-      {mode === "production" && isWebView && <DeepLink />}
+      {mode === "production" && !isWebView && <DeepLink />}
       <Routes>
         {routes.map((route) => {
           return (

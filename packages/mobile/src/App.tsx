@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import DeepLink from "src/page/Notice/Detail/DeepLink";
 import Subscription from "src/page/Subscription";
+import { isWebView } from "src/utils/webview";
 
 import useWindowSizeDetect from "./hooks/useWindowSizeDetect";
 import "./mobile.scss";
@@ -41,7 +42,7 @@ function App() {
     setScreenSize();
   }, [ height ]);
 
-  const routes = [
+  const appRoutes = [
     { path: "/notice", element: <Notice /> },
     { path: "/notice/:articleId", element: <NoticeDetail /> },
     { path: "/calendar", element: <Calendar /> },
@@ -61,10 +62,17 @@ function App() {
     { path: "/setting/*", element: <SettingRoute /> },
     { path: "/*", element: <Navigate replace to="/home" /> },
   ];
+  const webRoutes = [ { path: "/notice/:articleId", element: <NoticeDetail /> } ];
+
+  const mode = import.meta.env.MODE;
+  const routes =
+    (mode === "production" && isWebView) || mode === "development"
+      ? appRoutes
+      : webRoutes;
 
   return (
     <BrowserRouter>
-      <DeepLink />
+      {mode === "production" && !isWebView && <DeepLink />}
       <Routes>
         {routes.map((route) => {
           return (

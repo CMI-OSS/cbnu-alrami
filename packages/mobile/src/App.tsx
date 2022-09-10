@@ -65,6 +65,7 @@ function App() {
   const webRoutes = [ { path: "/notice/:articleId", element: <NoticeDetail /> } ];
 
   const mode = import.meta.env.MODE;
+  console.log(mode);
   const routes =
     (mode === "production" && isWebView) || mode === "development"
       ? appRoutes

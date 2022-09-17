@@ -1,4 +1,4 @@
-const { writeFileSync } = require("fs");
+import { writeFileSync } from "fs";
 
 const root = {
   전공: {

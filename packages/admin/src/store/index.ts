@@ -1,6 +1,7 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import { configureStore } from "@reduxjs/toolkit";
+import { articleApi } from "src/api/article";
 import { authApi } from "src/api/auth";
 import { boardWriteApi } from "src/api/board";
 import ArticelWriteReducer from "src/pages/BoardPage/ArticleWrite/ArticleWrite.store";
@@ -16,6 +17,7 @@ export const store = configureStore({
     boardReducer,
     ImagePreviewReducer,
     ArticelWriteReducer,
+    [articleApi.reducerPath]: articleApi.reducer,
     [boardWriteApi.reducerPath]: boardWriteApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
   },

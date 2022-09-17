@@ -20,7 +20,7 @@ export default function WriteContent() {
         debounceSetText(newContent);
       },
     }),
-    [],
+    [ content ],
   );
 
   useEffect(() => {

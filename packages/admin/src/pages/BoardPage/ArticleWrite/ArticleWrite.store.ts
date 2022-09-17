@@ -19,6 +19,9 @@ export const ArticleWriteSlice = createSlice({
   name,
   initialState,
   reducers: {
+    init(state, action: PayloadAction<Props>) {
+      return action.payload;
+    },
     setTitle(state, action: PayloadAction<{ title: string }>) {
       state.title = action.payload.title;
     },
@@ -52,6 +55,7 @@ export const ArticleWriteSlice = createSlice({
 });
 
 export const {
+  init,
   setTitle,
   setContent,
   appendImages,

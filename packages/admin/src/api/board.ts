@@ -2,6 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQuery from "src/api/baseQuery";
 
 import type { imgType } from "../types";
+import { AuthorityBoard } from "./types";
 
 // header.set("Content-type", "multipart/form-data");
 
@@ -44,6 +45,28 @@ export const boardWriteApi = createApi({
         },
         invalidatesTags: [ "writeArticle" ],
       }),
+      updateArticle: build.mutation<
+        number,
+        {
+          articleId: number;
+          title: string;
+          content: string;
+          images: Array<string>;
+        }
+      >({
+        query(data) {
+          return {
+            url: `/articles/${data.articleId}`,
+            method: "PUT",
+            body: {
+              title: data.title,
+              content: data.content,
+              images: data.images,
+            },
+          };
+        },
+        invalidatesTags: [ "writeArticle" ],
+      }),
       getArticle: build.query<
         {
           title: string;
@@ -67,6 +90,14 @@ export const boardWriteApi = createApi({
           };
         },
       }),
+      getAuthorityBoards: build.query<AuthorityBoard[], void>({
+        query() {
+          return {
+            url: `authority/boards`,
+            method: "get",
+          };
+        },
+      }),
     };
   },
 });
@@ -74,5 +105,7 @@ export const boardWriteApi = createApi({
 export const {
   useImgUploadMutation,
   useWriteArticleMutation,
+  useUpdateArticleMutation,
   useGetArticleQuery,
+  useGetAuthorityBoardsQuery,
 } = boardWriteApi;

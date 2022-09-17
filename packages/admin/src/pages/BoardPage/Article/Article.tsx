@@ -30,6 +30,9 @@ export default function Article() {
     <>
       <ArticleView {...articleViewProps} />
       <ImagePreview />
+      <div style={{ textAlign: "center" }}>
+        <input type="submit" value="수정" />
+      </div>
     </>
   );
 }

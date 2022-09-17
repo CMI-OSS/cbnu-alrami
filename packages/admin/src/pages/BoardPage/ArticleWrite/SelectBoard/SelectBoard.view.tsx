@@ -2,7 +2,7 @@ import styles from "./SelectBoard.module.scss";
 
 interface Option {
   text: string;
-  value: string;
+  value: number;
 }
 
 export interface Props {
@@ -23,7 +23,9 @@ export default function SelectBoardView({
       className={styles["select-board"]}
     >
       {options.map((option) => (
-        <option value={option.value}>{option.text}</option>
+        <option value={option.value} key={option.value}>
+          {option.text}
+        </option>
       ))}
     </select>
   );

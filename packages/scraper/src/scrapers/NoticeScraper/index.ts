@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ScraperState, ScraperType } from "@shared/types";
 import { createArticle, isDuplicationArticle } from "src/api/article";
 import { Notice, NoticeScript } from "src/types";

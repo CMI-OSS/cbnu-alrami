@@ -6,9 +6,9 @@ function Footer() {
   const routes = [
     {
       id: 1,
-      icon: Speaker,
-      label: "공지",
-      to: "/notice",
+      icon: Home,
+      label: "홈",
+      to: "/home",
     },
     {
       id: 2,
@@ -18,9 +18,9 @@ function Footer() {
     },
     {
       id: 3,
-      icon: Home,
-      label: "홈",
-      to: "/home",
+      icon: Speaker,
+      label: "공지",
+      to: "/notice",
     },
     {
       id: 4,

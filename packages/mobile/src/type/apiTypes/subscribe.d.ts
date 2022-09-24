@@ -9,3 +9,9 @@ declare namespace res {
     }[];
   };
 }
+
+declare namespace req {
+  type Subscribe = {
+    boardId: number
+  }
+}

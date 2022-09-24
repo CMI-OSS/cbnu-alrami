@@ -1,0 +1,57 @@
+@import "../../../../styles/main.scss";
+
+.menu-box {
+  padding: 22px 24px 15px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 17px;
+    color: $black-100;
+
+    .title-box {
+      @include typography(16);
+      font-weight: 500;
+
+      .title {
+        @include typography(16);
+        line-height: 25px;
+        font-weight: 500;
+      }
+
+      > button {
+        margin-left: 10px;
+      }
+    }
+
+    .time {
+      @include typography(14);
+      line-height: 30px;
+      color: $black-40;
+    }
+  }
+
+  .food-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .cafeteria-content {
+      @include typography(13);
+      margin-top: 14px;
+      line-height: 35px;
+      color: $black-80;
+    }
+
+    .empty-menu {
+      @include typography(13);
+      margin: 39px 0 27px;
+      color: $black-40;
+    }
+  }
+}
+
+.empty-box {
+  margin-bottom: 35px;
+}

@@ -5,7 +5,8 @@
 .wrap {
   @include position(fixed, left 25px right 25px bottom 94px);
   display: flex;
-  padding: 20px 18px 19px 17px;
+  align-items: center;
+  padding: 20px 24px 30px 16px;
   background-color: $white;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -13,27 +14,44 @@
 }
 
 .image {
+  flex: 0 0 auto;
   width: 90px;
   height: 90px;
   margin-top: 10px;
-  border-radius: 18px;
+  border-radius: 20px;
+}
+
+.place-image {
+  margin-top: 0;
 }
 
 .info {
-  padding-top: 20px;
-  margin-left: 15px;
+  padding-top: 19px;
+  margin-left: 16px;
+  flex: 1 1 auto;
+}
+
+.place-info {
+  margin-left: 28px;
+  flex: 1 1 auto;
 }
 
 .title {
   @include typography(14);
+  line-height: 23px;
   color: $black-100;
 }
 
 .address {
   @include typography(12);
   display: block;
-  margin-top: 12px;
+  line-height: 20px;
+  margin-top: 8px;
   color: $black-50;
+}
+
+.place-address {
+  margin-top: 4px;
 }
 
 .link {
@@ -47,17 +65,17 @@
   }
 
   svg {
-    margin-left: 3px;
+    margin: 0 0 -1px 3px;
   }
 }
 
 .item {
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: left;
-  align-items: inherit;
   background-color: $white;
-  padding: 15px 35px 15px 15px;
+  padding: 16px 36px 16px 16px;
   border-radius: 20px;
 
   &:not(:first-child) {

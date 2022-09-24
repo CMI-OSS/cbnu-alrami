@@ -1,5 +1,5 @@
 import BorderBox from "src/components/atoms/BorderBox";
-import { Map } from "src/components/atoms/icon";
+import { Call, Map } from "src/components/atoms/icon";
 
 import $ from "./style.module.scss";
 
@@ -8,8 +8,15 @@ type Props = {
   oldBuildingNumber?: string;
   name: string;
   address: string;
+  contact?: string;
 };
-function Info({ buildingNumber, oldBuildingNumber, name, address }: Props) {
+function Info({
+  buildingNumber,
+  oldBuildingNumber,
+  name,
+  address,
+  contact,
+}: Props) {
   return (
     <>
       <BorderBox className={$.info}>
@@ -22,6 +29,10 @@ function Info({ buildingNumber, oldBuildingNumber, name, address }: Props) {
             <li className={$.item}>
               <Map size={14} stroke="#aaa" />
               <span className={$["item-text"]}>{address}</span>
+            </li>
+            <li className={$.item}>
+              <Call size={14} stroke="#aaa" />
+              <span className={$["item-text"]}>{contact}</span>
             </li>
           </ul>
           {/* [D] 식당 스펙 적용 후 작업 예정 */}

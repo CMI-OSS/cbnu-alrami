@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { Hamburger, LeftArrow } from "@components/atoms/icon";
 import { Close } from "@components/atoms/icon/Close";
 import Footer from "@components/molecules/Footer";
-import { useSchool, useSchoolById } from "src/api/school";
+import { useSchoolQuery, useSchoolsQuery } from "@hooks/api/school";
 import Spot from "src/page/Map/Spot";
 import { useAppDispatch, useAppSelector } from "src/store";
 import {
@@ -75,13 +75,13 @@ function Map() {
     data: schoolData,
     isLoading: schoolLoading,
     isError: schoolError,
-  } = useSchool();
+  } = useSchoolsQuery();
 
   const {
     data: schoolSeveralData,
     isLoading: schoolSeveralLoading,
     isError: schoolSeveralError,
-  } = useSchoolById(constructionId);
+  } = useSchoolQuery(constructionId);
 
   useEffect(() => {
     const initMap = () => {
@@ -105,7 +105,7 @@ function Map() {
       },
     });
     if (!schoolLoading) {
-      schoolData!.data.forEach((place) => {
+      schoolData?.forEach((place) => {
         const marker = makeMarker(
           map,
           new naver.maps.LatLng(place.latitude, place.longtitude),
@@ -124,7 +124,6 @@ function Map() {
       });
     }
   }, [ myLocation ]);
-
   return (
     <div id="map" className={$.map}>
       {isConstructionTooltip && (
@@ -151,8 +150,7 @@ function Map() {
               >
                 <Close stroke="#aaa" size={11} />
               </button>
-              <br />
-              다양한 장소를 탐색해요
+              <p className={$.text}>다양한 장소를 탐색해요</p>
             </div>
           )}
           <NavLink to="/place?position=all" className={$.link}>
@@ -161,10 +159,10 @@ function Map() {
           </NavLink>
         </div>
       )}
-      {isConstructionTooltip && !schoolSeveralLoading && (
+      {isConstructionTooltip && !schoolSeveralLoading && schoolSeveralData && (
         <Spot
-          schoolData={schoolSeveralData!.data}
-          url={schoolSeveralData!.data.images[0]?.url}
+          schoolData={schoolSeveralData}
+          url={schoolSeveralData.images[0]?.url}
           type="map"
           placeId={constructionId}
         />

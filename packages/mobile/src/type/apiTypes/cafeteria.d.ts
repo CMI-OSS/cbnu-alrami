@@ -5,3 +5,10 @@ declare namespace res {
     time: number;
   };
 }
+
+declare namespace req {
+  type Cafeteria = {
+    cafeteriaId: number;
+    date: string;
+  };
+}

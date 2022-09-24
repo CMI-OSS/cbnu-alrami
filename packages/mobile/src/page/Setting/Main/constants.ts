@@ -19,15 +19,16 @@ const settingMenuList = [
     label: "대표식당",
     to: "./cafeteria",
   },
+  // TODO: 백엔드 확인 후 boardId 변경
   {
     icon: Speaker,
     label: "공지사항",
-    to: "./notice",
+    to: "/preview?boardId=1010101",
   },
   {
     icon: AppVersion,
     label: "앱 버전",
-    to: "./appversion",
+    to: "./",
   },
   {
     icon: Email,
@@ -42,7 +43,7 @@ const settingMenuList = [
 ];
 
 const cafeterias: Restaurant[] = [
-  "선택안함",
+  "표시 안함",
   "본관",
   "양성재",
   "양진재",
@@ -62,4 +63,4 @@ const settingConfig = (cafeteria: string): Props => {
   };
 };
 
-export { cafeterias, settingConfig, settingMenuList };
+export {cafeterias, settingConfig, settingMenuList};

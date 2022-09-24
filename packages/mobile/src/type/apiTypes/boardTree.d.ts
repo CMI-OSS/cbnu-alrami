@@ -2,10 +2,10 @@ declare namespace res {
   type BoardTrees = {
     id: number;
     name: string;
+    children?: BoardTrees[];
     url?: string;
     isSubscribing?: boolean;
     isNoticing?: boolean;
-    children?: BoardTrees[];
   };
 
   type BoardTree = {
@@ -19,6 +19,6 @@ declare namespace res {
 
 declare namespace req {
   type BoardTree = {
-    uuid: string;
+    boardId: number;
   };
 }

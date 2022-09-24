@@ -1,15 +1,15 @@
 import { NavLink } from "react-router-dom";
 
 import { Star } from "@components/atoms/icon";
+import { useSubscribeBoardsQuery } from "@hooks/api/subscribe";
 import useSearch from "@hooks/useSearch";
 import classNames from "classnames";
-import { useSubscribeBoards } from "src/api/subscribe";
 
 import $ from "./style.module.scss";
 
 function Category() {
   const target = useSearch({ target: "type" }) || "new";
-  const { data: categories } = useSubscribeBoards();
+  const { data: categories } = useSubscribeBoardsQuery();
 
   return (
     <div className={$.categories}>

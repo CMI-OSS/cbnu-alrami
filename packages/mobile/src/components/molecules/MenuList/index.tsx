@@ -25,7 +25,7 @@ function MenuList({ menuList, onClick: handleClick, clickedMenu }: Props) {
               return handleClick(idx + 1);
             }}
           >
-            {menu.name}
+            <span className={$["menu-name"]}>{menu.name}</span>
           </button>
         );
       })}

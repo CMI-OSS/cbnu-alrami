@@ -1,3 +1,6 @@
+@import "@shared/styles/main.scss";
+@import "src/styles/mixin.scss";
+
 .article {
   margin: 20px;
   padding: 20px;
@@ -38,5 +41,21 @@
         resize: both;
       }
     }
+  }
+}
+
+.button {
+  @include no-line;
+  width: 5.5rem;
+  min-height: 2.3rem;
+  border-radius: 0.3rem;
+  background-color: #005299;
+  color: $white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-top: 20px;
+
+  &:hover {
+    background-color: $blue-200;
   }
 }

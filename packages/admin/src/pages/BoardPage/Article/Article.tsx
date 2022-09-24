@@ -10,7 +10,14 @@ import ArticleView, { ArticleViewProps } from "./Article.view";
 export default function Article() {
   const { articleId } = useParams();
   const dispatch = useAppDispatch();
-  const { data } = useGetArticleQuery({ articleId: Number(articleId) });
+  const { data } = useGetArticleQuery(
+    {
+      articleId: Number(articleId),
+    },
+    {
+      refetchOnMountOrArgChange: true,
+    },
+  );
 
   if (!data) return null;
 
@@ -30,9 +37,6 @@ export default function Article() {
     <>
       <ArticleView {...articleViewProps} />
       <ImagePreview />
-      <div style={{ textAlign: "center" }}>
-        <input type="submit" value="수정" />
-      </div>
     </>
   );
 }

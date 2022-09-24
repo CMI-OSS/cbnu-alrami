@@ -39,7 +39,7 @@ export default function ArticleWrite() {
       <SelectBoard />
       <WriteContent />
       <UploadImage />
-      <Submit isEdit={isEdit} articleId={Number(articleId)} />
+      <Submit isEdit={isEdit} articleId={Number(articleId)} article={article} />
     </div>
   );
 }

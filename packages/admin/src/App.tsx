@@ -1,7 +1,6 @@
 import { Provider } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import useSocket from "src/hooks/useSocket";
 import ScraperPage from "src/pages/Scraper/Scraper.route";
 
 import "./admin.scss";
@@ -11,7 +10,7 @@ import LoginPage from "./pages/Login";
 import { store } from "./store";
 
 function App() {
-  useSocket();
+  // useSocket();
 
   return (
     <>

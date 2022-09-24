@@ -6,10 +6,37 @@ import { AuthorityBoard } from "./types";
 
 // header.set("Content-type", "multipart/form-data");
 
+export type ArticleResponse = {
+  id: string;
+  title: string;
+  board: {
+    id: number;
+    name: string;
+  };
+  content: string;
+  images: {
+    id: number;
+    url: string;
+  }[];
+  hits: number;
+  scraps: number;
+  date: string;
+  url: string;
+};
+
+export type ArticleUpdateDto = {
+  boardId: number;
+  title: string;
+  content: string;
+  url: string;
+  date: string;
+  images: string[];
+};
+
 export const boardWriteApi = createApi({
   reducerPath: "boardWriteApi",
   baseQuery,
-  tagTypes: [ "ImgUpload", "writeArticle" ],
+  tagTypes: [ "ImgUpload", "writeArticle", "updateArticle" ],
   endpoints: (build) => {
     return {
       imgUpload: build.mutation<imgType[], FormData>({
@@ -49,36 +76,20 @@ export const boardWriteApi = createApi({
         number,
         {
           articleId: number;
-          title: string;
-          content: string;
-          images: Array<string>;
+          article: ArticleUpdateDto;
         }
       >({
         query(data) {
           return {
             url: `/articles/${data.articleId}`,
             method: "PUT",
-            body: {
-              title: data.title,
-              content: data.content,
-              images: data.images,
-            },
+            body: data.article,
           };
         },
-        invalidatesTags: [ "writeArticle" ],
+        invalidatesTags: [ "updateArticle" ],
       }),
       getArticle: build.query<
-        {
-          title: string;
-          boardId: number;
-          content: string;
-          images: {
-            id: number;
-            url: string;
-          }[];
-          hits: number;
-          scraps: number;
-        },
+        ArticleResponse,
         {
           articleId: number;
         }

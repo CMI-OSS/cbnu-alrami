@@ -19,6 +19,9 @@ export interface Article {
 export interface ArticlePage {
   pagination: {
     isEnd: boolean;
+    pageNumber: number;
+    totalItemCount: number;
+    totalPageCount: number;
   };
   contents: Article[];
 }

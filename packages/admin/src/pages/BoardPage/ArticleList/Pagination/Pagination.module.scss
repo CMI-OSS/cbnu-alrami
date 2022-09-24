@@ -2,7 +2,7 @@
 
 .pagination {
     display: flex;
-    justify-content: end;
+    justify-content: center;
 
     .page {
         background-color: $white;
@@ -11,5 +11,9 @@
         margin: 0px 4px;
         border-radius: 0.5rem;
         cursor: pointer;
+    }
+
+    .current {
+        font-weight: bold;
     }
 }

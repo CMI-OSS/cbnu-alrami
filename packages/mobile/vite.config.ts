@@ -14,4 +14,18 @@ export default defineConfig({
     },
   },
   plugins: [ react() ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          @import '@shared/styles/mixin.scss';
+          @import '@shared/styles/variables.scss';
+          @import '@shared/styles/color.scss';
+          @import '@shared/styles/main.scss';
+          @import '@shared/styles/global.scss';
+          @import 'src/styles/main.scss';
+        `,
+      },
+    },
+  },
 });

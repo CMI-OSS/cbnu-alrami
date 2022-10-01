@@ -6,6 +6,7 @@ import {
   Person,
   Speaker,
 } from "src/components/atoms/icon";
+import { CMI_BOARD_ID } from "src/constants";
 import { Restaurant } from "src/type";
 
 const settingMenuList = [
@@ -22,7 +23,7 @@ const settingMenuList = [
   {
     icon: Speaker,
     label: "공지사항",
-    to: "/preview?boardId=4",
+    to: `/preview?boardId=${CMI_BOARD_ID}`,
   },
   {
     icon: AppVersion,

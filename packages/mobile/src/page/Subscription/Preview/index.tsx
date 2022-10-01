@@ -4,6 +4,7 @@ import { useBoardArticlesQuery } from "@hooks/api/article";
 import { useBoardTreeQuery } from "@hooks/api/boardTree";
 import { useIntersect } from "@hooks/UseIntersect";
 import guideEmptyNotice from "src/assets/guide_empty_notice.png";
+import { CMI_BOARD_ID } from "src/constants";
 import useSearch from "src/hooks/useSearch";
 import Article from "src/page/Notice/Article";
 
@@ -21,7 +22,7 @@ function Preview() {
   } = useBoardArticlesQuery(boardId);
 
   const articles = articleData?.pages;
-  const type = boardId === 1010101 ? "cmi" : "cbnu";
+  const type = boardId === CMI_BOARD_ID ? "cmi" : "cbnu";
   const ref = useIntersect(async (entry, observer) => {
     observer.unobserve(entry.target);
     if (hasNextPage && !isFetching) {

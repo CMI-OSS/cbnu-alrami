@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import classNames from "classnames";
 import dayjs from "dayjs";
@@ -16,9 +16,8 @@ type Props = {
 };
 
 function Article({ id, title, date, hits, breadcrumb, scraps, type }: Props) {
-  const { pathname } = useLocation();
   return (
-    <Link to={`${pathname}/${id}`}>
+    <Link to={`/notice/${id}`}>
       <div className={classNames($.notification, type === "cmi" && $.cmi)}>
         <span className={$.breadcrumb}>{breadcrumb}</span>
         <span className={$.title}>{title}</span>

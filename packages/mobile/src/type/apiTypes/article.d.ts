@@ -26,6 +26,8 @@ declare namespace res {
     date: string;
     images: Image[];
     isBookmark?: boolean;
+    // TODO: 백엔드 res 확인하기
+    url: string;
   };
 }
 

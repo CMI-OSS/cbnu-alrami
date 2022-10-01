@@ -39,7 +39,13 @@ function Footer() {
   return (
     <footer className={$.footer}>
       {routes.map((route) => {
-        return <NavigationLink key={route.id} route={route} />;
+        return (
+          <NavigationLink
+            className={$[`${route.label}`]}
+            key={route.id}
+            route={route}
+          />
+        );
       })}
     </footer>
   );

@@ -39,6 +39,7 @@ function Detail() {
           />
         </div>
         <Footer
+          url={article.url}
           articleId={Number(articleId)}
           isBookmark={article?.isBookmark}
           isCouncil={String(article?.board.id)[0] === "3"}

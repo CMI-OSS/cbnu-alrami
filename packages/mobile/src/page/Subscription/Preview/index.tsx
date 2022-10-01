@@ -19,6 +19,7 @@ function Preview() {
     isFetching,
     fetchNextPage,
   } = useBoardArticlesQuery(boardId);
+
   const articles = articleData?.pages;
   const type = boardId === 1010101 ? "cmi" : "cbnu";
   const ref = useIntersect(async (entry, observer) => {
@@ -34,7 +35,7 @@ function Preview() {
       title={boardData?.name}
       right={type === "cbnu" ? <Status boardId={boardId} /> : <></>}
     >
-      {!articles?.length && (
+      {!articles?.[0].contents?.length && (
         <img
           className={$["empty-img"]}
           src={guideEmptyNotice}

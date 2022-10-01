@@ -14,7 +14,7 @@ function Subscription() {
     <SettingTemplate
       title="구독/알림"
       right={
-        <Link to="/subscription">
+        <Link to="/subscription/setting">
           <Plus size={16} stroke="#aaaaaa" />
         </Link>
       }

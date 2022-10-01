@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { Close, LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
@@ -11,6 +11,7 @@ type Props = {
 
 function SubscriptionModalTemplate({ children }: Props) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   return (
     <div className={$["subscription-modal"]}>
@@ -20,7 +21,12 @@ function SubscriptionModalTemplate({ children }: Props) {
           <button
             type="button"
             onClick={() => {
-              return navigate("/notice", { replace: true });
+              return navigate(
+                pathname?.includes("setting")
+                  ? "/setting/subscription"
+                  : "/notice",
+                { replace: true },
+              );
             }}
           >
             <Close stroke="#aaa" size={14} />

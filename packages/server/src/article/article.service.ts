@@ -244,6 +244,7 @@ export class ArticleService {
       .board(board)
       .title(article.title)
       .content(article.content)
+      .url(article.url)
       .hits(hitCnt)
       .scraps(bookmarkCnt)
       .date(article.date)

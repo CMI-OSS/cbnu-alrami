@@ -4,7 +4,7 @@ import {
 } from "@hooks/api/bookmark";
 import { Internet, Share, Star } from "src/components/atoms/icon";
 import { toastSuccess } from "src/utils/toast";
-import { isWebView } from "src/utils/webview";
+import { isFromApp, isWebView } from "src/utils/webview";
 
 import $ from "./style.module.scss";
 
@@ -20,11 +20,11 @@ function Footer({ url, articleId, isBookmark, isCouncil }: Props) {
   const removeArticleBookmark = useRemoveArticleBookmarkMutation(articleId);
 
   const handleCopy = async () => {
-    // if (isMobile && baseApp) {
-    //   baseApp.postMessage(window.location.href);
-    // } else {
-    //   await navigator.clipboard.writeText(window.location.href);
-    // }
+    if (isFromApp) {
+      baseApp.postMessage(window.location.href);
+    } else {
+      await navigator.clipboard.writeText(window.location.href);
+    }
     return toastSuccess({
       message: "공지사항 링크가 클립보드에 복사되었습니다.",
       style: { marginBottom: "58px" },

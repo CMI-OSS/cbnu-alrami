@@ -11,4 +11,4 @@ const isFromApp = isFromIosApp || isFromAndroidApp;
 const isWebView = isMobile && isFromApp;
 const isStaging = /stage-mobile\.cmi\.kro\.kr/.test(window.location.href);
 
-export { isWebView, isStaging };
+export { isFromApp, isWebView, isStaging };

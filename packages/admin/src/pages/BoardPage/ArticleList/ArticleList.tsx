@@ -1,6 +1,8 @@
+import { useQuery } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { useGetArticlePageQuery } from "src/api/article";
+import { getArticles } from "src/newApi/articleApi/getArticles";
+import { isOutputType } from "src/newApi/types";
 
 import $ from "./ArticleList.module.scss";
 import ArticleListView from "./ArticleList.view";
@@ -11,13 +13,13 @@ export default function ArticleList() {
   const params = new URLSearchParams(location.search);
   const page = Number(params.get("page")) || 1;
   const navigate = useNavigate();
+
   const pageSize = 2;
 
-  const { data: articlePage, isLoading } = useGetArticlePageQuery({
-    page: Number(page),
-    boardId: 30101,
-    pageSize,
-  });
+  const { data: articlePage, isLoading } = useQuery(
+    [ "articles", 30101, page, pageSize ],
+    () => getArticles({ boardId: 30101, pageNo: page, pageSize }),
+  );
 
   if (isLoading || !articlePage) return null;
 
@@ -36,6 +38,8 @@ export default function ArticleList() {
   const handleClickNext = () => {
     navigate(`?page=${page + 1}`);
   };
+
+  if (!isOutputType(articlePage, "GetArticlesApiOutput_Success")) return null;
 
   return (
     <div className={$["article-list"]}>

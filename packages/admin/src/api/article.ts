@@ -11,9 +11,9 @@ export const articleApi = createApi({
     return {
       getArticlePage: build.query<
         ArticlePage,
-        { page: number, pageSize:number, boardId: number }
+        { page: number; pageSize: number; boardId: number }
       >({
-        query({ boardId, page,pageSize }) {
+        query({ boardId, page, pageSize }) {
           return {
             url: `/boards/${boardId}/articles?pageNo=${page}&pageSize=${pageSize}`,
             method: "get",

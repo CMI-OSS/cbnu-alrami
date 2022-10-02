@@ -5,23 +5,25 @@ export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery,
   tagTypes: [ "login" ],
-  endpoints: (build) => {return {
-    login: build.mutation<
-      {
-        xAccessToken: string;
-      },
-      { loginId: string; password: string }
-    >({
-      query(data) {
-        return {
-          url: "auth/admins/login",
-          method: "POST",
-          body: data,
-        };
-      },
-      invalidatesTags: [ "login" ],
-    }),
-  }},
+  endpoints: (build) => {
+    return {
+      login: build.mutation<
+        {
+          xAccessToken: string;
+        },
+        { loginId: string; password: string }
+      >({
+        query(data) {
+          return {
+            url: "auth/admins/login",
+            method: "POST",
+            body: data,
+          };
+        },
+        invalidatesTags: [ "login" ],
+      }),
+    };
+  },
 });
 
 export const { useLoginMutation } = authApi;

@@ -13,22 +13,19 @@ function SubscriptionModalTemplate({ children }: Props) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  const handleClose = () => {
+    navigate(
+      pathname?.includes("setting") ? "/setting/subscription" : "/notice",
+      { replace: true },
+    );
+  };
+
   return (
     <div className={$["subscription-modal"]}>
       <FullPageModalTemplate
         left={<LeftArrow stroke="#AAAAAA" size={16} />}
         right={
-          <button
-            type="button"
-            onClick={() => {
-              return navigate(
-                pathname?.includes("setting")
-                  ? "/setting/subscription"
-                  : "/notice",
-                { replace: true },
-              );
-            }}
-          >
+          <button type="button" onClick={handleClose}>
             <Close stroke="#aaa" size={14} />
           </button>
         }

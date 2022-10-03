@@ -50,6 +50,7 @@ function App() {
     { path: "/cafeteria", element: <Cafeteria /> },
     { path: "/map", element: <Map /> },
     { path: "/subscription", element: <Subscription /> },
+    { path: "/subscription/setting", element: <Subscription /> },
     { path: "/preview", element: <Preview /> },
     {
       path: "/place",

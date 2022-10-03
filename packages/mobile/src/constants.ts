@@ -6,3 +6,5 @@ export const CAFETERIA_LIST = [
   { id: 5, name: "별빛식당" },
   { id: 6, name: "은하수식당" },
 ];
+
+export const CMI_BOARD_ID = 4;

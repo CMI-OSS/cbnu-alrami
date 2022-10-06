@@ -61,11 +61,15 @@ function ArticleList() {
       />
     );
   }
+
   return (
     <div className={$["notification-list"]}>
       {articles?.map((article) => {
         return article.contents.map((articleData) => {
-          const breadcrumb = `${articleData.board.parent?.name} > ${articleData.board.name}`;
+          const parent = articleData.board.parent
+            ? `${articleData.board.parent.name} > `
+            : "";
+          const breadcrumb = `${parent}${articleData.board.name}`;
           const { id, title, date, hits, scraps } = articleData;
           return (
             <Article

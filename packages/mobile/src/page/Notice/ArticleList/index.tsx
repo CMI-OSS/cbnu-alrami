@@ -24,6 +24,7 @@ function ArticleList() {
   const target = useSearch({ target: "type" }) || "new";
   const { data, hasNextPage, isFetching, fetchNextPage } = useArticles(target);
   const articles = data?.pages;
+
   const ref = useIntersect(async (entry, observer) => {
     observer.unobserve(entry.target);
     if (hasNextPage && !isFetching) {

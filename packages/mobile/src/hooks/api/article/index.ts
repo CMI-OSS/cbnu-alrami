@@ -54,6 +54,21 @@ export const useNewArticlesQuery = () => {
       getNextPageParam: ({ pagination: { isEnd, pageNumber } }) => {
         return isEnd ? undefined : pageNumber + 1;
       },
+      select: (data) => {
+        const contents = data.pages[0].contents.filter((article) => {
+          return article?.board?.id !== 4;
+        });
+
+        return {
+          ...data,
+          pages: [
+            {
+              pagination: data.pages[0].pagination,
+              contents,
+            },
+          ],
+        };
+      },
     },
   );
 };
@@ -67,6 +82,21 @@ export const usePopularArticlesQuery = () => {
     {
       getNextPageParam: ({ pagination: { isEnd, pageNumber } }) => {
         return isEnd ? undefined : pageNumber + 1;
+      },
+      select: (data) => {
+        const contents = data.pages[0].contents.filter((article) => {
+          return article?.board?.id !== 4;
+        });
+
+        return {
+          ...data,
+          pages: [
+            {
+              pagination: data.pages[0].pagination,
+              contents,
+            },
+          ],
+        };
       },
     },
   );

@@ -1,5 +1,3 @@
-import { isMobile } from "react-device-detect";
-
 import {
   useAddArticleBookmarkMutation,
   useRemoveArticleBookmarkMutation,

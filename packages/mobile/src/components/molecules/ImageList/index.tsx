@@ -4,13 +4,13 @@ import { Plus } from "@components/atoms/icon";
 
 import $ from "./style.module.scss";
 
-type detailImageType = {
+type DetailImageType = {
   id: number;
   url: string;
 };
 type Props = {
   isMoreContents: boolean;
-  detailImageList: detailImageType[];
+  detailImageList: DetailImageType[];
   name: string;
 };
 

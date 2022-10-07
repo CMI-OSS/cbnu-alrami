@@ -8,6 +8,13 @@ export const useBoardTreesQuery = () => {
     () => {
       return getBoardTrees();
     },
+    {
+      select: (data) => {
+        return data.filter((boardTree) => {
+          return boardTree.id !== 4;
+        });
+      },
+    },
   );
 };
 

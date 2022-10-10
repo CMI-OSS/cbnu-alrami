@@ -16,12 +16,12 @@ export default function ArticleList() {
 
   const pageSize = 2;
 
-  const { data: articlePage, isLoading } = useQuery(
+  const { data: articlePageOutput, isLoading } = useQuery(
     [ "articles", 30101, page, pageSize ],
     () => getArticles({ boardId: 30101, pageNo: page, pageSize }),
   );
 
-  if (isLoading || !articlePage) return null;
+  if (isLoading || !articlePageOutput) return null;
 
   const handleClickArticle = (articleId: number) => {
     navigate(`/board/articles/${articleId}`);
@@ -39,19 +39,20 @@ export default function ArticleList() {
     navigate(`?page=${page + 1}`);
   };
 
-  if (!isOutputType(articlePage, "GetArticlesApiOutput_Success")) return null;
+  if (!isOutputType(articlePageOutput, "GetArticlesApiOutput_Success"))
+    return null;
 
   return (
     <div className={$["article-list"]}>
       <div>총학생회 &gt; 공지사항</div>
       <ArticleListView
-        articles={articlePage?.contents}
+        articles={articlePageOutput?.contents}
         onClickArticle={handleClickArticle}
       />
       <PaginationView
         currentPage={page}
         displayPageCount={10}
-        totalPage={articlePage.pagination.totalPageCount}
+        totalPage={articlePageOutput.pagination.totalPageCount}
         onClick={handleClickPage}
         onClickNext={handleClickNext}
         onClickPrev={handleClickPrev}

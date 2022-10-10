@@ -6,7 +6,8 @@ import Article from "./Article/Article";
 import ArticleList from "./ArticleList/ArticleList";
 import ArticleWrite from "./ArticleWrite/ArticleWrite";
 
-export default function ScraperPage() {
+// `/board/*`
+export default function BoardRoute() {
   return (
     <PageLayout>
       <Routes>

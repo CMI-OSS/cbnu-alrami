@@ -1,10 +1,10 @@
 import { loginApi } from "./loginApi";
 
 describe(loginApi.name, () => {
-  test("cmi account", async () => {
+  test.skip("cmi account", async () => {
     const result = await loginApi({
-      loginId: "cmi",
-      password: "cmi1234",
+      loginId: "",
+      password: "",
     });
     expect(result).toEqual({
       type: "LoginApiOutput_Success",

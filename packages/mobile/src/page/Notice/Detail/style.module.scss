@@ -23,18 +23,16 @@
     }
 
     .content {
+      width: calc(100% + 36px);
       padding: 18px 0 84px;
+      margin: 0 -18px;
 
       .article-image-wrapper {
         margin-bottom: 16px;
+      }
 
-        .article-image {
-          margin-right: 8px;
-
-          &:last-child {
-            margin-right: 0;
-          }
-        }
+      .article {
+        margin: 0 18px;
       }
     }
   }

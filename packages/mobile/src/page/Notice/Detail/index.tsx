@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { LeftArrow } from "@components/atoms/icon";
@@ -11,6 +12,49 @@ import { isWebView } from "src/utils/webview";
 import Footer from "./Footer";
 import $ from "./style.module.scss";
 
+const IMAGES = [
+  {
+    id: 531,
+    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
+  },
+  {
+    id: 532,
+    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
+  },
+  {
+    id: 533,
+    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
+  },
+  {
+    id: 534,
+    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
+  },
+  {
+    id: 535,
+    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
+  },
+  {
+    id: 536,
+    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
+  },
+  {
+    id: 537,
+    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
+  },
+  {
+    id: 538,
+    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
+  },
+  {
+    id: 539,
+    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
+  },
+  {
+    id: 540,
+    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
+  },
+];
+
 function Detail() {
   const { articleId } = useParams();
   const {
@@ -18,6 +62,7 @@ function Detail() {
     error,
     isLoading,
   } = useArticleQuery(Number(articleId)!);
+  const [ order, setOrder ] = useState(0);
 
   if (!article || error || isLoading) return <></>;
   const isImageView =
@@ -41,8 +86,13 @@ function Detail() {
           </div>
           <div className={$.content}>
             {isImageView && (
-              <ImageSlider className={$["article-image-wrapper"]}>
-                {article.images.map((image) => {
+              <ImageSlider
+                className={$["article-image-wrapper"]}
+                {...{ order, setOrder }}
+                total={IMAGES.length}
+              >
+                {/* {article.images.map((image) => { */}
+                {IMAGES.map((image) => {
                   return (
                     <Image
                       className={$["article-image"]}
@@ -54,7 +104,10 @@ function Detail() {
                 })}
               </ImageSlider>
             )}
-            <div dangerouslySetInnerHTML={{ __html: article.content }} />
+            <div
+              className={$.article}
+              dangerouslySetInnerHTML={{ __html: article.content }}
+            />
           </div>
         </div>
         <Footer

@@ -1,0 +1,26 @@
+@import "@shared/styles/color.scss";
+@import "src/styles/mixin.scss";
+
+.label {
+    display: block;
+    color: $gray-500;
+
+    .error-message {
+        display: block;
+        margin-top: 5px;
+        color: $google-red;
+    }
+
+    .input {
+        @include roundBox(250px, 2px solid $gray-400);
+        min-height: 105px;
+        resize: none;
+        color: $black;
+        font-weight: 500;
+        word-break: break-all;
+
+        &:focus {
+            border: 2px solid $blue-200;
+        }
+    }
+}

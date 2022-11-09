@@ -2,6 +2,7 @@ import { UseFormRegister } from "react-hook-form";
 
 import Select from "src/components/AdminManagement/Select";
 import TextInput from "src/components/AdminManagement/TextInput";
+import TextArea from "src/components/TextArea";
 import { SchoolAddForm, SchoolAddFormErrors } from "src/types/place";
 
 import $ from "./style.module.scss";
@@ -66,7 +67,7 @@ export default function AddForm({
           return register("contact");
         }}
       />
-      <TextInput
+      <TextArea
         id="description"
         className={$.input}
         errorMessage={errors.description?.message}

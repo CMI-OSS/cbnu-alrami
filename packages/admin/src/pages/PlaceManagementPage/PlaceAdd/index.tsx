@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useAddPlaceMutation } from "src/api/place";
 import AddForm from "src/components/PlaceManagement/AddForm";
 import { initImgList } from "src/pages/BoardPage/ArticleWrite/ArticleWrite.store";
 import UploadImage from "src/pages/BoardPage/ArticleWrite/UploadImage/UploadImage";
@@ -14,6 +15,7 @@ import schema from "./yup";
 export default function PlaceAdd() {
   const [ errMsg, setErrMsg ] = useState("");
   const dispatch = useAppDispatch();
+  const [ addPlace ] = useAddPlaceMutation();
   const { images } = useAppSelector((state) => state.ArticelWriteReducer);
   const {
     register,
@@ -48,18 +50,21 @@ export default function PlaceAdd() {
     return { imageIds, ...data };
   };
 
-  const addPlace = (body: SchoolAddForm) => {
-    console.log(JSON.stringify(body));
-
-    // TODO: 어드민 생성 API 연동
+  const postPlace = async (body: SchoolAddForm) => {
+    try {
+      const response = await addPlace(body);
+      reset();
+      alert(response);
+    } catch (err) {
+      alert(err);
+    }
   };
 
   const onSubmit: SubmitHandler<Omit<SchoolAddForm, "imageIds">> = (data) => {
     const imgIds = refineImgList();
     if (!imgIds.length) return;
     const body = mergeImgAndForm(imgIds, data);
-    addPlace(body);
-    reset();
+    postPlace(body);
   };
 
   return (

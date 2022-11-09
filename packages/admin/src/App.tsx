@@ -7,7 +7,7 @@ import "./admin.scss";
 import AdminManagementPage from "./pages/AdminManagementPage";
 import BoardPage from "./pages/BoardPage/Board.route";
 import LoginPage from "./pages/Login";
-import PlaceManagementPage from "./pages/PlaceManagementPage";
+import PlaceManagementPage from "./pages/PlaceManagementPage/Place.route";
 import { store } from "./store";
 
 function App() {

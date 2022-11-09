@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { BoardService } from "src/board/board.service";
 import { Repository } from "typeorm";
@@ -17,6 +17,11 @@ export class ArticleService {
 
   async create(createArticleDto: CreateArticleDto) {
     const board = await this.boardService.findOne(createArticleDto.boardId);
+
+    if (!board) {
+      throw new NotFoundException("해당하는 보드가 없습니다.");
+    }
+
     return this.articleRepository.save({ ...createArticleDto, board });
   }
 

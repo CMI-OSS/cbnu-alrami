@@ -49,6 +49,15 @@ export default function AddForm({
         }}
       />
       <TextInput
+        id="address"
+        className={$.input}
+        errorMessage={errors.address?.message}
+        label="주소"
+        register={() => {
+          return register("address");
+        }}
+      />
+      <TextInput
         id="contact"
         className={$.input}
         errorMessage={errors.contact?.message}

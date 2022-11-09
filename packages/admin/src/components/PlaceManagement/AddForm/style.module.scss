@@ -1,0 +1,18 @@
+@import "@shared/styles/color.scss";
+@import "src/styles/mixin.scss";
+
+.input {
+    margin-top: 10px;
+}
+
+.select {
+    margin-top: 10px;
+}
+
+.submit-button {
+    @include roundBox($width: 250px, $background-color: $blue-200, $color: $white);
+
+    &:hover {
+        background-color: $google-green;
+    }
+}

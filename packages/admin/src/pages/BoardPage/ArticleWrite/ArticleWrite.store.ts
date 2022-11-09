@@ -51,6 +51,9 @@ export const ArticleWriteSlice = createSlice({
       state.images[index + 1] = state.images[index];
       state.images[index] = temp;
     },
+    initImgList: (state) => {
+      state.images = [];
+    },
   },
 });
 
@@ -62,6 +65,7 @@ export const {
   removeImage,
   moveLeftImage,
   moveRightImage,
+  initImgList,
 } = ArticleWriteSlice.actions;
 const ArticelWriteReducer = ArticleWriteSlice.reducer;
 export default ArticelWriteReducer;

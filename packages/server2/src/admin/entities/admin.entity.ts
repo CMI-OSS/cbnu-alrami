@@ -1,3 +1,4 @@
+import { Board } from "src/board/entities/board.entity";
 import { UpdatableCommonEntity } from "src/common/entity";
 import { Column, Entity } from "typeorm";
 
@@ -16,4 +17,7 @@ export class Admin extends UpdatableCommonEntity {
 
   @Column({ type: "enum", enum: Authority, default: Authority.Guest })
   authoirty: Authority;
+
+  @Column("simple-array")
+  boards: Board[];
 }

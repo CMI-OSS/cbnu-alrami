@@ -52,11 +52,12 @@ export default function PlaceAdd() {
 
   const postPlace = async (body: SchoolAddForm) => {
     try {
-      const response = await addPlace(body);
+      const response = await addPlace(body).unwrap();
       reset();
-      alert(response);
+      dispatch(initImgList());
+      alert("건물을 성공적으로 생성했습니다.");
     } catch (err) {
-      alert(err);
+      alert('건물을 생성에 실패했습니다."');
     }
   };
 

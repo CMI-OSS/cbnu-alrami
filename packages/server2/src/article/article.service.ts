@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { BoardService } from "src/board/board.service";
 import { Repository } from "typeorm";
@@ -22,6 +26,13 @@ export class ArticleService {
       throw new NotFoundException("해당하는 보드가 없습니다.");
     }
 
+    if (createArticleDto.url) {
+      const article = await this.findOneByUrl(createArticleDto.url);
+      if (article) {
+        throw new ConflictException("이미 존재하는 게시물입니다.");
+      }
+    }
+
     return this.articleRepository.save({ ...createArticleDto, board });
   }
 
@@ -30,7 +41,11 @@ export class ArticleService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} article`;
+    return this.articleRepository.findOne({ where: { id } });
+  }
+
+  findOneByUrl(url: string) {
+    return this.articleRepository.findOne({ where: { url } });
   }
 
   update(id: number, updateArticleDto: UpdateArticleDto) {

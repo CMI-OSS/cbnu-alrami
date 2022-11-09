@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Post, UseGuards } from "@nestjs/common";
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { BoardTreeResponseDto } from "src/boardTree/dto/boardTree.response.dto";
 import { AdminAuthGuard } from "src/commons/guards/admin-auth.guard";
@@ -55,6 +55,39 @@ export class BoardAuthorityController {
   ): Promise<BoardAuthorityCreateResponseDto> {
     try {
       await this.boardAuthorityService.create(
+        boardAuthority.adminId,
+        boardAuthority.boardId,
+      );
+      return {
+        success: true,
+      };
+    } catch (error) {
+      return {
+        success: false,
+      };
+    }
+  }
+
+  @Delete()
+  @ApiOperation({
+    summary: "관리자에게 특정 보드 권한 제거",
+    description: "관리자에게 특정 보드 권한 제거",
+  })
+  @ApiHeader({
+    name: "x-access-token",
+    description: "admin jwt",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "성공여부",
+    type: BoardAuthorityCreateResponseDto,
+  })
+  @UseGuards(AdminAuthGuard)
+  async remove(
+    @Body() boardAuthority: BoardAuthorityCreateDto,
+  ): Promise<BoardAuthorityCreateResponseDto> {
+    try {
+      await this.boardAuthorityService.remove(
         boardAuthority.adminId,
         boardAuthority.boardId,
       );

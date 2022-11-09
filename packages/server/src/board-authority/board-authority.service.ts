@@ -48,4 +48,15 @@ export class BoardAuthorityService {
 
     await this.boardAuthorityRepository.save(boardAuthority);
   }
+
+  async remove(adminId: number, boardId: number) {
+    const admin = await this.adminService.findOne({ where: { id: adminId } });
+    const board = await this.boardService.findById(boardId);
+    const boardAuthority = Builder(BoardAuthority)
+      .admin(admin)
+      .board(board)
+      .build();
+
+    await this.boardAuthorityRepository.delete(boardAuthority);
+  }
 }

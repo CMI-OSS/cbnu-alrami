@@ -1,4 +1,4 @@
-import { IsDateString, IsOptional, IsString } from "class-validator";
+import { IsDateString, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateArticleDto {
   @IsString()
@@ -13,4 +13,7 @@ export class CreateArticleDto {
 
   @IsDateString()
   dateTime: Date;
+
+  @IsNumber()
+  boardId: number;
 }

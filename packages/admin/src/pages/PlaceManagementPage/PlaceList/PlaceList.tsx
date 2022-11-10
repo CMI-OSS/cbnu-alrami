@@ -21,7 +21,7 @@ export default function PlaceList() {
   if (isLoading || !placePageOutput) return null;
 
   const handleClickArticle = (articleId: number) => {
-    navigate(`/board/articles/${articleId}`);
+    navigate(`/place/list/${articleId}`);
   };
 
   const handleClickPage = (page: number) => {

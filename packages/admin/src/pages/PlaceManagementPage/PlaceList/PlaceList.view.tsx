@@ -20,7 +20,7 @@ export default function PlaceListView({ places, onClickPlace }: Props) {
         <div className={classnames($.cell, $.date)}>위도</div>
         <div className={classnames($.cell, $.id)}>경도</div>
         <div className={classnames($.cell, $.scraps)}>주소</div>
-        <div className={classnames($.cell, $.id)}>건물번호</div>
+        <div className={classnames($.cell, $.id)}>건물 구역</div>
       </div>
       {places.map((place) => (
         <div

@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 
 import PageLayout from "src/components/Layout/Page/Page.view";
 
+import Place from "./Place/Place";
 import PlaceAdd from "./PlaceAdd";
 import PlaceList from "./PlaceList/PlaceList";
 
@@ -11,6 +12,7 @@ export default function PlaceManagementPage() {
       <Routes>
         <Route path="/add" element={<PlaceAdd />} />
         <Route path="/list" element={<PlaceList />} />
+        <Route path="/list/:placeId" element={<Place />} />
       </Routes>
     </PageLayout>
   );

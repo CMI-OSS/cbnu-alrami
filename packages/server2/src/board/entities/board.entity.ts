@@ -1,9 +1,11 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { UpdatableCommonEntity } from "src/common/entity";
 import { Column, Entity, Tree, TreeChildren, TreeParent } from "typeorm";
 
 @Entity()
 @Tree("materialized-path")
 export class Board extends UpdatableCommonEntity {
+  @ApiProperty({ description: "보드의 제목" })
   @Column({ type: "varchar", length: 100 })
   name: string;
 
@@ -11,7 +13,7 @@ export class Board extends UpdatableCommonEntity {
   url?: string;
 
   @TreeParent()
-  parent: Board;
+  parent?: Board;
 
   @TreeChildren()
   children: Board[];

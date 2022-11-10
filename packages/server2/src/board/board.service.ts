@@ -13,8 +13,17 @@ export class BoardService {
     private boardRepository: Repository<Board>,
   ) {}
 
-  create(createBoardDto: CreateBoardDto) {
-    return "This action adds a new board";
+  async create(createBoardDto: CreateBoardDto) {
+    const parentBoard =
+      createBoardDto.parentBoardId &&
+      (await this.findOne(createBoardDto.parentBoardId));
+
+    const board = this.boardRepository.create({
+      ...createBoardDto,
+      ...(parentBoard && { parent: parentBoard }),
+    });
+
+    return this.boardRepository.save(board);
   }
 
   findByIds(ids: number[]) {
@@ -22,7 +31,10 @@ export class BoardService {
   }
 
   async findOne(id: number) {
-    const board = await this.boardRepository.findOne({ where: { id } });
+    const board = await this.boardRepository.findOne({
+      where: { id },
+      relations: { parent: true, children: true },
+    });
     if (!board) throw new NotFoundException("보드를 찾을 수 없습니다.");
 
     return board;

@@ -1,14 +1,14 @@
 import { useQuery } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import PaginationView from "src/components/Pagination/Pagination.view";
 import { getArticles } from "src/newApi/articleApi/getArticles";
 import { isOutputType } from "src/newApi/types";
 
-import PaginationView from "../../../components/Pagination/Pagination.view";
-import $ from "./ArticleList.module.scss";
-import ArticleListView from "./ArticleList.view";
+import $ from "./PlaceList.module.scss";
+import PlaceListView from "./PlaceList.view";
 
-export default function ArticleList() {
+export default function PlaceList() {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const page = Number(params.get("page")) || 1;
@@ -44,8 +44,8 @@ export default function ArticleList() {
 
   return (
     <div className={$["article-list"]}>
-      <div>총학생회 &gt; 공지사항</div>
-      <ArticleListView
+      <div>건물 목록</div>
+      <PlaceListView
         articles={articlePageOutput?.contents}
         onClickArticle={handleClickArticle}
       />

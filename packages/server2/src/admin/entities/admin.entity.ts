@@ -18,6 +18,6 @@ export class Admin extends UpdatableCommonEntity {
   @Column({ type: "enum", enum: Authority, default: Authority.Guest })
   authoirty: Authority;
 
-  @Column("simple-array")
+  @Column("simple-array", { nullable: true })
   boards: Board[];
 }

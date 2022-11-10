@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { BoardService } from "src/board/board.service";
 import { Repository } from "typeorm";
 
 import { CreateAdminDto } from "./dto/create-admin.dto";
@@ -11,14 +12,15 @@ export class AdminService {
   constructor(
     @InjectRepository(Admin)
     private adminRepository: Repository<Admin>,
+    private boardService: BoardService,
   ) {}
 
-  create(createAdminDto: CreateAdminDto) {
-    return this.adminRepository.save(createAdminDto);
+  async create(createAdminDto: CreateAdminDto) {
+    return this.adminRepository.save({ ...createAdminDto });
   }
 
   findAll() {
-    return `This action returns all admin`;
+    return this.adminRepository.find();
   }
 
   findOne(id: number) {

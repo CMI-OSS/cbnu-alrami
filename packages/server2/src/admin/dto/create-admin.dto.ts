@@ -1,5 +1,4 @@
-import { IsArray, IsEnum, IsOptional, IsString } from "class-validator";
-import { Board } from "src/board/entities/board.entity";
+import { IsEnum, IsOptional, IsString } from "class-validator";
 
 import { Authority } from "../admin.constant";
 
@@ -14,9 +13,6 @@ export class CreateAdminDto {
   nickname: string;
 
   @IsEnum(Authority)
-  authoirty: Authority;
-
-  @IsArray()
   @IsOptional()
-  boards: Board[];
+  authoirty?: Authority;
 }

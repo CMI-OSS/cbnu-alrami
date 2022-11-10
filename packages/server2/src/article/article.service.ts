@@ -1,7 +1,7 @@
 import {
   ConflictException,
   Injectable,
-  NotFoundException,
+  NotFoundException
 } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { BoardService } from "src/board/board.service";
@@ -37,7 +37,7 @@ export class ArticleService {
   }
 
   findAll() {
-    return `This action returns all article`;
+    return this.articleRepository.find({ relations: [ "board" ] });
   }
 
   findOne(id: number) {

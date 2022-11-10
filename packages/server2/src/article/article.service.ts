@@ -33,11 +33,14 @@ export class ArticleService {
   }
 
   findAll() {
-    return this.articleRepository.find({ relations: { board: true } });
+    return this.articleRepository.find();
   }
 
   async findOne(id: number) {
-    const article = await this.articleRepository.findOne({ where: { id } });
+    const article = await this.articleRepository.findOne({
+      where: { id },
+      relations: { board: { parent: true } },
+    });
 
     if (!article) throw new NotFoundArticleException();
 

@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { BoardService } from "src/board/board.service";
 import { Repository } from "typeorm";
 
 import { CreateAdminDto } from "./dto/create-admin.dto";
@@ -12,7 +11,6 @@ export class AdminService {
   constructor(
     @InjectRepository(Admin)
     private adminRepository: Repository<Admin>,
-    private boardService: BoardService,
   ) {}
 
   async create(createAdminDto: CreateAdminDto) {
@@ -30,8 +28,10 @@ export class AdminService {
     return admin;
   }
 
-  update(id: number, updateAdminDto: UpdateAdminDto) {
-    return `This action updates a #${id} admin`;
+  async update(id: number, updateAdminDto: UpdateAdminDto) {
+    const admin = await this.findOne(id);
+
+    return this.adminRepository.update(admin.id, updateAdminDto);
   }
 
   remove(id: number) {

@@ -1,6 +1,6 @@
 import { IsEnum, IsOptional, IsString } from "class-validator";
 
-import { Authority } from "../admin.constant";
+import { AdminAuthorityType } from "../admin.constant";
 
 export class CreateAdminDto {
   @IsString()
@@ -12,7 +12,7 @@ export class CreateAdminDto {
   @IsString()
   nickname: string;
 
-  @IsEnum(Authority)
+  @IsEnum(AdminAuthorityType)
   @IsOptional()
-  authoirty?: Authority;
+  authoirty?: AdminAuthorityType;
 }

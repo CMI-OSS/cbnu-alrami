@@ -1,4 +1,4 @@
-export enum BoardAuthority {
+export enum BoardAuthorityType {
   Read = "Read",
   Write = "Write",
 }

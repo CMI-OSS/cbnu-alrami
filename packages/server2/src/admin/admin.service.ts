@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { BoardService } from "src/board/board.service";
 import { Repository } from "typeorm";
@@ -20,11 +20,14 @@ export class AdminService {
   }
 
   findAll() {
-    return this.adminRepository.find();
+    return this.adminRepository.find({ relations: { boards: true } });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} admin`;
+  async findOne(id: number) {
+    const admin = await this.adminRepository.findOne({ where: { id } });
+    if (!admin) throw new NotFoundException("관리자를 찾을 수 없습니다.");
+
+    return admin;
   }
 
   update(id: number, updateAdminDto: UpdateAdminDto) {

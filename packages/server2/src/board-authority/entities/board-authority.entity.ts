@@ -1,17 +1,23 @@
-import { Authority } from "src/admin/admin.constant";
 import { Admin } from "src/admin/entities/admin.entity";
 import { Board } from "src/board/entities/board.entity";
 import { CommonEntity } from "src/common/entity";
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
+import { BoardAuthorityType } from "../board-authority.constant";
+
 @Entity()
 export class BoardAuthority extends CommonEntity {
-  @ManyToOne(() => Admin, (admin) => admin.boards)
+  @ManyToOne((type) => Admin, (admin) => admin.boards)
+  @JoinColumn()
   admin: Admin;
 
-  @Column({ type: "enum", enum: Authority, default: Authority.Guest })
-  authoirty: Authority;
-
+  @ManyToOne((type) => Board)
   @JoinColumn()
   board: Board;
+
+  @Column({
+    type: "enum",
+    enum: BoardAuthorityType,
+  })
+  authority: BoardAuthorityType;
 }

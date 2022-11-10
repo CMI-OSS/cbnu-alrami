@@ -2,7 +2,7 @@ import { BoardAuthority } from "src/board-authority/entities/board-authority.ent
 import { UpdatableCommonEntity } from "src/common/entity";
 import { Column, Entity, OneToMany } from "typeorm";
 
-import { Authority } from "../admin.constant";
+import { AdminAuthorityType } from "../admin.constant";
 
 @Entity()
 export class Admin extends UpdatableCommonEntity {
@@ -15,8 +15,12 @@ export class Admin extends UpdatableCommonEntity {
   @Column("varchar", { length: 20 })
   nickname: string;
 
-  @Column({ type: "enum", enum: Authority, default: Authority.Guest })
-  authoirty: Authority;
+  @Column({
+    type: "enum",
+    enum: AdminAuthorityType,
+    default: AdminAuthorityType.Guest,
+  })
+  authoirty: AdminAuthorityType;
 
   @OneToMany(() => BoardAuthority, (boardAuthority) => boardAuthority.admin)
   boards: BoardAuthority[];

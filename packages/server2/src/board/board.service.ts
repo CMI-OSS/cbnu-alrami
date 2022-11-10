@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
@@ -21,8 +21,11 @@ export class BoardService {
     return this.boardRepository.createQueryBuilder().whereInIds(ids).getMany();
   }
 
-  findOne(id: number) {
-    return this.boardRepository.findOne({ where: { id } });
+  async findOne(id: number) {
+    const board = await this.boardRepository.findOne({ where: { id } });
+    if (!board) throw new NotFoundException("보드를 찾을 수 없습니다.");
+
+    return board;
   }
 
   update(id: number, updateBoardDto: UpdateBoardDto) {

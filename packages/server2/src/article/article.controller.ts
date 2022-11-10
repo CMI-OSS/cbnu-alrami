@@ -7,7 +7,12 @@ import {
   Patch,
   Post,
 } from "@nestjs/common";
-import { ApiConflictResponse, ApiCreatedResponse } from "@nestjs/swagger";
+import {
+  ApiConflictResponse,
+  ApiCreatedResponse,
+  ApiOkResponse,
+} from "@nestjs/swagger";
+import { MutationResponse } from "src/common/types/response";
 
 import { DuplicatedArticleException } from "./article.exception";
 import { ArticleService } from "./article.service";
@@ -25,7 +30,7 @@ export class ArticleController {
     type: Article,
   })
   @ApiConflictResponse({ type: DuplicatedArticleException })
-  create(@Body() createArticleDto: CreateArticleDto) {
+  create(@Body() createArticleDto: CreateArticleDto): Promise<Article> {
     return this.articleService.create(createArticleDto);
   }
 
@@ -40,8 +45,16 @@ export class ArticleController {
   }
 
   @Patch(":id")
-  update(@Param("id") id: string, @Body() updateArticleDto: UpdateArticleDto) {
-    return this.articleService.update(+id, updateArticleDto);
+  @ApiOkResponse({ type: MutationResponse })
+  async update(
+    @Param("id") id: number,
+    @Body() updateArticleDto: UpdateArticleDto,
+  ): Promise<MutationResponse> {
+    await this.articleService.update(id, updateArticleDto);
+
+    return {
+      success: true,
+    };
   }
 
   @Delete(":id")

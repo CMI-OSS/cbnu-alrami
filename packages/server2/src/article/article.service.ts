@@ -3,7 +3,10 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { BoardService } from "src/board/board.service";
 import { Repository } from "typeorm";
 
-import { DuplicatedArticleException } from "./article.exception";
+import {
+  DuplicatedArticleException,
+  NotFoundArticleException,
+} from "./article.exception";
 import { CreateArticleDto } from "./dto/create-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
 import { Article } from "./entities/article.entity";
@@ -30,19 +33,34 @@ export class ArticleService {
   }
 
   findAll() {
-    return this.articleRepository.find({ relations: [ "board" ] });
+    return this.articleRepository.find({ relations: { board: true } });
   }
 
-  findOne(id: number) {
-    return this.articleRepository.findOne({ where: { id } });
+  async findOne(id: number) {
+    const article = await this.articleRepository.findOne({ where: { id } });
+
+    if (!article) throw new NotFoundArticleException();
+
+    return article;
   }
 
   findOneByUrl(url: string) {
     return this.articleRepository.findOne({ where: { url } });
   }
 
-  update(id: number, updateArticleDto: UpdateArticleDto) {
-    return `This action updates a #${id} article`;
+  async update(id: number, updateArticleDto: UpdateArticleDto) {
+    const target = await this.findOne(id);
+
+    const board =
+      updateArticleDto.boardId &&
+      (await this.boardService.findOne(updateArticleDto.boardId));
+
+    const article = this.articleRepository.create({
+      ...updateArticleDto,
+      ...(board && { board }),
+    });
+
+    return this.articleRepository.update(target.id, article);
   }
 
   remove(id: number) {

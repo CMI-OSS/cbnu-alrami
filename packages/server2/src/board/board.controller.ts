@@ -21,11 +21,6 @@ export class BoardController {
     return this.boardService.create(createBoardDto);
   }
 
-  @Get()
-  findAll() {
-    return this.boardService.findAll();
-  }
-
   @Get(":id")
   findOne(@Param("id") id: string) {
     return this.boardService.findOne(+id);

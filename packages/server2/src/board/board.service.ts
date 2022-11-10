@@ -17,8 +17,8 @@ export class BoardService {
     return "This action adds a new board";
   }
 
-  findAll() {
-    return `This action returns all board`;
+  findByIds(ids: number[]) {
+    return this.boardRepository.createQueryBuilder().whereInIds(ids).getMany();
   }
 
   findOne(id: number) {

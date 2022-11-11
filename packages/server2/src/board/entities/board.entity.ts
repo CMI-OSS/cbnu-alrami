@@ -16,5 +16,5 @@ export class Board extends UpdatableCommonEntity {
   parent?: Board;
 
   @TreeChildren()
-  children: Board[];
+  children?: Board[];
 }

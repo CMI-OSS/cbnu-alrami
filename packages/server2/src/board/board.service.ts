@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { TreeRepository } from "typeorm";
 
 import { CreateBoardDto } from "./dto/create-board.dto";
 import { UpdateBoardDto } from "./dto/update-board.dto";
@@ -10,7 +10,7 @@ import { Board } from "./entities/board.entity";
 export class BoardService {
   constructor(
     @InjectRepository(Board)
-    private boardRepository: Repository<Board>,
+    private boardRepository: TreeRepository<Board>,
   ) {}
 
   async create(createBoardDto: CreateBoardDto) {
@@ -28,6 +28,12 @@ export class BoardService {
 
   findByIds(ids: number[]) {
     return this.boardRepository.createQueryBuilder().whereInIds(ids).getMany();
+  }
+
+  findAll() {
+    return this.boardRepository.findTrees({
+      relations: [ "children" ],
+    });
   }
 
   async findOne(id: number) {

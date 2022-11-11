@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNumber, IsString, IsUrl } from "class-validator";
+import { IsNumber, IsOptional, IsString, IsUrl } from "class-validator";
 
 export class CreateBoardDto {
   @ApiProperty({ description: "게시판 제목" })
@@ -7,6 +7,7 @@ export class CreateBoardDto {
   name: string;
 
   @ApiProperty({ description: "게시판 URL" })
+  @IsOptional()
   @IsUrl()
   url?: string;
 

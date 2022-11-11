@@ -26,6 +26,11 @@ export class BoardController {
     return this.boardService.findOne(id);
   }
 
+  @Get()
+  find() {
+    return this.boardService.findAll();
+  }
+
   @Patch(":id")
   update(@Param("id") id: string, @Body() updateBoardDto: UpdateBoardDto) {
     return this.boardService.update(+id, updateBoardDto);

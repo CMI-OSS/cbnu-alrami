@@ -36,6 +36,23 @@ export class ArticleService {
     return this.articleRepository.find();
   }
 
+  async findArticlePage(boardId: number, page: number, count: number) {
+    const articles: Article[] = await this.articleRepository.find({
+      where: {
+        board: {
+          id: boardId,
+        },
+      },
+      relations: [ "board" ],
+      order: {
+        dateTime: "DESC",
+      },
+      take: count,
+      skip: (page - 1) * count,
+    });
+    return articles;
+  }
+
   async findOne(id: number) {
     const article = await this.articleRepository.findOne({
       where: { id },

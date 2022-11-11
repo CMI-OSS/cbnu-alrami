@@ -1,13 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Patch } from "@nestjs/common";
-import { ApiOkResponse } from "@nestjs/swagger";
+import { Body, Controller, Delete, Param } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { MutationResponse } from "src/common/types/response";
 
-import { CreateArticle } from "./article.decorator";
+import { CreateArticle, GetArtice, UpdateArticle } from "./article.decorator";
 import { ArticleService } from "./article.service";
 import { CreateArticleDto } from "./dto/create-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
 import { Article } from "./entities/article.entity";
 
+@ApiTags("[article] 게시물 API")
 @Controller("article")
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
@@ -17,18 +18,12 @@ export class ArticleController {
     return this.articleService.create(createArticleDto);
   }
 
-  @Get()
-  findAll() {
-    return this.articleService.findAll();
-  }
-
-  @Get(":id")
+  @GetArtice()
   findOne(@Param("id") id: number) {
     return this.articleService.findOne(id);
   }
 
-  @Patch(":id")
-  @ApiOkResponse({ type: MutationResponse })
+  @UpdateArticle()
   async update(
     @Param("id") id: number,
     @Body() updateArticleDto: UpdateArticleDto,

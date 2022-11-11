@@ -6,15 +6,23 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
+import { ArticleService } from "src/article/article.service";
+import { PaginationDto } from "src/common/dto/pagination.dto";
 
 import { BoardService } from "./board.service";
 import { CreateBoardDto } from "./dto/create-board.dto";
 import { UpdateBoardDto } from "./dto/update-board.dto";
 
+@ApiTags("[board] 게시판 API")
 @Controller("board")
 export class BoardController {
-  constructor(private readonly boardService: BoardService) {}
+  constructor(
+    private readonly articleService: ArticleService,
+    private readonly boardService: BoardService,
+  ) {}
 
   @Post()
   create(@Body() createBoardDto: CreateBoardDto) {
@@ -29,6 +37,11 @@ export class BoardController {
   @Get()
   find() {
     return this.boardService.findAll();
+  }
+
+  @Get(":id/articles")
+  findArticlePage(@Param("id") id: number, @Query() query: PaginationDto) {
+    return this.articleService.findArticlePage(id, query.page, query.count);
   }
 
   @Patch(":id")

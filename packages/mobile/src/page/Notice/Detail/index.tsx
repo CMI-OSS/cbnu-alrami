@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { LeftArrow } from "@components/atoms/icon";
 import Image from "@components/atoms/Image";
-import ImageSlider from "@components/molecules/ImageSlider";
+import Slider from "@components/molecules/Slider";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import { useArticleQuery } from "@hooks/api/article";
 import dayjs from "dayjs";
@@ -15,43 +15,23 @@ import $ from "./style.module.scss";
 const IMAGES = [
   {
     id: 531,
-    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
+    url: "https://user-images.githubusercontent.com/34129711/147549612-edea062f-1c2b-4049-bc48-49900be89826.jpg",
   },
   {
     id: 532,
-    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
+    url: "https://user-images.githubusercontent.com/34129711/147549639-c30f6506-8fac-4bf2-84a5-c5de065cf26b.jpg",
   },
   {
     id: 533,
-    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
+    url: "https://user-images.githubusercontent.com/34129711/176329367-b87f2b91-a955-4eca-8537-6ec44bc10b9a.jpg",
   },
   {
     id: 534,
-    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
+    url: "https://user-images.githubusercontent.com/34129711/176329372-fb5d8f2f-fc97-408c-b2dd-e932e535fa66.jpg",
   },
   {
     id: 535,
-    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
-  },
-  {
-    id: 536,
-    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
-  },
-  {
-    id: 537,
-    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
-  },
-  {
-    id: 538,
-    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
-  },
-  {
-    id: 539,
-    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
-  },
-  {
-    id: 540,
-    url: "https://cbnutest.s3.ap-northeast-2.amazonaws.com/image/1664968693862.jpeg",
+    url: "https://user-images.githubusercontent.com/34129711/176329355-55837191-7c11-4f9e-8c44-75113fbfdd0c.jpg",
   },
 ];
 
@@ -86,7 +66,7 @@ function Detail() {
           </div>
           <div className={$.content}>
             {isImageView && (
-              <ImageSlider
+              <Slider
                 className={$["article-image-wrapper"]}
                 {...{ order, setOrder }}
                 total={IMAGES.length}
@@ -102,7 +82,7 @@ function Detail() {
                     />
                   );
                 })}
-              </ImageSlider>
+              </Slider>
             )}
             <div
               className={$.article}

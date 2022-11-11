@@ -1,11 +1,14 @@
-.image-slider-wrapper {
+.slider-container {
   display: flex;
   flex-direction: column;
 
-  .image-slider {
-    position: relative;
+  .slider-wrapper {
+    overflow-x: hidden;
+  }
+
+  .slider {
     display: flex;
-    overflow-x: scroll;
+    width: 100vw;
   }
 
   .order {

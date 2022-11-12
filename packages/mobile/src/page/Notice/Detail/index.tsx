@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { LeftArrow } from "@components/atoms/icon";
 import Image from "@components/atoms/Image";
-import ImageSlider from "@components/molecules/ImageSlider";
+import Slider from "@components/molecules/Slider";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import { useArticleQuery } from "@hooks/api/article";
 import dayjs from "dayjs";
@@ -18,6 +19,7 @@ function Detail() {
     error,
     isLoading,
   } = useArticleQuery(Number(articleId)!);
+  const [ order, setOrder ] = useState(0);
 
   if (!article || error || isLoading) return <></>;
   const isImageView =
@@ -41,7 +43,11 @@ function Detail() {
           </div>
           <div className={$.content}>
             {isImageView && (
-              <ImageSlider className={$["article-image-wrapper"]}>
+              <Slider
+                className={$["article-image-wrapper"]}
+                {...{ order, setOrder }}
+                total={article.images.length}
+              >
                 {article.images.map((image) => {
                   return (
                     <Image
@@ -52,9 +58,12 @@ function Detail() {
                     />
                   );
                 })}
-              </ImageSlider>
+              </Slider>
             )}
-            <div dangerouslySetInnerHTML={{ __html: article.content }} />
+            <div
+              className={$.article}
+              dangerouslySetInnerHTML={{ __html: article.content }}
+            />
           </div>
         </div>
         <Footer

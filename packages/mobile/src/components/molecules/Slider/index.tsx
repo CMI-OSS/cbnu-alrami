@@ -26,7 +26,7 @@ function Slider({ total, order, setOrder, className, children }: Props) {
   };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    const touchEnd = e.touches[0].clientX;
+    const touchEnd = e.changedTouches[0].clientX;
     const halfInnerWidth = window.innerWidth / 2;
 
     if (touchStart >= halfInnerWidth && touchEnd < halfInnerWidth) {
@@ -51,12 +51,12 @@ function Slider({ total, order, setOrder, className, children }: Props) {
       <div
         className={$["slider-wrapper"]}
         onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchMove}
       >
         <div
           ref={sliderRef}
           className={classNames($.slider, className)}
-          style={{ transform: `translateX(${(order + 1) * -100}%)` }}
+          style={{ transform: `translateX(${order * -100}%)` }}
         >
           {children}
         </div>

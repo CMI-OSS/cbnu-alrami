@@ -5,7 +5,7 @@ declare namespace res {
     title: string;
     hits: number;
     scraps: number;
-    date: string;
+    date: Date;
   };
   type Board = {
     id: number;

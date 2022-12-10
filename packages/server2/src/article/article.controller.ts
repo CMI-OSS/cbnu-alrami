@@ -1,8 +1,13 @@
-import { Body, Controller, Delete, Param } from "@nestjs/common";
+import { Body, Controller, Param } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { MutationResponse } from "src/common/types/response";
 
-import { CreateArticle, GetArtice, UpdateArticle } from "./article.decorator";
+import {
+  CreateArticle,
+  DeleteArticle,
+  GetArtice,
+  UpdateArticle,
+} from "./article.decorator";
 import { ArticleService } from "./article.service";
 import { CreateArticleDto } from "./dto/create-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
@@ -35,7 +40,7 @@ export class ArticleController {
     };
   }
 
-  @Delete(":id")
+  @DeleteArticle()
   remove(@Param("id") id: string) {
     return this.articleService.remove(+id);
   }

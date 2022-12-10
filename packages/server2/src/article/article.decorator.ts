@@ -1,4 +1,4 @@
-import { applyDecorators, Get, Patch, Post } from "@nestjs/common";
+import { applyDecorators, Delete, Get, Patch, Post } from "@nestjs/common";
 import {
   ApiConflictResponse,
   ApiCreatedResponse,
@@ -39,6 +39,16 @@ export function UpdateArticle() {
     Patch(":id"),
     ApiOperation({
       summary: "게시물 수정",
+    }),
+    ApiOkResponse({ type: MutationResponse }),
+  );
+}
+
+export function DeleteArticle() {
+  return applyDecorators(
+    Delete(":id"),
+    ApiOperation({
+      summary: "게시물 삭제",
     }),
     ApiOkResponse({ type: MutationResponse }),
   );

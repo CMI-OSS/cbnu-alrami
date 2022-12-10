@@ -7,11 +7,13 @@ import {
   Patch,
   Post,
 } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 
 import { BoardAuthorityService } from "./board-authority.service";
 import { CreateBoardAuthorityDto } from "./dto/create-board-authority.dto";
 import { UpdateBoardAuthorityDto } from "./dto/update-board-authority.dto";
 
+@ApiTags("[admin] 관리자 API")
 @Controller("board-authority")
 export class BoardAuthorityController {
   constructor(private readonly boardAuthorityService: BoardAuthorityService) {}

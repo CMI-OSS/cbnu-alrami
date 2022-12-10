@@ -1,6 +1,15 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { applyDecorators } from "@nestjs/common";
+import {
+  ApiConflictResponse,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiProperty,
+} from "@nestjs/swagger";
 import { UpdatableCommonEntity } from "src/common/entity";
+import { MutationResponse } from "src/common/types/response";
 
+import { DuplicatedArticleException } from "./article.exception";
 import { Article } from "./entities/article.entity";
 
 type ArticleProperty = Record<
@@ -32,4 +41,42 @@ export const ArticleProperty: ArticleProperty = {
   author: () => ApiProperty({ description: "게시물 작성자" }),
 };
 
-export default ArticleProperty;
+export const CreateArticle = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "게시물 생성",
+    }),
+    ApiCreatedResponse({
+      description: "게시물이 정상적으로 작성된 경우",
+      type: Article,
+    }),
+    ApiConflictResponse({ type: DuplicatedArticleException }),
+  );
+};
+
+export const GetArtice = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "게시물 조회",
+    }),
+    ApiOkResponse({ type: Article }),
+  );
+};
+
+export const UpdateArticle = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "게시물 수정",
+    }),
+    ApiOkResponse({ type: MutationResponse }),
+  );
+};
+
+export const DeleteArticle = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "게시물 삭제",
+    }),
+    ApiOkResponse({ type: MutationResponse }),
+  );
+};

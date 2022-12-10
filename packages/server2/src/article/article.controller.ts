@@ -1,14 +1,22 @@
-import { Body, Controller, Param } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { MutationResponse } from "src/common/types/response";
 
+import { ArticleService } from "./article.service";
 import {
   CreateArticle,
   DeleteArticle,
   GetArtice,
   UpdateArticle,
-} from "./article.decorator";
-import { ArticleService } from "./article.service";
+} from "./article.swagger";
 import { CreateArticleDto } from "./dto/create-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
 import { Article } from "./entities/article.entity";
@@ -19,16 +27,19 @@ export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
   @CreateArticle()
+  @Post()
   create(@Body() createArticleDto: CreateArticleDto): Promise<Article> {
     return this.articleService.create(createArticleDto);
   }
 
   @GetArtice()
+  @Get(":id")
   findOne(@Param("id") id: number) {
     return this.articleService.findOne(id);
   }
 
   @UpdateArticle()
+  @Patch(":id")
   async update(
     @Param("id") id: number,
     @Body() updateArticleDto: UpdateArticleDto,
@@ -41,6 +52,7 @@ export class ArticleController {
   }
 
   @DeleteArticle()
+  @Delete(":id")
   remove(@Param("id") id: string) {
     return this.articleService.remove(+id);
   }

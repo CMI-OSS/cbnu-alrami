@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { HelmetProvider } from "react-helmet-async";
 import { Provider } from "react-redux";
 
 import Toast from "@components/atoms/Toast";
@@ -24,12 +23,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
     <QueryClientProvider client={queryClient}>
       <React.StrictMode>
-        <HelmetProvider>
-          <PersistGate loading={null} persistor={persistor}>
-            <App />
-            <Toast />
-          </PersistGate>
-        </HelmetProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+          <Toast />
+        </PersistGate>
       </React.StrictMode>
     </QueryClientProvider>
   </Provider>,

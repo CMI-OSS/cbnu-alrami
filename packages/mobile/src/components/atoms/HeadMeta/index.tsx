@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "react-helmet";
 
 import { HEAD_META_INFOMATION } from "src/constants";
 

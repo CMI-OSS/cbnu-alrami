@@ -11,7 +11,7 @@ import { UpdatableCommonEntity } from "src/common/entity";
 import { MutationResponse } from "src/common/types/response";
 
 import { NotFoundBoardException } from "./board.exception";
-import { Board } from "./entities/board.entity";
+import { Board, ChildBoard } from "./entities/board.entity";
 
 type BoardProperty = Record<
   Exclude<keyof Board, keyof UpdatableCommonEntity>,
@@ -43,7 +43,7 @@ export const BoardProperty: BoardProperty = {
     ApiProperty({
       description: "자식 게시판",
       required: false,
-      example: [],
+      type: () => [ ChildBoard ],
     }),
 };
 

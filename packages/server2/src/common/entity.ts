@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import {
   BaseEntity,
   CreateDateColumn,
@@ -6,9 +7,11 @@ import {
 } from "typeorm";
 
 export abstract class CommonEntity extends BaseEntity {
+  @ApiProperty({ description: "아이디", example: 1 })
   @PrimaryGeneratedColumn()
   id!: number;
 
+  @ApiProperty({ description: "생성 시간" })
   @CreateDateColumn({
     type: "timestamp",
   })
@@ -16,6 +19,7 @@ export abstract class CommonEntity extends BaseEntity {
 }
 
 export abstract class UpdatableCommonEntity extends CommonEntity {
+  @ApiProperty({ description: "수정 시간" })
   @UpdateDateColumn({
     type: "timestamp",
   })

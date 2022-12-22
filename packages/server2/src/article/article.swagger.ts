@@ -2,14 +2,19 @@ import { applyDecorators } from "@nestjs/common";
 import {
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiProperty,
 } from "@nestjs/swagger";
+import { Board } from "src/board/entities/board.entity";
 import { UpdatableCommonEntity } from "src/common/entity";
 import { MutationResponse } from "src/common/types/response";
 
-import { DuplicatedArticleException } from "./article.exception";
+import {
+  DuplicatedArticleException,
+  NotFoundArticleException,
+} from "./article.exception";
 import { Article } from "./entities/article.entity";
 
 type ArticleProperty = Record<
@@ -36,8 +41,12 @@ export const ArticleProperty: ArticleProperty = {
       required: false,
     }),
   dateTime: () =>
-    ApiProperty({ description: "공지사항이 작성된 시간", example: new Date() }),
-  board: () => ApiProperty({ description: "게시물이 속한 게시판" }),
+    ApiProperty({
+      description: "공지사항이 작성된 시간",
+      example: new Date(),
+    }),
+  board: () =>
+    ApiProperty({ description: "게시물이 속한 게시판", type: () => Board }),
   author: () => ApiProperty({ description: "게시물 작성자" }),
 };
 
@@ -60,6 +69,9 @@ export const GetArtice = () => {
       summary: "게시물 조회",
     }),
     ApiOkResponse({ type: Article }),
+    ApiNotFoundResponse({
+      type: NotFoundArticleException,
+    }),
   );
 };
 
@@ -69,6 +81,7 @@ export const UpdateArticle = () => {
       summary: "게시물 수정",
     }),
     ApiOkResponse({ type: MutationResponse }),
+    ApiNotFoundResponse({ type: NotFoundArticleException }),
   );
 };
 
@@ -78,5 +91,6 @@ export const DeleteArticle = () => {
       summary: "게시물 삭제",
     }),
     ApiOkResponse({ type: MutationResponse }),
+    ApiNotFoundResponse({ type: NotFoundArticleException }),
   );
 };

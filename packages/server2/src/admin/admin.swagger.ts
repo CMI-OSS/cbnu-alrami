@@ -15,6 +15,7 @@ import { AdminAuthorityType } from "./admin.constant";
 import {
   DuplicatedLoginIdException,
   NotFoundAdminException,
+  NotFoundBoardsException,
 } from "./admin.exception";
 import { Admin } from "./entities/admin.entity";
 
@@ -64,6 +65,7 @@ export const CreateAdmin = () => {
       type: Admin,
     }),
     ApiConflictResponse({ type: DuplicatedLoginIdException }),
+    ApiNotFoundResponse({ type: NotFoundBoardsException }),
   );
 };
 

@@ -100,7 +100,9 @@ export const UpdateBoard = () => {
       summary: "게시판 수정",
     }),
     ApiOkResponse({ type: MutationResponse }),
-    ApiNotFoundResponse({ type: NotFoundBoardException }),
+    ApiNotFoundResponse({
+      type: NotFoundBoardException,
+    }),
   );
 };
 

@@ -4,17 +4,19 @@ import { CommonEntity } from "src/common/entity";
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 import { BoardAuthorityType } from "../board-authority.constant";
+import { BoardAuthorityProperty } from "../board-authority.swagger";
 
 @Entity()
 export class BoardAuthority extends CommonEntity {
-  @ManyToOne((type) => Admin, (admin) => admin.boards)
+  @ManyToOne(() => Admin, (admin) => admin.boards)
   @JoinColumn()
   admin: Admin;
 
-  @ManyToOne((type) => Board)
+  @ManyToOne(() => Board)
   @JoinColumn()
   board: Board;
 
+  @BoardAuthorityProperty.authority()
   @Column({
     type: "enum",
     enum: BoardAuthorityType,

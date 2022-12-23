@@ -7,11 +7,13 @@ import { AdminModule } from "./admin/admin.module";
 import { Admin } from "./admin/entities/admin.entity";
 import { ArticleModule } from "./article/article.module";
 import { Article } from "./article/entities/article.entity";
-import { BoardAuthorityModule } from './board-authority/board-authority.module';
+import { BoardAuthorityModule } from "./board-authority/board-authority.module";
 import { BoardAuthority } from "./board-authority/entities/board-authority.entity";
 import { BoardModule } from "./board/board.module";
 import { Board } from "./board/entities/board.entity";
 import configuration from "./config/configuration";
+import { Schedule } from "./schedule/entities/schedule.entity";
+import { ScheduleModule } from "./schedule/schedule.module";
 
 @Module({
   imports: [
@@ -24,7 +26,7 @@ import configuration from "./config/configuration";
       useFactory: (configService: ConfigService) => ({
         ...configService.get("db"),
         namingStrategy: new SnakeNamingStrategy(),
-        entities: [ Article, Admin, Board, BoardAuthority ],
+        entities: [ Article, Admin, Board, BoardAuthority, Schedule ],
         synchronize: true,
       }),
       inject: [ ConfigService ],
@@ -32,6 +34,7 @@ import configuration from "./config/configuration";
     BoardModule,
     AdminModule,
     BoardAuthorityModule,
+    ScheduleModule,
   ],
   providers: [],
 })

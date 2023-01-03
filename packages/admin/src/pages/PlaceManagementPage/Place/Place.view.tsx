@@ -1,12 +1,10 @@
-import { useNavigate } from "react-router-dom";
-
-import { useDeletePlaceMutation } from "src/api/place";
-import { placeApiErrorMsg, placeApiSuccessMsg } from "src/constants/place";
 import { PlaceItem } from "src/newApi/placeApi/getPlace";
 
 import $ from "./Place.module.scss";
 
 export interface PlaceViewProps extends PlaceItem {
+  onClickEdit: () => void;
+  onClickDelete: () => void;
   onClickImage: (
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     index: number,
@@ -25,9 +23,8 @@ const hanguls = [
 ];
 
 export default function PlaceView(props: PlaceViewProps) {
-  const { id, school, images, onClickImage } = props;
+  const { school, images, onClickImage, onClickEdit, onClickDelete } = props;
   const { name, latitude, longtitude, address, contact, description } = props;
-  const [ deletePlace ] = useDeletePlaceMutation();
 
   const engs = [
     latitude,
@@ -39,22 +36,6 @@ export default function PlaceView(props: PlaceViewProps) {
     school?.oldBuildingNumber,
     school?.area,
   ];
-
-  const navigate = useNavigate();
-
-  const handleClickEdit = () => {
-    navigate(`/place/edit/${id}`);
-  };
-
-  const handleClickDelete = async () => {
-    try {
-      await deletePlace({ id }).unwrap();
-      alert(placeApiSuccessMsg("삭제"));
-      navigate("/place/list");
-    } catch (err) {
-      alert(placeApiErrorMsg("삭제"));
-    }
-  };
 
   return (
     <>
@@ -88,10 +69,10 @@ export default function PlaceView(props: PlaceViewProps) {
         </div>
       </article>
       <div style={{ textAlign: "center" }}>
-        <button type="button" className={$.button} onClick={handleClickEdit}>
+        <button type="button" className={$.button} onClick={onClickEdit}>
           수정
         </button>
-        <button type="button" className={$.button} onClick={handleClickDelete}>
+        <button type="button" className={$.button} onClick={onClickDelete}>
           삭제
         </button>
       </div>

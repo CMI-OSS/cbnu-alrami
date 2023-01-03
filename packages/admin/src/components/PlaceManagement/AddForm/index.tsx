@@ -8,6 +8,7 @@ import { SchoolAddForm, SchoolAddFormErrors } from "src/types/place";
 import $ from "./style.module.scss";
 
 type Props = {
+  isAdd: boolean;
   onSubmit: () => void;
   register: UseFormRegister<Omit<SchoolAddForm, "imageIds">>;
   errors: SchoolAddFormErrors;
@@ -16,6 +17,7 @@ type Props = {
 const AREAS = [ "E", "N", "S" ];
 
 export default function AddForm({
+  isAdd,
   onSubmit: handleSubmit,
   register,
   errors,
@@ -23,7 +25,7 @@ export default function AddForm({
   return (
     <form onSubmit={handleSubmit}>
       <TextInput
-        id="name-input"
+        id="name"
         className={$.input}
         errorMessage={errors.name?.message}
         label="건물 이름"
@@ -108,7 +110,7 @@ export default function AddForm({
         className={$["submit-button"]}
         aria-label="건물 만들기"
       >
-        건물 생성
+        건물 {isAdd ? "추가" : "수정"}
       </button>
     </form>
   );

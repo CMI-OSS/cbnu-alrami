@@ -16,10 +16,10 @@ export type PlaceItem = {
     area: SchoolPlace["area"];
   };
   tags?: string;
-  images: ({ id: number; createdAt: string; url: string } | null)[];
+  images: { id: number; createdAt: string; url: string }[] | null;
 } & Place;
 
-interface GetPlaceApiOutput_Success {
+export interface GetPlaceApiOutput_Success {
   type: "GetPlaceApiOutput_Success";
   content: PlaceItem;
 }

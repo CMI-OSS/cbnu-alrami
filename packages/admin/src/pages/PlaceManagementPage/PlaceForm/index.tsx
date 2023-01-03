@@ -4,15 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAddPlaceMutation, useEditPlaceMutation } from "src/api/place";
-import AddForm from "src/components/PlaceManagement/AddForm";
 import { placeApiErrorMsg, placeApiSuccessMsg } from "src/constants/place";
 import { initImgList } from "src/pages/BoardPage/ArticleWrite/ArticleWrite.store";
-import UploadImage from "src/pages/BoardPage/ArticleWrite/UploadImage/UploadImage";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { SchoolAddForm } from "src/types/place";
 
 import { getObjKeyNames, RefinedSchoolState } from "../place.utils";
-import $ from "./style.module.scss";
+import PlaceFormView, { PlaceFormViewProps } from "./PlaceForm.view";
 import schema from "./yup";
 
 type Props = {
@@ -31,7 +29,7 @@ export default function PlaceFormTemplate(props: Props) {
   const [ editPlace ] = useEditPlaceMutation();
   const { images } = useAppSelector((state) => state.ArticelWriteReducer);
   const api = isAdd ? addPlace : editPlace;
-  const apiResultMsg = isAdd ? "추가" : "수정";
+  const apiKindMsg = isAdd ? "추가" : "수정";
 
   const {
     setValue,
@@ -81,10 +79,10 @@ export default function PlaceFormTemplate(props: Props) {
       await api(body).unwrap();
       reset();
       dispatch(initImgList([]));
-      alert(placeApiSuccessMsg(apiResultMsg));
+      alert(placeApiSuccessMsg(apiKindMsg));
       if (!isAdd) navigate(`/places/list/${state?.id}`);
     } catch (err) {
-      alert(placeApiErrorMsg(apiResultMsg));
+      alert(placeApiErrorMsg(apiKindMsg));
     }
   };
 
@@ -95,23 +93,15 @@ export default function PlaceFormTemplate(props: Props) {
     postPlace(body);
   };
 
-  return (
-    <div className={$.container}>
-      <header>
-        <h1 className={$.title}>건물 {apiResultMsg} 페이지</h1>
-      </header>
-      <main className={$.main}>
-        <section>
-          <UploadImage />
-          <span className={$["error-message"]}>{errMsg}</span>
-          <AddForm
-            isAdd={isAdd}
-            onSubmit={handleSubmit(onSubmit)}
-            register={register}
-            errors={errors}
-          />
-        </section>
-      </main>
-    </div>
-  );
+  const placeFormViewProps: PlaceFormViewProps = {
+    apiKindMsg,
+    errors,
+    errMsg,
+    isAdd,
+    register,
+    handleSubmit,
+    onSubmit,
+  };
+
+  return <PlaceFormView {...placeFormViewProps} />;
 }

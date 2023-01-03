@@ -24,3 +24,7 @@ export const dataToSchoolFormState = (
     images: data.images?.map(({ id, url }) => ({ id, url })) || [],
   };
 };
+
+export const getObjKeyNames = Object.keys as <T extends object>(
+  obj: T,
+) => Array<keyof T>;

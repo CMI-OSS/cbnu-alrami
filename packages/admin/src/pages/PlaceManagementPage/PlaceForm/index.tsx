@@ -1,23 +1,38 @@
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAddPlaceMutation } from "src/api/place";
-import AddForm from "src/components/PlaceManagement/AddForm";
+import { useAddPlaceMutation, useEditPlaceMutation } from "src/api/place";
+import { placeApiErrorMsg, placeApiSuccessMsg } from "src/constants/place";
 import { initImgList } from "src/pages/BoardPage/ArticleWrite/ArticleWrite.store";
-import UploadImage from "src/pages/BoardPage/ArticleWrite/UploadImage/UploadImage";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { SchoolAddForm } from "src/types/place";
 
-import $ from "./style.module.scss";
+import { getObjKeyNames, RefinedSchoolState } from "../place.utils";
+import PlaceFormView, { PlaceFormViewProps } from "./PlaceForm.view";
 import schema from "./yup";
 
-export default function PlaceAdd() {
+type Props = {
+  type: "add" | "edit";
+  state?: Omit<RefinedSchoolState, "images">;
+  stateImgs?: RefinedSchoolState["images"];
+};
+
+export default function PlaceFormTemplate(props: Props) {
+  const { type, state, stateImgs } = props;
+  const isAdd = type === "add";
   const [ errMsg, setErrMsg ] = useState("");
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [ addPlace ] = useAddPlaceMutation();
+  const [ editPlace ] = useEditPlaceMutation();
   const { images } = useAppSelector((state) => state.ArticelWriteReducer);
+  const api = isAdd ? addPlace : editPlace;
+  const apiKindMsg = isAdd ? "추가" : "수정";
+
   const {
+    setValue,
     register,
     handleSubmit,
     reset,
@@ -27,8 +42,17 @@ export default function PlaceAdd() {
     defaultValues: { tags: "" },
   });
 
+  const setValues = () => {
+    if (!state || isAdd) return;
+    const keys = getObjKeyNames(state || {});
+    keys.forEach((key) => {
+      setValue(key, state[key]);
+    });
+  };
+
   useEffect(() => {
-    dispatch(initImgList());
+    if (state && !isAdd) setValues();
+    dispatch(initImgList(stateImgs || []));
   }, []);
 
   useEffect(() => {
@@ -52,12 +76,13 @@ export default function PlaceAdd() {
 
   const postPlace = async (body: SchoolAddForm) => {
     try {
-      const response = await addPlace(body).unwrap();
+      await api(body).unwrap();
       reset();
-      dispatch(initImgList());
-      alert("건물을 성공적으로 생성했습니다.");
+      dispatch(initImgList([]));
+      alert(placeApiSuccessMsg(apiKindMsg));
+      if (!isAdd) navigate(`/places/list/${state?.id}`);
     } catch (err) {
-      alert('건물을 생성에 실패했습니다."');
+      alert(placeApiErrorMsg(apiKindMsg));
     }
   };
 
@@ -68,22 +93,15 @@ export default function PlaceAdd() {
     postPlace(body);
   };
 
-  return (
-    <div className={$.container}>
-      <header>
-        <h1 className={$.title}>건물 추가 페이지</h1>
-      </header>
-      <main className={$.main}>
-        <section>
-          <UploadImage />
-          <span className={$["error-message"]}>{errMsg}</span>
-          <AddForm
-            onSubmit={handleSubmit(onSubmit)}
-            register={register}
-            errors={errors}
-          />
-        </section>
-      </main>
-    </div>
-  );
+  const placeFormViewProps: PlaceFormViewProps = {
+    apiKindMsg,
+    errors,
+    errMsg,
+    isAdd,
+    register,
+    handleSubmit,
+    onSubmit,
+  };
+
+  return <PlaceFormView {...placeFormViewProps} />;
 }

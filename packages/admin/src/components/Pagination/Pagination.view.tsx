@@ -32,6 +32,7 @@ export default function PaginationView({
           <div
             className={cx($.page, { [$.current]: currentPage === page })}
             onClick={() => onClick(page)}
+            key={page}
           >
             {page}
           </div>

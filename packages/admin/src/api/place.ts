@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQuery from "src/api/baseQuery";
-import { SchoolAddForm } from "src/types/place";
+import { Place, SchoolAddForm } from "src/types/place";
 
 export const placeApi = createApi({
   reducerPath: "articleApi",
@@ -17,8 +17,29 @@ export const placeApi = createApi({
           };
         },
       }),
+      editPlace: build.mutation<{ code: string }, SchoolAddForm>({
+        query(data) {
+          return {
+            url: `places/school/${data.id}`,
+            method: "put",
+            body: data,
+          };
+        },
+      }),
+      deletePlace: build.mutation<{ code: string }, Pick<Place, "id">>({
+        query(data) {
+          return {
+            url: `places/school/${data.id}`,
+            method: "delete",
+          };
+        },
+      }),
     };
   },
 });
 
-export const { useAddPlaceMutation } = placeApi;
+export const {
+  useAddPlaceMutation,
+  useEditPlaceMutation,
+  useDeletePlaceMutation,
+} = placeApi;

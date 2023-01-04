@@ -4,9 +4,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getArticles } from "src/newApi/articleApi/getArticles";
 import { isOutputType } from "src/newApi/types";
 
+import PaginationView from "../../../components/Pagination/Pagination.view";
 import $ from "./ArticleList.module.scss";
 import ArticleListView from "./ArticleList.view";
-import PaginationView from "./Pagination/Pagination.view";
 
 export default function ArticleList() {
   const location = useLocation();

@@ -58,7 +58,7 @@ export default function UploadImageView({
       />
       <div className={styles["image-list"]}>
         {images.map((image, index) => (
-          <div className={styles["image-card"]}>
+          <div className={styles["image-card"]} key={image}>
             <div
               key={image}
               style={{ backgroundImage: `url(${image})` }}

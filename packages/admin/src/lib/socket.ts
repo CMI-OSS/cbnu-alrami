@@ -41,4 +41,4 @@ const restartScraper = (scraperType: ScraperType) => {
   });
 };
 
-export { socket, startScraper, stopScraper, pauseScraper, restartScraper };
+export { startScraper, stopScraper, pauseScraper, restartScraper };

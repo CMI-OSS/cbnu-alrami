@@ -8,7 +8,7 @@ export type Place = {
   longtitude: number;
   address: string;
   contact: string;
-  description: string;
+  description?: string;
 };
 
 export type SchoolPlace = {

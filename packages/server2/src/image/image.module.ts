@@ -10,5 +10,6 @@ import { ImageService } from "./image.service";
   imports: [ TypeOrmModule.forFeature([ Image ]), AwsModule ],
   controllers: [ ImageController ],
   providers: [ ImageService ],
+  exports: [ ImageService ],
 })
 export class ImageModule {}

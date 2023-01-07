@@ -1,7 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { Article } from "src/article/entities/article.entity";
 import { AwsService } from "src/aws/aws.service";
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 
 import { Image } from "./entities/image.entity";
 
@@ -21,5 +22,18 @@ export class ImageService {
     );
 
     return response;
+  }
+
+  async updateArticleImages(
+    article: Article,
+    imageIds: number[],
+  ): Promise<Image[]> {
+    const images = await this.imageRepository.find({
+      where: { id: In(imageIds) },
+    });
+
+    return this.imageRepository.save(
+      images.map((image) => ({ ...image, article })),
+    );
   }
 }

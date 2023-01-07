@@ -1,7 +1,8 @@
 import { Admin } from "src/admin/entities/admin.entity";
 import { Board } from "src/board/entities/board.entity";
 import { UpdatableCommonEntity } from "src/common/entity";
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Image } from "src/image/entities/image.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 
 import { ArticleProperty } from "../article.swagger";
 
@@ -32,4 +33,8 @@ export class Article extends UpdatableCommonEntity {
   @ManyToOne(() => Admin, { onDelete: "SET NULL", nullable: true })
   @JoinColumn()
   author?: Admin;
+
+  @ArticleProperty.images()
+  @OneToMany(() => Image, (image) => image.article, { nullable: true })
+  images?: Image[];
 }

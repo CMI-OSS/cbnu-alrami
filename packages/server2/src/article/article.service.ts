@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { BoardService } from "src/board/board.service";
+import { ImageService } from "src/image/image.service";
 import { Repository } from "typeorm";
 
 import {
@@ -16,6 +17,7 @@ export class ArticleService {
   constructor(
     @InjectRepository(Article)
     private articleRepository: Repository<Article>,
+    private imageService: ImageService,
     private boardService: BoardService,
   ) {}
 
@@ -29,7 +31,17 @@ export class ArticleService {
       }
     }
 
-    return this.articleRepository.save({ ...createArticleDto, board });
+    const article = await this.articleRepository.save({
+      ...createArticleDto,
+      board,
+    });
+
+    await this.imageService.updateArticleImages(
+      article,
+      createArticleDto.imageIds ?? [],
+    );
+
+    return article;
   }
 
   findAll() {
@@ -43,7 +55,7 @@ export class ArticleService {
           id: boardId,
         },
       },
-      relations: [ "board" ],
+      relations: [ "board", "images" ],
       order: {
         dateTime: "DESC",
       },
@@ -56,7 +68,7 @@ export class ArticleService {
   async findOne(id: number) {
     const article = await this.articleRepository.findOne({
       where: { id },
-      relations: { board: { parent: true } },
+      relations: { board: { parent: true }, images: true },
     });
 
     if (!article) throw new NotFoundArticleException();

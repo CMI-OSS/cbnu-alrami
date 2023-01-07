@@ -10,6 +10,7 @@ import {
 import { Board } from "src/board/entities/board.entity";
 import { UpdatableCommonEntity } from "src/common/entity";
 import { MutationResponse } from "src/common/types/response";
+import { Image } from "src/image/entities/image.entity";
 
 import {
   DuplicatedArticleException,
@@ -48,6 +49,8 @@ export const ArticleProperty: ArticleProperty = {
   board: () =>
     ApiProperty({ description: "게시물이 속한 게시판", type: () => Board }),
   author: () => ApiProperty({ description: "게시물 작성자" }),
+  images: () =>
+    ApiProperty({ description: "게시물 이미지", type: () => Image }),
 };
 
 export const CreateArticle = () => {

@@ -13,6 +13,14 @@ const configuration: Configutation = {
     port: 0,
     database: "",
   },
+  aws: {
+    s3: {
+      accessKeyId: "",
+      secretAccessKey: "",
+      region: "",
+      bucketName: "",
+    },
+  },
 };
 
 export default configuration;

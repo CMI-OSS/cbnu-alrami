@@ -11,4 +11,12 @@ export type Configutation = {
     password: string;
     database: string;
   };
+  aws: {
+    s3: {
+      accessKeyId: string;
+      secretAccessKey: string;
+      region: string;
+      bucketName: string;
+    };
+  };
 };

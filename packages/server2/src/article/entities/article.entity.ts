@@ -35,6 +35,11 @@ export class Article extends UpdatableCommonEntity {
   author?: Admin;
 
   @ArticleProperty.images()
-  @OneToMany(() => Image, (image) => image.article, { nullable: true })
+  @OneToMany(() => Image, (image) => image.article, {
+    nullable: true,
+    cascade: true,
+    onDelete: "SET NULL",
+    onUpdate: "SET NULL",
+  })
   images?: Image[];
 }

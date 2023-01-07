@@ -21,7 +21,7 @@ export class ArticleService {
     private boardService: BoardService,
   ) {}
 
-  async create(createArticleDto: CreateArticleDto) {
+  async create({ imageIds, ...createArticleDto }: CreateArticleDto) {
     const board = await this.boardService.findOne(createArticleDto.boardId);
 
     if (createArticleDto.url) {
@@ -31,15 +31,13 @@ export class ArticleService {
       }
     }
 
+    const images = await this.imageService.findImages(imageIds ?? []);
+
     const article = await this.articleRepository.save({
       ...createArticleDto,
       board,
+      images,
     });
-
-    await this.imageService.updateArticleImages(
-      article,
-      createArticleDto.imageIds ?? [],
-    );
 
     return article;
   }
@@ -80,17 +78,24 @@ export class ArticleService {
     return this.articleRepository.findOne({ where: { url } });
   }
 
-  async update(id: number, updateArticleDto: UpdateArticleDto) {
+  async update(
+    id: number,
+    { boardId, imageIds, ...updateArticleDto }: UpdateArticleDto,
+  ) {
     const target = await this.findOne(id);
 
-    const board =
-      updateArticleDto.boardId &&
-      (await this.boardService.findOne(updateArticleDto.boardId));
+    const board = boardId && (await this.boardService.findOne(boardId));
 
-    const article = this.articleRepository.create({
+    const article = {
       ...updateArticleDto,
       ...(board && { board }),
-    });
+    };
+
+    if (imageIds) {
+      const images = await this.imageService.findImages(imageIds);
+      target.images = images;
+      target.save();
+    }
 
     return this.articleRepository.update(target.id, article);
   }

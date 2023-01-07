@@ -11,7 +11,9 @@ export class Image extends CommonEntity {
   @ApiProperty({ description: "이미지 URL" })
   url: string;
 
-  @ManyToOne(() => Article, (article) => article.images)
+  @ManyToOne(() => Article, (article) => article.images, {
+    nullable: true,
+  })
   @JoinColumn({ name: "article_id" })
-  article: Article;
+  article?: Article;
 }

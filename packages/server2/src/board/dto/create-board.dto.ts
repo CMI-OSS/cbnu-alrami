@@ -14,6 +14,7 @@ export class CreateBoardDto {
   url?: string;
 
   @ApiProperty({ description: "상위 게시판 ID", nullable: true })
+  @IsOptional()
   @IsNumber()
   parentBoardId?: number;
 }

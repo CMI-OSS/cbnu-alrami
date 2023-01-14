@@ -15,6 +15,8 @@ import { Board } from "./board/entities/board.entity";
 import configuration from "./config/configuration";
 import { Image } from "./image/entities/image.entity";
 import { ImageModule } from "./image/image.module";
+import { Place } from "./place/entities/place.entity";
+import { PlaceModule } from "./place/place.module";
 import { Schedule } from "./schedule/entities/schedule.entity";
 import { ScheduleModule } from "./schedule/schedule.module";
 
@@ -29,7 +31,15 @@ import { ScheduleModule } from "./schedule/schedule.module";
       useFactory: (configService: ConfigService) => ({
         ...configService.get("db"),
         namingStrategy: new SnakeNamingStrategy(),
-        entities: [ Article, Admin, Board, BoardAuthority, Schedule, Image ],
+        entities: [
+          Article,
+          Admin,
+          Board,
+          BoardAuthority,
+          Schedule,
+          Image,
+          Place,
+        ],
         synchronize: true,
       }),
       inject: [ ConfigService ],
@@ -40,6 +50,7 @@ import { ScheduleModule } from "./schedule/schedule.module";
     ScheduleModule,
     ImageModule,
     AwsModule,
+    PlaceModule,
   ],
   providers: [],
 })

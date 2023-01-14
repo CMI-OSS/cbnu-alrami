@@ -2,6 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsString } from "class-validator";
 import { Article } from "src/article/entities/article.entity";
 import { CommonEntity } from "src/common/entity";
+import { Place } from "src/place/entities/place.entity";
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 @Entity()
@@ -16,4 +17,7 @@ export class Image extends CommonEntity {
   })
   @JoinColumn({ name: "article_id" })
   article?: Article;
+
+  @JoinColumn({ name: "place_id" })
+  place?: Place;
 }

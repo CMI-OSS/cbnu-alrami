@@ -1,7 +1,10 @@
 import * as path from "path";
 
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { visualizer } from "rollup-plugin-visualizer";
+import { defineConfig, loadEnv } from "vite";
+
+const env = loadEnv('analyze', process.cwd(), '');
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,5 +17,9 @@ export default defineConfig({
       "@shared": path.resolve(__dirname, "../shared/src"),
     },
   },
-  plugins: [ react() ],
+  plugins: [ react(), env.VITE_ANALYZE? visualizer({
+    filename: "./stat.html",
+    open: true,
+    brotliSize: true,
+  }): [] ],
 });

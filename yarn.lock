@@ -14993,7 +14993,7 @@ typeorm-seeding@^1.6.1:
 
 typeorm-transactional-cls-hooked@^0.1.21:
   version "0.1.21"
-  resolved "https://registry.npmjs.org/typeorm-transactional-cls-hooked/-/typeorm-transactional-cls-hooked-0.1.21.tgz"
+  resolved "https://registry.yarnpkg.com/typeorm-transactional-cls-hooked/-/typeorm-transactional-cls-hooked-0.1.21.tgz#2128b4ce203770ff926d8953dd2dd6747877b952"
   integrity sha512-zG5bVvKCAyzedj8TqPnZYaCi9TtAv2kVNmtuZ0GMpyxIHSF6B5RmhAKqUHv3rD7xEhwmaGdMdDc1V77VI9F2Ig==
   dependencies:
     "@types/cls-hooked" "^4.2.1"

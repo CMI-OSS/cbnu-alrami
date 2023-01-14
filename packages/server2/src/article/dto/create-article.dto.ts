@@ -1,15 +1,10 @@
-import { ApiProperty } from "@nestjs/swagger";
-import {
-  IsArray,
-  IsDateString,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from "class-validator";
+import { ApiProperty, IntersectionType } from "@nestjs/swagger";
+import { IsDateString, IsNumber, IsOptional, IsString } from "class-validator";
+import { CreateImageDto } from "src/image/dto/create-image.dto";
 
 import { ArticleProperty } from "../article.swagger";
 
-export class CreateArticleDto {
+export class ArticleDto {
   @ArticleProperty.title()
   @IsString()
   title: string;
@@ -30,9 +25,9 @@ export class CreateArticleDto {
   @ApiProperty({ description: "게시물이 속한 게시판의 ID", example: 1 })
   @IsNumber()
   boardId: number;
-
-  @ApiProperty({ description: "게시물 이미지", example: [ 1 ] })
-  @IsArray()
-  @IsOptional()
-  imageIds?: number[];
 }
+
+export class CreateArticleDto extends IntersectionType(
+  ArticleDto,
+  CreateImageDto,
+) {}

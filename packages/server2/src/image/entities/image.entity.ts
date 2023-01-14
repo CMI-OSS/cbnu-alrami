@@ -18,6 +18,9 @@ export class Image extends CommonEntity {
   @JoinColumn({ name: "article_id" })
   article?: Article;
 
+  @ManyToOne(() => Place, (place) => place.images, {
+    nullable: true,
+  })
   @JoinColumn({ name: "place_id" })
   place?: Place;
 }

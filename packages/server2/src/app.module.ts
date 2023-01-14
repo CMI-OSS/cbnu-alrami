@@ -12,6 +12,8 @@ import { BoardAuthorityModule } from "./board-authority/board-authority.module";
 import { BoardAuthority } from "./board-authority/entities/board-authority.entity";
 import { BoardModule } from "./board/board.module";
 import { Board } from "./board/entities/board.entity";
+import { CafeteriaMenuModule } from "./cafeteria-menu/cafeteria-menu.module";
+import { CafeteriaMenu } from "./cafeteria-menu/entities/cafeteria-menu.entity";
 import configuration from "./config/configuration";
 import { Image } from "./image/entities/image.entity";
 import { ImageModule } from "./image/image.module";
@@ -42,6 +44,7 @@ import { SchoolModule } from "./school/school.module";
           Image,
           Place,
           School,
+          CafeteriaMenu,
         ],
         synchronize: true,
       }),
@@ -55,6 +58,7 @@ import { SchoolModule } from "./school/school.module";
     AwsModule,
     PlaceModule,
     SchoolModule,
+    CafeteriaMenuModule,
   ],
   providers: [],
 })

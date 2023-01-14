@@ -2,7 +2,8 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsNumber, IsString } from "class-validator";
 import { UpdatableCommonEntity } from "src/common/entity";
 import { Image } from "src/image/entities/image.entity";
-import { Column, Entity, OneToMany } from "typeorm";
+import { School } from "src/school/entities/school.entity";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from "typeorm";
 
 @Entity()
 export class Place extends UpdatableCommonEntity {
@@ -31,6 +32,14 @@ export class Place extends UpdatableCommonEntity {
 
   @OneToMany(() => Image, (image) => image.place, {
     nullable: true,
+    cascade: true,
+    onDelete: "SET NULL",
+    onUpdate: "SET NULL",
+    eager: true,
   })
   images?: Image[];
+
+  @OneToOne(() => School, { nullable: true, onDelete: "CASCADE" })
+  @JoinColumn()
+  school?: School;
 }

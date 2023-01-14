@@ -1,8 +1,7 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { PlaceService } from "src/place/place.service";
 import { Repository } from "typeorm";
-import { Transactional } from "typeorm-transactional-cls-hooked";
 
 import { CreateSchoolDto } from "./dto/create-school.dto";
 import { UpdateSchoolDto } from "./dto/update-school.dto";
@@ -16,26 +15,41 @@ export class SchoolService {
     private placeService: PlaceService,
   ) {}
 
-  @Transactional()
-  async create(createSchoolDto: CreateSchoolDto) {
-    const place = await this.placeService.create(createSchoolDto.place);
+  async create({ place: placeDto, ...schoolDto }: CreateSchoolDto) {
+    const place = await this.placeService.create(placeDto);
 
-    return this.schoolRepository.save({ ...createSchoolDto, place });
+    const school = await this.schoolRepository.save({ ...schoolDto, place });
+
+    await this.placeService.update(place.id, { school });
+
+    return school;
   }
 
   findAll() {
-    return `This action returns all school`;
+    return this.schoolRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} school`;
+  async findOne(id: number) {
+    const school = await this.schoolRepository.findOne({ where: { id } });
+
+    if (!school) throw new NotFoundException();
+
+    return school;
   }
 
-  update(id: number, updateSchoolDto: UpdateSchoolDto) {
-    return `This action updates a #${id} school`;
+  async update(id: number, { place: plaecDto, ...schoolDto }: UpdateSchoolDto) {
+    const school = await this.findOne(id);
+
+    if (plaecDto) {
+      await this.placeService.update(school.place.id, plaecDto);
+    }
+
+    return this.schoolRepository.update(id, schoolDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} school`;
+  async remove(id: number) {
+    const school = await this.findOne(id);
+
+    return this.schoolRepository.remove(school);
   }
 }

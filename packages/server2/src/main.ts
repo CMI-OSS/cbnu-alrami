@@ -6,7 +6,6 @@ import { SwaggerConfig } from "./config/swagger.config";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
   SwaggerConfig(app);
 
   app.useGlobalPipes(

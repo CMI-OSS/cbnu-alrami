@@ -21,8 +21,8 @@ export class School extends UpdatableCommonEntity {
   @Column({ type: "varchar" })
   area: string;
 
-  @ApiProperty({ type: Place })
-  @OneToOne(() => Place)
+  @ApiProperty({ type: () => Place })
+  @OneToOne(() => Place, { eager: true, onDelete: "CASCADE" })
   @JoinColumn()
   place: Place;
 }

@@ -14,13 +14,15 @@ export class Image extends CommonEntity {
 
   @ManyToOne(() => Article, (article) => article.images, {
     nullable: true,
+    onDelete: "SET NULL",
   })
-  @JoinColumn({ name: "article_id" })
+  @JoinColumn()
   article?: Article;
 
   @ManyToOne(() => Place, (place) => place.images, {
     nullable: true,
+    onDelete: "SET NULL",
   })
-  @JoinColumn({ name: "place_id" })
+  @JoinColumn()
   place?: Place;
 }

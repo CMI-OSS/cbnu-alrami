@@ -19,6 +19,8 @@ import { Place } from "./place/entities/place.entity";
 import { PlaceModule } from "./place/place.module";
 import { Schedule } from "./schedule/entities/schedule.entity";
 import { ScheduleModule } from "./schedule/schedule.module";
+import { School } from "./school/entities/school.entity";
+import { SchoolModule } from "./school/school.module";
 
 @Module({
   imports: [
@@ -39,6 +41,7 @@ import { ScheduleModule } from "./schedule/schedule.module";
           Schedule,
           Image,
           Place,
+          School,
         ],
         synchronize: true,
       }),
@@ -51,6 +54,7 @@ import { ScheduleModule } from "./schedule/schedule.module";
     ImageModule,
     AwsModule,
     PlaceModule,
+    SchoolModule,
   ],
   providers: [],
 })

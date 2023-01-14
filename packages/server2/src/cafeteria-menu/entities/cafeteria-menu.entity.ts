@@ -31,7 +31,7 @@ export class CafeteriaMenu extends CommonEntity {
   })
   @IsString()
   @Column({ type: "date" })
-  date: Date;
+  date: string;
 
   @ApiProperty({
     description: "식사 시간 (BREAKFAT, LUNCH, DINNER)",

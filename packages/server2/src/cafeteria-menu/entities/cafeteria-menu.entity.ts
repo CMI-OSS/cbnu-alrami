@@ -3,18 +3,19 @@ import { IsEnum, IsString } from "class-validator";
 import { CommonEntity } from "src/common/entity";
 import { Column, Entity, Unique } from "typeorm";
 
-import { CafeteriaMenuTime } from "../cafeteria-menu.constant";
+import { CafeteriaMenuTime, CafeteriaName } from "../cafeteria-menu.constant";
 
 @Entity()
 @Unique([ "name", "date", "time" ])
 export class CafeteriaMenu extends CommonEntity {
   @ApiProperty({
     description: "학생 식당 혹은 기숙사 이름",
-    example: "개성재",
+    example: CafeteriaName.한빛식당,
+    enum: CafeteriaName,
   })
-  @IsString()
-  @Column({ type: "varchar" })
-  name: string;
+  @IsEnum(CafeteriaName)
+  @Column({ type: "enum", enum: CafeteriaName })
+  name: CafeteriaName;
 
   @ApiProperty({
     description: "메뉴",

@@ -1,7 +1,5 @@
-@import '../../../styles/main.scss';
-
 .full-modal {
-  height: calc(var(--vh, 1vh) * 100);
+  min-height: calc(var(--vh, 1vh) * 100);
 
   .header {
     position: sticky;

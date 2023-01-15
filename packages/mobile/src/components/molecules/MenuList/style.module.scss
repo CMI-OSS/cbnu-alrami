@@ -1,6 +1,3 @@
-@import "@shared/styles/color.scss";
-@import "@shared/styles/mixin.scss";
-
 .menu-list {
   @include flicking;
   @include position(fixed, top 60px left 0 right 0);

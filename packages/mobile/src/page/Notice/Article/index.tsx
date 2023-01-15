@@ -1,14 +1,14 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import classNames from "classnames";
-import dayjs from "dayjs";
+import { displayDate } from "src/utils/day";
 
 import $ from "./style.module.scss";
 
 type Props = {
   id: number;
   title: string;
-  date: string;
+  date: Date;
   hits: number;
   breadcrumb: string;
   scraps: number;
@@ -16,14 +16,13 @@ type Props = {
 };
 
 function Article({ id, title, date, hits, breadcrumb, scraps, type }: Props) {
-  const { pathname } = useLocation();
   return (
-    <Link to={`${pathname}/${id}`}>
+    <Link to={`/notice/${id}`}>
       <div className={classNames($.notification, type === "cmi" && $.cmi)}>
         <span className={$.breadcrumb}>{breadcrumb}</span>
         <span className={$.title}>{title}</span>
         <div className={$.detail}>
-          <span className={$.date}>{dayjs(date).format("YY-MM-DD")}</span>
+          <span className={$.date}>{displayDate(date)}</span>
           <span className={$.hits}>
             &nbsp;/&nbsp;조회수&nbsp;{hits}&nbsp;/&nbsp;
           </span>

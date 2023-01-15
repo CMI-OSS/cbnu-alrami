@@ -14,7 +14,7 @@ function Subscription() {
     <SettingTemplate
       title="구독/알림"
       right={
-        <Link to="/subscription">
+        <Link to="/subscription/setting">
           <Plus size={16} stroke="#aaaaaa" />
         </Link>
       }
@@ -22,10 +22,12 @@ function Subscription() {
     >
       {subscribeBoards?.map((board) => {
         return (
-          <div key={board.boardId} className={$.item}>
-            <span>{board.name}</span>
-            <Status boardId={board.boardId} />
-          </div>
+          <Link to={`/preview?boardId=${board.boardId}`}>
+            <div key={board.boardId} className={$.item}>
+              <span>{board.name}</span>
+              <Status boardId={board.boardId} />
+            </div>
+          </Link>
         );
       })}
     </SettingTemplate>

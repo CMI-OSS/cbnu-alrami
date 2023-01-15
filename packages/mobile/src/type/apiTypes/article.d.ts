@@ -5,7 +5,7 @@ declare namespace res {
     title: string;
     hits: number;
     scraps: number;
-    date: string;
+    date: Date;
   };
   type Board = {
     id: number;
@@ -26,6 +26,8 @@ declare namespace res {
     date: string;
     images: Image[];
     isBookmark?: boolean;
+    // TODO: 백엔드 res 확인하기
+    url: string;
   };
 }
 

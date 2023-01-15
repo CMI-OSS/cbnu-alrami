@@ -1,5 +1,3 @@
-@import '../../../styles/main.scss';
-
 .notice-detail {
   background: #fff;
 
@@ -25,7 +23,20 @@
     }
 
     .content {
+      width: calc(100% + 44px);
       padding: 18px 0 84px;
+      margin: 0 -22px;
+
+
+      .article-image-wrapper {
+        height: 50vh;
+        margin-bottom: 16px;
+        transition: 0.6s
+      }
+
+      .article {
+        margin: 0 18px;
+      }
     }
   }
 }

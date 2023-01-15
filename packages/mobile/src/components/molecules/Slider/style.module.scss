@@ -1,0 +1,46 @@
+.slider-container {
+  display: flex;
+  flex-direction: column;
+
+  .slider-wrapper {
+    overflow-x: hidden;
+  }
+
+  .slider {
+    display: flex;
+  }
+
+  .order {
+    position: absolute;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 32px;
+    padding: 8px;
+    margin: 12px 12px 0 0;
+    background: rgba(27, 27, 27, 0.85);
+    border-radius: 20px;
+    color: #fff;
+    z-index: 5;
+  }
+
+  .total {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+
+    .total-element {
+      width: 6px;
+      height: 6px;
+      margin-right: 6px;
+      border-radius: 50px;
+      background: $black-20;
+    }
+
+    .same {
+      background: $red-50;
+    }
+  }
+}

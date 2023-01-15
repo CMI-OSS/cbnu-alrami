@@ -1,24 +1,25 @@
-import { ApiProperty, IntersectionType } from "@nestjs/swagger";
+import { ApiProperty, IntersectionType, OmitType } from "@nestjs/swagger";
 import { IsDateString, IsNumber, IsOptional, IsString } from "class-validator";
+import { UpdatableCommonEntityKeys } from "src/common/entity";
 import { CreateImageDto } from "src/image/dto/create-image.dto";
 
-import { ArticleProperty } from "../article.swagger";
+import { Article } from "../entities/article.entity";
 
-export class ArticleDto {
-  @ArticleProperty.title()
+export class ArticleDto extends OmitType(Article, [
+  ...UpdatableCommonEntityKeys,
+  "author",
+  "board",
+]) {
   @IsString()
   title: string;
 
-  @ArticleProperty.content()
   @IsString()
   content: string;
 
-  @ArticleProperty.url()
   @IsString()
   @IsOptional()
   url?: string;
 
-  @ArticleProperty.dateTime()
   @IsDateString()
   dateTime: Date;
 

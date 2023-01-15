@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { Admin } from "src/admin/entities/admin.entity";
 import { Board } from "src/board/entities/board.entity";
 import { UpdatableCommonEntity } from "src/common/entity";
@@ -13,37 +14,47 @@ import {
   OneToMany,
 } from "typeorm";
 
-import { ArticleProperty } from "../article.swagger";
-
 @Entity()
 export class Article extends UpdatableCommonEntity {
-  @ArticleProperty.title()
+  @ApiProperty({
+    description: "게시물 제목",
+    example: " 2022학년도 동계 글로벌프론티어 단기연수 참가 선발 안내",
+  })
   @Column({ type: "varchar" })
   title: string;
 
-  @ArticleProperty.content()
-  @Column({ type: "mediumtext" })
+  @ApiProperty({
+    description: "게시물 내용(html)",
+    example:
+      "<div>2022학년도 동계 글로벌프론티어 단기연수 참가자를 다음과 같이 안내드립니다.</div>",
+  })
   content: string;
 
-  @ArticleProperty.url()
+  @ApiProperty({
+    description: "스크래핑한 공지사항의 실제 URL",
+    example: "https://software.cbnu.ac.kr/sub0401/13664",
+    required: false,
+  })
   @Column({ type: "varchar", nullable: true })
   url?: string;
 
-  @ArticleProperty.dateTime()
+  @ApiProperty({
+    description: "공지사항이 작성된 시간",
+    example: new Date(),
+  })
   @Column({ type: "datetime" })
   dateTime: Date;
 
-  @ArticleProperty.board()
+  @ApiProperty({ description: "게시물이 속한 게시판", type: () => Board })
   @ManyToOne(() => Board, { onDelete: "SET NULL", nullable: true })
   @JoinColumn()
   board?: Board;
 
-  @ArticleProperty.author()
+  @ApiProperty({ description: "게시물 작성자", type: () => Admin })
   @ManyToOne(() => Admin, { onDelete: "SET NULL", nullable: true })
   @JoinColumn()
   author?: Admin;
 
-  @ArticleProperty.images()
   @OneToMany(() => Image, (image) => image.article, {
     nullable: true,
     cascade: true,

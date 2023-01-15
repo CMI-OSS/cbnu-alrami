@@ -11,6 +11,7 @@ import { ApiTags } from "@nestjs/swagger";
 import { MutationResponse } from "src/common/types/response";
 import { User } from "src/user/entities/user.entity";
 import { UserSession } from "src/user/user.decoratoer";
+import { UserHeader } from "src/user/user.gurad";
 
 import { ArticleService } from "./article.service";
 import {
@@ -37,9 +38,10 @@ export class ArticleController {
   }
 
   @GetArtice()
+  @UserHeader
   @Get(":id")
-  findOne(@Param("id") id: number) {
-    return this.articleService.findOne(id);
+  findOne(@Param("id") id: number, @UserSession() user: User) {
+    return this.articleService.findOne(id, user);
   }
 
   @UpdateArticle()

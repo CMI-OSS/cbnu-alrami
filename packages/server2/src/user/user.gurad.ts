@@ -16,12 +16,11 @@ class Guard implements CanActivate {
   }
 }
 
+export const UserHeader = ApiHeader({
+  name: "uuid",
+  description: "user uuid",
+});
+
 export const UserGuard = () => {
-  return applyDecorators(
-    UseGuards(Guard),
-    ApiHeader({
-      name: "uuid",
-      description: "user uuid",
-    }),
-  );
+  return applyDecorators(UseGuards(Guard), UserHeader);
 };

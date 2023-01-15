@@ -10,6 +10,7 @@ import {
   NotFoundArticleException,
 } from "./article.exception";
 import { CreateArticleDto } from "./dto/create-article.dto";
+import { ResponseArticleDto } from "./dto/resonse-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
 import { Article } from "./entities/article.entity";
 
@@ -64,15 +65,20 @@ export class ArticleService {
     return articles;
   }
 
-  async findOne(id: number) {
+  async findOne(id: number, user?: User): Promise<ResponseArticleDto> {
     const article = await this.articleRepository.findOne({
       where: { id },
-      relations: { board: { parent: true }, images: true },
+      relations: { board: { parent: true }, images: true, bookmarkUsers: true },
     });
 
     if (!article) throw new NotFoundArticleException();
 
-    return article;
+    const { bookmarkUsers, ..._ariticle } = article;
+
+    return {
+      ..._ariticle,
+      isBookmark: !!bookmarkUsers.find((_user) => _user.id === user?.id),
+    } as ResponseArticleDto;
   }
 
   findOneByUrl(url: string) {

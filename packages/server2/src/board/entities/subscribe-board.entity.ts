@@ -15,6 +15,6 @@ export class SubscribeBoard extends CommonEntity {
   @JoinColumn()
   user: User;
 
-  @Column({ nullable: true })
+  @Column({ type: "boolean", nullable: true })
   notice?: boolean;
 }

@@ -106,3 +106,29 @@ export const UnSubscribeBoard = () => {
     UserGuard(),
   );
 };
+
+export const NoticeBoard = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "게시판 알림 설정",
+    }),
+    ApiCreatedResponse({
+      description: "게시판이 정상적으로 알림 설정된 경우",
+      type: MutationResponse,
+    }),
+    UserGuard(),
+  );
+};
+
+export const UnNoticeBoard = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "게시판 알림 해제",
+    }),
+    ApiCreatedResponse({
+      description: "게시판이 정상적으로 알림 해제된 경우",
+      type: MutationResponse,
+    }),
+    UserGuard(),
+  );
+};

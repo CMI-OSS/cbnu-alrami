@@ -22,7 +22,9 @@ import {
   GetArticlePage,
   GetBoard,
   GetBoards,
+  NoticeBoard,
   SubscribeBoard,
+  UnNoticeBoard,
   UnSubscribeBoard,
   UpdateBoard,
 } from "./board.swagger";
@@ -90,5 +92,17 @@ export class BoardController {
   @Delete(":id/subscribe")
   async unsubscribe(@Param("id") id: number, @UserSession() user: User) {
     return { success: await this.boardService.unsubscribe(id, user) };
+  }
+
+  @NoticeBoard()
+  @Post(":id/notice")
+  async notice(@Param("id") id: number, @UserSession() user: User) {
+    return { success: await this.boardService.notice(id, user) };
+  }
+
+  @UnNoticeBoard()
+  @Delete(":id/notice")
+  async unnotice(@Param("id") id: number, @UserSession() user: User) {
+    return { success: await this.boardService.unnotice(id, user) };
   }
 }

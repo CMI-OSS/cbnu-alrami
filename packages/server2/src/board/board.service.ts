@@ -74,26 +74,54 @@ export class BoardService {
   }
 
   async subscribe(id: number, user: User) {
-    const board = await this.boardRepository.findOne({
-      where: { id },
-      relations: { subscribes: true },
-    });
-    if (!board) throw new NotFoundBoardException();
+    const { board, subscribe } = await this.getSubscribeBoard(id, user);
 
-    const subscribe = { user, board } as SubscribeBoard;
-
-    if (board.subscribes?.find((subscribe) => subscribe.user.id === user.id)) {
+    if (subscribe) {
       throw new ConflictException();
     }
 
+    const newSubscribe = { user, board } as SubscribeBoard;
+
     board.subscribes = board.subscribes
-      ? [ ...board.subscribes, subscribe ]
-      : [ subscribe ];
+      ? [ ...board.subscribes, newSubscribe ]
+      : [ newSubscribe ];
 
     return !!board.save();
   }
 
   async unsubscribe(id: number, user: User) {
+    const { subscribe } = await this.getSubscribeBoard(id, user);
+
+    if (!subscribe) {
+      throw new NotFoundException();
+    }
+
+    return !!subscribe.remove();
+  }
+
+  async notice(id: number, user: User) {
+    const { subscribe } = await this.getSubscribeBoard(id, user);
+
+    if (!subscribe) {
+      throw new NotFoundException();
+    }
+    subscribe.notice = true;
+
+    return !!subscribe.save();
+  }
+
+  async unnotice(id: number, user: User) {
+    const { subscribe } = await this.getSubscribeBoard(id, user);
+
+    if (!subscribe) {
+      throw new NotFoundException();
+    }
+    subscribe.notice = false;
+
+    return !!subscribe.save();
+  }
+
+  async getSubscribeBoard(id: number, user: User) {
     const board = await this.boardRepository.findOne({
       where: { id },
       relations: { subscribes: true },
@@ -104,10 +132,6 @@ export class BoardService {
       (subscribe) => subscribe.user.id === user.id,
     );
 
-    if (!subscribe) {
-      throw new NotFoundException();
-    }
-
-    return !!subscribe.remove();
+    return { board, subscribe };
   }
 }

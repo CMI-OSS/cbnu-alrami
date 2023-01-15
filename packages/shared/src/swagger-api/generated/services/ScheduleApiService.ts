@@ -12,13 +12,14 @@ export class ScheduleApiService {
 
     /**
      * 일정 생성
-     * @param requestBody
      * @returns Schedule 일정이 정상적으로 생성된 경우
      * @throws ApiError
      */
-    public static scheduleControllerCreate(
+    public static scheduleControllerCreate({
+        requestBody,
+    }: {
         requestBody: CreateScheduleDto,
-    ): CancelablePromise<Schedule> {
+    }): CancelablePromise<Schedule> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/schedule',
@@ -29,15 +30,22 @@ export class ScheduleApiService {
 
     /**
      * 학사 일정 조회
-     * @param startDateTime 일정 시작일
-     * @param endDateTime 일정 종료일
      * @returns Schedule
      * @throws ApiError
      */
-    public static scheduleControllerFindAll(
-        startDateTime: string | null = '2022-04-01',
-        endDateTime: string | null = '2022-06-30',
-    ): CancelablePromise<Schedule> {
+    public static scheduleControllerFindAll({
+        startDateTime = '2022-04-01',
+        endDateTime = '2022-06-30',
+    }: {
+        /**
+         * 일정 시작일
+         */
+        startDateTime?: string | null,
+        /**
+         * 일정 종료일
+         */
+        endDateTime?: string | null,
+    }): CancelablePromise<Schedule> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/schedule',

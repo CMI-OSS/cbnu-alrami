@@ -6,5 +6,6 @@ generate({
   input: spec,
   output: `${__dirname}/generated`,
   httpClient: "axios",
+  useOptions: true,
   useUnionTypes: true,
 });

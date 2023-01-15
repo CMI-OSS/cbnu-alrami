@@ -13,13 +13,14 @@ export class CafeteriaMenuApiService {
 
     /**
      * 메뉴 등록
-     * @param requestBody
      * @returns MutationResponse 등록 성공 여부
      * @throws ApiError
      */
-    public static cafeteriaMenuControllerCreate(
+    public static cafeteriaMenuControllerCreate({
+        requestBody,
+    }: {
         requestBody: CreateCafeteriaMenuDto,
-    ): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<MutationResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/cafeteria-menu',
@@ -30,15 +31,16 @@ export class CafeteriaMenuApiService {
 
     /**
      * 학생식당 일자별 메뉴 조회
-     * @param name
-     * @param date
      * @returns CafeteriaMenu
      * @throws ApiError
      */
-    public static cafeteriaMenuControllerFindAll(
+    public static cafeteriaMenuControllerFindAll({
+        name,
+        date,
+    }: {
         name: string,
         date: string,
-    ): CancelablePromise<Array<CafeteriaMenu>> {
+    }): CancelablePromise<Array<CafeteriaMenu>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/cafeteria-menu/{name}/{date}',

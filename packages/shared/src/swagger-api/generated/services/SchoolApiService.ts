@@ -11,13 +11,14 @@ import { request as __request } from '../core/request';
 export class SchoolApiService {
 
     /**
-     * @param requestBody
      * @returns any
      * @throws ApiError
      */
-    public static schoolControllerCreate(
+    public static schoolControllerCreate({
+        requestBody,
+    }: {
         requestBody: CreateSchoolDto,
-    ): CancelablePromise<any> {
+    }): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/school',
@@ -38,13 +39,14 @@ export class SchoolApiService {
     }
 
     /**
-     * @param id
      * @returns any
      * @throws ApiError
      */
-    public static schoolControllerFindOne(
+    public static schoolControllerFindOne({
+        id,
+    }: {
         id: number,
-    ): CancelablePromise<any> {
+    }): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/school/{id}',
@@ -55,15 +57,16 @@ export class SchoolApiService {
     }
 
     /**
-     * @param id
-     * @param requestBody
      * @returns any
      * @throws ApiError
      */
-    public static schoolControllerUpdate(
+    public static schoolControllerUpdate({
+        id,
+        requestBody,
+    }: {
         id: number,
         requestBody: UpdateSchoolDto,
-    ): CancelablePromise<any> {
+    }): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'PATCH',
             url: '/school/{id}',
@@ -76,13 +79,14 @@ export class SchoolApiService {
     }
 
     /**
-     * @param id
      * @returns any
      * @throws ApiError
      */
-    public static schoolControllerRemove(
+    public static schoolControllerRemove({
+        id,
+    }: {
         id: number,
-    ): CancelablePromise<any> {
+    }): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'DELETE',
             url: '/school/{id}',

@@ -23,13 +23,14 @@ export class PlaceApiService {
 
     /**
      * 구역으로 학교 건물 조회
-     * @param area
      * @returns PlaceSchoolDto
      * @throws ApiError
      */
-    public static placeControllerFindSchoolByArea(
+    public static placeControllerFindSchoolByArea({
+        area,
+    }: {
         area: string,
-    ): CancelablePromise<Array<PlaceSchoolDto>> {
+    }): CancelablePromise<Array<PlaceSchoolDto>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/place/school/{area}',

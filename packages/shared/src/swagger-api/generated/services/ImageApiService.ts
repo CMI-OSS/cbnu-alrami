@@ -11,15 +11,16 @@ export class ImageApiService {
 
     /**
      * 이미지 업로드
-     * @param formData
      * @returns Image 정상적으로 이미지가 업로드된 경우
      * @throws ApiError
      */
-    public static imageControllerUpload(
+    public static imageControllerUpload({
+        formData,
+    }: {
         formData: {
             images?: Array<Blob>;
         },
-    ): CancelablePromise<Array<Image>> {
+    }): CancelablePromise<Array<Image>> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/image/upload',

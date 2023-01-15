@@ -42,7 +42,7 @@ export class CafeteriaMenuController {
       {
         name: "name",
         in: "path",
-        schema: { enum: Object.values(CafeteriaName) },
+        schema: { type: "enum", enum: Object.values(CafeteriaName) },
       },
       { name: "date", in: "path", schema: { type: "string" } },
     ],

@@ -15,13 +15,14 @@ export class ArticleApiService {
 
     /**
      * 게시물 생성
-     * @param requestBody
      * @returns MutationResponse 게시물이 정상적으로 작성된 경우
      * @throws ApiError
      */
-    public static articleControllerCreate(
+    public static articleControllerCreate({
+        requestBody,
+    }: {
         requestBody: CreateArticleDto,
-    ): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<MutationResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/article',
@@ -32,13 +33,17 @@ export class ArticleApiService {
 
     /**
      * 북마크한 게시물 조회
-     * @param uuid user uuid
      * @returns ResponseArticleDto
      * @throws ApiError
      */
-    public static articleControllerFindBookmarkArticle(
+    public static articleControllerFindBookmarkArticle({
+        uuid,
+    }: {
+        /**
+         * user uuid
+         */
         uuid?: string,
-    ): CancelablePromise<Array<ResponseArticleDto>> {
+    }): CancelablePromise<Array<ResponseArticleDto>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/article/bookmark',
@@ -50,15 +55,19 @@ export class ArticleApiService {
 
     /**
      * 게시물 조회
-     * @param id
-     * @param uuid user uuid
      * @returns ResponseArticleDetailDto
      * @throws ApiError
      */
-    public static articleControllerFindOne(
+    public static articleControllerFindOne({
+        id,
+        uuid,
+    }: {
         id: number,
+        /**
+         * user uuid
+         */
         uuid?: string,
-    ): CancelablePromise<ResponseArticleDetailDto> {
+    }): CancelablePromise<ResponseArticleDetailDto> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/article/{id}',
@@ -73,15 +82,16 @@ export class ArticleApiService {
 
     /**
      * 게시물 수정
-     * @param id
-     * @param requestBody
      * @returns MutationResponse
      * @throws ApiError
      */
-    public static articleControllerUpdate(
+    public static articleControllerUpdate({
+        id,
+        requestBody,
+    }: {
         id: number,
         requestBody: UpdateArticleDto,
-    ): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<MutationResponse> {
         return __request(OpenAPI, {
             method: 'PATCH',
             url: '/article/{id}',
@@ -95,13 +105,14 @@ export class ArticleApiService {
 
     /**
      * 게시물 삭제
-     * @param id
      * @returns MutationResponse
      * @throws ApiError
      */
-    public static articleControllerRemove(
+    public static articleControllerRemove({
+        id,
+    }: {
         id: number,
-    ): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<MutationResponse> {
         return __request(OpenAPI, {
             method: 'DELETE',
             url: '/article/{id}',
@@ -113,15 +124,19 @@ export class ArticleApiService {
 
     /**
      * 북마크 설정
-     * @param id
-     * @param uuid user uuid
      * @returns MutationResponse
      * @throws ApiError
      */
-    public static articleControllerBookmark(
+    public static articleControllerBookmark({
+        id,
+        uuid,
+    }: {
         id: number,
+        /**
+         * user uuid
+         */
         uuid?: string,
-    ): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<MutationResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/article/{id}/bookmark',
@@ -136,15 +151,19 @@ export class ArticleApiService {
 
     /**
      * 북마크 해제
-     * @param id
-     * @param uuid user uuid
      * @returns MutationResponse
      * @throws ApiError
      */
-    public static articleControllerUnbookmark(
+    public static articleControllerUnbookmark({
+        id,
+        uuid,
+    }: {
         id: number,
+        /**
+         * user uuid
+         */
         uuid?: string,
-    ): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<MutationResponse> {
         return __request(OpenAPI, {
             method: 'DELETE',
             url: '/article/{id}/bookmark',

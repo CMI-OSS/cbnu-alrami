@@ -15,13 +15,14 @@ export class BoardApiService {
 
     /**
      * 게시판 생성
-     * @param requestBody
      * @returns MutationResponse 게시판이 정상적으로 작성된 경우
      * @throws ApiError
      */
-    public static boardControllerCreate(
+    public static boardControllerCreate({
+        requestBody,
+    }: {
         requestBody: CreateBoardDto,
-    ): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<MutationResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/board',
@@ -32,13 +33,17 @@ export class BoardApiService {
 
     /**
      * 게시판 목록 조회
-     * @param uuid user uuid
      * @returns ResponseBoardDto
      * @throws ApiError
      */
-    public static boardControllerFind(
+    public static boardControllerFind({
+        uuid,
+    }: {
+        /**
+         * user uuid
+         */
         uuid?: string,
-    ): CancelablePromise<Array<ResponseBoardDto>> {
+    }): CancelablePromise<Array<ResponseBoardDto>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/board',
@@ -50,13 +55,17 @@ export class BoardApiService {
 
     /**
      * 구독한 게시판 목록 조회
-     * @param uuid user uuid
      * @returns ResponseBoardDto
      * @throws ApiError
      */
-    public static boardControllerFindSubscribeBoards(
+    public static boardControllerFindSubscribeBoards({
+        uuid,
+    }: {
+        /**
+         * user uuid
+         */
         uuid?: string,
-    ): CancelablePromise<Array<ResponseBoardDto>> {
+    }): CancelablePromise<Array<ResponseBoardDto>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/board/subscribe',
@@ -68,15 +77,19 @@ export class BoardApiService {
 
     /**
      * 게시판 조회
-     * @param id
-     * @param uuid user uuid
      * @returns ResponseBoardDto
      * @throws ApiError
      */
-    public static boardControllerFindOne(
+    public static boardControllerFindOne({
+        id,
+        uuid,
+    }: {
         id: number,
+        /**
+         * user uuid
+         */
         uuid?: string,
-    ): CancelablePromise<ResponseBoardDto> {
+    }): CancelablePromise<ResponseBoardDto> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/board/{id}',
@@ -91,15 +104,16 @@ export class BoardApiService {
 
     /**
      * 게시판 수정
-     * @param id
-     * @param requestBody
      * @returns MutationResponse
      * @throws ApiError
      */
-    public static boardControllerUpdate(
+    public static boardControllerUpdate({
+        id,
+        requestBody,
+    }: {
         id: number,
         requestBody: UpdateBoardDto,
-    ): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<MutationResponse> {
         return __request(OpenAPI, {
             method: 'PATCH',
             url: '/board/{id}',
@@ -113,13 +127,14 @@ export class BoardApiService {
 
     /**
      * 게시판 삭제
-     * @param id
      * @returns MutationResponse
      * @throws ApiError
      */
-    public static boardControllerRemove(
+    public static boardControllerRemove({
+        id,
+    }: {
         id: number,
-    ): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<MutationResponse> {
         return __request(OpenAPI, {
             method: 'DELETE',
             url: '/board/{id}',
@@ -131,17 +146,24 @@ export class BoardApiService {
 
     /**
      * 게시판내 게시물 페이지 조회
-     * @param id
-     * @param page 페이지
-     * @param count 아이템 개수
      * @returns ResponseArticleDto
      * @throws ApiError
      */
-    public static boardControllerFindArticlePage(
+    public static boardControllerFindArticlePage({
+        id,
+        page = 1,
+        count = 10,
+    }: {
         id: number,
-        page: number = 1,
-        count: number = 10,
-    ): CancelablePromise<Array<ResponseArticleDto>> {
+        /**
+         * 페이지
+         */
+        page?: number,
+        /**
+         * 아이템 개수
+         */
+        count?: number,
+    }): CancelablePromise<Array<ResponseArticleDto>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/board/{id}/articles',
@@ -157,15 +179,19 @@ export class BoardApiService {
 
     /**
      * 게시판 구독
-     * @param id
-     * @param uuid user uuid
      * @returns MutationResponse 게시판이 정상적으로 구독된 경우
      * @throws ApiError
      */
-    public static boardControllerSubscribe(
+    public static boardControllerSubscribe({
+        id,
+        uuid,
+    }: {
         id: number,
+        /**
+         * user uuid
+         */
         uuid?: string,
-    ): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<MutationResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/board/{id}/subscribe',
@@ -180,15 +206,19 @@ export class BoardApiService {
 
     /**
      * 게시판 구독 해제
-     * @param id
-     * @param uuid user uuid
      * @returns MutationResponse 게시판이 정상적으로 구독 해제된 경우
      * @throws ApiError
      */
-    public static boardControllerUnsubscribe(
+    public static boardControllerUnsubscribe({
+        id,
+        uuid,
+    }: {
         id: number,
+        /**
+         * user uuid
+         */
         uuid?: string,
-    ): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<MutationResponse> {
         return __request(OpenAPI, {
             method: 'DELETE',
             url: '/board/{id}/subscribe',
@@ -203,15 +233,19 @@ export class BoardApiService {
 
     /**
      * 게시판 알림 설정
-     * @param id
-     * @param uuid user uuid
      * @returns MutationResponse 게시판이 정상적으로 알림 설정된 경우
      * @throws ApiError
      */
-    public static boardControllerNotice(
+    public static boardControllerNotice({
+        id,
+        uuid,
+    }: {
         id: number,
+        /**
+         * user uuid
+         */
         uuid?: string,
-    ): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<MutationResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/board/{id}/notice',
@@ -226,15 +260,19 @@ export class BoardApiService {
 
     /**
      * 게시판 알림 해제
-     * @param id
-     * @param uuid user uuid
      * @returns MutationResponse 게시판이 정상적으로 알림 해제된 경우
      * @throws ApiError
      */
-    public static boardControllerUnnotice(
+    public static boardControllerUnnotice({
+        id,
+        uuid,
+    }: {
         id: number,
+        /**
+         * user uuid
+         */
         uuid?: string,
-    ): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<MutationResponse> {
         return __request(OpenAPI, {
             method: 'DELETE',
             url: '/board/{id}/notice',

@@ -14,13 +14,14 @@ export class AdminApiService {
 
     /**
      * 관리자 생성
-     * @param requestBody
      * @returns MutationResponse 관리자가 정상적으로 생성된 경우
      * @throws ApiError
      */
-    public static adminControllerCreate(
+    public static adminControllerCreate({
+        requestBody,
+    }: {
         requestBody: CreateAdminDto,
-    ): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<MutationResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/admin',
@@ -43,13 +44,14 @@ export class AdminApiService {
 
     /**
      * 관리자 조회
-     * @param id
      * @returns Admin
      * @throws ApiError
      */
-    public static adminControllerFindOne(
+    public static adminControllerFindOne({
+        id,
+    }: {
         id: number,
-    ): CancelablePromise<Admin> {
+    }): CancelablePromise<Admin> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/admin/{id}',
@@ -61,15 +63,16 @@ export class AdminApiService {
 
     /**
      * 관리자 수정
-     * @param id
-     * @param requestBody
      * @returns MutationResponse
      * @throws ApiError
      */
-    public static adminControllerUpdate(
+    public static adminControllerUpdate({
+        id,
+        requestBody,
+    }: {
         id: number,
         requestBody: UpdateAdminDto,
-    ): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<MutationResponse> {
         return __request(OpenAPI, {
             method: 'PATCH',
             url: '/admin/{id}',
@@ -83,13 +86,14 @@ export class AdminApiService {
 
     /**
      * 게시물 삭제
-     * @param id
      * @returns MutationResponse
      * @throws ApiError
      */
-    public static adminControllerRemove(
+    public static adminControllerRemove({
+        id,
+    }: {
         id: number,
-    ): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<MutationResponse> {
         return __request(OpenAPI, {
             method: 'DELETE',
             url: '/admin/{id}',

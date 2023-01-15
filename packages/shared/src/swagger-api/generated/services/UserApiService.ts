@@ -10,13 +10,14 @@ import { request as __request } from '../core/request';
 export class UserApiService {
 
     /**
-     * @param requestBody
      * @returns any
      * @throws ApiError
      */
-    public static userControllerCreate(
+    public static userControllerCreate({
+        requestBody,
+    }: {
         requestBody: CreateUserDto,
-    ): CancelablePromise<any> {
+    }): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/user',

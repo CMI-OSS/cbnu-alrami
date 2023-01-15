@@ -8,6 +8,7 @@ import {
   Post,
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
+import { MutationResponse } from "src/common/types/response";
 
 import { AdminService } from "./admin.service";
 import {
@@ -27,8 +28,10 @@ export class AdminController {
 
   @CreateAdmin()
   @Post()
-  create(@Body() createAdminDto: CreateAdminDto) {
-    return this.adminService.create(createAdminDto);
+  async create(
+    @Body() createAdminDto: CreateAdminDto,
+  ): Promise<MutationResponse> {
+    return { success: !!(await this.adminService.create(createAdminDto)) };
   }
 
   @GetAdmins()
@@ -45,13 +48,16 @@ export class AdminController {
 
   @UpdateAdmin()
   @Patch(":id")
-  update(@Param("id") id: number, @Body() updateAdminDto: UpdateAdminDto) {
-    return this.adminService.update(id, updateAdminDto);
+  async update(
+    @Param("id") id: number,
+    @Body() updateAdminDto: UpdateAdminDto,
+  ): Promise<MutationResponse> {
+    return { success: !!this.adminService.update(id, updateAdminDto) };
   }
 
   @DeleteAdmin()
   @Delete(":id")
-  remove(@Param("id") id: number) {
-    return this.adminService.remove(id);
+  async remove(@Param("id") id: number): Promise<MutationResponse> {
+    return { success: !!(await this.adminService.remove(id)) };
   }
 }

@@ -43,8 +43,10 @@ export class BoardController {
 
   @CreateBoard()
   @Post()
-  create(@Body() createBoardDto: CreateBoardDto) {
-    return this.boardService.create(createBoardDto);
+  async create(
+    @Body() createBoardDto: CreateBoardDto,
+  ): Promise<MutationResponse> {
+    return { success: !!(await this.boardService.create(createBoardDto)) };
   }
 
   @GetSubscribeBoards()
@@ -86,17 +88,15 @@ export class BoardController {
     @Param("id") id: number,
     @Body() updateBoardDto: UpdateBoardDto,
   ): Promise<MutationResponse> {
-    await this.boardService.update(id, updateBoardDto);
-
     return {
-      success: true,
+      success: !!(await this.boardService.update(id, updateBoardDto)),
     };
   }
 
   @DeleteBoard()
   @Delete(":id")
-  remove(@Param("id") id: number) {
-    return this.boardService.remove(id);
+  async remove(@Param("id") id: number): Promise<MutationResponse> {
+    return { success: !!(await this.boardService.remove(id)) };
   }
 
   @SubscribeBoard()

@@ -1,24 +1,24 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, OmitType } from "@nestjs/swagger";
 import { IsEnum, IsOptional, IsString } from "class-validator";
 import { CreateBoardAuthorityDto } from "src/board-authority/dto/create-board-authority.dto";
+import { UpdatableCommonEntityKeys } from "src/common/entity";
 
 import { AdminAuthorityType } from "../admin.constant";
-import { AdminProperty } from "../admin.swagger";
+import { Admin } from "../entities/admin.entity";
 
-export class CreateAdminDto {
-  @AdminProperty.loginId()
+export class CreateAdminDto extends OmitType(Admin, [
+  ...UpdatableCommonEntityKeys,
+  "boards",
+]) {
   @IsString()
   loginId: string;
 
-  @AdminProperty.password()
   @IsString()
   password: string;
 
-  @AdminProperty.nickname()
   @IsString()
   nickname: string;
 
-  @AdminProperty.authoirty()
   @IsEnum(AdminAuthorityType)
   @IsOptional()
   authoirty?: AdminAuthorityType;

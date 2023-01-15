@@ -25,7 +25,6 @@ import {
 } from "./article.swagger";
 import { CreateArticleDto } from "./dto/create-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
-import { Article } from "./entities/article.entity";
 
 @ApiTags("[article] 게시물 API")
 @Controller("article")
@@ -34,8 +33,10 @@ export class ArticleController {
 
   @CreateArticle()
   @Post()
-  create(@Body() createArticleDto: CreateArticleDto): Promise<Article> {
-    return this.articleService.create(createArticleDto);
+  async create(
+    @Body() createArticleDto: CreateArticleDto,
+  ): Promise<MutationResponse> {
+    return { success: await !!this.articleService.create(createArticleDto) };
   }
 
   @GetBookmarkArtice()
@@ -60,34 +61,38 @@ export class ArticleController {
     @Param("id") id: number,
     @Body() updateArticleDto: UpdateArticleDto,
   ): Promise<MutationResponse> {
-    await this.articleService.update(id, updateArticleDto);
-
     return {
-      success: true,
+      success: !!(await this.articleService.update(id, updateArticleDto)),
     };
   }
 
   @DeleteArticle()
   @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.articleService.remove(+id);
+  async remove(@Param("id") id: number): Promise<MutationResponse> {
+    return {
+      success: !!(await this.articleService.remove(id)),
+    };
   }
 
   @BookmarkArticle()
   @Post(":id/bookmark")
-  bookmark(
+  async bookmark(
     @Param("id") id: number,
     @UserSession() user: User,
-  ): Promise<Article> {
-    return this.articleService.bookmark(id, user);
+  ): Promise<MutationResponse> {
+    return {
+      success: !!(await this.articleService.bookmark(id, user)),
+    };
   }
 
   @UnBookmarkArticle()
   @Delete(":id/bookmark")
-  unbookmark(
+  async unbookmark(
     @Param("id") id: number,
     @UserSession() user: User,
-  ): Promise<Article> {
-    return this.articleService.unbookmark(id, user);
+  ): Promise<MutationResponse> {
+    return {
+      success: !!(await this.articleService.unbookmark(id, user)),
+    };
   }
 }

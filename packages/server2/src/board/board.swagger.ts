@@ -11,7 +11,6 @@ import { UserGuard } from "src/user/user.gurad";
 
 import { NotFoundBoardException } from "./board.exception";
 import { ResponseBoardDto } from "./dto/response-board.dto";
-import { Board } from "./entities/board.entity";
 
 export const CreateBoard = () => {
   return applyDecorators(
@@ -20,7 +19,7 @@ export const CreateBoard = () => {
     }),
     ApiCreatedResponse({
       description: "게시판이 정상적으로 작성된 경우",
-      type: Board,
+      type: MutationResponse,
     }),
   );
 };

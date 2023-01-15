@@ -17,7 +17,6 @@ import {
   ResponseArticleDetailDto,
   ResponseArticleDto,
 } from "./dto/resonse-article.dto";
-import { Article } from "./entities/article.entity";
 
 export const CreateArticle = () => {
   return applyDecorators(
@@ -26,7 +25,7 @@ export const CreateArticle = () => {
     }),
     ApiCreatedResponse({
       description: "게시물이 정상적으로 작성된 경우",
-      type: Article,
+      type: MutationResponse,
     }),
     ApiConflictResponse({ type: DuplicatedArticleException }),
   );
@@ -37,9 +36,9 @@ export const GetArtice = () => {
     ApiOperation({
       summary: "게시물 조회",
     }),
-    ApiOkResponse({ type: () => ResponseArticleDto }),
+    ApiOkResponse({ type: () => ResponseArticleDetailDto }),
     ApiNotFoundResponse({
-      type: ResponseArticleDetailDto,
+      type: NotFoundArticleException,
     }),
   );
 };
@@ -49,9 +48,9 @@ export const GetBookmarkArtice = () => {
     ApiOperation({
       summary: "북마크한 게시물 조회",
     }),
-    ApiOkResponse({ type: () => ResponseArticleDto }),
+    ApiOkResponse({ type: () => ResponseArticleDto, isArray: true }),
     ApiNotFoundResponse({
-      type: ResponseArticleDetailDto,
+      type: NotFoundArticleException,
     }),
   );
 };

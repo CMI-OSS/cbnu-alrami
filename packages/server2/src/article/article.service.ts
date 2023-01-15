@@ -75,7 +75,7 @@ export class ArticleService {
       skip: (page - 1) * count,
     });
     return articles.map<ResponseArticleDto>(
-      ({ viewUsers, bookmarkUsers, ...article }) =>
+      ({ viewUsers, bookmarkUsers, content, author, ...article }) =>
         ({
           ...article,
           bookmarkCount: bookmarkUsers.length,

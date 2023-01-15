@@ -28,6 +28,7 @@ export class Article extends UpdatableCommonEntity {
     example:
       "<div>2022학년도 동계 글로벌프론티어 단기연수 참가자를 다음과 같이 안내드립니다.</div>",
   })
+  @Column({ type: "varchar" })
   content: string;
 
   @ApiProperty({

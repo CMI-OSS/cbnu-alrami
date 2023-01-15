@@ -1,8 +1,11 @@
-import { ApiProperty, OmitType } from "@nestjs/swagger";
+import { ApiProperty, IntersectionType, OmitType } from "@nestjs/swagger";
 
 import { Article } from "../entities/article.entity";
 
-export class ResponseArticleDto extends OmitType(Article, [ "author" ]) {
+export class ResponseArticleDto extends OmitType(Article, [
+  "author",
+  "content",
+]) {
   @ApiProperty({ description: "북마크 수", example: false })
   bookmarkCount: number;
 
@@ -10,7 +13,10 @@ export class ResponseArticleDto extends OmitType(Article, [ "author" ]) {
   viewCount: number;
 }
 
-export class ResponseArticleDetailDto extends ResponseArticleDto {
+export class ResponseArticleDetailDto extends IntersectionType(
+  Article,
+  ResponseArticleDto,
+) {
   @ApiProperty({ description: "북마크 여부", example: false })
   isBookmark: boolean;
 

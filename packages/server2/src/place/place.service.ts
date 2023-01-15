@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ImageService } from "src/image/image.service";
 import { Place } from "src/place/entities/place.entity";
+import { SchoolArea } from "src/school/school.constant";
 import { Repository } from "typeorm";
 
 import { CreatePlaceDto } from "./dto/create-place.dto";
@@ -15,9 +16,17 @@ export class PlaceService {
     private imageService: ImageService,
   ) {}
 
-  findSchool() {
+  findSchool(area?: SchoolArea) {
     return this.placeRepository.find({
-      where: { school: true },
+      where: {
+        ...(area
+          ? {
+              school: {
+                area,
+              },
+            }
+          : { school: true }),
+      },
       relations: { school: true },
     });
   }

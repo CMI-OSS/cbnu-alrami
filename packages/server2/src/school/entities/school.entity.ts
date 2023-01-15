@@ -1,8 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString } from "class-validator";
+import { IsEnum, IsString } from "class-validator";
 import { UpdatableCommonEntity } from "src/common/entity";
 import { Place } from "src/place/entities/place.entity";
 import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
+
+import { SchoolArea } from "../school.constant";
 
 @Entity()
 export class School extends UpdatableCommonEntity {
@@ -16,13 +18,17 @@ export class School extends UpdatableCommonEntity {
   @Column({ type: "varchar" })
   oldBuildingNumber: string;
 
-  @ApiProperty({ description: "구역(N,E,S)", example: "N" })
-  @IsString()
-  @Column({ type: "varchar" })
-  area: string;
+  @ApiProperty({
+    description: "구역(N,E,S)",
+    example: SchoolArea.N,
+    enum: SchoolArea,
+    type: "enum",
+  })
+  @IsEnum(SchoolArea)
+  @Column({ enum: SchoolArea })
+  area: SchoolArea;
 
-  @ApiProperty({ type: () => Place })
-  @OneToOne(() => Place, { eager: true, onDelete: "CASCADE" })
+  @OneToOne(() => Place, { onDelete: "CASCADE" })
   @JoinColumn()
   place: Place;
 }

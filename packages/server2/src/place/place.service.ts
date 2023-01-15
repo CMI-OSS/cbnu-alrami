@@ -15,6 +15,13 @@ export class PlaceService {
     private imageService: ImageService,
   ) {}
 
+  findSchool() {
+    return this.placeRepository.find({
+      where: { school: true },
+      relations: { school: true },
+    });
+  }
+
   async create(createPlaceDto: CreatePlaceDto) {
     const images = await this.imageService.findImages(
       createPlaceDto.imageIds ?? [],

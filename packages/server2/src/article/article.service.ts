@@ -13,7 +13,7 @@ import { CreateArticleDto } from "./dto/create-article.dto";
 import {
   ResponseArticleDetailDto,
   ResponseArticleDto,
-} from "./dto/resonse-article.dto";
+} from "./dto/response-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
 import { Article } from "./entities/article.entity";
 

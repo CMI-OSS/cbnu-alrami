@@ -5,7 +5,7 @@ import {
   ApiOkResponse,
   ApiOperation,
 } from "@nestjs/swagger";
-import { ResponseArticleDto } from "src/article/dto/resonse-article.dto";
+import { ResponseArticleDto } from "src/article/dto/response-article.dto";
 import { MutationResponse } from "src/common/types/response";
 import { UserGuard } from "src/user/user.gurad";
 

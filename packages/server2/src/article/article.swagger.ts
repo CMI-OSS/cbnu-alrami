@@ -16,7 +16,7 @@ import {
 import {
   ResponseArticleDetailDto,
   ResponseArticleDto,
-} from "./dto/resonse-article.dto";
+} from "./dto/response-article.dto";
 
 export const CreateArticle = () => {
   return applyDecorators(

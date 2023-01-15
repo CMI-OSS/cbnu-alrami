@@ -26,7 +26,7 @@ export class SchoolService {
   }
 
   findAll() {
-    return this.schoolRepository.find();
+    return this.schoolRepository.find({ relations: { place: true } });
   }
 
   async findOne(id: number) {

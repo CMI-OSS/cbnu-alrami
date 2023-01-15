@@ -1,0 +1,13 @@
+{
+  "name": "shared",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "gen": "ts-node ./src/swagger-api/index.ts"
+  },
+  "dependencies": {
+    "openapi-typescript-codegen": "^0.23.0",
+    "ts-node": "^10.9.1"
+  }
+}

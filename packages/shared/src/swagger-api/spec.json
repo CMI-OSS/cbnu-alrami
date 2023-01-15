@@ -1,0 +1,2084 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/article": {
+      "post": {
+        "operationId": "ArticleController_create",
+        "summary": "게시물 생성",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateArticleDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "게시물이 정상적으로 작성된 경우",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MutationResponse" }
+              }
+            }
+          },
+          "409": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DuplicatedArticleException"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[article] 게시물 API"]
+      }
+    },
+    "/article/bookmark": {
+      "get": {
+        "operationId": "ArticleController_findBookmarkArticle",
+        "summary": "북마크한 게시물 조회",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "header",
+            "description": "user uuid",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ResponseArticleDto" }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundArticleException"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[article] 게시물 API"]
+      }
+    },
+    "/article/{id}": {
+      "get": {
+        "operationId": "ArticleController_findOne",
+        "summary": "게시물 조회",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "uuid",
+            "in": "header",
+            "description": "user uuid",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseArticleDetailDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundArticleException"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[article] 게시물 API"]
+      },
+      "patch": {
+        "operationId": "ArticleController_update",
+        "summary": "게시물 수정",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateArticleDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MutationResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundArticleException"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[article] 게시물 API"]
+      },
+      "delete": {
+        "operationId": "ArticleController_remove",
+        "summary": "게시물 삭제",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MutationResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundArticleException"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[article] 게시물 API"]
+      }
+    },
+    "/article/{id}/bookmark": {
+      "post": {
+        "operationId": "ArticleController_bookmark",
+        "summary": "북마크 설정",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "uuid",
+            "in": "header",
+            "description": "user uuid",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MutationResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundArticleException"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[article] 게시물 API"]
+      },
+      "delete": {
+        "operationId": "ArticleController_unbookmark",
+        "summary": "북마크 해제",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "uuid",
+            "in": "header",
+            "description": "user uuid",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MutationResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundArticleException"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[article] 게시물 API"]
+      }
+    },
+    "/board": {
+      "post": {
+        "operationId": "BoardController_create",
+        "summary": "게시판 생성",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateBoardDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "게시판이 정상적으로 작성된 경우",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MutationResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["[board] 게시판 API"]
+      },
+      "get": {
+        "operationId": "BoardController_find",
+        "summary": "게시판 목록 조회",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "header",
+            "description": "user uuid",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ResponseBoardDto" }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundBoardException"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[board] 게시판 API"]
+      }
+    },
+    "/board/subscribe": {
+      "get": {
+        "operationId": "BoardController_findSubscribeBoards",
+        "summary": "구독한 게시판 목록 조회",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "header",
+            "description": "user uuid",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ResponseBoardDto" }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundBoardException"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[board] 게시판 API"]
+      }
+    },
+    "/board/{id}": {
+      "get": {
+        "operationId": "BoardController_findOne",
+        "summary": "게시판 조회",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "uuid",
+            "in": "header",
+            "description": "user uuid",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseBoardDto" }
+              }
+            }
+          }
+        },
+        "tags": ["[board] 게시판 API"]
+      },
+      "patch": {
+        "operationId": "BoardController_update",
+        "summary": "게시판 수정",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateBoardDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MutationResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundBoardException"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[board] 게시판 API"]
+      },
+      "delete": {
+        "operationId": "BoardController_remove",
+        "summary": "게시판 삭제",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MutationResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundBoardException"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[board] 게시판 API"]
+      }
+    },
+    "/board/{id}/articles": {
+      "get": {
+        "operationId": "BoardController_findArticlePage",
+        "summary": "게시판내 게시물 페이지 조회",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "페이지",
+            "schema": { "default": 1, "type": "number" }
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "description": "아이템 개수",
+            "schema": { "default": 10, "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ResponseArticleDto" }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundBoardException"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[board] 게시판 API"]
+      }
+    },
+    "/board/{id}/subscribe": {
+      "post": {
+        "operationId": "BoardController_subscribe",
+        "summary": "게시판 구독",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "uuid",
+            "in": "header",
+            "description": "user uuid",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "게시판이 정상적으로 구독된 경우",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MutationResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["[board] 게시판 API"]
+      },
+      "delete": {
+        "operationId": "BoardController_unsubscribe",
+        "summary": "게시판 구독 해제",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "uuid",
+            "in": "header",
+            "description": "user uuid",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "게시판이 정상적으로 구독 해제된 경우",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MutationResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["[board] 게시판 API"]
+      }
+    },
+    "/board/{id}/notice": {
+      "post": {
+        "operationId": "BoardController_notice",
+        "summary": "게시판 알림 설정",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "uuid",
+            "in": "header",
+            "description": "user uuid",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "게시판이 정상적으로 알림 설정된 경우",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MutationResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["[board] 게시판 API"]
+      },
+      "delete": {
+        "operationId": "BoardController_unnotice",
+        "summary": "게시판 알림 해제",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "uuid",
+            "in": "header",
+            "description": "user uuid",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "게시판이 정상적으로 알림 해제된 경우",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MutationResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["[board] 게시판 API"]
+      }
+    },
+    "/image/upload": {
+      "post": {
+        "operationId": "ImageController_upload",
+        "summary": "이미지 업로드",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "images": {
+                    "type": "array",
+                    "items": { "type": "string", "format": "binary" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "정상적으로 이미지가 업로드된 경우",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Image" }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[image] 이미지 API"]
+      }
+    },
+    "/admin": {
+      "post": {
+        "operationId": "AdminController_create",
+        "summary": "관리자 생성",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateAdminDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "관리자가 정상적으로 생성된 경우",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MutationResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundBoardsException"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DuplicatedLoginIdException"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[admin] 관리자 API"]
+      },
+      "get": {
+        "operationId": "AdminController_findAll",
+        "summary": "관리자 목록 조회",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Admin" }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[admin] 관리자 API"]
+      }
+    },
+    "/admin/{id}": {
+      "get": {
+        "operationId": "AdminController_findOne",
+        "summary": "관리자 조회",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Admin" }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundAdminException"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[admin] 관리자 API"]
+      },
+      "patch": {
+        "operationId": "AdminController_update",
+        "summary": "관리자 수정",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateAdminDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MutationResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundAdminException"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[admin] 관리자 API"]
+      },
+      "delete": {
+        "operationId": "AdminController_remove",
+        "summary": "게시물 삭제",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MutationResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundAdminException"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[admin] 관리자 API"]
+      }
+    },
+    "/schedule": {
+      "post": {
+        "operationId": "ScheduleController_create",
+        "summary": "일정 생성",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateScheduleDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "일정이 정상적으로 생성된 경우",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Schedule" }
+              }
+            }
+          }
+        },
+        "tags": ["[schedule] 일정 API"]
+      },
+      "get": {
+        "operationId": "ScheduleController_findAll",
+        "summary": "학사 일정 조회",
+        "parameters": [
+          {
+            "name": "startDateTime",
+            "required": false,
+            "in": "query",
+            "description": "일정 시작일",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "default": "2022-04-01",
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDateTime",
+            "required": false,
+            "in": "query",
+            "description": "일정 종료일",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "default": "2022-06-30",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Schedule" }
+              }
+            }
+          }
+        },
+        "tags": ["[schedule] 일정 API"]
+      }
+    },
+    "/place/school": {
+      "get": {
+        "operationId": "PlaceController_findSchool",
+        "summary": "학교 건물 조회",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/PlaceSchoolDto" }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[place] 장소 API"]
+      }
+    },
+    "/place/school/{area}": {
+      "get": {
+        "operationId": "PlaceController_findSchoolByArea",
+        "summary": "구역으로 학교 건물 조회",
+        "parameters": [
+          {
+            "name": "area",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/PlaceSchoolDto" }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[place] 장소 API"]
+      }
+    },
+    "/school": {
+      "post": {
+        "operationId": "SchoolController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateSchoolDto" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["[school] 학교 API"]
+      },
+      "get": {
+        "operationId": "SchoolController_findAll",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["[school] 학교 API"]
+      }
+    },
+    "/school/{id}": {
+      "get": {
+        "operationId": "SchoolController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["[school] 학교 API"]
+      },
+      "patch": {
+        "operationId": "SchoolController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateSchoolDto" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["[school] 학교 API"]
+      },
+      "delete": {
+        "operationId": "SchoolController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["[school] 학교 API"]
+      }
+    },
+    "/cafeteria-menu": {
+      "post": {
+        "operationId": "CafeteriaMenuController_create",
+        "summary": "메뉴 등록",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCafeteriaMenuDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "등록 성공 여부",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MutationResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["[cafeteria-menu] 학생식당 API"]
+      }
+    },
+    "/cafeteria-menu/{name}/{date}": {
+      "get": {
+        "operationId": "CafeteriaMenuController_findAll",
+        "summary": "학생식당 일자별 메뉴 조회",
+        "parameters": [
+          {
+            "name": "name",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "date",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/CafeteriaMenu" }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["[cafeteria-menu] 학생식당 API"]
+      }
+    },
+    "/user": {
+      "post": {
+        "operationId": "UserController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateUserDto" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["[user] 사용자 API"]
+      }
+    }
+  },
+  "info": {
+    "title": "충림이 Server API Docs",
+    "description": "충림이 프로젝트의 REST API 문서",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "CreateArticleDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "게시물 제목",
+            "example": " 2022학년도 동계 글로벌프론티어 단기연수 참가 선발 안내"
+          },
+          "content": {
+            "type": "string",
+            "description": "게시물 내용(html)",
+            "example": "<div>2022학년도 동계 글로벌프론티어 단기연수 참가자를 다음과 같이 안내드립니다.</div>"
+          },
+          "url": {
+            "type": "string",
+            "description": "스크래핑한 공지사항의 실제 URL",
+            "example": "https://software.cbnu.ac.kr/sub0401/13664"
+          },
+          "dateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "공지사항이 작성된 시간",
+            "example": "2023-01-15T09:50:41.089Z"
+          },
+          "boardId": {
+            "type": "number",
+            "description": "게시물이 속한 게시판의 ID",
+            "example": 1
+          },
+          "imageIds": {
+            "description": "이미지",
+            "example": [1],
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["title", "content", "dateTime", "boardId", "imageIds"]
+      },
+      "MutationResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "description": "성공 여부" }
+        },
+        "required": ["success"]
+      },
+      "DuplicatedArticleException": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "이미 존재하는 게시물입니다."
+          }
+        },
+        "required": ["message"]
+      },
+      "ChildBoard": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "아이디", "example": 1 },
+          "createdDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "생성 시간"
+          },
+          "updatedDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "수정 시간"
+          },
+          "name": {
+            "type": "string",
+            "description": "게시판 제목",
+            "example": "소프트웨어학과"
+          },
+          "url": {
+            "type": "string",
+            "description": "게시판 URL",
+            "example": "https://software.cbnu.ac.kr/sub0401"
+          },
+          "parent": {
+            "description": "부모 게시판",
+            "example": {
+              "url": "https://ece.cbnu.ac.kr/",
+              "name": "전자정보대학"
+            },
+            "allOf": [{ "$ref": "#/components/schemas/Board" }]
+          },
+          "children": {
+            "description": "자식 게시판",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ChildBoard" }
+          }
+        },
+        "required": ["id", "createdDateTime", "updatedDateTime", "name"]
+      },
+      "Board": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "아이디", "example": 1 },
+          "createdDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "생성 시간"
+          },
+          "updatedDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "수정 시간"
+          },
+          "name": {
+            "type": "string",
+            "description": "게시판 제목",
+            "example": "소프트웨어학과"
+          },
+          "url": {
+            "type": "string",
+            "description": "게시판 URL",
+            "example": "https://software.cbnu.ac.kr/sub0401"
+          },
+          "parent": {
+            "description": "부모 게시판",
+            "example": {
+              "url": "https://ece.cbnu.ac.kr/",
+              "name": "전자정보대학"
+            },
+            "allOf": [{ "$ref": "#/components/schemas/Board" }]
+          },
+          "children": {
+            "description": "자식 게시판",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ChildBoard" }
+          }
+        },
+        "required": ["id", "createdDateTime", "updatedDateTime", "name"]
+      },
+      "ResponseArticleDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "아이디", "example": 1 },
+          "createdDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "생성 시간"
+          },
+          "updatedDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "수정 시간"
+          },
+          "title": {
+            "type": "string",
+            "description": "게시물 제목",
+            "example": " 2022학년도 동계 글로벌프론티어 단기연수 참가 선발 안내"
+          },
+          "url": {
+            "type": "string",
+            "description": "스크래핑한 공지사항의 실제 URL",
+            "example": "https://software.cbnu.ac.kr/sub0401/13664"
+          },
+          "dateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "공지사항이 작성된 시간",
+            "example": "2023-01-15T09:50:41.089Z"
+          },
+          "board": {
+            "description": "게시물이 속한 게시판",
+            "allOf": [{ "$ref": "#/components/schemas/Board" }]
+          },
+          "bookmarkCount": {
+            "type": "number",
+            "description": "북마크 수",
+            "example": false
+          },
+          "viewCount": {
+            "type": "number",
+            "description": "조회수",
+            "example": 1
+          }
+        },
+        "required": [
+          "id",
+          "createdDateTime",
+          "updatedDateTime",
+          "title",
+          "dateTime",
+          "board",
+          "bookmarkCount",
+          "viewCount"
+        ]
+      },
+      "NotFoundArticleException": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "존재하지 않는 게시물입니다."
+          }
+        },
+        "required": ["message"]
+      },
+      "BoardAuthority": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "아이디", "example": 1 },
+          "createdDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "생성 시간"
+          },
+          "authority": {
+            "type": "string",
+            "description": "관리 권한",
+            "example": "Write",
+            "enum": ["Read", "Write"]
+          }
+        },
+        "required": ["id", "createdDateTime", "authority"]
+      },
+      "Admin": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "아이디", "example": 1 },
+          "createdDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "생성 시간"
+          },
+          "updatedDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "수정 시간"
+          },
+          "loginId": {
+            "type": "string",
+            "description": "로그인에 사용할 아이디",
+            "example": "test"
+          },
+          "password": {
+            "type": "string",
+            "description": "비밀번호",
+            "example": "12345678"
+          },
+          "nickname": {
+            "type": "string",
+            "description": "닉네임",
+            "example": "testnickname"
+          },
+          "authoirty": {
+            "type": "string",
+            "description": "권한",
+            "example": "StudentCouncil",
+            "enum": ["Super", "StudentCouncil", "Guest"]
+          },
+          "boards": {
+            "description": "권한이 부여된 게시판",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/BoardAuthority" }
+          }
+        },
+        "required": [
+          "id",
+          "createdDateTime",
+          "updatedDateTime",
+          "loginId",
+          "password",
+          "nickname",
+          "authoirty",
+          "boards"
+        ]
+      },
+      "ResponseArticleDetailDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "아이디", "example": 1 },
+          "createdDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "생성 시간"
+          },
+          "updatedDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "수정 시간"
+          },
+          "title": {
+            "type": "string",
+            "description": "게시물 제목",
+            "example": " 2022학년도 동계 글로벌프론티어 단기연수 참가 선발 안내"
+          },
+          "content": {
+            "type": "string",
+            "description": "게시물 내용(html)",
+            "example": "<div>2022학년도 동계 글로벌프론티어 단기연수 참가자를 다음과 같이 안내드립니다.</div>"
+          },
+          "url": {
+            "type": "string",
+            "description": "스크래핑한 공지사항의 실제 URL",
+            "example": "https://software.cbnu.ac.kr/sub0401/13664"
+          },
+          "dateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "공지사항이 작성된 시간",
+            "example": "2023-01-15T09:50:41.089Z"
+          },
+          "board": {
+            "description": "게시물이 속한 게시판",
+            "allOf": [{ "$ref": "#/components/schemas/Board" }]
+          },
+          "author": {
+            "description": "게시물 작성자",
+            "allOf": [{ "$ref": "#/components/schemas/Admin" }]
+          },
+          "bookmarkCount": {
+            "type": "number",
+            "description": "북마크 수",
+            "example": false
+          },
+          "viewCount": {
+            "type": "number",
+            "description": "조회수",
+            "example": 1
+          },
+          "isBookmark": {
+            "type": "boolean",
+            "description": "북마크 여부",
+            "example": false
+          },
+          "isView": {
+            "type": "boolean",
+            "description": "조회 여부",
+            "example": 1
+          }
+        },
+        "required": [
+          "id",
+          "createdDateTime",
+          "updatedDateTime",
+          "title",
+          "content",
+          "dateTime",
+          "board",
+          "author",
+          "bookmarkCount",
+          "viewCount",
+          "isBookmark",
+          "isView"
+        ]
+      },
+      "UpdateArticleDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "게시물 제목",
+            "example": " 2022학년도 동계 글로벌프론티어 단기연수 참가 선발 안내"
+          },
+          "content": {
+            "type": "string",
+            "description": "게시물 내용(html)",
+            "example": "<div>2022학년도 동계 글로벌프론티어 단기연수 참가자를 다음과 같이 안내드립니다.</div>"
+          },
+          "url": {
+            "type": "string",
+            "description": "스크래핑한 공지사항의 실제 URL",
+            "example": "https://software.cbnu.ac.kr/sub0401/13664"
+          },
+          "dateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "공지사항이 작성된 시간",
+            "example": "2023-01-15T09:50:41.089Z"
+          },
+          "boardId": {
+            "type": "number",
+            "description": "게시물이 속한 게시판의 ID",
+            "example": 1
+          },
+          "imageIds": {
+            "description": "이미지",
+            "example": [1],
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      },
+      "CreateBoardDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "게시판 제목",
+            "example": "소프트웨어학과"
+          },
+          "url": {
+            "type": "string",
+            "description": "게시판 URL",
+            "example": "https://software.cbnu.ac.kr/sub0401"
+          },
+          "parentBoardId": {
+            "type": "number",
+            "description": "상위 게시판 ID",
+            "nullable": true
+          }
+        },
+        "required": ["name", "parentBoardId"]
+      },
+      "ResponseBoardDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "아이디", "example": 1 },
+          "createdDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "생성 시간"
+          },
+          "updatedDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "수정 시간"
+          },
+          "name": {
+            "type": "string",
+            "description": "게시판 제목",
+            "example": "소프트웨어학과"
+          },
+          "url": {
+            "type": "string",
+            "description": "게시판 URL",
+            "example": "https://software.cbnu.ac.kr/sub0401"
+          },
+          "parent": {
+            "description": "부모 게시판",
+            "example": {
+              "url": "https://ece.cbnu.ac.kr/",
+              "name": "전자정보대학"
+            },
+            "allOf": [{ "$ref": "#/components/schemas/Board" }]
+          },
+          "children": {
+            "description": "자식 게시판",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ChildBoard" }
+          },
+          "isSubscribe": {
+            "type": "boolean",
+            "description": "구독 여부",
+            "example": true,
+            "nullable": true
+          },
+          "isNotice": {
+            "type": "boolean",
+            "description": "알림 여부",
+            "example": true,
+            "nullable": true
+          }
+        },
+        "required": ["id", "createdDateTime", "updatedDateTime", "name"]
+      },
+      "NotFoundBoardException": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "게시판을 찾을 수 없습니다."
+          }
+        },
+        "required": ["message"]
+      },
+      "UpdateBoardDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "게시판 제목",
+            "example": "소프트웨어학과"
+          },
+          "url": {
+            "type": "string",
+            "description": "게시판 URL",
+            "example": "https://software.cbnu.ac.kr/sub0401"
+          },
+          "parentBoardId": {
+            "type": "number",
+            "description": "상위 게시판 ID",
+            "nullable": true
+          }
+        }
+      },
+      "Image": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "아이디", "example": 1 },
+          "createdDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "생성 시간"
+          },
+          "url": { "type": "string", "description": "이미지 URL" }
+        },
+        "required": ["id", "createdDateTime", "url"]
+      },
+      "CreateBoardAuthorityDto": {
+        "type": "object",
+        "properties": {
+          "boardId": {
+            "type": "number",
+            "description": "게시판",
+            "example": 2
+          },
+          "authority": {
+            "type": "string",
+            "description": "관리 권한",
+            "example": "Write",
+            "enum": ["Read", "Write"]
+          }
+        },
+        "required": ["boardId", "authority"]
+      },
+      "CreateAdminDto": {
+        "type": "object",
+        "properties": {
+          "loginId": {
+            "type": "string",
+            "description": "로그인에 사용할 아이디",
+            "example": "test"
+          },
+          "password": {
+            "type": "string",
+            "description": "비밀번호",
+            "example": "12345678"
+          },
+          "nickname": {
+            "type": "string",
+            "description": "닉네임",
+            "example": "testnickname"
+          },
+          "authoirty": {
+            "type": "string",
+            "description": "권한",
+            "example": "StudentCouncil",
+            "enum": ["Super", "StudentCouncil", "Guest"]
+          },
+          "boards": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CreateBoardAuthorityDto" }
+          }
+        },
+        "required": ["loginId", "password", "nickname", "authoirty", "boards"]
+      },
+      "NotFoundBoardsException": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "존재하지 않는 게시판입니다."
+          }
+        },
+        "required": ["message"]
+      },
+      "DuplicatedLoginIdException": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "이미 존재하는 아이디입니다."
+          }
+        },
+        "required": ["message"]
+      },
+      "NotFoundAdminException": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "존재하지 않는 관리자입니다."
+          }
+        },
+        "required": ["message"]
+      },
+      "UpdateAdminDto": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string",
+            "description": "비밀번호",
+            "example": "12345678"
+          },
+          "nickname": {
+            "type": "string",
+            "description": "닉네임",
+            "example": "testnickname"
+          },
+          "authoirty": {
+            "type": "string",
+            "description": "권한",
+            "example": "StudentCouncil",
+            "enum": ["Super", "StudentCouncil", "Guest"]
+          },
+          "boards": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CreateBoardAuthorityDto" }
+          }
+        }
+      },
+      "CreateScheduleDto": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "description": "일정 내용",
+            "example": "중간고사"
+          },
+          "priority": {
+            "type": "number",
+            "description": "우선순위",
+            "example": 1
+          },
+          "isHoliday": {
+            "type": "boolean",
+            "description": "휴일여부",
+            "example": false
+          },
+          "startDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "일정 시작일",
+            "example": "2022-04-20"
+          },
+          "endDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "일정 종료일",
+            "example": "2022-04-28"
+          }
+        },
+        "required": ["content", "priority", "startDateTime"]
+      },
+      "Schedule": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "아이디", "example": 1 },
+          "createdDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "생성 시간"
+          },
+          "content": {
+            "type": "string",
+            "description": "일정 내용",
+            "example": "중간고사"
+          },
+          "priority": {
+            "type": "number",
+            "description": "우선순위",
+            "example": 1
+          },
+          "isHoliday": {
+            "type": "boolean",
+            "description": "휴일여부",
+            "example": false
+          },
+          "startDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "일정 시작일",
+            "example": "2022-04-20"
+          },
+          "endDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "일정 종료일",
+            "example": "2022-04-28"
+          }
+        },
+        "required": [
+          "id",
+          "createdDateTime",
+          "content",
+          "priority",
+          "startDateTime"
+        ]
+      },
+      "School": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "아이디", "example": 1 },
+          "createdDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "생성 시간"
+          },
+          "updatedDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "수정 시간"
+          },
+          "buildingNumber": {
+            "type": "string",
+            "description": "건물번호",
+            "example": "ABC-1"
+          },
+          "oldBuildingNumber": {
+            "type": "string",
+            "description": "(구)건물번호",
+            "example": "ABC-2"
+          },
+          "area": {
+            "type": "string",
+            "description": "구역(N,E,S)",
+            "example": "N",
+            "enum": ["N", "S", "E"]
+          }
+        },
+        "required": [
+          "id",
+          "createdDateTime",
+          "updatedDateTime",
+          "buildingNumber",
+          "oldBuildingNumber",
+          "area"
+        ]
+      },
+      "PlaceSchoolDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "아이디", "example": 1 },
+          "createdDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "생성 시간"
+          },
+          "updatedDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "수정 시간"
+          },
+          "name": {
+            "type": "string",
+            "description": "장소명",
+            "example": "양진재"
+          },
+          "latitude": {
+            "type": "number",
+            "description": "위도",
+            "example": 36.62417046575352
+          },
+          "longtitude": {
+            "type": "number",
+            "description": "경도",
+            "example": 127.45967706911435
+          },
+          "address": {
+            "type": "string",
+            "description": "주소",
+            "example": "충청북도 청주시 서원구 충대로 1"
+          },
+          "school": {
+            "description": "학교 정보",
+            "allOf": [{ "$ref": "#/components/schemas/School" }]
+          }
+        },
+        "required": [
+          "id",
+          "createdDateTime",
+          "updatedDateTime",
+          "name",
+          "latitude",
+          "longtitude",
+          "address",
+          "school"
+        ]
+      },
+      "CreatePlaceDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "장소명",
+            "example": "양진재"
+          },
+          "latitude": {
+            "type": "number",
+            "description": "위도",
+            "example": 36.62417046575352
+          },
+          "longtitude": {
+            "type": "number",
+            "description": "경도",
+            "example": 127.45967706911435
+          },
+          "address": {
+            "type": "string",
+            "description": "주소",
+            "example": "충청북도 청주시 서원구 충대로 1"
+          },
+          "imageIds": {
+            "description": "이미지",
+            "example": [1],
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["name", "latitude", "longtitude", "address", "imageIds"]
+      },
+      "CreateSchoolDto": {
+        "type": "object",
+        "properties": {
+          "buildingNumber": {
+            "type": "string",
+            "description": "건물번호",
+            "example": "ABC-1"
+          },
+          "oldBuildingNumber": {
+            "type": "string",
+            "description": "(구)건물번호",
+            "example": "ABC-2"
+          },
+          "area": {
+            "type": "string",
+            "description": "구역(N,E,S)",
+            "example": "N",
+            "enum": ["N", "S", "E"]
+          },
+          "place": { "$ref": "#/components/schemas/CreatePlaceDto" }
+        },
+        "required": ["buildingNumber", "oldBuildingNumber", "area", "place"]
+      },
+      "UpdateSchoolDto": {
+        "type": "object",
+        "properties": {
+          "buildingNumber": {
+            "type": "string",
+            "description": "건물번호",
+            "example": "ABC-1"
+          },
+          "oldBuildingNumber": {
+            "type": "string",
+            "description": "(구)건물번호",
+            "example": "ABC-2"
+          },
+          "area": {
+            "type": "string",
+            "description": "구역(N,E,S)",
+            "example": "N",
+            "enum": ["N", "S", "E"]
+          },
+          "place": { "$ref": "#/components/schemas/CreatePlaceDto" }
+        }
+      },
+      "CreateCafeteriaMenuDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "학생 식당 혹은 기숙사 이름",
+            "example": "한빛식당",
+            "enum": [
+              "본관",
+              "양진재",
+              "양성재",
+              "한빛식당",
+              "별빛식당",
+              "은하수식당"
+            ]
+          },
+          "menu": {
+            "type": "string",
+            "description": "메뉴",
+            "example": "카레라이스"
+          },
+          "date": {
+            "type": "string",
+            "description": "YYYY-MM-DD",
+            "example": "2023-01-01"
+          },
+          "time": {
+            "type": "string",
+            "description": "식사 시간 (BREAKFAT, LUNCH, DINNER)",
+            "example": "BREAKFAST",
+            "enum": ["BREAKFAST", "LUNCH", "DINNER"]
+          }
+        },
+        "required": ["name", "menu", "date", "time"]
+      },
+      "CafeteriaMenu": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "아이디", "example": 1 },
+          "createdDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "생성 시간"
+          },
+          "name": {
+            "type": "string",
+            "description": "학생 식당 혹은 기숙사 이름",
+            "example": "한빛식당",
+            "enum": [
+              "본관",
+              "양진재",
+              "양성재",
+              "한빛식당",
+              "별빛식당",
+              "은하수식당"
+            ]
+          },
+          "menu": {
+            "type": "string",
+            "description": "메뉴",
+            "example": "카레라이스"
+          },
+          "date": {
+            "type": "string",
+            "description": "YYYY-MM-DD",
+            "example": "2023-01-01"
+          },
+          "time": {
+            "type": "string",
+            "description": "식사 시간 (BREAKFAT, LUNCH, DINNER)",
+            "example": "BREAKFAST",
+            "enum": ["BREAKFAST", "LUNCH", "DINNER"]
+          }
+        },
+        "required": ["id", "createdDateTime", "name", "menu", "date", "time"]
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "updatedDateTime": {
+            "format": "date-time",
+            "type": "string",
+            "description": "수정 시간"
+          },
+          "uuid": {
+            "type": "string",
+            "description": "사용자 uuid",
+            "example": "1111"
+          }
+        },
+        "required": ["updatedDateTime", "uuid"]
+      }
+    }
+  }
+}

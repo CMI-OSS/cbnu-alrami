@@ -19,6 +19,7 @@ import {
   CreateArticle,
   DeleteArticle,
   GetArtice,
+  GetBookmarkArtice,
   UnBookmarkArticle,
   UpdateArticle,
 } from "./article.swagger";
@@ -35,6 +36,13 @@ export class ArticleController {
   @Post()
   create(@Body() createArticleDto: CreateArticleDto): Promise<Article> {
     return this.articleService.create(createArticleDto);
+  }
+
+  @GetBookmarkArtice()
+  @UserHeader
+  @Get("bookmark")
+  findBookmarkArticle(@UserSession() user?: User) {
+    return user ? this.articleService.findBookmarkArticle(user) : [];
   }
 
   @GetArtice()

@@ -51,6 +51,34 @@ export class ArticleService {
     return this.articleRepository.find();
   }
 
+  async findBookmarkArticle(user: User) {
+    const articles: Article[] = await this.articleRepository.find({
+      where: {
+        bookmarkUsers: {
+          id: user.id,
+        },
+      },
+      relations: {
+        board: { parent: true },
+        images: true,
+        viewUsers: true,
+        bookmarkUsers: true,
+      },
+      order: {
+        dateTime: "DESC",
+      },
+    });
+    return articles.map<ResponseArticleDto>(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      ({ viewUsers, bookmarkUsers, content, author, ...article }) =>
+        ({
+          ...article,
+          bookmarkCount: bookmarkUsers.length,
+          viewCount: viewUsers.length,
+        } as ResponseArticleDto),
+    );
+  }
+
   async findArticlePage(
     boardId: number,
     page: number,

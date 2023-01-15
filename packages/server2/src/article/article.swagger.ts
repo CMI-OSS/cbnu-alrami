@@ -44,6 +44,18 @@ export const GetArtice = () => {
   );
 };
 
+export const GetBookmarkArtice = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "북마크한 게시물 조회",
+    }),
+    ApiOkResponse({ type: () => ResponseArticleDto }),
+    ApiNotFoundResponse({
+      type: ResponseArticleDetailDto,
+    }),
+  );
+};
+
 export const UpdateArticle = () => {
   return applyDecorators(
     ApiOperation({

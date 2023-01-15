@@ -13,7 +13,10 @@ import {
   DuplicatedArticleException,
   NotFoundArticleException,
 } from "./article.exception";
-import { ResponseArticleDto } from "./dto/resonse-article.dto";
+import {
+  ResponseArticleDetailDto,
+  ResponseArticleDto,
+} from "./dto/resonse-article.dto";
 import { Article } from "./entities/article.entity";
 
 export const CreateArticle = () => {
@@ -36,7 +39,7 @@ export const GetArtice = () => {
     }),
     ApiOkResponse({ type: () => ResponseArticleDto }),
     ApiNotFoundResponse({
-      type: NotFoundArticleException,
+      type: ResponseArticleDetailDto,
     }),
   );
 };

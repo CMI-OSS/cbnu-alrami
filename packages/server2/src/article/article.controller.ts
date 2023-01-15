@@ -41,6 +41,8 @@ export class ArticleController {
   @UserHeader
   @Get(":id")
   findOne(@Param("id") id: number, @UserSession() user: User) {
+    this.articleService.view(id, user);
+
     return this.articleService.findOne(id, user);
   }
 

@@ -10,7 +10,10 @@ import {
   NotFoundArticleException,
 } from "./article.exception";
 import { CreateArticleDto } from "./dto/create-article.dto";
-import { ResponseArticleDto } from "./dto/resonse-article.dto";
+import {
+  ResponseArticleDetailDto,
+  ResponseArticleDto,
+} from "./dto/resonse-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
 import { Article } from "./entities/article.entity";
 
@@ -48,37 +51,61 @@ export class ArticleService {
     return this.articleRepository.find();
   }
 
-  async findArticlePage(boardId: number, page: number, count: number) {
+  async findArticlePage(
+    boardId: number,
+    page: number,
+    count: number,
+  ): Promise<ResponseArticleDto[]> {
     const articles: Article[] = await this.articleRepository.find({
       where: {
         board: {
           id: boardId,
         },
       },
-      relations: [ "board", "images" ],
+      relations: {
+        board: { parent: true },
+        images: true,
+        viewUsers: true,
+        bookmarkUsers: true,
+      },
       order: {
         dateTime: "DESC",
       },
       take: count,
       skip: (page - 1) * count,
     });
-    return articles;
+    return articles.map<ResponseArticleDto>(
+      ({ viewUsers, bookmarkUsers, ...article }) =>
+        ({
+          ...article,
+          bookmarkCount: bookmarkUsers.length,
+          viewCount: viewUsers.length,
+        } as ResponseArticleDto),
+    );
   }
 
-  async findOne(id: number, user?: User): Promise<ResponseArticleDto> {
+  async findOne(id: number, user?: User): Promise<ResponseArticleDetailDto> {
     const article = await this.articleRepository.findOne({
       where: { id },
-      relations: { board: { parent: true }, images: true, bookmarkUsers: true },
+      relations: {
+        board: { parent: true },
+        images: true,
+        viewUsers: true,
+        bookmarkUsers: true,
+      },
     });
 
     if (!article) throw new NotFoundArticleException();
 
-    const { bookmarkUsers, ..._ariticle } = article;
+    const { bookmarkUsers, viewUsers, ..._ariticle } = article;
 
     return {
       ..._ariticle,
+      isView: !!viewUsers.find((_user) => _user.id === user?.id),
       isBookmark: !!bookmarkUsers.find((_user) => _user.id === user?.id),
-    } as ResponseArticleDto;
+      bookmarkCount: bookmarkUsers.length,
+      viewCount: viewUsers.length,
+    } as ResponseArticleDetailDto;
   }
 
   findOneByUrl(url: string) {
@@ -139,6 +166,23 @@ export class ArticleService {
     article.bookmarkUsers = article.bookmarkUsers.filter(
       (_user) => _user.id !== user.id,
     );
+
+    return article.save();
+  }
+
+  async view(id: number, user?: User) {
+    if (!user) return false;
+
+    const article = await this.articleRepository.findOne({
+      where: { id },
+      relations: { viewUsers: true },
+    });
+
+    if (!article) throw new NotFoundArticleException();
+
+    article.viewUsers = article.viewUsers
+      ? [ user, ...article.viewUsers ]
+      : [ user ];
 
     return article.save();
   }

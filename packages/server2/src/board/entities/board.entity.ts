@@ -1,24 +1,41 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { UpdatableCommonEntity } from "src/common/entity";
 import { Column, Entity, Tree, TreeChildren, TreeParent } from "typeorm";
-
-import { BoardProperty } from "../board.swagger";
 
 @Entity()
 @Tree("materialized-path")
 export class Board extends UpdatableCommonEntity {
-  @BoardProperty.name()
+  @ApiProperty({
+    description: "게시판 제목",
+    example: "소프트웨어학과",
+  })
   @Column({ type: "varchar", length: 100 })
   name: string;
 
-  @BoardProperty.url()
+  @ApiProperty({
+    description: "게시판 URL",
+    example: "https://software.cbnu.ac.kr/sub0401",
+    required: false,
+  })
   @Column({ type: "varchar", length: 255, nullable: true })
   url?: string;
 
-  @BoardProperty.parent()
+  @ApiProperty({
+    description: "부모 게시판",
+    required: false,
+    example: {
+      url: "https://ece.cbnu.ac.kr/",
+      name: "전자정보대학",
+    },
+  })
   @TreeParent()
   parent?: Board;
 
-  @BoardProperty.children()
+  @ApiProperty({
+    description: "자식 게시판",
+    required: false,
+    type: () => [ ChildBoard ],
+  })
   @TreeChildren()
   children?: Board[];
 }

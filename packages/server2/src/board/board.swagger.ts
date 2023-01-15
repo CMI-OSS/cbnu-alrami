@@ -4,48 +4,12 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
-  ApiProperty,
 } from "@nestjs/swagger";
-import { Article } from "src/article/entities/article.entity";
-import { UpdatableCommonEntity } from "src/common/entity";
+import { ResponseArticleDto } from "src/article/dto/resonse-article.dto";
 import { MutationResponse } from "src/common/types/response";
 
 import { NotFoundBoardException } from "./board.exception";
-import { Board, ChildBoard } from "./entities/board.entity";
-
-type BoardProperty = Record<
-  Exclude<keyof Board, keyof UpdatableCommonEntity>,
-  () => PropertyDecorator
->;
-
-export const BoardProperty: BoardProperty = {
-  name: () =>
-    ApiProperty({
-      description: "게시판 제목",
-      example: "소프트웨어학과",
-    }),
-  url: () =>
-    ApiProperty({
-      description: "게시판 URL",
-      example: "https://software.cbnu.ac.kr/sub0401",
-      required: false,
-    }),
-  parent: () =>
-    ApiProperty({
-      description: "부모 게시판",
-      required: false,
-      example: {
-        url: "https://ece.cbnu.ac.kr/",
-        name: "전자정보대학",
-      },
-    }),
-  children: () =>
-    ApiProperty({
-      description: "자식 게시판",
-      required: false,
-      type: () => [ ChildBoard ],
-    }),
-};
+import { Board } from "./entities/board.entity";
 
 export const CreateBoard = () => {
   return applyDecorators(
@@ -88,7 +52,7 @@ export const GetArticlePage = () => {
       summary: "게시판내 게시물 페이지 조회",
     }),
     ApiOkResponse({
-      type: [ Article ],
+      type: [ ResponseArticleDto ],
     }),
     ApiNotFoundResponse({ type: NotFoundBoardException }),
   );

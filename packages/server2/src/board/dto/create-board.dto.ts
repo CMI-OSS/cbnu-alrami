@@ -1,14 +1,17 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, OmitType } from "@nestjs/swagger";
 import { IsNumber, IsOptional, IsString, IsUrl } from "class-validator";
+import { UpdatableCommonEntityKeys } from "src/common/entity";
 
-import { BoardProperty } from "../board.swagger";
+import { Board } from "../entities/board.entity";
 
-export class CreateBoardDto {
-  @BoardProperty.name()
+export class CreateBoardDto extends OmitType(Board, [
+  ...UpdatableCommonEntityKeys,
+  "children",
+  "parent",
+]) {
   @IsString()
   name: string;
 
-  @BoardProperty.url()
   @IsOptional()
   @IsUrl()
   url?: string;

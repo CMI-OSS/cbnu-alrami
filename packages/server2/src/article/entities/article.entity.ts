@@ -70,4 +70,12 @@ export class Article extends UpdatableCommonEntity {
     name: "article_bookmark",
   })
   bookmarkUsers: User[];
+
+  @ManyToMany(() => User, (user) => user.id, {
+    cascade: true,
+  })
+  @JoinTable({
+    name: "article_view",
+  })
+  viewUsers: User[];
 }

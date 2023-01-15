@@ -7,11 +7,13 @@ import {
   Patch,
   Post,
 } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 
 import { CreateSchoolDto } from "./dto/create-school.dto";
 import { UpdateSchoolDto } from "./dto/update-school.dto";
 import { SchoolService } from "./school.service";
 
+@ApiTags("[school] 학교 API")
 @Controller("school")
 export class SchoolController {
   constructor(private readonly schoolService: SchoolService) {}

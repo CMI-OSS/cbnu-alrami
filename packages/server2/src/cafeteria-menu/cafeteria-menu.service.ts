@@ -23,7 +23,6 @@ export class CafeteriaMenuService {
   }
 
   find(name: CafeteriaName, date: string) {
-    console.log(name, date);
     return this.cafeteriaMenuRepository.find({ where: { name, date } });
   }
 }

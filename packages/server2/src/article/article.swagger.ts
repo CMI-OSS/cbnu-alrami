@@ -8,9 +8,9 @@ import {
   ApiProperty,
 } from "@nestjs/swagger";
 import { Board } from "src/board/entities/board.entity";
-import { UpdatableCommonEntity } from "src/common/entity";
 import { MutationResponse } from "src/common/types/response";
 import { Image } from "src/image/entities/image.entity";
+import { UserGuard } from "src/user/user.gurad";
 
 import {
   DuplicatedArticleException,
@@ -18,12 +18,7 @@ import {
 } from "./article.exception";
 import { Article } from "./entities/article.entity";
 
-type ArticleProperty = Record<
-  Exclude<keyof Article, keyof UpdatableCommonEntity>,
-  () => PropertyDecorator
->;
-
-export const ArticleProperty: ArticleProperty = {
+export const ArticleProperty = {
   title: () =>
     ApiProperty({
       description: "게시물 제목",
@@ -95,5 +90,27 @@ export const DeleteArticle = () => {
     }),
     ApiOkResponse({ type: MutationResponse }),
     ApiNotFoundResponse({ type: NotFoundArticleException }),
+  );
+};
+
+export const BookmarkArticle = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "북마크 설정",
+    }),
+    ApiOkResponse({ type: MutationResponse }),
+    ApiNotFoundResponse({ type: NotFoundArticleException }),
+    UserGuard(),
+  );
+};
+
+export const UnBookmarkArticle = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "북마크 해제",
+    }),
+    ApiOkResponse({ type: MutationResponse }),
+    ApiNotFoundResponse({ type: NotFoundArticleException }),
+    UserGuard(),
   );
 };

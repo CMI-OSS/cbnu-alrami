@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { BoardService } from "src/board/board.service";
 import { ImageService } from "src/image/image.service";
+import { User } from "src/user/entities/user.entity";
 import { Repository } from "typeorm";
 
 import {
@@ -104,5 +105,35 @@ export class ArticleService {
     const article = await this.findOne(id);
 
     return this.articleRepository.remove(article);
+  }
+
+  async bookmark(id: number, user: User) {
+    const article = await this.articleRepository.findOne({
+      where: { id },
+      relations: { bookmarkUsers: true },
+    });
+
+    if (!article) throw new NotFoundArticleException();
+
+    article.bookmarkUsers = article.bookmarkUsers
+      ? [ user, ...article.bookmarkUsers ]
+      : [ user ];
+
+    return article.save();
+  }
+
+  async unbookmark(id: number, user: User) {
+    const article = await this.articleRepository.findOne({
+      where: { id },
+      relations: { bookmarkUsers: true },
+    });
+
+    if (!article) throw new NotFoundArticleException();
+
+    article.bookmarkUsers = article.bookmarkUsers.filter(
+      (_user) => _user.id !== user.id,
+    );
+
+    return article.save();
   }
 }

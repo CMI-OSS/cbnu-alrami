@@ -2,7 +2,16 @@ import { Admin } from "src/admin/entities/admin.entity";
 import { Board } from "src/board/entities/board.entity";
 import { UpdatableCommonEntity } from "src/common/entity";
 import { Image } from "src/image/entities/image.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { User } from "src/user/entities/user.entity";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+} from "typeorm";
 
 import { ArticleProperty } from "../article.swagger";
 
@@ -42,4 +51,12 @@ export class Article extends UpdatableCommonEntity {
     onUpdate: "SET NULL",
   })
   images?: Image[];
+
+  @ManyToMany(() => User, (user) => user.id, {
+    cascade: true,
+  })
+  @JoinTable({
+    name: "article_bookmark",
+  })
+  bookmarkUsers: User[];
 }

@@ -14,7 +14,6 @@ import { BoardModule } from "./board/board.module";
 import { Board } from "./board/entities/board.entity";
 import { CafeteriaMenuModule } from "./cafeteria-menu/cafeteria-menu.module";
 import { CafeteriaMenu } from "./cafeteria-menu/entities/cafeteria-menu.entity";
-import { UserMiddleWare } from "./common/middleware/user.middleware";
 import configuration from "./config/configuration";
 import { Image } from "./image/entities/image.entity";
 import { ImageModule } from "./image/image.module";
@@ -25,6 +24,7 @@ import { ScheduleModule } from "./schedule/schedule.module";
 import { School } from "./school/entities/school.entity";
 import { SchoolModule } from "./school/school.module";
 import { User } from "./user/entities/user.entity";
+import { UserMiddleWare } from "./user/user.middleware";
 import { UserModule } from "./user/user.module";
 
 @Module({

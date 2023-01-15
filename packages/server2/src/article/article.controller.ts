@@ -9,12 +9,16 @@ import {
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { MutationResponse } from "src/common/types/response";
+import { User } from "src/user/entities/user.entity";
+import { UserSession } from "src/user/user.decoratoer";
 
 import { ArticleService } from "./article.service";
 import {
+  BookmarkArticle,
   CreateArticle,
   DeleteArticle,
   GetArtice,
+  UnBookmarkArticle,
   UpdateArticle,
 } from "./article.swagger";
 import { CreateArticleDto } from "./dto/create-article.dto";
@@ -55,5 +59,23 @@ export class ArticleController {
   @Delete(":id")
   remove(@Param("id") id: string) {
     return this.articleService.remove(+id);
+  }
+
+  @BookmarkArticle()
+  @Post(":id/bookmark")
+  bookmark(
+    @Param("id") id: number,
+    @UserSession() user: User,
+  ): Promise<Article> {
+    return this.articleService.bookmark(id, user);
+  }
+
+  @UnBookmarkArticle()
+  @Delete(":id/bookmark")
+  unbookmark(
+    @Param("id") id: number,
+    @UserSession() user: User,
+  ): Promise<Article> {
+    return this.articleService.unbookmark(id, user);
   }
 }

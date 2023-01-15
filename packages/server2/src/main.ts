@@ -2,6 +2,7 @@ import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 
 import { AppModule } from "./app.module";
+import configuration from "./config/configuration";
 import { SwaggerConfig } from "./config/swagger.config";
 
 async function bootstrap() {
@@ -16,6 +17,6 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(3000);
+  await app.listen(configuration.server.port);
 }
 bootstrap();

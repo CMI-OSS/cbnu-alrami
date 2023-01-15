@@ -56,23 +56,37 @@ export class BoardService {
     return board;
   }
 
-  async getBoardsWithSubscribe(boards: Board[]) {
+  async getBoardsWithSubscribe(boards: Board[], user?: User) {
     return Promise.all(
       boards.map(async (board) => {
         const { children } = board;
         const isLeaf = !children?.length;
 
-        if (isLeaf)
-          return {
-            ...(await this.getBoardWithSubscribe(board)),
-          };
+        if (isLeaf) {
+          return this.getBoardWithSubscribe(board, user);
+        }
 
         return {
           ...board,
-          children: await this.getBoardsWithSubscribe(children),
+          children: await this.getBoardsWithSubscribe(children, user),
         };
       }),
     );
+  }
+
+  async findSubscribeBoards(user: User) {
+    const boards = await this.boardRepository.find({
+      where: {
+        subscribes: {
+          user: {
+            id: user.id,
+          },
+        },
+      },
+      relations: { parent: true, children: true },
+    });
+
+    return this.getBoardsWithSubscribe(boards, user);
   }
 
   async update(id: number, updateBoardDto: UpdateBoardDto) {

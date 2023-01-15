@@ -23,6 +23,7 @@ import {
   GetArticlePage,
   GetBoard,
   GetBoards,
+  GetSubscribeBoards,
   NoticeBoard,
   SubscribeBoard,
   UnNoticeBoard,
@@ -46,6 +47,13 @@ export class BoardController {
     return this.boardService.create(createBoardDto);
   }
 
+  @GetSubscribeBoards()
+  @Get("subscribe")
+  @UserHeader
+  async findSubscribeBoards(@UserSession() user?: User) {
+    return user ? this.boardService.findSubscribeBoards(user) : [];
+  }
+
   @GetBoard()
   @Get(":id")
   @UserHeader
@@ -58,9 +66,11 @@ export class BoardController {
 
   @GetBoards()
   @Get()
-  async find() {
+  @UserHeader
+  async find(@UserSession() user?: User) {
     return this.boardService.getBoardsWithSubscribe(
       await this.boardService.findAll(),
+      user,
     );
   }
 

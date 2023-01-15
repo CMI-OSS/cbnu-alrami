@@ -48,6 +48,18 @@ export const GetBoards = () => {
   );
 };
 
+export const GetSubscribeBoards = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "구독한 게시판 목록 조회",
+    }),
+    ApiOkResponse({
+      type: [ ResponseBoardDto ],
+    }),
+    ApiNotFoundResponse({ type: NotFoundBoardException }),
+  );
+};
+
 export const GetArticlePage = () => {
   return applyDecorators(
     ApiOperation({

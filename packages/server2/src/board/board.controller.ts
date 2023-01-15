@@ -12,6 +12,8 @@ import { ApiTags } from "@nestjs/swagger";
 import { ArticleService } from "src/article/article.service";
 import { PaginationDto } from "src/common/dto/pagination.dto";
 import { MutationResponse } from "src/common/types/response";
+import { User } from "src/user/entities/user.entity";
+import { UserSession } from "src/user/user.decoratoer";
 
 import { BoardService } from "./board.service";
 import {
@@ -20,6 +22,8 @@ import {
   GetArticlePage,
   GetBoard,
   GetBoards,
+  SubscribeBoard,
+  UnSubscribeBoard,
   UpdateBoard,
 } from "./board.swagger";
 import { CreateBoardDto } from "./dto/create-board.dto";
@@ -74,5 +78,17 @@ export class BoardController {
   @Delete(":id")
   remove(@Param("id") id: number) {
     return this.boardService.remove(id);
+  }
+
+  @SubscribeBoard()
+  @Post(":id/subscribe")
+  async subscribe(@Param("id") id: number, @UserSession() user: User) {
+    return { success: await this.boardService.subscribe(id, user) };
+  }
+
+  @UnSubscribeBoard()
+  @Delete(":id/subscribe")
+  async unsubscribe(@Param("id") id: number, @UserSession() user: User) {
+    return { success: await this.boardService.unsubscribe(id, user) };
   }
 }

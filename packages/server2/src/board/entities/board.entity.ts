@@ -1,6 +1,15 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { UpdatableCommonEntity } from "src/common/entity";
-import { Column, Entity, Tree, TreeChildren, TreeParent } from "typeorm";
+import {
+  Column,
+  Entity,
+  OneToMany,
+  Tree,
+  TreeChildren,
+  TreeParent,
+} from "typeorm";
+
+import { SubscribeBoard } from "./subscribe-board.entity";
 
 @Entity()
 @Tree("materialized-path")
@@ -38,6 +47,12 @@ export class Board extends UpdatableCommonEntity {
   })
   @TreeChildren()
   children?: Board[];
+
+  @OneToMany(() => SubscribeBoard, (subscribe) => subscribe.board, {
+    cascade: true,
+    nullable: true,
+  })
+  subscribes?: SubscribeBoard[];
 }
 
 export class ChildBoard extends Board {}

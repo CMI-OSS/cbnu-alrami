@@ -7,6 +7,7 @@ import {
 } from "@nestjs/swagger";
 import { ResponseArticleDto } from "src/article/dto/resonse-article.dto";
 import { MutationResponse } from "src/common/types/response";
+import { UserGuard } from "src/user/user.gurad";
 
 import { NotFoundBoardException } from "./board.exception";
 import { Board } from "./entities/board.entity";
@@ -77,5 +78,31 @@ export const DeleteBoard = () => {
     }),
     ApiOkResponse({ type: MutationResponse }),
     ApiNotFoundResponse({ type: NotFoundBoardException }),
+  );
+};
+
+export const SubscribeBoard = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "게시판 구독",
+    }),
+    ApiCreatedResponse({
+      description: "게시판이 정상적으로 구독된 경우",
+      type: MutationResponse,
+    }),
+    UserGuard(),
+  );
+};
+
+export const UnSubscribeBoard = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "게시판 구독 해제",
+    }),
+    ApiCreatedResponse({
+      description: "게시판이 정상적으로 구독 해제된 경우",
+      type: MutationResponse,
+    }),
+    UserGuard(),
   );
 };

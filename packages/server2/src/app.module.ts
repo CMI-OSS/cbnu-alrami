@@ -12,6 +12,7 @@ import { BoardAuthorityModule } from "./board-authority/board-authority.module";
 import { BoardAuthority } from "./board-authority/entities/board-authority.entity";
 import { BoardModule } from "./board/board.module";
 import { Board } from "./board/entities/board.entity";
+import { SubscribeBoard } from "./board/entities/subscribe-board.entity";
 import { CafeteriaMenuModule } from "./cafeteria-menu/cafeteria-menu.module";
 import { CafeteriaMenu } from "./cafeteria-menu/entities/cafeteria-menu.entity";
 import configuration from "./config/configuration";
@@ -49,6 +50,7 @@ import { UserModule } from "./user/user.module";
           Place,
           School,
           CafeteriaMenu,
+          SubscribeBoard,
         ],
         synchronize: true,
       }),

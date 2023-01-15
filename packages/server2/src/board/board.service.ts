@@ -1,5 +1,10 @@
-import { Injectable } from "@nestjs/common";
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { User } from "src/user/entities/user.entity";
 import { TreeRepository } from "typeorm";
 
 import {
@@ -9,6 +14,7 @@ import {
 import { CreateBoardDto } from "./dto/create-board.dto";
 import { UpdateBoardDto } from "./dto/update-board.dto";
 import { Board } from "./entities/board.entity";
+import { SubscribeBoard } from "./entities/subscribe-board.entity";
 
 @Injectable()
 export class BoardService {
@@ -65,5 +71,43 @@ export class BoardService {
     const board = await this.findOne(id);
 
     return this.boardRepository.remove(board);
+  }
+
+  async subscribe(id: number, user: User) {
+    const board = await this.boardRepository.findOne({
+      where: { id },
+      relations: { subscribes: true },
+    });
+    if (!board) throw new NotFoundBoardException();
+
+    const subscribe = { user, board } as SubscribeBoard;
+
+    if (board.subscribes?.find((subscribe) => subscribe.user.id === user.id)) {
+      throw new ConflictException();
+    }
+
+    board.subscribes = board.subscribes
+      ? [ ...board.subscribes, subscribe ]
+      : [ subscribe ];
+
+    return !!board.save();
+  }
+
+  async unsubscribe(id: number, user: User) {
+    const board = await this.boardRepository.findOne({
+      where: { id },
+      relations: { subscribes: true },
+    });
+    if (!board) throw new NotFoundBoardException();
+
+    const subscribe = board.subscribes?.find(
+      (subscribe) => subscribe.user.id === user.id,
+    );
+
+    if (!subscribe) {
+      throw new NotFoundException();
+    }
+
+    return !!subscribe.remove();
   }
 }

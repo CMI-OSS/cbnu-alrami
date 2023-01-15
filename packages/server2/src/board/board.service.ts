@@ -56,6 +56,25 @@ export class BoardService {
     return board;
   }
 
+  async getBoardsWithSubscribe(boards: Board[]) {
+    return Promise.all(
+      boards.map(async (board) => {
+        const { children } = board;
+        const isLeaf = !children?.length;
+
+        if (isLeaf)
+          return {
+            ...(await this.getBoardWithSubscribe(board)),
+          };
+
+        return {
+          ...board,
+          children: await this.getBoardsWithSubscribe(children),
+        };
+      }),
+    );
+  }
+
   async update(id: number, updateBoardDto: UpdateBoardDto) {
     try {
       if (typeof updateBoardDto.parentBoardId !== "undefined")
@@ -133,5 +152,23 @@ export class BoardService {
     );
 
     return { board, subscribe };
+  }
+
+  async getBoardWithSubscribe(board: Board, user?: User) {
+    if (!user) {
+      return {
+        ...board,
+        isSubscribe: false,
+        isNotice: false,
+      };
+    }
+
+    const { subscribe } = await this.getSubscribeBoard(board.id, user);
+
+    return {
+      ...board,
+      isSubscribe: !!subscribe,
+      isNotice: !!subscribe?.notice,
+    };
   }
 }

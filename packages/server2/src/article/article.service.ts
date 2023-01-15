@@ -75,6 +75,7 @@ export class ArticleService {
       skip: (page - 1) * count,
     });
     return articles.map<ResponseArticleDto>(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       ({ viewUsers, bookmarkUsers, content, author, ...article }) =>
         ({
           ...article,

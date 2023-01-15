@@ -10,6 +10,7 @@ import { MutationResponse } from "src/common/types/response";
 import { UserGuard } from "src/user/user.gurad";
 
 import { NotFoundBoardException } from "./board.exception";
+import { ResponseBoardDto } from "./dto/response-board.dto";
 import { Board } from "./entities/board.entity";
 
 export const CreateBoard = () => {
@@ -30,7 +31,7 @@ export const GetBoard = () => {
       summary: "게시판 조회",
     }),
     ApiOkResponse({
-      type: Board,
+      type: ResponseBoardDto,
     }),
   );
 };
@@ -41,7 +42,7 @@ export const GetBoards = () => {
       summary: "게시판 목록 조회",
     }),
     ApiOkResponse({
-      type: [ Board ],
+      type: [ ResponseBoardDto ],
     }),
     ApiNotFoundResponse({ type: NotFoundBoardException }),
   );

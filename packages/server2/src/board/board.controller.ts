@@ -14,6 +14,7 @@ import { PaginationDto } from "src/common/dto/pagination.dto";
 import { MutationResponse } from "src/common/types/response";
 import { User } from "src/user/entities/user.entity";
 import { UserSession } from "src/user/user.decoratoer";
+import { UserHeader } from "src/user/user.gurad";
 
 import { BoardService } from "./board.service";
 import {
@@ -47,14 +48,20 @@ export class BoardController {
 
   @GetBoard()
   @Get(":id")
-  findOne(@Param("id") id: number) {
-    return this.boardService.findOne(id);
+  @UserHeader
+  async findOne(@Param("id") id: number, @UserSession() user?: User) {
+    return this.boardService.getBoardWithSubscribe(
+      await this.boardService.findOne(id),
+      user,
+    );
   }
 
   @GetBoards()
   @Get()
-  find() {
-    return this.boardService.findAll();
+  async find() {
+    return this.boardService.getBoardsWithSubscribe(
+      await this.boardService.findAll(),
+    );
   }
 
   @GetArticlePage()

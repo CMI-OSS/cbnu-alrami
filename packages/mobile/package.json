@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "jest",
+    "analyze": "vite build --mode analyze"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.3",
@@ -21,7 +22,8 @@
     "react-helmet": "^6.1.0",
     "react-hot-toast": "^2.3.0",
     "react-router-dom": "^6.2.2",
-    "react-scroll": "^1.8.7"
+    "react-scroll": "^1.8.7",
+    "rollup-plugin-visualizer": "^5.9.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.18.10",

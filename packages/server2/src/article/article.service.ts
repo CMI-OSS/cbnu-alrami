@@ -31,6 +31,7 @@ export class ArticleService {
 
     if (createArticleDto.url) {
       const article = await this.findOneByUrl(createArticleDto.url);
+
       if (article) {
         throw new DuplicatedArticleException();
       }

@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { IsDateString, IsOptional, IsString } from "class-validator";
 import { Admin } from "src/admin/entities/admin.entity";
 import { Board } from "src/board/entities/board.entity";
 import { UpdatableCommonEntity } from "src/common/entity";
@@ -20,6 +21,7 @@ export class Article extends UpdatableCommonEntity {
     description: "게시물 제목",
     example: " 2022학년도 동계 글로벌프론티어 단기연수 참가 선발 안내",
   })
+  @IsString()
   @Column({ type: "varchar" })
   title: string;
 
@@ -28,6 +30,7 @@ export class Article extends UpdatableCommonEntity {
     example:
       "<div>2022학년도 동계 글로벌프론티어 단기연수 참가자를 다음과 같이 안내드립니다.</div>",
   })
+  @IsString()
   @Column({ type: "varchar" })
   content: string;
 
@@ -36,6 +39,8 @@ export class Article extends UpdatableCommonEntity {
     example: "https://software.cbnu.ac.kr/sub0401/13664",
     required: false,
   })
+  @IsString()
+  @IsOptional()
   @Column({ type: "varchar", nullable: true })
   url?: string;
 
@@ -43,6 +48,7 @@ export class Article extends UpdatableCommonEntity {
     description: "공지사항이 작성된 시간",
     example: new Date(),
   })
+  @IsDateString()
   @Column({ type: "datetime" })
   dateTime: Date;
 
@@ -56,6 +62,12 @@ export class Article extends UpdatableCommonEntity {
   @JoinColumn()
   author?: Admin;
 
+  @ApiProperty({
+    description: "게시물 이미지",
+    type: () => Image,
+    isArray: true,
+    required: false,
+  })
   @OneToMany(() => Image, (image) => image.article, {
     nullable: true,
     cascade: true,

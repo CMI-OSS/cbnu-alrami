@@ -22,6 +22,9 @@ const configuration: Configutation = {
       bucketName: "",
     },
   },
+  weather: {
+    key: "",
+  },
 };
 
 export default configuration;

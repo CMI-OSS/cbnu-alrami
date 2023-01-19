@@ -20,4 +20,7 @@ export type Configutation = {
       bucketName: string;
     };
   };
+  weather: {
+    key: string;
+  };
 };

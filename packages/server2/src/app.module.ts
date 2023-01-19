@@ -52,7 +52,7 @@ import { UserModule } from "./user/user.module";
           CafeteriaMenu,
           SubscribeBoard,
         ],
-        synchronize: true,
+        synchronize: configuration.db.synchronize,
       }),
       inject: [ ConfigService ],
     }),

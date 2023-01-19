@@ -4,6 +4,7 @@
 
 import type { Admin } from './Admin';
 import type { Board } from './Board';
+import type { Image } from './Image';
 
 export type ResponseArticleDetailDto = {
     /**
@@ -42,6 +43,10 @@ export type ResponseArticleDetailDto = {
      * 게시물 작성자
      */
     author: Admin;
+    /**
+     * 게시물 이미지
+     */
+    images?: Array<Image>;
     /**
      * 북마크 수
      */

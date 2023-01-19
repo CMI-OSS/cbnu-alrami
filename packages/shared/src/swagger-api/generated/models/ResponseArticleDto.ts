@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 import type { Board } from './Board';
+import type { Image } from './Image';
 
 export type ResponseArticleDto = {
     /**
@@ -33,6 +34,10 @@ export type ResponseArticleDto = {
      * 게시물이 속한 게시판
      */
     board: Board;
+    /**
+     * 게시물 이미지
+     */
+    images?: Array<Image>;
     /**
      * 북마크 수
      */

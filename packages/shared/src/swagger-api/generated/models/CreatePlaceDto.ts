@@ -22,6 +22,6 @@ export type CreatePlaceDto = {
     /**
      * 이미지
      */
-    imageIds: Array<string>;
+    imageIds: Array<number>;
 };
 

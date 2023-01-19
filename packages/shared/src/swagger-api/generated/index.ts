@@ -38,6 +38,7 @@ export type { UpdateAdminDto } from './models/UpdateAdminDto';
 export type { UpdateArticleDto } from './models/UpdateArticleDto';
 export type { UpdateBoardDto } from './models/UpdateBoardDto';
 export type { UpdateSchoolDto } from './models/UpdateSchoolDto';
+export type { Weather } from './models/Weather';
 
 export { AdminApiService } from './services/AdminApiService';
 export { ArticleApiService } from './services/ArticleApiService';
@@ -48,3 +49,4 @@ export { PlaceApiService } from './services/PlaceApiService';
 export { ScheduleApiService } from './services/ScheduleApiService';
 export { SchoolApiService } from './services/SchoolApiService';
 export { UserApiService } from './services/UserApiService';
+export { WeatherService } from './services/WeatherService';

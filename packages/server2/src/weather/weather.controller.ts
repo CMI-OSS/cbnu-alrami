@@ -1,9 +1,10 @@
 import { Controller, Get } from "@nestjs/common";
-import { ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 
 import { Weather } from "./entities/weather.entity";
 import { WeatherService } from "./weather.service";
 
+@ApiTags("[weather] 날씨 API")
 @Controller("weather")
 export class WeatherController {
   constructor(private readonly weatherService: WeatherService) {}

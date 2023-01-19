@@ -26,6 +26,6 @@ export type CreateArticleDto = {
     /**
      * 이미지
      */
-    imageIds: Array<string>;
+    imageIds: Array<number>;
 };
 

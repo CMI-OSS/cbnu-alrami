@@ -10,6 +10,7 @@ export type Configutation = {
     username: string;
     password: string;
     database: string;
+    synchronize: boolean;
   };
   aws: {
     s3: {

@@ -12,6 +12,7 @@ const configuration: Configutation = {
     password: "",
     port: 0,
     database: "",
+    synchronize: false,
   },
   aws: {
     s3: {

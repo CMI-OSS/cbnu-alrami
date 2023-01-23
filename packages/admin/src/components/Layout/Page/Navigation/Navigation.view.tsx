@@ -53,6 +53,19 @@ const ADMIN_MANAGE_MENUS = {
     },
   ],
 };
+const PLACE_MANAGE_MENUS = {
+  label: "건물 관리",
+  menus: [
+    {
+      path: "/place/add",
+      label: "건물 추가",
+    },
+    {
+      path: "/place/list",
+      label: "건물 목록",
+    },
+  ],
+};
 
 export default function Navigation() {
   const isLoginMatch = useMatch("/login");
@@ -65,7 +78,12 @@ export default function Navigation() {
   const boardState = {
     ...{ boardImgList, boardTitle, boardCategory, boardContent },
   };
-  const navMenus = [ BOARD_MENUS, SCRAPER_MENUS, ADMIN_MANAGE_MENUS ];
+  const navMenus = [
+    BOARD_MENUS,
+    SCRAPER_MENUS,
+    ADMIN_MANAGE_MENUS,
+    PLACE_MANAGE_MENUS,
+  ];
 
   useEffect(() => {
     navMenus.forEach(({ menus }, idx) => {

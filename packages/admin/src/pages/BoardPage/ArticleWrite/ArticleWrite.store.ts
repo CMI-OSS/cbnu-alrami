@@ -3,13 +3,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const name = "ArticleWrite";
 
-type Props = {
+export type ArticleWriteProps = {
   title: string;
   content: string;
   images: Array<{ id: number; url: string }>;
 };
 
-const initialState: Props = {
+const initialState: ArticleWriteProps = {
   title: "",
   content: "",
   images: [],
@@ -19,7 +19,7 @@ export const ArticleWriteSlice = createSlice({
   name,
   initialState,
   reducers: {
-    init(state, action: PayloadAction<Props>) {
+    init(state, action: PayloadAction<ArticleWriteProps>) {
       return action.payload;
     },
     setTitle(state, action: PayloadAction<{ title: string }>) {
@@ -51,6 +51,9 @@ export const ArticleWriteSlice = createSlice({
       state.images[index + 1] = state.images[index];
       state.images[index] = temp;
     },
+    initImgList: (state, action: PayloadAction<ArticleWriteProps['images']>) => {
+      state.images = action.payload;
+    },
   },
 });
 
@@ -62,6 +65,7 @@ export const {
   removeImage,
   moveLeftImage,
   moveRightImage,
+  initImgList,
 } = ArticleWriteSlice.actions;
 const ArticelWriteReducer = ArticleWriteSlice.reducer;
 export default ArticelWriteReducer;

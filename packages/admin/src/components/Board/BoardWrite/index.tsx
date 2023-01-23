@@ -1,12 +1,11 @@
+import "@toast-ui/editor/dist/toastui-editor.css";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 
-import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor } from "@toast-ui/react-editor";
 import classNames from "classnames";
 import { boardCategories } from "src/__mockData__";
 import { useDebounceInput, useWindowResize } from "src/hooks";
-import ImgUploadSlides from "src/pages/BoardPage/ArticleWrite/ImgUploadSlides";
+// import ImgUploadSlides from "src/pages/BoardPage/ArticleWrite/ImgUploadSlides";
 import { useAppDispatch, useAppSelector } from "src/store";
 import { writeBoard } from "src/store/boardSlice";
 
@@ -138,7 +137,7 @@ export default function BoardWrite() {
             })}
           </datalist>
         </div>
-        <Editor
+        {/* <Editor
           placeholder="내용을 입력해주세요."
           previewStyle="vertical" // 미리보기 스타일 지정
           height="300px" // 에디터 창 높이
@@ -151,11 +150,11 @@ export default function BoardWrite() {
             [ "table", "image", "link" ],
             [ "code", "codeblock" ],
           ]}
-        ></Editor>
+        /> */}
         <span className={$["content-error"]}>
           {error.content ? "내용을 입력해주세요." : ""}
         </span>
-        <ImgUploadSlides imgList={boardImgList} />
+        {/* <ImgUploadSlides imgList={boardImgList} /> */}
         <input
           className={$.submit}
           type="submit"

@@ -32,6 +32,7 @@ export class ArticleListInfoDto extends ArticleBaseDto {
 export class ArticleResponseDto extends ArticleDetailInfoDto {
   updatedAt!: Date;
   content!: string;
+  url!: string;
   isBookmark: boolean;
   images: ImageResponseDto[];
 }

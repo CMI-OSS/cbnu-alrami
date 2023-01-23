@@ -1,0 +1,6 @@
+{
+  "extends": ["cmi"],
+  "rules": {
+    "arrow-body-style": "off"
+  }
+}

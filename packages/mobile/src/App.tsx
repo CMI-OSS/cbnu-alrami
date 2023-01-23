@@ -3,9 +3,12 @@ import { isAndroid, isIOS } from "react-device-detect";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import HeadMeta from "@components/atoms/HeadMeta";
 import DeepLink from "src/page/Notice/Detail/DeepLink";
 import Subscription from "src/page/Subscription";
+import { isStaging, isWebView } from "src/utils/webview";
 
+import useWindowSizeDetect from "./hooks/useWindowSizeDetect";
 import "./mobile.scss";
 import Cafeteria from "./page/Cafeteria";
 import Calendar from "./page/Calendar";
@@ -23,8 +26,24 @@ import Preview from "./page/Subscription/Preview";
 
 function App() {
   const [ uuid, setUuid ] = useState("");
+  const [ _, height ] = useWindowSizeDetect();
 
-  const routes = [
+  const setScreenSize = () => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  };
+
+  useEffect(() => {
+    if (isAndroid || isIOS) {
+      setUuid(JSON.stringify(localStorage.getItem("token")));
+    }
+  }, []);
+
+  useEffect(() => {
+    setScreenSize();
+  }, [ height ]);
+
+  const appRoutes = [
     { path: "/notice", element: <Notice /> },
     { path: "/notice/:articleId", element: <NoticeDetail /> },
     { path: "/calendar", element: <Calendar /> },
@@ -32,6 +51,7 @@ function App() {
     { path: "/cafeteria", element: <Cafeteria /> },
     { path: "/map", element: <Map /> },
     { path: "/subscription", element: <Subscription /> },
+    { path: "/subscription/setting", element: <Subscription /> },
     { path: "/preview", element: <Preview /> },
     {
       path: "/place",
@@ -44,16 +64,15 @@ function App() {
     { path: "/setting/*", element: <SettingRoute /> },
     { path: "/*", element: <Navigate replace to="/home" /> },
   ];
+  const webRoutes = [ { path: "/notice/:articleId", element: <NoticeDetail /> } ];
 
-  useEffect(() => {
-    if (isAndroid || isIOS) {
-      setUuid(JSON.stringify(localStorage.getItem("token")));
-    }
-  }, []);
+  const mode = import.meta.env.MODE;
+  const routes = isStaging && !isWebView ? webRoutes : appRoutes;
 
   return (
     <BrowserRouter>
-      <DeepLink />
+      {mode === "production" && !isWebView && <DeepLink />}
+      <HeadMeta title="충림이" />
       <Routes>
         {routes.map((route) => {
           return (

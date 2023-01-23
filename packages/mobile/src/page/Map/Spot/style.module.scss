@@ -1,7 +1,3 @@
-@import "@shared/styles/mixin.scss";
-@import "@shared/styles/color.scss";
-@import "../../../styles/main.scss";
-
 .wrap {
   @include position(fixed, left 25px right 25px bottom 94px);
   display: flex;

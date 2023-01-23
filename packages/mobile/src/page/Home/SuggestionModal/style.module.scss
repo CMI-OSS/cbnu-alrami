@@ -1,12 +1,9 @@
-@import "../../../styles/main.scss";
-@import "@shared/styles/mixin.scss";
-
 .suggestion-modal {
   @include position(absolute, top 0 left 0 right 0 bottom 0);
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   z-index: 120;
   background-color: rgba(27, 27, 27, 0.85);
 

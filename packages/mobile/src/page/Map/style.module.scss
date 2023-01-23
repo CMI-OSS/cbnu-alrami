@@ -1,6 +1,3 @@
-@import "@shared/styles/color.scss";
-@import "@shared/styles/mixin.scss";
-
 $footerHeight: 65px;
 $footerLinkDistance: 20px;
 $linkHeight: 61px;
@@ -8,7 +5,7 @@ $linkTooltipDistance: 17px;
 
 .map {
   width: 100vw;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 }
 
 .place-link {

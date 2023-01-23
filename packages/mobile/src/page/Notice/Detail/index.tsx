@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { LeftArrow } from "@components/atoms/icon";
+import Image from "@components/atoms/Image";
+import Slider from "@components/molecules/Slider";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import { useArticleQuery } from "@hooks/api/article";
 import dayjs from "dayjs";
@@ -16,8 +19,13 @@ function Detail() {
     error,
     isLoading,
   } = useArticleQuery(Number(articleId)!);
+  const [ order, setOrder ] = useState(0);
 
   if (!article || error || isLoading) return <></>;
+  const isImageView =
+    (`${article.board.id}`[0] === "3" || `${article.board.id}`[0] === "4") &&
+    article.images.length !== 0;
+
   return (
     <div className={$["notice-detail"]}>
       <FullPageModalTemplate
@@ -33,12 +41,33 @@ function Detail() {
               <span>스크랩&nbsp;{article.scraps}</span>
             </div>
           </div>
-          <div
-            className={$.content}
-            dangerouslySetInnerHTML={{ __html: article.content }}
-          />
+          <div className={$.content}>
+            {isImageView && (
+              <Slider
+                className={$["article-image-wrapper"]}
+                {...{ order, setOrder }}
+                total={article.images.length}
+              >
+                {article.images.map((image) => {
+                  return (
+                    <Image
+                      className={$["article-image"]}
+                      key={image.id}
+                      src={image.url}
+                      alt="공지사항 이미지"
+                    />
+                  );
+                })}
+              </Slider>
+            )}
+            <div
+              className={$.article}
+              dangerouslySetInnerHTML={{ __html: article.content }}
+            />
+          </div>
         </div>
         <Footer
+          url={article.url}
           articleId={Number(articleId)}
           isBookmark={article?.isBookmark}
           isCouncil={String(article?.board.id)[0] === "3"}

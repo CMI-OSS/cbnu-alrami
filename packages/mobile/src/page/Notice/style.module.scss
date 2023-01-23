@@ -1,7 +1,5 @@
-@import "../../styles/main.scss";
-
 .notice {
-  height: calc(100vh - 68px);
+  height: calc(var(--vh, 1vh) * 100 - 68px);
 
   .header-wrapper {
     position: fixed;
@@ -25,5 +23,4 @@
     justify-content: center;
     width: 100%;
   }
-
 }

@@ -7,6 +7,7 @@ export class CreateImageDto {
     isArray: true,
     description: "이미지",
     example: [ 1 ],
+    required: false,
   })
   @IsArray()
   @IsOptional()

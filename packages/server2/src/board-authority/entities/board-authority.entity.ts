@@ -12,7 +12,7 @@ export class BoardAuthority extends CommonEntity {
   @JoinColumn()
   admin: Admin;
 
-  @ManyToOne(() => Board)
+  @ManyToOne(() => Board, { onDelete: "CASCADE" })
   @JoinColumn()
   board: Board;
 

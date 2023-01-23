@@ -3,7 +3,8 @@
     "module": "commonjs",
     "declaration": true,
     "paths": {
-      "src/*": ["./src/*"]
+      "src/*": ["./src/*"],
+      "@shared/*": ["../shared/src/*"]
     },
     "removeComments": true,
     "emitDecoratorMetadata": true,

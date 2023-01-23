@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "https://hortisci.chungbuk.ac.kr/html/board/board.php?id=hor_news",
-  site_id: 30801,
+  site_id: boardTree.전공.농업생명환경대학.원예학과.공지사항.id,
   site: "원예학과",
   category: "공지사항",
   noticeListSelector: "#contentsArea > div > table.basicList > tbody > tr",

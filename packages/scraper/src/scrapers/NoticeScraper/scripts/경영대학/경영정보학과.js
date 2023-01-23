@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
-  url: "http://mis.chungbuk.ac.kr/master.php?pg_idx=7",
-  site_id: 10101,
+  url: "https://mis.chungbuk.ac.kr/master.php?pg_idx=7",
+  site_id: boardTree.전공.경영대학.경영정보학과.학부공지.id,
   site: "경영정보학과",
   category: "학부공지",
   noticeListSelector: ".bbs_body>#rows",

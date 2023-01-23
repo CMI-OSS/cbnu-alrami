@@ -1,0 +1,96 @@
+@import "@shared/styles/main.scss";
+@import "src/styles/mixin.scss";
+
+.image-upload {
+  //   @include no-line;
+  width: 8rem;
+  height: 3rem;
+  border-radius: 0.3rem;
+  border: 1px solid rgb(176, 176, 176);
+  background-color: #ffffff;
+  color: $black;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+
+  .text {
+    margin-right: 5px;
+  }
+
+  .icon {
+    font-size: 1.1rem;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+.image-list {
+  overflow: auto;
+  display: flex;
+
+  .image-card {
+    width: 150px;
+    height: 150px;
+    margin-right: 15px;
+    cursor: pointer;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.138);
+
+    .image {
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 150px;
+      height: 150px;
+      resize: both;
+    }
+
+    .remove {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+    }
+
+    .left {
+      top: 50%;
+      transform: translateY(-50%);
+      left: 3px;
+      background-color: rgba(0, 0, 0, 0.517);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: absolute;
+      color: rgba(255, 255, 255, 0.878);
+      .icon {
+        transform: rotate(0.5turn);
+      }
+    }
+
+    .right {
+      top: 50%;
+      transform: translateY(-50%);
+      right: 3px;
+      background-color: rgba(0, 0, 0, 0.517);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: absolute;
+      color: rgba(255, 255, 255, 0.878);
+    }
+  }
+}

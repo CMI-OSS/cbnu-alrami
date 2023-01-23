@@ -1,10 +1,12 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "https://airobot.chungbuk.ac.kr/airbot_0702",
-  site_id: 130601,
+  site_id: boardTree.전공.전자정보대학.지능로봇공학과.공지사항.id,
   site: "지능로봇공학과",
   category: "공지사항",
-  noticeListSelector: `#board_list > table > tbody > tr`,
-  noticeContentsSelector: ".read_body",
+  noticeListSelector: `.bd_lst tbody > tr`,
+  noticeContentsSelector: ".rd_body",
   getNoticeList: function () {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list)

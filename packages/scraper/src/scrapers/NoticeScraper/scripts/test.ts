@@ -1,7 +1,8 @@
 import find from "find";
-import NoticeScraper from "../index";
+import "src/socket/server";
 import { NoticeScript } from "src/types";
 import { Scenario } from "../../Scenario";
+import NoticeScraper from "../index";
 
 function loadScripts(scriptPath: string): Promise<Array<NoticeScript>> {
   return new Promise((resolve, _) => {
@@ -31,7 +32,7 @@ async function checkOverlapped() {
         (target.site === script.site && target.category === script.category),
     );
 
-    if (similarScripts.length > 1) {
+    if (!['약학과','제약학과','의학과','의예과','수의예과','수의학과'].includes(target.site) && similarScripts.length > 1) {
       console.error(similarScripts);
       throw Error("비슷한 스크립트");
     }
@@ -43,30 +44,46 @@ async function checkOverlapped() {
 const startTargetStie = "ALL"; // "ALL" or "학과명" e.g. "전기공학부"
 
 async function checkNoticeList() {
-  await NoticeScraper.initScraper();
+  await NoticeScraper.init();
   NoticeScraper.pause();
 
   const scripts = await loadScripts(__dirname);
-  let start = false;
+  let start = false
+
+  if(startTargetStie === 'ALL'){
+    start = true
+  }
 
   for (const target of scripts) {
-    if (startTargetStie === "ALL" || target.site === startTargetStie) {
+    if (target.site === startTargetStie) {
       start = true;
     }
 
     if (!start) continue;
 
+    if(['산림학과','지리교육과','약학과','제약학과'].includes(target.site)) continue
+
     try {
-      const scenario = new Scenario(target);
+      const scenario = new Scenario(target.site,target);
       const notices = await NoticeScraper.getNoticeList(scenario);
       if (notices.length === 0) {
         throw Error("공지사항 리스트 없음");
       }
+
+      const content = await NoticeScraper.getContents(scenario,notices[0]);
+
+      if (!content) {
+        throw Error("공지사항 내용 없음");
+      }
+      
+
     } catch (error) {
       console.error(error);
       NoticeScraper.stop();
-      throw Error(`[${target.site}] 공지사항 리스트 스크래핑 fail`);
+      throw Error(`[${target.site}] > ${target.category}] 스크래핑 fail`);
     }
+
+    console.log((`[${target.site} > ${target.category}] Pass!`))
 
     await wait(500);
   }

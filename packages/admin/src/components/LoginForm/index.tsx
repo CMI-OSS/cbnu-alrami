@@ -1,9 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineLock, AiOutlineUnlock } from "react-icons/ai";
 import { IoPersonOutline } from "react-icons/io5";
+import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 import classnames from "classnames";
+import { loginApi } from "src/newApi/authApi/loginApi";
+import { isOutputType } from "src/newApi/types";
 
 import $ from "./style.module.scss";
 
@@ -12,6 +16,21 @@ export default function LoginForm() {
   const [ isFocusId, setFocusId ] = useState(false);
   const [ isFocusPw, setFocusPw ] = useState(false);
   const [ isLock, setLock ] = useState(true);
+  const navigate = useNavigate();
+
+  const { mutate } = useMutation("login", loginApi, {
+    onSuccess(data) {
+      if (data) {
+        if (isOutputType(data, "LoginApiOutput_Success")) {
+          localStorage.setItem("x-access-token", data.xAccessToken);
+          navigate("/");
+          return;
+        }
+
+        alert(data.error.message);
+      }
+    },
+  });
 
   const {
     register,
@@ -34,8 +53,11 @@ export default function LoginForm() {
     setMessage("");
   }, [ errors.id, errors.password ]);
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    mutate({
+      loginId: data.id,
+      password: data.password,
+    });
   };
 
   return (

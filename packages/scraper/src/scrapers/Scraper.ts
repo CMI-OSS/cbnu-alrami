@@ -7,9 +7,9 @@ import { stringify } from "javascript-stringify";
 import puppeteer, { Page } from "puppeteer";
 import { isDev, Queue } from "src/common";
 import {
+  sendAppendLog,
   sendChangeScenarioQueue,
   sendChangeScraperState,
-  sendAppendLog,
 } from "src/socket/server";
 
 import { Scenario } from "./Scenario";
@@ -203,7 +203,6 @@ abstract class Scraper<T> {
           prefix: "ERROR",
           message: `${this.currentScenario?.title} 시나리오의 스크립트 실행도중 에러가 발생했습니다 \n ${error}`,
         });
-        console.log(error);
       }
     }
 

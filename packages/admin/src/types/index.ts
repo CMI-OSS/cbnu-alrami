@@ -36,3 +36,13 @@ export type imgType = {
   id: number;
   url: string;
 };
+
+export interface ContentPage<T> {
+  pagination: {
+    isEnd: boolean;
+    pageNumber: number;
+    totalItemCount: number;
+    totalPageCount: number;
+  };
+  contents: T[];
+}

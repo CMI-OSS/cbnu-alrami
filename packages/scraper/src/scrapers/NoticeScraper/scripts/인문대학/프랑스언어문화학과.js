@@ -1,8 +1,9 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
 const 국어국문학과 = require("./국어국문학과");
 
 const script = {
   url: "http://humanum.chungbuk.ac.kr/french/selectBbsNttList.do?bbsNo=81&key=771",
-  site_id: 110901,
+  site_id: boardTree.전공.인문대학.프랑스언어문화학과.공지사항.id,
   site: "프랑스언어문화학과",
   category: "공지사항",
 };

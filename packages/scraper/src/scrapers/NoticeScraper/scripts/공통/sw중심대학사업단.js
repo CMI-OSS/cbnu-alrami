@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "http://swapi.cbnu.ac.kr/v1/notice?page=1&limit=20&sort=-createdAt",
-  site_id: 140501,
+  site_id: boardTree.공통.sw중심대학사업단.공지사항.id,
   site: "sw중심대학사업단",
   category: "공지사항",
   noticeListSelector: "pre",

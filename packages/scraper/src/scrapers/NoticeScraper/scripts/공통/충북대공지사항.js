@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "https://www.chungbuk.ac.kr/site/www/boardList.do?page=1&boardSeq=112&key=698",
-  site_id: 140301,
+  site_id: boardTree.공통.충북대학교.공지사항.id,
   site: "충북대학교",
   category: "공지사항",
   noticeListSelector: "#contents > div > form > table > tbody > tr",

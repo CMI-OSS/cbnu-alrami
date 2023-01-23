@@ -1,8 +1,9 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
 const 경영정보학과 = require("./경영정보학과");
 
 const script = {
-  url: "http://ib.chungbuk.ac.kr/master.php?pg_idx=33",
-  site_id: 10301,
+  url: "https://ib.chungbuk.ac.kr/master.php?pg_idx=33",
+  site_id: boardTree.전공.경영대학.국제경영학과.학부공지.id,
   site: "국제경영학과",
   category: "학부공지",
 };

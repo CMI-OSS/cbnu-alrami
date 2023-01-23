@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "https://cia.chungbuk.ac.kr/board/notice/lists/key/180",
-  site_id: 140101,
+  site_id: boardTree.공통.국제교류본부.공지사항.id,
   site: "국제교류본부",
   category: "공지사항",
   noticeListSelector: ".adm_table tr",

@@ -4,14 +4,13 @@ import {
   COMMAND_SCRAPER_EVENT,
 } from "@shared/types/Socket/CommandScraper";
 import { SocketMessage } from "@shared/types/Socket/SocketMessage";
-import { io } from "socket.io-client";
 
-const socket = io(
-  `${window.location.protocol}//${window.location.hostname}:8070`,
-);
+// const socket = io(
+//   `${window.location.protocol}//${window.location.hostname}:8070`,
+// );
 
 function emit<T extends SocketMessage>({ event, payload }: T) {
-  socket.emit(event, payload);
+  // socket.emit(event, payload);
 }
 
 const startScraper = (scraperType: ScraperType) => {
@@ -42,4 +41,4 @@ const restartScraper = (scraperType: ScraperType) => {
   });
 };
 
-export { socket, startScraper, stopScraper, pauseScraper, restartScraper };
+export { startScraper, stopScraper, pauseScraper, restartScraper };

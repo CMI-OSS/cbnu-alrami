@@ -1,10 +1,12 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
 const 교육학과 = require("./교육학과");
 
 const script = {
   url: "http://edu.chungbuk.ac.kr/soc/selectBbsNttList.do?key=297&bbsNo=40",
-  site_id: 40401,
+  site_id: boardTree.전공.사범대학.사회교육과.공지사항.id,
   site: "사회교육과",
   category: "공지사항",
+  noticeContentsSelector:'#board > div > div.tit_area > ul > li:nth-child(4)',
   getNoticeList: function () {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list).map((item) => {

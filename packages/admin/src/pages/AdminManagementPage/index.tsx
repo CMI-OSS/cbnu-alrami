@@ -1,12 +1,15 @@
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
-import { AdminList, AdminJoin } from "src/components/AdminManagement";
+import { AdminJoin, AdminList } from "src/components/AdminManagement";
+import PageLayout from "src/components/Layout/Page/Page.view";
 
 export default function AdminManagementPage() {
   return (
-    <Routes>
-      <Route path="/add" element={<AdminJoin />} />
-      <Route path="/list" element={<AdminList />} />
-    </Routes>
+    <PageLayout>
+      <Routes>
+        <Route path="/add" element={<AdminJoin />} />
+        <Route path="/list" element={<AdminList />} />
+      </Routes>
+    </PageLayout>
   );
 }

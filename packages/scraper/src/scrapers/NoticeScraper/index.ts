@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ScraperState, ScraperType } from "@shared/types";
-import { createNotice, hasNotice } from "src/db/notice";
+import { createArticle, isDuplicationArticle } from "src/api/article";
 import { Notice, NoticeScript } from "src/types";
 
 import { Scenario } from "../Scenario";
@@ -28,16 +29,35 @@ class NoticeScraper extends Scraper<NoticeScript> {
 
     for (const notice of noticeList) {
       if (this.state !== ScraperState.Running) break;
-      if (!(await hasNotice(notice))) {
-        this.log({
-          prefix: "INFO",
-          message: `${notice.title} 게시물의 내용을 스크래핑합니다`,
-        });
-        await createNotice({
-          ...notice,
-          contents: await this.getContents(scenario, notice),
-        });
-        await this.scraper?.waitForTimeout(1000);
+      this.log({
+        prefix: "INFO",
+        message: `${notice.title} 게시물의 내용을 스크래핑합니다`,
+      });
+
+      try {
+        const {
+          data: { isDuplication },
+        } = await isDuplicationArticle({ url: notice.url.trim() });
+
+        if (!isDuplication) {
+          const content = await this.getContents(scenario, notice);
+
+          await createArticle({
+            boardId: notice.site_id.toString(),
+            article: {
+              title: notice.title,
+              content,
+              date: notice.date,
+              url: notice.url,
+              images: [],
+            },
+          });
+
+          await this.scraper?.waitForTimeout(1000);
+        }
+      } catch (error) {
+        // @ts-ignore
+        console.log(error.response ?? error);
       }
     }
 
@@ -82,7 +102,7 @@ class NoticeScraper extends Scraper<NoticeScript> {
         message: `공지사항 목록을 가져옵니다.`,
       });
       const noticeList: Notice[] = await this.scraper.evaluate(
-        `script.getNoticeList()`,
+        `script.getNoticeList();`,
       );
 
       if (noticeList.length === 0) {
@@ -112,13 +132,17 @@ class NoticeScraper extends Scraper<NoticeScript> {
 
     try {
       this.log({ prefix: "INFO", message: `${notice.url}로 이동합니다` });
-      await this.scraper.goto(notice.url);
+      await this.scraper.goto(notice.url, {
+        referer: scenario.jsScript?.url,
+      });
 
       this.log({
         prefix: "INFO",
         message: `${noticeScript.noticeContentsSelector}를 기다립니다`,
       });
-      await this.scraper.waitForSelector(noticeScript.noticeContentsSelector);
+      await this.scraper.waitForSelector(noticeScript.noticeContentsSelector, {
+        timeout: 10000,
+      });
 
       this.log({
         prefix: "INFO",
@@ -131,7 +155,9 @@ class NoticeScraper extends Scraper<NoticeScript> {
         message: `공지사항 내용을 가져옵니다`,
       });
       const contents: string = await this.scraper.evaluate(
-        `script.getContentsHtml()`,
+        `document.querySelectorAll('img').forEach(el=>el.src=el.src);
+        document.querySelectorAll('iframe').forEach(el=>el.src=el.src);
+        script.getContentsHtml()`,
       );
 
       if (contents === "") {

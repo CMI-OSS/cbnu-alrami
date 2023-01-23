@@ -5,9 +5,7 @@ interface QueueNode<T> {
 
 export default class Queue<T> {
   head: QueueNode<T> | null = null;
-
   tail: QueueNode<T> | null = null;
-
   length = 0;
 
   reset() {

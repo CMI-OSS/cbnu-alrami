@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { BoardService } from "src/board/board.service";
@@ -26,8 +27,8 @@ export class ArticleService {
     private boardService: BoardService,
   ) {}
 
-  async create({ imageIds, ...createArticleDto }: CreateArticleDto) {
-    const board = await this.boardService.findOne(createArticleDto.boardId);
+  async create({ imageIds, boardId, ...createArticleDto }: CreateArticleDto) {
+    const board = await this.boardService.findOne(boardId);
 
     if (createArticleDto.url) {
       const article = await this.findOneByUrl(createArticleDto.url);
@@ -62,22 +63,25 @@ export class ArticleService {
       relations: {
         board: { parent: true },
         images: true,
-        viewUsers: true,
-        bookmarkUsers: true,
       },
       order: {
         dateTime: "DESC",
       },
     });
-    return articles.map<ResponseArticleDto>(
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ({ viewUsers, bookmarkUsers, content, author, ...article }) =>
-        ({
-          ...article,
-          bookmarkCount: bookmarkUsers.length,
-          viewCount: viewUsers.length,
-        } as ResponseArticleDto),
+
+    const result = Promise.all(
+      articles.map<Promise<ResponseArticleDto>>(
+        async ({ content, author, ...article }) => {
+          return {
+            ...article,
+            bookmarkCount: await this.getBookmarkCount(article.id),
+            viewCount: await this.getViewCount(article.id),
+          } as ResponseArticleDto;
+        },
+      ),
     );
+
+    return result;
   }
 
   async findArticlePage(
@@ -94,8 +98,6 @@ export class ArticleService {
       relations: {
         board: { parent: true },
         images: true,
-        viewUsers: true,
-        bookmarkUsers: true,
       },
       order: {
         dateTime: "DESC",
@@ -103,15 +105,20 @@ export class ArticleService {
       take: count,
       skip: (page - 1) * count,
     });
-    return articles.map<ResponseArticleDto>(
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ({ viewUsers, bookmarkUsers, content, author, ...article }) =>
-        ({
-          ...article,
-          bookmarkCount: bookmarkUsers.length,
-          viewCount: viewUsers.length,
-        } as ResponseArticleDto),
+
+    const result = Promise.all(
+      articles.map<Promise<ResponseArticleDto>>(
+        async ({ content, author, ...article }) => {
+          return {
+            ...article,
+            bookmarkCount: await this.getBookmarkCount(article.id),
+            viewCount: await this.getViewCount(article.id),
+          } as ResponseArticleDto;
+        },
+      ),
     );
+
+    return result;
   }
 
   async findOne(id: number, user?: User): Promise<ResponseArticleDetailDto> {
@@ -120,22 +127,60 @@ export class ArticleService {
       relations: {
         board: { parent: true },
         images: true,
-        viewUsers: true,
-        bookmarkUsers: true,
       },
     });
 
     if (!article) throw new NotFoundArticleException();
 
-    const { bookmarkUsers, viewUsers, ..._ariticle } = article;
+    const { ..._ariticle } = article;
 
     return {
       ..._ariticle,
-      isView: !!viewUsers.find((_user) => _user.id === user?.id),
-      isBookmark: !!bookmarkUsers.find((_user) => _user.id === user?.id),
-      bookmarkCount: bookmarkUsers.length,
-      viewCount: viewUsers.length,
+      isView: await this.isView(article.id, user?.id),
+      isBookmark: await this.isBookmark(article.id, user?.id),
+      bookmarkCount: await this.getBookmarkCount(article.id),
+      viewCount: await this.getViewCount(article.id),
     } as ResponseArticleDetailDto;
+  }
+
+  async isView(articleId: number, userId?: number): Promise<boolean> {
+    if (!userId) return false;
+
+    return !!(await this.articleRepository.countBy({
+      id: articleId,
+      viewUsers: {
+        id: userId,
+      },
+    }));
+  }
+
+  async getViewCount(articleId: number): Promise<number> {
+    const viewCount = await this.articleRepository.countBy({
+      id: articleId,
+      viewUsers: true,
+    });
+
+    return viewCount;
+  }
+
+  async isBookmark(articleId: number, userId?: number): Promise<boolean> {
+    if (!userId) return false;
+
+    return !!(await this.articleRepository.countBy({
+      id: articleId,
+      bookmarkUsers: {
+        id: userId,
+      },
+    }));
+  }
+
+  async getBookmarkCount(articleId: number): Promise<number> {
+    const viewCount = await this.articleRepository.countBy({
+      id: articleId,
+      bookmarkUsers: true,
+    });
+
+    return viewCount;
   }
 
   findOneByUrl(url: string) {
@@ -187,7 +232,12 @@ export class ArticleService {
 
   async unbookmark(id: number, user: User) {
     const article = await this.articleRepository.findOne({
-      where: { id },
+      where: {
+        id,
+        bookmarkUsers: {
+          id: user.id,
+        },
+      },
       relations: { bookmarkUsers: true },
     });
 

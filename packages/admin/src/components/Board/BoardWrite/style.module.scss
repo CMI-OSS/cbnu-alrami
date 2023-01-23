@@ -19,7 +19,7 @@
       width: 50%;
     }
     section {
-      display: flex
+      display: flex;
     }
   }
 
@@ -33,7 +33,7 @@
     font-weight: 500;
     word-break: break-all;
   }
-  
+
   form {
     display: flex;
     flex-direction: column;
@@ -71,7 +71,7 @@
         padding: 0 0.5rem;
         border-radius: 0.7rem;
         font-size: 0.8rem;
-        
+
         &::-webkit-textfield-decoration-container {
           appearance: none;
           -webkit-appearance: none;

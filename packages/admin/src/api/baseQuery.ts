@@ -1,47 +1,31 @@
-import { BaseQueryFn, fetchBaseQuery } from "@reduxjs/toolkit/query";
-import axios, { AxiosRequestConfig, AxiosError } from "axios";
+import {
+  BaseQueryFn,
+  FetchArgs,
+  fetchBaseQuery,
+  FetchBaseQueryError,
+} from "@reduxjs/toolkit/query";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: `${import.meta.env.VITE_API_URL}/`,
   prepareHeaders: (headers) => {
-    headers.set("Content-type", "application/json; charset=utf-8");
+    headers.set("x-access-token", localStorage.getItem("x-access-token") || "");
     return headers;
   },
 });
 
-const axiosBaseQuery = (): BaseQueryFn<
-  {
-    url: string;
-    method: AxiosRequestConfig["method"];
-    data?: AxiosRequestConfig["data"];
-    params?: AxiosRequestConfig["params"];
-  },
+const baseQueryMiddleware: BaseQueryFn<
+  string | FetchArgs,
   unknown,
-  unknown
-> => {
-  return async ({ url, method, data, params }) => {
-    try {
-      const result = await axios({
-        url: `${import.meta.env.VITE_API_URL}/${url}`,
-        method,
-        headers: {
-          "x-access-token": localStorage.getItem("x-access-token") || "",
-          "x-refresh-token": localStorage.getItem("x-refresh-token") || "",
-        },
-        data,
-        params,
-      });
-      return { data: result.data };
-    } catch (axiosError) {
-      const err = axiosError as AxiosError;
-      return {
-        error: {
-          status: err.response?.status,
-          data: err.response?.data || err.message,
-        },
-      };
-    }
-  };
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  const result = await baseQuery(args, api, extraOptions);
+
+  if (result.error && result.error.status === 403) {
+    alert("권한이 없습니다. 로그인 페이지로 이동합니다");
+    // eslint-disable-next-line no-restricted-globals
+    location.href = "/login";
+  }
+  return result;
 };
 
-export default axiosBaseQuery;
+export default baseQueryMiddleware;

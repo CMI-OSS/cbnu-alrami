@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "http://cheme.cbnu.ac.kr/index.php?mid=cheme_sub04",
-  site_id: 20901,
+  site_id: boardTree.전공.공과대학.화학공학과.공지사항.id,
   site: "화학공학과",
   category: "공지사항",
   noticeListSelector: "#bd_426_0 > div.bd_lst_wrp > table > tbody > tr",

@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "https://econ.chungbuk.ac.kr/board/department_notice",
-  site_id: 50101,
+  site_id: boardTree.전공.사회과학대학.경제학과.공지사항.id,
   site: "경제학과",
   category: "학부공지",
   noticeListSelector: "#fboardlist > table > tbody > tr",

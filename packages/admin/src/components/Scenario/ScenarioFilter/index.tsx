@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import queryString from "query-string";
 import scenarios from "src/__mockData__/noticeScenarios";
-import { useQuery } from "src/hooks";
+import { useQueryParam } from "src/hooks";
 import { getScenarioGroups } from "src/lib/scenario";
 
 import $ from "./style.module.scss";
@@ -15,7 +15,7 @@ interface Props {
 export default function ScenarioFilter({ isNotice }: Props) {
   const navigate = useNavigate();
   const location = useLocation();
-  const query = useQuery();
+  const query = useQueryParam();
 
   const getQueryParams = () => {
     return queryString.parse(location.search);

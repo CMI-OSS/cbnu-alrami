@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "http://fineart.cbnu.ac.kr/bbs/bbs.php?db=notice&pgID=ID13971124002",
-  site_id: 90201,
+  site_id: boardTree.전공.융합학과군.조형예술학과.공지사항.id,
   site: "조형예술학과",
   category: "공지사항",
   noticeListSelector: `#contentR > table tr[onmouseover*="this.style.backgroundColor='#F5F7FC'"]`,

@@ -1,4 +1,4 @@
-import { FaPlay, FaPause, FaStop } from "react-icons/fa";
+import { FaPause, FaPlay, FaStop } from "react-icons/fa";
 import { MdReplay } from "react-icons/md";
 
 import { ScraperState, ScraperType } from "@shared/types";
@@ -12,7 +12,7 @@ import {
 import { useAppSelector } from "src/store";
 import { initialScraper } from "src/store/scraperSlice";
 
-import { ScenarioQueue, ExcutionLog } from "..";
+import { ExcutionLog, ScenarioQueue } from "..";
 import Tooltip from "../../Tooltip";
 import $ from "./style.module.scss";
 

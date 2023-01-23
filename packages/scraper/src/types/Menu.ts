@@ -1,6 +1,7 @@
 export interface Menu {
+  cafeteriaId: number;
   restaurant_name: string;
-  food_name: string;
+  menu: string;
   date: string;
   time: number;
 }

@@ -1,17 +1,17 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
-  url: "https://software.cbnu.ac.kr/bbs/bbs.php?db=notice&pgID=ID12415888101",
-  site_id: 130101,
+  url: "https://software.cbnu.ac.kr/sub0401",
+  site_id: boardTree.전공.전자정보대학.소프트웨어학부.공지사항.id,
   site: "소프트웨어학과",
   category: "공지사항",
-  noticeListSelector: `#content > table:nth-child(8) > tbody > tr`,
-  noticeContentsSelector: "#content > table > tbody > tr:nth-child(8)",
+  noticeListSelector: `tr.notice`,
+  noticeContentsSelector: ".rd_body",
   getNoticeList: function () {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list)
       .map((item, index) => {
         const row = item.querySelectorAll("td");
-
-        if (!row || index < 3) return null;
 
         return {
           site: this.site,
@@ -19,7 +19,7 @@ const script = {
           site_id: this.site_id,
           title: row[2].innerText.trim(),
           url: row[2].querySelector("a").href.trim(),
-          date: row[6].innerText.trim(),
+          date: row[4].innerText.trim(),
         };
       })
       .filter(Boolean);

@@ -1,0 +1,58 @@
+.dimmed {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.665);
+}
+
+.preview {
+  position: fixed;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  .image {
+    max-width: 600px;
+    max-height: 600px;
+  }
+}
+
+.disabled {
+  display: none !important;
+}
+
+.move {
+  position: fixed;
+  z-index: 2;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &.next {
+    right: 30px;
+  }
+
+  &.prev {
+    left: 30px;
+    .icon {
+      transform: rotate(0.5turn);
+    }
+  }
+
+  .icon {
+    font-size: 60px;
+    color: rgb(59, 59, 59);
+  }
+}

@@ -1,6 +1,8 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+
 const script = {
   url: "http://koamma.chungbuk.ac.kr/bbs/bbs.php?db=notice",
-  site_id: 130201,
+  site_id: boardTree.전공.전자정보대학.전기공학부.공지사항.id,
   site: "전기공학부",
   category: "공지&뉴스",
   noticeListSelector: `#subContent > div.section > table:nth-child(6) > tbody > tr`,

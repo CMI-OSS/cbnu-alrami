@@ -1,8 +1,9 @@
+const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
 const 전기공학부 = require("./전기공학부");
 
 const script = {
   url: "http://elec.chungbuk.ac.kr/bbs/bbs.php?db=notice",
-  site_id: 130301,
+  site_id: boardTree.전공.전자정보대학.전자공학부.공지사항.id,
   site: "전자공학부",
   category: "공지사항",
   noticeListSelector: `#subContent > table:nth-child(7) > tbody > tr`,

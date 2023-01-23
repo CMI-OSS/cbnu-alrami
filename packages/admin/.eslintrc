@@ -1,0 +1,10 @@
+{
+  "extends": ["cmi"],
+  "rules": {
+    "arrow-body-style": "off",
+    "react/jsx-props-no-spreading": "off",
+    "jsx-a11y/no-static-element-interactions": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "camelcase": "off"
+  }
+}

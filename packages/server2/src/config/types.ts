@@ -23,4 +23,9 @@ export type Configutation = {
   weather: {
     key: string;
   };
+  fcm: {
+    key: string;
+    aos: string;
+    ios: string;
+  };
 };

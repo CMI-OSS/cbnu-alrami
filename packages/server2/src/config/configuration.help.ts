@@ -25,6 +25,11 @@ const configuration: Configutation = {
   weather: {
     key: "",
   },
+  fcm: {
+    key: "",
+    aos: "",
+    ios: "",
+  },
 };
 
 export default configuration;

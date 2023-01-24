@@ -28,4 +28,8 @@ export class UserService {
   update(id: number, updateUserDto: UpdateUserDto) {
     return this.userRepository.update(id, updateUserDto);
   }
+
+  deleteByFcmToken(fcmToken: string) {
+    return this.userRepository.delete({ fcmToken });
+  }
 }

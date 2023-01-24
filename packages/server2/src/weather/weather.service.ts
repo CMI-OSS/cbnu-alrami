@@ -11,8 +11,6 @@ import { WeatherType } from "./weather.constant";
 
 const DAILY = "0 0 0 * * *";
 const HOURLY = "5 0 */1 * * *";
-const DAILY_EXCLUDE_CONDITION = "current,minutely,daily,alerts";
-const HOURLY_EXCLUDE_CONDITION = "minutely,hourly,daily,alerts";
 
 enum ExcludeCondition {
   DAILY = "current,minutely,daily,alerts",

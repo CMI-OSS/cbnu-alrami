@@ -1,5 +1,6 @@
 import { MiddlewareConsumer, Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
+import { ScheduleModule as NestScheduleModule } from "@nestjs/schedule";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
@@ -27,6 +28,8 @@ import { SchoolModule } from "./school/school.module";
 import { User } from "./user/entities/user.entity";
 import { UserMiddleWare } from "./user/user.middleware";
 import { UserModule } from "./user/user.module";
+import { Weather } from "./weather/entities/weather.entity";
+import { WeatherModule } from "./weather/weather.module";
 
 @Module({
   imports: [
@@ -51,6 +54,7 @@ import { UserModule } from "./user/user.module";
           School,
           CafeteriaMenu,
           SubscribeBoard,
+          Weather,
         ],
         synchronize: configuration.db.synchronize,
       }),
@@ -66,6 +70,8 @@ import { UserModule } from "./user/user.module";
     SchoolModule,
     CafeteriaMenuModule,
     UserModule,
+    WeatherModule,
+    NestScheduleModule.forRoot(),
   ],
   providers: [],
 })

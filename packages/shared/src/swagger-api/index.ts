@@ -14,6 +14,5 @@ axios.get(apiServer[process.env.SERVER]).then((res) => {
     output: `${__dirname}/generated`,
     httpClient: "axios",
     useOptions: true,
-    useUnionTypes: true,
   });
 });

@@ -16,7 +16,21 @@ export type UpdateSchoolDto = {
     /**
      * 구역(N,E,S)
      */
-    area?: 'N' | 'S' | 'E';
+    area?: UpdateSchoolDto.area;
     place?: CreatePlaceDto;
 };
+
+export namespace UpdateSchoolDto {
+
+    /**
+     * 구역(N,E,S)
+     */
+    export enum area {
+        N = 'N',
+        S = 'S',
+        E = 'E',
+    }
+
+
+}
 

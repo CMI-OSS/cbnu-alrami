@@ -20,7 +20,21 @@ export type CreateAdminDto = {
     /**
      * 권한
      */
-    authoirty: 'Super' | 'StudentCouncil' | 'Guest';
+    authoirty: CreateAdminDto.authoirty;
     boards: Array<CreateBoardAuthorityDto>;
 };
+
+export namespace CreateAdminDto {
+
+    /**
+     * 권한
+     */
+    export enum authoirty {
+        SUPER = 'Super',
+        STUDENT_COUNCIL = 'StudentCouncil',
+        GUEST = 'Guest',
+    }
+
+
+}
 

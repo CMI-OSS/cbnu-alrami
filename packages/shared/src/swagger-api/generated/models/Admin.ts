@@ -32,10 +32,24 @@ export type Admin = {
     /**
      * 권한
      */
-    authoirty: 'Super' | 'StudentCouncil' | 'Guest';
+    authoirty: Admin.authoirty;
     /**
      * 권한이 부여된 게시판
      */
     boards: Array<BoardAuthority>;
 };
+
+export namespace Admin {
+
+    /**
+     * 권한
+     */
+    export enum authoirty {
+        SUPER = 'Super',
+        STUDENT_COUNCIL = 'StudentCouncil',
+        GUEST = 'Guest',
+    }
+
+
+}
 

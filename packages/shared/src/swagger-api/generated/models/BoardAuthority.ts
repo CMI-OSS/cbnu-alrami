@@ -14,6 +14,19 @@ export type BoardAuthority = {
     /**
      * 관리 권한
      */
-    authority: 'Read' | 'Write';
+    authority: BoardAuthority.authority;
 };
+
+export namespace BoardAuthority {
+
+    /**
+     * 관리 권한
+     */
+    export enum authority {
+        READ = 'Read',
+        WRITE = 'Write',
+    }
+
+
+}
 

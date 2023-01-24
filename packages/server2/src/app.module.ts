@@ -17,6 +17,7 @@ import { SubscribeBoard } from "./board/entities/subscribe-board.entity";
 import { CafeteriaMenuModule } from "./cafeteria-menu/cafeteria-menu.module";
 import { CafeteriaMenu } from "./cafeteria-menu/entities/cafeteria-menu.entity";
 import configuration from "./config/configuration";
+import { FcmModule } from "./fcm/fcm.module";
 import { Image } from "./image/entities/image.entity";
 import { ImageModule } from "./image/image.module";
 import { Place } from "./place/entities/place.entity";
@@ -30,7 +31,6 @@ import { UserMiddleWare } from "./user/user.middleware";
 import { UserModule } from "./user/user.module";
 import { Weather } from "./weather/entities/weather.entity";
 import { WeatherModule } from "./weather/weather.module";
-import { FcmModule } from './fcm/fcm.module';
 
 @Module({
   imports: [

@@ -37,7 +37,7 @@ export class Board extends UpdatableCommonEntity {
       name: "전자정보대학",
     },
   })
-  @TreeParent()
+  @TreeParent({ onDelete: "CASCADE" })
   parent?: Board;
 
   @ApiProperty({

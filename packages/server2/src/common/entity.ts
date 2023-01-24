@@ -26,7 +26,21 @@ export abstract class UpdatableCommonEntity extends CommonEntity {
   updatedDateTime: Date;
 }
 
-export const CommonEntityKeys = [ "id", "createdDateTime" ] as const;
+const BaseEntityKeys = [
+  "hasId",
+  "save",
+  "remove",
+  "softRemove",
+  "recover",
+  "reload",
+] as const;
+
+export const CommonEntityKeys = [
+  "id",
+  "createdDateTime",
+  ...BaseEntityKeys,
+] as const;
+
 export const UpdatableCommonEntityKeys = [
   ...CommonEntityKeys,
   "updatedDateTime",

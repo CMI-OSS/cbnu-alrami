@@ -25,6 +25,8 @@ export class ImageService {
   }
 
   async findImages(imageIds: number[]) {
+    if (imageIds.length === 0) return [];
+
     return this.imageRepository.find({
       where: { id: In(imageIds) },
     });

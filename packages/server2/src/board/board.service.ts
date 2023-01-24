@@ -23,7 +23,7 @@ export class BoardService {
     private boardRepository: TreeRepository<Board>,
   ) {}
 
-  async create(createBoardDto: CreateBoardDto) {
+  async create(createBoardDto: CreateBoardDto & { id?: number }) {
     const parentBoard =
       createBoardDto.parentBoardId &&
       (await this.findOne(createBoardDto.parentBoardId));

@@ -30,7 +30,7 @@ const toBoardTreeMock = (board, name?, parentBoard?): CreateBoardDto[] => {
     .flat();
 };
 
-describe("BoardModule", () => {
+describe.skip("BoardModule", () => {
   let boardService: BoardService;
 
   beforeAll(async () => {

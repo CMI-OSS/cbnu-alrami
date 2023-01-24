@@ -14,7 +14,7 @@ export type Weather = {
     /**
      * 현재 날씨
      */
-    currentWeather?: 'Clear' | 'Clouds' | 'Mist' | 'Snow' | 'Rain' | 'Drizzle' | 'Fog' | 'Haze' | 'Dust' | 'Thunderstorm';
+    currentWeather?: Weather.currentWeather;
     /**
      * 현재 온도
      */
@@ -30,11 +30,11 @@ export type Weather = {
     /**
      * 오전 날씨
      */
-    amWeather: 'Clear' | 'Clouds' | 'Mist' | 'Snow' | 'Rain' | 'Drizzle' | 'Fog' | 'Haze' | 'Dust' | 'Thunderstorm';
+    amWeather: Weather.amWeather;
     /**
      * 오후 날씨
      */
-    pmWeather: 'Clear' | 'Clouds' | 'Mist' | 'Snow' | 'Rain' | 'Drizzle' | 'Fog' | 'Haze' | 'Dust' | 'Thunderstorm';
+    pmWeather: Weather.pmWeather;
     /**
      * 날짜
      */
@@ -44,4 +44,57 @@ export type Weather = {
      */
     hour: number;
 };
+
+export namespace Weather {
+
+    /**
+     * 현재 날씨
+     */
+    export enum currentWeather {
+        CLEAR = 'Clear',
+        CLOUDS = 'Clouds',
+        MIST = 'Mist',
+        SNOW = 'Snow',
+        RAIN = 'Rain',
+        DRIZZLE = 'Drizzle',
+        FOG = 'Fog',
+        HAZE = 'Haze',
+        DUST = 'Dust',
+        THUNDERSTORM = 'Thunderstorm',
+    }
+
+    /**
+     * 오전 날씨
+     */
+    export enum amWeather {
+        CLEAR = 'Clear',
+        CLOUDS = 'Clouds',
+        MIST = 'Mist',
+        SNOW = 'Snow',
+        RAIN = 'Rain',
+        DRIZZLE = 'Drizzle',
+        FOG = 'Fog',
+        HAZE = 'Haze',
+        DUST = 'Dust',
+        THUNDERSTORM = 'Thunderstorm',
+    }
+
+    /**
+     * 오후 날씨
+     */
+    export enum pmWeather {
+        CLEAR = 'Clear',
+        CLOUDS = 'Clouds',
+        MIST = 'Mist',
+        SNOW = 'Snow',
+        RAIN = 'Rain',
+        DRIZZLE = 'Drizzle',
+        FOG = 'Fog',
+        HAZE = 'Haze',
+        DUST = 'Dust',
+        THUNDERSTORM = 'Thunderstorm',
+    }
+
+
+}
 

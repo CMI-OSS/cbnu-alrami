@@ -6,7 +6,7 @@ export type CreateCafeteriaMenuDto = {
     /**
      * 학생 식당 혹은 기숙사 이름
      */
-    name: '본관' | '양진재' | '양성재' | '한빛식당' | '별빛식당' | '은하수식당';
+    name: CreateCafeteriaMenuDto.name;
     /**
      * 메뉴
      */
@@ -18,6 +18,32 @@ export type CreateCafeteriaMenuDto = {
     /**
      * 식사 시간 (BREAKFAT, LUNCH, DINNER)
      */
-    time: 'BREAKFAST' | 'LUNCH' | 'DINNER';
+    time: CreateCafeteriaMenuDto.time;
 };
+
+export namespace CreateCafeteriaMenuDto {
+
+    /**
+     * 학생 식당 혹은 기숙사 이름
+     */
+    export enum name {
+        BONGWAN = 'BONGWAN',
+        YANGJINJAE_ = 'YANGJINJAE ',
+        YANGSUNGJAE = 'YANGSUNGJAE',
+        HANBIT = 'HANBIT',
+        BYEOLBIT = 'BYEOLBIT',
+        UNHASU = 'UNHASU',
+    }
+
+    /**
+     * 식사 시간 (BREAKFAT, LUNCH, DINNER)
+     */
+    export enum time {
+        BREAKFAST = 'BREAKFAST',
+        LUNCH = 'LUNCH',
+        DINNER = 'DINNER',
+    }
+
+
+}
 

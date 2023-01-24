@@ -10,11 +10,11 @@ import { CafeteriaMenuTime, CafeteriaName } from "../cafeteria-menu.constant";
 export class CafeteriaMenu extends CommonEntity {
   @ApiProperty({
     description: "학생 식당 혹은 기숙사 이름",
-    example: CafeteriaName.한빛식당,
+    example: CafeteriaName.HANBIT,
     enum: CafeteriaName,
   })
   @IsEnum(CafeteriaName)
-  @Column({ type: "enum", enum: CafeteriaName })
+  @Column({ type: "varchar" })
   name: CafeteriaName;
 
   @ApiProperty({

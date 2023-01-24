@@ -10,6 +10,19 @@ export type CreateBoardAuthorityDto = {
     /**
      * 관리 권한
      */
-    authority: 'Read' | 'Write';
+    authority: CreateBoardAuthorityDto.authority;
 };
+
+export namespace CreateBoardAuthorityDto {
+
+    /**
+     * 관리 권한
+     */
+    export enum authority {
+        READ = 'Read',
+        WRITE = 'Write',
+    }
+
+
+}
 

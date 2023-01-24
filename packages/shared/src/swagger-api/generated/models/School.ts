@@ -26,6 +26,20 @@ export type School = {
     /**
      * 구역(N,E,S)
      */
-    area: 'N' | 'S' | 'E';
+    area: School.area;
 };
+
+export namespace School {
+
+    /**
+     * 구역(N,E,S)
+     */
+    export enum area {
+        N = 'N',
+        S = 'S',
+        E = 'E',
+    }
+
+
+}
 

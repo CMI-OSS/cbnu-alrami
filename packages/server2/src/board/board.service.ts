@@ -185,4 +185,18 @@ export class BoardService {
       isNotice: !!subscribe?.notice,
     };
   }
+
+  async getSubscribers(boardId: number): Promise<User[]> {
+    const board = await this.boardRepository.findOne({
+      where: {
+        id: boardId,
+        subscribes: true,
+      },
+      relations: {
+        subscribes: true,
+      },
+    });
+
+    return board?.subscribes?.map(({ user }) => user) ?? [];
+  }
 }

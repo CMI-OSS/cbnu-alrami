@@ -30,6 +30,7 @@ import { UserMiddleWare } from "./user/user.middleware";
 import { UserModule } from "./user/user.module";
 import { Weather } from "./weather/entities/weather.entity";
 import { WeatherModule } from "./weather/weather.module";
+import { FcmModule } from './fcm/fcm.module';
 
 @Module({
   imports: [
@@ -72,6 +73,7 @@ import { WeatherModule } from "./weather/weather.module";
     UserModule,
     WeatherModule,
     NestScheduleModule.forRoot(),
+    FcmModule,
   ],
   providers: [],
 })

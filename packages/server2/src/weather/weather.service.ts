@@ -10,6 +10,14 @@ import { Weather } from "./entities/weather.entity";
 import { WeatherType } from "./weather.constant";
 
 const DAILY = "0 0 0 * * *";
+const HOURLY = "5 0 */1 * * *";
+const DAILY_EXCLUDE_CONDITION = "current,minutely,daily,alerts";
+const HOURLY_EXCLUDE_CONDITION = "minutely,hourly,daily,alerts";
+
+enum ExcludeCondition {
+  DAILY = "current,minutely,daily,alerts",
+  HOURLY = "minutely,hourly,daily,alerts",
+}
 
 @Injectable()
 export class WeatherService {
@@ -23,33 +31,30 @@ export class WeatherService {
     this.weatherKey = configuration.weather.key;
   }
 
-  private getOpenApiUrlForCBNU(): string {
-    return `https://api.openweathermap.org/data/2.5/onecall?lat=36.62858542513084&lon=127.45748680644566&appid=${this.weatherKey}&lang=kr&exclude=current,minutely,daily,alerts&units=metric`;
+  private getOpenApiUrlForCBNU(excludeCondition: ExcludeCondition): string {
+    return `https://api.openweathermap.org/data/2.5/onecall?lat=36.62858542513084&lon=127.45748680644566&appid=${this.weatherKey}&lang=kr&exclude=${excludeCondition}&units=metric`;
   }
 
   @Cron(DAILY)
-  async createWeather(): Promise<void> {
+  async createDailyWeathers(): Promise<void> {
     const weather = await firstValueFrom(
-      await this.httpService.get(this.getOpenApiUrlForCBNU()),
+      await this.httpService.get(
+        this.getOpenApiUrlForCBNU(ExcludeCondition.DAILY),
+      ),
     );
 
-    const todayTemp: number[] = [];
-    const todayWeather: string[] = [];
+    const weathers = weather.data.hourly.filter(
+      (hourlyWeather) =>
+        new Date(hourlyWeather.dt * 1000).getDate() === new Date().getDate(),
+    );
 
-    weather.data.hourly.forEach((data) => {
-      if (new Date(data.dt * 1000).getDate() === new Date().getDate()) {
-        todayTemp.push(data.temp);
+    const todayTemps = weathers.map(({ temp }) => temp);
+    const todayWeathers = weathers.map(({ weather }) => weather[0].main);
 
-        data.weather.forEach((el) => {
-          todayWeather.push(el.main);
-        });
-      }
-    });
-
-    const maxTemp = Math.max(...todayTemp);
-    const minTemp = Math.min(...todayTemp);
-    const amWeather = await this.getMode(todayWeather.slice(0, 12));
-    const pmWeather = await this.getMode(todayWeather.slice(12));
+    const maxTemp = Math.max(...todayTemps);
+    const minTemp = Math.min(...todayTemps);
+    const amWeather = await this.getMode(todayWeathers.slice(0, 12));
+    const pmWeather = await this.getMode(todayWeathers.slice(12));
 
     const currentDate = await WeatherService.getDate();
 
@@ -75,6 +80,29 @@ export class WeatherService {
     return this.weatherRepository.findOne({
       where: { hour: currentHour, date: currentDate },
     });
+  }
+
+  @Cron(HOURLY)
+  async createHourlyWeather(): Promise<void> {
+    const weather = await firstValueFrom(
+      await this.httpService.get(
+        this.getOpenApiUrlForCBNU(ExcludeCondition.HOURLY),
+      ),
+    );
+
+    const currentTemp = weather.data.current.temp;
+    const currentWeather = weather.data.current.weather[0].main;
+
+    const hour = new Date().getHours();
+    const date = await WeatherService.getDate();
+
+    await this.weatherRepository.update(
+      { hour, date },
+      {
+        currentTemp,
+        currentWeather,
+      },
+    );
   }
 
   private async getMode(arr: string[]): Promise<WeatherType> {

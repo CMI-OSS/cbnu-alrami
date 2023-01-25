@@ -5,13 +5,13 @@ import { AdminService } from "src/admin/admin.service";
 import configuration from "src/config/configuration";
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy, "admin-jwt") {
+export class JwtStrategy extends PassportStrategy(Strategy, "admin") {
   constructor(private readonly adminService: AdminService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: configuration.jwt.secret,
       ignoreExpiration: false,
-      passReqToCallback: true,
+      passReqToCallback: false,
     });
   }
 

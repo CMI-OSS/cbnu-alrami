@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { BoardService } from "src/board/board.service";
+import { JWTService } from "src/common/jwt/jwt.service";
 import { Repository } from "typeorm";
 
 import {
@@ -9,6 +10,8 @@ import {
   NotFoundBoardsException,
 } from "./admin.exception";
 import { CreateAdminDto } from "./dto/create-admin.dto";
+import { LoginDto } from "./dto/login.dto";
+import { ResponseLoginDto } from "./dto/response-login.dto";
 import { UpdateAdminDto } from "./dto/update-admin.dto";
 import { Admin } from "./entities/admin.entity";
 
@@ -18,6 +21,7 @@ export class AdminService {
     @InjectRepository(Admin)
     private adminRepository: Repository<Admin>,
     private boardService: BoardService,
+    private JwtService: JWTService,
   ) {}
 
   async create(createAdminDto: CreateAdminDto) {
@@ -80,5 +84,23 @@ export class AdminService {
     if (notExistIds.length) throw new NotFoundBoardsException(notExistIds);
 
     return !notExistIds.length;
+  }
+
+  async login(loginDto: LoginDto): Promise<ResponseLoginDto> {
+    const { loginId, password } = loginDto;
+
+    const admin = await this.adminRepository.findOne({
+      where: { loginId, password },
+    });
+
+    if (!admin) {
+      throw new NotFoundAdminException();
+    }
+
+    const accessToken = await this.JwtService.createJwtToken({
+      sub: admin.loginId,
+    });
+
+    return { accessToken };
   }
 }

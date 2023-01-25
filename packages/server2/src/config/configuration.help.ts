@@ -30,6 +30,10 @@ const configuration: Configutation = {
     aos: "",
     ios: "",
   },
+  jwt: {
+    secret: "",
+    expire: "",
+  },
 };
 
 export default configuration;

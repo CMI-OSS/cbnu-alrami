@@ -16,9 +16,12 @@ import {
   DeleteAdmin,
   GetAdmin,
   GetAdmins,
+  Login,
   UpdateAdmin,
 } from "./admin.swagger";
 import { CreateAdminDto } from "./dto/create-admin.dto";
+import { LoginDto } from "./dto/login.dto";
+import { ResponseLoginDto } from "./dto/response-login.dto";
 import { UpdateAdminDto } from "./dto/update-admin.dto";
 
 @ApiTags("[admin] 관리자 API")
@@ -59,5 +62,11 @@ export class AdminController {
   @Delete(":id")
   async remove(@Param("id") id: number): Promise<MutationResponse> {
     return { success: !!(await this.adminService.remove(id)) };
+  }
+
+  @Login()
+  @Post("login")
+  async login(@Body() loginDto: LoginDto): Promise<ResponseLoginDto> {
+    return this.adminService.login(loginDto);
   }
 }

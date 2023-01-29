@@ -6,10 +6,10 @@ export type LoginDto = {
     /**
      * 로그인에 사용할 아이디
      */
-    loginId?: string;
+    loginId: string;
     /**
      * 비밀번호
      */
-    password?: string;
+    password: string;
 };
 

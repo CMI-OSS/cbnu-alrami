@@ -35,3 +35,4 @@ $ yarn workspace {package_name} add {의존성 모듈} // 패키지별 의존성
 ```
 $ yarn add {의존성 모듈} -D -W // ex) yarn add prettier -D -W
 ```
+

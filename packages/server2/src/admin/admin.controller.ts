@@ -23,12 +23,14 @@ import { CreateAdminDto } from "./dto/create-admin.dto";
 import { LoginDto } from "./dto/login.dto";
 import { ResponseLoginDto } from "./dto/response-login.dto";
 import { UpdateAdminDto } from "./dto/update-admin.dto";
+import { SuperGuard } from "./gurads/super.guard";
 
 @ApiTags("[admin] 관리자 API")
 @Controller("admin")
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
+  @SuperGuard()
   @CreateAdmin()
   @Post()
   async create(
@@ -37,18 +39,21 @@ export class AdminController {
     return { success: !!(await this.adminService.create(createAdminDto)) };
   }
 
+  @SuperGuard()
   @GetAdmins()
   @Get()
   findAll() {
     return this.adminService.findAll();
   }
 
+  @SuperGuard()
   @GetAdmin()
   @Get(":id")
   findOne(@Param("id") id: number) {
     return this.adminService.findOne(id);
   }
 
+  @SuperGuard()
   @UpdateAdmin()
   @Patch(":id")
   async update(
@@ -58,6 +63,7 @@ export class AdminController {
     return { success: !!this.adminService.update(id, updateAdminDto) };
   }
 
+  @SuperGuard()
   @DeleteAdmin()
   @Delete(":id")
   async remove(@Param("id") id: number): Promise<MutationResponse> {

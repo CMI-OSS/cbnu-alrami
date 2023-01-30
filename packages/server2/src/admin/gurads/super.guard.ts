@@ -31,4 +31,4 @@ export class Guard implements CanActivate {
   }
 }
 
-export const SuperGuard = () => applyDecorators(AdminGuard, UseGuards(Guard));
+export const SuperGuard = () => applyDecorators(AdminGuard(), UseGuards(Guard));

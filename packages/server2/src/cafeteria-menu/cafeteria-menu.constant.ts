@@ -6,7 +6,7 @@ export enum CafeteriaMenuTime {
 
 export enum CafeteriaName {
   BONGWAN = "BONGWAN",
-  YANGJINJAE = "YANGJINJAE ",
+  YANGJINJAE = "YANGJINJAE",
   YANGSUNGJAE = "YANGSUNGJAE",
   HANBIT = "HANBIT",
   BYEOLBIT = "BYEOLBIT",

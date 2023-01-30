@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { IsString } from "class-validator";
 import { BoardAuthority } from "src/board-authority/entities/board-authority.entity";
 import { UpdatableCommonEntity } from "src/common/entity";
 import { Column, Entity, OneToMany } from "typeorm";
@@ -12,6 +13,7 @@ export class Admin extends UpdatableCommonEntity {
     example: "test",
   })
   @Column("varchar", { length: 20, unique: true })
+  @IsString()
   loginId: string;
 
   @ApiProperty({
@@ -19,6 +21,7 @@ export class Admin extends UpdatableCommonEntity {
     example: "12345678",
   })
   @Column("varchar")
+  @IsString()
   password: string;
 
   @ApiProperty({
@@ -26,6 +29,7 @@ export class Admin extends UpdatableCommonEntity {
     example: "testnickname",
   })
   @Column("varchar", { length: 20 })
+  @IsString()
   nickname: string;
 
   @ApiProperty({

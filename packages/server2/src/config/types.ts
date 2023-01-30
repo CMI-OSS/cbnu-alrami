@@ -28,4 +28,8 @@ export type Configutation = {
     aos: string;
     ios: string;
   };
+  jwt: {
+    secret: string;
+    expire: string;
+  };
 };

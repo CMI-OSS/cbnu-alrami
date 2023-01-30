@@ -3,11 +3,15 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Patch,
   Post,
+  Req,
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
+import { AdminService } from "src/admin/admin.service";
+import { AdminGuard } from "src/admin/gurads/admin.guard";
 import { MutationResponse } from "src/common/types/response";
 import { User } from "src/user/entities/user.entity";
 import { UserSession } from "src/user/user.decoratoer";
@@ -29,13 +33,23 @@ import { UpdateArticleDto } from "./dto/update-article.dto";
 @ApiTags("[article] 게시물 API")
 @Controller("article")
 export class ArticleController {
-  constructor(private readonly articleService: ArticleService) {}
+  constructor(
+    private readonly articleService: ArticleService,
+    private readonly adminService: AdminService,
+  ) {}
 
+  @AdminGuard()
   @CreateArticle()
   @Post()
   async create(
+    @Req() req,
     @Body() createArticleDto: CreateArticleDto,
   ): Promise<MutationResponse> {
+    await this.adminService.hasBoardAuthority(
+      createArticleDto.boardId,
+      req.admin.id,
+    );
+
     return { success: await !!this.articleService.create(createArticleDto) };
   }
 
@@ -55,20 +69,39 @@ export class ArticleController {
     return this.articleService.findOne(id, user);
   }
 
+  @AdminGuard()
   @UpdateArticle()
   @Patch(":id")
   async update(
+    @Req() req,
     @Param("id") id: number,
     @Body() updateArticleDto: UpdateArticleDto,
   ): Promise<MutationResponse> {
+    const { board } = await this.articleService.findOne(id);
+
+    if (!board) {
+      throw new NotFoundException();
+    }
+
+    await this.adminService.hasBoardAuthority(board.id, req.admin.id);
+
     return {
       success: !!(await this.articleService.update(id, updateArticleDto)),
     };
   }
 
+  @AdminGuard()
   @DeleteArticle()
   @Delete(":id")
-  async remove(@Param("id") id: number): Promise<MutationResponse> {
+  async remove(@Req() req, @Param("id") id: number): Promise<MutationResponse> {
+    const { board } = await this.articleService.findOne(id);
+
+    if (!board) {
+      throw new NotFoundException();
+    }
+
+    await this.adminService.hasBoardAuthority(board.id, req.admin.id);
+
     return {
       success: !!(await this.articleService.remove(id)),
     };

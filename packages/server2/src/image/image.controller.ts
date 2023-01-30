@@ -12,6 +12,7 @@ import {
   ApiOperation,
   ApiTags,
 } from "@nestjs/swagger";
+import { AdminGuard } from "src/admin/gurads/admin.guard";
 
 import { Image } from "./entities/image.entity";
 import { ImageService } from "./image.service";
@@ -21,6 +22,7 @@ import { ImageService } from "./image.service";
 export class ImageController {
   constructor(private readonly imageService: ImageService) {}
 
+  @AdminGuard()
   @Post("/upload")
   @ApiConsumes("multipart/form-data")
   @ApiOperation({ summary: "이미지 업로드" })

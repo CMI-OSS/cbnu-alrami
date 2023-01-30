@@ -1,7 +1,7 @@
 import http from "src/api/core";
 
 export const getSchools = (): Promise<res.School[]> => {
-  return http.get("/places/school");
+  return http.get("/place/school");
 };
 
 export const getSchool = (

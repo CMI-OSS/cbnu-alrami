@@ -3,7 +3,7 @@ import { generate } from "openapi-typescript-codegen";
 
 import { apiServer } from "../constant";
 
-axios.get(apiServer[process.env.SERVER]).then((res) => {
+axios.get(`${apiServer[process.env.SERVER]}/api-docs-json`).then((res) => {
   const spec = res.data;
 
   generate({

@@ -6,6 +6,6 @@ export const getSchools = (): Promise<res.School[]> => {
 
 export const getSchool = (
   placeId: req.School["placeId"],
-): Promise<res.SchoolDetail> => {
+): Promise<res.School> => {
   return http.get(`/places/school/${placeId}`);
 };

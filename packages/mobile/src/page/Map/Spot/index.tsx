@@ -6,7 +6,7 @@ import classNames from "classnames";
 import $ from "./style.module.scss";
 
 type Props = {
-  schoolData: res.School | res.SchoolDetail;
+  schoolData: res.School;
   type: "map" | "place";
   url: string;
   placeId: number;

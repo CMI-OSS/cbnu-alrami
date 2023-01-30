@@ -7,6 +7,10 @@ export function SwaggerConfig(app: INestApplication): void {
       .setTitle("충림이 Server API Docs")
       .setDescription("충림이 프로젝트의 REST API 문서")
       .setVersion("1.0.0")
+      .addBearerAuth(
+        { type: "http", scheme: "bearer", bearerFormat: "JWT" },
+        "access-token",
+      )
       .build();
 
     const document = SwaggerModule.createDocument(app, options);

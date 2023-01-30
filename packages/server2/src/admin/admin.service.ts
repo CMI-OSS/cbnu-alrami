@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { ForbiddenException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { BoardService } from "src/board/board.service";
 import { JWTService } from "src/common/jwt/jwt.service";
@@ -108,15 +108,21 @@ export class AdminService {
   async hasBoardAuthority(boardId: number, adminId: number): Promise<boolean> {
     const admin = await this.adminRepository.findOne({
       where: { id: adminId },
-      relations: { boards: true },
+      relations: { boards: { board: true } },
     });
 
     if (admin?.authoirty === AdminAuthorityType.Super) {
       return true;
     }
 
-    return !!admin?.boards.find((boardAuthority) => {
+    const board = await admin?.boards.find((boardAuthority) => {
       return boardAuthority.board.id === boardId;
     });
+
+    if (!board) {
+      throw new ForbiddenException("게시판에 권한이 없습니다.");
+    }
+
+    return true;
   }
 }

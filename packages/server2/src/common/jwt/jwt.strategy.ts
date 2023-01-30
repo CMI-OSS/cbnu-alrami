@@ -15,7 +15,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, "admin") {
     });
   }
 
-  async validate(req, payload) {
+  async validate(payload, req) {
     const admin = await this.adminService.findOneByLoginId(payload.sub);
 
     if (!admin) {

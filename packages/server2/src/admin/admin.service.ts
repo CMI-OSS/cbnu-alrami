@@ -4,6 +4,7 @@ import { BoardService } from "src/board/board.service";
 import { JWTService } from "src/common/jwt/jwt.service";
 import { Repository } from "typeorm";
 
+import { AdminAuthorityType } from "./admin.constant";
 import {
   DuplicatedLoginIdException,
   NotFoundAdminException,
@@ -102,5 +103,20 @@ export class AdminService {
     });
 
     return { accessToken };
+  }
+
+  async hasBoardAuthority(boardId: number, adminId: number): Promise<boolean> {
+    const admin = await this.adminRepository.findOne({
+      where: { id: adminId },
+      relations: { boards: true },
+    });
+
+    if (admin?.authoirty === AdminAuthorityType.Super) {
+      return true;
+    }
+
+    return !!admin?.boards.find((boardAuthority) => {
+      return boardAuthority.board.id === boardId;
+    });
   }
 }

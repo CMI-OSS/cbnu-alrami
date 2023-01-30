@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { MutationResponse } from "src/common/types/response";
@@ -23,6 +24,8 @@ import { CreateAdminDto } from "./dto/create-admin.dto";
 import { LoginDto } from "./dto/login.dto";
 import { ResponseLoginDto } from "./dto/response-login.dto";
 import { UpdateAdminDto } from "./dto/update-admin.dto";
+import { AdminGuard } from "./gurads/admin.guard";
+import { SuperGuard } from "./gurads/super.guard";
 
 @ApiTags("[admin] 관리자 API")
 @Controller("admin")
@@ -37,6 +40,7 @@ export class AdminController {
     return { success: !!(await this.adminService.create(createAdminDto)) };
   }
 
+  @UseGuards(AdminGuard, SuperGuard)
   @GetAdmins()
   @Get()
   findAll() {

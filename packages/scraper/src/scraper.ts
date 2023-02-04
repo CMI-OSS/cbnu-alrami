@@ -1,6 +1,48 @@
+/* eslint-disable no-console */
+
+import { stringify } from "javascript-stringify";
 import puppeteer from "puppeteer";
 
 import { IS_DEV } from "./common/isDev";
+
+interface Scenario {
+  name: string;
+  url: string;
+  waitSelector: string;
+  jsScript: object;
+  scrapFunctionName: string;
+}
+
+interface ScrappingProps {
+  scenario: Scenario;
+}
+
+export const scrapping = async ({ scenario }: ScrappingProps) => {
+  const { browser, scraper } = await getScraper();
+
+  try {
+    const { url, waitSelector, jsScript, scrapFunctionName } = scenario;
+
+    const namespace = "script";
+
+    await scraper.goto(url);
+    await scraper.waitForSelector(waitSelector);
+
+    const stringScript = stringify(jsScript);
+    if (!stringScript) throw new Error("script 변환 오류");
+
+    await scraper.evaluate(`${namespace}=${stringScript}`);
+    const data = await scraper.evaluate(`${namespace}.${scrapFunctionName}()`);
+
+    return data;
+  } catch (error) {
+    console.log(`[srapping - ${scenario.name}] ${error}`);
+  } finally {
+    browser.close();
+  }
+
+  return null;
+};
 
 const WINDOW_SIZE = {
   WIDTH: 1920,
@@ -42,11 +84,5 @@ const getScraper = async () => {
     });
   }
 
-  return [ browser, page ];
-};
-
-export const scrapping = async () => {
-  const [ browser, scraper ] = await getScraper();
-
-  browser.close();
+  return { browser, scraper: page };
 };

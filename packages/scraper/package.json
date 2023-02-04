@@ -18,6 +18,7 @@
     "url": "git+https://github.com/CMI-OSS/cbnu-alrami.git"
   },
   "scripts": {
+    "test": "cross-env NODE_ENV=test jest --detectOpenHandles",
     "start": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register ./src/index.ts",
     "dev": "cross-env NODE_ENV=development ts-node-dev -r tsconfig-paths/register ./src/index.ts",
     "test:notice": "cross-env NODE_ENV=development ts-node -r tsconfig-paths/register ./src/scrapers/NoticeScraper/scripts/test.ts"
@@ -32,12 +33,39 @@
     "dotenv": "^10.0.0",
     "find": "^0.3.0",
     "javascript-stringify": "^2.1.0",
+    "jest": "^29.4.1",
     "mongoose": "^6.0.11",
     "mysql2": "^2.3.3",
     "puppeteer": "^10.4.0",
     "socket.io": "^4.4.1",
+    "ts-jest": "^29.0.5",
     "tsconfig-paths": "^3.11.0",
     "typesafe-actions": "^5.1.0",
     "typescript": "^4.6.3"
+  },
+  "jest": {
+    "moduleDirectories": [
+      "<rootDir>",
+      "node_modules",
+      "src"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "roots": [
+      "src"
+    ],
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^src/(.*)": "<rootDir>/src/$1",
+      "^@shared/(.*)": "<rootDir>/../shared/src/$1"
+    }
   }
 }

@@ -1,8 +1,16 @@
 import { useCoreQuery } from "@hooks/api/core";
-import dayjs from "dayjs";
-import { getFullSchedules, getTodaySchedules } from "src/api/schedule/index";
+import { Schedule, ScheduleApiService } from "@shared/swagger-api/generated";
+import dayjs, { Dayjs } from "dayjs";
+import { getTodaySchedules } from "src/api/schedule";
 import { queryKey } from "src/consts/react-query";
-import { Schedule } from "src/type";
+
+export type FormattedSchedule = Omit<
+  Schedule,
+  "startDateTime" | "endDateTime"
+> & {
+  startDateTime: Dayjs;
+  endDateTime: Dayjs | null;
+};
 
 const detectHoliday = (schedules: res.Schedule[]) => {
   const day = dayjs().day();
@@ -17,21 +25,26 @@ const detectHoliday = (schedules: res.Schedule[]) => {
   return isHoliday;
 };
 
-export const useFullSchedulesQuery = (year: req.Schedule["year"]) => {
-  return useCoreQuery<res.Schedule[], Schedule[]>(
+export const useFullSchedulesQuery = (year: number) => {
+  return useCoreQuery<Schedule[], FormattedSchedule[]>(
     queryKey.schedules,
     () => {
-      return getFullSchedules(year);
+      return ScheduleApiService.scheduleControllerFindAll({
+        startDateTime: `${year}-01-01`,
+        endDateTime: `${year}-12-31`,
+      });
     },
     {
       select: (data) => {
-        const schedules = data.map(({ startDate, endDate, ...last }) => {
-          return {
-            startDate: dayjs(startDate),
-            endDate: endDate ? dayjs(endDate) : null,
-            ...last,
-          };
-        });
+        const schedules = data.map(
+          ({ startDateTime, endDateTime, ...last }) => {
+            return {
+              startDateTime: dayjs(startDateTime),
+              endDateTime: endDateTime ? dayjs(endDateTime) : null,
+              ...last,
+            };
+          },
+        );
         return schedules;
       },
     },

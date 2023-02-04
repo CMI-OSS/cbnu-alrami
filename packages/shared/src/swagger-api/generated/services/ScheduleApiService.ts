@@ -45,7 +45,7 @@ export class ScheduleApiService {
          * 일정 종료일
          */
         endDateTime?: string | null,
-    }): CancelablePromise<Schedule> {
+    }): CancelablePromise<Schedule[]> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/schedule',

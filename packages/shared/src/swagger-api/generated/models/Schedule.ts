@@ -22,7 +22,7 @@ export type Schedule = {
     /**
      * 휴일여부
      */
-    isHoliday?: boolean;
+    isHoliday: boolean;
     /**
      * 일정 시작일
      */

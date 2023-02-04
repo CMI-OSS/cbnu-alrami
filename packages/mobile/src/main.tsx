@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 
 import Toast from "@components/atoms/Toast";
+import { OpenAPI } from "@shared/swagger-api/generated";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { PersistGate } from "redux-persist/integration/react";
 
@@ -31,3 +32,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     </QueryClientProvider>
   </Provider>,
 );
+
+OpenAPI.BASE = "https://dev-server2.cmi.kro.kr";

@@ -1,4 +1,5 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
+
 const 사회교육과 = require("./사회교육과");
 
 const script = {

@@ -1,4 +1,5 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+/* eslint-disable no-underscore-dangle */
+import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
   url: "http://swapi.cbnu.ac.kr/v1/notice?page=1&limit=20&sort=-createdAt",
@@ -7,7 +8,7 @@ const script = {
   category: "공지사항",
   noticeListSelector: "pre",
   noticeContentsSelector: ".ck-content",
-  getNoticeList: function () {
+  getNoticeList() {
     const list = JSON.parse(
       document.querySelector(this.noticeListSelector).innerText,
     ).data.documents;
@@ -21,7 +22,7 @@ const script = {
           category: this.category,
           site_id: this.site_id,
           title: row.title,
-          url: "http://sw7up.cbnu.ac.kr/community/notice/" + row._id,
+          url: `http://sw7up.cbnu.ac.kr/community/notice/${row._id}`,
           date: `${date.getFullYear()}-${
             date.getMonth() + 1
           }-${date.getDate()}`,
@@ -29,7 +30,7 @@ const script = {
       })
       .filter(Boolean);
   },
-  getContentsHtml: function () {
+  getContentsHtml() {
     return document.querySelector(this.noticeContentsSelector).outerHTML;
   },
 };

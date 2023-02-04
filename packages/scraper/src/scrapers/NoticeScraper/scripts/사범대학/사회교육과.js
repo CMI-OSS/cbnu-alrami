@@ -1,4 +1,5 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
+
 const 교육학과 = require("./교육학과");
 
 const script = {
@@ -6,8 +7,8 @@ const script = {
   site_id: boardTree.전공.사범대학.사회교육과.공지사항.id,
   site: "사회교육과",
   category: "공지사항",
-  noticeContentsSelector:'#board > div > div.tit_area > ul > li:nth-child(4)',
-  getNoticeList: function () {
+  noticeContentsSelector: "#board > div > div.tit_area > ul > li:nth-child(4)",
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list).map((item) => {
       const td = item.querySelectorAll("td");

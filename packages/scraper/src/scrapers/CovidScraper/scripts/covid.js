@@ -2,12 +2,12 @@ const script = {
     HOMEPAGE_URL: "https://corona.cheongju.go.kr/corona.html",
     DETAIL_PAGE_URL: "https://corona.cheongju.go.kr/common/jsp/covid-19/index.html#tab3",
 
-    getCovidNumber: function () {
+    getCovidNumber () {
         const covidNumber = document.querySelector("#demo");
         return covidNumber.textContent;
     },
 
-    getCovidDetailInfo: function () {
+    getCovidDetailInfo () {
         const tableRows = document
             .querySelectorAll("table")[2]
             .querySelectorAll("tr");
@@ -20,9 +20,9 @@ const script = {
             PCRoom: 7,
         }
 
-        let rawStringInfo = {};
+        const rawStringInfo = {};
 
-        Object.entries(tableIndexOfPlaces).forEach(([key, value]) => {
+        Object.entries(tableIndexOfPlaces).forEach(([ key, value ]) => {
             const rawString = tableRows[value]
                 .querySelectorAll("td")[1]
                 .querySelector("ul")

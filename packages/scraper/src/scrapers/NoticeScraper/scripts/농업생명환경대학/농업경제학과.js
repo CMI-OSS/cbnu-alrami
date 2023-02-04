@@ -1,4 +1,4 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
   url: "https://agecon.cbnu.ac.kr/?pg_idx=119",
@@ -7,7 +7,7 @@ const script = {
   category: "공지사항",
   noticeListSelector: "#bbs_contnets tbody > tr",
   noticeContentsSelector: ".dambbs_body",
-  getNoticeList: function () {
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list).map((item) => {
       const td = item.querySelectorAll("td");
@@ -21,7 +21,7 @@ const script = {
       };
     });
   },
-  getContentsHtml: function () {
+  getContentsHtml() {
     return document.querySelector(this.noticeContentsSelector).outerHTML;
   },
 };

@@ -1,6 +1,6 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
 
-const 수의예과 = require('./수의예과')
+const 수의예과 = require("./수의예과");
 
 const script = {
   site_id: boardTree.전공.수의과대학.수의학과.공지사항.id,
@@ -8,4 +8,4 @@ const script = {
   category: "공지사항",
 };
 
-module.exports = {...수의예과,...script};
+module.exports = { ...수의예과, ...script };

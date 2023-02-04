@@ -1,4 +1,5 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
+
 const 고고미술사학과 = require("./고고미술사학과");
 
 const script = {
@@ -8,7 +9,7 @@ const script = {
   category: "공지사항",
   noticeListSelector: `#contents > table > tbody > tr`,
   noticeContentsSelector: "#contents > table > tbody > tr:nth-child(2) > td",
-  getNoticeList: function () {
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list)
       .map((item) => {
@@ -27,7 +28,7 @@ const script = {
       })
       .filter(Boolean);
   },
-  getContentsHtml: function () {
+  getContentsHtml() {
     return document.querySelector(this.noticeContentsSelector).outerHTML;
   },
 };

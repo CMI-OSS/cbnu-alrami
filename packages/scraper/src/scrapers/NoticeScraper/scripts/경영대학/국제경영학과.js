@@ -1,5 +1,6 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
-const 경영정보학과 = require("./경영정보학과");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
+
+const 경영정보학과 = require("./경영정보학과").default;
 
 const script = {
   url: "https://ib.chungbuk.ac.kr/master.php?pg_idx=33",

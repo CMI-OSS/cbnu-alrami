@@ -1,4 +1,4 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
   url: "https://hortisci.chungbuk.ac.kr/html/board/board.php?id=hor_news",
@@ -8,11 +8,11 @@ const script = {
   noticeListSelector: "#contentsArea > div > table.basicList > tbody > tr",
   noticeContentsSelector:
     "#contentsArea > div > div.tableWrap > table > tbody > tr:nth-child(3)",
-  getNoticeList: function () {
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list).map((item) => {
-        const td = item.querySelectorAll("td");
-        return {
+      const td = item.querySelectorAll("td");
+      return {
         site: this.site,
         category: this.category,
         site_id: this.site_id,
@@ -22,7 +22,7 @@ const script = {
       };
     });
   },
-  getContentsHtml: function () {
+  getContentsHtml() {
     return document.querySelector(this.noticeContentsSelector).outerHTML;
   },
 };

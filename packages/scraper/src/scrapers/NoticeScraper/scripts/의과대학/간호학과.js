@@ -1,4 +1,4 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
   url: "https://nursing.chungbuk.ac.kr/board/board.php?id=op01",
@@ -6,8 +6,9 @@ const script = {
   site: "간호학과",
   category: "공지사항",
   noticeListSelector: `.basicList tbody tr`,
-  noticeContentsSelector: "#contentsArea > div.tableWrap > table > tbody > tr:nth-child(3)",
-  getNoticeList: function () {
+  noticeContentsSelector:
+    "#contentsArea > div.tableWrap > table > tbody > tr:nth-child(3)",
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list)
       .map((item) => {
@@ -26,7 +27,7 @@ const script = {
       })
       .filter(Boolean);
   },
-  getContentsHtml: function () {
+  getContentsHtml() {
     return document.querySelector(this.noticeContentsSelector).outerHTML;
   },
 };

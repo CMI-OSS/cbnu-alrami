@@ -1,4 +1,4 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
   url: "https://cia.chungbuk.ac.kr/board/notice/lists/key/180",
@@ -7,13 +7,13 @@ const script = {
   category: "공지사항",
   noticeListSelector: ".adm_table tr",
   noticeContentsSelector: ".board_content",
-  getNoticeList: function () {
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list)
       .map((item) => {
         const row = item.querySelectorAll("td");
 
-        if (!row || row.length == 0) return null;
+        if (!row || row.length === 0) return null;
 
         return {
           site: this.site,
@@ -26,7 +26,7 @@ const script = {
       })
       .filter(Boolean);
   },
-  getContentsHtml: function () {
+  getContentsHtml() {
     return document.querySelector(this.noticeContentsSelector).outerHTML;
   },
 };

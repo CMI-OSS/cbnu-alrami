@@ -1,4 +1,4 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
   url: "http://koamma.chungbuk.ac.kr/bbs/bbs.php?db=notice",
@@ -7,7 +7,7 @@ const script = {
   category: "공지&뉴스",
   noticeListSelector: `#subContent > div.section > table:nth-child(6) > tbody > tr`,
   noticeContentsSelector: "#articles",
-  getNoticeList: function () {
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list)
       .map((item, index) => {
@@ -26,7 +26,7 @@ const script = {
       })
       .filter(Boolean);
   },
-  getContentsHtml: function () {
+  getContentsHtml() {
     return document.querySelector(this.noticeContentsSelector).outerHTML;
   },
 };

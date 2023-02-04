@@ -1,4 +1,5 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
+
 const 의학과 = require("./의학과");
 
 const script = {
@@ -7,4 +8,4 @@ const script = {
   category: "공지사항",
 };
 
-module.exports = {...의학과,...script};
+module.exports = { ...의학과, ...script };

@@ -1,4 +1,4 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
   url: "https://linc.chungbuk.ac.kr/board/notice.do",
@@ -9,7 +9,7 @@ const script = {
     "#section > div > div > div.boardListContainer > div.boardList > table > tbody > tr",
   noticeContentsSelector:
     "#section > div > div > div.boardViewContainer > div.boardViewContent",
-  getNoticeList: function () {
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list)
       .map((item) => {
@@ -26,7 +26,7 @@ const script = {
       })
       .filter(Boolean);
   },
-  getContentsHtml: function () {
+  getContentsHtml() {
     return document.querySelector(this.noticeContentsSelector).outerHTML;
   },
 };

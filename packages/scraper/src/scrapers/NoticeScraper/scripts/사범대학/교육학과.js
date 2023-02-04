@@ -1,4 +1,4 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
   url: "http://edu.chungbuk.ac.kr/edu/selectBbsNttList.do?key=170&bbsNo=8",
@@ -8,7 +8,7 @@ const script = {
   noticeListSelector: "#board > div.tableA > table > tbody > tr",
   noticeContentsSelector:
     "#board > div > div.tit_area > ul > li:nth-child(3) > div",
-  getNoticeList: function () {
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list).map((item) => {
       const td = item.querySelectorAll("td");
@@ -22,7 +22,7 @@ const script = {
       };
     });
   },
-  getContentsHtml: function () {
+  getContentsHtml() {
     return document.querySelector(this.noticeContentsSelector).outerHTML;
   },
 };

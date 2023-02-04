@@ -1,4 +1,5 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
+
 const 충북대공지사항 = require("./충북대공지사항");
 
 const script = {
@@ -6,7 +7,7 @@ const script = {
   site_id: boardTree.공통.충북대학교.행사세미나.id,
   site: "충북대학교",
   category: "행사세미나",
-  getNoticeList: function () {
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list).map((item) => {
       const row = item.querySelectorAll("td");

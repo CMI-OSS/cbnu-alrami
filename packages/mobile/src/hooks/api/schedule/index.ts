@@ -1,8 +1,13 @@
-import { useCoreQuery } from "@hooks/api/core";
-import { Schedule, ScheduleApiService } from "@shared/swagger-api/generated";
+import { useCoreMutation, useCoreQuery } from "@hooks/api/core";
+import {
+  MutationResponse,
+  Schedule,
+  ScheduleApiService,
+} from "@shared/swagger-api/generated";
 import dayjs, { Dayjs } from "dayjs";
 import { getTodaySchedules } from "src/api/schedule";
 import { queryKey } from "src/consts/react-query";
+import { queryClient } from "src/main";
 
 export type FormattedSchedule = Omit<
   Schedule,
@@ -65,6 +70,57 @@ export const useTodaySchedulesQuery = (today: req.Schedule["today"]) => {
         const schedules = data;
         const isHoliday = detectHoliday(data);
         return { schedules, isHoliday };
+      },
+    },
+  );
+};
+
+export const useBookmarkSchedulesQuery = (uuid?: string) => {
+  return useCoreQuery<Schedule[], FormattedSchedule[]>(
+    queryKey.bookmarkSchedules,
+    () => {
+      return ScheduleApiService.scheduleControllerFindBookmarkSchedule({
+        uuid,
+      });
+    },
+    {
+      select: (data) => {
+        const schedules = data.map(
+          ({ startDateTime, endDateTime, ...last }) => {
+            return {
+              startDateTime: dayjs(startDateTime),
+              endDateTime: endDateTime ? dayjs(endDateTime) : null,
+              ...last,
+            };
+          },
+        );
+        return schedules;
+      },
+    },
+  );
+};
+
+export const useAddScheduleBookmarkMutation = () => {
+  return useCoreMutation<MutationResponse, { id: number; uuid?: string }>(
+    ({ id, uuid }) => {
+      return ScheduleApiService.scheduleControllerBookmark({ id, uuid });
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(queryKey.bookmarkSchedules);
+      },
+    },
+  );
+};
+
+export const useRemoveScheduleBookmarkMutation = () => {
+  return useCoreMutation<MutationResponse, { id: number; uuid?: string }>(
+    ({ id, uuid }) => {
+      return ScheduleApiService.scheduleControllerUnbookmark({ id, uuid });
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(queryKey.bookmarkSchedules);
       },
     },
   );

@@ -37,8 +37,18 @@ export class ArticleApiService {
      * @throws ApiError
      */
     public static articleControllerFindBookmarkArticle({
+        page = 1,
+        count = 10,
         uuid,
     }: {
+        /**
+         * 페이지
+         */
+        page?: number,
+        /**
+         * 아이템 개수
+         */
+        count?: number,
         /**
          * user uuid
          */
@@ -49,6 +59,46 @@ export class ArticleApiService {
             url: '/article/bookmark',
             headers: {
                 'uuid': uuid,
+            },
+            query: {
+                'page': page,
+                'count': count,
+            },
+        });
+    }
+
+    /**
+     * 구독한 게시판중 최신 게시물순 조회
+     * @returns ResponseArticleDto
+     * @throws ApiError
+     */
+    public static articleControllerFindSubscribeArticle({
+        page = 1,
+        count = 10,
+        uuid,
+    }: {
+        /**
+         * 페이지
+         */
+        page?: number,
+        /**
+         * 아이템 개수
+         */
+        count?: number,
+        /**
+         * user uuid
+         */
+        uuid?: string,
+    }): CancelablePromise<Array<ResponseArticleDto>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/article/subscribe',
+            headers: {
+                'uuid': uuid,
+            },
+            query: {
+                'page': page,
+                'count': count,
             },
         });
     }

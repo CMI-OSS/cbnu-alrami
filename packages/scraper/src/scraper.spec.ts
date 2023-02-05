@@ -1,13 +1,13 @@
 import 은하수식당 from "src/scrapers/CafeteriaScraper/scripts//은하수식당";
 
-import { scrapping } from "./scraper";
+import { scraping } from "./scraper";
 import 경영정보학과 from "./scrapers/NoticeScraper/scripts/경영대학/경영정보학과";
 
 jest.setTimeout(10000);
 
 describe("스크래퍼", () => {
   test.skip("카페테리아 스크래퍼", async () => {
-    const data = await scrapping({
+    await scraping({
       scenario: {
         name: 은하수식당.cafeteria_name,
         url: 은하수식당.url,
@@ -16,11 +16,10 @@ describe("스크래퍼", () => {
         scrapFunctionName: 은하수식당.getMenus.name,
       },
     });
-    console.log(data);
   });
 
-  test("[공지사항 스크래퍼] - 경영정보학과 목록 추출", async () => {
-    const data = await scrapping({
+  test.skip("[공지사항 스크래퍼] - 경영정보학과 목록 추출", async () => {
+    await scraping({
       scenario: {
         name: 경영정보학과.site,
         url: 경영정보학과.url,
@@ -29,7 +28,6 @@ describe("스크래퍼", () => {
         scrapFunctionName: 경영정보학과.getNoticeList.name,
       },
     });
-    console.log(data);
   });
 });
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { Hamburger, LeftArrow } from "@components/atoms/icon";
@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from "src/store";
 import {
   hideConstructionTooltipStatus,
   hideFloatingButtonStatus,
-  hideTooltipButtonStatus,
+  hideTooltipButtonStatus
 } from "src/store/statusSlice";
 
 import $ from "./style.module.scss";
@@ -30,7 +30,7 @@ const INITIAL_CBNU_LATITUDE = 36.62850496903595;
 const INITIAL_CBNU_LONGITUDE = 127.45731862757414;
 
 function Map() {
-  const [ constructionId, setConstructionId ] = useState(280);
+  const [ constructionId, setConstructionId ] = useState(12);
   const [ myLocation, setMyLocation ] = useState({ latitude: 0, longitude: 0 });
   const dispatch = useAppDispatch();
 

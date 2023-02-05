@@ -17,7 +17,7 @@ function Spot({ schoolData, type, placeId, url }: Props) {
     <>
       <NavLink
         className={type === "place" ? $.item : $.wrap}
-        to={`/place/school?id=${placeId}`}
+        to={`/school?id=${placeId}`}
       >
         <img
           className={classNames($.image, type === "place" && $["place-image"])}

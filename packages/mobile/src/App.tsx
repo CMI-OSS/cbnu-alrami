@@ -60,7 +60,7 @@ function App() {
     { path: "/place/report", element: <Report /> },
     { path: "/place/error", element: <Error /> },
     { path: "/place/more", element: <MoreImage /> },
-    { path: "/place/:name", element: <MapDetail /> },
+    { path: "/school", element: <MapDetail /> },
     { path: "/setting/*", element: <SettingRoute /> },
     { path: "/*", element: <Navigate replace to="/home" /> },
   ];

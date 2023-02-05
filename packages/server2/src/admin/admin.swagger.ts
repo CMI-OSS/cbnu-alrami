@@ -13,6 +13,7 @@ import {
   NotFoundAdminException,
   NotFoundBoardsException,
 } from "./admin.exception";
+import { ResponseLoginDto } from "./dto/response-login.dto";
 import { Admin } from "./entities/admin.entity";
 
 export const CreateAdmin = () => {
@@ -66,6 +67,16 @@ export const DeleteAdmin = () => {
       summary: "게시물 삭제",
     }),
     ApiOkResponse({ type: MutationResponse }),
+    ApiNotFoundResponse({ type: NotFoundAdminException }),
+  );
+};
+
+export const Login = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "로그인",
+    }),
+    ApiOkResponse({ type: ResponseLoginDto }),
     ApiNotFoundResponse({ type: NotFoundAdminException }),
   );
 };

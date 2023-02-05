@@ -1,14 +1,18 @@
-import { Injectable } from "@nestjs/common";
+import { ForbiddenException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { BoardService } from "src/board/board.service";
+import { JWTService } from "src/common/jwt/jwt.service";
 import { Repository } from "typeorm";
 
+import { AdminAuthorityType } from "./admin.constant";
 import {
   DuplicatedLoginIdException,
   NotFoundAdminException,
   NotFoundBoardsException,
 } from "./admin.exception";
 import { CreateAdminDto } from "./dto/create-admin.dto";
+import { LoginDto } from "./dto/login.dto";
+import { ResponseLoginDto } from "./dto/response-login.dto";
 import { UpdateAdminDto } from "./dto/update-admin.dto";
 import { Admin } from "./entities/admin.entity";
 
@@ -18,6 +22,7 @@ export class AdminService {
     @InjectRepository(Admin)
     private adminRepository: Repository<Admin>,
     private boardService: BoardService,
+    private JwtService: JWTService,
   ) {}
 
   async create(createAdminDto: CreateAdminDto) {
@@ -80,5 +85,44 @@ export class AdminService {
     if (notExistIds.length) throw new NotFoundBoardsException(notExistIds);
 
     return !notExistIds.length;
+  }
+
+  async login(loginDto: LoginDto): Promise<ResponseLoginDto> {
+    const { loginId, password } = loginDto;
+
+    const admin = await this.adminRepository.findOne({
+      where: { loginId, password },
+    });
+
+    if (!admin) {
+      throw new NotFoundAdminException();
+    }
+
+    const accessToken = await this.JwtService.createJwtToken({
+      sub: admin.loginId,
+    });
+
+    return { accessToken };
+  }
+
+  async hasBoardAuthority(boardId: number, adminId: number): Promise<boolean> {
+    const admin = await this.adminRepository.findOne({
+      where: { id: adminId },
+      relations: { boards: { board: true } },
+    });
+
+    if (admin?.authoirty === AdminAuthorityType.Super) {
+      return true;
+    }
+
+    const board = await admin?.boards.find((boardAuthority) => {
+      return boardAuthority.board.id === boardId;
+    });
+
+    if (!board) {
+      throw new ForbiddenException("게시판에 권한이 없습니다.");
+    }
+
+    return true;
   }
 }

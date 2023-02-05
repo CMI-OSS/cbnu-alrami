@@ -5,6 +5,7 @@ import {
   ApiOperation,
   ApiTags,
 } from "@nestjs/swagger";
+import { SuperGuard } from "src/admin/gurads/super.guard";
 import { MutationResponse } from "src/common/types/response";
 
 import { CafeteriaName } from "./cafeteria-menu.constant";
@@ -17,6 +18,7 @@ import { CafeteriaMenu } from "./entities/cafeteria-menu.entity";
 export class CafeteriaMenuController {
   constructor(private readonly cafeteriaMenuService: CafeteriaMenuService) {}
 
+  @SuperGuard()
   @Post()
   @ApiOperation({
     summary: "메뉴 등록",

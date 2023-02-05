@@ -20,6 +20,15 @@ export class PlaceController {
   }
 
   @ApiOperation({
+    summary: "학교 건물 상세 조회",
+  })
+  @ApiOkResponse({ type: PlaceSchoolDto })
+  @Get("school/:id")
+  findOneSchool(@Param("id") id: number) {
+    return this.placeService.findOneSchool(id);
+  }
+
+  @ApiOperation({
     summary: "구역으로 학교 건물 조회",
     parameters: [
       {

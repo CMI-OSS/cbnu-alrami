@@ -22,6 +22,25 @@ export class PlaceApiService {
     }
 
     /**
+     * 학교 건물 상세 조회
+     * @returns PlaceSchoolDto
+     * @throws ApiError
+     */
+    public static placeControllerFindOneSchool({
+        id,
+    }: {
+        id: number,
+    }): CancelablePromise<PlaceSchoolDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/place/school/{id}',
+            path: {
+                'id': id,
+            },
+        });
+    }
+
+    /**
      * 구역으로 학교 건물 조회
      * @returns PlaceSchoolDto
      * @throws ApiError

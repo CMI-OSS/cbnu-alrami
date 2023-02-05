@@ -5,7 +5,7 @@ import puppeteer from "puppeteer";
 
 import { IS_DEV } from "./common/isDev";
 
-interface Scenario {
+export interface Scenario {
   name: string;
   url: string;
   waitSelector: string;
@@ -13,17 +13,19 @@ interface Scenario {
   scrapFunctionName: string;
 }
 
-interface ScrappingProps {
+interface scrapingProps {
   scenario: Scenario;
 }
 
-export const scrapping = async ({ scenario }: ScrappingProps) => {
+export const scraping = async ({ scenario }: scrapingProps) => {
   const { browser, scraper } = await getScraper();
 
   try {
     const { url, waitSelector, jsScript, scrapFunctionName } = scenario;
 
     const namespace = "script";
+
+    if (IS_DEV) console.info("[INFO] 스크래핑 - ", scenario);
 
     await scraper.goto(url);
     await scraper.waitForSelector(waitSelector);

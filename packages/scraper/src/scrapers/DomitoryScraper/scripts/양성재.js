@@ -1,10 +1,10 @@
 const 본관 = require("./본관");
 
 const script = {
+  url: `https://dorm.chungbuk.ac.kr/home/sub.php?menukey=20041&type=2`,
   domitory: "양성재",
-  cafeteriaId:3,
+  cafeteriaId: 3,
   typeQuery: "2",
 };
 
 module.exports = { ...본관, ...script };
-

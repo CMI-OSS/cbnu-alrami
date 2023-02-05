@@ -1,10 +1,9 @@
 /* eslint-disable no-continue */
 const script = {
-  baseUrl: "https://dorm.chungbuk.ac.kr/home/sub.php?menukey=20041&type=",
+  url: `https://dorm.chungbuk.ac.kr/home/sub.php?menukey=20041&type=1`,
   site: "학생생활관",
   category: "식단",
   domitory: "본관",
-  typeQuery: "1",
   cafeteriaId: 1,
   timeIndex: {
     morning: "1",
@@ -35,7 +34,7 @@ const script = {
 
         result.push({
           restaurant_name,
-          food_name: eachCell.innerText,
+          menu: eachCell.innerText,
           date: eachRow.id,
           time: Number(this.timeIndex[eachCell.className]),
           cafeteriaId: this.cafeteriaId,

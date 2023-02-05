@@ -53,7 +53,7 @@ export class ArticleService {
     return this.articleRepository.find();
   }
 
-  async findBookmarkArticle(user: User) {
+  async findBookmarkArticle(user: User, page: number, count: number) {
     const articles: Article[] = await this.articleRepository.find({
       where: {
         bookmarkUsers: {
@@ -67,6 +67,8 @@ export class ArticleService {
       order: {
         dateTime: "DESC",
       },
+      take: count,
+      skip: (page - 1) * count,
     });
 
     const result = Promise.all(
@@ -84,7 +86,7 @@ export class ArticleService {
     return result;
   }
 
-  async findSubscribeArticles(user: User) {
+  async findSubscribeArticles(user: User, page: number, count: number) {
     const subscribeBoards = await this.boardService.getSubscribeBoards(user);
 
     const articles: Article[] = await this.articleRepository.find({
@@ -98,6 +100,8 @@ export class ArticleService {
       order: {
         dateTime: "DESC",
       },
+      take: count,
+      skip: (page - 1) * count,
     });
 
     const result = Promise.all(

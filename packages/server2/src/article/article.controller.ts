@@ -7,11 +7,13 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Req,
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { AdminService } from "src/admin/admin.service";
 import { AdminGuard } from "src/admin/gurads/admin.guard";
+import { PaginationDto } from "src/common/dto/pagination.dto";
 import { MutationResponse } from "src/common/types/response";
 import { User } from "src/user/entities/user.entity";
 import { UserSession } from "src/user/user.decoratoer";
@@ -57,15 +59,25 @@ export class ArticleController {
   @GetBookmarkArtice()
   @UserHeader
   @Get("bookmark")
-  findBookmarkArticle(@UserSession() user?: User) {
-    return user ? this.articleService.findBookmarkArticle(user) : [];
+  findBookmarkArticle(
+    @UserSession() user: User | undefined,
+    @Query() query: PaginationDto,
+  ) {
+    return user
+      ? this.articleService.findBookmarkArticle(user, query.page, query.count)
+      : [];
   }
 
   @GetSubscribeArticle()
   @UserHeader
   @Get("subscribe")
-  findSubscribeArticle(@UserSession() user?: User) {
-    return user ? this.articleService.findSubscribeArticles(user) : [];
+  findSubscribeArticle(
+    @UserSession() user: User | undefined,
+    @Query() query: PaginationDto,
+  ) {
+    return user
+      ? this.articleService.findSubscribeArticles(user, query.page, query.count)
+      : [];
   }
 
   @GetArtice()

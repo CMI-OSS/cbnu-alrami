@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { BoardService } from "src/board/board.service";
 import { ImageService } from "src/image/image.service";
@@ -16,6 +16,7 @@ import {
   ResponseArticleDto,
 } from "./dto/response-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
+import { ArticleBookmark } from "./entities/article-bookmark";
 import { Article } from "./entities/article.entity";
 
 @Injectable()
@@ -23,6 +24,8 @@ export class ArticleService {
   constructor(
     @InjectRepository(Article)
     private articleRepository: Repository<Article>,
+    @InjectRepository(ArticleBookmark)
+    private articleBookmarkRepository: Repository<ArticleBookmark>,
     private imageService: ImageService,
     private boardService: BoardService,
   ) {}
@@ -57,15 +60,20 @@ export class ArticleService {
     const articles: Article[] = await this.articleRepository.find({
       where: {
         bookmarkUsers: {
-          id: user.id,
+          user: {
+            id: user.id,
+          },
         },
       },
       relations: {
+        bookmarkUsers: true,
         board: { parent: true },
         images: true,
       },
       order: {
-        dateTime: "DESC",
+        bookmarkUsers: {
+          createdDateTime: "DESC",
+        },
       },
       take: count,
       skip: (page - 1) * count,
@@ -201,21 +209,20 @@ export class ArticleService {
   async isBookmark(articleId: number, userId?: number): Promise<boolean> {
     if (!userId) return false;
 
-    return !!(await this.articleRepository.countBy({
-      id: articleId,
-      bookmarkUsers: {
-        id: userId,
-      },
+    return !!(await this.articleBookmarkRepository.countBy({
+      article: { id: articleId },
+      user: { id: userId },
     }));
   }
 
   async getBookmarkCount(articleId: number): Promise<number> {
-    const viewCount = await this.articleRepository.countBy({
-      id: articleId,
-      bookmarkUsers: true,
+    const bookmakrCount = await this.articleBookmarkRepository.countBy({
+      article: {
+        id: articleId,
+      },
     });
 
-    return viewCount;
+    return bookmakrCount;
   }
 
   findOneByUrl(url: string) {
@@ -253,36 +260,22 @@ export class ArticleService {
   async bookmark(id: number, user: User) {
     const article = await this.articleRepository.findOne({
       where: { id },
-      relations: { bookmarkUsers: true },
     });
 
     if (!article) throw new NotFoundArticleException();
 
-    article.bookmarkUsers = article.bookmarkUsers
-      ? [ user, ...article.bookmarkUsers ]
-      : [ user ];
-
-    return article.save();
+    return this.articleBookmarkRepository.save({ article, user });
   }
 
   async unbookmark(id: number, user: User) {
-    const article = await this.articleRepository.findOne({
-      where: {
-        id,
-        bookmarkUsers: {
-          id: user.id,
-        },
-      },
-      relations: { bookmarkUsers: true },
+    const articleBookmark = await this.articleBookmarkRepository.findOne({
+      where: { article: { id }, user: { id: user.id } },
     });
 
-    if (!article) throw new NotFoundArticleException();
+    if (!articleBookmark)
+      throw new NotFoundException("북마크 하지 않은 게시물");
 
-    article.bookmarkUsers = article.bookmarkUsers.filter(
-      (_user) => _user.id !== user.id,
-    );
-
-    return article.save();
+    return this.articleBookmarkRepository.remove(articleBookmark);
   }
 
   async view(id: number, user?: User) {

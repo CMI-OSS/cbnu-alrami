@@ -6,11 +6,12 @@ import { ImageModule } from "src/image/image.module";
 
 import { ArticleController } from "./article.controller";
 import { ArticleService } from "./article.service";
+import { ArticleBookmark } from "./entities/article-bookmark";
 import { Article } from "./entities/article.entity";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ Article ]),
+    TypeOrmModule.forFeature([ Article, ArticleBookmark ]),
     forwardRef(() => BoardModule),
     ImageModule,
     forwardRef(() => AdminModule),

@@ -76,8 +76,8 @@ function Map() {
     data: schoolData,
     isLoading: schoolLoading,
     isError: schoolError,
-  } = useQuery([ "all", constructionId ], () => {
-    return PlaceApiService.placeControllerFindSchool();
+  } = useQuery([ "all", 'all' ], () => {
+    return PlaceApiService.placeControllerFindSchool({});
   });
 
   const {

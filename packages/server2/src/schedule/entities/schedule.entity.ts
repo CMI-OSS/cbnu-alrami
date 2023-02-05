@@ -25,8 +25,8 @@ export class Schedule extends CommonEntity {
     example: 1,
   })
   @IsNumber()
-  @Column({ type: "int" })
-  priority: number;
+  @Column({ type: "int", nullable: true })
+  priority?: number;
 
   @ApiProperty({
     description: "휴일여부",

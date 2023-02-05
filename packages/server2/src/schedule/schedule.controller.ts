@@ -13,13 +13,15 @@ import { UnBookmarkArticle } from "src/article/article.swagger";
 import { MutationResponse } from "src/common/types/response";
 import { User } from "src/user/entities/user.entity";
 import { UserSession } from "src/user/user.decoratoer";
+import { UserHeader } from "src/user/user.gurad";
 
 import { CreateScheduleDto } from "./dto/create-schedule.dto";
 import { GetScheduleDto } from "./dto/get-schedule.dto";
 import { ScheduleService } from "./schedule.service";
 import {
-  BookmarkSchdule,
-  CreateSchdule,
+  BookmarkSchedule,
+  CreateSchedule,
+  GetBookmarkSchedule,
   GetSchedule,
 } from "./schedule.swagger";
 
@@ -29,7 +31,7 @@ export class ScheduleController {
   constructor(private readonly scheduleService: ScheduleService) {}
 
   @SuperGuard()
-  @CreateSchdule()
+  @CreateSchedule()
   @Post()
   async create(
     @Body() createScheduleDto: CreateScheduleDto,
@@ -43,7 +45,14 @@ export class ScheduleController {
     return this.scheduleService.findAll(getScheduleDto);
   }
 
-  @BookmarkSchdule()
+  @GetBookmarkSchedule()
+  @UserHeader
+  @Get("bookmark")
+  findBookmarkSchedule(@UserSession() user?: User) {
+    return user ? this.scheduleService.findBookmarkSchedules(user) : [];
+  }
+
+  @BookmarkSchedule()
   @Post(":id/bookmark")
   async bookmark(
     @Param("id") id: number,

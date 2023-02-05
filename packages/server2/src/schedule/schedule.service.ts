@@ -30,23 +30,35 @@ export class ScheduleService {
     return this.scheduleRepository.find();
   }
 
+  async findBookmarkSchedules(user: User) {
+    const schedules: Schedule[] = await this.scheduleRepository.find({
+      where: {
+        bookmarkUsers: {
+          id: user.id,
+        },
+      },
+    });
+
+    return schedules;
+  }
+
   async bookmark(id: number, user: User) {
-    const schdule = await this.scheduleRepository.findOne({
+    const Schedule = await this.scheduleRepository.findOne({
       where: { id },
       relations: { bookmarkUsers: true },
     });
 
-    if (!schdule) throw new NotFoundException("찾을 수 없는 학사일정입니다.");
+    if (!Schedule) throw new NotFoundException("찾을 수 없는 학사일정입니다.");
 
-    schdule.bookmarkUsers = schdule.bookmarkUsers
-      ? [ user, ...schdule.bookmarkUsers ]
+    Schedule.bookmarkUsers = Schedule.bookmarkUsers
+      ? [ user, ...Schedule.bookmarkUsers ]
       : [ user ];
 
-    return schdule.save();
+    return Schedule.save();
   }
 
   async unbookmark(id: number, user: User) {
-    const schdule = await this.scheduleRepository.findOne({
+    const Schedule = await this.scheduleRepository.findOne({
       where: {
         id,
         bookmarkUsers: {
@@ -56,12 +68,12 @@ export class ScheduleService {
       relations: { bookmarkUsers: true },
     });
 
-    if (!schdule) throw new NotFoundException("찾을 수 없는 학사일정입니다.");
+    if (!Schedule) throw new NotFoundException("찾을 수 없는 학사일정입니다.");
 
-    schdule.bookmarkUsers = schdule.bookmarkUsers.filter(
+    Schedule.bookmarkUsers = Schedule.bookmarkUsers.filter(
       (_user) => _user.id !== user.id,
     );
 
-    return schdule.save();
+    return Schedule.save();
   }
 }

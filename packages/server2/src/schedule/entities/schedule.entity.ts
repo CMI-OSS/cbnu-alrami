@@ -59,7 +59,7 @@ export class Schedule extends CommonEntity {
     cascade: true,
   })
   @JoinTable({
-    name: "schdule_bookmark",
+    name: "schedule_bookmark",
   })
   bookmarkUsers: User[];
 }

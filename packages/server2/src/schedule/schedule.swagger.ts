@@ -9,7 +9,7 @@ import { UserGuard } from "src/user/user.gurad";
 
 import { Schedule } from "./entities/schedule.entity";
 
-export const CreateSchdule = () => {
+export const CreateSchedule = () => {
   return applyDecorators(
     ApiOperation({
       summary: "일정 생성",
@@ -26,10 +26,20 @@ export const GetSchedule = () => {
     ApiOperation({
       summary: "학사 일정 조회",
     }),
-    ApiOkResponse({ type: Schedule }),
+    ApiOkResponse({ type: Schedule, isArray: true }),
   );
 };
-export const BookmarkSchdule = () => {
+
+export const GetBookmarkSchedule = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "북마크한 학사 일정 조회",
+    }),
+    ApiOkResponse({ type: Schedule, isArray: true }),
+  );
+};
+
+export const BookmarkSchedule = () => {
   return applyDecorators(
     ApiOperation({
       summary: "북마크 설정",
@@ -39,7 +49,7 @@ export const BookmarkSchdule = () => {
   );
 };
 
-export const UnBookmarkSchdule = () => {
+export const UnBookmarkSchedule = () => {
   return applyDecorators(
     ApiOperation({
       summary: "북마크 해제",

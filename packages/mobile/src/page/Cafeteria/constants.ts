@@ -57,6 +57,22 @@ const cafeteriaTimeData = (isHoliday: boolean) => {
 export const getCafeteriaTime = (
   isHoliday: boolean,
   cafeteriaId: number,
+  timeId: number,
+): string[] => {
+  const breakFastName = cafeteriaId === 4 ? "아점" : "아침";
+  if (timeId === 1)
+    return [
+      breakFastName,
+      cafeteriaTimeData(isHoliday)[cafeteriaId - 1].breakfast,
+    ];
+  if (timeId === 2)
+    return [ "점심", cafeteriaTimeData(isHoliday)[cafeteriaId - 1].lunch ];
+  return [ "저녁", cafeteriaTimeData(isHoliday)[cafeteriaId - 1].dinner ];
+};
+
+export const getCafeteriaTime2 = (
+  isHoliday: boolean,
+  cafeteriaId: number,
   time: CafeteriaMenu.time,
 ): string[] => {
   const breakFastName = cafeteriaId === 4 ? "아점" : "아침";

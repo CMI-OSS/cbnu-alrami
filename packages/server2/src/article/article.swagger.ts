@@ -55,6 +55,18 @@ export const GetBookmarkArtice = () => {
   );
 };
 
+export const GetSubscribeArticle = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "구독한 게시판중 최신 게시물순 조회",
+    }),
+    ApiOkResponse({ type: () => ResponseArticleDto, isArray: true }),
+    ApiNotFoundResponse({
+      type: NotFoundArticleException,
+    }),
+  );
+};
+
 export const UpdateArticle = () => {
   return applyDecorators(
     ApiOperation({

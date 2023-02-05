@@ -24,6 +24,7 @@ import {
   DeleteArticle,
   GetArtice,
   GetBookmarkArtice,
+  GetSubscribeArticle,
   UnBookmarkArticle,
   UpdateArticle,
 } from "./article.swagger";
@@ -58,6 +59,13 @@ export class ArticleController {
   @Get("bookmark")
   findBookmarkArticle(@UserSession() user?: User) {
     return user ? this.articleService.findBookmarkArticle(user) : [];
+  }
+
+  @GetSubscribeArticle()
+  @UserHeader
+  @Get("subscribe")
+  findSubscribeArticle(@UserSession() user?: User) {
+    return user ? this.articleService.findSubscribeArticles(user) : [];
   }
 
   @GetArtice()

@@ -1,4 +1,10 @@
-import { IsBoolean, IsDateString, IsNumber, IsString } from "class-validator";
+import {
+  IsBoolean,
+  IsDateString,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from "class-validator";
 import { CommonEntity } from "src/common/entity";
 import { Column, Entity } from "typeorm";
 
@@ -28,6 +34,7 @@ export class Schedule extends CommonEntity {
 
   @ScheduleProperty.endDateTime()
   @IsDateString()
+  @IsOptional()
   @Column({ type: "datetime", nullable: true })
   endDateTime?: Date;
 }

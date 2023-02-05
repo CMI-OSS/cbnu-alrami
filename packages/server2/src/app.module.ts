@@ -1,5 +1,6 @@
 import { MiddlewareConsumer, Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
+import { APP_FILTER } from "@nestjs/core";
 import { ScheduleModule as NestScheduleModule } from "@nestjs/schedule";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
@@ -16,6 +17,7 @@ import { Board } from "./board/entities/board.entity";
 import { SubscribeBoard } from "./board/entities/subscribe-board.entity";
 import { CafeteriaMenuModule } from "./cafeteria-menu/cafeteria-menu.module";
 import { CafeteriaMenu } from "./cafeteria-menu/entities/cafeteria-menu.entity";
+import { HttpExceptionFilter } from "./common/http-exception-filter";
 import configuration from "./config/configuration";
 import { FcmModule } from "./fcm/fcm.module";
 import { Image } from "./image/entities/image.entity";
@@ -75,7 +77,12 @@ import { WeatherModule } from "./weather/weather.module";
     NestScheduleModule.forRoot(),
     FcmModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

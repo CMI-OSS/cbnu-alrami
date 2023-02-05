@@ -36,7 +36,7 @@ export namespace CafeteriaMenu {
      */
     export enum name {
         BONGWAN = 'BONGWAN',
-        YANGJINJAE_ = 'YANGJINJAE ',
+        YANGJINJAE = 'YANGJINJAE',
         YANGSUNGJAE = 'YANGSUNGJAE',
         HANBIT = 'HANBIT',
         BYEOLBIT = 'BYEOLBIT',

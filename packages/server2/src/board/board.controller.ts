@@ -9,6 +9,7 @@ import {
   Query,
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
+import { SuperGuard } from "src/admin/gurads/super.guard";
 import { ArticleService } from "src/article/article.service";
 import { PaginationDto } from "src/common/dto/pagination.dto";
 import { MutationResponse } from "src/common/types/response";
@@ -41,6 +42,7 @@ export class BoardController {
     private readonly boardService: BoardService,
   ) {}
 
+  @SuperGuard()
   @CreateBoard()
   @Post()
   async create(
@@ -82,6 +84,7 @@ export class BoardController {
     return this.articleService.findArticlePage(id, query.page, query.count);
   }
 
+  @SuperGuard()
   @UpdateBoard()
   @Patch(":id")
   async update(
@@ -93,6 +96,7 @@ export class BoardController {
     };
   }
 
+  @SuperGuard()
   @DeleteBoard()
   @Delete(":id")
   async remove(@Param("id") id: number): Promise<MutationResponse> {

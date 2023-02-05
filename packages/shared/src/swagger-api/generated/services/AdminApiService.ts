@@ -3,7 +3,9 @@
 /* eslint-disable */
 import type { Admin } from '../models/Admin';
 import type { CreateAdminDto } from '../models/CreateAdminDto';
+import type { LoginDto } from '../models/LoginDto';
 import type { MutationResponse } from '../models/MutationResponse';
+import type { ResponseLoginDto } from '../models/ResponseLoginDto';
 import type { UpdateAdminDto } from '../models/UpdateAdminDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -100,6 +102,24 @@ export class AdminApiService {
             path: {
                 'id': id,
             },
+        });
+    }
+
+    /**
+     * 로그인
+     * @returns ResponseLoginDto
+     * @throws ApiError
+     */
+    public static adminControllerLogin({
+        requestBody,
+    }: {
+        requestBody: LoginDto,
+    }): CancelablePromise<ResponseLoginDto> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/admin/login',
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 

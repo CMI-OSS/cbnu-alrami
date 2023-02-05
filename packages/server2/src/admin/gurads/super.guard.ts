@@ -21,7 +21,7 @@ export class Guard implements CanActivate {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest();
-    const admin = request.user as Admin;
+    const admin = request.admin as Admin;
 
     if (admin?.authoirty !== AdminAuthorityType.Super) {
       throw new ForbiddenException("Super 권한이 아닙니다.");

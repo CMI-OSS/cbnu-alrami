@@ -168,6 +168,14 @@ export class BoardService {
     return { board, subscribe };
   }
 
+  async getSubscribeBoards(user: User) {
+    const boards = await this.boardRepository.find({
+      where: { subscribes: { user: { id: user.id } } },
+    });
+
+    return boards;
+  }
+
   async getBoardWithSubscribe(board: Board, user?: User) {
     if (!user) {
       return {

@@ -20,3 +20,7 @@ async function bootstrap() {
   await app.listen(configuration.server.port);
 }
 bootstrap();
+
+process.on("uncaughtException", (err) => {
+  console.log("Caught exception: ", err);
+});

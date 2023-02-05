@@ -4,7 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { BoardService } from "src/board/board.service";
 import { ImageService } from "src/image/image.service";
 import { User } from "src/user/entities/user.entity";
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 
 import {
   DuplicatedArticleException,
@@ -53,7 +53,7 @@ export class ArticleService {
     return this.articleRepository.find();
   }
 
-  async findBookmarkArticle(user: User) {
+  async findBookmarkArticle(user: User, page: number, count: number) {
     const articles: Article[] = await this.articleRepository.find({
       where: {
         bookmarkUsers: {
@@ -67,6 +67,41 @@ export class ArticleService {
       order: {
         dateTime: "DESC",
       },
+      take: count,
+      skip: (page - 1) * count,
+    });
+
+    const result = Promise.all(
+      articles.map<Promise<ResponseArticleDto>>(
+        async ({ content, author, ...article }) => {
+          return {
+            ...article,
+            bookmarkCount: await this.getBookmarkCount(article.id),
+            viewCount: await this.getViewCount(article.id),
+          } as ResponseArticleDto;
+        },
+      ),
+    );
+
+    return result;
+  }
+
+  async findSubscribeArticles(user: User, page: number, count: number) {
+    const subscribeBoards = await this.boardService.getSubscribeBoards(user);
+
+    const articles: Article[] = await this.articleRepository.find({
+      where: {
+        board: In(subscribeBoards.map((board) => board.id)),
+      },
+      relations: {
+        board: { parent: true },
+        images: true,
+      },
+      order: {
+        dateTime: "DESC",
+      },
+      take: count,
+      skip: (page - 1) * count,
     });
 
     const result = Promise.all(

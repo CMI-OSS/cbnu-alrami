@@ -24,7 +24,7 @@ class DomitoryScraper extends Scraper<DomitoryScript> {
     }
   }
 
-  async scrapping(scenario: Scenario<DomitoryScript>) {
+  async scraping(scenario: Scenario<DomitoryScript>) {
     const foodList = await this.getFoodList(scenario);
 
     for (const menu of foodList) {

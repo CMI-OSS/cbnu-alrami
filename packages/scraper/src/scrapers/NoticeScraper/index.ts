@@ -24,7 +24,7 @@ class NoticeScraper extends Scraper<NoticeScript> {
     this.run();
   }
 
-  async scrapping(scenario: Scenario<NoticeScript>) {
+  async scraping(scenario: Scenario<NoticeScript>) {
     const noticeList = await this.getNoticeList(scenario);
 
     for (const notice of noticeList) {

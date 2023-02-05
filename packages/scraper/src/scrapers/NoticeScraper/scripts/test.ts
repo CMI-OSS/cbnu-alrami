@@ -1,6 +1,7 @@
 import find from "find";
 import "src/socket/server";
 import { NoticeScript } from "src/types";
+
 import { Scenario } from "../../Scenario";
 import NoticeScraper from "../index";
 
@@ -18,7 +19,7 @@ function loadScripts(scriptPath: string): Promise<Array<NoticeScript>> {
 }
 
 function wait(milliseconds: number) {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+  return new Promise((resolve) => {return setTimeout(resolve, milliseconds)});
 }
 
 async function checkOverlapped() {
@@ -27,12 +28,12 @@ async function checkOverlapped() {
   for (const target of scripts) {
     const similarScripts = scripts.filter(
       (script) =>
-        target.url === script.url ||
+        {return target.url === script.url ||
         target.site_id === script.site_id ||
-        (target.site === script.site && target.category === script.category),
+        (target.site === script.site && target.category === script.category)},
     );
 
-    if (!['약학과','제약학과','의학과','의예과','수의예과','수의학과'].includes(target.site) && similarScripts.length > 1) {
+    if (![ '약학과','제약학과','의학과','의예과','수의예과','수의학과' ].includes(target.site) && similarScripts.length > 1) {
       console.error(similarScripts);
       throw Error("비슷한 스크립트");
     }
@@ -61,7 +62,7 @@ async function checkNoticeList() {
 
     if (!start) continue;
 
-    if(['산림학과','지리교육과','약학과','제약학과'].includes(target.site)) continue
+    if([ '산림학과','지리교육과','약학과','제약학과' ].includes(target.site)) continue
 
     try {
       const scenario = new Scenario(target.site,target);

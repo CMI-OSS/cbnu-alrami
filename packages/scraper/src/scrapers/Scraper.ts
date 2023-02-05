@@ -5,12 +5,8 @@ import { ScraperLog, ScraperState, ScraperType } from "@shared/types";
 import find from "find";
 import { stringify } from "javascript-stringify";
 import puppeteer, { Page } from "puppeteer";
-import { isDev, Queue } from "src/common";
-import {
-  sendAppendLog,
-  sendChangeScenarioQueue,
-  sendChangeScraperState,
-} from "src/socket/server";
+import { Queue } from "src/common";
+import { IS_DEV } from "src/common/isDev";
 
 import { Scenario } from "./Scenario";
 
@@ -58,12 +54,11 @@ abstract class Scraper<T> {
 
   log(log: ScraperLog) {
     this.logs.push(log);
-    sendAppendLog({ type: this.type, log });
   }
 
   async init() {
     this.browser = await puppeteer.launch({
-      headless: !isDev,
+      headless: !IS_DEV,
       args: [ `--window-size=${WINDOW_SIZE.WIDTH},${WINDOW_SIZE.HEIGHT}` ],
     });
 
@@ -83,7 +78,7 @@ abstract class Scraper<T> {
       await dialog.dismiss();
     });
 
-    if (!isDev) {
+    if (!IS_DEV) {
       // 필요없는 리소스 무쉬
       await page.setRequestInterception(true);
 
@@ -181,19 +176,8 @@ abstract class Scraper<T> {
       try {
         this.queue.pop();
         this.nextScenario = this.queue.front();
-        sendChangeScenarioQueue({
-          type: this.type,
-          prevScenario: {
-            title: this.prevScenario?.title ?? "",
-          },
-          currentScenario: {
-            title: this.currentScenario?.title ?? "",
-          },
-          nextScenario: {
-            title: this.nextScenario?.title ?? "",
-          },
-        });
-        await this.scrapping(this.currentScenario);
+
+        await this.scraping(this.currentScenario);
         this.log({
           prefix: "INFO",
           message: `${this.currentScenario?.title} 시나리오의 스크립트가 성공적으로 실행되었습니다`,
@@ -213,11 +197,9 @@ abstract class Scraper<T> {
 
   setScraperState(state: ScraperState) {
     this.state = state;
-    sendChangeScraperState(this.type, state);
   }
 
-  abstract scrapping(script: Scenario<T>): void;
-
+  abstract scraping(script: Scenario<T>): void;
   abstract initScript(): void;
 }
 

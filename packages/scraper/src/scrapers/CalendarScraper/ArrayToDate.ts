@@ -8,7 +8,7 @@ export default function ArrayToDate(year: number, arr: string) {
     case 2:
       return {
         start_date: `${year}-${validDate(0)}-${validDate(1)}`,
-        end_date: null,
+        end_date: undefined,
       };
     case 3:
       return {
@@ -38,4 +38,6 @@ export default function ArrayToDate(year: number, arr: string) {
             : `${arr[2]}-${validDate(3)}-${validDate(4)}`,
       };
   }
+
+  throw new Error(`[ArrayToDate] ${year} ${arr}`);
 }

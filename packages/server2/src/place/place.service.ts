@@ -31,6 +31,15 @@ export class PlaceService {
     });
   }
 
+  findOneSchool(id: number) {
+    return this.placeRepository.findOne({
+      where: {
+        id,
+      },
+      relations: { school: true },
+    });
+  }
+
   async create(createPlaceDto: CreatePlaceDto) {
     const images = await this.imageService.findImages(
       createPlaceDto.imageIds ?? [],

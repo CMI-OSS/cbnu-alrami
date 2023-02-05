@@ -5,7 +5,6 @@ import {
   ScheduleApiService,
 } from "@shared/swagger-api/generated";
 import dayjs, { Dayjs } from "dayjs";
-import { getTodaySchedules } from "src/api/schedule";
 import { queryKey } from "src/consts/react-query";
 import { queryClient } from "src/main";
 
@@ -17,7 +16,7 @@ export type FormattedSchedule = Omit<
   endDateTime: Dayjs | null;
 };
 
-const detectHoliday = (schedules: res.Schedule[]) => {
+const detectHoliday = (schedules: Schedule[]) => {
   const day = dayjs().day();
   const isWeekend = day === 6 || day === 0;
   if (isWeekend) return true;
@@ -56,14 +55,16 @@ export const useFullSchedulesQuery = (year: number) => {
   );
 };
 
-export const useTodaySchedulesQuery = (today: req.Schedule["today"]) => {
+export const useTodaySchedulesQuery = (today: string) => {
   return useCoreQuery<
-    res.Schedule[],
-    { schedules: res.Schedule[]; isHoliday: boolean }
+    Schedule[],
+    { schedules: Schedule[]; isHoliday: boolean }
   >(
     queryKey.schedules,
     () => {
-      return getTodaySchedules(today);
+      return ScheduleApiService.scheduleControllerFindAll({
+        startDateTime: today,
+      });
     },
     {
       select: (data) => {

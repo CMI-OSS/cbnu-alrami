@@ -8,6 +8,7 @@ import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 import { AdminModule } from "./admin/admin.module";
 import { Admin } from "./admin/entities/admin.entity";
 import { ArticleModule } from "./article/article.module";
+import { ArticleBookmark } from "./article/entities/article-bookmark";
 import { Article } from "./article/entities/article.entity";
 import { AwsModule } from "./aws/aws.module";
 import { BoardAuthorityModule } from "./board-authority/board-authority.module";
@@ -48,6 +49,7 @@ import { WeatherModule } from "./weather/weather.module";
         entities: [
           User,
           Article,
+          ArticleBookmark,
           Admin,
           Board,
           BoardAuthority,

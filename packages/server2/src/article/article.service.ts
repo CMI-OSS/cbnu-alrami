@@ -66,11 +66,14 @@ export class ArticleService {
         },
       },
       relations: {
+        bookmarkUsers: true,
         board: { parent: true },
         images: true,
       },
       order: {
-        dateTime: "DESC",
+        bookmarkUsers: {
+          createdDateTime: "DESC",
+        },
       },
       take: count,
       skip: (page - 1) * count,

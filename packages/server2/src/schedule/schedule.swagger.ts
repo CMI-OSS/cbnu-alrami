@@ -3,50 +3,11 @@ import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiOperation,
-  ApiProperty,
 } from "@nestjs/swagger";
-import { CommonEntity } from "src/common/entity";
+import { MutationResponse } from "src/common/types/response";
+import { UserGuard } from "src/user/user.gurad";
 
 import { Schedule } from "./entities/schedule.entity";
-
-type ScheduleProperty = Record<
-  Exclude<keyof Schedule, keyof CommonEntity>,
-  () => PropertyDecorator
->;
-
-export const ScheduleProperty: ScheduleProperty = {
-  content: () =>
-    ApiProperty({
-      description: "일정 내용",
-      example: "중간고사",
-    }),
-
-  priority: () =>
-    ApiProperty({
-      description: "우선순위",
-      example: 1,
-    }),
-
-  isHoliday: () =>
-    ApiProperty({
-      description: "휴일여부",
-      example: false,
-      required: false,
-    }),
-
-  startDateTime: () =>
-    ApiProperty({
-      description: "일정 시작일",
-      example: "2022-04-20",
-    }),
-
-  endDateTime: () =>
-    ApiProperty({
-      description: "일정 종료일",
-      example: "2022-04-28",
-      required: false,
-    }),
-};
 
 export const CreateSchdule = () => {
   return applyDecorators(
@@ -66,5 +27,24 @@ export const GetSchedule = () => {
       summary: "학사 일정 조회",
     }),
     ApiOkResponse({ type: Schedule }),
+  );
+};
+export const BookmarkSchdule = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "북마크 설정",
+    }),
+    ApiOkResponse({ type: MutationResponse }),
+    UserGuard(),
+  );
+};
+
+export const UnBookmarkSchdule = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "북마크 해제",
+    }),
+    ApiOkResponse({ type: MutationResponse }),
+    UserGuard(),
   );
 };

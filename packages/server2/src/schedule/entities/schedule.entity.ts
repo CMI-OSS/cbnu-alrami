@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import {
   IsBoolean,
   IsDateString,
@@ -6,35 +7,59 @@ import {
   IsString,
 } from "class-validator";
 import { CommonEntity } from "src/common/entity";
-import { Column, Entity } from "typeorm";
-
-import { ScheduleProperty } from "../schedule.swagger";
+import { User } from "src/user/entities/user.entity";
+import { Column, Entity, JoinTable, ManyToMany } from "typeorm";
 
 @Entity()
 export class Schedule extends CommonEntity {
-  @ScheduleProperty.content()
+  @ApiProperty({
+    description: "일정 내용",
+    example: "중간고사",
+  })
   @IsString()
   @Column({ type: "varchar" })
   content: string;
 
-  @ScheduleProperty.priority()
+  @ApiProperty({
+    description: "우선순위",
+    example: 1,
+  })
   @IsNumber()
   @Column({ type: "int" })
   priority: number;
 
-  @ScheduleProperty.isHoliday()
+  @ApiProperty({
+    description: "휴일여부",
+    example: false,
+    required: false,
+  })
   @IsBoolean()
   @Column({ type: "boolean", nullable: true })
   isHoliday?: boolean;
 
-  @ScheduleProperty.startDateTime()
+  @ApiProperty({
+    description: "일정 시작일",
+    example: "2022-04-20",
+  })
   @IsDateString()
   @Column({ type: "datetime" })
   startDateTime: Date;
 
-  @ScheduleProperty.endDateTime()
+  @ApiProperty({
+    description: "일정 종료일",
+    example: "2022-04-28",
+    required: false,
+  })
   @IsDateString()
   @IsOptional()
   @Column({ type: "datetime", nullable: true })
   endDateTime?: Date;
+
+  @ManyToMany(() => User, (user) => user.id, {
+    cascade: true,
+  })
+  @JoinTable({
+    name: "schdule_bookmark",
+  })
+  bookmarkUsers: User[];
 }

@@ -1,12 +1,13 @@
 import { NavLink } from "react-router-dom";
 
 import { LongArrow } from "@components/atoms/icon";
+import { PlaceSchoolDto } from "@shared/swagger-api/generated";
 import classNames from "classnames";
 
 import $ from "./style.module.scss";
 
 type Props = {
-  schoolData: res.School;
+  schoolData: PlaceSchoolDto;
   type: "map" | "place";
   url: string;
   placeId: number;

@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 
 import { LeftArrow } from "@components/atoms/icon";
 import ImageList from "@components/molecules/ImageList";
-import { useSchoolQuery } from "@hooks/api/school";
+import { PlaceApiService } from '@shared/swagger-api/generated';
+import { useQuery } from "@tanstack/react-query";
 import classNames from "classnames";
 import BorderBox from "src/components/atoms/BorderBox";
 import useSearch from "src/hooks/useSearch";
@@ -17,7 +18,11 @@ function MapDetail() {
     data: detailData,
     isLoading: detailLoading,
     isError: detailError,
-  } = useSchoolQuery(detailId);
+  } = useQuery([ "detailId", detailId ], () => {
+    return PlaceApiService.placeControllerFindOneSchool({
+      id: detailId
+    })
+  });
   if (detailLoading) return <div>로딩중입니다.</div>;
   if (detailError) return <div>에러가 발생했습니다.</div>;
   if (detailData === undefined)
@@ -49,6 +54,7 @@ function MapDetail() {
           )`,
         }}
       />
+      {/* [D] 향후 전화번호 속성 추가 필요 by scott */}
       <Info
         buildingNumber={detailData.school?.buildingNumber}
         oldBuildingNumber={detailData.school?.oldBuildingNumber}
@@ -58,6 +64,7 @@ function MapDetail() {
       />
       <BorderBox className={classNames($.menu, $.description)}>
         <strong className={$["description-title"]}>설명</strong>
+        {/* [D] 향후 description 속성 추가 필요 by scott */}
         <p className={$["description-text"]}>{detailData.description}</p>
       </BorderBox>
       <BorderBox className={$.detail}>

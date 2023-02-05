@@ -1,3 +1,5 @@
+import { CafeteriaMenu } from "@shared/swagger-api/generated";
+
 const dormitoryWeekTime = {
   breakfast: "07:20 ~ 09:00",
   lunch: "11:30 ~ 13:30",
@@ -64,6 +66,22 @@ export const getCafeteriaTime = (
       cafeteriaTimeData(isHoliday)[cafeteriaId - 1].breakfast,
     ];
   if (timeId === 2)
+    return [ "점심", cafeteriaTimeData(isHoliday)[cafeteriaId - 1].lunch ];
+  return [ "저녁", cafeteriaTimeData(isHoliday)[cafeteriaId - 1].dinner ];
+};
+
+export const getCafeteriaTime2 = (
+  isHoliday: boolean,
+  cafeteriaId: number,
+  time: CafeteriaMenu.time,
+): string[] => {
+  const breakFastName = cafeteriaId === 4 ? "아점" : "아침";
+  if (time === CafeteriaMenu.time.BREAKFAST)
+    return [
+      breakFastName,
+      cafeteriaTimeData(isHoliday)[cafeteriaId - 1].breakfast,
+    ];
+  if (time === CafeteriaMenu.time.LUNCH)
     return [ "점심", cafeteriaTimeData(isHoliday)[cafeteriaId - 1].lunch ];
   return [ "저녁", cafeteriaTimeData(isHoliday)[cafeteriaId - 1].dinner ];
 };

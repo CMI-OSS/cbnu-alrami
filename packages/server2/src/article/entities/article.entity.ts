@@ -15,6 +15,8 @@ import {
   OneToMany,
 } from "typeorm";
 
+import { ArticleBookmark } from "./article-bookmark";
+
 @Entity()
 export class Article extends UpdatableCommonEntity {
   @ApiProperty({
@@ -76,13 +78,11 @@ export class Article extends UpdatableCommonEntity {
   })
   images?: Image[];
 
-  @ManyToMany(() => User, (user) => user.id, {
+  @OneToMany(() => ArticleBookmark, (bookmark) => bookmark.article, {
     cascade: true,
+    nullable: true,
   })
-  @JoinTable({
-    name: "article_bookmark",
-  })
-  bookmarkUsers: User[];
+  bookmarkUsers: ArticleBookmark[];
 
   @ManyToMany(() => User, (user) => user.id, {
     cascade: true,

@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 
-import classNames from "classnames";
-import { Dayjs } from "dayjs";
-import BorderBox from "src/components/atoms/BorderBox";
-import { Star } from "src/components/atoms/icon";
+import BorderBox from "@components/atoms/BorderBox";
+import { Star } from "@components/atoms/icon";
 import {
   useAddScheduleBookmarkMutation,
   useRemoveScheduleBookmarkMutation,
-} from "src/hooks/api/schedule";
+} from "@hooks/api/schedule";
+import classNames from "classnames";
+import { Dayjs } from "dayjs";
 import { DefaultProps } from "src/type/props";
 import { getDatePeriod } from "src/utils/calendarTools";
 

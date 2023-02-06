@@ -1,8 +1,8 @@
+import { FormattedSchedule } from "@hooks/api/schedule";
 import { Calendar } from "calendar";
 import dayjs, { Dayjs } from "dayjs";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
-import { FormattedSchedule } from "src/hooks/api/schedule";
 import { flatten } from "underscore";
 
 dayjs.extend(isSameOrAfter);

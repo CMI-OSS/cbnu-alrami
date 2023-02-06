@@ -60,10 +60,11 @@ export const useTodaySchedulesQuery = (today: string) => {
     Schedule[],
     { schedules: Schedule[]; isHoliday: boolean }
   >(
-    queryKey.schedules,
+    queryKey.todaysSchedules,
     () => {
       return ScheduleApiService.scheduleControllerFindAll({
         startDateTime: today,
+        endDateTime: today
       });
     },
     {

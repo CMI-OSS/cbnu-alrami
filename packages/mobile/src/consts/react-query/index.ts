@@ -16,6 +16,7 @@ export const queryKey = {
   subscribeBoards: [ "subscribeBoards" ],
   weathers: [ "weathers" ],
   schedules: [ "schedules" ],
+  todaysSchedules: [ "todaysSchedules" ],
   cafeteria: (
     cafeteriaId: req.Cafeteria["cafeteriaId"],
     date: req.Cafeteria["date"],

@@ -4,6 +4,8 @@ import { Repository } from "typeorm";
 
 import { ArticleView } from "./entities/article-view.entity";
 
+type YYYYMMDD = string;
+
 @Injectable()
 export class ArticleViewService {
   constructor(
@@ -11,7 +13,7 @@ export class ArticleViewService {
     private articleViewRepository: Repository<ArticleView>,
   ) {}
 
-  async findPopularArticlesByView(startDate: string) {
+  async findPopularArticlesByView(startDate: YYYYMMDD) {
     const articles = await this.articleViewRepository
       .createQueryBuilder("article_view")
       .leftJoinAndSelect("article_view.article", "article")

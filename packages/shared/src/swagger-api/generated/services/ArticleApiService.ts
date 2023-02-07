@@ -4,7 +4,7 @@
 import type { CreateArticleDto } from '../models/CreateArticleDto';
 import type { MutationResponse } from '../models/MutationResponse';
 import type { ResponseArticleDetailDto } from '../models/ResponseArticleDetailDto';
-import type { ResponseArticleDto } from '../models/ResponseArticleDto';
+import type { ResponseArticlePageDto } from '../models/ResponseArticlePageDto';
 import type { UpdateArticleDto } from '../models/UpdateArticleDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -33,7 +33,7 @@ export class ArticleApiService {
 
     /**
      * 북마크한 게시물 조회
-     * @returns ResponseArticleDto
+     * @returns ResponseArticlePageDto
      * @throws ApiError
      */
     public static articleControllerFindBookmarkArticle({
@@ -53,7 +53,7 @@ export class ArticleApiService {
          * user uuid
          */
         uuid?: string,
-    }): CancelablePromise<Array<ResponseArticleDto>> {
+    }): CancelablePromise<ResponseArticlePageDto> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/article/bookmark',
@@ -69,7 +69,7 @@ export class ArticleApiService {
 
     /**
      * 구독한 게시판중 최신 게시물순 조회
-     * @returns ResponseArticleDto
+     * @returns ResponseArticlePageDto
      * @throws ApiError
      */
     public static articleControllerFindSubscribeArticle({
@@ -89,7 +89,7 @@ export class ArticleApiService {
          * user uuid
          */
         uuid?: string,
-    }): CancelablePromise<Array<ResponseArticleDto>> {
+    }): CancelablePromise<ResponseArticlePageDto> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/article/subscribe',

@@ -5,7 +5,7 @@ import {
   ApiOkResponse,
   ApiOperation,
 } from "@nestjs/swagger";
-import { ResponseArticleDto } from "src/article/dto/response-article.dto";
+import { ResponseArticlePageDto } from "src/article/dto/response-article.dto";
 import { MutationResponse } from "src/common/types/response";
 import { UserGuard } from "src/user/user.gurad";
 
@@ -65,7 +65,7 @@ export const GetArticlePage = () => {
       summary: "게시판내 게시물 페이지 조회",
     }),
     ApiOkResponse({
-      type: [ ResponseArticleDto ],
+      type: ResponseArticlePageDto,
     }),
     ApiNotFoundResponse({ type: NotFoundBoardException }),
   );

@@ -81,7 +81,11 @@ export class BoardController {
   @GetArticlePage()
   @Get(":id/articles")
   findArticlePage(@Param("id") id: number, @Query() query: PaginationDto) {
-    return this.articleService.findArticlePage(id, query.page, query.count);
+    return this.articleService.findArticlePageByBoardId(
+      id,
+      query.page,
+      query.count,
+    );
   }
 
   @SuperGuard()

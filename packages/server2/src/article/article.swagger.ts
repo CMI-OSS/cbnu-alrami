@@ -15,7 +15,7 @@ import {
 } from "./article.exception";
 import {
   ResponseArticleDetailDto,
-  ResponseArticleDto,
+  ResponseArticlePageDto,
 } from "./dto/response-article.dto";
 
 export const CreateArticle = () => {
@@ -48,7 +48,7 @@ export const GetBookmarkArtice = () => {
     ApiOperation({
       summary: "북마크한 게시물 조회",
     }),
-    ApiOkResponse({ type: () => ResponseArticleDto, isArray: true }),
+    ApiOkResponse({ type: () => ResponseArticlePageDto }),
     ApiNotFoundResponse({
       type: NotFoundArticleException,
     }),
@@ -60,7 +60,7 @@ export const GetSubscribeArticle = () => {
     ApiOperation({
       summary: "구독한 게시판중 최신 게시물순 조회",
     }),
-    ApiOkResponse({ type: () => ResponseArticleDto, isArray: true }),
+    ApiOkResponse({ type: () => ResponseArticlePageDto }),
     ApiNotFoundResponse({
       type: NotFoundArticleException,
     }),
@@ -116,7 +116,7 @@ export const GetPopularArticle = () => {
       description:
         "조회수와 공지사항 등록일을 이용, 최근 2주 동안 제일 인기가 많았던 상위 15개의 공지사항들을 조회한다.",
     }),
-    ApiOkResponse({ type: ResponseArticleDto, isArray: true }),
+    ApiOkResponse({ type: ResponseArticlePageDto }),
     ApiNotFoundResponse({ type: NotFoundArticleException }),
   );
 };

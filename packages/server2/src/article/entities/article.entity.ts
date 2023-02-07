@@ -15,6 +15,8 @@ import {
   OneToMany,
 } from "typeorm";
 
+import { ArticleBookmark } from "./article-bookmark";
+
 @Entity()
 export class Article extends UpdatableCommonEntity {
   @ApiProperty({
@@ -58,7 +60,7 @@ export class Article extends UpdatableCommonEntity {
   })
   @IsNumber()
   @Column({ type: "int" })
-  viewCount: number;
+  viewCount = 0;
 
   @ApiProperty({
     description: "공지사항 북마크 수",
@@ -66,7 +68,7 @@ export class Article extends UpdatableCommonEntity {
   })
   @IsNumber()
   @Column({ type: "int" })
-  bookmarkCount: number;
+  bookmarkCount = 0;
 
   @ApiProperty({ description: "게시물이 속한 게시판", type: () => Board })
   @ManyToOne(() => Board, { onDelete: "SET NULL", nullable: true })
@@ -92,13 +94,11 @@ export class Article extends UpdatableCommonEntity {
   })
   images?: Image[];
 
-  @ManyToMany(() => User, (user) => user.id, {
+  @OneToMany(() => ArticleBookmark, (bookmark) => bookmark.article, {
     cascade: true,
+    nullable: true,
   })
-  @JoinTable({
-    name: "article_bookmark",
-  })
-  bookmarkUsers: User[];
+  bookmarkUsers?: ArticleBookmark[];
 
   @ManyToMany(() => User, (user) => user.id, {
     cascade: true,
@@ -106,5 +106,5 @@ export class Article extends UpdatableCommonEntity {
   @JoinTable({
     name: "article_view",
   })
-  viewUsers: User[];
+  viewUsers?: User[];
 }

@@ -65,7 +65,11 @@ export class ArticleController {
     @Query() query: PaginationDto,
   ) {
     return user
-      ? this.articleService.findBookmarkArticle(user, query.page, query.count)
+      ? this.articleService.findBookmarkArticlePage(
+          user,
+          query.page,
+          query.count,
+        )
       : [];
   }
 
@@ -77,14 +81,18 @@ export class ArticleController {
     @Query() query: PaginationDto,
   ) {
     return user
-      ? this.articleService.findSubscribeArticles(user, query.page, query.count)
+      ? this.articleService.findSubscribeArticlePage(
+          user,
+          query.page,
+          query.count,
+        )
       : [];
   }
 
   @GetPopularArticle()
   @Get("/popular")
   findPopularArticles() {
-    return this.articleService.findTopArticlesByHit();
+    return this.articleService.findTopArticlesByHit(1, 15);
   }
 
   @GetArtice()

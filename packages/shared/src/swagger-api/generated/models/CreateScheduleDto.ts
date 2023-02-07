@@ -10,7 +10,7 @@ export type CreateScheduleDto = {
     /**
      * 우선순위
      */
-    priority: number;
+    priority?: number;
     /**
      * 휴일여부
      */

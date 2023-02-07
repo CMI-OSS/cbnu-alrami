@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import * as dayjs from "dayjs";
 import * as timezone from "dayjs/plugin/timezone";
@@ -7,7 +7,7 @@ import * as utc from "dayjs/plugin/utc";
 import { BoardService } from "src/board/board.service";
 import { ImageService } from "src/image/image.service";
 import { User } from "src/user/entities/user.entity";
-import { In, MoreThanOrEqual, Repository } from "typeorm";
+import { FindManyOptions, In, MoreThanOrEqual, Repository } from "typeorm";
 
 import { ArticleViewService } from "../article-view/article.view.service";
 import {
@@ -17,9 +17,10 @@ import {
 import { CreateArticleDto } from "./dto/create-article.dto";
 import {
   ResponseArticleDetailDto,
-  ResponseArticleDto,
+  ResponseArticlePageDto,
 } from "./dto/response-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
+import { ArticleBookmark } from "./entities/article-bookmark";
 import { Article } from "./entities/article.entity";
 
 dayjs.extend(utc);
@@ -34,6 +35,8 @@ export class ArticleService {
     @InjectRepository(Article)
     private articleRepository: Repository<Article>,
     private articleViewService: ArticleViewService,
+    @InjectRepository(ArticleBookmark)
+    private articleBookmarkRepository: Repository<ArticleBookmark>,
     private imageService: ImageService,
     private boardService: BoardService,
   ) {}
@@ -64,83 +67,73 @@ export class ArticleService {
     return this.articleRepository.find();
   }
 
-  async findBookmarkArticle(user: User, page: number, count: number) {
-    const articles: Article[] = await this.articleRepository.find({
+  async findBookmarkArticlePage(
+    user: User,
+    page: number,
+    count: number,
+  ): Promise<ResponseArticlePageDto> {
+    const articlePage = await this.findArticlePage(page, count, {
       where: {
         bookmarkUsers: {
-          id: user.id,
+          user: {
+            id: user.id,
+          },
         },
       },
       relations: {
+        bookmarkUsers: true,
         board: { parent: true },
         images: true,
       },
       order: {
-        dateTime: "DESC",
+        bookmarkUsers: {
+          createdDateTime: "DESC",
+        },
       },
-      take: count,
-      skip: (page - 1) * count,
     });
 
-    const result = Promise.all(
-      articles.map<Promise<ResponseArticleDto>>(
-        async ({ content, author, ...article }) => {
-          return {
-            ...article,
-            bookmarkCount: await this.getBookmarkCount(article.id),
-            viewCount: await this.getViewCount(article.id),
-          } as ResponseArticleDto;
-        },
+    return {
+      ...articlePage,
+      articles: articlePage.articles.map(
+        ({ bookmarkUsers, ...article }) => article,
       ),
-    );
-
-    return result;
+    };
   }
 
-  async findSubscribeArticles(user: User, page: number, count: number) {
+  async findSubscribeArticlePage(user: User, page: number, count: number) {
     const subscribeBoards = await this.boardService.getSubscribeBoards(user);
 
-    const articles: Article[] = await this.articleRepository.find({
+    return this.findArticlePage(page, count, {
       where: {
-        board: In(subscribeBoards.map((board) => board.id)),
-      },
-      relations: {
-        board: { parent: true },
-        images: true,
-      },
-      order: {
-        dateTime: "DESC",
-      },
-      take: count,
-      skip: (page - 1) * count,
-    });
-
-    const result = Promise.all(
-      articles.map<Promise<ResponseArticleDto>>(
-        async ({ content, author, ...article }) => {
-          return {
-            ...article,
-            bookmarkCount: await this.getBookmarkCount(article.id),
-            viewCount: await this.getViewCount(article.id),
-          } as ResponseArticleDto;
+        board: {
+          id: In(subscribeBoards.map((board) => board.id)),
         },
-      ),
-    );
-
-    return result;
+      },
+    });
   }
 
-  async findArticlePage(
+  async findArticlePageByBoardId(
     boardId: number,
     page: number,
     count: number,
-  ): Promise<ResponseArticleDto[]> {
-    const articles: Article[] = await this.articleRepository.find({
+  ): Promise<ResponseArticlePageDto> {
+    return this.findArticlePage(page, count, {
       where: {
         board: {
           id: boardId,
         },
       },
+    });
+  }
+
+  async findArticlePage(
+    page: number,
+    count: number,
+    option: FindManyOptions<Article>,
+  ): Promise<ResponseArticlePageDto> {
+    const articles: Article[] = await this.articleRepository.find({
+      take: count,
+      skip: (page - 1) * count,
       relations: {
         board: { parent: true },
         images: true,
@@ -148,23 +141,35 @@ export class ArticleService {
       order: {
         dateTime: "DESC",
       },
-      take: count,
-      skip: (page - 1) * count,
+      // 'content'를 제외하기 위함
+      select: [
+        "id",
+        "title",
+        "url",
+        "dateTime",
+        "viewCount",
+        "bookmarkCount",
+        "createdDateTime",
+        "updatedDateTime",
+      ],
+      ...option,
     });
 
-    const result = Promise.all(
-      articles.map<Promise<ResponseArticleDto>>(
-        async ({ content, author, ...article }) => {
-          return {
-            ...article,
-            bookmarkCount: await this.getBookmarkCount(article.id),
-            viewCount: await this.getViewCount(article.id),
-          } as ResponseArticleDto;
-        },
-      ),
-    );
+    const totalArticleCount: number = option.where
+      ? await this.articleRepository.countBy(option.where)
+      : 0;
 
-    return result;
+    const totalPageCount = Math.ceil(totalArticleCount / count);
+
+    return {
+      pagination: {
+        currentPage: page,
+        totalPageCount,
+        totalItemCount: totalArticleCount,
+        isEnd: totalPageCount <= page,
+      },
+      articles,
+    };
   }
 
   async findOne(id: number, user?: User): Promise<ResponseArticleDetailDto> {
@@ -188,8 +193,6 @@ export class ArticleService {
       ..._ariticle,
       isView: await this.isView(article.id, user?.id),
       isBookmark: await this.isBookmark(article.id, user?.id),
-      bookmarkCount: await this.getBookmarkCount(article.id),
-      viewCount: await this.getViewCount(article.id),
     } as ResponseArticleDetailDto;
   }
 
@@ -204,33 +207,13 @@ export class ArticleService {
     }));
   }
 
-  async getViewCount(articleId: number): Promise<number> {
-    const viewCount = await this.articleRepository.countBy({
-      id: articleId,
-      viewUsers: true,
-    });
-
-    return viewCount;
-  }
-
   async isBookmark(articleId: number, userId?: number): Promise<boolean> {
     if (!userId) return false;
 
-    return !!(await this.articleRepository.countBy({
-      id: articleId,
-      bookmarkUsers: {
-        id: userId,
-      },
+    return !!(await this.articleBookmarkRepository.countBy({
+      article: { id: articleId },
+      user: { id: userId },
     }));
-  }
-
-  async getBookmarkCount(articleId: number): Promise<number> {
-    const viewCount = await this.articleRepository.countBy({
-      id: articleId,
-      bookmarkUsers: true,
-    });
-
-    return viewCount;
   }
 
   findOneByUrl(url: string) {
@@ -268,36 +251,22 @@ export class ArticleService {
   async bookmark(id: number, user: User) {
     const article = await this.articleRepository.findOne({
       where: { id },
-      relations: { bookmarkUsers: true },
     });
 
     if (!article) throw new NotFoundArticleException();
 
-    article.bookmarkUsers = article.bookmarkUsers
-      ? [ user, ...article.bookmarkUsers ]
-      : [ user ];
-
-    return article.save();
+    return this.articleBookmarkRepository.save({ article, user });
   }
 
   async unbookmark(id: number, user: User) {
-    const article = await this.articleRepository.findOne({
-      where: {
-        id,
-        bookmarkUsers: {
-          id: user.id,
-        },
-      },
-      relations: { bookmarkUsers: true },
+    const articleBookmark = await this.articleBookmarkRepository.findOne({
+      where: { article: { id }, user: { id: user.id } },
     });
 
-    if (!article) throw new NotFoundArticleException();
+    if (!articleBookmark)
+      throw new NotFoundException("북마크 하지 않은 게시물");
 
-    article.bookmarkUsers = article.bookmarkUsers.filter(
-      (_user) => _user.id !== user.id,
-    );
-
-    return article.save();
+    return this.articleBookmarkRepository.remove(articleBookmark);
   }
 
   async view(id: number, user?: User) {
@@ -317,39 +286,17 @@ export class ArticleService {
     return article.save();
   }
 
-  async findTopArticlesByHit() {
+  async findTopArticlesByHit(page: number, count: number) {
     // DESCRIBE: article 테이블에서 최근 2주 동안의 공지사항을 viewCount 내림차순으로 15개 조회
-    const articles = await this.articleRepository.find({
+    const findOptions: FindManyOptions<Article> = {
       where: {
         dateTime: MoreThanOrEqual(this.getDateWeeksAgo(2)),
       },
       order: {
         viewCount: "DESC",
       },
-      take: ARTICLE_PAGE_COUNT,
-    });
-
-    // const articles = await this.articleViewService.findPopularArticlesByView(
-    //   this.getDateWeeksAgo(2),
-    // );
-    console.log(articles);
-
-    // // DESCRIBE: 각 article에 대해 조회수, 스크랩 수 카운트
-    // const result = await Promise.all(
-    //   articles.map<Promise<ResponseArticleDto>>(
-    //     async ({ content, author, ...article }) => {
-    //       const board = await this.boardTreeService.getBoardTree(
-    //         article.boardId,
-    //       );
-    //       return {
-    //         ...article,
-    //         ...board,
-    //         bookmarkCount: await this.getBookmarkCount(article.id),
-    //       } as ResponseArticleDto;
-    //     },
-    //   ),
-    // );
-
+    };
+    const articles = await this.findArticlePage(page, count, findOptions);
     return articles;
   }
 

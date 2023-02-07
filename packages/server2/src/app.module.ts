@@ -10,6 +10,7 @@ import { Admin } from "./admin/entities/admin.entity";
 import { ArticleViewModule } from "./article-view/article.view.module";
 import { ArticleView } from "./article-view/entities/article-view.entity";
 import { ArticleModule } from "./article/article.module";
+import { ArticleBookmark } from "./article/entities/article-bookmark";
 import { Article } from "./article/entities/article.entity";
 import { AwsModule } from "./aws/aws.module";
 import { BoardAuthorityModule } from "./board-authority/board-authority.module";
@@ -51,6 +52,7 @@ import { WeatherModule } from "./weather/weather.module";
           User,
           Article,
           ArticleView,
+          ArticleBookmark,
           Admin,
           Board,
           BoardAuthority,

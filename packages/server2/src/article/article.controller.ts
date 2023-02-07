@@ -26,6 +26,7 @@ import {
   DeleteArticle,
   GetArtice,
   GetBookmarkArtice,
+  GetPopularArticle,
   GetSubscribeArticle,
   UnBookmarkArticle,
   UpdateArticle,
@@ -78,6 +79,12 @@ export class ArticleController {
     return user
       ? this.articleService.findSubscribeArticles(user, query.page, query.count)
       : [];
+  }
+
+  @GetPopularArticle()
+  @Get("/popular")
+  findPopularArticles() {
+    return this.articleService.findTopArticlesByHit();
   }
 
   @GetArtice()

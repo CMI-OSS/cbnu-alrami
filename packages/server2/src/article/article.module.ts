@@ -4,6 +4,7 @@ import { AdminModule } from "src/admin/admin.module";
 import { BoardModule } from "src/board/board.module";
 import { ImageModule } from "src/image/image.module";
 
+import { ArticleViewModule } from "../article-view/article.view.module";
 import { ArticleController } from "./article.controller";
 import { ArticleService } from "./article.service";
 import { Article } from "./entities/article.entity";
@@ -13,6 +14,7 @@ import { Article } from "./entities/article.entity";
     TypeOrmModule.forFeature([ Article ]),
     forwardRef(() => BoardModule),
     ImageModule,
+    forwardRef(() => ArticleViewModule),
     forwardRef(() => AdminModule),
   ],
   controllers: [ ArticleController ],

@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import * as dayjs from "dayjs";
 import { BoardService } from "src/board/board.service";
 import { ImageService } from "src/image/image.service";
 import { User } from "src/user/entities/user.entity";
 import { In, Repository } from "typeorm";
 
+import { ArticleViewService } from "../article-view/article.view.service";
 import {
   DuplicatedArticleException,
   NotFoundArticleException,
@@ -23,6 +25,7 @@ export class ArticleService {
   constructor(
     @InjectRepository(Article)
     private articleRepository: Repository<Article>,
+    private articleViewService: ArticleViewService,
     private imageService: ImageService,
     private boardService: BoardService,
   ) {}
@@ -301,4 +304,39 @@ export class ArticleService {
 
     return article.save();
   }
+
+  async findTopArticlesByHit() {
+    // DESCRIBE: hit 테이블에서 조회수 순으로 상위 15개 공지사항 조회
+    const articles = await this.articleViewService.findPopularArticlesByView(
+      this.getDateWeeksAgo(14),
+    );
+
+    console.log(articles);
+
+    // // DESCRIBE: 각 article에 대해 조회수, 스크랩 수 카운트
+    // const result = await Promise.all(
+    //   articles.map<Promise<ResponseArticleDto>>(
+    //     async ({ content, author, ...article }) => {
+    //       const board = await this.boardTreeService.getBoardTree(
+    //         article.boardId,
+    //       );
+    //       const bookmarkCnt = await this.bookmarkRepository.countByArticle(
+    //         article.id,
+    //       );
+    //       return {
+    //         ...article,
+    //         ...board,
+    //         bookmarkCount: await this.getBookmarkCount(article.id),
+    //       } as ResponseArticleDto;
+    //     },
+    //   ),
+    // );
+
+    return articles;
+  }
+
+  getDateWeeksAgo = (weeks: number) => {
+    // FIXME: dayjs timezone 세팅이 안먹음!!
+    return dayjs().add(9, "hour").subtract(weeks, "week").toDate();
+  };
 }

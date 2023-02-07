@@ -53,12 +53,20 @@ export class Article extends UpdatableCommonEntity {
   dateTime: Date;
 
   @ApiProperty({
-    description: "공지사항 조회수",
+    description: "공지사항 조회 수",
     example: 13,
   })
   @IsNumber()
   @Column({ type: "int" })
   viewCount: number;
+
+  @ApiProperty({
+    description: "공지사항 북마크 수",
+    example: 203,
+  })
+  @IsNumber()
+  @Column({ type: "int" })
+  bookmarkCount: number;
 
   @ApiProperty({ description: "게시물이 속한 게시판", type: () => Board })
   @ManyToOne(() => Board, { onDelete: "SET NULL", nullable: true })

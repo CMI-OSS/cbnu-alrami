@@ -317,9 +317,11 @@ export class ArticleService {
 
   async findTopArticlesByHit() {
     // DESCRIBE: hit 테이블에서 최근 2주동안의 공지사항 중 조회수 순으로 상위 15개 공지사항 조회
-    const articles = await this.articleViewService.findPopularArticlesByView(
-      this.getDateWeeksAgo(2),
-    );
+    const articles = await this.articleRepository.findOne({});
+
+    // const articles = await this.articleViewService.findPopularArticlesByView(
+    //   this.getDateWeeksAgo(2),
+    // );
     console.log(articles);
 
     // // DESCRIBE: 각 article에 대해 조회수, 스크랩 수 카운트
@@ -328,9 +330,6 @@ export class ArticleService {
     //     async ({ content, author, ...article }) => {
     //       const board = await this.boardTreeService.getBoardTree(
     //         article.boardId,
-    //       );
-    //       const bookmarkCnt = await this.bookmarkRepository.countByArticle(
-    //         article.id,
     //       );
     //       return {
     //         ...article,
@@ -346,6 +345,6 @@ export class ArticleService {
 
   getDateWeeksAgo = (weeks: number) => {
     // DESCRIBE: dayjs의 객체값 사용 -> d는 UTC, timezone은 KST로 있었으니까? -> 날짜 변환 함수를 쓰면 -> 내부적으로 KST로 바꿔주지 않을까!
-    return dayjs().subtract(2, "week").tz().format("YYYYMMDD");
+    return dayjs().subtract(2, "week").tz().format("YYYY-MM-DD");
   };
 }

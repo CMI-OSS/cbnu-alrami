@@ -7,7 +7,7 @@ export class ResponseArticleDto extends OmitType(Article, [
   "author",
   "content",
 ]) {
-  @ApiProperty({ description: "북마크 수", example: false })
+  @ApiProperty({ description: "북마크 수", example: 1 })
   bookmarkCount: number;
 
   @ApiProperty({ description: "조회수", example: 1 })
@@ -21,7 +21,7 @@ export class ResponseArticleDetailDto extends IntersectionType(
   @ApiProperty({ description: "북마크 여부", example: false })
   isBookmark: boolean;
 
-  @ApiProperty({ description: "조회 여부", example: 1 })
+  @ApiProperty({ description: "조회 여부", example: false })
   isView: boolean;
 }
 
@@ -29,6 +29,10 @@ export class ResponseArticlePageDto {
   @ApiProperty({ description: "페이지네이션 관련 정보" })
   pagination: PaginationResponseDto;
 
-  @ApiProperty({ description: "게시물 목록" })
+  @ApiProperty({
+    description: "게시물 목록",
+    type: ResponseArticleDto,
+    isArray: true,
+  })
   articles: ResponseArticleDto[];
 }

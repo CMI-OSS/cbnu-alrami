@@ -11,7 +11,7 @@ export class ArticleViewService {
     private articleViewRepository: Repository<ArticleView>,
   ) {}
 
-  async findPopularArticlesByView(startDate: Date) {
+  async findPopularArticlesByView(startDate: string) {
     const articles = await this.articleViewRepository
       .createQueryBuilder("article_view")
       .leftJoinAndSelect("article_view.article", "article")

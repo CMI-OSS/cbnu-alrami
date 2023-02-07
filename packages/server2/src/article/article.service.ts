@@ -2,6 +2,8 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import * as dayjs from "dayjs";
+import * as timezone from "dayjs/plugin/timezone";
+import * as utc from "dayjs/plugin/utc";
 import { BoardService } from "src/board/board.service";
 import { ImageService } from "src/image/image.service";
 import { User } from "src/user/entities/user.entity";
@@ -19,6 +21,10 @@ import {
 } from "./dto/response-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
 import { Article } from "./entities/article.entity";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault("Asia/Seoul");
 
 @Injectable()
 export class ArticleService {
@@ -170,7 +176,9 @@ export class ArticleService {
 
     if (!article) throw new NotFoundArticleException();
 
-    // TODO: user_id와 article_id로 article_view 검색해서 -> 결과 없을 경우에만 조회수 +1
+    // TODO: user_id와 article_id로 article_view 검색해서
+
+    // TODO: 결과 없을 경우에만 조회수 +1
 
     const { ..._ariticle } = article;
 
@@ -308,9 +316,9 @@ export class ArticleService {
   }
 
   async findTopArticlesByHit() {
-    // DESCRIBE: hit 테이블에서 조회수 순으로 상위 15개 공지사항 조회
+    // DESCRIBE: hit 테이블에서 최근 2주동안의 공지사항 중 조회수 순으로 상위 15개 공지사항 조회
     const articles = await this.articleViewService.findPopularArticlesByView(
-      this.getDateWeeksAgo(14),
+      this.getDateWeeksAgo(2),
     );
     console.log(articles);
 
@@ -337,7 +345,7 @@ export class ArticleService {
   }
 
   getDateWeeksAgo = (weeks: number) => {
-    // FIXME: dayjs timezone 세팅이 안먹음!!
-    return dayjs().add(9, "hour").subtract(weeks, "week").toDate();
+    // DESCRIBE: dayjs의 객체값 사용 -> d는 UTC, timezone은 KST로 있었으니까? -> 날짜 변환 함수를 쓰면 -> 내부적으로 KST로 바꿔주지 않을까!
+    return dayjs().subtract(2, "week").tz().format("YYYY-MM-DD");
   };
 }

@@ -5,7 +5,7 @@ import { Entity, JoinColumn, ManyToOne } from "typeorm";
 
 @Entity({ name: "article_view" })
 export class ArticleView extends CommonEntity {
-  @ManyToOne(() => Article, (article) => article.viewUsers, {
+  @ManyToOne(() => Article, {
     onDelete: "CASCADE",
   })
   @JoinColumn()

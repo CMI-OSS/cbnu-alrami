@@ -1,9 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Injectable, NotFoundException } from "@nestjs/common";
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import * as dayjs from "dayjs";
 import * as timezone from "dayjs/plugin/timezone";
 import * as utc from "dayjs/plugin/utc";
+import { ArticleViewService } from "src/article-view/article.view.service";
 import { BoardService } from "src/board/board.service";
 import { ImageService } from "src/image/image.service";
 import { User } from "src/user/entities/user.entity";
@@ -33,6 +39,8 @@ export class ArticleService {
     private articleRepository: Repository<Article>,
     @InjectRepository(ArticleBookmark)
     private articleBookmarkRepository: Repository<ArticleBookmark>,
+    @Inject(forwardRef(() => ArticleViewService))
+    private articleViewService: ArticleViewService,
     private imageService: ImageService,
     private boardService: BoardService,
   ) {}
@@ -183,20 +191,11 @@ export class ArticleService {
 
     return {
       ..._ariticle,
-      isView: await this.isView(article.id, user?.id),
+      isView: user
+        ? await this.articleViewService.isView(article.id, user.id)
+        : false,
       isBookmark: await this.isBookmark(article.id, user?.id),
     } as ResponseArticleDetailDto;
-  }
-
-  async isView(articleId: number, userId?: number): Promise<boolean> {
-    if (!userId) return false;
-
-    return !!(await this.articleRepository.countBy({
-      id: articleId,
-      viewUsers: {
-        id: userId,
-      },
-    }));
   }
 
   async isBookmark(articleId: number, userId?: number): Promise<boolean> {

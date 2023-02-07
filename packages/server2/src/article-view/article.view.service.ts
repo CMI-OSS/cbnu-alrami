@@ -16,7 +16,7 @@ export class ArticleViewService {
   ) {}
 
   async view(articleId: number, user: User) {
-    if (!this.isView(articleId, user.id)) {
+    if (!(await this.isView(articleId, user.id))) {
       const article = await this.articleService.findOne(articleId, user);
       await this.save(article, user);
       await this.articleService.updateViewCount(articleId);

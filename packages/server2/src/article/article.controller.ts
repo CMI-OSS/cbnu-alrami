@@ -93,15 +93,15 @@ export class ArticleController {
 
   @GetPopularArticle()
   @Get("/popular")
-  findPopularArticles() {
-    return this.articleService.findTopArticlesByHit(1, 15);
+  findPopularArticles(@Query() query: PaginationDto) {
+    return this.articleService.findTopArticlesByHit(query.page, query.count);
   }
 
   @GetArtice()
   @UserHeader
   @Get(":id")
-  async findOne(@Param("id") id: number, @UserSession() user: User) {
-    await this.articleViewService.view(id, user);
+  async findOne(@Param("id") id: number, @UserSession() user?: User) {
+    if (user) await this.articleViewService.view(id, user);
     return this.articleService.findOne(id, user);
   }
 

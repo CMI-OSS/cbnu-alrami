@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDateString, IsOptional, IsString } from "class-validator";
+import { IsDateString, IsNumber, IsOptional, IsString } from "class-validator";
 import { Admin } from "src/admin/entities/admin.entity";
 import { Board } from "src/board/entities/board.entity";
 import { UpdatableCommonEntity } from "src/common/entity";
@@ -51,6 +51,14 @@ export class Article extends UpdatableCommonEntity {
   @IsDateString()
   @Column({ type: "datetime" })
   dateTime: Date;
+
+  @ApiProperty({
+    description: "공지사항 조회수",
+    example: 13,
+  })
+  @IsNumber()
+  @Column({ type: "int" })
+  viewCount: number;
 
   @ApiProperty({ description: "게시물이 속한 게시판", type: () => Board })
   @ManyToOne(() => Board, { onDelete: "SET NULL", nullable: true })

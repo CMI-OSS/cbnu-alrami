@@ -170,6 +170,8 @@ export class ArticleService {
 
     if (!article) throw new NotFoundArticleException();
 
+    // TODO: user_id와 article_id로 article_view 검색해서 -> 결과 없을 경우에만 조회수 +1
+
     const { ..._ariticle } = article;
 
     return {

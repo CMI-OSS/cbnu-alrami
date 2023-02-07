@@ -15,7 +15,7 @@ import {
 } from "./article.exception";
 import {
   ResponseArticleDetailDto,
-  ResponseArticleDto,
+  ResponseArticlePageDto,
 } from "./dto/response-article.dto";
 
 export const CreateArticle = () => {
@@ -48,7 +48,7 @@ export const GetBookmarkArtice = () => {
     ApiOperation({
       summary: "북마크한 게시물 조회",
     }),
-    ApiOkResponse({ type: () => ResponseArticleDto, isArray: true }),
+    ApiOkResponse({ type: () => ResponseArticlePageDto }),
     ApiNotFoundResponse({
       type: NotFoundArticleException,
     }),
@@ -60,7 +60,7 @@ export const GetSubscribeArticle = () => {
     ApiOperation({
       summary: "구독한 게시판중 최신 게시물순 조회",
     }),
-    ApiOkResponse({ type: () => ResponseArticleDto, isArray: true }),
+    ApiOkResponse({ type: () => ResponseArticlePageDto }),
     ApiNotFoundResponse({
       type: NotFoundArticleException,
     }),

@@ -82,7 +82,7 @@ export class Article extends UpdatableCommonEntity {
     cascade: true,
     nullable: true,
   })
-  bookmarkUsers: ArticleBookmark[];
+  bookmarkUsers?: ArticleBookmark[];
 
   @ManyToMany(() => User, (user) => user.id, {
     cascade: true,
@@ -90,5 +90,5 @@ export class Article extends UpdatableCommonEntity {
   @JoinTable({
     name: "article_view",
   })
-  viewUsers: User[];
+  viewUsers?: User[];
 }

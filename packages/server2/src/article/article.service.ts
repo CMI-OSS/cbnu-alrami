@@ -4,7 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { BoardService } from "src/board/board.service";
 import { ImageService } from "src/image/image.service";
 import { User } from "src/user/entities/user.entity";
-import { In, Repository } from "typeorm";
+import { FindManyOptions, In, Repository } from "typeorm";
 
 import {
   DuplicatedArticleException,
@@ -57,8 +57,12 @@ export class ArticleService {
     return this.articleRepository.find();
   }
 
-  async findBookmarkArticle(user: User, page: number, count: number) {
-    const articles: Article[] = await this.articleRepository.find({
+  async findBookmarkArticlePage(
+    user: User,
+    page: number,
+    count: number,
+  ): Promise<ResponseArticlePageDto> {
+    const articlePage = await this.findArticlePage(page, count, {
       where: {
         bookmarkUsers: {
           user: {
@@ -76,69 +80,50 @@ export class ArticleService {
           createdDateTime: "DESC",
         },
       },
-      take: count,
-      skip: (page - 1) * count,
     });
 
-    const result = Promise.all(
-      articles.map<Promise<ResponseArticleDto>>(
-        async ({ content, author, ...article }) => {
-          return {
-            ...article,
-            bookmarkCount: await this.getBookmarkCount(article.id),
-            viewCount: await this.getViewCount(article.id),
-          } as ResponseArticleDto;
-        },
+    return {
+      ...articlePage,
+      articles: articlePage.articles.map(
+        ({ bookmarkUsers, ...article }) => article,
       ),
-    );
-
-    return result;
+    };
   }
 
-  async findSubscribeArticles(user: User, page: number, count: number) {
+  async findSubscribeArticlePage(user: User, page: number, count: number) {
     const subscribeBoards = await this.boardService.getSubscribeBoards(user);
 
-    const articles: Article[] = await this.articleRepository.find({
+    return this.findArticlePage(page, count, {
       where: {
-        board: In(subscribeBoards.map((board) => board.id)),
-      },
-      relations: {
-        board: { parent: true },
-        images: true,
-      },
-      order: {
-        dateTime: "DESC",
-      },
-      take: count,
-      skip: (page - 1) * count,
-    });
-
-    const result = Promise.all(
-      articles.map<Promise<ResponseArticleDto>>(
-        async ({ content, author, ...article }) => {
-          return {
-            ...article,
-            bookmarkCount: await this.getBookmarkCount(article.id),
-            viewCount: await this.getViewCount(article.id),
-          } as ResponseArticleDto;
+        board: {
+          id: In(subscribeBoards.map((board) => board.id)),
         },
-      ),
-    );
-
-    return result;
+      },
+    });
   }
 
-  async findArticlePage(
+  async findArticlePageByBoardId(
     boardId: number,
     page: number,
     count: number,
   ): Promise<ResponseArticlePageDto> {
-    const articles: Article[] = await this.articleRepository.find({
+    return this.findArticlePage(page, count, {
       where: {
         board: {
           id: boardId,
         },
       },
+    });
+  }
+
+  async findArticlePage(
+    page: number,
+    count: number,
+    option: FindManyOptions<Article>,
+  ): Promise<ResponseArticlePageDto> {
+    const articles: Article[] = await this.articleRepository.find({
+      take: count,
+      skip: (page - 1) * count,
       relations: {
         board: { parent: true },
         images: true,
@@ -146,15 +131,21 @@ export class ArticleService {
       order: {
         dateTime: "DESC",
       },
-      take: count,
-      skip: (page - 1) * count,
+      // 'content'를 제외하기 위함
+      select: [
+        "id",
+        "title",
+        "url",
+        "dateTime",
+        "createdDateTime",
+        "updatedDateTime",
+      ],
+      ...option,
     });
 
-    const totalArticleCount: number = await this.articleRepository.countBy({
-      board: {
-        id: boardId,
-      },
-    });
+    const totalArticleCount: number = option.where
+      ? await this.articleRepository.countBy(option.where)
+      : 0;
 
     const totalPageCount = Math.ceil(totalArticleCount / count);
 

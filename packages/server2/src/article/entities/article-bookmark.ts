@@ -7,11 +7,11 @@ import { Article } from "./article.entity";
 @Entity()
 @Unique([ "article", "user" ])
 export class ArticleBookmark extends CommonEntity {
-  @ManyToOne(() => Article, { eager: true, onDelete: "CASCADE" })
+  @ManyToOne(() => Article, { onDelete: "CASCADE" })
   @JoinColumn()
   article: Article;
 
-  @ManyToOne(() => User, { eager: true, onDelete: "CASCADE" })
+  @ManyToOne(() => User, { onDelete: "CASCADE" })
   @JoinColumn()
   user: User;
 }

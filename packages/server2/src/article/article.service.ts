@@ -7,7 +7,7 @@ import * as utc from "dayjs/plugin/utc";
 import { BoardService } from "src/board/board.service";
 import { ImageService } from "src/image/image.service";
 import { User } from "src/user/entities/user.entity";
-import { In, Repository } from "typeorm";
+import { In, MoreThanOrEqual, Repository } from "typeorm";
 
 import { ArticleViewService } from "../article-view/article.view.service";
 import {
@@ -25,6 +25,8 @@ import { Article } from "./entities/article.entity";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.tz.setDefault("Asia/Seoul");
+
+const ARTICLE_PAGE_COUNT = 15;
 
 @Injectable()
 export class ArticleService {
@@ -316,8 +318,16 @@ export class ArticleService {
   }
 
   async findTopArticlesByHit() {
-    // DESCRIBE: hit 테이블에서 최근 2주동안의 공지사항 중 조회수 순으로 상위 15개 공지사항 조회
-    const articles = await this.articleRepository.findOne({});
+    // DESCRIBE: article 테이블에서 최근 2주 동안의 공지사항을 viewCount 내림차순으로 15개 조회
+    const articles = await this.articleRepository.find({
+      where: {
+        dateTime: MoreThanOrEqual(this.getDateWeeksAgo(2)),
+      },
+      order: {
+        viewCount: "DESC",
+      },
+      take: ARTICLE_PAGE_COUNT,
+    });
 
     // const articles = await this.articleViewService.findPopularArticlesByView(
     //   this.getDateWeeksAgo(2),
@@ -345,6 +355,9 @@ export class ArticleService {
 
   getDateWeeksAgo = (weeks: number) => {
     // DESCRIBE: dayjs의 객체값 사용 -> d는 UTC, timezone은 KST로 있었으니까? -> 날짜 변환 함수를 쓰면 -> 내부적으로 KST로 바꿔주지 않을까!
-    return dayjs().subtract(2, "week").tz().format("YYYY-MM-DD");
+    // FIXME: 이게..최선?
+    return dayjs(
+      dayjs().subtract(2, "week").tz().format("YYYY-MM-DD"),
+    ).toDate();
   };
 }

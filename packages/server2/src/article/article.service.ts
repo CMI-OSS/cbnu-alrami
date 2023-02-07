@@ -310,7 +310,6 @@ export class ArticleService {
     const articles = await this.articleViewService.findPopularArticlesByView(
       this.getDateWeeksAgo(14),
     );
-
     console.log(articles);
 
     // // DESCRIBE: 각 article에 대해 조회수, 스크랩 수 카운트

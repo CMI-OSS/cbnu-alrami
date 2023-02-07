@@ -14,6 +14,7 @@ import { CreateArticleDto } from "./dto/create-article.dto";
 import {
   ResponseArticleDetailDto,
   ResponseArticleDto,
+  ResponseArticlePageDto,
 } from "./dto/response-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
 import { ArticleBookmark } from "./entities/article-bookmark";
@@ -131,7 +132,7 @@ export class ArticleService {
     boardId: number,
     page: number,
     count: number,
-  ): Promise<ResponseArticleDto[]> {
+  ): Promise<ResponseArticlePageDto> {
     const articles: Article[] = await this.articleRepository.find({
       where: {
         board: {
@@ -149,7 +150,15 @@ export class ArticleService {
       skip: (page - 1) * count,
     });
 
-    const result = Promise.all(
+    const totalArticleCount: number = await this.articleRepository.countBy({
+      board: {
+        id: boardId,
+      },
+    });
+
+    const totalPageCount = Math.ceil(totalArticleCount / count);
+
+    const result = await Promise.all(
       articles.map<Promise<ResponseArticleDto>>(
         async ({ content, author, ...article }) => {
           return {
@@ -161,7 +170,15 @@ export class ArticleService {
       ),
     );
 
-    return result;
+    return {
+      pagination: {
+        currentPage: page,
+        totalPageCount,
+        totalItemCount: totalArticleCount,
+        isEnd: totalPageCount <= page,
+      },
+      articles: result,
+    };
   }
 
   async findOne(id: number, user?: User): Promise<ResponseArticleDetailDto> {

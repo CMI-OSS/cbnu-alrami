@@ -1,4 +1,5 @@
 import { ApiProperty, IntersectionType, OmitType } from "@nestjs/swagger";
+import { PaginationResponseDto } from "src/common/dto/pagination.dto";
 
 import { Article } from "../entities/article.entity";
 
@@ -22,4 +23,12 @@ export class ResponseArticleDetailDto extends IntersectionType(
 
   @ApiProperty({ description: "조회 여부", example: 1 })
   isView: boolean;
+}
+
+export class ResponseArticlePageDto {
+  @ApiProperty({ description: "페이지네이션 관련 정보" })
+  pagination: PaginationResponseDto;
+
+  @ApiProperty({ description: "게시물 목록" })
+  articles: ResponseArticleDto[];
 }

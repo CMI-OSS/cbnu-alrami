@@ -9,7 +9,6 @@ import { ImageService } from "src/image/image.service";
 import { User } from "src/user/entities/user.entity";
 import { FindManyOptions, In, MoreThanOrEqual, Repository } from "typeorm";
 
-import { ArticleViewService } from "../article-view/article.view.service";
 import {
   DuplicatedArticleException,
   NotFoundArticleException,
@@ -27,14 +26,11 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.tz.setDefault("Asia/Seoul");
 
-const ARTICLE_PAGE_COUNT = 15;
-
 @Injectable()
 export class ArticleService {
   constructor(
     @InjectRepository(Article)
     private articleRepository: Repository<Article>,
-    private articleViewService: ArticleViewService,
     @InjectRepository(ArticleBookmark)
     private articleBookmarkRepository: Repository<ArticleBookmark>,
     private imageService: ImageService,
@@ -238,6 +234,12 @@ export class ArticleService {
     return this.articleRepository.update(target.id, article);
   }
 
+  async updateViewCount(articleId: number) {
+    await this.articleRepository.update(articleId, {
+      viewCount: () => "view_count + 1",
+    });
+  }
+
   async remove(id: number) {
     const article = await this.findOne(id);
 
@@ -263,23 +265,6 @@ export class ArticleService {
       throw new NotFoundException("북마크 하지 않은 게시물");
 
     return this.articleBookmarkRepository.remove(articleBookmark);
-  }
-
-  async view(id: number, user?: User) {
-    if (!user) return false;
-
-    const article = await this.articleRepository.findOne({
-      where: { id },
-      relations: { viewUsers: true },
-    });
-
-    if (!article) throw new NotFoundArticleException();
-
-    article.viewUsers = article.viewUsers
-      ? [ user, ...article.viewUsers ]
-      : [ user ];
-
-    return article.save();
   }
 
   async findTopArticlesByHit(page: number, count: number) {

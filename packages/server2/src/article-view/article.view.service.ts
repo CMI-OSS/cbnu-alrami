@@ -1,23 +1,25 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { ArticleService } from "src/article/article.service";
+import { Article } from "src/article/entities/article.entity";
+import { User } from "src/user/entities/user.entity";
 import { Repository } from "typeorm";
 
-import { User } from "../../../server/src/commons/entities/user.entity";
 import { ArticleView } from "./entities/article-view.entity";
-
-type YYYYMMDD = string;
 
 @Injectable()
 export class ArticleViewService {
   constructor(
     @InjectRepository(ArticleView)
     private articleViewRepository: Repository<ArticleView>,
+    private articleService: ArticleService,
   ) {}
 
   async view(articleId: number, user: User) {
     if (!this.isView(articleId, user.id)) {
-      // article의 ViewCount 증가
-      // aritlce_view에 새로운 row 추가
+      const article = await this.articleService.findOne(articleId, user);
+      await this.save(article, user);
+      await this.articleService.updateViewCount(articleId);
     }
   }
 
@@ -29,10 +31,7 @@ export class ArticleViewService {
     return viewCount > 0;
   }
 
-  // async save(article: Article, user: User) {
-
-  // }
+  async save(article: Article, user: User) {
+    await this.articleViewRepository.save({ article, user });
+  }
 }
-
-// articleId로 조회수 증가 API 호출
-// 성공하면 -> article 상세 조회 API 호출

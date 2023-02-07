@@ -7,7 +7,6 @@ import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
 import { AdminModule } from "./admin/admin.module";
 import { Admin } from "./admin/entities/admin.entity";
-import { ArticleViewModule } from "./article-view/article.view.module";
 import { ArticleView } from "./article-view/entities/article-view.entity";
 import { ArticleModule } from "./article/article.module";
 import { ArticleBookmark } from "./article/entities/article-bookmark";
@@ -71,7 +70,6 @@ import { WeatherModule } from "./weather/weather.module";
     }),
     BoardModule,
     AdminModule,
-    ArticleViewModule,
     BoardAuthorityModule,
     ScheduleModule,
     ImageModule,

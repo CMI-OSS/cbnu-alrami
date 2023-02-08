@@ -104,6 +104,35 @@ export class ArticleApiService {
     }
 
     /**
+     * 인기 공지사항 조회 API
+     * 조회수와 공지사항 등록일을 이용, 최근 2주 동안 제일 인기가 많았던 상위 15개의 공지사항들을 조회한다.
+     * @returns ResponseArticlePageDto
+     * @throws ApiError
+     */
+    public static articleControllerFindPopularArticles({
+        page = 1,
+        count = 10,
+    }: {
+        /**
+         * 페이지
+         */
+        page?: number,
+        /**
+         * 아이템 개수
+         */
+        count?: number,
+    }): CancelablePromise<ResponseArticlePageDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/article/popular',
+            query: {
+                'page': page,
+                'count': count,
+            },
+        });
+    }
+
+    /**
      * 게시물 조회
      * @returns ResponseArticleDetailDto
      * @throws ApiError

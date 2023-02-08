@@ -31,6 +31,7 @@
     "@nestjs/typeorm": "^9.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "dayjs": "^1.11.7",
     "fcm-node": "^1.6.1",
     "mysql2": "^2.3.3",
     "passport-jwt": "^4.0.1",

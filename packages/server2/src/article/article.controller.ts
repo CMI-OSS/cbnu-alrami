@@ -13,6 +13,7 @@ import {
 import { ApiTags } from "@nestjs/swagger";
 import { AdminService } from "src/admin/admin.service";
 import { AdminGuard } from "src/admin/gurads/admin.guard";
+import { ArticleViewService } from "src/article-view/article.view.service";
 import { PaginationDto } from "src/common/dto/pagination.dto";
 import { MutationResponse } from "src/common/types/response";
 import { User } from "src/user/entities/user.entity";
@@ -26,6 +27,7 @@ import {
   DeleteArticle,
   GetArtice,
   GetBookmarkArtice,
+  GetPopularArticle,
   GetSubscribeArticle,
   UnBookmarkArticle,
   UpdateArticle,
@@ -38,6 +40,7 @@ import { UpdateArticleDto } from "./dto/update-article.dto";
 export class ArticleController {
   constructor(
     private readonly articleService: ArticleService,
+    private readonly articleViewService: ArticleViewService,
     private readonly adminService: AdminService,
   ) {}
 
@@ -64,7 +67,11 @@ export class ArticleController {
     @Query() query: PaginationDto,
   ) {
     return user
-      ? this.articleService.findBookmarkArticle(user, query.page, query.count)
+      ? this.articleService.findBookmarkArticlePage(
+          user,
+          query.page,
+          query.count,
+        )
       : [];
   }
 
@@ -76,16 +83,25 @@ export class ArticleController {
     @Query() query: PaginationDto,
   ) {
     return user
-      ? this.articleService.findSubscribeArticles(user, query.page, query.count)
+      ? this.articleService.findSubscribeArticlePage(
+          user,
+          query.page,
+          query.count,
+        )
       : [];
+  }
+
+  @GetPopularArticle()
+  @Get("/popular")
+  findPopularArticles(@Query() query: PaginationDto) {
+    return this.articleService.findTopArticlesByHit(query.page, query.count);
   }
 
   @GetArtice()
   @UserHeader
   @Get(":id")
-  findOne(@Param("id") id: number, @UserSession() user: User) {
-    this.articleService.view(id, user);
-
+  async findOne(@Param("id") id: number, @UserSession() user?: User) {
+    if (user) await this.articleViewService.view(id, user);
     return this.articleService.findOne(id, user);
   }
 

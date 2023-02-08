@@ -1,19 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDateString, IsOptional, IsString } from "class-validator";
+import { IsDateString, IsNumber, IsOptional, IsString } from "class-validator";
 import { Admin } from "src/admin/entities/admin.entity";
 import { Board } from "src/board/entities/board.entity";
 import { UpdatableCommonEntity } from "src/common/entity";
 import { Image } from "src/image/entities/image.entity";
-import { User } from "src/user/entities/user.entity";
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-} from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+
+import { ArticleBookmark } from "./article-bookmark";
 
 @Entity()
 export class Article extends UpdatableCommonEntity {
@@ -52,6 +45,22 @@ export class Article extends UpdatableCommonEntity {
   @Column({ type: "datetime" })
   dateTime: Date;
 
+  @ApiProperty({
+    description: "공지사항 조회 수",
+    example: 13,
+  })
+  @IsNumber()
+  @Column({ type: "int" })
+  viewCount = 0;
+
+  @ApiProperty({
+    description: "공지사항 북마크 수",
+    example: 203,
+  })
+  @IsNumber()
+  @Column({ type: "int" })
+  bookmarkCount = 0;
+
   @ApiProperty({ description: "게시물이 속한 게시판", type: () => Board })
   @ManyToOne(() => Board, { onDelete: "SET NULL", nullable: true })
   @JoinColumn()
@@ -76,19 +85,9 @@ export class Article extends UpdatableCommonEntity {
   })
   images?: Image[];
 
-  @ManyToMany(() => User, (user) => user.id, {
+  @OneToMany(() => ArticleBookmark, (bookmark) => bookmark.article, {
     cascade: true,
+    nullable: true,
   })
-  @JoinTable({
-    name: "article_bookmark",
-  })
-  bookmarkUsers: User[];
-
-  @ManyToMany(() => User, (user) => user.id, {
-    cascade: true,
-  })
-  @JoinTable({
-    name: "article_view",
-  })
-  viewUsers: User[];
+  bookmarkUsers?: ArticleBookmark[];
 }

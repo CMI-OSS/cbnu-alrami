@@ -23,8 +23,10 @@ export class Schedule extends CommonEntity {
   @ApiProperty({
     description: "우선순위",
     example: 1,
+    required: false,
   })
   @IsNumber()
+  @IsOptional()
   @Column({ type: "int", nullable: true })
   priority?: number;
 
@@ -34,6 +36,7 @@ export class Schedule extends CommonEntity {
     required: false,
   })
   @IsBoolean()
+  @IsOptional()
   @Column({ type: "boolean", nullable: true })
   isHoliday?: boolean;
 

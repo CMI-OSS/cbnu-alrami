@@ -1,10 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Injectable } from "@nestjs/common";
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import * as dayjs from "dayjs";
+import * as timezone from "dayjs/plugin/timezone";
+import * as utc from "dayjs/plugin/utc";
+import { ArticleViewService } from "src/article-view/article.view.service";
 import { BoardService } from "src/board/board.service";
 import { ImageService } from "src/image/image.service";
 import { User } from "src/user/entities/user.entity";
-import { In, Repository } from "typeorm";
+import { FindManyOptions, In, MoreThanOrEqual, Repository } from "typeorm";
 
 import {
   DuplicatedArticleException,
@@ -13,16 +22,25 @@ import {
 import { CreateArticleDto } from "./dto/create-article.dto";
 import {
   ResponseArticleDetailDto,
-  ResponseArticleDto,
+  ResponseArticlePageDto,
 } from "./dto/response-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
+import { ArticleBookmark } from "./entities/article-bookmark";
 import { Article } from "./entities/article.entity";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault("Asia/Seoul");
 
 @Injectable()
 export class ArticleService {
   constructor(
     @InjectRepository(Article)
     private articleRepository: Repository<Article>,
+    @InjectRepository(ArticleBookmark)
+    private articleBookmarkRepository: Repository<ArticleBookmark>,
+    @Inject(forwardRef(() => ArticleViewService))
+    private articleViewService: ArticleViewService,
     private imageService: ImageService,
     private boardService: BoardService,
   ) {}
@@ -53,83 +71,73 @@ export class ArticleService {
     return this.articleRepository.find();
   }
 
-  async findBookmarkArticle(user: User, page: number, count: number) {
-    const articles: Article[] = await this.articleRepository.find({
+  async findBookmarkArticlePage(
+    user: User,
+    page: number,
+    count: number,
+  ): Promise<ResponseArticlePageDto> {
+    const articlePage = await this.findArticlePage(page, count, {
       where: {
         bookmarkUsers: {
-          id: user.id,
+          user: {
+            id: user.id,
+          },
         },
       },
       relations: {
+        bookmarkUsers: true,
         board: { parent: true },
         images: true,
       },
       order: {
-        dateTime: "DESC",
+        bookmarkUsers: {
+          createdDateTime: "DESC",
+        },
       },
-      take: count,
-      skip: (page - 1) * count,
     });
 
-    const result = Promise.all(
-      articles.map<Promise<ResponseArticleDto>>(
-        async ({ content, author, ...article }) => {
-          return {
-            ...article,
-            bookmarkCount: await this.getBookmarkCount(article.id),
-            viewCount: await this.getViewCount(article.id),
-          } as ResponseArticleDto;
-        },
+    return {
+      ...articlePage,
+      articles: articlePage.articles.map(
+        ({ bookmarkUsers, ...article }) => article,
       ),
-    );
-
-    return result;
+    };
   }
 
-  async findSubscribeArticles(user: User, page: number, count: number) {
+  async findSubscribeArticlePage(user: User, page: number, count: number) {
     const subscribeBoards = await this.boardService.getSubscribeBoards(user);
 
-    const articles: Article[] = await this.articleRepository.find({
+    return this.findArticlePage(page, count, {
       where: {
-        board: In(subscribeBoards.map((board) => board.id)),
-      },
-      relations: {
-        board: { parent: true },
-        images: true,
-      },
-      order: {
-        dateTime: "DESC",
-      },
-      take: count,
-      skip: (page - 1) * count,
-    });
-
-    const result = Promise.all(
-      articles.map<Promise<ResponseArticleDto>>(
-        async ({ content, author, ...article }) => {
-          return {
-            ...article,
-            bookmarkCount: await this.getBookmarkCount(article.id),
-            viewCount: await this.getViewCount(article.id),
-          } as ResponseArticleDto;
+        board: {
+          id: In(subscribeBoards.map((board) => board.id)),
         },
-      ),
-    );
-
-    return result;
+      },
+    });
   }
 
-  async findArticlePage(
+  async findArticlePageByBoardId(
     boardId: number,
     page: number,
     count: number,
-  ): Promise<ResponseArticleDto[]> {
-    const articles: Article[] = await this.articleRepository.find({
+  ): Promise<ResponseArticlePageDto> {
+    return this.findArticlePage(page, count, {
       where: {
         board: {
           id: boardId,
         },
       },
+    });
+  }
+
+  async findArticlePage(
+    page: number,
+    count: number,
+    option: FindManyOptions<Article>,
+  ): Promise<ResponseArticlePageDto> {
+    const articles: Article[] = await this.articleRepository.find({
+      take: count,
+      skip: (page - 1) * count,
       relations: {
         board: { parent: true },
         images: true,
@@ -137,23 +145,35 @@ export class ArticleService {
       order: {
         dateTime: "DESC",
       },
-      take: count,
-      skip: (page - 1) * count,
+      // 'content'를 제외하기 위함
+      select: [
+        "id",
+        "title",
+        "url",
+        "dateTime",
+        "viewCount",
+        "bookmarkCount",
+        "createdDateTime",
+        "updatedDateTime",
+      ],
+      ...option,
     });
 
-    const result = Promise.all(
-      articles.map<Promise<ResponseArticleDto>>(
-        async ({ content, author, ...article }) => {
-          return {
-            ...article,
-            bookmarkCount: await this.getBookmarkCount(article.id),
-            viewCount: await this.getViewCount(article.id),
-          } as ResponseArticleDto;
-        },
-      ),
-    );
+    const totalArticleCount: number = option.where
+      ? await this.articleRepository.countBy(option.where)
+      : 0;
 
-    return result;
+    const totalPageCount = Math.ceil(totalArticleCount / count);
+
+    return {
+      pagination: {
+        currentPage: page,
+        totalPageCount,
+        totalItemCount: totalArticleCount,
+        isEnd: totalPageCount <= page,
+      },
+      articles,
+    };
   }
 
   async findOne(id: number, user?: User): Promise<ResponseArticleDetailDto> {
@@ -171,51 +191,20 @@ export class ArticleService {
 
     return {
       ..._ariticle,
-      isView: await this.isView(article.id, user?.id),
+      isView: user
+        ? await this.articleViewService.isView(article.id, user.id)
+        : false,
       isBookmark: await this.isBookmark(article.id, user?.id),
-      bookmarkCount: await this.getBookmarkCount(article.id),
-      viewCount: await this.getViewCount(article.id),
     } as ResponseArticleDetailDto;
-  }
-
-  async isView(articleId: number, userId?: number): Promise<boolean> {
-    if (!userId) return false;
-
-    return !!(await this.articleRepository.countBy({
-      id: articleId,
-      viewUsers: {
-        id: userId,
-      },
-    }));
-  }
-
-  async getViewCount(articleId: number): Promise<number> {
-    const viewCount = await this.articleRepository.countBy({
-      id: articleId,
-      viewUsers: true,
-    });
-
-    return viewCount;
   }
 
   async isBookmark(articleId: number, userId?: number): Promise<boolean> {
     if (!userId) return false;
 
-    return !!(await this.articleRepository.countBy({
-      id: articleId,
-      bookmarkUsers: {
-        id: userId,
-      },
+    return !!(await this.articleBookmarkRepository.countBy({
+      article: { id: articleId },
+      user: { id: userId },
     }));
-  }
-
-  async getBookmarkCount(articleId: number): Promise<number> {
-    const viewCount = await this.articleRepository.countBy({
-      id: articleId,
-      bookmarkUsers: true,
-    });
-
-    return viewCount;
   }
 
   findOneByUrl(url: string) {
@@ -244,6 +233,12 @@ export class ArticleService {
     return this.articleRepository.update(target.id, article);
   }
 
+  async updateViewCount(articleId: number) {
+    await this.articleRepository.update(articleId, {
+      viewCount: () => "view_count + 1",
+    });
+  }
+
   async remove(id: number) {
     const article = await this.findOne(id);
 
@@ -253,52 +248,43 @@ export class ArticleService {
   async bookmark(id: number, user: User) {
     const article = await this.articleRepository.findOne({
       where: { id },
-      relations: { bookmarkUsers: true },
     });
 
     if (!article) throw new NotFoundArticleException();
 
-    article.bookmarkUsers = article.bookmarkUsers
-      ? [ user, ...article.bookmarkUsers ]
-      : [ user ];
-
-    return article.save();
+    return this.articleBookmarkRepository.save({ article, user });
   }
 
   async unbookmark(id: number, user: User) {
-    const article = await this.articleRepository.findOne({
+    const articleBookmark = await this.articleBookmarkRepository.findOne({
+      where: { article: { id }, user: { id: user.id } },
+    });
+
+    if (!articleBookmark)
+      throw new NotFoundException("북마크 하지 않은 게시물");
+
+    return this.articleBookmarkRepository.remove(articleBookmark);
+  }
+
+  async findTopArticlesByHit(page: number, count: number) {
+    // DESCRIBE: article 테이블에서 최근 2주 동안의 공지사항을 viewCount 내림차순으로 15개 조회
+    const findOptions: FindManyOptions<Article> = {
       where: {
-        id,
-        bookmarkUsers: {
-          id: user.id,
-        },
+        dateTime: MoreThanOrEqual(this.getDateWeeksAgo(2)),
       },
-      relations: { bookmarkUsers: true },
-    });
-
-    if (!article) throw new NotFoundArticleException();
-
-    article.bookmarkUsers = article.bookmarkUsers.filter(
-      (_user) => _user.id !== user.id,
-    );
-
-    return article.save();
+      order: {
+        viewCount: "DESC",
+      },
+    };
+    const articles = await this.findArticlePage(page, count, findOptions);
+    return articles;
   }
 
-  async view(id: number, user?: User) {
-    if (!user) return false;
-
-    const article = await this.articleRepository.findOne({
-      where: { id },
-      relations: { viewUsers: true },
-    });
-
-    if (!article) throw new NotFoundArticleException();
-
-    article.viewUsers = article.viewUsers
-      ? [ user, ...article.viewUsers ]
-      : [ user ];
-
-    return article.save();
-  }
+  getDateWeeksAgo = (weeks: number) => {
+    // DESCRIBE: dayjs의 객체값 사용 -> d는 UTC, timezone은 KST로 있었으니까? -> 날짜 변환 함수를 쓰면 -> 내부적으로 KST로 바꿔주지 않을까!
+    // FIXME: 이게..최선?
+    return dayjs(
+      dayjs().subtract(2, "week").tz().format("YYYY-MM-DD"),
+    ).toDate();
+  };
 }

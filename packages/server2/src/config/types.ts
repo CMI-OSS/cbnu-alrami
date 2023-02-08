@@ -32,4 +32,8 @@ export type Configutation = {
     secret: string;
     expire: string;
   };
+  holiday: {
+    key: string;
+    url: string;
+  };
 };

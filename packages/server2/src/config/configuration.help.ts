@@ -34,6 +34,10 @@ const configuration: Configutation = {
     secret: "",
     expire: "",
   },
+  holiday: {
+    key: "",
+    url: "",
+  },
 };
 
 export default configuration;

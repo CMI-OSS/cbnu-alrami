@@ -1,3 +1,4 @@
+import { HttpModule } from "@nestjs/axios";
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
@@ -6,7 +7,7 @@ import { ScheduleController } from "./schedule.controller";
 import { ScheduleService } from "./schedule.service";
 
 @Module({
-  imports: [ TypeOrmModule.forFeature([ Schedule ]) ],
+  imports: [ TypeOrmModule.forFeature([ Schedule ]), HttpModule ],
   controllers: [ ScheduleController ],
   providers: [ ScheduleService ],
 })

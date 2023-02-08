@@ -1,5 +1,6 @@
 export type Configutation = {
   server: {
+    env: "dev" | "production";
     host: string;
     port: number;
   };

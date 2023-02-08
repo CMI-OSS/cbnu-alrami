@@ -2,6 +2,7 @@ import { Configutation } from "./types";
 
 const configuration: Configutation = {
   server: {
+    env: "dev",
     host: "",
     port: 0,
   },

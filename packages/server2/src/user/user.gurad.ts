@@ -18,9 +18,9 @@ class Guard implements CanActivate {
 
 export const UserHeader = ApiHeader({
   name: "uuid",
-  description: "유저의 랜덤한 UUID",
+  description: "유저 UUID",
   schema: {
-    default: "1111",
+    example: "1111",
   },
 });
 

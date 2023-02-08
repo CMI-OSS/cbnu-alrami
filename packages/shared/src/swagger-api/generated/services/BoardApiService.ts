@@ -40,7 +40,7 @@ export class BoardApiService {
         uuid,
     }: {
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<Array<ResponseBoardDto>> {
@@ -62,7 +62,7 @@ export class BoardApiService {
         uuid,
     }: {
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<Array<ResponseBoardDto>> {
@@ -86,7 +86,7 @@ export class BoardApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<ResponseBoardDto> {
@@ -188,7 +188,7 @@ export class BoardApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<MutationResponse> {
@@ -215,7 +215,7 @@ export class BoardApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<MutationResponse> {
@@ -242,7 +242,7 @@ export class BoardApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<MutationResponse> {
@@ -269,7 +269,7 @@ export class BoardApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<MutationResponse> {

@@ -32,13 +32,11 @@ export class Schedule extends CommonEntity {
 
   @ApiProperty({
     description: "휴일여부",
-    example: false,
-    required: false,
+    default: false,
   })
   @IsBoolean()
-  @IsOptional()
-  @Column({ type: "boolean", nullable: true })
-  isHoliday?: boolean;
+  @Column({ type: "boolean", nullable: true, default: false })
+  isHoliday: boolean;
 
   @ApiProperty({
     description:

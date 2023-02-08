@@ -75,15 +75,15 @@ export class ScheduleService {
   }
 
   findAll({ startDateTime, endDateTime }: GetScheduleDto) {
-    const where = startDateTime && {
-      ...(startDateTime && { startDateTime: MoreThanOrEqual(startDateTime) }),
-      ...(endDateTime && { endDateTime: LessThanOrEqual(startDateTime) }),
-      ...(endDateTime && { endDateTime: LessThanOrEqual(endDateTime) }),
-    };
-
-    if (where) return this.scheduleRepository.find({ where });
-
-    return this.scheduleRepository.find();
+    return this.scheduleRepository.find({
+      where: {
+        startDateTime: MoreThanOrEqual(startDateTime),
+        ...(endDateTime && { startDateTime: LessThanOrEqual(endDateTime) }),
+      },
+      order: {
+        startDateTime: "ASC",
+      },
+    });
   }
 
   async findBookmarkSchedules(user: User) {

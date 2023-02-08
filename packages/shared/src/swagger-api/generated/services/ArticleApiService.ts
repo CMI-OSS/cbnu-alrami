@@ -50,7 +50,7 @@ export class ArticleApiService {
          */
         count?: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<ResponseArticlePageDto> {
@@ -86,7 +86,7 @@ export class ArticleApiService {
          */
         count?: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<ResponseArticlePageDto> {
@@ -105,7 +105,7 @@ export class ArticleApiService {
 
     /**
      * 인기 공지사항 조회 API
-     * 조회수와 공지사항 등록일을 이용, 최근 2주 동안 제일 인기가 많았던 상위 15개의 공지사항들을 조회한다.
+     * 조회수와 공지사항 등록일을 이용, 최근 2주 동안 제일 인기가 많은순으로 정렬하여 제공
      * @returns ResponseArticlePageDto
      * @throws ApiError
      */
@@ -143,7 +143,7 @@ export class ArticleApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<ResponseArticleDetailDto> {
@@ -212,7 +212,7 @@ export class ArticleApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<MutationResponse> {
@@ -239,7 +239,7 @@ export class ArticleApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<MutationResponse> {

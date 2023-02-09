@@ -17,7 +17,9 @@ export class ArticleBookmarkService {
 
   async bookmark(id: number, user: User) {
     const article = await this.articleService.findById(id);
-    return this.save(article, user);
+    const bookmark = await this.save(article, user);
+    await this.articleService.updateBookmarkCount(article.id);
+    return bookmark;
   }
 
   async unbookmark(id: number, user: User) {

@@ -236,6 +236,12 @@ export class ArticleService {
     });
   }
 
+  async updateBookmarkCount(articleId: number) {
+    await this.articleRepository.update(articleId, {
+      bookmarkCount: () => "bookmark_count + 1",
+    });
+  }
+
   async remove(id: number) {
     const article = await this.findOne(id);
 

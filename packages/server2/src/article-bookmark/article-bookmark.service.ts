@@ -23,25 +23,37 @@ export class ArticleBookmarkService {
 
   async bookmark(id: number, user: User) {
     const article = await this.articleService.findById(id);
-    await this.save(article, user);
+    return this.save(article, user);
   }
 
   async unbookmark(id: number, user: User) {
-    const articleBookmark = await this.articleBookmarkRepository.findOne({
-      where: { article: { id }, user: { id: user.id } },
-    });
-
+    const articleBookmark = await this.findOne(id, user);
     if (!articleBookmark)
       throw new NotFoundException("북마크 하지 않은 게시물");
 
-    await this.remove(articleBookmark);
+    return this.remove(articleBookmark);
+  }
+
+  async isBookmark(articleId: number, userId?: number): Promise<boolean> {
+    if (!userId) return false;
+    return !!(await this.articleBookmarkRepository.countBy({
+      article: { id: articleId },
+      user: { id: userId },
+    }));
+  }
+
+  async findOne(id: number, user: User) {
+    const articleBookmark = await this.articleBookmarkRepository.findOne({
+      where: { article: { id }, user: { id: user.id } },
+    });
+    return articleBookmark;
   }
 
   async save(article: Article, user: User) {
-    await this.articleBookmarkRepository.save({ article, user });
+    return this.articleBookmarkRepository.save({ article, user });
   }
 
   async remove(articleBookmark: ArticleBookmark) {
-    await this.articleBookmarkRepository.remove(articleBookmark);
+    return this.articleBookmarkRepository.remove(articleBookmark);
   }
 }

@@ -9,12 +9,13 @@ import { InjectRepository } from "@nestjs/typeorm";
 import * as dayjs from "dayjs";
 import * as timezone from "dayjs/plugin/timezone";
 import * as utc from "dayjs/plugin/utc";
-import { ArticleViewService } from "src/article-view/article.view.service";
+import { ArticleViewService } from "src/article-view/article-view.service";
 import { BoardService } from "src/board/board.service";
 import { ImageService } from "src/image/image.service";
 import { User } from "src/user/entities/user.entity";
 import { FindManyOptions, In, MoreThanOrEqual, Repository } from "typeorm";
 
+import { ArticleBookmark } from "../article-bookmark/entities/article-bookmark";
 import {
   DuplicatedArticleException,
   NotFoundArticleException,
@@ -25,7 +26,6 @@ import {
   ResponseArticlePageDto,
 } from "./dto/response-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
-import { ArticleBookmark } from "./entities/article-bookmark";
 import { Article } from "./entities/article.entity";
 
 dayjs.extend(utc);

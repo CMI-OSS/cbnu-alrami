@@ -5,9 +5,9 @@ import { ArticleViewModule } from "src/article-view/article.view.module";
 import { BoardModule } from "src/board/board.module";
 import { ImageModule } from "src/image/image.module";
 
+import { ArticleBookmark } from "../article-bookmark/entities/article-bookmark";
 import { ArticleController } from "./article.controller";
 import { ArticleService } from "./article.service";
-import { ArticleBookmark } from "./entities/article-bookmark";
 import { Article } from "./entities/article.entity";
 
 @Module({

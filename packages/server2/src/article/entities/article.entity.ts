@@ -6,7 +6,7 @@ import { UpdatableCommonEntity } from "src/common/entity";
 import { Image } from "src/image/entities/image.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 
-import { ArticleBookmark } from "./article-bookmark";
+import { ArticleBookmark } from "../../article-bookmark/entities/article-bookmark";
 
 @Entity()
 export class Article extends UpdatableCommonEntity {

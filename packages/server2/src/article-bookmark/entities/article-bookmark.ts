@@ -2,7 +2,7 @@ import { CommonEntity } from "src/common/entity";
 import { User } from "src/user/entities/user.entity";
 import { Entity, JoinColumn, ManyToOne, Unique } from "typeorm";
 
-import { Article } from "./article.entity";
+import { Article } from "../../article/entities/article.entity";
 
 @Entity()
 @Unique([ "article", "user" ])

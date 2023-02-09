@@ -2,7 +2,7 @@ import { forwardRef, Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ArticleModule } from "src/article/article.module";
 
-import { ArticleViewService } from "./article.view.service";
+import { ArticleViewService } from "./article-view.service";
 import { ArticleView } from "./entities/article-view.entity";
 
 @Module({

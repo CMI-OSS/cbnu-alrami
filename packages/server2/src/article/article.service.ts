@@ -1,15 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {
-  forwardRef,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+import { forwardRef, Inject, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import * as dayjs from "dayjs";
 import * as timezone from "dayjs/plugin/timezone";
 import * as utc from "dayjs/plugin/utc";
-import { ArticleViewService } from "src/article-view/article.view.service";
+import { ArticleBookmarkService } from "src/article-bookmark/article-bookmark.service";
+import { ArticleViewService } from "src/article-view/article-view.service";
 import { BoardService } from "src/board/board.service";
 import { ImageService } from "src/image/image.service";
 import { User } from "src/user/entities/user.entity";
@@ -25,7 +21,6 @@ import {
   ResponseArticlePageDto,
 } from "./dto/response-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
-import { ArticleBookmark } from "./entities/article-bookmark";
 import { Article } from "./entities/article.entity";
 
 dayjs.extend(utc);
@@ -37,10 +32,10 @@ export class ArticleService {
   constructor(
     @InjectRepository(Article)
     private articleRepository: Repository<Article>,
-    @InjectRepository(ArticleBookmark)
-    private articleBookmarkRepository: Repository<ArticleBookmark>,
     @Inject(forwardRef(() => ArticleViewService))
     private articleViewService: ArticleViewService,
+    @Inject(forwardRef(() => ArticleBookmarkService))
+    private articleBookmarkService: ArticleBookmarkService,
     private imageService: ImageService,
     private boardService: BoardService,
   ) {}
@@ -176,6 +171,14 @@ export class ArticleService {
     };
   }
 
+  async findById(id: number): Promise<Article> {
+    const article = await this.articleRepository.findOne({
+      where: { id },
+    });
+    if (!article) throw new NotFoundArticleException();
+    return article;
+  }
+
   async findOne(id: number, user?: User): Promise<ResponseArticleDetailDto> {
     const article = await this.articleRepository.findOne({
       where: { id },
@@ -194,17 +197,11 @@ export class ArticleService {
       isView: user
         ? await this.articleViewService.isView(article.id, user.id)
         : false,
-      isBookmark: await this.isBookmark(article.id, user?.id),
+      isBookmark: await this.articleBookmarkService.isBookmark(
+        article.id,
+        user?.id,
+      ),
     } as ResponseArticleDetailDto;
-  }
-
-  async isBookmark(articleId: number, userId?: number): Promise<boolean> {
-    if (!userId) return false;
-
-    return !!(await this.articleBookmarkRepository.countBy({
-      article: { id: articleId },
-      user: { id: userId },
-    }));
   }
 
   findOneByUrl(url: string) {
@@ -233,9 +230,21 @@ export class ArticleService {
     return this.articleRepository.update(target.id, article);
   }
 
-  async updateViewCount(articleId: number) {
+  async increaseViewCount(articleId: number) {
     await this.articleRepository.update(articleId, {
       viewCount: () => "view_count + 1",
+    });
+  }
+
+  async increaseBookmarkCount(articleId: number) {
+    await this.articleRepository.update(articleId, {
+      bookmarkCount: () => "bookmark_count + 1",
+    });
+  }
+
+  async decreaseBookmarkCount(articleId: number) {
+    await this.articleRepository.update(articleId, {
+      bookmarkCount: () => "bookmark_count - 1",
     });
   }
 
@@ -243,27 +252,6 @@ export class ArticleService {
     const article = await this.findOne(id);
 
     return this.articleRepository.remove(article);
-  }
-
-  async bookmark(id: number, user: User) {
-    const article = await this.articleRepository.findOne({
-      where: { id },
-    });
-
-    if (!article) throw new NotFoundArticleException();
-
-    return this.articleBookmarkRepository.save({ article, user });
-  }
-
-  async unbookmark(id: number, user: User) {
-    const articleBookmark = await this.articleBookmarkRepository.findOne({
-      where: { article: { id }, user: { id: user.id } },
-    });
-
-    if (!articleBookmark)
-      throw new NotFoundException("북마크 하지 않은 게시물");
-
-    return this.articleBookmarkRepository.remove(articleBookmark);
   }
 
   async findTopArticlesByHit(page: number, count: number) {

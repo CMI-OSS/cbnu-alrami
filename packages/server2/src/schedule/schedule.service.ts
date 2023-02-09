@@ -5,7 +5,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { firstValueFrom } from "rxjs";
 import configuration from "src/config/configuration";
 import { User } from "src/user/entities/user.entity";
-import { LessThanOrEqual, MoreThanOrEqual, Repository } from "typeorm";
+import { Between, MoreThanOrEqual, Repository } from "typeorm";
 
 import { CreateScheduleDto } from "./dto/create-schedule.dto";
 import { GetScheduleDto } from "./dto/get-schedule.dto";
@@ -78,7 +78,9 @@ export class ScheduleService {
     return this.scheduleRepository.find({
       where: {
         startDateTime: MoreThanOrEqual(startDateTime),
-        ...(endDateTime && { startDateTime: LessThanOrEqual(endDateTime) }),
+        ...(endDateTime && {
+          startDateTime: Between(startDateTime, endDateTime),
+        }),
       },
       order: {
         startDateTime: "ASC",

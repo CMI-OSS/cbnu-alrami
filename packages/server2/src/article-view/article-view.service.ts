@@ -20,7 +20,7 @@ export class ArticleViewService {
     if (!(await this.isView(articleId, user.id))) {
       const article = await this.articleService.findById(articleId);
       await this.save(article, user);
-      await this.articleService.updateViewCount(articleId);
+      await this.articleService.increaseViewCount(articleId);
     }
   }
 

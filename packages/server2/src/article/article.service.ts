@@ -230,15 +230,21 @@ export class ArticleService {
     return this.articleRepository.update(target.id, article);
   }
 
-  async updateViewCount(articleId: number) {
+  async increaseViewCount(articleId: number) {
     await this.articleRepository.update(articleId, {
       viewCount: () => "view_count + 1",
     });
   }
 
-  async updateBookmarkCount(articleId: number) {
+  async increaseBookmarkCount(articleId: number) {
     await this.articleRepository.update(articleId, {
       bookmarkCount: () => "bookmark_count + 1",
+    });
+  }
+
+  async decreaseBookmarkCount(articleId: number) {
+    await this.articleRepository.update(articleId, {
+      bookmarkCount: () => "bookmark_count - 1",
     });
   }
 

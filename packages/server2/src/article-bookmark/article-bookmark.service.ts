@@ -25,7 +25,7 @@ export class ArticleBookmarkService {
   async unbookmark(id: number, user: User) {
     const articleBookmark = await this.findOne(id, user);
     const result = this.remove(articleBookmark);
-    await this.articleService.increaseBookmarkCount(id);
+    await this.articleService.decreaseBookmarkCount(id);
     return result;
   }
 

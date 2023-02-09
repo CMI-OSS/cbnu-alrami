@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { forwardRef, Inject, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ArticleService } from "src/article/article.service";
 import { Article } from "src/article/entities/article.entity";
@@ -12,6 +12,7 @@ export class ArticleViewService {
   constructor(
     @InjectRepository(ArticleView)
     private articleViewRepository: Repository<ArticleView>,
+    @Inject(forwardRef(() => ArticleService))
     private articleService: ArticleService,
   ) {}
 

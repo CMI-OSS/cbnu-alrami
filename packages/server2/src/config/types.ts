@@ -1,5 +1,6 @@
 export type Configutation = {
   server: {
+    env: "dev" | "production";
     host: string;
     port: number;
   };
@@ -31,5 +32,9 @@ export type Configutation = {
   jwt: {
     secret: string;
     expire: string;
+  };
+  holiday: {
+    key: string;
+    url: string;
   };
 };

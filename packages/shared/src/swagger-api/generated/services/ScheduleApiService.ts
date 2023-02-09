@@ -30,22 +30,24 @@ export class ScheduleApiService {
     }
 
     /**
-     * 학사 일정 조회
+     * 일정 조회
+     * 타겟의 시작일을 기준으로 시작범위와 끝범위를 설정하여 일정을 조회합니다.
+     * (시작일 기준으로 오름차순 정렬) <br/> query.startDateTime <= target.startDateTime <= query.endDateTime
      * @returns Schedule
      * @throws ApiError
      */
     public static scheduleControllerFindAll({
-        startDateTime = '2022-04-01',
-        endDateTime = '2022-06-30',
+        startDateTime = '2023-04-01',
+        endDateTime = '2023-05-01',
     }: {
         /**
-         * 일정 시작일
+         * 타겟의 시작일 기준 시작범위 (query.startDateTime <= target.startDateTime)
          */
-        startDateTime?: string | null,
+        startDateTime?: string,
         /**
-         * 일정 종료일
+         * 타겟의 시작일 기준 끝범위 (target.startDateTime <= query.endDateTime)
          */
-        endDateTime?: string | null,
+        endDateTime?: string,
     }): CancelablePromise<Array<Schedule>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -58,7 +60,7 @@ export class ScheduleApiService {
     }
 
     /**
-     * 북마크한 학사 일정 조회
+     * 북마크한 일정 조회
      * @returns Schedule
      * @throws ApiError
      */
@@ -66,7 +68,7 @@ export class ScheduleApiService {
         uuid,
     }: {
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<Array<Schedule>> {
@@ -90,7 +92,7 @@ export class ScheduleApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<MutationResponse> {
@@ -117,7 +119,7 @@ export class ScheduleApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<MutationResponse> {

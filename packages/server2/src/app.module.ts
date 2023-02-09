@@ -7,6 +7,7 @@ import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
 import { AdminModule } from "./admin/admin.module";
 import { Admin } from "./admin/entities/admin.entity";
+import { ArticleView } from "./article-view/entities/article-view.entity";
 import { ArticleModule } from "./article/article.module";
 import { ArticleBookmark } from "./article/entities/article-bookmark";
 import { Article } from "./article/entities/article.entity";
@@ -49,6 +50,7 @@ import { WeatherModule } from "./weather/weather.module";
         entities: [
           User,
           Article,
+          ArticleView,
           ArticleBookmark,
           Admin,
           Board,
@@ -61,6 +63,7 @@ import { WeatherModule } from "./weather/weather.module";
           SubscribeBoard,
           Weather,
         ],
+        logging: "all",
         synchronize: configuration.db.synchronize,
       }),
       inject: [ ConfigService ],

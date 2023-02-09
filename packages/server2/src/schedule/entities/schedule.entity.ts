@@ -32,25 +32,25 @@ export class Schedule extends CommonEntity {
 
   @ApiProperty({
     description: "휴일여부",
-    example: false,
-    required: false,
+    default: false,
   })
   @IsBoolean()
-  @IsOptional()
-  @Column({ type: "boolean", nullable: true })
-  isHoliday?: boolean;
+  @Column({ type: "boolean", nullable: true, default: false })
+  isHoliday: boolean;
 
   @ApiProperty({
-    description: "일정 시작일",
-    example: "2022-04-20",
+    description:
+      "타겟의 시작일 기준 시작범위 (query.startDateTime <= target.startDateTime)",
+    default: "2023-04-01",
   })
   @IsDateString()
   @Column({ type: "datetime" })
   startDateTime: Date;
 
   @ApiProperty({
-    description: "일정 종료일",
-    example: "2022-04-28",
+    description:
+      "타겟의 시작일 기준 끝범위 (target.startDateTime <= query.endDateTime)",
+    default: "2023-05-01",
     required: false,
   })
   @IsDateString()

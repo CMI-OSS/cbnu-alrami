@@ -108,3 +108,15 @@ export const UnBookmarkArticle = () => {
     UserGuard(),
   );
 };
+
+export const GetPopularArticle = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "인기 공지사항 조회 API",
+      description:
+        "조회수와 공지사항 등록일을 이용, 최근 2주 동안 제일 인기가 많은순으로 정렬하여 제공",
+    }),
+    ApiOkResponse({ type: ResponseArticlePageDto }),
+    ApiNotFoundResponse({ type: NotFoundArticleException }),
+  );
+};

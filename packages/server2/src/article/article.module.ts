@@ -1,6 +1,7 @@
 import { forwardRef, Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { AdminModule } from "src/admin/admin.module";
+import { ArticleViewModule } from "src/article-view/article.view.module";
 import { BoardModule } from "src/board/board.module";
 import { ImageModule } from "src/image/image.module";
 
@@ -13,6 +14,7 @@ import { Article } from "./entities/article.entity";
   imports: [
     TypeOrmModule.forFeature([ Article, ArticleBookmark ]),
     forwardRef(() => BoardModule),
+    forwardRef(() => ArticleViewModule),
     ImageModule,
     forwardRef(() => AdminModule),
   ],

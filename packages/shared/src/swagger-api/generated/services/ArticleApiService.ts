@@ -50,7 +50,7 @@ export class ArticleApiService {
          */
         count?: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<ResponseArticlePageDto> {
@@ -86,7 +86,7 @@ export class ArticleApiService {
          */
         count?: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<ResponseArticlePageDto> {
@@ -96,6 +96,35 @@ export class ArticleApiService {
             headers: {
                 'uuid': uuid,
             },
+            query: {
+                'page': page,
+                'count': count,
+            },
+        });
+    }
+
+    /**
+     * 인기 공지사항 조회 API
+     * 조회수와 공지사항 등록일을 이용, 최근 2주 동안 제일 인기가 많은순으로 정렬하여 제공
+     * @returns ResponseArticlePageDto
+     * @throws ApiError
+     */
+    public static articleControllerFindPopularArticles({
+        page = 1,
+        count = 10,
+    }: {
+        /**
+         * 페이지
+         */
+        page?: number,
+        /**
+         * 아이템 개수
+         */
+        count?: number,
+    }): CancelablePromise<ResponseArticlePageDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/article/popular',
             query: {
                 'page': page,
                 'count': count,
@@ -114,7 +143,7 @@ export class ArticleApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<ResponseArticleDetailDto> {
@@ -183,7 +212,7 @@ export class ArticleApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<MutationResponse> {
@@ -210,7 +239,7 @@ export class ArticleApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<MutationResponse> {

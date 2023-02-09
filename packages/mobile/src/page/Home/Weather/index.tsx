@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-pascal-case */
 
+import { Weather as WeatherType } from "@shared/swagger-api/generated";
 import dayjs from "dayjs";
 import find from "lodash/find";
 import BorderBox from "src/components/atoms/BorderBox";
@@ -21,7 +22,7 @@ import {
 import $ from "./style.module.scss";
 
 type Props = {
-  weather: res.Weather;
+  weather: WeatherType;
   onSuggestionClick: () => void;
 };
 

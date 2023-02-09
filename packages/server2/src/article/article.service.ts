@@ -176,6 +176,14 @@ export class ArticleService {
     };
   }
 
+  async findById(id: number): Promise<Article> {
+    const article = await this.articleRepository.findOne({
+      where: { id },
+    });
+    if (!article) throw new NotFoundArticleException();
+    return article;
+  }
+
   async findOne(id: number, user?: User): Promise<ResponseArticleDetailDto> {
     const article = await this.articleRepository.findOne({
       where: { id },

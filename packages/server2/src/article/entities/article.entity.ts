@@ -46,6 +46,7 @@ export class Article extends UpdatableCommonEntity {
   dateTime: Date;
 
   @ApiProperty({
+    type: Number,
     description: "공지사항 조회 수",
     example: 13,
   })
@@ -54,6 +55,7 @@ export class Article extends UpdatableCommonEntity {
   viewCount = 0;
 
   @ApiProperty({
+    type: Number,
     description: "공지사항 북마크 수",
     example: 203,
   })

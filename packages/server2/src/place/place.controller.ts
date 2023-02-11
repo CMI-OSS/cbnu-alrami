@@ -1,5 +1,10 @@
-import { Controller, Get, Param } from "@nestjs/common";
-import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
+import { Controller, Get, Param, Query } from "@nestjs/common";
+import {
+  ApiOkResponse,
+  ApiOperation,
+  ApiQuery,
+  ApiTags,
+} from "@nestjs/swagger";
 import { SchoolArea } from "src/school/school.constant";
 
 import { PlaceSchoolDto } from "./dto/response-place.dto";
@@ -13,25 +18,24 @@ export class PlaceController {
   @ApiOperation({
     summary: "학교 건물 조회",
   })
+  @ApiQuery({
+    name: "area",
+    required: false,
+    description: "구역(S,N,E)",
+    schema: { enum: Object.values(SchoolArea) },
+  })
   @ApiOkResponse({ type: PlaceSchoolDto, isArray: true })
   @Get("school")
-  findSchool() {
-    return this.placeService.findSchool();
+  findSchool(@Query("area") area?: SchoolArea) {
+    return this.placeService.findSchool(area);
   }
 
   @ApiOperation({
-    summary: "구역으로 학교 건물 조회",
-    parameters: [
-      {
-        name: "area",
-        in: "path",
-        schema: { enum: Object.values(SchoolArea) },
-      },
-    ],
+    summary: "학교 건물 상세 조회",
   })
-  @ApiOkResponse({ type: PlaceSchoolDto, isArray: true })
-  @Get("school/:area")
-  findSchoolByArea(@Param("area") area?: SchoolArea) {
-    return this.placeService.findSchool(area);
+  @ApiOkResponse({ type: PlaceSchoolDto })
+  @Get("school/:id")
+  findOneSchool(@Param("id") id: number) {
+    return this.placeService.findOneSchool(id);
   }
 }

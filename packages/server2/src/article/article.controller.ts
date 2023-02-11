@@ -7,11 +7,15 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Req,
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { AdminService } from "src/admin/admin.service";
 import { AdminGuard } from "src/admin/gurads/admin.guard";
+import { ArticleBookmarkService } from "src/article-bookmark/article-bookmark.service";
+import { ArticleViewService } from "src/article-view/article-view.service";
+import { PaginationDto } from "src/common/dto/pagination.dto";
 import { MutationResponse } from "src/common/types/response";
 import { User } from "src/user/entities/user.entity";
 import { UserSession } from "src/user/user.decoratoer";
@@ -24,6 +28,8 @@ import {
   DeleteArticle,
   GetArtice,
   GetBookmarkArtice,
+  GetPopularArticle,
+  GetSubscribeArticle,
   UnBookmarkArticle,
   UpdateArticle,
 } from "./article.swagger";
@@ -35,6 +41,8 @@ import { UpdateArticleDto } from "./dto/update-article.dto";
 export class ArticleController {
   constructor(
     private readonly articleService: ArticleService,
+    private readonly articleViewService: ArticleViewService,
+    private readonly articleBookmarkService: ArticleBookmarkService,
     private readonly adminService: AdminService,
   ) {}
 
@@ -56,16 +64,46 @@ export class ArticleController {
   @GetBookmarkArtice()
   @UserHeader
   @Get("bookmark")
-  findBookmarkArticle(@UserSession() user?: User) {
-    return user ? this.articleService.findBookmarkArticle(user) : [];
+  findBookmarkArticle(
+    @UserSession() user: User | undefined,
+    @Query() query: PaginationDto,
+  ) {
+    return user
+      ? this.articleService.findBookmarkArticlePage(
+          user,
+          query.page,
+          query.count,
+        )
+      : [];
+  }
+
+  @GetSubscribeArticle()
+  @UserHeader
+  @Get("subscribe")
+  findSubscribeArticle(
+    @UserSession() user: User | undefined,
+    @Query() query: PaginationDto,
+  ) {
+    return user
+      ? this.articleService.findSubscribeArticlePage(
+          user,
+          query.page,
+          query.count,
+        )
+      : [];
+  }
+
+  @GetPopularArticle()
+  @Get("/popular")
+  findPopularArticles(@Query() query: PaginationDto) {
+    return this.articleService.findTopArticlesByHit(query.page, query.count);
   }
 
   @GetArtice()
   @UserHeader
   @Get(":id")
-  findOne(@Param("id") id: number, @UserSession() user: User) {
-    this.articleService.view(id, user);
-
+  async findOne(@Param("id") id: number, @UserSession() user?: User) {
+    if (user) await this.articleViewService.view(id, user);
     return this.articleService.findOne(id, user);
   }
 
@@ -114,7 +152,7 @@ export class ArticleController {
     @UserSession() user: User,
   ): Promise<MutationResponse> {
     return {
-      success: !!(await this.articleService.bookmark(id, user)),
+      success: !!(await this.articleBookmarkService.bookmark(id, user)),
     };
   }
 
@@ -125,7 +163,7 @@ export class ArticleController {
     @UserSession() user: User,
   ): Promise<MutationResponse> {
     return {
-      success: !!(await this.articleService.unbookmark(id, user)),
+      success: !!(await this.articleBookmarkService.unbookmark(id, user)),
     };
   }
 }

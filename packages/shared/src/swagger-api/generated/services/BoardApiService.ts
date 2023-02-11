@@ -3,7 +3,7 @@
 /* eslint-disable */
 import type { CreateBoardDto } from '../models/CreateBoardDto';
 import type { MutationResponse } from '../models/MutationResponse';
-import type { ResponseArticleDto } from '../models/ResponseArticleDto';
+import type { ResponseArticlePageDto } from '../models/ResponseArticlePageDto';
 import type { ResponseBoardDto } from '../models/ResponseBoardDto';
 import type { UpdateBoardDto } from '../models/UpdateBoardDto';
 
@@ -40,7 +40,7 @@ export class BoardApiService {
         uuid,
     }: {
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<Array<ResponseBoardDto>> {
@@ -62,7 +62,7 @@ export class BoardApiService {
         uuid,
     }: {
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<Array<ResponseBoardDto>> {
@@ -86,7 +86,7 @@ export class BoardApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<ResponseBoardDto> {
@@ -146,7 +146,7 @@ export class BoardApiService {
 
     /**
      * 게시판내 게시물 페이지 조회
-     * @returns ResponseArticleDto
+     * @returns ResponseArticlePageDto
      * @throws ApiError
      */
     public static boardControllerFindArticlePage({
@@ -163,7 +163,7 @@ export class BoardApiService {
          * 아이템 개수
          */
         count?: number,
-    }): CancelablePromise<Array<ResponseArticleDto>> {
+    }): CancelablePromise<ResponseArticlePageDto> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/board/{id}/articles',
@@ -188,7 +188,7 @@ export class BoardApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<MutationResponse> {
@@ -215,7 +215,7 @@ export class BoardApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<MutationResponse> {
@@ -242,7 +242,7 @@ export class BoardApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<MutationResponse> {
@@ -269,7 +269,7 @@ export class BoardApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<MutationResponse> {

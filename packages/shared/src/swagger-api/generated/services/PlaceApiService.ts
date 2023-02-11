@@ -14,28 +14,38 @@ export class PlaceApiService {
      * @returns PlaceSchoolDto
      * @throws ApiError
      */
-    public static placeControllerFindSchool(): CancelablePromise<Array<PlaceSchoolDto>> {
+    public static placeControllerFindSchool({
+        area,
+    }: {
+        /**
+         * 구역(S,N,E)
+         */
+        area?: 'N' | 'S' | 'E',
+    }): CancelablePromise<Array<PlaceSchoolDto>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/place/school',
+            query: {
+                'area': area,
+            },
         });
     }
 
     /**
-     * 구역으로 학교 건물 조회
+     * 학교 건물 상세 조회
      * @returns PlaceSchoolDto
      * @throws ApiError
      */
-    public static placeControllerFindSchoolByArea({
-        area,
+    public static placeControllerFindOneSchool({
+        id,
     }: {
-        area: string,
-    }): CancelablePromise<Array<PlaceSchoolDto>> {
+        id: number,
+    }): CancelablePromise<PlaceSchoolDto> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/place/school/{area}',
+            url: '/place/school/{id}',
             path: {
-                'area': area,
+                'id': id,
             },
         });
     }

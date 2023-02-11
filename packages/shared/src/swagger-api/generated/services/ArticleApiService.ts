@@ -4,7 +4,7 @@
 import type { CreateArticleDto } from '../models/CreateArticleDto';
 import type { MutationResponse } from '../models/MutationResponse';
 import type { ResponseArticleDetailDto } from '../models/ResponseArticleDetailDto';
-import type { ResponseArticleDto } from '../models/ResponseArticleDto';
+import type { ResponseArticlePageDto } from '../models/ResponseArticlePageDto';
 import type { UpdateArticleDto } from '../models/UpdateArticleDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -33,22 +33,101 @@ export class ArticleApiService {
 
     /**
      * 북마크한 게시물 조회
-     * @returns ResponseArticleDto
+     * @returns ResponseArticlePageDto
      * @throws ApiError
      */
     public static articleControllerFindBookmarkArticle({
+        page = 1,
+        count = 10,
         uuid,
     }: {
         /**
-         * user uuid
+         * 페이지
+         */
+        page?: number,
+        /**
+         * 아이템 개수
+         */
+        count?: number,
+        /**
+         * 유저 UUID
          */
         uuid?: string,
-    }): CancelablePromise<Array<ResponseArticleDto>> {
+    }): CancelablePromise<ResponseArticlePageDto> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/article/bookmark',
             headers: {
                 'uuid': uuid,
+            },
+            query: {
+                'page': page,
+                'count': count,
+            },
+        });
+    }
+
+    /**
+     * 구독한 게시판중 최신 게시물순 조회
+     * @returns ResponseArticlePageDto
+     * @throws ApiError
+     */
+    public static articleControllerFindSubscribeArticle({
+        page = 1,
+        count = 10,
+        uuid,
+    }: {
+        /**
+         * 페이지
+         */
+        page?: number,
+        /**
+         * 아이템 개수
+         */
+        count?: number,
+        /**
+         * 유저 UUID
+         */
+        uuid?: string,
+    }): CancelablePromise<ResponseArticlePageDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/article/subscribe',
+            headers: {
+                'uuid': uuid,
+            },
+            query: {
+                'page': page,
+                'count': count,
+            },
+        });
+    }
+
+    /**
+     * 인기 공지사항 조회 API
+     * 조회수와 공지사항 등록일을 이용, 최근 2주 동안 제일 인기가 많은순으로 정렬하여 제공
+     * @returns ResponseArticlePageDto
+     * @throws ApiError
+     */
+    public static articleControllerFindPopularArticles({
+        page = 1,
+        count = 10,
+    }: {
+        /**
+         * 페이지
+         */
+        page?: number,
+        /**
+         * 아이템 개수
+         */
+        count?: number,
+    }): CancelablePromise<ResponseArticlePageDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/article/popular',
+            query: {
+                'page': page,
+                'count': count,
             },
         });
     }
@@ -64,7 +143,7 @@ export class ArticleApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<ResponseArticleDetailDto> {
@@ -133,7 +212,7 @@ export class ArticleApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<MutationResponse> {
@@ -160,7 +239,7 @@ export class ArticleApiService {
     }: {
         id: number,
         /**
-         * user uuid
+         * 유저 UUID
          */
         uuid?: string,
     }): CancelablePromise<MutationResponse> {

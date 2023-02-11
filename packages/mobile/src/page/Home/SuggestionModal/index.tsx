@@ -4,7 +4,7 @@ import { Close } from "src/components/atoms/icon";
 import $ from "./style.module.scss";
 
 type Props = {
-  currentTemperature: number;
+  currentTemperature?: number;
   onClick: () => void;
 };
 
@@ -54,10 +54,11 @@ const TEMPERATURE_LIST = [
 ];
 
 function compareTemperature(
-  currentTemperature: number,
+  currentTemperature: number | undefined,
   minTemp: number | null,
   maxTemp: number | null,
 ) {
+  if (!currentTemperature) return false;
   if (!minTemp) {
     if (maxTemp! >= currentTemperature) return true;
     return false;

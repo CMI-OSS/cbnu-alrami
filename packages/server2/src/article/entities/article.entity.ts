@@ -51,7 +51,7 @@ export class Article extends UpdatableCommonEntity {
     example: 13,
   })
   @IsNumber()
-  @Column({ type: "int" })
+  @Column({ type: "int", default: 0 })
   viewCount = 0;
 
   @ApiProperty({
@@ -60,7 +60,7 @@ export class Article extends UpdatableCommonEntity {
     example: 203,
   })
   @IsNumber()
-  @Column({ type: "int" })
+  @Column({ type: "int", default: 0 })
   bookmarkCount = 0;
 
   @ApiProperty({ description: "게시물이 속한 게시판", type: () => Board })

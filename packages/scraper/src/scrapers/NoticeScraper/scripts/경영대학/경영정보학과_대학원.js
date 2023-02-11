@@ -9,4 +9,4 @@ const script = {
   category: "대학원공지",
 };
 
-module.exports = { ...경영정보학과, ...script };
+export default { ...경영정보학과, ...script };

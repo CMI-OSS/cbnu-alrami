@@ -9,4 +9,4 @@ const script = {
   category: "학부/융합전공공지",
 };
 
-module.exports = { ...경제학과, ...script };
+export default { ...경제학과, ...script };

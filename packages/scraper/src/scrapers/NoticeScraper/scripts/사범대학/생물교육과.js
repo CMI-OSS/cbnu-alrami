@@ -9,4 +9,4 @@ const script = {
   category: "공지사항",
 };
 
-module.exports = { ...사회교육과, ...script };
+export default { ...사회교육과, ...script };

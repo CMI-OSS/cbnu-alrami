@@ -10,4 +10,4 @@ const script = {
   noticeListSelector: "#bd_550_0 > div.bd_lst_wrp > table > tbody > tr",
 };
 
-module.exports = { ...건축공학과, ...script };
+export default { ...건축공학과, ...script };

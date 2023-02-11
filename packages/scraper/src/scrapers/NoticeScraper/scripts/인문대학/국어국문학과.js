@@ -33,4 +33,4 @@ const script = {
   },
 };
 
-module.exports = { ...고고미술사학과, ...script };
+export default { ...고고미술사학과, ...script };

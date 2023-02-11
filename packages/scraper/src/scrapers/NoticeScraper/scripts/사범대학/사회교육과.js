@@ -24,4 +24,4 @@ const script = {
   },
 };
 
-module.exports = { ...교육학과, ...script };
+export default { ...교육학과, ...script };

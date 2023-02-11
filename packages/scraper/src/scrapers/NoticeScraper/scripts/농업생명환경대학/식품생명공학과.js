@@ -23,4 +23,4 @@ const script = {
   },
 };
 
-module.exports = { ...식물자원학과, ...script };
+export default { ...식물자원학과, ...script };

@@ -9,4 +9,4 @@ const script = {
   category: "학사장학",
 };
 
-module.exports = { ...충북대공지사항, ...script };
+export default { ...충북대공지사항, ...script };

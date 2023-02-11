@@ -10,4 +10,4 @@ const script = {
   noticeListSelector: `#content1 > div.section.clear > table:nth-child(6) > tbody > tr`,
 };
 
-module.exports = { ...전기공학부, ...script };
+export default { ...전기공학부, ...script };

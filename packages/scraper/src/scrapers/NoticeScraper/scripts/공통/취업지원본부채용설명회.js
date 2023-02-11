@@ -10,4 +10,4 @@ const script = {
   noticeContentsSelector: "#content_main > table",
 };
 
-module.exports = { ...취업지원본부공지사항, ...script };
+export default { ...취업지원본부공지사항, ...script };

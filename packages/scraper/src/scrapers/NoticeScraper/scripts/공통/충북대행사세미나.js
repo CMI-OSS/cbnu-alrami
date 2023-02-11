@@ -23,4 +23,4 @@ const script = {
   },
 };
 
-module.exports = { ...충북대공지사항, ...script };
+export default { ...충북대공지사항, ...script };

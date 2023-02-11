@@ -7,4 +7,4 @@ const script = {
   typeQuery: "2",
 };
 
-module.exports = { ...본관, ...script };
+export default { ...본관, ...script };

@@ -30,4 +30,4 @@ const script = {
   },
 };
 
-module.exports = script;
+export default script;

@@ -8,4 +8,4 @@ const script = {
   category: "공지사항",
 };
 
-module.exports = { ...약학과, ...script };
+export default { ...약학과, ...script };

@@ -29,4 +29,4 @@ const script = {
   },
 };
 
-module.exports = { ...전기공학부, ...script };
+export default { ...전기공학부, ...script };

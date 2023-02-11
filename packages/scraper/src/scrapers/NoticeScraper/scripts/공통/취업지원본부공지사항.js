@@ -40,4 +40,4 @@ const script = {
     ).outerHTML;
   },
 };
-module.exports = script;
+export default script;

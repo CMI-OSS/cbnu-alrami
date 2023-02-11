@@ -5,5 +5,4 @@ const script = {
   year: 2021,
 };
 
-module.exports = { ...year2020, ...script };
-
+export default { ...year2020, ...script };

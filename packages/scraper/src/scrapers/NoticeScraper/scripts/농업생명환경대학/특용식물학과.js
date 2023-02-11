@@ -10,4 +10,4 @@ const script = {
   noticeContentsSelector: ".rd_body",
 };
 
-module.exports = { ...농업경제학과, ...script };
+export default { ...농업경제학과, ...script };

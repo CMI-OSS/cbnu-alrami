@@ -1,4 +1,4 @@
-const 별빛식당 = require("./별빛식당");
+import 별빛식당 from "./별빛식당";
 
 const script = {
   tab: 1,

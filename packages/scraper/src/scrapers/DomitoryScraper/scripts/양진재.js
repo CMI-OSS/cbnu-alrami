@@ -1,4 +1,4 @@
-const 본관 = require("./본관");
+import 본관 from "./본관";
 
 const script = {
   url: `https://dorm.chungbuk.ac.kr/home/sub.php?menukey=20041&type=3`,

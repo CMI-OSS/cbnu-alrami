@@ -1,6 +1,6 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
-const 취업지원본부공지사항 = require("./취업지원본부공지사항");
+import 취업지원본부공지사항 from "./취업지원본부공지사항";
 
 const script = {
   url: "http://hrd.cbnu.ac.kr/board/board_list.asp?groupno=1&listno=2",

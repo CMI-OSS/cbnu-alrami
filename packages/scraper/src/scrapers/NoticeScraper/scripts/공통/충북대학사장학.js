@@ -1,6 +1,6 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
-const 충북대공지사항 = require("./충북대공지사항");
+import 충북대공지사항 from "./충북대공지사항";
 
 const script = {
   url: "https://www.chungbuk.ac.kr/site/www/boardList.do?boardSeq=113&key=699",

@@ -1,6 +1,6 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
-const 고고미술사학과 = require("./고고미술사학과");
+import 고고미술사학과 from "./고고미술사학과";
 
 const script = {
   url: "http://humanum.chungbuk.ac.kr/korean/selectBbsNttList.do?key=562&bbsNo=172&searchCtgry=&pageUnit=10&searchCnd=all&searchKrwd=&integrDeptCode=&pageIndex=1",

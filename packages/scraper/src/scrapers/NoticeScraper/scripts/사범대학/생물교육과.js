@@ -1,6 +1,6 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
-const 사회교육과 = require("./사회교육과");
+import 사회교육과 from "./사회교육과";
 
 const script = {
   url: "http://edu.chungbuk.ac.kr/bio/selectBbsNttList.do?key=399&bbsNo=2",

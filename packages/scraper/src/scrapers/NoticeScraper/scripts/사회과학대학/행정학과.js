@@ -1,6 +1,6 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
-const 경제학과 = require("./경제학과");
+import 경제학과 from "./경제학과";
 
 const script = {
   url: "https://public.chungbuk.ac.kr/board/department_notice",

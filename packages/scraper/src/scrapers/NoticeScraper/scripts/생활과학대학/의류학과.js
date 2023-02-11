@@ -1,6 +1,6 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
-const 소비자학과 = require("./소비자학과");
+import 소비자학과 from "./소비자학과";
 
 const script = {
   url: "https://fashion.cbnu.ac.kr/main/sub.html?pageCode=42",

@@ -1,6 +1,6 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
-const 식물자원학과 = require("./식물자원학과");
+import 식물자원학과 from "./식물자원학과";
 
 const script = {
   url: "https://food.chungbuk.ac.kr/?pg_idx=239",

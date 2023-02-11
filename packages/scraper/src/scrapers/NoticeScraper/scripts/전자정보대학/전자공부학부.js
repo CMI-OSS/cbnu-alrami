@@ -1,6 +1,6 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
-const 전기공학부 = require("./전기공학부");
+import 전기공학부 from "./전기공학부";
 
 const script = {
   url: "http://elec.chungbuk.ac.kr/bbs/bbs.php?db=notice",

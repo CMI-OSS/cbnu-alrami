@@ -1,6 +1,6 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
-const 건축공학과 = require("./건축공학과");
+import 건축공학과 from "./건축공학과";
 
 const script = {
   url: "http://cbec.cbnu.ac.kr/index.php?mid=cbiec_sub05_01",

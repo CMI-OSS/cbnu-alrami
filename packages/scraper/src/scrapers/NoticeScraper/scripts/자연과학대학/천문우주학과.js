@@ -1,6 +1,6 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
-const 물리학과 = require("./물리학과");
+import 물리학과 from "./물리학과";
 
 const script = {
   url: "http://ast.chungbuk.ac.kr/?pg_idx=147",

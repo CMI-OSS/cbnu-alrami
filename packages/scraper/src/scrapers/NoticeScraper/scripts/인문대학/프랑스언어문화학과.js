@@ -1,6 +1,6 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
-const 국어국문학과 = require("./국어국문학과");
+import 국어국문학과 from "./국어국문학과";
 
 const script = {
   url: "http://humanum.chungbuk.ac.kr/french/selectBbsNttList.do?bbsNo=81&key=771",

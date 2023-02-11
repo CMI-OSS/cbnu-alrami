@@ -1,6 +1,6 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
-const 원예학과 = require("./원예학과");
+import 원예학과 from "원예학과";
 
 const script = {
   url: "https://animalscience.chungbuk.ac.kr/board/board.php?id=as_news",

@@ -1,6 +1,6 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
-const 농업경제학과 = require("./농업경제학과");
+import 농업경제학과 from "./농업경제학과";
 
 const script = {
   url: "http://jigong.chungbuk.ac.kr/index.html?pg_idx=23",

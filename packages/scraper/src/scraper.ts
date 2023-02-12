@@ -4,6 +4,7 @@ import { stringify } from "javascript-stringify";
 import puppeteer from "puppeteer";
 
 import { IS_DEV } from "./common/isDev";
+import configuration from "./config/configuration";
 
 export interface Scenario {
   name: string;
@@ -53,7 +54,7 @@ const WINDOW_SIZE = {
 
 const getScraper = async () => {
   const browser = await puppeteer.launch({
-    headless: !IS_DEV,
+    headless: configuration.headless,
     args: [ `--window-size=${WINDOW_SIZE.WIDTH},${WINDOW_SIZE.HEIGHT}` ],
   });
 
@@ -72,7 +73,7 @@ const getScraper = async () => {
   });
 
   // 필요없는 리소스 무쉬
-  if (!IS_DEV) {
+  if (configuration.headless) {
     await page.setRequestInterception(true);
 
     page.on("request", (request) => {

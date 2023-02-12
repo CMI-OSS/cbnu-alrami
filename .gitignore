@@ -10,6 +10,7 @@ dev.yaml
 prod.yaml
 access.private.key
 .idea
+configuration.ts
 
 *.log
 *.key

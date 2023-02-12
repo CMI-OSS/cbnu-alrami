@@ -1,6 +1,4 @@
-import "dotenv/config";
-import "src/common/env";
-import { login } from "./api/login";
-import "./socket/server";
+import { apiServer } from "@shared/constant";
+import { OpenAPI } from "@shared/swagger-api/generated/core/OpenAPI";
 
-login(process.env.SCRAPER_ID as string, process.env.SCRAPER_PW as string);
+OpenAPI.BASE = apiServer.local;

@@ -28,7 +28,7 @@ export const scraping = async ({ scenario }: scrapingProps) => {
 
     if (IS_DEV) console.info("[INFO] 스크래핑 - ", scenario);
 
-    await scraper.goto(url);
+    await scraper.goto(url, { referer: url });
     await scraper.waitForSelector(waitSelector);
 
     const stringScript = stringify(jsScript);

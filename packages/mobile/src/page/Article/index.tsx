@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import { Setting } from "@components/atoms/icon";
+import Footer from "@components/molecules/Footer";
 import Slider from "src/page/Article/components/Slider";
 
 import $ from "./style.module.scss";
@@ -16,6 +17,7 @@ function Article() {
       </div>
       <Slider />
       <div className={$.content}></div>
+      <Footer />
     </div>
   );
 }

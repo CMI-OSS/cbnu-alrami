@@ -6,27 +6,6 @@ import { useAppSelector } from "src/store";
 
 import $ from "./Navigation.module.scss";
 
-const SCRAPER_MENUS = {
-  label: "스크래퍼",
-  menus: [
-    {
-      path: "/scraper/notice",
-      label: "공지사항",
-    },
-    {
-      path: "/scraper/student",
-      label: "학생 식당",
-    },
-    {
-      path: "/scraper/domitory",
-      label: "기숙사 식당",
-    },
-    {
-      path: "/scraper/calendar",
-      label: "학사일정",
-    },
-  ],
-};
 const BOARD_MENUS = {
   label: "게시판",
   menus: [
@@ -78,12 +57,7 @@ export default function Navigation() {
   const boardState = {
     ...{ boardImgList, boardTitle, boardCategory, boardContent },
   };
-  const navMenus = [
-    BOARD_MENUS,
-    SCRAPER_MENUS,
-    ADMIN_MANAGE_MENUS,
-    PLACE_MANAGE_MENUS,
-  ];
+  const navMenus = [ BOARD_MENUS, ADMIN_MANAGE_MENUS, PLACE_MANAGE_MENUS ];
 
   useEffect(() => {
     navMenus.forEach(({ menus }, idx) => {

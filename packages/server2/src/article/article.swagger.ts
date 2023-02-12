@@ -14,6 +14,7 @@ import {
   NotFoundArticleException,
 } from "./article.exception";
 import {
+  ArticleMutationResponseDto,
   ResponseArticleDetailDto,
   ResponseArticlePageDto,
 } from "./dto/response-article.dto";
@@ -25,7 +26,7 @@ export const CreateArticle = () => {
     }),
     ApiCreatedResponse({
       description: "게시물이 정상적으로 작성된 경우",
-      type: MutationResponse,
+      type: ArticleMutationResponseDto,
     }),
     ApiConflictResponse({ type: DuplicatedArticleException }),
   );

@@ -34,6 +34,7 @@ import {
   UpdateArticle,
 } from "./article.swagger";
 import { CreateArticleDto } from "./dto/create-article.dto";
+import { ArticleMutationResponseDto } from "./dto/response-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
 
 @ApiTags("[article] 게시물 API")
@@ -52,14 +53,20 @@ export class ArticleController {
   async create(
     @Req() req,
     @Body() createArticleDto: CreateArticleDto,
-  ): Promise<MutationResponse> {
+  ): Promise<ArticleMutationResponseDto> {
     await this.adminService.hasBoardAuthority(
       createArticleDto.boardId,
       req.admin.id,
     );
 
+    const article = await this.articleService.create(
+      createArticleDto,
+      req.admin,
+    );
+
     return {
-      success: await !!this.articleService.create(createArticleDto, req.admin),
+      success: !!article,
+      articleId: article.id,
     };
   }
 

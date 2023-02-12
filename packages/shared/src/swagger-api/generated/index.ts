@@ -7,6 +7,7 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export { Admin } from './models/Admin';
+export type { ArticleMutationResponseDto } from './models/ArticleMutationResponseDto';
 export type { Board } from './models/Board';
 export { BoardAuthority } from './models/BoardAuthority';
 export { CafeteriaMenu } from './models/CafeteriaMenu';

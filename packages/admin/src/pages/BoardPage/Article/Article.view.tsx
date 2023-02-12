@@ -1,17 +1,11 @@
 import { useNavigate } from "react-router-dom";
 
+import { ResponseArticleDetailDto } from "@shared/swagger-api/generated/models/ResponseArticleDetailDto";
+
 import $ from "./Article.module.scss";
 
 export interface ArticleViewProps {
-  id: string;
-  title: string;
-  content: string;
-  images: {
-    id: number;
-    url: string;
-  }[];
-  hits: number;
-  scraps: number;
+  article: ResponseArticleDetailDto;
   onClickImage: (
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     index: number,
@@ -19,14 +13,11 @@ export interface ArticleViewProps {
 }
 
 export default function ArticleView({
-  id,
-  title,
-  content,
-  images,
-  hits,
-  scraps,
+  article,
   onClickImage,
 }: ArticleViewProps) {
+  const { id, title, images, content } = article;
+
   const navigate = useNavigate();
 
   const handleClickEdit = () => {
@@ -45,7 +36,7 @@ export default function ArticleView({
         ></div>
 
         <div className={$["image-list"]}>
-          {images.map((image, index) => {
+          {images?.map((image, index) => {
             return (
               <div className={$["image-card"]}>
                 <div

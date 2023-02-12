@@ -33,6 +33,7 @@
 
     .title {
       margin-bottom: 28px;
+      @include ellipsis;
 
       &:last-child {
         margin-bottom: 0;

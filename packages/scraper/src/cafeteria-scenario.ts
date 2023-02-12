@@ -8,7 +8,7 @@ import 본관 from "./scrapers/DomitoryScraper/scripts/본관";
 import 양성재 from "./scrapers/DomitoryScraper/scripts/양성재";
 import 양진재 from "./scrapers/DomitoryScraper/scripts/양진재";
 
-export const cafeteriaSencarios: Scenario[] = [
+export const cafeteriaScenarios: Scenario[] = [
   {
     name: CafeteriaMenu.name.BYEOLBIT,
     url: 별빛식당.url,

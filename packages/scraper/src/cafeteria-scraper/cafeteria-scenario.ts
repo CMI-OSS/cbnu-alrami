@@ -1,12 +1,12 @@
 import { CafeteriaMenu } from "@shared/swagger-api/generated/models/CafeteriaMenu";
 
-import { Scenario } from "./scraper";
-import 별빛식당 from "./scrapers/CafeteriaScraper/scripts/별빛식당";
-import 은하수식당 from "./scrapers/CafeteriaScraper/scripts/은하수식당";
-import 한빛식당 from "./scrapers/CafeteriaScraper/scripts/한빛식당";
-import 본관 from "./scrapers/DomitoryScraper/scripts/본관";
-import 양성재 from "./scrapers/DomitoryScraper/scripts/양성재";
-import 양진재 from "./scrapers/DomitoryScraper/scripts/양진재";
+import { Scenario } from "../scraper/scraper";
+import 별빛식당 from "./scripts/별빛식당";
+import 본관 from "./scripts/본관";
+import 양성재 from "./scripts/양성재";
+import 양진재 from "./scripts/양진재";
+import 은하수식당 from "./scripts/은하수식당";
+import 한빛식당 from "./scripts/한빛식당";
 
 export const cafeteriaScenarios: Scenario[] = [
   {

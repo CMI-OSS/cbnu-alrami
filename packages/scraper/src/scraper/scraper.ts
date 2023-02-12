@@ -3,8 +3,8 @@
 import { stringify } from "javascript-stringify";
 import puppeteer from "puppeteer";
 
-import { IS_DEV } from "./common/isDev";
-import configuration from "./config/configuration";
+import { IS_DEV } from "../common/isDev";
+import configuration from "../config/configuration";
 
 export interface Scenario {
   name: string;

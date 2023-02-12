@@ -1,8 +1,8 @@
 import { ArticleApiService } from "@shared/swagger-api/generated/services/ArticleApiService";
 import dayjs from "dayjs";
-import noticeScripts from "src/scrapers/NoticeScraper/scripts/index";
+import noticeScripts from "src/notice-scraper/scripts/index";
 
-import { scraping } from "./scraper";
+import { scraping } from "../scraper/scraper";
 
 const getISODate = (date: string) => {
   const replacedDate = date.replace(/[년|일|월]/g, ".");

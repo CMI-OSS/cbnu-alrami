@@ -1,8 +1,8 @@
 import { CafeteriaMenu } from "@shared/swagger-api/generated/models/CafeteriaMenu";
 import { CafeteriaMenuApiService } from "@shared/swagger-api/generated/services/CafeteriaMenuApiService";
 
+import { scraping } from "../scraper/scraper";
 import { cafeteriaScenarios } from "./cafeteria-scenario";
-import { scraping } from "./scraper";
 
 const toCafeteriaTime = (time: number) => {
   if (time === 1) return CafeteriaMenu.time.BREAKFAST;

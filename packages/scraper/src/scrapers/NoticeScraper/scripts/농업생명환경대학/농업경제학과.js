@@ -17,7 +17,7 @@ const script = {
         site_id: this.site_id,
         title: td[1].querySelector("a").innerText.trim(),
         url: td[1].querySelector("a").href.trim(),
-        date: td[2].innerText.trim(),
+        date: td[3].innerText.trim(),
       };
     });
   },

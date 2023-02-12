@@ -1,4 +1,4 @@
-import { login } from "./login";
+import { login } from "../common/login";
 import { scrapingNotices } from "./notice-scraper";
 
 jest.setTimeout(5000000);

@@ -1,6 +1,6 @@
 /* eslint-disable default-case */
 /* eslint-disable react/destructuring-assignment */
-export default function ArrayToDate(year: number, arr: string) {
+export default function arrayToDate(year: number, arr: string) {
   const validDate = (i: number) => {
     return arr[i].length === 1 ? 0 + arr[i] : arr[i];
   };

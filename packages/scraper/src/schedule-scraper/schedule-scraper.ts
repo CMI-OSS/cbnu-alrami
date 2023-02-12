@@ -1,8 +1,8 @@
 import { ScheduleApiService } from "@shared/swagger-api/generated/services/ScheduleApiService";
-import schdule2023 from "src/scrapers/CalendarScraper/scripts/2023";
+import schdule2023 from "src/schedule-scraper/scripts/2023";
 
-import { scraping } from "./scraper";
-import ArrayToDate from "./scrapers/CalendarScraper/ArrayToDate";
+import { scraping } from "../scraper/scraper";
+import arrayToDate from "./utils";
 
 export const scrapingSchdule = async () => {
   const schdules = await scraping({
@@ -17,7 +17,7 @@ export const scrapingSchdule = async () => {
 
   for (const schdule of schdules) {
     const [ arrayDate, content ] = schdule;
-    const { start_date, end_date } = ArrayToDate(schdule2023.year, arrayDate);
+    const { start_date, end_date } = arrayToDate(schdule2023.year, arrayDate);
 
     await ScheduleApiService.scheduleControllerCreate({
       requestBody: {

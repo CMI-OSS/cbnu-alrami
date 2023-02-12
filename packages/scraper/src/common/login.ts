@@ -2,7 +2,7 @@ import { apiServer } from "@shared/constant";
 import { OpenAPI } from "@shared/swagger-api/generated/core/OpenAPI";
 import { AdminApiService } from "@shared/swagger-api/generated/services/AdminApiService";
 
-import configuration from "./config/configuration";
+import configuration from "../config/configuration";
 
 OpenAPI.BASE = apiServer.local;
 

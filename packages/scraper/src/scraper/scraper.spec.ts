@@ -1,7 +1,7 @@
-import 은하수식당 from "src/scrapers/CafeteriaScraper/scripts//은하수식당";
+import 은하수식당 from "src/cafeteria-scraper/scripts/은하수식당";
 
+import 경영정보학과 from "../notice-scraper/scripts/경영대학/경영정보학과";
 import { scraping } from "./scraper";
-import 경영정보학과 from "./scrapers/NoticeScraper/scripts/경영대학/경영정보학과";
 
 jest.setTimeout(10000);
 

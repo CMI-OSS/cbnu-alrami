@@ -1,12 +1,13 @@
 import { useQuery } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { getArticles } from "src/newApi/articleApi/getArticles";
-import { isOutputType } from "src/newApi/types";
+import { BoardApiService } from "@shared/swagger-api/generated/services/BoardApiService";
 
 import PaginationView from "../../../components/Pagination/Pagination.view";
 import $ from "./ArticleList.module.scss";
 import ArticleListView from "./ArticleList.view";
+
+const 경영정보학과 = 1010101;
 
 export default function ArticleList() {
   const location = useLocation();
@@ -14,11 +15,16 @@ export default function ArticleList() {
   const page = Number(params.get("page")) || 1;
   const navigate = useNavigate();
 
-  const pageSize = 2;
+  const pageSize = 10;
 
   const { data: articlePageOutput, isLoading } = useQuery(
-    [ "articles", 30101, page, pageSize ],
-    () => getArticles({ boardId: 30101, pageNo: page, pageSize }),
+    [ "articles", 경영정보학과, page, pageSize ],
+    () =>
+      BoardApiService.boardControllerFindArticlePage({
+        id: 경영정보학과,
+        page,
+        count: pageSize,
+      }),
   );
 
   if (isLoading || !articlePageOutput) return null;
@@ -39,14 +45,11 @@ export default function ArticleList() {
     navigate(`?page=${page + 1}`);
   };
 
-  if (!isOutputType(articlePageOutput, "GetArticlesApiOutput_Success"))
-    return null;
-
   return (
     <div className={$["article-list"]}>
       <div>총학생회 &gt; 공지사항</div>
       <ArticleListView
-        articles={articlePageOutput?.contents}
+        articles={articlePageOutput?.articles}
         onClickArticle={handleClickArticle}
       />
       <PaginationView

@@ -1,12 +1,13 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
-const 식물자원학과 = require("./식물자원학과");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
+
+import 식물자원학과 from "./식물자원학과";
 
 const script = {
   url: "https://food.chungbuk.ac.kr/?pg_idx=239",
   site_id: boardTree.전공.농업생명환경대학.식품생명공학과.공지사항.id,
   site: "식품생명공학과",
   category: "식공소식",
-  getNoticeList: function () {
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list).map((item) => {
       const td = item.querySelectorAll("td");
@@ -22,4 +23,4 @@ const script = {
   },
 };
 
-module.exports = { ...식물자원학과, ...script };
+export default { ...식물자원학과, ...script };

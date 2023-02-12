@@ -1,4 +1,4 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
   url: "https://www.chungbuk.ac.kr/site/www/boardList.do?page=1&boardSeq=112&key=698",
@@ -7,7 +7,7 @@ const script = {
   category: "공지사항",
   noticeListSelector: "#contents > div > form > table > tbody > tr",
   noticeContentsSelector: "#view > table > tbody > tr:nth-child(3)",
-  getNoticeList: function () {
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list).map((item) => {
       const row = item.querySelectorAll("td");
@@ -21,9 +21,9 @@ const script = {
       };
     });
   },
-  getContentsHtml: function () {
+  getContentsHtml() {
     return document.querySelector(this.noticeContentsSelector).outerHTML;
   },
 };
 
-module.exports = script;
+export default script;

@@ -20,14 +20,6 @@ export type CreateArticleDto = {
      */
     dateTime: string;
     /**
-     * 공지사항 조회 수
-     */
-    viewCount: any;
-    /**
-     * 공지사항 북마크 수
-     */
-    bookmarkCount: any;
-    /**
      * 게시물이 속한 게시판의 ID
      */
     boardId: number;

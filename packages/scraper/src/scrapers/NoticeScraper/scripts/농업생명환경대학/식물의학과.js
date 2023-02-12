@@ -1,4 +1,4 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
   url: "https://www.plantmed.chungbuk.ac.kr/forum/gongjisahang",
@@ -7,7 +7,7 @@ const script = {
   category: "공지사항",
   noticeListSelector: `tr[data-hook="post-list-item"]`,
   noticeContentsSelector: ".post-content__body",
-  getNoticeList: function () {
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list).map((item) => {
       const td = item.querySelectorAll("td");
@@ -23,9 +23,9 @@ const script = {
       };
     });
   },
-  getContentsHtml: function () {
+  getContentsHtml() {
     return document.querySelector(this.noticeContentsSelector).outerHTML;
   },
 };
 
-module.exports = script;
+export default script;

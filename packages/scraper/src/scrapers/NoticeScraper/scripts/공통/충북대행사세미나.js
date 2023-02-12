@@ -1,12 +1,13 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
-const 충북대공지사항 = require("./충북대공지사항");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
+
+import 충북대공지사항 from "./충북대공지사항";
 
 const script = {
   url: "https://www.chungbuk.ac.kr/site/www/boardList.do?boardSeq=114&key=701",
   site_id: boardTree.공통.충북대학교.행사세미나.id,
   site: "충북대학교",
   category: "행사세미나",
-  getNoticeList: function () {
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list).map((item) => {
       const row = item.querySelectorAll("td");
@@ -22,4 +23,4 @@ const script = {
   },
 };
 
-module.exports = { ...충북대공지사항, ...script };
+export default { ...충북대공지사항, ...script };

@@ -1,5 +1,6 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
-const 소비자학과 = require("./소비자학과");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
+
+import 소비자학과 from "./소비자학과";
 
 const script = {
   url: "https://housing.cbnu.ac.kr/main/sub.html?pageCode=27",
@@ -8,4 +9,4 @@ const script = {
   category: "학과공지사항",
 };
 
-module.exports = { ...소비자학과, ...script };
+export default { ...소비자학과, ...script };

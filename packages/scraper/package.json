@@ -30,6 +30,7 @@
     "@types/find": "^0.2.1",
     "axios": "^0.27.2",
     "cross-env": "^7.0.3",
+    "dayjs": "^1.11.7",
     "dotenv": "^10.0.0",
     "find": "^0.3.0",
     "javascript-stringify": "^2.1.0",

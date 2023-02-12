@@ -47,7 +47,7 @@ function App() {
   const appRoutes = [
     { path: "/notice", element: <Notice /> },
     { path: "/notice/:articleId", element: <NoticeDetail /> },
-    { path: "/article", element: <Article /> },
+    { path: "/article/*", element: <Article /> },
     { path: "/calendar", element: <Calendar /> },
     { path: "/home", element: <Home /> },
     { path: "/cafeteria", element: <Cafeteria /> },

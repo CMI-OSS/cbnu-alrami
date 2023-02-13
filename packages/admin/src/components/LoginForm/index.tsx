@@ -26,6 +26,7 @@ export default function LoginForm() {
         if (data) {
           if (data.accessToken) {
             OpenAPI.TOKEN = data.accessToken;
+            localStorage.setItem("token", data.accessToken);
             navigate("/");
           }
         }

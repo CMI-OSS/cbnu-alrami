@@ -1,6 +1,7 @@
+import { useQuery } from "react-query";
 import { useLocation, useParams } from "react-router-dom";
 
-import { useGetArticleQuery } from "src/api/board";
+import { ArticleApiService } from "@shared/swagger-api/generated/services/ArticleApiService";
 import { useAppDispatch } from "src/store";
 
 import styles from "./ArticleWrite.module.scss";
@@ -21,10 +22,11 @@ export default function ArticleWrite() {
 
   if (isEdit && !articleId) return null;
 
-  const { data: article } = useGetArticleQuery(
-    { articleId: Number(articleId) },
+  const { data: article } = useQuery(
+    [ "article", articleId ],
+    () => ArticleApiService.articleControllerFindOne({ id: Number(articleId) }),
     {
-      skip: !isEdit,
+      enabled: isEdit,
     },
   );
 

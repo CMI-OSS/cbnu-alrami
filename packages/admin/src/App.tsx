@@ -1,5 +1,8 @@
+import { useEffect } from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+
+import { OpenAPI } from "@shared/swagger-api/generated/core/OpenAPI";
 
 import "./admin.scss";
 import AdminManagementPage from "./pages/AdminManagementPage";
@@ -10,6 +13,10 @@ import { store } from "./store";
 
 function App() {
   // useSocket();
+
+  useEffect(() => {
+    OpenAPI.TOKEN = localStorage.getItem("token") ?? "";
+  });
 
   return (
     <>

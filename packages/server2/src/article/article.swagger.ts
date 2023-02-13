@@ -73,7 +73,7 @@ export const UpdateArticle = () => {
     ApiOperation({
       summary: "게시물 수정",
     }),
-    ApiOkResponse({ type: MutationResponse }),
+    ApiOkResponse({ type: ArticleMutationResponseDto }),
     ApiNotFoundResponse({ type: NotFoundArticleException }),
   );
 };

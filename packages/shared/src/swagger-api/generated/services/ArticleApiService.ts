@@ -162,7 +162,7 @@ export class ArticleApiService {
 
     /**
      * 게시물 수정
-     * @returns MutationResponse
+     * @returns ArticleMutationResponseDto
      * @throws ApiError
      */
     public static articleControllerUpdate({
@@ -171,7 +171,7 @@ export class ArticleApiService {
     }: {
         id: number,
         requestBody: UpdateArticleDto,
-    }): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<ArticleMutationResponseDto> {
         return __request(OpenAPI, {
             method: 'PATCH',
             url: '/article/{id}',

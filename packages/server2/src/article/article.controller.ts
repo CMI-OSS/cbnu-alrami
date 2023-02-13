@@ -123,7 +123,7 @@ export class ArticleController {
     @Req() req,
     @Param("id") id: number,
     @Body() updateArticleDto: UpdateArticleDto,
-  ): Promise<MutationResponse> {
+  ): Promise<ArticleMutationResponseDto> {
     const { board } = await this.articleService.findOne(id);
 
     if (!board) {
@@ -132,8 +132,11 @@ export class ArticleController {
 
     await this.adminService.hasBoardAuthority(board.id, req.admin.id);
 
+    const updateResult = await this.articleService.update(id, updateArticleDto);
+
     return {
-      success: !!(await this.articleService.update(id, updateArticleDto)),
+      success: !!updateResult,
+      articleId: id,
     };
   }
 

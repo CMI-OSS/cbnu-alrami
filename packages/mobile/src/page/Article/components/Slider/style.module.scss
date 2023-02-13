@@ -1,0 +1,31 @@
+.slider {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  height: 56px;
+  padding-left: 16px;
+  overflow-x: auto;
+  background: $black-0;
+}
+
+.slider-item {
+  display: block;
+  white-space: nowrap;
+  padding: 8px 12px;
+  margin-right: 12px;
+  background: $black-10;
+  border-radius: 20px;
+
+  path {
+    fill: $black-60;
+  }
+
+  &.active {
+    background: $red-20;
+    color: $red-100;
+
+    path {
+      fill: $red-100;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { useCoreInfiniteQuery, useCoreQuery } from "@hooks/api/core";
+import { ArticleApiService } from "@shared/swagger-api/generated";
 import {
-  getArticle,
   getBoardArticles,
   getBookmarkArticles,
   getNewArticles,
@@ -10,7 +10,7 @@ import { queryKey } from "src/consts/react-query";
 
 export const useArticleQuery = (articleId: req.Article["articleId"]) => {
   return useCoreQuery(queryKey.article(articleId), () => {
-    return getArticle(articleId);
+    return ArticleApiService.articleControllerFindOne({ id: articleId });
   });
 };
 

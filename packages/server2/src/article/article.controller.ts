@@ -13,7 +13,8 @@ import {
 import { ApiTags } from "@nestjs/swagger";
 import { AdminService } from "src/admin/admin.service";
 import { AdminGuard } from "src/admin/gurads/admin.guard";
-import { ArticleViewService } from "src/article-view/article.view.service";
+import { ArticleBookmarkService } from "src/article-bookmark/article-bookmark.service";
+import { ArticleViewService } from "src/article-view/article-view.service";
 import { PaginationDto } from "src/common/dto/pagination.dto";
 import { MutationResponse } from "src/common/types/response";
 import { User } from "src/user/entities/user.entity";
@@ -41,6 +42,7 @@ export class ArticleController {
   constructor(
     private readonly articleService: ArticleService,
     private readonly articleViewService: ArticleViewService,
+    private readonly articleBookmarkService: ArticleBookmarkService,
     private readonly adminService: AdminService,
   ) {}
 
@@ -56,7 +58,9 @@ export class ArticleController {
       req.admin.id,
     );
 
-    return { success: await !!this.articleService.create(createArticleDto) };
+    return {
+      success: await !!this.articleService.create(createArticleDto, req.admin),
+    };
   }
 
   @GetBookmarkArtice()
@@ -150,7 +154,7 @@ export class ArticleController {
     @UserSession() user: User,
   ): Promise<MutationResponse> {
     return {
-      success: !!(await this.articleService.bookmark(id, user)),
+      success: !!(await this.articleBookmarkService.bookmark(id, user)),
     };
   }
 
@@ -161,7 +165,7 @@ export class ArticleController {
     @UserSession() user: User,
   ): Promise<MutationResponse> {
     return {
-      success: !!(await this.articleService.unbookmark(id, user)),
+      success: !!(await this.articleBookmarkService.unbookmark(id, user)),
     };
   }
 }

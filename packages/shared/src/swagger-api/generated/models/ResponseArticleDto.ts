@@ -33,11 +33,11 @@ export type ResponseArticleDto = {
     /**
      * 조회수
      */
-    viewCount: any;
+    viewCount: number;
     /**
      * 북마크 수
      */
-    bookmarkCount: any;
+    bookmarkCount: number;
     /**
      * 게시물이 속한 게시판
      */

@@ -7,9 +7,9 @@ import { useTodaySchedulesQuery } from "@hooks/api/schedule";
 import { useWeathersQuery } from "@hooks/api/weather";
 import classNames from "classnames";
 import dayjs from "dayjs";
+import Article from "src/page/Home/Article";
 import Weather from "src/page/Home/Weather";
 
-import Notice from "./Notice";
 import Restaurant from "./Restaurant";
 import Schedule from "./Schedule";
 import $ from "./style.module.scss";
@@ -73,7 +73,7 @@ function Home() {
         onSuggestionClick={handleSuggestionClick}
       />
       <Restaurant {...{ today, isHoliday }} />
-      <Notice />
+      <Article />
       <Footer />
     </section>
   );

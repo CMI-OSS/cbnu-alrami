@@ -82,11 +82,11 @@ export const useTodaySchedulesQuery = (
   );
 };
 
-export const useBookmarkSchedulesQuery = ({
-  uuid,
-}: GetParams<
-  typeof ScheduleApiService.scheduleControllerFindBookmarkSchedule
->) => {
+export const useBookmarkSchedulesQuery = (
+  uuid: GetParams<
+    typeof ScheduleApiService.scheduleControllerFindBookmarkSchedule
+  >["uuid"],
+) => {
   return useCoreQuery<Schedule[], FormattedSchedule[]>(
     queryKey.bookmarkSchedules,
     () => {

@@ -217,7 +217,9 @@ export class ArticleService {
     id: number,
     { boardId, imageIds, ...updateArticleDto }: UpdateArticleDto,
   ) {
-    const target = await this.findOne(id);
+    const target = await this.articleRepository.findOneBy({ id });
+
+    if (!target) throw new NotFoundArticleException();
 
     const board = boardId && (await this.boardService.findOne(boardId));
 

@@ -7,6 +7,7 @@ import {
 import dayjs, { Dayjs } from "dayjs";
 import { queryKey } from "src/consts/react-query";
 import { queryClient } from "src/main";
+import { GetParams } from "src/type/utils";
 
 export type FormattedSchedule = Omit<
   Schedule,
@@ -55,7 +56,11 @@ export const useFullSchedulesQuery = (year: number) => {
   );
 };
 
-export const useTodaySchedulesQuery = (today: string) => {
+export const useTodaySchedulesQuery = (
+  today: GetParams<
+    typeof ScheduleApiService.scheduleControllerFindAll
+  >["startDateTime"],
+) => {
   return useCoreQuery<
     Schedule[],
     { schedules: Schedule[]; isHoliday: boolean }
@@ -64,7 +69,7 @@ export const useTodaySchedulesQuery = (today: string) => {
     () => {
       return ScheduleApiService.scheduleControllerFindAll({
         startDateTime: today,
-        endDateTime: today
+        endDateTime: today,
       });
     },
     {
@@ -77,7 +82,11 @@ export const useTodaySchedulesQuery = (today: string) => {
   );
 };
 
-export const useBookmarkSchedulesQuery = (uuid?: string) => {
+export const useBookmarkSchedulesQuery = ({
+  uuid,
+}: GetParams<
+  typeof ScheduleApiService.scheduleControllerFindBookmarkSchedule
+>) => {
   return useCoreQuery<Schedule[], FormattedSchedule[]>(
     queryKey.bookmarkSchedules,
     () => {
@@ -103,7 +112,10 @@ export const useBookmarkSchedulesQuery = (uuid?: string) => {
 };
 
 export const useAddScheduleBookmarkMutation = () => {
-  return useCoreMutation<MutationResponse, { id: number; uuid?: string }>(
+  return useCoreMutation<
+    MutationResponse,
+    GetParams<typeof ScheduleApiService.scheduleControllerBookmark>
+  >(
     ({ id, uuid }) => {
       return ScheduleApiService.scheduleControllerBookmark({ id, uuid });
     },
@@ -116,7 +128,10 @@ export const useAddScheduleBookmarkMutation = () => {
 };
 
 export const useRemoveScheduleBookmarkMutation = () => {
-  return useCoreMutation<MutationResponse, { id: number; uuid?: string }>(
+  return useCoreMutation<
+    MutationResponse,
+    GetParams<typeof ScheduleApiService.scheduleControllerBookmark>
+  >(
     ({ id, uuid }) => {
       return ScheduleApiService.scheduleControllerUnbookmark({ id, uuid });
     },

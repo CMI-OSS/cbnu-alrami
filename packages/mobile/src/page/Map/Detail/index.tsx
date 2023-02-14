@@ -2,10 +2,9 @@ import { useNavigate } from "react-router-dom";
 
 import { LeftArrow } from "@components/atoms/icon";
 import ImageList from "@components/molecules/ImageList";
-import { PlaceApiService } from '@shared/swagger-api/generated';
-import { useQuery } from "@tanstack/react-query";
 import classNames from "classnames";
 import BorderBox from "src/components/atoms/BorderBox";
+import { useSchoolQuery } from "src/hooks/api/school";
 import useSearch from "src/hooks/useSearch";
 import Info from "src/page/Map/Info";
 
@@ -18,11 +17,7 @@ function MapDetail() {
     data: detailData,
     isLoading: detailLoading,
     isError: detailError,
-  } = useQuery([ "detailId", detailId ], () => {
-    return PlaceApiService.placeControllerFindOneSchool({
-      id: detailId
-    })
-  });
+  } = useSchoolQuery(detailId);
   if (detailLoading) return <div>로딩중입니다.</div>;
   if (detailError) return <div>에러가 발생했습니다.</div>;
   if (detailData === undefined)

@@ -2,9 +2,9 @@ import { NavLink } from "react-router-dom";
 
 import { LeftArrow } from "@components/atoms/icon";
 import ChipGroup from "@components/molecules/ChipGroup";
-import { PlaceApiService, PlaceSchoolDto } from "@shared/swagger-api/generated";
-import { useQuery } from "@tanstack/react-query";
+import { PlaceSchoolDto } from "@shared/swagger-api/generated";
 import BorderBox from "src/components/atoms/BorderBox";
+import { useSchoolAreaQuery } from "src/hooks/api/school";
 import useSearch from "src/hooks/useSearch";
 import DetailGroup from "src/page/Place/DetailGroup";
 import { useAppDispatch } from "src/store";
@@ -21,11 +21,7 @@ function PlaceDetail() {
     data: schoolData,
     isLoading: schoolLoading,
     isError: schoolError,
-  } = useQuery([ "position", position ], () => {
-    return PlaceApiService.placeControllerFindSchool({
-      area: currentPosition
-    })
-  });
+  } = useSchoolAreaQuery(currentPosition);
   if (schoolLoading) return <div>로딩중입니다.</div>;
   if (schoolError) return <div>에러가 발생했습니다.</div>;
   if (schoolData === undefined)

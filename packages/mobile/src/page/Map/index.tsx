@@ -4,8 +4,7 @@ import { NavLink } from "react-router-dom";
 import { Hamburger, LeftArrow } from "@components/atoms/icon";
 import { Close } from "@components/atoms/icon/Close";
 import Footer from "@components/molecules/Footer";
-import { PlaceApiService } from '@shared/swagger-api/generated';
-import { useQuery } from "@tanstack/react-query";
+import { useSchoolQuery, useSchoolsQuery } from "src/hooks/api/school";
 import Spot from "src/page/Map/Spot";
 import { useAppDispatch, useAppSelector } from "src/store";
 import {
@@ -76,18 +75,13 @@ function Map() {
     data: schoolData,
     isLoading: schoolLoading,
     isError: schoolError,
-  } = useQuery([ "all", 'all' ], () => {
-    return PlaceApiService.placeControllerFindSchool({});
-  });
+  } = useSchoolsQuery();
 
   const {
     data: schoolSeveralData,
     isLoading: schoolSeveralLoading,
     isError: schoolSeveralError,
-  } = useQuery([ "constructionId", constructionId ], () => {
-    return PlaceApiService.placeControllerFindOneSchool({
-      id: constructionId
-  })});
+  } = useSchoolQuery(constructionId);
 
   useEffect(() => {
     const initMap = () => {

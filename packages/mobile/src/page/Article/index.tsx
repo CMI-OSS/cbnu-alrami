@@ -11,12 +11,14 @@ function Article() {
   return (
     <div className={$.article}>
       <div className={$.header}>
-        <span>공지사항</span>
-        <Link to="/subscription">
-          <Setting size={20} />
-        </Link>
+        <div className={$.title}>
+          <span>공지사항</span>
+          <Link to="/subscription">
+            <Setting size={20} />
+          </Link>
+        </div>
+        <Slider />
       </div>
-      <Slider />
       <ArticleList />
       <Footer />
     </div>

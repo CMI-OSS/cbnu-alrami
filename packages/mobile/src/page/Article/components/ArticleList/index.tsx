@@ -8,6 +8,10 @@ function ArticleList() {
       <ArticleItem />
       <ArticleItem />
       <ArticleItem />
+      <ArticleItem />
+      <ArticleItem />
+      <ArticleItem />
+      <ArticleItem />
     </div>
   );
 }

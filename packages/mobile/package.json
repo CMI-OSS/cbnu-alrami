@@ -23,6 +23,7 @@
     "react-hot-toast": "^2.3.0",
     "react-router-dom": "^6.2.2",
     "react-scroll": "^1.8.7",
+    "recoil": "^0.7.6",
     "rollup-plugin-visualizer": "^5.9.0"
   },
   "devDependencies": {

@@ -2,6 +2,7 @@ import { Configutation } from "./types";
 
 const configuration: Configutation = {
   server: {
+    env: "dev",
     host: "",
     port: 0,
   },
@@ -33,6 +34,10 @@ const configuration: Configutation = {
   jwt: {
     secret: "",
     expire: "",
+  },
+  holiday: {
+    key: "",
+    url: "",
   },
 };
 

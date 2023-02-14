@@ -1,0 +1,50 @@
+.container {
+  padding: 20px 24px;
+  background: #fff;
+  border-radius: 20px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+
+    .button-wrapper {
+      font-size: 14px;
+      margin-bottom: 16px;
+
+      .popular {
+        margin-right: 20px;
+        color: $black-40;
+      }
+
+      .subscribe {
+        color: $black-40;
+      }
+
+      .active {
+        color: $red-50;
+      }
+    }
+  }
+
+  .content {
+    padding-top: 24px;
+    size: 13px;
+
+    .title {
+      margin-bottom: 28px;
+      @include ellipsis;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+  }
+}

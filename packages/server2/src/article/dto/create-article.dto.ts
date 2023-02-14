@@ -10,6 +10,8 @@ export class ArticleDto extends OmitType(Article, [
   "author",
   "board",
   "images",
+  "bookmarkCount",
+  "viewCount",
 ]) {
   @ApiProperty({ description: "게시물이 속한 게시판의 ID", example: 1 })
   @IsNumber()

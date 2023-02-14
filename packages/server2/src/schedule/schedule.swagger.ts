@@ -24,7 +24,9 @@ export const CreateSchedule = () => {
 export const GetSchedule = () => {
   return applyDecorators(
     ApiOperation({
-      summary: "학사 일정 조회",
+      summary: "일정 조회",
+      description:
+        "타겟의 시작일을 기준으로 시작범위와 끝범위를 설정하여 일정을 조회합니다. \n (시작일 기준으로 오름차순 정렬) <br/> query.startDateTime <= target.startDateTime <= query.endDateTime",
     }),
     ApiOkResponse({ type: Schedule, isArray: true }),
   );
@@ -33,7 +35,7 @@ export const GetSchedule = () => {
 export const GetBookmarkSchedule = () => {
   return applyDecorators(
     ApiOperation({
-      summary: "북마크한 학사 일정 조회",
+      summary: "북마크한 일정 조회",
     }),
     ApiOkResponse({ type: Schedule, isArray: true }),
   );

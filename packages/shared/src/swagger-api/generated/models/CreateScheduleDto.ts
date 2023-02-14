@@ -10,17 +10,17 @@ export type CreateScheduleDto = {
     /**
      * 우선순위
      */
-    priority: number;
+    priority?: number;
     /**
      * 휴일여부
      */
-    isHoliday?: boolean;
+    isHoliday: boolean;
     /**
-     * 일정 시작일
+     * 타겟의 시작일 기준 시작범위 (query.startDateTime <= target.startDateTime)
      */
     startDateTime: string;
     /**
-     * 일정 종료일
+     * 타겟의 시작일 기준 끝범위 (target.startDateTime <= query.endDateTime)
      */
     endDateTime?: string;
 };

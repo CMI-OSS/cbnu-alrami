@@ -31,6 +31,14 @@ export type ResponseArticleDto = {
      */
     dateTime: string;
     /**
+     * 조회수
+     */
+    viewCount: number;
+    /**
+     * 북마크 수
+     */
+    bookmarkCount: number;
+    /**
      * 게시물이 속한 게시판
      */
     board: Board;
@@ -38,13 +46,5 @@ export type ResponseArticleDto = {
      * 게시물 이미지
      */
     images?: Array<Image>;
-    /**
-     * 북마크 수
-     */
-    bookmarkCount: number;
-    /**
-     * 조회수
-     */
-    viewCount: number;
 };
 

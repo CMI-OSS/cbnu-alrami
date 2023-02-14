@@ -4,6 +4,7 @@ import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import HeadMeta from "@components/atoms/HeadMeta";
+import Article from "src/page/Article";
 import DeepLink from "src/page/Notice/Detail/DeepLink";
 import Subscription from "src/page/Subscription";
 import { isStaging, isWebView } from "src/utils/webview";
@@ -46,6 +47,7 @@ function App() {
   const appRoutes = [
     { path: "/notice", element: <Notice /> },
     { path: "/notice/:articleId", element: <NoticeDetail /> },
+    { path: "/article/*", element: <Article /> },
     { path: "/calendar", element: <Calendar /> },
     { path: "/home", element: <Home /> },
     { path: "/cafeteria", element: <Cafeteria /> },

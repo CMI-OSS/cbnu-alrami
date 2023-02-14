@@ -1,3 +1,4 @@
-const isDev = process.env.NODE_ENV === "development";
+import configuration from "src/config/configuration";
 
-export default isDev;
+export const IS_TEST = process.env.NODE_ENV === "test";
+export const IS_DEV = configuration.env === "dev";

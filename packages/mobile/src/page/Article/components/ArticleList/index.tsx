@@ -14,7 +14,6 @@ import $ from "./style.module.scss";
 const useArticles = () => {
   const { pathname } = useLocation();
   const kind = pathname.split("/").at(-1);
-
   if (kind === "popular") {
     return usePopularArticlesQuery();
   }
@@ -26,7 +25,7 @@ const useArticles = () => {
   if (kind === "bookmark") {
     return useBookmarkArticlesQuery();
   }
-  return useBoardArticlesQuery({ id: 1010101 });
+  return useBoardArticlesQuery({ id: Number(kind) });
 };
 
 function ArticleList() {
@@ -44,17 +43,18 @@ function ArticleList() {
     }
   });
 
-  console.log(articlesData, "데이터임니다");
-
   return (
     <div className={$["article-list"]}>
-      <ArticleItem />
-      <ArticleItem />
-      <ArticleItem />
-      <ArticleItem />
-      <ArticleItem />
-      <ArticleItem />
-      <ArticleItem />
+      {articlesData?.pages[0].articles.map((articleData) => {
+        const { id, title, createdDateTime, bookmarkCount, viewCount } =
+          articleData;
+        return (
+          <ArticleItem
+            key={id}
+            {...{ title, createdDateTime, viewCount, bookmarkCount }}
+          />
+        );
+      })}
       <div ref={ref} />
     </div>
   );

@@ -9,7 +9,7 @@ export type Restaurant =
   | "한빛식당"
   | "표시 안함";
 
-export type Menu = { id: number; name: string };
+export type Menu<T, U> = { id: T; name: U };
 
 export type CalendarInfo = {
   year: number;

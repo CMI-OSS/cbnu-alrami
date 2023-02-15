@@ -50,7 +50,7 @@ export class AdminApiService {
      * @returns ResponseBoardAuthoriyDto
      * @throws ApiError
      */
-    public static adminControllerGetAuthorityBoards(): CancelablePromise<ResponseBoardAuthoriyDto> {
+    public static adminControllerGetAuthorityBoards(): CancelablePromise<Array<ResponseBoardAuthoriyDto>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/admin/board',

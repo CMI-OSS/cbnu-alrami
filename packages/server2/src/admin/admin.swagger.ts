@@ -57,7 +57,7 @@ export const GetAuthoriyBoards = () => {
     ApiOperation({
       summary: "권한이 있는 게시판 조회",
     }),
-    ApiOkResponse({ type: ResponseBoardAuthoriyDto }),
+    ApiOkResponse({ type: ResponseBoardAuthoriyDto, isArray: true }),
     ApiNotFoundResponse({
       type: NotFoundAdminException,
     }),

@@ -59,7 +59,14 @@ function ArticleList() {
         return (
           <ArticleItem
             key={id}
-            {...{ title, createdDateTime, viewCount, bookmarkCount, boardName }}
+            {...{
+              id,
+              title,
+              createdDateTime,
+              viewCount,
+              bookmarkCount,
+              boardName,
+            }}
           />
         );
       })}

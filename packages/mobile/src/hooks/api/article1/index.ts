@@ -1,4 +1,4 @@
-import { useCoreInfiniteQuery } from "@hooks/api/core";
+import { useCoreInfiniteQuery, useCoreQuery } from "@hooks/api/core";
 import {
   ArticleApiService,
   ResponseArticlePageDto,
@@ -68,4 +68,12 @@ export const useBookmarkArticlesQuery = (
       },
     },
   );
+};
+
+export const useArticleQuery = (
+  params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
+) => {
+  return useCoreQuery(queryKey.article(params), () => {
+    return ArticleApiService.articleControllerFindOne(params);
+  });
 };

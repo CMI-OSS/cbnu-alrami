@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import HeadMeta from "@components/atoms/HeadMeta";
 import Article from "src/page/Article";
+import ArticleDetail from "src/page/Article/Detail";
 import DeepLink from "src/page/Notice/Detail/DeepLink";
 import Subscription from "src/page/Subscription";
 import { isStaging, isWebView } from "src/utils/webview";
@@ -64,6 +65,7 @@ function App() {
     { path: "/place/more", element: <MoreImage /> },
     { path: "/place/:name", element: <MapDetail /> },
     { path: "/setting/*", element: <SettingRoute /> },
+    { path: "/article/detail/*", element: <ArticleDetail /> },
     { path: "/*", element: <Navigate replace to="/home" /> },
   ];
   const webRoutes = [ { path: "/notice/:articleId", element: <NoticeDetail /> } ];

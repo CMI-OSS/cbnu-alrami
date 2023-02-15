@@ -35,6 +35,7 @@ export type { PlaceSchoolDto } from './models/PlaceSchoolDto';
 export type { ResponseArticleDetailDto } from './models/ResponseArticleDetailDto';
 export type { ResponseArticleDto } from './models/ResponseArticleDto';
 export type { ResponseArticlePageDto } from './models/ResponseArticlePageDto';
+export { ResponseBoardAuthoriyDto } from './models/ResponseBoardAuthoriyDto';
 export type { ResponseBoardDto } from './models/ResponseBoardDto';
 export type { ResponseLoginDto } from './models/ResponseLoginDto';
 export type { Schedule } from './models/Schedule';

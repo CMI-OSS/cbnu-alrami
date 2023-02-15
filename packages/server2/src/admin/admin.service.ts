@@ -1,5 +1,6 @@
 import { ForbiddenException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { BoardAuthority } from "src/board-authority/entities/board-authority.entity";
 import { BoardService } from "src/board/board.service";
 import { JWTService } from "src/common/jwt/jwt.service";
 import { Repository } from "typeorm";
@@ -124,5 +125,14 @@ export class AdminService {
     }
 
     return true;
+  }
+
+  async getAuthorityBoards(adminId: number): Promise<BoardAuthority[]> {
+    const admin = await this.adminRepository.findOne({
+      where: { id: adminId },
+      relations: { boards: { board: { parent: true } } },
+    });
+
+    return admin?.boards ?? [];
   }
 }

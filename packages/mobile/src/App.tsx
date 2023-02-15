@@ -6,7 +6,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HeadMeta from "@components/atoms/HeadMeta";
 import Article from "src/page/Article";
 import ArticleDetail from "src/page/Article/Detail";
-import DeepLink from "src/page/Notice/Detail/DeepLink";
 import Subscription from "src/page/Subscription";
 import { isStaging, isWebView } from "src/utils/webview";
 
@@ -17,8 +16,6 @@ import Calendar from "./page/Calendar";
 import Home from "./page/Home";
 import Map from "./page/Map";
 import MapDetail from "./page/Map/Detail";
-import Notice from "./page/Notice";
-import NoticeDetail from "./page/Notice/Detail";
 import PlaceDetail from "./page/Place/Detail";
 import Error from "./page/Place/Error";
 import MoreImage from "./page/Place/MoreImage";
@@ -46,8 +43,6 @@ function App() {
   }, [ height ]);
 
   const appRoutes = [
-    { path: "/notice", element: <Notice /> },
-    { path: "/notice/:articleId", element: <NoticeDetail /> },
     { path: "/article/*", element: <Article /> },
     { path: "/calendar", element: <Calendar /> },
     { path: "/home", element: <Home /> },
@@ -65,17 +60,19 @@ function App() {
     { path: "/place/more", element: <MoreImage /> },
     { path: "/place/:name", element: <MapDetail /> },
     { path: "/setting/*", element: <SettingRoute /> },
-    { path: "/article/detail/*", element: <ArticleDetail /> },
+    { path: "/article/detail/:articleId", element: <ArticleDetail /> },
     { path: "/*", element: <Navigate replace to="/home" /> },
   ];
-  const webRoutes = [ { path: "/notice/:articleId", element: <NoticeDetail /> } ];
+  const webRoutes = [
+    { path: "/article/detail/:articleId", element: <ArticleDetail /> },
+  ];
 
   const mode = import.meta.env.MODE;
   const routes = isStaging && !isWebView ? webRoutes : appRoutes;
 
   return (
     <BrowserRouter>
-      {mode === "production" && !isWebView && <DeepLink />}
+      {mode === "production" && !isWebView && <>딥링크</>}
       <HeadMeta title="충림이" />
       <Routes>
         {routes.map((route) => {

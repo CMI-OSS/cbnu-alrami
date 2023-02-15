@@ -45,7 +45,7 @@ export class AdminController {
   @AdminGuard()
   @GetAuthoriyBoards()
   @Get("board")
-  get(@Req() req) {
+  getAuthorityBoards(@Req() req) {
     const { admin } = req;
     return this.adminService.getAuthorityBoards(admin.id);
   }

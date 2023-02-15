@@ -4,23 +4,23 @@
 
 import type { SchoolDto } from './SchoolDto';
 
-export type CreatePlaceDto = {
+export type UpdatePlaceDto = {
     /**
      * 장소명
      */
-    name: string;
+    name?: string;
     /**
      * 위도
      */
-    latitude: number;
+    latitude?: number;
     /**
      * 경도
      */
-    longtitude: number;
+    longtitude?: number;
     /**
      * 주소
      */
-    address: string;
+    address?: string;
     /**
      * 이미지
      */
@@ -28,6 +28,6 @@ export type CreatePlaceDto = {
     /**
      * 학교 정보
      */
-    school: SchoolDto;
+    school?: SchoolDto;
 };
 

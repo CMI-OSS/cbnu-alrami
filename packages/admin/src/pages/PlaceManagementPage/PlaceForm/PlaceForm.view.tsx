@@ -4,9 +4,10 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 
+import { PlaceSchoolDto } from "@shared/swagger-api/generated/models/PlaceSchoolDto";
 import AddForm from "src/components/PlaceManagement/AddForm";
 import UploadImage from "src/pages/BoardPage/ArticleWrite/UploadImage/UploadImage";
-import { SchoolAddForm, SchoolAddFormErrors } from "src/types/place";
+import { SchoolAddFormErrors } from "src/types/place";
 
 import $ from "./style.module.scss";
 
@@ -14,9 +15,9 @@ export type PlaceFormViewProps = {
   apiKindMsg: string;
   errMsg: string;
   isAdd: boolean;
-  onSubmit: SubmitHandler<Omit<SchoolAddForm, "imageIds">>;
-  handleSubmit: UseFormHandleSubmit<Omit<SchoolAddForm, "imageIds">>;
-  register: UseFormRegister<Omit<SchoolAddForm, "imageIds">>;
+  onSubmit: SubmitHandler<Omit<PlaceSchoolDto, "imageIds">>;
+  handleSubmit: UseFormHandleSubmit<Omit<PlaceSchoolDto, "imageIds">>;
+  register: UseFormRegister<Omit<PlaceSchoolDto, "imageIds">>;
   errors: SchoolAddFormErrors;
 };
 

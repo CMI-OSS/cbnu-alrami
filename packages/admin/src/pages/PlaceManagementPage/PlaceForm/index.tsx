@@ -3,32 +3,30 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAddPlaceMutation, useEditPlaceMutation } from "src/api/place";
-import { placeApiErrorMsg, placeApiSuccessMsg } from "src/constants/place";
+import { CreatePlaceDto } from "@shared/swagger-api/generated/models/CreatePlaceDto";
+import { PlaceSchoolDto } from "@shared/swagger-api/generated/models/PlaceSchoolDto";
+import { PlaceApiService } from "@shared/swagger-api/generated/services/PlaceApiService";
 import { initImgList } from "src/pages/BoardPage/ArticleWrite/ArticleWrite.store";
 import { useAppDispatch, useAppSelector } from "src/store";
-import { SchoolAddForm } from "src/types/place";
 
-import { getObjKeyNames, RefinedSchoolState } from "../place.utils";
+import { getObjKeyNames } from "../place.utils";
 import PlaceFormView, { PlaceFormViewProps } from "./PlaceForm.view";
 import schema from "./yup";
 
 type Props = {
   type: "add" | "edit";
-  state?: Omit<RefinedSchoolState, "images">;
-  stateImgs?: RefinedSchoolState["images"];
+  place?: PlaceSchoolDto;
 };
 
 export default function PlaceFormTemplate(props: Props) {
-  const { type, state, stateImgs } = props;
+  const { type, place } = props;
   const isAdd = type === "add";
   const [ errMsg, setErrMsg ] = useState("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [ addPlace ] = useAddPlaceMutation();
-  const [ editPlace ] = useEditPlaceMutation();
+
   const { images } = useAppSelector((state) => state.ArticelWriteReducer);
-  const api = isAdd ? addPlace : editPlace;
+
   const apiKindMsg = isAdd ? "추가" : "수정";
 
   const {
@@ -37,26 +35,26 @@ export default function PlaceFormTemplate(props: Props) {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<Omit<SchoolAddForm, "imageIds">>({
+  } = useForm<Omit<PlaceSchoolDto, "imageIds">>({
     resolver: yupResolver(schema),
-    defaultValues: { tags: "" },
+    defaultValues: {},
   });
 
   const setValues = () => {
-    if (!state || isAdd) return;
-    const keys = getObjKeyNames(state || {});
+    if (!place || isAdd) return;
+    const keys = getObjKeyNames(place || {});
     keys.forEach((key) => {
-      setValue(key, state[key]);
+      setValue(key, place[key]);
     });
   };
 
   useEffect(() => {
-    if (state && !isAdd) setValues();
-    dispatch(initImgList(stateImgs || []));
+    if (place && !isAdd) setValues();
+    dispatch(initImgList(place?.images || []));
   }, []);
 
   useEffect(() => {
-    if (!images.length) {
+    if (!images?.length) {
       setErrMsg("이미지를 1개 이상 올려주세요.");
       return;
     }
@@ -64,29 +62,35 @@ export default function PlaceFormTemplate(props: Props) {
   }, [ images ]);
 
   const refineImgList = (): number[] => {
-    return images.map(({ id }) => id);
+    return place?.images?.map(({ id }) => id) ?? [];
   };
 
   const mergeImgAndForm = (
     imageIds: number[],
-    data: Omit<SchoolAddForm, "imageIds">,
-  ): SchoolAddForm => {
+    data: Omit<PlaceSchoolDto, "imageIds">,
+  ): CreatePlaceDto => {
     return { imageIds, ...data };
   };
 
-  const postPlace = async (body: SchoolAddForm) => {
+  const postPlace = async (body: CreatePlaceDto) => {
     try {
-      await api(body).unwrap();
+      if (isAdd) {
+        await PlaceApiService.placeControllerCreate({ requestBody: body });
+      } else {
+        await PlaceApiService.placeControllerUpdate({
+          id: place?.id as number,
+          requestBody: body,
+        });
+      }
       reset();
       dispatch(initImgList([]));
-      alert(placeApiSuccessMsg(apiKindMsg));
-      if (!isAdd) navigate(`/places/list/${state?.id}`);
+      if (!isAdd) navigate(`/places/list/${place?.id}`);
     } catch (err) {
-      alert(placeApiErrorMsg(apiKindMsg));
+      alert(err);
     }
   };
 
-  const onSubmit: SubmitHandler<Omit<SchoolAddForm, "imageIds">> = (data) => {
+  const onSubmit: SubmitHandler<Omit<PlaceSchoolDto, "imageIds">> = (data) => {
     const imgIds = refineImgList();
     if (!imgIds.length) return;
     const body = mergeImgAndForm(imgIds, data);

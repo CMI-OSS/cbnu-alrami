@@ -1,3 +1,5 @@
+import { CafeteriaMenu } from "@shared/swagger-api/generated";
+
 export const queryKey = {
   article: (articleId: req.Article["articleId"]) => {
     return [ "article", articleId ];
@@ -16,11 +18,8 @@ export const queryKey = {
   subscribeBoards: [ "subscribeBoards" ],
   weathers: [ "weathers" ],
   schedules: [ "schedules" ],
-  cafeteria: (
-    cafeteriaId: req.Cafeteria["cafeteriaId"],
-    date: req.Cafeteria["date"],
-  ) => {
-    return [ "cafeteria", cafeteriaId, date ];
+  cafeteria: (name: CafeteriaMenu["name"], date: CafeteriaMenu["date"]) => {
+    return [ "cafeteria", name, date ];
   },
   schools: [ "schools" ],
   school: (placeId: req.School["placeId"]) => {

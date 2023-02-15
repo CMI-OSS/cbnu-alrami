@@ -1,17 +1,23 @@
+import {
+  CafeteriaMenu,
+  CafeteriaMenuApiService,
+} from "@shared/swagger-api/generated";
 import { useQueries } from "@tanstack/react-query";
-import { getCafeteria } from "src/api/cafeteria";
+import { CAFETERIA_MENUS } from "src/constants";
 import { queryKey } from "src/consts/react-query";
 
 import { useCoreQuery } from "../core";
 
-export const useCafeteriasQuery = (date: req.Cafeteria["date"]) => {
-  const cafeteriaIds = [ 1, 2, 3, 4, 5, 6 ];
+export const useCafeteriasQuery = (date: CafeteriaMenu["date"]) => {
   return useQueries({
-    queries: cafeteriaIds.map((cafeteriaId) => {
+    queries: CAFETERIA_MENUS.map((name) => {
       return {
-        queryKey: queryKey.cafeteria(cafeteriaId, date),
+        queryKey: queryKey.cafeteria(name, date),
         queryFn: () => {
-          return getCafeteria({ cafeteriaId, date });
+          return CafeteriaMenuApiService.cafeteriaMenuControllerFindAll({
+            name,
+            date,
+          });
         },
       };
     }),
@@ -19,13 +25,16 @@ export const useCafeteriasQuery = (date: req.Cafeteria["date"]) => {
 };
 
 export const useCafeteriaQuery = (
-  cafeteriaId: req.Cafeteria["cafeteriaId"],
-  date: req.Cafeteria["date"],
+  name: CafeteriaMenu["name"],
+  date: CafeteriaMenu["date"],
 ) => {
-  return useCoreQuery<res.Cafeteria[], res.Cafeteria[]>(
-    queryKey.cafeteria(cafeteriaId, date),
+  return useCoreQuery<CafeteriaMenu[]>(
+    queryKey.cafeteria(name, date),
     () => {
-      return getCafeteria({ cafeteriaId, date });
+      return CafeteriaMenuApiService.cafeteriaMenuControllerFindAll({
+        name,
+        date,
+      });
     },
     { suspense: true },
   );

@@ -2,10 +2,9 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 
+import { PlaceApiService } from "@shared/swagger-api/generated/services/PlaceApiService";
 import { useDeletePlaceMutation } from "src/api/place";
 import { placeApiErrorMsg, placeApiSuccessMsg } from "src/constants/place";
-import { getPlace } from "src/newApi/placeApi/getPlace";
-import { isOutputType } from "src/newApi/types";
 import ImagePreview from "src/pages/BoardPage/ArticleWrite/UploadImage/ImagePreview/ImagePreview";
 import { openImagePreview } from "src/pages/BoardPage/ArticleWrite/UploadImage/ImagePreview/ImagePreview.store";
 import { useAppDispatch } from "src/store";
@@ -17,25 +16,23 @@ export default function Place() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [ deletePlace ] = useDeletePlaceMutation();
-  const { data, isLoading } = useQuery(
+  const { data: place, isLoading } = useQuery(
     [ "place", placeId || "" ],
-    () => getPlace(Number(placeId)),
+    () => PlaceApiService.placeControllerFindOneSchool({ id: Number(placeId) }),
     {
       enabled: !!placeId,
     },
   );
 
-  if (isLoading || !data) return null;
-
-  if (!isOutputType(data, "GetPlaceApiOutput_Success")) return null;
+  if (isLoading || !place) return null;
 
   const handleClickEdit = () => {
-    navigate(`/place/edit/${data.content.id}`);
+    navigate(`/place/edit/${place.id}`);
   };
 
   const handleClickDelete = async () => {
     try {
-      await deletePlace({ id: data.content.id }).unwrap();
+      await deletePlace({ id: place.id }).unwrap();
       alert(placeApiSuccessMsg("삭제"));
       navigate("/place/list");
     } catch (err) {
@@ -44,13 +41,13 @@ export default function Place() {
   };
 
   const placeViewProps: PlaceViewProps = {
-    ...data.content,
+    place,
     onClickEdit: handleClickEdit,
     onClickDelete: handleClickDelete,
     onClickImage: (e, index) => {
       dispatch(
         openImagePreview({
-          images: data.content.images?.map((image) => image?.url || "") || [],
+          images: place.images?.map((image) => image?.url || "") || [],
           currentIndex: index,
         }),
       );

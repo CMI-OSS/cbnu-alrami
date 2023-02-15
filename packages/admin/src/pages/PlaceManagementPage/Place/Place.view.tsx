@@ -1,8 +1,9 @@
-import { PlaceItem } from "src/newApi/placeApi/getPlace";
+import { PlaceSchoolDto } from "@shared/swagger-api/generated/models/PlaceSchoolDto";
 
 import $ from "./Place.module.scss";
 
-export interface PlaceViewProps extends PlaceItem {
+export interface PlaceViewProps {
+  place: PlaceSchoolDto;
   onClickEdit: () => void;
   onClickDelete: () => void;
   onClickImage: (
@@ -23,15 +24,13 @@ const hanguls = [
 ];
 
 export default function PlaceView(props: PlaceViewProps) {
-  const { school, images, onClickImage, onClickEdit, onClickDelete } = props;
-  const { name, latitude, longtitude, address, contact, description } = props;
+  const { onClickImage, onClickEdit, onClickDelete, place } = props;
+  const { name, latitude, longtitude, address, school, images } = place;
 
   const engs = [
     latitude,
     longtitude,
     address,
-    contact,
-    description,
     school?.buildingNumber,
     school?.oldBuildingNumber,
     school?.area,

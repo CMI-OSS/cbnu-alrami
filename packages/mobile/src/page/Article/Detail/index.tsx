@@ -5,6 +5,7 @@ import { LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import { useArticleQuery } from "@hooks/api/article1";
 import dayjs from "dayjs";
+import ArticleFooter from "src/page/Article/components/Footer";
 
 import $ from "./style.module.scss";
 
@@ -49,6 +50,7 @@ function ArticleDetail() {
             dangerouslySetInnerHTML={{ __html: content }}
           />
         </div>
+        <ArticleFooter />
       </FullPageModalTemplate>
     </div>
   );

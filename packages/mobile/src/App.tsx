@@ -6,7 +6,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HeadMeta from "@components/atoms/HeadMeta";
 import Article from "src/page/Article";
 import ArticleDetail from "src/page/Article/Detail";
-import Subscription from "src/page/Subscription";
 import { isStaging, isWebView } from "src/utils/webview";
 
 import useWindowSizeDetect from "./hooks/useWindowSizeDetect";
@@ -21,7 +20,6 @@ import Error from "./page/Place/Error";
 import MoreImage from "./page/Place/MoreImage";
 import Report from "./page/Place/Report";
 import SettingRoute from "./page/Setting";
-import Preview from "./page/Subscription/Preview";
 
 function App() {
   const [ uuid, setUuid ] = useState("");
@@ -48,9 +46,6 @@ function App() {
     { path: "/home", element: <Home /> },
     { path: "/cafeteria", element: <Cafeteria /> },
     { path: "/map", element: <Map /> },
-    { path: "/subscription", element: <Subscription /> },
-    { path: "/subscription/setting", element: <Subscription /> },
-    { path: "/preview", element: <Preview /> },
     {
       path: "/place",
       element: <PlaceDetail />,

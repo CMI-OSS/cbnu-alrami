@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ArticleService } from "src/article/article.service";
 import { Article } from "src/article/entities/article.entity";
 import { User } from "src/user/entities/user.entity";
-import { FindManyOptions, Repository } from "typeorm";
+import { Repository } from "typeorm";
 
 import { ArticleLike } from "./entities/article-like.entity";
 
@@ -16,12 +16,7 @@ export class ArticleLikeService {
   ) {}
 
   async isLike(articleId: number, userId: number) {
-    const findOptions: FindManyOptions<ArticleLike> = {
-      where: {
-        user: { id: userId },
-      },
-    };
-    return !!(await this.count(articleId, findOptions));
+    return !!(await this.count(articleId, userId));
   }
 
   async like(articleId: number, user: User) {
@@ -49,10 +44,10 @@ export class ArticleLikeService {
     return this.articleLikeRepository.remove(articleLike);
   }
 
-  async count(articleId: number, option: FindManyOptions<ArticleLike>) {
+  async count(articleId: number, userId: number) {
     return this.articleLikeRepository.countBy({
       article: { id: articleId },
-      ...option,
+      user: { id: userId },
     });
   }
 

@@ -3,6 +3,8 @@ import {
   useDeleteBookmarkArticleMutation,
   usePostBookmarkArticleMutation,
 } from "@hooks/api/article1";
+import { toastSuccess } from "src/utils/toast";
+import { isFromApp } from "src/utils/webview";
 
 import $ from "./style.module.scss";
 
@@ -30,9 +32,23 @@ function ArticleFooter({
     postBookmark.mutate({ id: articleId, uuid: "1111" });
   };
 
+  const handleCopyClick = () => {
+    if (isFromApp) {
+      baseApp.postMessage(window.location.href);
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+    }
+    toastSuccess({
+      message: "공지 링크가 클립보드에 복사되었습니다.",
+      style: { marginBottom: "58px" },
+    });
+  };
+
   return (
     <div className={$["article-footer"]}>
-      <Share size={24} stroke="#AAAAAA" />
+      <button type="button" onClick={handleCopyClick}>
+        <Share size={24} stroke="#AAAAAA" />
+      </button>
       {isUser && (
         <button type="button" onClick={toggleBookmark}>
           <Star

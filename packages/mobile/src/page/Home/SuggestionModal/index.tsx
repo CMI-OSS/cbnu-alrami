@@ -54,9 +54,9 @@ const TEMPERATURE_LIST = [
 ];
 
 function compareTemperature(
-  currentTemperature: number | undefined,
   minTemp: number | null,
   maxTemp: number | null,
+  currentTemperature?: number,
 ) {
   if (!currentTemperature) return false;
   if (!minTemp) {
@@ -89,9 +89,9 @@ function SuggestionModal({ currentTemperature, onClick }: Props) {
                 key={displayTemp}
                 className={classNames($.temperature, {
                   [$["current-temperature"]]: compareTemperature(
-                    currentTemperature,
                     minTemp,
                     maxTemp,
+                    currentTemperature,
                   ),
                 })}
               >
@@ -108,9 +108,9 @@ function SuggestionModal({ currentTemperature, onClick }: Props) {
                 key={suggestionList}
                 className={classNames($.suggestion, {
                   [$["current-suggestion"]]: compareTemperature(
-                    currentTemperature,
                     minTemp,
                     maxTemp,
+                    currentTemperature,
                   ),
                 })}
               >

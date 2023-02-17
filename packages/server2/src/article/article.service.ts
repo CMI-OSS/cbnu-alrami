@@ -268,12 +268,13 @@ export class ArticleService {
   }
 
   async findTopArticlesByHit(page: number, count: number) {
-    // DESCRIBE: article 테이블에서 최근 2주 동안의 공지사항을 viewCount 내림차순으로 15개 조회
+    // DESCRIBE: article 테이블에서 최근 2주 동안의 공지사항을 likeCount, viewCount 내림차순으로 15개 조회
     const findOptions: FindManyOptions<Article> = {
       where: {
         dateTime: MoreThanOrEqual(this.getDateWeeksAgo(2)),
       },
       order: {
+        likeCount: "DESC",
         viewCount: "DESC",
       },
     };

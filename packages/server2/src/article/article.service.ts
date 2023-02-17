@@ -148,6 +148,7 @@ export class ArticleService {
         "dateTime",
         "viewCount",
         "bookmarkCount",
+        "likeCount",
         "createdDateTime",
         "updatedDateTime",
       ],
@@ -245,6 +246,18 @@ export class ArticleService {
   async decreaseBookmarkCount(articleId: number) {
     await this.articleRepository.update(articleId, {
       bookmarkCount: () => "bookmark_count - 1",
+    });
+  }
+
+  async increaseLikeCount(articleId: number) {
+    await this.articleRepository.update(articleId, {
+      likeCount: () => "like_count + 1",
+    });
+  }
+
+  async decreaseLikeCount(articleId: number) {
+    await this.articleRepository.update(articleId, {
+      likeCount: () => "like_count - 1",
     });
   }
 

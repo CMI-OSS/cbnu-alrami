@@ -67,7 +67,7 @@ export class Article extends UpdatableCommonEntity {
   })
   @IsNumber()
   @Column({ type: "int" })
-  likeCnt = 0;
+  likeCount = 0;
 
   @ApiProperty({ description: "게시물이 속한 게시판", type: () => Board })
   @ManyToOne(() => Board, { onDelete: "SET NULL", nullable: true })

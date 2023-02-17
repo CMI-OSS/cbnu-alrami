@@ -30,6 +30,19 @@
       overflow-x: auto;
       overflow-y: hidden;
     }
+
+    .great {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+
+      .great-button {
+        width: 112px;
+        height: 68px;
+        background: $black-10;
+        border-radius: 15px;
+      }
+    }
   }
 
 }

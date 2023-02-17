@@ -58,7 +58,10 @@ function ArticleFooter({
           />
         </button>
       )}
-      {isScraperArticle && <Internet size={24} stroke="#AAAAAA" />}
+      {isScraperArticle && (
+        // TODO: 네이티브 로직 필요
+        <Internet size={24} stroke="#AAAAAA" />
+      )}
     </div>
   );
 }

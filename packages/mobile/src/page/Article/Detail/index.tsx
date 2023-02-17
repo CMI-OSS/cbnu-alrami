@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 
 import { LeftArrow } from "@components/atoms/icon";
+import Heart from "@components/atoms/Icon/Heart";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import { useArticleQuery } from "@hooks/api/article1";
 import dayjs from "dayjs";
@@ -34,6 +35,7 @@ function ArticleDetail() {
   // TODO: uuid 로직 추가
   const isUser = true;
 
+  // TODO: 좋아요 api 붙이기
   return (
     <div className={$["article-detail"]}>
       <FullPageModalTemplate
@@ -57,7 +59,13 @@ function ArticleDetail() {
             className={$.content}
             dangerouslySetInnerHTML={{ __html: content }}
           />
+          <div className={$.great}>
+            <button type="button" className={$["great-button"]}>
+              <Heart size={20} stroke="#AAAAAA" />
+            </button>
+          </div>
         </div>
+
         <ArticleFooter
           {...{ articleId, isBookmark, isUser, isScraperArticle }}
         />

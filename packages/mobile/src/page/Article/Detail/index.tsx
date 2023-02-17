@@ -1,8 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-import { LeftArrow } from "@components/atoms/icon";
-import Heart from "@components/atoms/Icon/Heart";
+import { Heart, LeftArrow } from "@components/atoms/Icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import { useArticleQuery } from "@hooks/api/article1";
 import dayjs from "dayjs";

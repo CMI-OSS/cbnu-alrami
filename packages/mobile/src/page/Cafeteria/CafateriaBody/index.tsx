@@ -16,41 +16,8 @@ type Props = {
 };
 
 function CafeteriaBody({ fullDate, day, selectedMenu }: Props) {
-  const { data: BONGWAN } = useCafeteriaQuery(
-    CafeteriaMenu.name.BONGWAN,
-    fullDate,
-  );
-  const { data: BYEOLBIT } = useCafeteriaQuery(
-    CafeteriaMenu.name.BYEOLBIT,
-    fullDate,
-  );
-  const { data: HANBIT } = useCafeteriaQuery(
-    CafeteriaMenu.name.HANBIT,
-    fullDate,
-  );
-  const { data: UNHASU } = useCafeteriaQuery(
-    CafeteriaMenu.name.UNHASU,
-    fullDate,
-  );
-  const { data: YANGJINJAE } = useCafeteriaQuery(
-    CafeteriaMenu.name.YANGJINJAE,
-    fullDate,
-  );
-  const { data: YANGSUNGJAE } = useCafeteriaQuery(
-    CafeteriaMenu.name.YANGSUNGJAE,
-    fullDate,
-  );
-
   const isHoliday = day === 6 || day === 0;
-  const allCafeteriaData = {
-    BONGWAN,
-    YANGJINJAE,
-    YANGSUNGJAE,
-    HANBIT,
-    BYEOLBIT,
-    UNHASU,
-  };
-  const cafeteriaMenu = allCafeteriaData[selectedMenu];
+  const { data: cafeteriaMenu } = useCafeteriaQuery(selectedMenu, fullDate);
 
   return (
     <main

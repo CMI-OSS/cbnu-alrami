@@ -11,20 +11,26 @@ import $ from "./style.module.scss";
 
 function ArticleDetail() {
   const { pathname } = useLocation();
-  const id = pathname.split("/").at(-1);
-  const { data: articleData, isLoading } = useArticleQuery({ id: Number(id) });
+  const articleId = pathname.split("/").at(-1);
+  const { data: articleData, isLoading } = useArticleQuery({
+    id: Number(articleId),
+  });
 
   if (isLoading) return <></>;
   if (!articleData) return <>데이터가 없습니다.</>;
 
   const {
-    board: { name },
+    board: { id, name },
     title,
     viewCount,
     bookmarkCount,
     createdDateTime,
     content,
   } = articleData;
+
+  const isScraperArticle = `${id}`[0] === ("1" || "2");
+  // TODO: uuid 로직 추가
+  const isUser = true;
 
   return (
     <div className={$["article-detail"]}>
@@ -50,7 +56,7 @@ function ArticleDetail() {
             dangerouslySetInnerHTML={{ __html: content }}
           />
         </div>
-        <ArticleFooter />
+        <ArticleFooter {...{ isUser, isScraperArticle }} />
       </FullPageModalTemplate>
     </div>
   );

@@ -1,36 +1,13 @@
-import {useCoreMutation, useCoreQuery} from "@hooks/api/core";
+import { useCoreMutation, useCoreQuery } from "@hooks/api/core";
 import dayjs from "dayjs";
 import {
-  deleteArticleBookmark,
   deleteScheduleBookmark,
   getBookmarkSchedules,
-  postArticleBookmark,
   postScheduleBookmark,
 } from "src/api/bookmark";
-import {queryKey} from "src/consts/react-query";
-import {queryClient} from "src/main";
-import {Schedule} from "src/type";
-
-// TODO: queryKey.bookmarkArticles invalidate
-export const useAddArticleBookmarkMutation = (
-  articleId: req.Bookmark["articleId"],
-) => {
-  return useCoreMutation(postArticleBookmark, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(queryKey.article(articleId));
-    },
-  });
-};
-
-export const useRemoveArticleBookmarkMutation = (
-  articleId: req.Bookmark["articleId"],
-) => {
-  return useCoreMutation(deleteArticleBookmark, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(queryKey.article(articleId));
-    },
-  });
-};
+import { queryKey } from "src/consts/react-query";
+import { queryClient } from "src/main";
+import { Schedule } from "src/type";
 
 export const useBookmarkSchedulesQuery = () => {
   return useCoreQuery<res.Schedule[], Schedule[]>(

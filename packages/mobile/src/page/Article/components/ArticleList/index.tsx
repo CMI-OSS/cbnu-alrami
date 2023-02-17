@@ -25,6 +25,7 @@ const useArticles = () => {
   if (kind === "bookmark") {
     return useBookmarkArticlesQuery();
   }
+
   return useBoardArticlesQuery({ id: Number(kind) });
 };
 
@@ -46,12 +47,26 @@ function ArticleList() {
   return (
     <div className={$["article-list"]}>
       {articlesData?.pages[0].articles.map((articleData) => {
-        const { id, title, createdDateTime, bookmarkCount, viewCount } =
-          articleData;
+        const {
+          id,
+          title,
+          createdDateTime,
+          bookmarkCount,
+          viewCount,
+          board: { name, parent },
+        } = articleData;
+        const boardName = parent?.name ? `${parent.name} > ${name}` : name;
         return (
           <ArticleItem
             key={id}
-            {...{ title, createdDateTime, viewCount, bookmarkCount }}
+            {...{
+              id,
+              title,
+              createdDateTime,
+              viewCount,
+              bookmarkCount,
+              boardName,
+            }}
           />
         );
       })}

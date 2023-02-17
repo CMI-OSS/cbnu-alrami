@@ -1,9 +1,14 @@
-import { useCoreInfiniteQuery } from "@hooks/api/core";
+import {
+  useCoreInfiniteQuery,
+  useCoreMutation,
+  useCoreQuery,
+} from "@hooks/api/core";
 import {
   ArticleApiService,
   ResponseArticlePageDto,
 } from "@shared/swagger-api/generated";
 import { queryKey } from "src/consts/react-query";
+import { queryClient } from "src/main";
 import { GetParams } from "src/type/utils";
 
 export const usePopularArticlesQuery = (
@@ -68,4 +73,32 @@ export const useBookmarkArticlesQuery = (
       },
     },
   );
+};
+
+export const useArticleQuery = (
+  params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
+) => {
+  return useCoreQuery(queryKey.article(params), () => {
+    return ArticleApiService.articleControllerFindOne(params);
+  });
+};
+
+export const usePostBookmarkArticleMutation = (
+  params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
+) => {
+  return useCoreMutation(ArticleApiService.articleControllerBookmark, {
+    onSuccess: () => {
+      return queryClient.invalidateQueries(queryKey.article(params));
+    },
+  });
+};
+
+export const useDeleteBookmarkArticleMutation = (
+  params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
+) => {
+  return useCoreMutation(ArticleApiService.articleControllerUnbookmark, {
+    onSuccess: () => {
+      return queryClient.invalidateQueries(queryKey.article(params));
+    },
+  });
 };

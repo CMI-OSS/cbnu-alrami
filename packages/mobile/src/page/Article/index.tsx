@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { Setting } from "@components/atoms/Icon";
+import { Setting } from "@components/atoms/icon";
 import Footer from "@components/molecules/Footer";
 import ArticleList from "src/page/Article/components/ArticleList";
 import Slider from "src/page/Article/components/Slider";

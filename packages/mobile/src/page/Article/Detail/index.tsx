@@ -11,9 +11,10 @@ import $ from "./style.module.scss";
 
 function ArticleDetail() {
   const { pathname } = useLocation();
-  const articleId = pathname.split("/").at(-1);
+  const articleId = Number(pathname.split("/").at(-1));
   const { data: articleData, isLoading } = useArticleQuery({
-    id: Number(articleId),
+    id: articleId,
+    uuid: "1111",
   });
 
   if (isLoading) return <></>;
@@ -26,6 +27,7 @@ function ArticleDetail() {
     bookmarkCount,
     createdDateTime,
     content,
+    isBookmark,
   } = articleData;
 
   const isScraperArticle = `${id}`[0] === ("1" || "2");
@@ -56,7 +58,9 @@ function ArticleDetail() {
             dangerouslySetInnerHTML={{ __html: content }}
           />
         </div>
-        <ArticleFooter {...{ isUser, isScraperArticle }} />
+        <ArticleFooter
+          {...{ articleId, isBookmark, isUser, isScraperArticle }}
+        />
       </FullPageModalTemplate>
     </div>
   );

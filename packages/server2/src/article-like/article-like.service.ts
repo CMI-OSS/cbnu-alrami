@@ -27,12 +27,14 @@ export class ArticleLikeService {
   async like(articleId: number, user: User) {
     const article = await this.articleService.findById(articleId);
     const result = await this.save(article, user);
+    await this.articleService.increaseLikeCount(articleId);
     return result;
   }
 
   async undoLike(articleId: number, user: User) {
     const articleLike = await this.findOne(articleId, user.id);
     const result = await this.remove(articleLike);
+    await this.articleService.decreaseLikeCount(articleId);
     return result;
   }
 

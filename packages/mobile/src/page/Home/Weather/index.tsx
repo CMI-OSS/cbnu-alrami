@@ -135,10 +135,10 @@ function Weather({ weather, onSuggestionClick }: Props) {
     <div className={$.weather}>
       <BorderBox height={156} background={iconToBackground?.backgroundColor}>
         <div className={$.first}>
-          <span className={$.amount}>{weather.currentTemp.slice(0, 4)}°C</span>
+          <span className={$.amount}>{weather.currentTemp ? `${weather.currentTemp}°C` : "날씨 정보 없음"}</span>
           <span className={$.description}>청주, {iconToBackground?.text}</span>
           <span className={$.celsius}>
-            {weather.minTemp.slice(0, 4)} °C / {weather.maxTemp.slice(0, 4)}°C
+            {weather.minTemp} °C / {weather.maxTemp}°C
           </span>
         </div>
         <div className={$.second}>

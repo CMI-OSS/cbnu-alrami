@@ -1,6 +1,11 @@
+import { ArticleApiService } from "@shared/swagger-api/generated";
+import { GetParams } from "src/type/utils";
+
 export const queryKey = {
-  article: (articleId: req.Article["articleId"]) => {
-    return [ "article", articleId ];
+  article: (
+    params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
+  ) => {
+    return [ "article", params ];
   },
   boardArticles: (boardId: req.Article["boardId"]) => {
     return [ "boardArticles", boardId ];

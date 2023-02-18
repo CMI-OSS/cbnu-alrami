@@ -1,4 +1,4 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
   url: "http://crop.chungbuk.ac.kr/dsoft/index.html?pg_idx=40",
@@ -7,7 +7,7 @@ const script = {
   category: "공지사항",
   noticeListSelector: "#data_list > tbody > tr",
   noticeContentsSelector: "#bbs_contnets > div.rd_body.clear",
-  getNoticeList: function () {
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list).map((item) => {
       const td = item.querySelectorAll("td");
@@ -21,10 +21,10 @@ const script = {
       };
     });
   },
-  getContentsHtml: function () {
+  getContentsHtml() {
     // FIXME: 첨부된 파일 지워야됨
     return document.querySelector(this.noticeContentsSelector).outerHTML;
   },
 };
 
-module.exports = script;
+export default script;

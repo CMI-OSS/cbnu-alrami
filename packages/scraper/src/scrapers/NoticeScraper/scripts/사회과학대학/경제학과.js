@@ -1,4 +1,4 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
   url: "https://econ.chungbuk.ac.kr/board/department_notice",
@@ -7,7 +7,7 @@ const script = {
   category: "학부공지",
   noticeListSelector: "#fboardlist > table > tbody > tr",
   noticeContentsSelector: "#post-content",
-  getNoticeList: function () {
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list).map((item) => {
       const td = item.querySelectorAll("td");
@@ -24,9 +24,9 @@ const script = {
       };
     });
   },
-  getContentsHtml: function () {
+  getContentsHtml() {
     return document.querySelector(this.noticeContentsSelector).outerHTML;
   },
 };
 
-module.exports = script;
+export default script;

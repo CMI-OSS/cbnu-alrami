@@ -1,5 +1,6 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
-const 교육학과 = require("./교육학과");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
+
+import 교육학과 from "./교육학과";
 
 const script = {
   url: "http://edu.chungbuk.ac.kr/english/selectBbsNttList.do?key=200&bbsNo=82",
@@ -8,4 +9,4 @@ const script = {
   category: "공지사항",
 };
 
-module.exports = { ...교육학과, ...script };
+export default { ...교육학과, ...script };

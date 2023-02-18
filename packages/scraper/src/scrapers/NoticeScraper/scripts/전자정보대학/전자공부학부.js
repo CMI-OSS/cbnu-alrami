@@ -1,5 +1,6 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
-const 전기공학부 = require("./전기공학부");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
+
+import 전기공학부 from "./전기공학부";
 
 const script = {
   url: "http://elec.chungbuk.ac.kr/bbs/bbs.php?db=notice",
@@ -7,7 +8,7 @@ const script = {
   site: "전자공학부",
   category: "공지사항",
   noticeListSelector: `#subContent > table:nth-child(7) > tbody > tr`,
-  getNoticeList: function () {
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list)
       .map((item, index) => {
@@ -28,4 +29,4 @@ const script = {
   },
 };
 
-module.exports = { ...전기공학부, ...script };
+export default { ...전기공학부, ...script };

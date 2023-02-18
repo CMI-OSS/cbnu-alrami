@@ -1,4 +1,4 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
   url: "https://mis.chungbuk.ac.kr/master.php?pg_idx=7",
@@ -7,7 +7,7 @@ const script = {
   category: "학부공지",
   noticeListSelector: ".bbs_body>#rows",
   noticeContentsSelector: "#bbs_contnets > div.rd_body.row",
-  getNoticeList: function () {
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list).map((item) => {
       const td = item.querySelectorAll("div");
@@ -21,7 +21,7 @@ const script = {
       };
     });
   },
-  getContentsHtml: function () {
+  getContentsHtml() {
     // 첨부파일 제거
     if (document.querySelector("#attachedList"))
       document.querySelector("#attachedList").remove();
@@ -29,4 +29,4 @@ const script = {
   },
 };
 
-module.exports = script;
+export default script;

@@ -23,7 +23,7 @@ class CalendarScraper extends Scraper<CalendarScript> {
     });
   }
 
-  async scrapping(scenario: Scenario<CalendarScript>) {
+  async scraping(scenario: Scenario<CalendarScript>) {
     if (this.scraper === null) {
       throw Error("크롤러 없음");
     }

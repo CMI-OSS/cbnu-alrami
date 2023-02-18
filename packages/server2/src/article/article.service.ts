@@ -4,6 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import * as dayjs from "dayjs";
 import * as timezone from "dayjs/plugin/timezone";
 import * as utc from "dayjs/plugin/utc";
+import { Admin } from "src/admin/entities/admin.entity";
 import { ArticleBookmarkService } from "src/article-bookmark/article-bookmark.service";
 import { ArticleLikeService } from "src/article-like/article-like.service";
 import { ArticleViewService } from "src/article-view/article-view.service";
@@ -43,7 +44,10 @@ export class ArticleService {
     private boardService: BoardService,
   ) {}
 
-  async create({ imageIds, boardId, ...createArticleDto }: CreateArticleDto) {
+  async create(
+    { imageIds, boardId, ...createArticleDto }: CreateArticleDto,
+    admin: Admin,
+  ) {
     const board = await this.boardService.findOne(boardId);
 
     if (createArticleDto.url) {
@@ -60,6 +64,7 @@ export class ArticleService {
       ...createArticleDto,
       board,
       images,
+      author: admin,
     });
 
     return article;

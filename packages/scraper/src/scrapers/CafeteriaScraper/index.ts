@@ -1,5 +1,6 @@
 import { ScraperType } from "@shared/types";
 import { createCafeteriaMenu } from "src/api/cafeteriaMenu";
+import { IS_TEST } from "src/common/isDev";
 // import { createMenu } from "src/db/restaurant";
 import { CafeteriaScript } from "src/types";
 import { Menu } from "src/types/Menu";
@@ -23,7 +24,7 @@ class CafeteriaScraper extends Scraper<CafeteriaScript> {
     });
   }
 
-  async scrapping(scenario: Scenario<CafeteriaScript>): Promise<Menu[]> {
+  async scraping(scenario: Scenario<CafeteriaScript>): Promise<Menu[]> {
     if (this.scraper === null) {
       throw Error("크롤러 없음");
     }
@@ -40,14 +41,18 @@ class CafeteriaScraper extends Scraper<CafeteriaScript> {
     const menus: Menu[] = await this.scraper.evaluate(`script.getMenus()`);
 
     for (const menu of menus) {
-      await createCafeteriaMenu({
-        cafeteriaId: menu.cafeteriaId,
-        menu: {
-          content: menu.menu,
-          time: menu.time,
-          date: menu.date,
-        },
-      });
+      if (IS_TEST) {
+        console.log(menu);
+      } else {
+        await createCafeteriaMenu({
+          cafeteriaId: menu.cafeteriaId,
+          menu: {
+            content: menu.menu,
+            time: menu.time,
+            date: menu.date,
+          },
+        });
+      }
     }
 
     return menus;

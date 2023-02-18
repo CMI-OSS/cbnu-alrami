@@ -46,7 +46,7 @@ class CovidScraper extends Scraper<CovidScript> {
     this.run();
   }
 
-  async scrapping(script: Scenario<CovidScript>) {
+  async scraping(script: Scenario<CovidScript>) {
     try {
       const { jsScript } = script;
 

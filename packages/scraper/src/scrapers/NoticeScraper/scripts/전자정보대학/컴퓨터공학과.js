@@ -1,5 +1,6 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
-const 전기공학부 = require("./전기공학부");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
+
+import 전기공학부 from "./전기공학부";
 
 const script = {
   url: "http://computer.chungbuk.ac.kr/bbs/bbs.php?db=notice",
@@ -9,4 +10,4 @@ const script = {
   noticeListSelector: `#content > table:nth-child(9) > tbody > tr`,
 };
 
-module.exports = { ...전기공학부, ...script };
+export default { ...전기공학부, ...script };

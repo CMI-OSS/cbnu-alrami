@@ -1,13 +1,14 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
   url: "https://vetmed.chungbuk.ac.kr/board/notice.do",
   site_id: boardTree.전공.수의과대학.수의예과.공지사항.id,
   site: "수의예과",
   category: "공지사항",
-  noticeListSelector: "#container > div > div.content_body > div > div.boardList > table > tbody > tr",
+  noticeListSelector:
+    "#container > div > div.content_body > div > div.boardList > table > tbody > tr",
   noticeContentsSelector: ".boardViewContent",
-  getNoticeList: function () {
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list)
       .map((item) => {
@@ -26,9 +27,9 @@ const script = {
       })
       .filter(Boolean);
   },
-  getContentsHtml: function () {
+  getContentsHtml() {
     return document.querySelector(this.noticeContentsSelector).outerHTML;
   },
 };
 
-module.exports = script;
+export default script;

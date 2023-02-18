@@ -1,5 +1,6 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
-const 건축공학과 = require("./건축공학과");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
+
+import 건축공학과 from "./건축공학과";
 
 const script = {
   url: "https://urban.cbnu.ac.kr/urban_sub05",
@@ -8,4 +9,4 @@ const script = {
   category: "공지사항",
 };
 
-module.exports = { ...건축공학과, ...script };
+export default { ...건축공학과, ...script };

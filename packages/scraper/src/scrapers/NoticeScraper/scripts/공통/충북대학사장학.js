@@ -1,5 +1,6 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
-const 충북대공지사항 = require("./충북대공지사항");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
+
+import 충북대공지사항 from "./충북대공지사항";
 
 const script = {
   url: "https://www.chungbuk.ac.kr/site/www/boardList.do?boardSeq=113&key=699",
@@ -8,4 +9,4 @@ const script = {
   category: "학사장학",
 };
 
-module.exports = { ...충북대공지사항, ...script };
+export default { ...충북대공지사항, ...script };

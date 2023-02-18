@@ -1,4 +1,4 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
   url: "http://hrd.chungbuk.ac.kr/board/board_list.asp?groupno=1&listno=1",
@@ -7,7 +7,7 @@ const script = {
   category: "공지사항",
   noticeListSelector: "#content tbody tr[align='center']",
   noticeContentsSelector: "#frm1 > table",
-  getNoticeList: function () {
+  getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list)
       .map((item, index) => {
@@ -26,7 +26,7 @@ const script = {
       })
       .filter(Boolean);
   },
-  getContentsHtml: function () {
+  getContentsHtml() {
     const len = document.querySelectorAll(
       `${this.noticeContentsSelector} > tbody > tr > td > div:nth-child(1) > table > tbody > tr`,
     ).length;
@@ -40,4 +40,4 @@ const script = {
     ).outerHTML;
   },
 };
-module.exports = script;
+export default script;

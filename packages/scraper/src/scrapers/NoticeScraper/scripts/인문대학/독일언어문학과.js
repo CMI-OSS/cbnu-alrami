@@ -1,5 +1,6 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
-const 국어국문학과 = require("./국어국문학과");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
+
+import 국어국문학과 from "./국어국문학과";
 
 const script = {
   url: "http://humanum.chungbuk.ac.kr/german/selectBbsNttList.do?bbsNo=149&key=506",
@@ -8,4 +9,4 @@ const script = {
   category: "공지사항",
 };
 
-module.exports = { ...국어국문학과, ...script };
+export default { ...국어국문학과, ...script };

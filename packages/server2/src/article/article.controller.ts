@@ -62,7 +62,9 @@ export class ArticleController {
       req.admin.id,
     );
 
-    return { success: await !!this.articleService.create(createArticleDto) };
+    return {
+      success: await !!this.articleService.create(createArticleDto, req.admin),
+    };
   }
 
   @GetBookmarkArtice()

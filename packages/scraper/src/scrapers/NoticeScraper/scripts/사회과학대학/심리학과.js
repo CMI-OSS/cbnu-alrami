@@ -1,5 +1,6 @@
-const { boardTree } = require("../../../../../../shared/src/board-tree/board-tree.generated");
-const 경제학과 = require("./경제학과");
+import { boardTree } from "@shared/board-tree/board-tree.generated";
+
+import 경제학과 from "./경제학과";
 
 const script = {
   url: "https://psychology.chungbuk.ac.kr/board/department_notice",
@@ -8,4 +9,4 @@ const script = {
   category: "학부공지",
 };
 
-module.exports = { ...경제학과, ...script };
+export default { ...경제학과, ...script };

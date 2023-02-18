@@ -1,5 +1,4 @@
-import { ApiProperty, OmitType } from "@nestjs/swagger";
-import { IsObject } from "class-validator";
+import { OmitType } from "@nestjs/swagger";
 import { UpdatableCommonEntityKeys } from "src/common/entity";
 import { CreatePlaceDto } from "src/place/dto/create-place.dto";
 
@@ -14,7 +13,5 @@ export class SchoolDto extends OmitType(School, [
 ]) {}
 
 export class CreateSchoolDto extends SchoolDto {
-  @ApiProperty({ type: CreatePlaceDto })
-  @IsObject()
   place: CreatePlaceDto;
 }

@@ -5,9 +5,9 @@ import { IoPersonOutline } from "react-icons/io5";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 
+import { OpenAPI } from "@shared/swagger-api/generated/core/OpenAPI";
+import { AdminApiService } from "@shared/swagger-api/generated/services/AdminApiService";
 import classnames from "classnames";
-import { loginApi } from "src/newApi/authApi/loginApi";
-import { isOutputType } from "src/newApi/types";
 
 import $ from "./style.module.scss";
 
@@ -18,19 +18,24 @@ export default function LoginForm() {
   const [ isLock, setLock ] = useState(true);
   const navigate = useNavigate();
 
-  const { mutate } = useMutation("login", loginApi, {
-    onSuccess(data) {
-      if (data) {
-        if (isOutputType(data, "LoginApiOutput_Success")) {
-          localStorage.setItem("x-access-token", data.xAccessToken);
-          navigate("/");
-          return;
+  const { mutate } = useMutation(
+    "login",
+    AdminApiService.adminControllerLogin,
+    {
+      onSuccess(data) {
+        if (data) {
+          if (data.accessToken) {
+            OpenAPI.TOKEN = data.accessToken;
+            localStorage.setItem("token", data.accessToken);
+            navigate("/");
+          }
         }
-
-        alert(data.error.message);
-      }
+      },
+      onError(error: any) {
+        alert(error.body.message);
+      },
     },
-  });
+  );
 
   const {
     register,
@@ -55,14 +60,16 @@ export default function LoginForm() {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     mutate({
-      loginId: data.id,
-      password: data.password,
+      requestBody: {
+        loginId: data.id,
+        password: data.password,
+      },
     });
   };
 
   return (
     <main className={$.main}>
-      <span>CMI 관리자</span>
+      <span>충림이 관리자</span>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div
           className={classnames($["id-box"], {
@@ -119,10 +126,6 @@ export default function LoginForm() {
         <p>{message}</p>
         <input className={$.submit} type="submit" value="로그인" />
       </form>
-      <img
-        alt="우왕이와 친구들"
-        src="https://user-images.githubusercontent.com/62797441/141838255-94117137-98fb-4159-920b-5c9051e6998a.jpg"
-      />
     </main>
   );
 }

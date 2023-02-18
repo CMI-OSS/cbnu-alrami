@@ -5,6 +5,7 @@ import type { Admin } from '../models/Admin';
 import type { CreateAdminDto } from '../models/CreateAdminDto';
 import type { LoginDto } from '../models/LoginDto';
 import type { MutationResponse } from '../models/MutationResponse';
+import type { ResponseBoardAuthoriyDto } from '../models/ResponseBoardAuthoriyDto';
 import type { ResponseLoginDto } from '../models/ResponseLoginDto';
 import type { UpdateAdminDto } from '../models/UpdateAdminDto';
 
@@ -41,6 +42,30 @@ export class AdminApiService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/admin',
+        });
+    }
+
+    /**
+     * 권한이 있는 게시판 조회
+     * @returns ResponseBoardAuthoriyDto
+     * @throws ApiError
+     */
+    public static adminControllerGetAuthorityBoards(): CancelablePromise<Array<ResponseBoardAuthoriyDto>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/admin/board',
+        });
+    }
+
+    /**
+     * 본인 관리자 조회
+     * @returns Admin
+     * @throws ApiError
+     */
+    public static adminControllerFindMe(): CancelablePromise<Admin> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/admin/me',
         });
     }
 

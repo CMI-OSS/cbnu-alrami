@@ -1,10 +1,10 @@
+import { useMutation, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 
-import {
-  ArticleResponse,
-  useUpdateArticleMutation,
-  useWriteArticleMutation,
-} from "src/api/board";
+import { ArticleMutationResponseDto } from "@shared/swagger-api/generated/models/ArticleMutationResponseDto";
+import { CreateArticleDto } from "@shared/swagger-api/generated/models/CreateArticleDto";
+import { ArticleApiService } from "@shared/swagger-api/generated/services/ArticleApiService";
+import dayjs from "dayjs";
 import { useAppSelector } from "src/store";
 
 import SubmitView, { Props as ViewProps } from "./Submit.view";
@@ -12,45 +12,69 @@ import SubmitView, { Props as ViewProps } from "./Submit.view";
 interface Props {
   isEdit?: boolean;
   articleId?: number;
-  article?: ArticleResponse;
+  article?: Omit<CreateArticleDto, "boardId">;
+  boardId?: number;
 }
 
-export default function Submit({ isEdit, articleId, article }: Props) {
+export default function Submit({ isEdit, articleId, article, boardId }: Props) {
   const { title, content, images } = useAppSelector(
     (state) => state.ArticelWriteReducer,
   );
-  const [ writeArticle ] = useWriteArticleMutation();
-  const [ updateArticle ] = useUpdateArticleMutation();
-
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
+
+  const onSuccess = (data: ArticleMutationResponseDto) => {
+    if (data) {
+      queryClient.invalidateQueries({ queryKey: [ "article", articleId ] });
+      navigate(`/board/articles/${data.articleId}`);
+    }
+  };
+
+  const onError = (error: any) => {
+    alert(error.body.message);
+  };
+
+  const { mutate: writeArticle } = useMutation(
+    [],
+    ArticleApiService.articleControllerCreate,
+    {
+      onSuccess,
+      onError,
+    },
+  );
+
+  const { mutate: updateArticle } = useMutation(
+    [],
+    ArticleApiService.articleControllerUpdate,
+    {
+      onSuccess,
+      onError,
+    },
+  );
 
   const viewProps: ViewProps = {
     onSubmit: async () => {
       if (isEdit && articleId && article) {
-        console.log(article);
-        const res = await updateArticle({
-          articleId,
-          article: {
-            boardId: article.board.id,
-            date: article.date,
-            url: article.url,
+        await updateArticle({
+          id: articleId,
+          requestBody: {
+            boardId: 30101,
             content,
-            images: images.map((image) => String(image.id)),
             title,
+            imageIds: images?.map((image) => image.id),
           },
         });
-
-        navigate(`/board/articles/${articleId}`);
-      } else {
-        const res = await writeArticle({
-          title,
-          content,
-          images: images.map((image) => String(image.id)),
-          boardId: 30101,
-        });
-        const articleId = (res as { data: number }).data;
-        navigate(`/board/articles/${articleId}`);
-      }
+      } else if (boardId) {
+          await writeArticle({
+            requestBody: {
+              boardId,
+              content,
+              title,
+              imageIds: images?.map((image) => image.id),
+              dateTime: dayjs().toISOString(),
+            },
+          });
+        }
     },
   };
 

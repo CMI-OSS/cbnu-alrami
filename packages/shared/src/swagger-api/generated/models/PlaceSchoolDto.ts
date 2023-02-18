@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { Image } from './Image';
 import type { School } from './School';
 
 export type PlaceSchoolDto = {
@@ -33,6 +34,18 @@ export type PlaceSchoolDto = {
      * 주소
      */
     address: string;
+    /**
+     * 설명
+     */
+    description?: string;
+    /**
+     * 연락처
+     */
+    contact?: string;
+    /**
+     * 게시물 이미지
+     */
+    images?: Array<Image>;
     /**
      * 학교 정보
      */

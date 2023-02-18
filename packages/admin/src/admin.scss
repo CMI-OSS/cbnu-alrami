@@ -3,10 +3,7 @@
 body {
   font-family: "Roboto", sans-serif;
   line-height: initial;
-}
-
-.quill > .ql-toolbar:first-child {
-  display: none !important;
+  height: auto;
 }
 
 .ql-editor {

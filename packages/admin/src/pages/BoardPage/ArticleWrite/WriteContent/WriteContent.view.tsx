@@ -16,15 +16,13 @@ function WriteContentView({ content, onChangeContent }: Props) {
     () => ({
       toolbar: {
         container: [
-          [ { size: [ "small", false, "large", "huge" ] }, { color: [] } ],
+          [ { header: [ 1, 2, 3, false ] }, { color: [] } ],
           [ "bold", "italic", "underline", "strike" ],
         ],
       },
     }),
     [],
   );
-
-  // const imageHandler = () => {} // Todo: 이미지 핸들러 함수
 
   return (
     // @ts-ignore

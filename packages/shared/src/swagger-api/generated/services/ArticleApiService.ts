@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ArticleMutationResponseDto } from '../models/ArticleMutationResponseDto';
 import type { CreateArticleDto } from '../models/CreateArticleDto';
 import type { MutationResponse } from '../models/MutationResponse';
 import type { ResponseArticleDetailDto } from '../models/ResponseArticleDetailDto';
@@ -15,14 +16,14 @@ export class ArticleApiService {
 
     /**
      * 게시물 생성
-     * @returns MutationResponse 게시물이 정상적으로 작성된 경우
+     * @returns ArticleMutationResponseDto 게시물이 정상적으로 작성된 경우
      * @throws ApiError
      */
     public static articleControllerCreate({
         requestBody,
     }: {
         requestBody: CreateArticleDto,
-    }): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<ArticleMutationResponseDto> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/article',
@@ -161,7 +162,7 @@ export class ArticleApiService {
 
     /**
      * 게시물 수정
-     * @returns MutationResponse
+     * @returns ArticleMutationResponseDto
      * @throws ApiError
      */
     public static articleControllerUpdate({
@@ -170,7 +171,7 @@ export class ArticleApiService {
     }: {
         id: number,
         requestBody: UpdateArticleDto,
-    }): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<ArticleMutationResponseDto> {
         return __request(OpenAPI, {
             method: 'PATCH',
             url: '/article/{id}',

@@ -7,7 +7,7 @@
   height: 100vh;
 
   span {
-    margin: auto auto 30px auto;
+    margin: 30px auto;
     color: $primary;
     font-size: 3rem;
     font-weight: bold;
@@ -96,10 +96,5 @@
       font-size: 1.2rem;
       font-weight: bold;
     }
-  }
-
-  img {
-    width: 400px;
-    margin: 0 auto auto auto;
   }
 }

@@ -1,32 +1,13 @@
-import { useEffect, useState } from "react";
-import { NavLink, useLocation, useMatch } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, useMatch } from "react-router-dom";
 
+import { Admin } from "@shared/swagger-api/generated/models/Admin";
 import classnames from "classnames";
-import { useAppSelector } from "src/store";
+import { useRecoilValue } from "recoil";
+import { adminSelector } from "src/store/admin.selector";
 
 import $ from "./Navigation.module.scss";
 
-const SCRAPER_MENUS = {
-  label: "스크래퍼",
-  menus: [
-    {
-      path: "/scraper/notice",
-      label: "공지사항",
-    },
-    {
-      path: "/scraper/student",
-      label: "학생 식당",
-    },
-    {
-      path: "/scraper/domitory",
-      label: "기숙사 식당",
-    },
-    {
-      path: "/scraper/calendar",
-      label: "학사일정",
-    },
-  ],
-};
 const BOARD_MENUS = {
   label: "게시판",
   menus: [
@@ -69,37 +50,19 @@ const PLACE_MANAGE_MENUS = {
 
 export default function Navigation() {
   const isLoginMatch = useMatch("/login");
-  const { pathname } = useLocation();
   const [ active, setActive ] = useState(-1);
-  const { boardImgList, boardTitle, boardCategory, boardContent } =
-    useAppSelector((state) => {
-      return state.boardReducer.board.write;
-    });
-  const boardState = {
-    ...{ boardImgList, boardTitle, boardCategory, boardContent },
-  };
-  const navMenus = [
-    BOARD_MENUS,
-    SCRAPER_MENUS,
-    ADMIN_MANAGE_MENUS,
-    PLACE_MANAGE_MENUS,
-  ];
+  const admin = useRecoilValue(adminSelector);
 
-  useEffect(() => {
-    navMenus.forEach(({ menus }, idx) => {
-      if (
-        menus.find(({ path }) => {
-          return path === pathname;
-        })
-      )
-        setActive(idx);
-    });
-  }, []);
+  const navMenus =
+    admin.authoirty === Admin.authoirty.STUDENT_COUNCIL
+      ? [ BOARD_MENUS ]
+      : [ BOARD_MENUS, ADMIN_MANAGE_MENUS, PLACE_MANAGE_MENUS ];
 
   return isLoginMatch ? (
     <></>
   ) : (
     <nav className={$.navigation}>
+      <div>{admin.nickname} 님</div>
       <ul className={$["outer-ul"]}>
         {/* <li className={$.logo}>충림이v2 관리자</li> */}
         <ul>
@@ -116,6 +79,7 @@ export default function Navigation() {
                         onClick={() => {
                           return setActive(idx);
                         }}
+                        end
                         className={({ isActive }) => {
                           return classnames(
                             $["nav-link"],
@@ -124,12 +88,6 @@ export default function Navigation() {
                         }}
                       >
                         {label}
-                        {label === "게시물 작성" &&
-                          Object.values(boardState).some((x) => {
-                            return (
-                              x !== "" && x !== "<p><br></p>" && x.length !== 0
-                            );
-                          }) && <span>(작성중)</span>}
                       </NavLink>
                     );
                   })}

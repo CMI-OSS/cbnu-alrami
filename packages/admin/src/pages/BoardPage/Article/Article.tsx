@@ -1,6 +1,7 @@
+import { useQuery } from "react-query";
 import { useParams } from "react-router";
 
-import { useGetArticleQuery } from "src/api/board";
+import { ArticleApiService } from "@shared/swagger-api/generated/services/ArticleApiService";
 import { useAppDispatch } from "src/store";
 
 import ImagePreview from "../ArticleWrite/UploadImage/ImagePreview/ImagePreview";
@@ -10,23 +11,21 @@ import ArticleView, { ArticleViewProps } from "./Article.view";
 export default function Article() {
   const { articleId } = useParams();
   const dispatch = useAppDispatch();
-  const { data } = useGetArticleQuery(
-    {
-      articleId: Number(articleId),
-    },
-    {
-      refetchOnMountOrArgChange: true,
-    },
+
+  const { data: article } = useQuery([ "article", articleId ], () =>
+    ArticleApiService.articleControllerFindOne({ id: Number(articleId) }),
   );
 
-  if (!data) return null;
+  if (!article) return null;
 
   const articleViewProps: ArticleViewProps = {
-    ...data,
+    article,
     onClickImage: (e, index) => {
       dispatch(
         openImagePreview({
-          images: data.images.map((image) => image.url),
+          images: article.images
+            ? article.images.map((image) => image.url)
+            : [],
           currentIndex: index,
         }),
       );

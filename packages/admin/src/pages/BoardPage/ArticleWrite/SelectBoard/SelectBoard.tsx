@@ -1,27 +1,50 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 
-import { useGetAuthorityBoardsQuery } from "src/api/board";
+import { AdminApiService } from "@shared/swagger-api/generated/services/AdminApiService";
+import { Select } from "antd";
 
-import SelectBoardView, { Props as ViewProps } from "./SelectBoard.view";
+interface Props {
+  boardId?: number;
+  onSelectBoard?: (boardId: number) => unknown;
+}
 
-export default function SelectBoard() {
-  const [ selectedBoardId, setSelectedBoardId ] = useState("1");
+export default function SelectBoard({ boardId, onSelectBoard }: Props) {
+  const [ selectedBoardId, setSelectedBoardId ] = useState<number | undefined>(
+    undefined,
+  );
 
-  const { data: authorityBoards, isLoading } = useGetAuthorityBoardsQuery();
+  const { data: authorityBoards, isLoading } = useQuery(
+    [ "boardAuthority" ],
+    () => AdminApiService.adminControllerGetAuthorityBoards(),
+    {
+      onSuccess: (boards) => {
+        setSelectedBoardId(boardId ?? boards[0].board.id);
+      },
+    },
+  );
+
+  useEffect(() => {
+    if (selectedBoardId) {
+      onSelectBoard?.(selectedBoardId);
+    }
+  }, [ selectedBoardId ]);
 
   if (isLoading || !authorityBoards) return null;
 
-  const viewProps: ViewProps = {
-    options: authorityBoards?.map((authorityBoard) => ({
-      value: authorityBoard.id,
-      text: `${authorityBoard.parent?.name} - ${authorityBoard.name}`,
-    })),
+  const options = authorityBoards?.map((authorityBoard) => ({
+    value: authorityBoard.board.id,
+    label: `${authorityBoard.board.parent?.name ?? ""} - ${
+      authorityBoard.board.name
+    }`,
+  }));
 
-    value: selectedBoardId,
-    onSelectBoardView: (e) => {
-      setSelectedBoardId(e.target.value);
-    },
-  };
-
-  return <SelectBoardView {...viewProps} />;
+  return (
+    <Select
+      style={{ width: 150 }}
+      onChange={setSelectedBoardId}
+      value={selectedBoardId as any}
+      options={options}
+    />
+  );
 }

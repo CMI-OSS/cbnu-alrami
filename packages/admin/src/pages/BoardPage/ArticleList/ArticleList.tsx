@@ -1,10 +1,10 @@
 import { useQuery } from "react-query";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import { getArticles } from "src/newApi/articleApi/getArticles";
-import { isOutputType } from "src/newApi/types";
+import { BoardApiService } from "@shared/swagger-api/generated/services/BoardApiService";
 
 import PaginationView from "../../../components/Pagination/Pagination.view";
+import SelectBoard from "../ArticleWrite/SelectBoard/SelectBoard";
 import $ from "./ArticleList.module.scss";
 import ArticleListView from "./ArticleList.view";
 
@@ -13,15 +13,23 @@ export default function ArticleList() {
   const params = new URLSearchParams(location.search);
   const page = Number(params.get("page")) || 1;
   const navigate = useNavigate();
+  const { boardId } = useParams();
+  const notSelected = !boardId;
 
-  const pageSize = 2;
+  const pageSize = 7;
 
-  const { data: articlePageOutput, isLoading } = useQuery(
-    [ "articles", 30101, page, pageSize ],
-    () => getArticles({ boardId: 30101, pageNo: page, pageSize }),
+  const { data: articlePageOutput } = useQuery(
+    [ "articles", boardId, page, pageSize ],
+    () =>
+      BoardApiService.boardControllerFindArticlePage({
+        id: Number(boardId),
+        page,
+        count: pageSize,
+      }),
+    {
+      enabled: !!boardId,
+    },
   );
-
-  if (isLoading || !articlePageOutput) return null;
 
   const handleClickArticle = (articleId: number) => {
     navigate(`/board/articles/${articleId}`);
@@ -31,32 +39,28 @@ export default function ArticleList() {
     navigate(`?page=${page}`);
   };
 
-  const handleClickPrev = () => {
-    navigate(`?page=${page - 1}`);
-  };
-
-  const handleClickNext = () => {
-    navigate(`?page=${page + 1}`);
-  };
-
-  if (!isOutputType(articlePageOutput, "GetArticlesApiOutput_Success"))
-    return null;
-
   return (
     <div className={$["article-list"]}>
-      <div>총학생회 &gt; 공지사항</div>
-      <ArticleListView
-        articles={articlePageOutput?.contents}
-        onClickArticle={handleClickArticle}
+      <SelectBoard
+        boardId={notSelected ? undefined : Number(boardId)}
+        onSelectBoard={(_boardId: number) => {
+          if (Number(boardId) !== _boardId) navigate(`/board/${_boardId}`);
+        }}
       />
-      <PaginationView
-        currentPage={page}
-        displayPageCount={10}
-        totalPage={articlePageOutput.pagination.totalPageCount}
-        onClick={handleClickPage}
-        onClickNext={handleClickNext}
-        onClickPrev={handleClickPrev}
-      />
+      {articlePageOutput ? (
+        <>
+          <ArticleListView
+            articles={articlePageOutput?.articles}
+            onClickArticle={handleClickArticle}
+          />
+          <PaginationView
+            current={page}
+            total={articlePageOutput.pagination.totalItemCount}
+            onChange={handleClickPage}
+            pageSize={pageSize}
+          />
+        </>
+      ) : null}
     </div>
   );
 }

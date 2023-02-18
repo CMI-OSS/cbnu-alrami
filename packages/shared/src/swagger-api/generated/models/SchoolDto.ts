@@ -2,25 +2,22 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CreatePlaceDto } from './CreatePlaceDto';
-
-export type UpdateSchoolDto = {
+export type SchoolDto = {
     /**
      * 건물번호
      */
-    buildingNumber?: string;
+    buildingNumber: string;
     /**
      * (구)건물번호
      */
-    oldBuildingNumber?: string;
+    oldBuildingNumber: string;
     /**
      * 구역(N,E,S)
      */
-    area?: UpdateSchoolDto.area;
-    place?: CreatePlaceDto;
+    area: SchoolDto.area;
 };
 
-export namespace UpdateSchoolDto {
+export namespace SchoolDto {
 
     /**
      * 구역(N,E,S)

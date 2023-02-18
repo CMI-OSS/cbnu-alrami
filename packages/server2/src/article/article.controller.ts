@@ -37,6 +37,7 @@ import {
   UpdateArticle,
 } from "./article.swagger";
 import { CreateArticleDto } from "./dto/create-article.dto";
+import { ArticleMutationResponseDto } from "./dto/response-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
 
 @ApiTags("[article] 게시물 API")
@@ -56,14 +57,20 @@ export class ArticleController {
   async create(
     @Req() req,
     @Body() createArticleDto: CreateArticleDto,
-  ): Promise<MutationResponse> {
+  ): Promise<ArticleMutationResponseDto> {
     await this.adminService.hasBoardAuthority(
       createArticleDto.boardId,
       req.admin.id,
     );
 
+    const article = await this.articleService.create(
+      createArticleDto,
+      req.admin,
+    );
+
     return {
-      success: await !!this.articleService.create(createArticleDto, req.admin),
+      success: !!article,
+      articleId: article.id,
     };
   }
 
@@ -120,7 +127,7 @@ export class ArticleController {
     @Req() req,
     @Param("id") id: number,
     @Body() updateArticleDto: UpdateArticleDto,
-  ): Promise<MutationResponse> {
+  ): Promise<ArticleMutationResponseDto> {
     const { board } = await this.articleService.findOne(id);
 
     if (!board) {
@@ -129,8 +136,11 @@ export class ArticleController {
 
     await this.adminService.hasBoardAuthority(board.id, req.admin.id);
 
+    const updateResult = await this.articleService.update(id, updateArticleDto);
+
     return {
-      success: !!(await this.articleService.update(id, updateArticleDto)),
+      success: !!updateResult,
+      articleId: id,
     };
   }
 

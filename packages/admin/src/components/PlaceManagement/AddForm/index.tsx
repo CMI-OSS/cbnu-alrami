@@ -1,16 +1,16 @@
 import { UseFormRegister } from "react-hook-form";
 
+import { PlaceSchoolDto } from "@shared/swagger-api/generated/models/PlaceSchoolDto";
 import Select from "src/components/AdminManagement/Select";
 import TextInput from "src/components/AdminManagement/TextInput";
-import TextArea from "src/components/TextArea";
-import { SchoolAddForm, SchoolAddFormErrors } from "src/types/place";
+import { SchoolAddFormErrors } from "src/types/place";
 
 import $ from "./style.module.scss";
 
 type Props = {
   isAdd: boolean;
   onSubmit: () => void;
-  register: UseFormRegister<Omit<SchoolAddForm, "imageIds">>;
+  register: UseFormRegister<Omit<PlaceSchoolDto, "imageIds">>;
   errors: SchoolAddFormErrors;
 };
 
@@ -60,7 +60,7 @@ export default function AddForm({
           return register("address");
         }}
       />
-      <TextInput
+      {/* <TextInput
         id="contact"
         className={$.input}
         errorMessage={errors.contact?.message}
@@ -68,8 +68,8 @@ export default function AddForm({
         register={() => {
           return register("contact");
         }}
-      />
-      <TextArea
+      /> */}
+      {/* <TextArea
         id="description"
         className={$.input}
         errorMessage={errors.description?.message}
@@ -77,14 +77,14 @@ export default function AddForm({
         register={() => {
           return register("description");
         }}
-      />
+      /> */}
       <TextInput
         id="buildingNumber"
         className={$.input}
         errorMessage={errors.buildingNumber?.message}
         label="건물번호"
         register={() => {
-          return register("buildingNumber");
+          return register("school.buildingNumber");
         }}
       />
       <TextInput
@@ -93,7 +93,7 @@ export default function AddForm({
         errorMessage={errors.oldBuildingNumber?.message}
         label="예전 건물번호"
         register={() => {
-          return register("oldBuildingNumber");
+          return register("school.oldBuildingNumber");
         }}
       />
       <Select
@@ -102,7 +102,7 @@ export default function AddForm({
         options={AREAS}
         label="건물 구역"
         register={() => {
-          return register("area");
+          return register("school.area");
         }}
       />
       <button

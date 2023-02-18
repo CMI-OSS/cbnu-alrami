@@ -1,9 +1,8 @@
 import { useQuery } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { PlaceApiService } from "@shared/swagger-api/generated/services/PlaceApiService";
 import PaginationView from "src/components/Pagination/Pagination.view";
-import { getPlaces } from "src/newApi/placeApi/getPlaces";
-import { isOutputType } from "src/newApi/types";
 
 import $ from "./PlaceList.module.scss";
 import PlaceListView from "./PlaceList.view";
@@ -14,46 +13,32 @@ export default function PlaceList() {
   const page = Number(params.get("page")) || 1;
   const navigate = useNavigate();
 
-  const { data: placePageOutput, isLoading } = useQuery([ "places" ], () =>
-    getPlaces(),
+  const { data: schools, isLoading } = useQuery([ "places" ], () =>
+    PlaceApiService.placeControllerFindSchool({ area: undefined }),
   );
 
-  if (isLoading || !placePageOutput) return null;
+  if (isLoading || !schools) return null;
 
   const handleClickArticle = (articleId: number) => {
-    navigate(`/place/list/${articleId}`);
+    navigate(`/place/${articleId}`);
   };
 
   const handleClickPage = (page: number) => {
     navigate(`?page=${page}`);
   };
 
-  const handleClickPrev = () => {
-    navigate(`?page=${page - 1}`);
-  };
-
-  const handleClickNext = () => {
-    navigate(`?page=${page + 1}`);
-  };
-
-  if (!isOutputType(placePageOutput, "GetPlacesApiOutput_Success")) return null;
-
   const count = 7;
-  const places =
-    placePageOutput?.content.slice((page - 1) * count, page * count) || [];
-  const totalPage = Math.ceil(placePageOutput.content.length / count) || 0;
+  const places = schools.slice((page - 1) * count, page * count) || [];
 
   return (
     <div className={$["article-list"]}>
       <div>건물 목록</div>
       <PlaceListView places={places} onClickPlace={handleClickArticle} />
       <PaginationView
-        currentPage={page}
-        displayPageCount={count}
-        totalPage={totalPage}
-        onClick={handleClickPage}
-        onClickNext={handleClickNext}
-        onClickPrev={handleClickPrev}
+        current={page}
+        pageSize={count}
+        total={schools.length}
+        onChange={handleClickPage}
       />
     </div>
   );

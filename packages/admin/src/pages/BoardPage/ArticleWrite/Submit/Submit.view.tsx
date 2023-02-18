@@ -10,7 +10,7 @@ export default function SubmitView({ onSubmit }: Props) {
       <input
         className={$.submit}
         type="submit"
-        value="출간하기"
+        value="완료"
         onClick={onSubmit}
       />
     </div>

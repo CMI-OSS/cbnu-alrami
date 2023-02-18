@@ -5,6 +5,7 @@ import * as dayjs from "dayjs";
 import * as timezone from "dayjs/plugin/timezone";
 import * as utc from "dayjs/plugin/utc";
 import { ArticleBookmarkService } from "src/article-bookmark/article-bookmark.service";
+import { ArticleLikeService } from "src/article-like/article-like.service";
 import { ArticleViewService } from "src/article-view/article-view.service";
 import { BoardService } from "src/board/board.service";
 import { ImageService } from "src/image/image.service";
@@ -36,6 +37,8 @@ export class ArticleService {
     private articleViewService: ArticleViewService,
     @Inject(forwardRef(() => ArticleBookmarkService))
     private articleBookmarkService: ArticleBookmarkService,
+    @Inject(forwardRef(() => ArticleLikeService))
+    private articleLikeService: ArticleLikeService,
     private imageService: ImageService,
     private boardService: BoardService,
   ) {}
@@ -202,6 +205,9 @@ export class ArticleService {
         article.id,
         user?.id,
       ),
+      isLike: user
+        ? await this.articleLikeService.isLike(article.id, user.id)
+        : false,
     } as ResponseArticleDetailDto;
   }
 

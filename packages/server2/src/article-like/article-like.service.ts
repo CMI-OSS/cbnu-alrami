@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ArticleService } from "src/article/article.service";
 import { Article } from "src/article/entities/article.entity";
@@ -12,6 +17,7 @@ export class ArticleLikeService {
   constructor(
     @InjectRepository(ArticleLike)
     private articleLikeRepository: Repository<ArticleLike>,
+    @Inject(forwardRef(() => ArticleService))
     private articleService: ArticleService,
   ) {}
 

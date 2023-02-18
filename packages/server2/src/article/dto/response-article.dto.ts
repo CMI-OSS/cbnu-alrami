@@ -23,6 +23,9 @@ export class ResponseArticleDetailDto extends IntersectionType(
 
   @ApiProperty({ description: "조회 여부", example: false })
   isView: boolean;
+
+  @ApiProperty({ description: "좋아요 여부", example: false })
+  isLike: boolean;
 }
 
 export class ResponseArticlePageDto {

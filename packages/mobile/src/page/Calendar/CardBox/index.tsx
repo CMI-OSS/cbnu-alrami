@@ -2,9 +2,9 @@ import { animateScroll } from "react-scroll";
 
 import { Arrow } from "@components/atoms/icon";
 import guideEmptyFavoritesSchedule from "src/assets/guide_empty_favorites_schedule.png";
+import { FormattedSchedule } from "src/hooks/api/schedule";
 import useScroll from "src/hooks/useScroll";
 import { ScheduleType } from "src/page/Calendar";
-import { Schedule } from "src/type";
 
 import CollegeCard from "../CollegeCard";
 import $ from "./style.module.scss";
@@ -12,9 +12,9 @@ import $ from "./style.module.scss";
 const CALLENDAR_UNVISIBLE_POINT = 320;
 
 type Props = {
-  bookmarkedSchedules: Schedule[];
+  bookmarkedSchedules: FormattedSchedule[];
   scheduleType: ScheduleType;
-  todaysSchedules: Schedule[];
+  todaysSchedules: FormattedSchedule[];
 };
 
 function CardBox({
@@ -44,12 +44,12 @@ function CardBox({
 
   return (
     <section className={$["card-box"]}>
-      {todaysSchedules.map(({ id, content, startDate, endDate }) => {
+      {todaysSchedules.map(({ id, content, startDateTime, endDateTime }) => {
         return (
           <CollegeCard
             key={id}
             isBookmarked={bookmarkedIDList.includes(id)}
-            {...{ id, content, startDate, endDate }}
+            {...{ id, content, startDateTime, endDateTime }}
           />
         );
       })}

@@ -39,6 +39,9 @@ const configuration: Configutation = {
     key: "",
     url: "",
   },
+  password: {
+    salt: "",
+  },
 };
 
 export default configuration;

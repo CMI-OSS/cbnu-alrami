@@ -69,7 +69,7 @@ export default function LoginForm() {
 
   return (
     <main className={$.main}>
-      <span>CMI 관리자</span>
+      <span>충림이 관리자</span>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div
           className={classnames($["id-box"], {
@@ -126,10 +126,6 @@ export default function LoginForm() {
         <p>{message}</p>
         <input className={$.submit} type="submit" value="로그인" />
       </form>
-      <img
-        alt="우왕이와 친구들"
-        src="https://user-images.githubusercontent.com/62797441/141838255-94117137-98fb-4159-920b-5c9051e6998a.jpg"
-      />
     </main>
   );
 }

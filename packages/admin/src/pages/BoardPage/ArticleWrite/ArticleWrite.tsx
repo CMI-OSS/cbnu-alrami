@@ -38,7 +38,7 @@ export default function ArticleWrite() {
     <div className={styles.wrapper}>
       <WriteTitle />
       <br />
-      <SelectBoard />
+      {!isEdit && <SelectBoard />}
       <WriteContent />
       <UploadImage />
       <Submit isEdit={isEdit} articleId={Number(articleId)} article={article} />

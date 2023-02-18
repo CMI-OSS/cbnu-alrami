@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
@@ -13,9 +12,7 @@ import PlaceManagementPage from "./pages/PlaceManagementPage/Place.route";
 import { store } from "./store";
 
 function App() {
-  useEffect(() => {
-    OpenAPI.TOKEN = localStorage.getItem("token") ?? "";
-  });
+  OpenAPI.TOKEN = localStorage.getItem("token") ?? "";
 
   return (
     <BrowserRouter>

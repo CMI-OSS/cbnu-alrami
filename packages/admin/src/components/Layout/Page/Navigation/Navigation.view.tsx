@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { NavLink, useMatch } from "react-router-dom";
 
+import { Admin } from "@shared/swagger-api/generated/models/Admin";
 import classnames from "classnames";
-import { useAppSelector } from "src/store";
+import { useRecoilValue } from "recoil";
+import { adminSelector } from "src/store/admin.selector";
 
 import $ from "./Navigation.module.scss";
 
@@ -49,19 +51,18 @@ const PLACE_MANAGE_MENUS = {
 export default function Navigation() {
   const isLoginMatch = useMatch("/login");
   const [ active, setActive ] = useState(-1);
-  const { boardImgList, boardTitle, boardCategory, boardContent } =
-    useAppSelector((state) => {
-      return state.boardReducer.board.write;
-    });
-  const boardState = {
-    ...{ boardImgList, boardTitle, boardCategory, boardContent },
-  };
-  const navMenus = [ BOARD_MENUS, ADMIN_MANAGE_MENUS, PLACE_MANAGE_MENUS ];
+  const admin = useRecoilValue(adminSelector);
+
+  const navMenus =
+    admin.authoirty === Admin.authoirty.STUDENT_COUNCIL
+      ? [ BOARD_MENUS ]
+      : [ BOARD_MENUS, ADMIN_MANAGE_MENUS, PLACE_MANAGE_MENUS ];
 
   return isLoginMatch ? (
     <></>
   ) : (
     <nav className={$.navigation}>
+      <div>{admin.nickname} 님</div>
       <ul className={$["outer-ul"]}>
         {/* <li className={$.logo}>충림이v2 관리자</li> */}
         <ul>
@@ -87,12 +88,6 @@ export default function Navigation() {
                         }}
                       >
                         {label}
-                        {label === "게시물 작성" &&
-                          Object.values(boardState).some((x) => {
-                            return (
-                              x !== "" && x !== "<p><br></p>" && x.length !== 0
-                            );
-                          }) && <span>(작성중)</span>}
                       </NavLink>
                     );
                   })}

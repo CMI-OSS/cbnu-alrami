@@ -14,6 +14,7 @@ export default function BoardRoute() {
         <Route path="/write" element={<ArticleWrite />} />
         <Route path="/edit/articles/:articleId" element={<ArticleWrite />} />
         <Route path="/articles/:articleId" element={<Article />} />
+        <Route path="/list" element={<ArticleList />} />
         <Route path="/:boardId" element={<ArticleList />} />
       </Routes>
     </PageLayout>

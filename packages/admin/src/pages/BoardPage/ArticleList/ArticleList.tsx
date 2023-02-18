@@ -4,6 +4,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { BoardApiService } from "@shared/swagger-api/generated/services/BoardApiService";
 
 import PaginationView from "../../../components/Pagination/Pagination.view";
+import SelectBoard from "../ArticleWrite/SelectBoard/SelectBoard";
 import $ from "./ArticleList.module.scss";
 import ArticleListView from "./ArticleList.view";
 
@@ -13,10 +14,11 @@ export default function ArticleList() {
   const page = Number(params.get("page")) || 1;
   const navigate = useNavigate();
   const { boardId } = useParams();
+  const notSelected = !boardId;
 
   const pageSize = 7;
 
-  const { data: articlePageOutput, isLoading } = useQuery(
+  const { data: articlePageOutput } = useQuery(
     [ "articles", boardId, page, pageSize ],
     () =>
       BoardApiService.boardControllerFindArticlePage({
@@ -24,9 +26,10 @@ export default function ArticleList() {
         page,
         count: pageSize,
       }),
+    {
+      enabled: !!boardId,
+    },
   );
-
-  if (isLoading || !articlePageOutput) return null;
 
   const handleClickArticle = (articleId: number) => {
     navigate(`/board/articles/${articleId}`);
@@ -38,17 +41,26 @@ export default function ArticleList() {
 
   return (
     <div className={$["article-list"]}>
-      <div>총학생회 &gt; 공지사항</div>
-      <ArticleListView
-        articles={articlePageOutput?.articles}
-        onClickArticle={handleClickArticle}
+      <SelectBoard
+        boardId={notSelected ? undefined : Number(boardId)}
+        onSelectBoard={(boardId: number) => {
+          if (notSelected) navigate(`/board/${boardId}`);
+        }}
       />
-      <PaginationView
-        current={page}
-        total={articlePageOutput.pagination.totalItemCount}
-        onChange={handleClickPage}
-        pageSize={pageSize}
-      />
+      {articlePageOutput ? (
+        <>
+          <ArticleListView
+            articles={articlePageOutput?.articles}
+            onClickArticle={handleClickArticle}
+          />
+          <PaginationView
+            current={page}
+            total={articlePageOutput.pagination.totalItemCount}
+            onChange={handleClickPage}
+            pageSize={pageSize}
+          />
+        </>
+      ) : null}
     </div>
   );
 }

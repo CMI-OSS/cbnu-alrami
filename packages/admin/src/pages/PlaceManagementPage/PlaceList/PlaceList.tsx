@@ -20,7 +20,7 @@ export default function PlaceList() {
   if (isLoading || !schools) return null;
 
   const handleClickArticle = (articleId: number) => {
-    navigate(`/place/list/${articleId}`);
+    navigate(`/place/add/${articleId}`);
   };
 
   const handleClickPage = (page: number) => {

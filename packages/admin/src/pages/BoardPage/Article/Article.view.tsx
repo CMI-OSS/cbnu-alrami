@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import { ResponseArticleDetailDto } from "@shared/swagger-api/generated/models/ResponseArticleDetailDto";
 
+import "react-quill/dist/quill.snow.css";
 import $ from "./Article.module.scss";
 
 export interface ArticleViewProps {

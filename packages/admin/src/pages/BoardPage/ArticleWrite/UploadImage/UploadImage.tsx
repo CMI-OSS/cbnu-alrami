@@ -1,19 +1,26 @@
+import { useEffect } from "react";
+
+import { Image } from "@shared/swagger-api/generated/models/Image";
 import { ImageApiService } from "@shared/swagger-api/generated/services/ImageApiService";
 import { useAppDispatch, useAppSelector } from "src/store";
 
 import {
   appendImages,
+  initImgList,
   moveLeftImage,
   moveRightImage,
-  removeImage
+  removeImage,
 } from "../ArticleWrite.store";
 import ImagePreview from "./ImagePreview/ImagePreview";
 import { openImagePreview } from "./ImagePreview/ImagePreview.store";
 import UploadImageView, { Props as ViewProps } from "./UploadImage.view";
 
-export default function UploadImage() {
-  const dispatch = useAppDispatch();
+interface Props {
+  onUpload?: (images: Image[]) => unknown;
+}
 
+export default function UploadImage({ onUpload }: Props) {
+  const dispatch = useAppDispatch();
 
   const { images } = useAppSelector((state) => state.ArticelWriteReducer);
   const uploadFiles = async (files: FileList) => {
@@ -30,13 +37,19 @@ export default function UploadImage() {
             images: filesArr,
           },
         });
-        console.log({ newImages });
         dispatch(appendImages(newImages));
+        onUpload?.(newImages);
       } catch (e) {
         console.log(e);
       }
     }
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(initImgList([]));
+    };
+  }, []);
 
   const viewProps: ViewProps = {
     images: images ? images.map((image) => image.url) : [],

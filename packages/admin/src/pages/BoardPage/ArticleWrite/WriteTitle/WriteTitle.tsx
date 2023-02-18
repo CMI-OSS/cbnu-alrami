@@ -12,6 +12,7 @@ export default function Title() {
     onChangeText: (e) => {
       dispatch(setTitle({ title: e.target.value }));
     },
+    placeholder: "제목을 입력하세요.",
   };
 
   return <TitleView {...viewProps} />;

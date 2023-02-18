@@ -15,11 +15,17 @@ export class ImageService {
   ) {}
 
   async upload(images: Express.Multer.File[]): Promise<Image[]> {
-    const imageUrls = this.awsService.uploadImages(images);
+    const imageUrls = await this.awsService.uploadImages(images);
 
     const response = await this.imageRepository.save(
-      (await imageUrls).map((image) => ({ url: image })),
+      imageUrls.map((image) => ({ url: image })),
     );
+
+    return response;
+  }
+
+  async save(images: Image[]): Promise<Image[]> {
+    const response = await this.imageRepository.save(images);
 
     return response;
   }
@@ -29,6 +35,7 @@ export class ImageService {
 
     return this.imageRepository.find({
       where: { id: In(imageIds) },
+      order: { turn: "asc" },
     });
   }
 }

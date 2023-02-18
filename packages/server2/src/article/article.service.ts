@@ -8,6 +8,7 @@ import { Admin } from "src/admin/entities/admin.entity";
 import { ArticleBookmarkService } from "src/article-bookmark/article-bookmark.service";
 import { ArticleViewService } from "src/article-view/article-view.service";
 import { BoardService } from "src/board/board.service";
+import { Image } from "src/image/entities/image.entity";
 import { ImageService } from "src/image/image.service";
 import { User } from "src/user/entities/user.entity";
 import { FindManyOptions, In, MoreThanOrEqual, Repository } from "typeorm";
@@ -195,7 +196,7 @@ export class ArticleService {
 
     if (!article) throw new NotFoundArticleException();
 
-    const { ..._ariticle } = article;
+    const { images, ..._ariticle } = article;
 
     return {
       ..._ariticle,
@@ -206,6 +207,9 @@ export class ArticleService {
         article.id,
         user?.id,
       ),
+      images: images
+        ? images.sort((a, b) => (a.turn ?? 0) - (b.turn ?? 0))
+        : [],
     } as ResponseArticleDetailDto;
   }
 
@@ -230,7 +234,10 @@ export class ArticleService {
 
     if (imageIds) {
       const images = await this.imageService.findImages(imageIds);
-      target.images = images;
+      target.images = images.map((image) => ({
+        ...image,
+        turn: imageIds.findIndex((id) => id === image.id) + 1,
+      })) as Image[];
       target.save();
     }
 

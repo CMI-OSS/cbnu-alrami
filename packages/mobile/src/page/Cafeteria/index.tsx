@@ -1,5 +1,6 @@
 import { useReducer } from "react";
 
+import { CafeteriaMenu } from "@shared/swagger-api/generated";
 import dayjs from "dayjs";
 import ErrorFallback from "src/components/atoms/ErrorFallback";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
@@ -27,8 +28,8 @@ function Cafeteria() {
   const { selectedMenu } = useAppSelector((state) => {
     return state.persistedReducer.cafeteria.cafeteria;
   });
-  const handleMenu = (id: number) => {
-    dispatch(selectMenu({ selectedMenu: id }));
+  const handleMenu = (selectedMenu: CafeteriaMenu["name"]) => {
+    dispatch(selectMenu({ selectedMenu }));
   };
   const fullDate = `${year}-${month + 1}-${date}`;
 

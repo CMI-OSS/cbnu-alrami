@@ -1,4 +1,7 @@
-import { ArticleApiService } from "@shared/swagger-api/generated";
+import {
+  ArticleApiService,
+  CafeteriaMenu,
+} from "@shared/swagger-api/generated";
 import { GetParams } from "src/type/utils";
 
 export const queryKey = {
@@ -22,11 +25,8 @@ export const queryKey = {
   weathers: [ "weathers" ],
   schedules: [ "schedules" ],
   todaysSchedules: [ "todaysSchedules" ],
-  cafeteria: (
-    cafeteriaId: req.Cafeteria["cafeteriaId"],
-    date: req.Cafeteria["date"],
-  ) => {
-    return [ "cafeteria", cafeteriaId, date ];
+  cafeteria: (name: CafeteriaMenu["name"], date: CafeteriaMenu["date"]) => {
+    return [ "cafeteria", name, date ];
   },
   schools: [ "schools" ],
   school: (placeId: req.School["placeId"]) => {

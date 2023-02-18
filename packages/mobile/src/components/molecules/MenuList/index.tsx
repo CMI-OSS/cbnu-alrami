@@ -3,29 +3,30 @@ import { Menu } from "src/type";
 
 import $ from "./style.module.scss";
 
-type Props = {
-  menuList: Menu[];
-  onClick: (id: number) => void;
-  clickedMenu: number;
+type Props<T, U> = {
+  menuList: Menu<T, U>[];
+  onClick: (id: T) => void;
+  clickedMenu: T;
 };
 
-function MenuList({ menuList, onClick: handleClick, clickedMenu }: Props) {
+function MenuList<T, U>(props: Props<T, U>) {
+  const { menuList, onClick: handleClick, clickedMenu } = props;
   return (
     <div className={$["menu-list"]}>
-      {menuList.map((menu, idx) => {
+      {menuList.map(({ id, name }) => {
         return (
           <button
             type="button"
-            key={`flicking-${menu.id}`}
+            key={`flicking-${id}`}
             className={classnames($.menu, {
-              [$["menu-clicked"]]: clickedMenu === idx + 1,
-              [$["menu-not-clicked"]]: clickedMenu !== idx + 1,
+              [$["menu-clicked"]]: clickedMenu === id,
+              [$["menu-not-clicked"]]: clickedMenu !== id,
             })}
             onClick={() => {
-              return handleClick(idx + 1);
+              return handleClick(id);
             }}
           >
-            <span className={$["menu-name"]}>{menu.name}</span>
+            <span className={$["menu-name"]}>{`${name}`}</span>
           </button>
         );
       })}

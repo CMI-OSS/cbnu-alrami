@@ -1,7 +1,9 @@
 import { ChangeEventHandler, useReducer, useState } from "react";
 
-import { useBookmarkSchedulesQuery } from "@hooks/api/bookmark";
-import { useFullSchedulesQuery } from "@hooks/api/schedule";
+import {
+  useBookmarkSchedulesQuery,
+  useFullSchedulesQuery,
+} from "@hooks/api/schedule";
 import dayjs, { Dayjs } from "dayjs";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
 import Footer from "src/components/molecules/Footer";
@@ -13,6 +15,8 @@ import { filterTodaySchedules, getCalendarMap } from "src/utils/calendarTools";
 import caledarReducer from "./calendarReducer";
 import $ from "./style.module.scss";
 import useSelectedDate from "./useSelectedDate";
+
+export const MOCK_UUID = "1111";
 
 export type ScheduleType = "all" | "bookmark";
 
@@ -32,7 +36,7 @@ function Calendar() {
   const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
 
   const { data: allSchedules } = useFullSchedulesQuery(year);
-  const { data: bookmarkedSchedules } = useBookmarkSchedulesQuery();
+  const { data: bookmarkedSchedules } = useBookmarkSchedulesQuery(MOCK_UUID);
   if (!bookmarkedSchedules || !allSchedules) return <div>없음</div>;
 
   const allScheduleMap = getCalendarMap(year, month, allSchedules);

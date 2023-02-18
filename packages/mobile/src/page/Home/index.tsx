@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { Setting } from "@components/atoms/icon";
 import Footer from "@components/molecules/Footer";
 import { useTodaySchedulesQuery } from "@hooks/api/schedule";
 import { useWeathersQuery } from "@hooks/api/weather";
 import classNames from "classnames";
 import dayjs from "dayjs";
-import { Setting } from "src/components/atoms/icon";
 import Article from "src/page/Home/Article";
 import Weather from "src/page/Home/Weather";
 
@@ -57,11 +57,16 @@ function Home() {
         </Link>
       </header>
       <div className={$.schedule}>
-        {scheduleData.schedules.map(({ id, content, startDate, endDate }) => {
-          return (
-            <Schedule key={id} {...{ content, startDate, endDate, today }} />
-          );
-        })}
+        {scheduleData.schedules.map(
+          ({ id, content, startDateTime, endDateTime }) => {
+            return (
+              <Schedule
+                key={id}
+                {...{ content, startDateTime, endDateTime, today }}
+              />
+            );
+          },
+        )}
       </div>
       <Weather
         weather={weatherData}

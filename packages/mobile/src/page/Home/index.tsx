@@ -43,7 +43,7 @@ function Home() {
     >
       {isSuggestionClicked && (
         <SuggestionModal
-          currentTemperature={parseInt(weatherData.currentTemp, 10)}
+          currentTemperature={weatherData.currentTemp}
           onClick={handleSuggestionClick}
         />
       )}

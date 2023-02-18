@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQuery } from "react-query";
 import { useLocation, useParams } from "react-router-dom";
 
@@ -16,6 +17,7 @@ export default function ArticleWrite() {
   const location = useLocation();
   const params = useParams();
   const dispatch = useAppDispatch();
+  const [ boardId, setBoardId ] = useState<number | undefined>();
 
   const isEdit = location.pathname.includes("edit");
   const { articleId } = params;
@@ -38,10 +40,15 @@ export default function ArticleWrite() {
     <div className={styles.wrapper}>
       <WriteTitle />
       <br />
-      {!isEdit && <SelectBoard />}
+      {!isEdit && <SelectBoard onSelectBoard={setBoardId} />}
       <WriteContent />
       <UploadImage />
-      <Submit isEdit={isEdit} articleId={Number(articleId)} article={article} />
+      <Submit
+        isEdit={isEdit}
+        articleId={Number(articleId)}
+        article={article}
+        boardId={boardId}
+      />
     </div>
   );
 }

@@ -43,8 +43,8 @@ export default function ArticleList() {
     <div className={$["article-list"]}>
       <SelectBoard
         boardId={notSelected ? undefined : Number(boardId)}
-        onSelectBoard={(boardId: number) => {
-          if (notSelected) navigate(`/board/${boardId}`);
+        onSelectBoard={(_boardId: number) => {
+          if (Number(boardId) !== _boardId) navigate(`/board/${_boardId}`);
         }}
       />
       {articlePageOutput ? (

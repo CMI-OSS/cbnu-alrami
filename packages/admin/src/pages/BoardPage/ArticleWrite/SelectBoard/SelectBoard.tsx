@@ -26,10 +26,7 @@ export default function SelectBoard({ boardId, onSelectBoard }: Props) {
 
   useEffect(() => {
     if (selectedBoardId) {
-      const authorityBoard = authorityBoards?.find(
-        (ab) => ab.board.id === selectedBoardId,
-      );
-      if (authorityBoard) onSelectBoard?.(authorityBoard.board.id);
+      onSelectBoard?.(selectedBoardId);
     }
   }, [ selectedBoardId ]);
 
@@ -44,7 +41,8 @@ export default function SelectBoard({ boardId, onSelectBoard }: Props) {
 
   return (
     <Select
-      onChange={onSelectBoard}
+      style={{ width: 150 }}
+      onChange={setSelectedBoardId}
       value={selectedBoardId as any}
       options={options}
     />

@@ -13,9 +13,10 @@ interface Props {
   isEdit?: boolean;
   articleId?: number;
   article?: Omit<CreateArticleDto, "boardId">;
+  boardId?: number;
 }
 
-export default function Submit({ isEdit, articleId, article }: Props) {
+export default function Submit({ isEdit, articleId, article, boardId }: Props) {
   const { title, content, images } = useAppSelector(
     (state) => state.ArticelWriteReducer,
   );
@@ -57,23 +58,23 @@ export default function Submit({ isEdit, articleId, article }: Props) {
         await updateArticle({
           id: articleId,
           requestBody: {
-            boardId: 4,
+            boardId: 30101,
             content,
             title,
             imageIds: images?.map((image) => image.id),
           },
         });
-      } else {
-        await writeArticle({
-          requestBody: {
-            boardId: 4,
-            content,
-            title,
-            imageIds: images?.map((image) => image.id),
-            dateTime: dayjs().toISOString(),
-          },
-        });
-      }
+      } else if (boardId) {
+          await writeArticle({
+            requestBody: {
+              boardId,
+              content,
+              title,
+              imageIds: images?.map((image) => image.id),
+              dateTime: dayjs().toISOString(),
+            },
+          });
+        }
     },
   };
 

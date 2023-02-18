@@ -39,6 +39,10 @@ export type ResponseArticleDto = {
      */
     bookmarkCount: number;
     /**
+     * 공지사항 좋아요 수
+     */
+    likeCount: number;
+    /**
      * 게시물이 속한 게시판
      */
     board: Board;

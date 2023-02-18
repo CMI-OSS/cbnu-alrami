@@ -64,6 +64,7 @@ export class Article extends UpdatableCommonEntity {
   bookmarkCount = 0;
 
   @ApiProperty({
+    type: Number,
     description: "공지사항 좋아요 수",
     example: 1000,
   })

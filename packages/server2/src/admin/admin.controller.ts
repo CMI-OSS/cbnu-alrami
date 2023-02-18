@@ -18,6 +18,7 @@ import {
   GetAdmin,
   GetAdmins,
   GetAuthoriyBoards,
+  GetMe,
   Login,
   UpdateAdmin,
 } from "./admin.swagger";
@@ -55,6 +56,14 @@ export class AdminController {
   @Get()
   findAll() {
     return this.adminService.findAll();
+  }
+
+  @AdminGuard()
+  @GetMe()
+  @Get("/me")
+  findMe(@Req() req) {
+    console.log(req.admin);
+    return req.admin;
   }
 
   @SuperGuard()

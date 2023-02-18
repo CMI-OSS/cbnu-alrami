@@ -52,6 +52,18 @@ export const GetAdmin = () => {
   );
 };
 
+export const GetMe = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "본인 관리자 조회",
+    }),
+    ApiOkResponse({ type: Admin }),
+    ApiNotFoundResponse({
+      type: NotFoundAdminException,
+    }),
+  );
+};
+
 export const GetAuthoriyBoards = () => {
   return applyDecorators(
     ApiOperation({

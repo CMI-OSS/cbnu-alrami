@@ -16,12 +16,7 @@ export class Admin extends UpdatableCommonEntity {
   @IsString()
   loginId: string;
 
-  @ApiProperty({
-    description: "비밀번호",
-    example: "12345678",
-  })
-  @Column("varchar")
-  @IsString()
+  @Column("varchar", { select: false })
   password: string;
 
   @ApiProperty({

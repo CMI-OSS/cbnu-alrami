@@ -58,6 +58,18 @@ export class AdminApiService {
     }
 
     /**
+     * 본인 관리자 조회
+     * @returns Admin
+     * @throws ApiError
+     */
+    public static adminControllerFindMe(): CancelablePromise<Admin> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/admin/me',
+        });
+    }
+
+    /**
      * 관리자 조회
      * @returns Admin
      * @throws ApiError

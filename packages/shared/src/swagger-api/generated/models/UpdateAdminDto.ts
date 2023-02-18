@@ -6,10 +6,6 @@ import type { CreateBoardAuthorityDto } from './CreateBoardAuthorityDto';
 
 export type UpdateAdminDto = {
     /**
-     * 비밀번호
-     */
-    password?: string;
-    /**
      * 닉네임
      */
     nickname?: string;
@@ -17,6 +13,10 @@ export type UpdateAdminDto = {
      * 권한
      */
     authoirty?: UpdateAdminDto.authoirty;
+    /**
+     * 비밀번호
+     */
+    password?: string;
     boards?: Array<CreateBoardAuthorityDto>;
 };
 

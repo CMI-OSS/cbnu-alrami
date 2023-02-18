@@ -10,10 +10,6 @@ export type CreateAdminDto = {
      */
     loginId: string;
     /**
-     * 비밀번호
-     */
-    password: string;
-    /**
      * 닉네임
      */
     nickname: string;
@@ -21,6 +17,10 @@ export type CreateAdminDto = {
      * 권한
      */
     authoirty: CreateAdminDto.authoirty;
+    /**
+     * 비밀번호
+     */
+    password: string;
     boards: Array<CreateBoardAuthorityDto>;
 };
 

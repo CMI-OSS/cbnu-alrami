@@ -22,10 +22,6 @@ export type Admin = {
      */
     loginId: string;
     /**
-     * 비밀번호
-     */
-    password: string;
-    /**
      * 닉네임
      */
     nickname: string;

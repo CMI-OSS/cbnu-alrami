@@ -22,6 +22,14 @@ export type CreatePlaceDto = {
      */
     address: string;
     /**
+     * 설명
+     */
+    description?: string;
+    /**
+     * 연락처
+     */
+    contact?: string;
+    /**
      * 이미지
      */
     imageIds?: Array<number>;

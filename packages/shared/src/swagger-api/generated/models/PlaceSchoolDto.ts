@@ -35,6 +35,14 @@ export type PlaceSchoolDto = {
      */
     address: string;
     /**
+     * 설명
+     */
+    description?: string;
+    /**
+     * 연락처
+     */
+    contact?: string;
+    /**
      * 게시물 이미지
      */
     images?: Array<Image>;

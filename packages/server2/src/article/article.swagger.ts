@@ -110,6 +110,28 @@ export const UnBookmarkArticle = () => {
   );
 };
 
+export const LikeArticle = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "공지사항 좋아요 추가",
+    }),
+    ApiOkResponse({ type: MutationResponse }),
+    ApiNotFoundResponse({ type: NotFoundArticleException }),
+    UserGuard(),
+  );
+};
+
+export const UndoLikeArticle = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "공지사항 좋아요 취소",
+    }),
+    ApiOkResponse({ type: MutationResponse }),
+    ApiNotFoundResponse({ type: NotFoundArticleException }),
+    UserGuard(),
+  );
+};
+
 export const GetPopularArticle = () => {
   return applyDecorators(
     ApiOperation({

@@ -1,40 +1,104 @@
-import { useCoreQuery } from "@hooks/api/core";
-import { ArticleApiService } from "@shared/swagger-api/generated";
+import {
+  useCoreInfiniteQuery,
+  useCoreMutation,
+  useCoreQuery,
+} from "@hooks/api/core";
+import {
+  ArticleApiService,
+  ResponseArticlePageDto,
+} from "@shared/swagger-api/generated";
 import { queryKey } from "src/consts/react-query";
+import { queryClient } from "src/main";
 import { GetParams } from "src/type/utils";
 
 export const usePopularArticlesQuery = (
-  params: GetParams<
+  params?: GetParams<
     typeof ArticleApiService.articleControllerFindPopularArticles
   >,
 ) => {
-  return useCoreQuery(
+  return useCoreInfiniteQuery<ResponseArticlePageDto>(
     queryKey.popularArticles,
-    () => {
-      return ArticleApiService.articleControllerFindPopularArticles(params);
+    ({ pageParam = 1 }) => {
+      return ArticleApiService.articleControllerFindPopularArticles({
+        ...params,
+        page: pageParam,
+      });
     },
     {
-      select: (data) => {
-        return data.articles;
+      getNextPageParam: ({ pagination: { isEnd, currentPage } }) => {
+        return isEnd ? undefined : currentPage + 1;
       },
     },
   );
 };
 
 export const useSubscribeArticlesQuery = (
-  params: GetParams<
+  params?: GetParams<
     typeof ArticleApiService.articleControllerFindSubscribeArticle
   >,
 ) => {
-  return useCoreQuery(
+  return useCoreInfiniteQuery<ResponseArticlePageDto>(
     queryKey.newArticles,
-    () => {
-      return ArticleApiService.articleControllerFindSubscribeArticle(params);
+    ({ pageParam = 1 }) => {
+      return ArticleApiService.articleControllerFindSubscribeArticle({
+        ...params,
+        page: pageParam,
+        uuid: "1111",
+      });
     },
     {
-      select: (data) => {
-        return data.articles;
+      getNextPageParam: ({ pagination: { isEnd, currentPage } }) => {
+        return isEnd ? undefined : currentPage + 1;
       },
     },
   );
+};
+export const useBookmarkArticlesQuery = (
+  params?: GetParams<
+    typeof ArticleApiService.articleControllerFindBookmarkArticle
+  >,
+) => {
+  return useCoreInfiniteQuery(
+    queryKey.bookmarkArticles,
+    ({ pageParam = 1 }) => {
+      return ArticleApiService.articleControllerFindBookmarkArticle({
+        ...params,
+        page: pageParam,
+        uuid: "1111",
+      });
+    },
+    {
+      getNextPageParam: ({ pagination: { isEnd, currentPage } }) => {
+        return isEnd ? undefined : currentPage + 1;
+      },
+    },
+  );
+};
+
+export const useArticleQuery = (
+  params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
+) => {
+  return useCoreQuery(queryKey.article(params), () => {
+    return ArticleApiService.articleControllerFindOne(params);
+  });
+};
+
+export const usePostBookmarkArticleMutation = (
+  params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
+) => {
+  return useCoreMutation(ArticleApiService.articleControllerBookmark, {
+    onSuccess: () => {
+      return queryClient.invalidateQueries(queryKey.article(params));
+    },
+  });
+};
+
+export const useDeleteBookmarkArticleMutation = (
+  params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
+) => {
+  return useCoreMutation(ArticleApiService.articleControllerUnbookmark, {
+    onSuccess: () => {
+      return queryClient.invalidateQueries(queryKey.article(params));
+    },
+  });
 };

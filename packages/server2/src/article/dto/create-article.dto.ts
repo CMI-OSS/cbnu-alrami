@@ -11,6 +11,7 @@ export class ArticleDto extends OmitType(Article, [
   "board",
   "images",
   "bookmarkCount",
+  "likeCount",
   "viewCount",
 ]) {
   @ApiProperty({ description: "게시물이 속한 게시판의 ID", example: 1 })

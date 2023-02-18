@@ -14,6 +14,7 @@ import { ApiTags } from "@nestjs/swagger";
 import { AdminService } from "src/admin/admin.service";
 import { AdminGuard } from "src/admin/gurads/admin.guard";
 import { ArticleBookmarkService } from "src/article-bookmark/article-bookmark.service";
+import { ArticleLikeService } from "src/article-like/article-like.service";
 import { ArticleViewService } from "src/article-view/article-view.service";
 import { PaginationDto } from "src/common/dto/pagination.dto";
 import { MutationResponse } from "src/common/types/response";
@@ -30,7 +31,9 @@ import {
   GetBookmarkArtice,
   GetPopularArticle,
   GetSubscribeArticle,
+  LikeArticle,
   UnBookmarkArticle,
+  UndoLikeArticle,
   UpdateArticle,
 } from "./article.swagger";
 import { CreateArticleDto } from "./dto/create-article.dto";
@@ -44,6 +47,7 @@ export class ArticleController {
     private readonly articleService: ArticleService,
     private readonly articleViewService: ArticleViewService,
     private readonly articleBookmarkService: ArticleBookmarkService,
+    private readonly articleLikeService: ArticleLikeService,
     private readonly adminService: AdminService,
   ) {}
 
@@ -176,6 +180,28 @@ export class ArticleController {
   ): Promise<MutationResponse> {
     return {
       success: !!(await this.articleBookmarkService.unbookmark(id, user)),
+    };
+  }
+
+  @LikeArticle()
+  @Post(":id/like")
+  async like(
+    @Param("id") id: number,
+    @UserSession() user: User,
+  ): Promise<MutationResponse> {
+    return {
+      success: !!(await this.articleLikeService.like(id, user)),
+    };
+  }
+
+  @UndoLikeArticle()
+  @Delete(":id/like")
+  async undoLike(
+    @Param("id") id: number,
+    @UserSession() user: User,
+  ): Promise<MutationResponse> {
+    return {
+      success: !!(await this.articleLikeService.undoLike(id, user)),
     };
   }
 }

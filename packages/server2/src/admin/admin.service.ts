@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { BoardAuthority } from "src/board-authority/entities/board-authority.entity";
 import { BoardService } from "src/board/board.service";
 import { JWTService } from "src/common/jwt/jwt.service";
+import { PasswordUtils } from "src/common/util/password.utils";
 import { Repository } from "typeorm";
 
 import { AdminAuthorityType } from "./admin.constant";
@@ -24,6 +25,7 @@ export class AdminService {
     private adminRepository: Repository<Admin>,
     private boardService: BoardService,
     private JwtService: JWTService,
+    private passwordUtils: PasswordUtils,
   ) {}
 
   async create(createAdminDto: CreateAdminDto) {
@@ -35,6 +37,11 @@ export class AdminService {
 
     await this.isExsistBoards(
       createAdminDto.boards?.map((board) => board.boardId) ?? [],
+    );
+
+    // eslint-disable-next-line no-param-reassign
+    createAdminDto.password = await this.passwordUtils.encrypt(
+      createAdminDto.password,
     );
 
     return this.adminRepository.save({ ...createAdminDto });
@@ -67,6 +74,13 @@ export class AdminService {
       updateAdminDto.boards?.map((board) => board.boardId) ?? [],
     );
 
+    if (updateAdminDto.password) {
+      // eslint-disable-next-line no-param-reassign
+      updateAdminDto.password = await this.passwordUtils.encrypt(
+        updateAdminDto.password,
+      );
+    }
+
     return this.adminRepository.save({ ...admin, ...updateAdminDto });
   }
 
@@ -89,7 +103,9 @@ export class AdminService {
   }
 
   async login(loginDto: LoginDto): Promise<ResponseLoginDto> {
-    const { loginId, password } = loginDto;
+    const { loginId } = loginDto;
+
+    const password = await this.passwordUtils.encrypt(loginDto.password);
 
     const admin = await this.adminRepository.findOne({
       where: { loginId, password },

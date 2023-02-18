@@ -256,4 +256,58 @@ export class ArticleApiService {
         });
     }
 
+    /**
+     * 공지사항 좋아요 추가
+     * @returns MutationResponse
+     * @throws ApiError
+     */
+    public static articleControllerLike({
+        id,
+        uuid,
+    }: {
+        id: number,
+        /**
+         * 유저 UUID
+         */
+        uuid?: string,
+    }): CancelablePromise<MutationResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/article/{id}/like',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'uuid': uuid,
+            },
+        });
+    }
+
+    /**
+     * 공지사항 좋아요 취소
+     * @returns MutationResponse
+     * @throws ApiError
+     */
+    public static articleControllerUndoLike({
+        id,
+        uuid,
+    }: {
+        id: number,
+        /**
+         * 유저 UUID
+         */
+        uuid?: string,
+    }): CancelablePromise<MutationResponse> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/article/{id}/like',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'uuid': uuid,
+            },
+        });
+    }
+
 }

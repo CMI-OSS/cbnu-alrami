@@ -1,12 +1,17 @@
 .article {
   .header {
+    position: fixed;
+    top: 0;
+  }
+
+  .title {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 60px;
     padding: 0 24px;
+    border-bottom: 1px solid #e5e5e5;
     background: $black-0;
-    margin-bottom: 1px;
     font-size: 18px;
     font-weight: 500;
     color: $black-100;

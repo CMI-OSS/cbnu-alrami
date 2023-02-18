@@ -1,6 +1,14 @@
+import {
+  ArticleApiService,
+  CafeteriaMenu,
+} from "@shared/swagger-api/generated";
+import { GetParams } from "src/type/utils";
+
 export const queryKey = {
-  article: (articleId: req.Article["articleId"]) => {
-    return [ "article", articleId ];
+  article: (
+    params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
+  ) => {
+    return [ "article", params ];
   },
   boardArticles: (boardId: req.Article["boardId"]) => {
     return [ "boardArticles", boardId ];
@@ -16,11 +24,9 @@ export const queryKey = {
   subscribeBoards: [ "subscribeBoards" ],
   weathers: [ "weathers" ],
   schedules: [ "schedules" ],
-  cafeteria: (
-    cafeteriaId: req.Cafeteria["cafeteriaId"],
-    date: req.Cafeteria["date"],
-  ) => {
-    return [ "cafeteria", cafeteriaId, date ];
+  todaysSchedules: [ "todaysSchedules" ],
+  cafeteria: (name: CafeteriaMenu["name"], date: CafeteriaMenu["date"]) => {
+    return [ "cafeteria", name, date ];
   },
   schools: [ "schools" ],
   school: (placeId: req.School["placeId"]) => {

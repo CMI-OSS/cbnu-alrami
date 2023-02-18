@@ -1,23 +1,15 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import { useEffect, useState } from "react";
-
 import { Dayjs } from "dayjs";
-import { Restaurant as RestaurantType } from "src/type";
-import {
-  getSelectedCafeteria,
-  getShowCafeteriaSelectFinalGuide,
-  getShowCafeteriaSelectGuide,
-  setSelectedCafeteria,
-  setShowCafeteriaSelectFinalGuide,
-  setShowCafeteriaSelectGuide,
-  unsetShowCafeteriaSelectFinalGuide,
-  unsetShowCafeteriaSelectGuide,
-} from "src/utils/storage";
+import ErrorFallback from "src/components/atoms/ErrorFallback";
+import SuspenseFallback from "src/components/atoms/SuspenseFallback";
+import AsyncBoundary from "src/components/templates/AsyncBoundary";
+import { CAFETERIA_LIST } from "src/constants";
 
+import EmptyCafeteria from "./EmptyCafeteria";
 import FinalGuide from "./FinalGuide";
 import Greeting from "./Greeting";
+import { useRestaurant } from "./hooks";
 import Selected from "./Selected";
+import $select from "./Selected/style.module.scss";
 import Selector from "./Selector";
 import $ from "./style.module.scss";
 
@@ -26,73 +18,21 @@ type Props = {
   isHoliday: boolean;
 };
 
-type SelectorItems =
-  | "greeting"
-  | "selector"
-  | "selected"
-  | "none"
-  | "finalGuide";
-
 function Restaurant({ today, isHoliday }: Props) {
-  const [ cardType, setCardType ] = useState<SelectorItems>();
-  const [ cafeteriaName, setCafeteriaName ] = useState<RestaurantType>(
-    getSelectedCafeteria(),
-  );
+  const {
+    cardType,
+    cafeteriaName,
+    handleSelectorClick,
+    handleSelectorCancel,
+    handleCafeteriaSelect,
+    handleFinalGuideCancel,
+  } = useRestaurant();
 
-  const handleSelectorClick = () => {
-    setCardType("selector");
-  };
+  const target = CAFETERIA_LIST.find((cafeteria) => {
+    return cafeteria.name === cafeteriaName;
+  });
 
-  const handleSelectorCancel = () => {
-    if (getShowCafeteriaSelectGuide()) {
-      if (getSelectedCafeteria() === "표시 안함") {
-        setCardType("none");
-        return;
-      }
-      setCardType("selected");
-      return;
-    }
-    setCardType("greeting");
-  };
-
-  const handleCafeteriaSelect = (name: RestaurantType) => {
-    if (getShowCafeteriaSelectGuide() === "true")
-      unsetShowCafeteriaSelectGuide();
-    setCafeteriaName(name);
-    setSelectedCafeteria(name);
-    if (name === "표시 안함") {
-      if (getShowCafeteriaSelectFinalGuide() === "true") {
-        unsetShowCafeteriaSelectFinalGuide();
-        setCardType("finalGuide");
-        return;
-      }
-      setCardType("none");
-      return;
-    }
-    setCardType("selected");
-  };
-
-  const handleFinalGuideCancel = () => {
-    setShowCafeteriaSelectFinalGuide();
-    setCardType("none");
-  };
-
-  useEffect(() => {
-    if (getShowCafeteriaSelectGuide() === null) setShowCafeteriaSelectGuide();
-    if (getShowCafeteriaSelectFinalGuide() === null)
-      setShowCafeteriaSelectFinalGuide();
-    if (getShowCafeteriaSelectGuide() === "true") {
-      setCardType("greeting");
-      return;
-    }
-    if (cafeteriaName === "표시 안함") {
-      setCardType("none");
-      return;
-    }
-    setCardType("selected");
-  }, []);
-
-  if (cardType === "none") return <></>;
+  if (cardType === "none") return null;
   if (cardType === "greeting")
     return <Greeting onClick={handleSelectorClick} className={$.cafeteria} />;
   if (cardType === "selector")
@@ -108,12 +48,30 @@ function Restaurant({ today, isHoliday }: Props) {
     return (
       <FinalGuide onClick={handleFinalGuideCancel} className={$.cafeteria} />
     );
+  if (!target)
+    return (
+      <EmptyCafeteria
+        className={$select["empty-box"]}
+        onClick={handleSelectorClick}
+        {...{ cafeteriaName }}
+      />
+    );
+
   return (
-    <Selected
-      {...{ cafeteriaName, isHoliday, today }}
-      onClick={handleSelectorClick}
-      className={$.cafeteria}
-    />
+    <AsyncBoundary
+      suspenseFallback={<SuspenseFallback height="160px" />}
+      errorFallback={ErrorFallback}
+      fallBackHeight="160px"
+      keys={[ cafeteriaName ]}
+    >
+      <Selected
+        {...{ isHoliday, today }}
+        cafeteriaData={target.id}
+        cafeteriaName={cafeteriaName}
+        onClick={handleSelectorClick}
+        className={$.cafeteria}
+      />
+    </AsyncBoundary>
   );
 }
 

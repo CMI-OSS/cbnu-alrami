@@ -6,6 +6,7 @@ import * as timezone from "dayjs/plugin/timezone";
 import * as utc from "dayjs/plugin/utc";
 import { Admin } from "src/admin/entities/admin.entity";
 import { ArticleBookmarkService } from "src/article-bookmark/article-bookmark.service";
+import { ArticleLikeService } from "src/article-like/article-like.service";
 import { ArticleViewService } from "src/article-view/article-view.service";
 import { BoardService } from "src/board/board.service";
 import { Image } from "src/image/entities/image.entity";
@@ -38,6 +39,8 @@ export class ArticleService {
     private articleViewService: ArticleViewService,
     @Inject(forwardRef(() => ArticleBookmarkService))
     private articleBookmarkService: ArticleBookmarkService,
+    @Inject(forwardRef(() => ArticleLikeService))
+    private articleLikeService: ArticleLikeService,
     private imageService: ImageService,
     private boardService: BoardService,
   ) {}
@@ -154,6 +157,7 @@ export class ArticleService {
         "dateTime",
         "viewCount",
         "bookmarkCount",
+        "likeCount",
         "createdDateTime",
         "updatedDateTime",
       ],
@@ -207,6 +211,10 @@ export class ArticleService {
         article.id,
         user?.id,
       ),
+
+      isLike: user
+        ? await this.articleLikeService.isLike(article.id, user.id)
+        : false,
       images: images
         ? images.sort((a, b) => (a.turn ?? 0) - (b.turn ?? 0))
         : [],
@@ -262,6 +270,18 @@ export class ArticleService {
     });
   }
 
+  async increaseLikeCount(articleId: number) {
+    await this.articleRepository.update(articleId, {
+      likeCount: () => "like_count + 1",
+    });
+  }
+
+  async decreaseLikeCount(articleId: number) {
+    await this.articleRepository.update(articleId, {
+      likeCount: () => "like_count - 1",
+    });
+  }
+
   async remove(id: number) {
     const article = await this.findOne(id);
 
@@ -269,12 +289,13 @@ export class ArticleService {
   }
 
   async findTopArticlesByHit(page: number, count: number) {
-    // DESCRIBE: article 테이블에서 최근 2주 동안의 공지사항을 viewCount 내림차순으로 15개 조회
+    // DESCRIBE: article 테이블에서 최근 2주 동안의 공지사항을 likeCount, viewCount 내림차순으로 15개 조회
     const findOptions: FindManyOptions<Article> = {
       where: {
         dateTime: MoreThanOrEqual(this.getDateWeeksAgo(2)),
       },
       order: {
+        likeCount: "DESC",
         viewCount: "DESC",
       },
     };

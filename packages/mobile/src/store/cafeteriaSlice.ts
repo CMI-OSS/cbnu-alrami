@@ -1,17 +1,18 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { CafeteriaMenu } from "@shared/swagger-api/generated";
 
 const name = "settingStatus";
 
 type Props = {
   cafeteria: {
-    selectedMenu: number;
+    selectedMenu: CafeteriaMenu["name"];
   };
 };
 
 const initialState: Props = {
   cafeteria: {
-    selectedMenu: 1,
+    selectedMenu: CafeteriaMenu.name.BONGWAN,
   },
 };
 
@@ -22,7 +23,7 @@ export const cafeteriaSlice = createSlice({
     selectMenu: (
       state,
       action: PayloadAction<{
-        selectedMenu: number;
+        selectedMenu: CafeteriaMenu["name"];
       }>,
     ) => {
       state.cafeteria.selectedMenu = action.payload.selectedMenu;

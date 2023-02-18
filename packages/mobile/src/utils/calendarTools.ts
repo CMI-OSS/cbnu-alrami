@@ -1,8 +1,8 @@
+import { FormattedSchedule } from "@hooks/api/schedule";
 import { Calendar } from "calendar";
 import dayjs, { Dayjs } from "dayjs";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
-import { Schedule } from "src/type";
 import { flatten } from "underscore";
 
 dayjs.extend(isSameOrAfter);
@@ -17,15 +17,17 @@ export const DAY = [ "일", "월", "화", "수", "목", "금", "토" ] as const;
 
 export const filterTodaySchedules = (
   selected: Dayjs,
-  schedules: Schedule[],
+  schedules: FormattedSchedule[],
 ) => {
-  const filteredSchedules = schedules.filter(({ startDate, endDate }) => {
-    if (!endDate) return startDate.isSame(selected, "date");
-    return (
-      selected.isSameOrAfter(startDate, "date") &&
-      selected.isSameOrBefore(endDate, "date")
-    );
-  });
+  const filteredSchedules = schedules.filter(
+    ({ startDateTime, endDateTime }) => {
+      if (!endDateTime) return startDateTime.isSame(selected, "date");
+      return (
+        selected.isSameOrAfter(startDateTime, "date") &&
+        selected.isSameOrBefore(endDateTime, "date")
+      );
+    },
+  );
   return filteredSchedules;
 };
 
@@ -66,7 +68,7 @@ export const getTimePeriod = (
 export const getCalendarMap = (
   year: number,
   month: number,
-  schedules: Schedule[],
+  schedules: FormattedSchedule[],
 ) => {
   const calendarInstance = new Calendar();
   const calendar2D = calendarInstance.monthDates(year, month, (date) => {
@@ -76,16 +78,16 @@ export const getCalendarMap = (
   const calendarMap = calendar1D.map((date) => {
     for (let i = 0; i < schedules.length; i += 1) {
       const schedule = schedules[i];
-      const { startDate, endDate, isHoliday } = schedule;
-      if (endDate) {
+      const { startDateTime, endDateTime, isHoliday } = schedule;
+      if (endDateTime) {
         if (
-          startDate.isSameOrBefore(date, "date") &&
-          endDate.isSameOrAfter(date, "date")
+          startDateTime.isSameOrBefore(date, "date") &&
+          endDateTime.isSameOrAfter(date, "date")
         ) {
           return { date, isScheduleExists: true, isHoliday };
         }
       }
-      if (startDate.isSame(date, "date")) {
+      if (startDateTime.isSame(date, "date")) {
         return { date, isScheduleExists: true, isHoliday };
       }
     }

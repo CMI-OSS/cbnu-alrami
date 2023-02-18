@@ -1,0 +1,48 @@
+.article-detail {
+
+  .report {
+    color: $black-50;
+  }
+
+  .children {
+    min-height: calc(100vh - 64px);
+    padding: 20px 24px 80px 24px;
+    background: $black-0;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    .title {
+      margin-bottom: 2px;
+      line-height: 23px;
+      font-weight: 500;
+      font-size: 14px;
+      color: $black-100;
+    }
+
+    .info {
+      margin-bottom: 12px;
+      font-size: 12px;
+      line-height: 20px;
+      color: $black-40;
+    }
+
+    .content {
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .great {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+
+      .great-button {
+        width: 112px;
+        height: 68px;
+        background: $black-10;
+        border-radius: 15px;
+      }
+    }
+  }
+
+}

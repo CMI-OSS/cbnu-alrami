@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { NavLink, useLocation, useMatch } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, useMatch } from "react-router-dom";
 
 import classnames from "classnames";
 import { useAppSelector } from "src/store";
@@ -48,7 +48,6 @@ const PLACE_MANAGE_MENUS = {
 
 export default function Navigation() {
   const isLoginMatch = useMatch("/login");
-  const { pathname } = useLocation();
   const [ active, setActive ] = useState(-1);
   const { boardImgList, boardTitle, boardCategory, boardContent } =
     useAppSelector((state) => {
@@ -58,17 +57,6 @@ export default function Navigation() {
     ...{ boardImgList, boardTitle, boardCategory, boardContent },
   };
   const navMenus = [ BOARD_MENUS, ADMIN_MANAGE_MENUS, PLACE_MANAGE_MENUS ];
-
-  useEffect(() => {
-    navMenus.forEach(({ menus }, idx) => {
-      if (
-        menus.find(({ path }) => {
-          return path === pathname;
-        })
-      )
-        setActive(idx);
-    });
-  }, []);
 
   return isLoginMatch ? (
     <></>
@@ -90,6 +78,7 @@ export default function Navigation() {
                         onClick={() => {
                           return setActive(idx);
                         }}
+                        end
                         className={({ isActive }) => {
                           return classnames(
                             $["nav-link"],

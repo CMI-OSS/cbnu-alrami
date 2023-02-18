@@ -14,7 +14,7 @@ export default function ArticleList() {
   const navigate = useNavigate();
   const { boardId } = useParams();
 
-  const pageSize = 10;
+  const pageSize = 7;
 
   const { data: articlePageOutput, isLoading } = useQuery(
     [ "articles", boardId, page, pageSize ],
@@ -36,14 +36,6 @@ export default function ArticleList() {
     navigate(`?page=${page}`);
   };
 
-  const handleClickPrev = () => {
-    navigate(`?page=${page - 1}`);
-  };
-
-  const handleClickNext = () => {
-    navigate(`?page=${page + 1}`);
-  };
-
   return (
     <div className={$["article-list"]}>
       <div>총학생회 &gt; 공지사항</div>
@@ -52,12 +44,10 @@ export default function ArticleList() {
         onClickArticle={handleClickArticle}
       />
       <PaginationView
-        currentPage={page}
-        displayPageCount={10}
-        totalPage={articlePageOutput.pagination.totalPageCount}
-        onClick={handleClickPage}
-        onClickNext={handleClickNext}
-        onClickPrev={handleClickPrev}
+        current={page}
+        total={articlePageOutput.pagination.totalItemCount}
+        onChange={handleClickPage}
+        pageSize={pageSize}
       />
     </div>
   );

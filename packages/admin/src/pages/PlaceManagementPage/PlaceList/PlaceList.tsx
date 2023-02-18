@@ -20,36 +20,25 @@ export default function PlaceList() {
   if (isLoading || !schools) return null;
 
   const handleClickArticle = (articleId: number) => {
-    navigate(`/place/add/${articleId}`);
+    navigate(`/place/${articleId}`);
   };
 
   const handleClickPage = (page: number) => {
     navigate(`?page=${page}`);
   };
 
-  const handleClickPrev = () => {
-    navigate(`?page=${page - 1}`);
-  };
-
-  const handleClickNext = () => {
-    navigate(`?page=${page + 1}`);
-  };
-
   const count = 7;
   const places = schools.slice((page - 1) * count, page * count) || [];
-  const totalPage = Math.ceil(schools.length / count) || 0;
 
   return (
     <div className={$["article-list"]}>
       <div>건물 목록</div>
       <PlaceListView places={places} onClickPlace={handleClickArticle} />
       <PaginationView
-        currentPage={page}
-        displayPageCount={count}
-        totalPage={totalPage}
-        onClick={handleClickPage}
-        onClickNext={handleClickNext}
-        onClickPrev={handleClickPrev}
+        current={page}
+        pageSize={count}
+        total={schools.length}
+        onChange={handleClickPage}
       />
     </div>
   );

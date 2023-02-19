@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 
+import HeadMeta from "@components/atoms/HeadMeta";
 import Toast from "@components/atoms/Toast";
 import { apiServer } from "@shared/constant";
 import { OpenAPI } from "@shared/swagger-api/generated/";
@@ -26,6 +27,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <React.StrictMode>
         <PersistGate loading={null} persistor={persistor}>
+          <HeadMeta />
           <App />
           <Toast />
         </PersistGate>

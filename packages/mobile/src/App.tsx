@@ -3,7 +3,6 @@ import { isAndroid, isIOS } from "react-device-detect";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import HeadMeta from "@components/atoms/HeadMeta";
 import Article from "src/page/Article";
 import ArticleDetail from "src/page/Article/Detail";
 import { isStaging, isWebView } from "src/utils/webview";
@@ -68,7 +67,6 @@ function App() {
   return (
     <BrowserRouter>
       {mode === "production" && !isWebView && <>딥링크</>}
-      <HeadMeta title="충림이" />
       <Routes>
         {routes.map((route) => {
           return (

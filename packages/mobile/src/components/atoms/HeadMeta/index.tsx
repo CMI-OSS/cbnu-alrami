@@ -1,56 +1,39 @@
 import { Helmet } from "react-helmet";
 
-import { HEAD_META_INFOMATION } from "src/constants";
-
-type Props = {
-  title?: string;
-  description?: string;
-  image?: string;
-  url?: string;
-};
-
-function HeadMeta({
-  title = "충북대학교 공지사항 알림이",
-  description,
-  image,
-  url,
-}: Props) {
+function HeadMeta() {
   return (
     <Helmet>
-      <title>{title}</title>
+      <title>충북대학교 공지사항 알림이</title>
       <meta
         content="width=device-width, initial-scale=1.0, maximum-scale=1"
         name="viewport"
       />
       <meta
         name="description"
-        content={description ?? HEAD_META_INFOMATION.description}
+        content="빠르고 정확한 충북대학교 공지사항 알림이"
       />
-      <link rel="icon" href={HEAD_META_INFOMATION.href} />
-      <meta name="keywords" content={HEAD_META_INFOMATION.keywords} />
-      <meta property="og:type" content={HEAD_META_INFOMATION.type} />
-      <meta property="og:title" content={title ?? HEAD_META_INFOMATION.title} />
+      <link rel="icon" href="/src/assets/favicon/favicon-16x16.png" />
+      <meta name="keywords" content="충북대학교, 충림이, 공지사항, 어플" />
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="충북대학교 공지사항 알림이" />
+      <meta property="og:site_name" content="충북대학교 공지사항 알림이" />
       <meta
-        property="og:site_name"
-        content={title ?? HEAD_META_INFOMATION.title}
+        property="og:image"
+        content="/src/assets/favicon/favicon-16x16.png"
       />
-      <meta property="og:image" content={image ?? HEAD_META_INFOMATION.image} />
       <meta
         property="og:description"
-        content={description ?? HEAD_META_INFOMATION.description}
+        content="빠르고 정확한 충북대학교 공지사항 알림이"
       />
-      <meta property="og:url" content={url ?? HEAD_META_INFOMATION.url} />
-      <meta
-        name="twitter:title"
-        content={title ?? HEAD_META_INFOMATION.title}
-      />
+      <meta property="og:url" content="https://dev-mobile.cmi.kro.kr" />
+      <meta name="twitter:title" content="충북대학교 공지사항 알림이" />
       <meta
         name="twitter:description"
-        content={description ?? HEAD_META_INFOMATION.description}
+        content="빠르고 정확한 충북대학교 공지사항 알림이"
       />
       <meta
         property="twitter:image"
-        content={image ?? HEAD_META_INFOMATION.image}
+        content="/src/assets/favicon/favicon-16x16.png"
       />
     </Helmet>
   );

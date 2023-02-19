@@ -30,11 +30,6 @@ declare namespace res {
       area: string;
     };
     images: Image[];
-    createAt: string;
-    updateAt: string;
-    buildingNumber: string;
-    oldBuildingNumber: string;
-    area: string;
   };
 
   type Image = {

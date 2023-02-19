@@ -3,7 +3,11 @@ import { useLocation } from "react-router-dom";
 
 import { Heart, LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
-import { useArticleQuery } from "@hooks/api/article1";
+import {
+  useArticleQuery,
+  useDeleteLikeArticleMutation,
+  usePostLikeArticleMutation,
+} from "@hooks/api/article1";
 import dayjs from "dayjs";
 import ArticleFooter from "src/page/Article/components/Footer";
 
@@ -13,6 +17,15 @@ function ArticleDetail() {
   const { pathname } = useLocation();
   const articleId = Number(pathname.split("/").at(-1));
   const { data: articleData, isLoading } = useArticleQuery({
+    id: articleId,
+    uuid: "1111",
+  });
+  const postLikeArticle = usePostLikeArticleMutation({
+    id: articleId,
+    uuid: "1111",
+  });
+
+  const deleteLikeArticle = useDeleteLikeArticleMutation({
     id: articleId,
     uuid: "1111",
   });
@@ -28,7 +41,18 @@ function ArticleDetail() {
     createdDateTime,
     content,
     isBookmark,
+    isLike,
+    likeCount,
   } = articleData;
+
+  const handleToggleLikeClick = (articleId: number) => {
+    console.log(isLike, "좋아하니?");
+    if (isLike) {
+      deleteLikeArticle.mutate({ id: articleId, uuid: "1111" });
+      return;
+    }
+    postLikeArticle.mutate({ id: articleId, uuid: "1111" });
+  };
 
   const isScraperArticle = `${id}`[0] === ("1" || "2");
   // TODO: uuid 로직 추가
@@ -40,11 +64,6 @@ function ArticleDetail() {
       <FullPageModalTemplate
         left={<LeftArrow stroke="#AAAAAA" size={16} />}
         title={name}
-        right={
-          <button className={$.report} type="button">
-            제보하기
-          </button>
-        }
       >
         <div className={$.children}>
           <div className={$.title}>{title}</div>
@@ -58,9 +77,16 @@ function ArticleDetail() {
             className={$.content}
             dangerouslySetInnerHTML={{ __html: content }}
           />
-          <div className={$.great}>
-            <button type="button" className={$["great-button"]}>
+          <div className={$.heart}>
+            <button
+              type="button"
+              className={$["heart-button"]}
+              onClick={() => {
+                return handleToggleLikeClick(articleId);
+              }}
+            >
               <Heart size={20} stroke="#AAAAAA" />
+              {likeCount}
             </button>
           </div>
         </div>

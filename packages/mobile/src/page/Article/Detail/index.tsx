@@ -46,7 +46,6 @@ function ArticleDetail() {
   } = articleData;
 
   const handleToggleLikeClick = (articleId: number) => {
-    console.log(isLike, "좋아하니?");
     if (isLike) {
       deleteLikeArticle.mutate({ id: articleId, uuid: "1111" });
       return;

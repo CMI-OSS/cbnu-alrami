@@ -18,7 +18,7 @@ function DetailGroup({ schoolDatas }: Props) {
                 schoolData={item}
                 key={`contruction-${item.id}`}
                 type="place"
-                url={item.images[0]?.url}
+                url={item.images![0]?.url}
                 placeId={item.id}
               />
             );

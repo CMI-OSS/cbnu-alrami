@@ -1,19 +1,35 @@
 declare namespace res {
   type School = {
     id: number;
-    createAt: string;
-    updateAt: string;
     name: string;
     latitude: number;
     longtitude: number;
     address: string;
-    school: SchoolDetail;
-    images: Image[];
+    // TODO: "S" | "N" | "E";
+    school: string;
+    image: Image;
   };
 
   type SchoolDetail = {
     id: number;
+    createdAt: string;
     type: "school" | "restaurant";
+    name: string;
+    latitude: number;
+    longtitude: number;
+    address: string;
+    contact?: string;
+    description?: string;
+    tags?: string;
+    school: {
+      id: number;
+      createdAt: string;
+      buildingNumber: string;
+      oldBuildingNumber: string;
+      // TODO: "S" | "N" | "E";
+      area: string;
+    };
+    images: Image[];
     createAt: string;
     updateAt: string;
     buildingNumber: string;

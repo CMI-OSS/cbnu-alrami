@@ -21,7 +21,7 @@ function PlaceDetail() {
     data: schoolData,
     isLoading: schoolLoading,
     isError: schoolError,
-  } = useSchoolAreaQuery(currentPosition);
+  } = useSchoolAreaQuery(currentPosition as PlaceSchoolDto["school"]["area"]);
   if (schoolLoading) return <div>로딩중입니다.</div>;
   if (schoolError) return <div>에러가 발생했습니다.</div>;
   if (schoolData === undefined)

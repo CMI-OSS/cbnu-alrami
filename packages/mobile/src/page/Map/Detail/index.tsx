@@ -45,11 +45,10 @@ function MapDetail() {
         className={$["back-image"]}
         style={{
           backgroundImage: `url(
-            ${detailData.images[0]?.url}
+            ${detailData.images![0]?.url}
           )`,
         }}
       />
-      {/* [D] 향후 전화번호 속성 추가 필요 by scott */}
       <Info
         buildingNumber={detailData.school?.buildingNumber}
         oldBuildingNumber={detailData.school?.oldBuildingNumber}
@@ -59,7 +58,6 @@ function MapDetail() {
       />
       <BorderBox className={classNames($.menu, $.description)}>
         <strong className={$["description-title"]}>설명</strong>
-        {/* [D] 향후 description 속성 추가 필요 by scott */}
         <p className={$["description-text"]}>{detailData.description}</p>
       </BorderBox>
       <BorderBox className={$.detail}>
@@ -67,7 +65,7 @@ function MapDetail() {
         <ImageList
           isMoreContents
           name={detailData.name}
-          detailImageList={detailData.images}
+          detailImageList={detailData.images!}
         />
       </BorderBox>
     </div>

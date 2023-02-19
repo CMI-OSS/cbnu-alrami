@@ -162,7 +162,7 @@ function Map() {
       {isConstructionTooltip && !schoolSeveralLoading && schoolSeveralData && (
         <Spot
           schoolData={schoolSeveralData}
-          url={schoolSeveralData.images[0]?.url}
+          url={schoolSeveralData.images![0]?.url}
           type="map"
           placeId={constructionId}
         />

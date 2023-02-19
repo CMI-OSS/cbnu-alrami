@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 
 import { LeftArrow } from "@components/atoms/icon";
 import ImageList from "@components/molecules/ImageList";
-import { useSchoolQuery } from "@hooks/api/school";
 import classNames from "classnames";
 import BorderBox from "src/components/atoms/BorderBox";
+import { useSchoolQuery } from "src/hooks/api/school";
 import useSearch from "src/hooks/useSearch";
 import Info from "src/page/Map/Info";
 
@@ -45,7 +45,7 @@ function MapDetail() {
         className={$["back-image"]}
         style={{
           backgroundImage: `url(
-            ${detailData.images[0]?.url}
+            ${detailData.images![0]?.url}
           )`,
         }}
       />
@@ -65,7 +65,7 @@ function MapDetail() {
         <ImageList
           isMoreContents
           name={detailData.name}
-          detailImageList={detailData.images}
+          detailImageList={detailData.images!}
         />
       </BorderBox>
     </div>

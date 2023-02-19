@@ -1,9 +1,10 @@
+import { PlaceSchoolDto } from "@shared/swagger-api/generated";
 import Spot from "src/page/Map/Spot";
 
 import $ from "./style.module.scss";
 
 type Props = {
-  schoolDatas: res.School[];
+  schoolDatas: PlaceSchoolDto[];
 };
 
 function DetailGroup({ schoolDatas }: Props) {
@@ -17,7 +18,7 @@ function DetailGroup({ schoolDatas }: Props) {
                 schoolData={item}
                 key={`contruction-${item.id}`}
                 type="place"
-                url={item.image?.url}
+                url={item.images![0]?.url}
                 placeId={item.id}
               />
             );

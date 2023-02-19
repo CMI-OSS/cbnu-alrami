@@ -1,12 +1,13 @@
 import { NavLink } from "react-router-dom";
 
 import { LongArrow } from "@components/atoms/icon";
+import { PlaceSchoolDto } from "@shared/swagger-api/generated";
 import classNames from "classnames";
 
 import $ from "./style.module.scss";
 
 type Props = {
-  schoolData: res.School | res.SchoolDetail;
+  schoolData: PlaceSchoolDto;
   type: "map" | "place";
   url: string;
   placeId: number;
@@ -17,7 +18,7 @@ function Spot({ schoolData, type, placeId, url }: Props) {
     <>
       <NavLink
         className={type === "place" ? $.item : $.wrap}
-        to={`/place/school?id=${placeId}`}
+        to={`/school?id=${placeId}`}
       >
         <img
           className={classNames($.image, type === "place" && $["place-image"])}

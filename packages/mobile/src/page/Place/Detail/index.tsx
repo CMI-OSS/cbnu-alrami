@@ -2,8 +2,9 @@ import { NavLink } from "react-router-dom";
 
 import { LeftArrow } from "@components/atoms/icon";
 import ChipGroup from "@components/molecules/ChipGroup";
-import { useSchoolsQuery } from "@hooks/api/school";
+import { PlaceSchoolDto } from "@shared/swagger-api/generated";
 import BorderBox from "src/components/atoms/BorderBox";
+import { useSchoolAreaQuery } from "src/hooks/api/school";
 import useSearch from "src/hooks/useSearch";
 import DetailGroup from "src/page/Place/DetailGroup";
 import { useAppDispatch } from "src/store";
@@ -15,11 +16,12 @@ import $ from "./style.module.scss";
 function PlaceDetail() {
   const dispatch = useAppDispatch();
   const position = useSearch({ target: "position" })!;
+  const currentPosition = position === 'all'? undefined : position.split("")[0].toUpperCase();
   const {
     data: schoolData,
     isLoading: schoolLoading,
     isError: schoolError,
-  } = useSchoolsQuery();
+  } = useSchoolAreaQuery(currentPosition as PlaceSchoolDto["school"]["area"]);
   if (schoolLoading) return <div>로딩중입니다.</div>;
   if (schoolError) return <div>에러가 발생했습니다.</div>;
   if (schoolData === undefined)
@@ -29,14 +31,13 @@ function PlaceDetail() {
     dispatch(setHashMenu({ hashString: position }));
   };
 
-  const currentPosition = position.split("")[0].toUpperCase();
-  const schoolDatas = schoolData.filter((item: res.School) => {
-    return item?.school === currentPosition || currentPosition === "A";
+  const schoolDatas = schoolData.filter((item: PlaceSchoolDto) => {
+    return item?.school.area === currentPosition || currentPosition === undefined;
   });
 
   const checkMenu = (position: string) => {
     switch (position) {
-      case "all":
+      case undefined:
         return 0;
       case "north":
         return 1;

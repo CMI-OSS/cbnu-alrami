@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ArticleMutationResponseDto } from '../models/ArticleMutationResponseDto';
 import type { CreateArticleDto } from '../models/CreateArticleDto';
 import type { MutationResponse } from '../models/MutationResponse';
 import type { ResponseArticleDetailDto } from '../models/ResponseArticleDetailDto';
@@ -15,14 +16,14 @@ export class ArticleApiService {
 
     /**
      * 게시물 생성
-     * @returns MutationResponse 게시물이 정상적으로 작성된 경우
+     * @returns ArticleMutationResponseDto 게시물이 정상적으로 작성된 경우
      * @throws ApiError
      */
     public static articleControllerCreate({
         requestBody,
     }: {
         requestBody: CreateArticleDto,
-    }): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<ArticleMutationResponseDto> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/article',
@@ -161,7 +162,7 @@ export class ArticleApiService {
 
     /**
      * 게시물 수정
-     * @returns MutationResponse
+     * @returns ArticleMutationResponseDto
      * @throws ApiError
      */
     public static articleControllerUpdate({
@@ -170,7 +171,7 @@ export class ArticleApiService {
     }: {
         id: number,
         requestBody: UpdateArticleDto,
-    }): CancelablePromise<MutationResponse> {
+    }): CancelablePromise<ArticleMutationResponseDto> {
         return __request(OpenAPI, {
             method: 'PATCH',
             url: '/article/{id}',
@@ -246,6 +247,60 @@ export class ArticleApiService {
         return __request(OpenAPI, {
             method: 'DELETE',
             url: '/article/{id}/bookmark',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'uuid': uuid,
+            },
+        });
+    }
+
+    /**
+     * 공지사항 좋아요 추가
+     * @returns MutationResponse
+     * @throws ApiError
+     */
+    public static articleControllerLike({
+        id,
+        uuid,
+    }: {
+        id: number,
+        /**
+         * 유저 UUID
+         */
+        uuid?: string,
+    }): CancelablePromise<MutationResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/article/{id}/like',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'uuid': uuid,
+            },
+        });
+    }
+
+    /**
+     * 공지사항 좋아요 취소
+     * @returns MutationResponse
+     * @throws ApiError
+     */
+    public static articleControllerUndoLike({
+        id,
+        uuid,
+    }: {
+        id: number,
+        /**
+         * 유저 UUID
+         */
+        uuid?: string,
+    }): CancelablePromise<MutationResponse> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/article/{id}/like',
             path: {
                 'id': id,
             },

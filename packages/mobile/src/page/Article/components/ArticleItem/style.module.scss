@@ -1,0 +1,35 @@
+.article-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 104px;
+  padding: 16px 24px;
+  margin-bottom: 8px;
+  background: $black-0;
+  border-radius: 20px;
+
+  .board-name {
+    margin-bottom: 2px;
+    font-size: 12px;
+    line-height: 20px;
+    color: $black-40;
+  }
+
+  .title {
+    margin-bottom: 2px;
+    line-height: 23px;
+    font-weight: 500;
+    font-size: 14px;
+    color: $black-100;
+  }
+
+  .info {
+    font-size: 12px;
+    line-height: 20px;
+    color: $black-40;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

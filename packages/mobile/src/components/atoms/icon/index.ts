@@ -53,3 +53,4 @@ export { 황사 } from "./황사";
 export { 흐림 } from "./흐림";
 export { Internet } from "./Internet";
 export { Share } from "./Share";
+export { Heart } from "./Heart";

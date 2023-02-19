@@ -1,5 +1,6 @@
 import { ApiProperty, IntersectionType, OmitType } from "@nestjs/swagger";
 import { PaginationResponseDto } from "src/common/dto/pagination.dto";
+import { MutationResponse } from "src/common/types/response";
 
 import { Article } from "../entities/article.entity";
 
@@ -23,6 +24,9 @@ export class ResponseArticleDetailDto extends IntersectionType(
 
   @ApiProperty({ description: "조회 여부", example: false })
   isView: boolean;
+
+  @ApiProperty({ description: "좋아요 여부", example: false })
+  isLike: boolean;
 }
 
 export class ResponseArticlePageDto {
@@ -35,4 +39,13 @@ export class ResponseArticlePageDto {
     isArray: true,
   })
   articles: ResponseArticleDto[];
+}
+
+export class ArticleMutationResponseDto extends MutationResponse {
+  @ApiProperty({
+    description: "게시물 아이디",
+    type: Number,
+    required: false,
+  })
+  articleId?: number;
 }

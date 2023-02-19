@@ -37,4 +37,7 @@ export type Configutation = {
     key: string;
     url: string;
   };
+  password: {
+    salt: string;
+  };
 };

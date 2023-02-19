@@ -44,6 +44,10 @@ export type ResponseArticleDetailDto = {
      */
     bookmarkCount: number;
     /**
+     * 공지사항 좋아요 수
+     */
+    likeCount: number;
+    /**
      * 게시물이 속한 게시판
      */
     board: Board;
@@ -63,5 +67,9 @@ export type ResponseArticleDetailDto = {
      * 조회 여부
      */
     isView: boolean;
+    /**
+     * 좋아요 여부
+     */
+    isLike: boolean;
 };
 

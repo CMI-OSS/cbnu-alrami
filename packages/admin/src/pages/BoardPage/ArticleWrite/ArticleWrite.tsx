@@ -1,6 +1,8 @@
+import { useState } from "react";
+import { useQuery } from "react-query";
 import { useLocation, useParams } from "react-router-dom";
 
-import { useGetArticleQuery } from "src/api/board";
+import { ArticleApiService } from "@shared/swagger-api/generated/services/ArticleApiService";
 import { useAppDispatch } from "src/store";
 
 import styles from "./ArticleWrite.module.scss";
@@ -15,16 +17,18 @@ export default function ArticleWrite() {
   const location = useLocation();
   const params = useParams();
   const dispatch = useAppDispatch();
+  const [ boardId, setBoardId ] = useState<number | undefined>();
 
   const isEdit = location.pathname.includes("edit");
   const { articleId } = params;
 
   if (isEdit && !articleId) return null;
 
-  const { data: article } = useGetArticleQuery(
-    { articleId: Number(articleId) },
+  const { data: article } = useQuery(
+    [ "article", articleId ],
+    () => ArticleApiService.articleControllerFindOne({ id: Number(articleId) }),
     {
-      skip: !isEdit,
+      enabled: isEdit,
     },
   );
 
@@ -36,10 +40,15 @@ export default function ArticleWrite() {
     <div className={styles.wrapper}>
       <WriteTitle />
       <br />
-      <SelectBoard />
+      {!isEdit && <SelectBoard onSelectBoard={setBoardId} />}
       <WriteContent />
       <UploadImage />
-      <Submit isEdit={isEdit} articleId={Number(articleId)} article={article} />
+      <Submit
+        isEdit={isEdit}
+        articleId={Number(articleId)}
+        article={article}
+        boardId={boardId}
+      />
     </div>
   );
 }

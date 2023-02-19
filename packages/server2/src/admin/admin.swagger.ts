@@ -6,6 +6,7 @@ import {
   ApiOkResponse,
   ApiOperation,
 } from "@nestjs/swagger";
+import { ResponseBoardAuthoriyDto } from "src/board-authority/dto/response-board-authority.dto";
 import { MutationResponse } from "src/common/types/response";
 
 import {
@@ -45,6 +46,30 @@ export const GetAdmin = () => {
       summary: "관리자 조회",
     }),
     ApiOkResponse({ type: Admin }),
+    ApiNotFoundResponse({
+      type: NotFoundAdminException,
+    }),
+  );
+};
+
+export const GetMe = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "본인 관리자 조회",
+    }),
+    ApiOkResponse({ type: Admin }),
+    ApiNotFoundResponse({
+      type: NotFoundAdminException,
+    }),
+  );
+};
+
+export const GetAuthoriyBoards = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "권한이 있는 게시판 조회",
+    }),
+    ApiOkResponse({ type: ResponseBoardAuthoriyDto, isArray: true }),
     ApiNotFoundResponse({
       type: NotFoundAdminException,
     }),

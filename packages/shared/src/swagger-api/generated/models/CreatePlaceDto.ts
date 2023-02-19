@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { SchoolDto } from './SchoolDto';
+
 export type CreatePlaceDto = {
     /**
      * 장소명
@@ -20,8 +22,20 @@ export type CreatePlaceDto = {
      */
     address: string;
     /**
+     * 설명
+     */
+    description?: string;
+    /**
+     * 연락처
+     */
+    contact?: string;
+    /**
      * 이미지
      */
     imageIds?: Array<number>;
+    /**
+     * 학교 정보
+     */
+    school: SchoolDto;
 };
 

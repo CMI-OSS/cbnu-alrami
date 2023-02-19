@@ -14,6 +14,7 @@ import {
   NotFoundArticleException,
 } from "./article.exception";
 import {
+  ArticleMutationResponseDto,
   ResponseArticleDetailDto,
   ResponseArticlePageDto,
 } from "./dto/response-article.dto";
@@ -25,7 +26,7 @@ export const CreateArticle = () => {
     }),
     ApiCreatedResponse({
       description: "게시물이 정상적으로 작성된 경우",
-      type: MutationResponse,
+      type: ArticleMutationResponseDto,
     }),
     ApiConflictResponse({ type: DuplicatedArticleException }),
   );
@@ -72,7 +73,7 @@ export const UpdateArticle = () => {
     ApiOperation({
       summary: "게시물 수정",
     }),
-    ApiOkResponse({ type: MutationResponse }),
+    ApiOkResponse({ type: ArticleMutationResponseDto }),
     ApiNotFoundResponse({ type: NotFoundArticleException }),
   );
 };
@@ -102,6 +103,28 @@ export const UnBookmarkArticle = () => {
   return applyDecorators(
     ApiOperation({
       summary: "북마크 해제",
+    }),
+    ApiOkResponse({ type: MutationResponse }),
+    ApiNotFoundResponse({ type: NotFoundArticleException }),
+    UserGuard(),
+  );
+};
+
+export const LikeArticle = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "공지사항 좋아요 추가",
+    }),
+    ApiOkResponse({ type: MutationResponse }),
+    ApiNotFoundResponse({ type: NotFoundArticleException }),
+    UserGuard(),
+  );
+};
+
+export const UndoLikeArticle = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "공지사항 좋아요 취소",
     }),
     ApiOkResponse({ type: MutationResponse }),
     ApiNotFoundResponse({ type: NotFoundArticleException }),

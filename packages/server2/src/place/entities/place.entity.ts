@@ -30,6 +30,31 @@ export class Place extends UpdatableCommonEntity {
   @Column({ type: "varchar" })
   address: string;
 
+  @ApiProperty({
+    description: "설명",
+    example: "이 건물은..",
+    default: "",
+    required: false,
+  })
+  @IsString()
+  @Column({ type: "varchar", nullable: true })
+  description?: string;
+
+  @ApiProperty({
+    description: "연락처",
+    example: "02-492-xxxx",
+    required: false,
+  })
+  @IsString()
+  @Column({ type: "varchar", nullable: true })
+  contact?: string;
+
+  @ApiProperty({
+    description: "게시물 이미지",
+    type: () => Image,
+    isArray: true,
+    required: false,
+  })
   @OneToMany(() => Image, (image) => image.place, {
     nullable: true,
     cascade: true,

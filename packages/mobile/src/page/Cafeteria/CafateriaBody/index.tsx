@@ -1,74 +1,23 @@
 import { memo } from "react";
 
-import {
-  CafeteriaMenu,
-  CafeteriaMenuApiService,
-} from "@shared/swagger-api/generated";
-import { useQuery } from "@tanstack/react-query";
+import { CafeteriaMenu } from "@shared/swagger-api/generated";
 import classnames from "classnames";
 import noMenu from "src/assets/no_menu.png";
 import CafeteriaMenuCard from "src/components/molecules/CafeteriaMenuCard";
-import { getCafeteriaTime2 } from "src/page/Cafeteria/constants";
+import { useCafeteriaQuery } from "src/hooks/api/cafeteria";
+import { getCafeteriaTime } from "src/page/Cafeteria/constants";
 
 import $ from "./style.module.scss";
 
 type Props = {
   fullDate: string;
   day: number;
-  selectedMenu: number;
+  selectedMenu: CafeteriaMenu["name"];
 };
 
 function CafeteriaBody({ fullDate, day, selectedMenu }: Props) {
-  const { data: bongwan } = useQuery([ "bongwan", fullDate ], () => {
-    return CafeteriaMenuApiService.cafeteriaMenuControllerFindAll({
-      name: CafeteriaMenu.name.BONGWAN,
-      date: fullDate,
-    });
-  });
-
-  const { data: byeolbit } = useQuery([ "byeolbit", fullDate ], () => {
-    return CafeteriaMenuApiService.cafeteriaMenuControllerFindAll({
-      name: CafeteriaMenu.name.BYEOLBIT,
-      date: fullDate,
-    });
-  });
-
-  const { data: hanbit } = useQuery([ "hanbit", fullDate ], () => {
-    return CafeteriaMenuApiService.cafeteriaMenuControllerFindAll({
-      name: CafeteriaMenu.name.HANBIT,
-      date: fullDate,
-    });
-  });
-  const { data: unhasu } = useQuery([ "unhasu", fullDate ], () => {
-    return CafeteriaMenuApiService.cafeteriaMenuControllerFindAll({
-      name: CafeteriaMenu.name.UNHASU,
-      date: fullDate,
-    });
-  });
-  const { data: yangjinjae } = useQuery([ "yangjinjae", fullDate ], () => {
-    return CafeteriaMenuApiService.cafeteriaMenuControllerFindAll({
-      name: CafeteriaMenu.name.YANGJINJAE,
-      date: fullDate,
-    });
-  });
-
-  const { data: yangsungjae } = useQuery([ "yangsungjae", fullDate ], () => {
-    return CafeteriaMenuApiService.cafeteriaMenuControllerFindAll({
-      name: CafeteriaMenu.name.YANGSUNGJAE,
-      date: fullDate,
-    });
-  });
-
   const isHoliday = day === 6 || day === 0;
-  const allCafeteriaData = [
-    bongwan,
-    yangjinjae,
-    yangsungjae,
-    hanbit,
-    byeolbit,
-    unhasu,
-  ];
-  const cafeteriaMenu = allCafeteriaData[selectedMenu - 1];
+  const { data: cafeteriaMenu } = useCafeteriaQuery(selectedMenu, fullDate);
 
   return (
     <main
@@ -79,7 +28,7 @@ function CafeteriaBody({ fullDate, day, selectedMenu }: Props) {
       {cafeteriaMenu &&
         cafeteriaMenu.length > 0 &&
         cafeteriaMenu.map(({ menu, time }) => {
-          const [ mealTime, timeInfo ] = getCafeteriaTime2(
+          const [ mealTime, timeInfo ] = getCafeteriaTime(
             isHoliday,
             selectedMenu,
             time,

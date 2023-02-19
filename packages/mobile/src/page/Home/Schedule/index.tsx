@@ -13,15 +13,15 @@ const MAX_HEIGHT = 23 as const;
 
 type Props = {
   content: string;
-  startDate: string;
-  endDate: string | null;
+  startDateTime: string;
+  endDateTime: string | undefined;
   today: Dayjs;
 };
 
-function Schedule({ content, startDate, endDate, today }: Props) {
+function Schedule({ content, startDateTime, endDateTime, today }: Props) {
   const navigate = useNavigate();
-  const start = dayjs(startDate);
-  const end = endDate ? dayjs(endDate) : null;
+  const start = dayjs(startDateTime);
+  const end = endDateTime ? dayjs(endDateTime) : null;
   const period = getTimePeriod(start, end, today);
   const ref = useRef<HTMLSpanElement>(null);
   const [ isLong, setIsLong ] = useState(false);

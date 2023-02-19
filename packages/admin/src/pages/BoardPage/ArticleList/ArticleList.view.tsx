@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
+import { ResponseArticleDto } from "@shared/swagger-api/generated/models/ResponseArticleDto";
 import classnames from "classnames";
 import dayjs from "dayjs";
-import { Article } from "src/api/types";
 
 import $ from "./ArticleList.module.scss";
 
 interface Props {
-  articles: Article[];
+  articles: ResponseArticleDto[];
   onClickArticle: (articleId: number) => void;
 }
 
@@ -18,10 +18,10 @@ export default function ArticleListView({ articles, onClickArticle }: Props) {
       <div className={classnames($.row, $.header)}>
         <div className={classnames($.cell, $.id)}>ID</div>
         <div className={classnames($.cell, $.title)}>제목</div>
-        <div className={classnames($.cell, $.date)}>작성일</div>
         <div className={classnames($.cell, $.id)}>조회수</div>
         <div className={classnames($.cell, $.scraps)}>스크랩</div>
-        <div className={classnames($.cell, $.id)}>수정일</div>
+        <div className={classnames($.cell, $.date)}>작성</div>
+        <div className={classnames($.cell, $.date)}>수정</div>
       </div>
       {articles.map((article) => (
         <div
@@ -32,13 +32,15 @@ export default function ArticleListView({ articles, onClickArticle }: Props) {
           <div className={classnames($.cell, $.id)}>{article.id}</div>
           <div className={classnames($.cell, $.title)}>{article.title}</div>
 
-          <div className={classnames($.cell, $.date)}>
-            {dayjs(article.date).format("YYYY.MM.DD")}
+          <div className={classnames($.cell, $.hits)}>{article.viewCount}</div>
+          <div className={classnames($.cell, $.scraps)}>
+            {article.bookmarkCount}
           </div>
-          <div className={classnames($.cell, $.hits)}>{article.hits}</div>
-          <div className={classnames($.cell, $.scraps)}>{article.scraps}</div>
           <div className={classnames($.cell, $.date)}>
-            {dayjs(article.updatedAt).format("YYYY.MM.DD HH:MM")}
+            {dayjs(article.dateTime).format("YYYY.MM.DD")}
+          </div>
+          <div className={classnames($.cell, $.date)}>
+            {dayjs(article.updatedDateTime).format("YYYY.MM.DD HH:MM")}
           </div>
         </div>
       ))}

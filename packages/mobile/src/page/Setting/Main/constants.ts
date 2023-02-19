@@ -1,5 +1,4 @@
 import {
-  Alarm,
   AppVersion,
   Email,
   Food,
@@ -10,11 +9,6 @@ import { CMI_BOARD_ID } from "src/constants";
 import { Restaurant } from "src/type";
 
 const settingMenuList = [
-  {
-    icon: Alarm,
-    label: "구독/알림",
-    to: "./subscription",
-  },
   {
     icon: Food,
     label: "대표식당",

@@ -31,14 +31,19 @@
       overflow-y: hidden;
     }
 
-    .great {
+    .heart {
       display: flex;
       justify-content: center;
       width: 100%;
+      margin-top: 20px;
 
-      .great-button {
+      .heart-button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         width: 112px;
         height: 68px;
+        padding: 12px 0;
         background: $black-10;
         border-radius: 15px;
       }

@@ -102,3 +102,23 @@ export const useDeleteBookmarkArticleMutation = (
     },
   });
 };
+
+export const usePostLikeArticleMutation = (
+  params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
+) => {
+  return useCoreMutation(ArticleApiService.articleControllerLike, {
+    onSuccess: () => {
+      return queryClient.invalidateQueries(queryKey.article(params));
+    },
+  });
+};
+
+export const useDeleteLikeArticleMutation = (
+  params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
+) => {
+  return useCoreMutation(ArticleApiService.articleControllerUndoLike, {
+    onSuccess: () => {
+      return queryClient.invalidateQueries(queryKey.article(params));
+    },
+  });
+};

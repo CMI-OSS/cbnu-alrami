@@ -1,7 +1,7 @@
 /* eslint-disable no-loop-func */
 import { useLocation } from "react-router-dom";
 
-import { useBoardsQuery, useBoardSubscribeQuery } from "@hooks/api/board1";
+import { useBoardsQuery, useSubscribeBoardsQuery } from "@hooks/api/board1";
 import { ChildBoard, ResponseBoardDto } from "@shared/swagger-api/generated";
 import classnames from "classnames";
 import BoardItem from "src/page/Board/components/BoardItem";
@@ -12,7 +12,7 @@ import $ from "./style.module.scss";
 
 function BoardList({ className }: DefaultProps) {
   const { data: boardsData } = useBoardsQuery({ uuid: "1111" });
-  const { data: boardSubscribesData } = useBoardSubscribeQuery({
+  const { data: subscribeBoardsData } = useSubscribeBoardsQuery({
     uuid: "1111",
   });
 
@@ -63,17 +63,19 @@ function BoardList({ className }: DefaultProps) {
       {boardChildrensData?.map((boardChildren) => {
         const { id, name, children } = boardChildren;
         const isLast = children?.length === 0;
-        const boardStatus = boardSubscribesData?.find((boardSubscribeData) => {
-          return boardSubscribeData.id === id;
-        });
+        const subscribeboard = subscribeBoardsData?.find(
+          (subscribeBoardData) => {
+            return subscribeBoardData.id === id;
+          },
+        );
         return (
           <BoardItem
             key={id}
             id={id}
             title={name}
             isLast={isLast}
-            isNotice={boardStatus?.isNotice ?? false}
-            isSubscribe={boardStatus?.isSubscribe ?? false}
+            isNotice={subscribeboard?.isNotice ?? false}
+            isSubscribe={subscribeboard?.isSubscribe ?? false}
           />
         );
       })}

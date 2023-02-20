@@ -1,4 +1,8 @@
-import { useCoreInfiniteQuery, useCoreMutation, useCoreQuery } from "@hooks/api/core";
+import {
+  useCoreInfiniteQuery,
+  useCoreMutation,
+  useCoreQuery,
+} from "@hooks/api/core";
 import { BoardApiService } from "@shared/swagger-api/generated";
 import { queryKey } from "src/consts/react-query";
 import { queryClient } from "src/main";
@@ -31,18 +35,35 @@ export const useBoardsQuery = (
   });
 };
 
-export const useBoardQuery = (params: GetParams<typeof BoardApiService.boardControllerFindOne>) => {
+export const useBoardQuery = (
+  params: GetParams<typeof BoardApiService.boardControllerFindOne>,
+) => {
   return useCoreQuery(queryKey.boardTree(params), () => {
     return BoardApiService.boardControllerFindOne(params);
   });
 };
 
-export const useBoardSubscribeQuery = (
+export const useSubscribeBoardsQuery = (
   params: GetParams<typeof BoardApiService.boardControllerFindSubscribeBoards>,
 ) => {
-  return useCoreQuery(queryKey.subscribeBoards, () => {
-    return BoardApiService.boardControllerFindSubscribeBoards(params);
-  });
+  return useCoreQuery(
+    queryKey.subscribeBoards,
+    () => {
+      return BoardApiService.boardControllerFindSubscribeBoards(params);
+    },
+    {
+      select: (data) => {
+        const nextData = data.map((indiData) => {
+          const { name, parent } = indiData;
+          return {
+            ...indiData,
+            combinedName: parent?.name ? `${parent?.name} > ${name}` : name,
+          };
+        });
+        return nextData;
+      },
+    },
+  );
 };
 
 export const useSubscribeBoardMutation = () => {

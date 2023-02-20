@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { Heart, LeftArrow } from "@components/atoms/icon";
+import { FillHeart } from "@components/atoms/icon/FillHeart";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import {
   useArticleQuery,
   useDeleteLikeArticleMutation,
   usePostLikeArticleMutation,
 } from "@hooks/api/article1";
+import classnames from "classnames";
 import dayjs from "dayjs";
 import ArticleFooter from "src/page/Article/components/Footer";
 
@@ -16,10 +18,12 @@ import $ from "./style.module.scss";
 function ArticleDetail() {
   const { pathname } = useLocation();
   const articleId = Number(pathname.split("/").at(-1));
+  const [ isLikeClick, setIsLikeClick ] = useState(false);
   const { data: articleData, isLoading } = useArticleQuery({
     id: articleId,
     uuid: "1111",
   });
+
   const postLikeArticle = usePostLikeArticleMutation({
     id: articleId,
     uuid: "1111",
@@ -47,9 +51,11 @@ function ArticleDetail() {
 
   const handleToggleLikeClick = (articleId: number) => {
     if (isLike) {
+      setIsLikeClick(false);
       deleteLikeArticle.mutate({ id: articleId, uuid: "1111" });
       return;
     }
+    setIsLikeClick(true);
     postLikeArticle.mutate({ id: articleId, uuid: "1111" });
   };
 
@@ -57,7 +63,6 @@ function ArticleDetail() {
   // TODO: uuid 로직 추가
   const isUser = true;
 
-  // TODO: 좋아요 api 붙이기
   return (
     <div className={$["article-detail"]}>
       <FullPageModalTemplate
@@ -84,7 +89,15 @@ function ArticleDetail() {
                 return handleToggleLikeClick(articleId);
               }}
             >
-              <Heart size={20} stroke="#AAAAAA" />
+              {isLike ? (
+                <div className={classnames(isLikeClick && $.active)}>
+                  <FillHeart size={20} fill="#D66D6E" />
+                </div>
+              ) : (
+                <div>
+                  <Heart size={20} stroke="#AAAAAA" />
+                </div>
+              )}
               {likeCount}
             </button>
           </div>

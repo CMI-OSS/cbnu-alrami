@@ -8,7 +8,7 @@ import {
   useArticleQuery,
   useDeleteLikeArticleMutation,
   usePostLikeArticleMutation,
-} from "@hooks/api/article1";
+} from "@hooks/api/article";
 import classnames from "classnames";
 import dayjs from "dayjs";
 import ArticleFooter from "src/page/Article/components/Footer";

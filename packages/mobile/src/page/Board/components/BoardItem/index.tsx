@@ -12,7 +12,7 @@ import {
   useSubscribeBoardMutation,
   useUnNoticeBoardMutation,
   useUnSubscribeBoardMutation,
-} from "@hooks/api/board1";
+} from "@hooks/api/board";
 import classnames from "classnames";
 
 import $ from "./style.module.scss";

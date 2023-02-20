@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 
 import { Star } from "@components/atoms/icon";
-import { useSubscribeBoardsQuery } from "@hooks/api/board1";
+import { useSubscribeBoardsQuery } from "@hooks/api/board";
 import classNames from "classnames";
 import { DefaultProps } from "src/type/props";
 

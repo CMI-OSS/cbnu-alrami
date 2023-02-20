@@ -1,7 +1,7 @@
 /* eslint-disable no-loop-func */
 import { useLocation } from "react-router-dom";
 
-import { useBoardsQuery, useSubscribeBoardsQuery } from "@hooks/api/board1";
+import { useBoardsQuery, useSubscribeBoardsQuery } from "@hooks/api/board";
 import { ChildBoard, ResponseBoardDto } from "@shared/swagger-api/generated";
 import classnames from "classnames";
 import BoardItem from "src/page/Board/components/BoardItem";

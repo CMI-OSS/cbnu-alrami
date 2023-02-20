@@ -5,7 +5,7 @@ import Line from "@components/atoms/Line";
 import {
   usePopularArticlesQuery,
   useSubscribeArticlesQuery,
-} from "@hooks/api/article1";
+} from "@hooks/api/article";
 import classNames from "classnames";
 
 import $ from "./style.module.scss";

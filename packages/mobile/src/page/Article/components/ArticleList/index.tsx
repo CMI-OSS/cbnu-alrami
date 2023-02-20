@@ -4,8 +4,8 @@ import {
   useBookmarkArticlesQuery,
   usePopularArticlesQuery,
   useSubscribeArticlesQuery,
-} from "@hooks/api/article1";
-import { useBoardArticlesQuery } from "@hooks/api/board1";
+} from "@hooks/api/article";
+import { useBoardArticlesQuery } from "@hooks/api/board";
 import { useIntersect } from "@hooks/UseIntersect";
 import classnames from "classnames";
 import ArticleItem from "src/page/Article/components/ArticleItem";

@@ -2,7 +2,7 @@ import { Internet, Share, Star } from "@components/atoms/icon";
 import {
   useDeleteBookmarkArticleMutation,
   usePostBookmarkArticleMutation,
-} from "@hooks/api/article1";
+} from "@hooks/api/article";
 import { toastSuccess } from "src/utils/toast";
 import { isFromApp } from "src/utils/webview";
 

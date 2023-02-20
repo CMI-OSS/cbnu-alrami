@@ -15,7 +15,7 @@ import {
   useSubscribeBoardMutation,
   useUnNoticeBoardMutation,
   useUnSubscribeBoardMutation,
-} from "@hooks/api/board1";
+} from "@hooks/api/board";
 import ArticleList from "src/page/Article/components/ArticleList";
 
 import $ from "./style.module.scss";

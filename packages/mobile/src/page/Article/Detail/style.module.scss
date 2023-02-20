@@ -35,6 +35,7 @@
       display: flex;
       justify-content: center;
       width: 100%;
+      height: 68px;
       margin-top: 20px;
 
       .heart-button {
@@ -42,12 +43,28 @@
         flex-direction: column;
         align-items: center;
         width: 112px;
-        height: 68px;
         padding: 12px 0;
         background: $black-10;
         border-radius: 15px;
+
+        .active {
+          animation: enlarge 1.5s ease-in-out;
+
+          @keyframes enlarge {
+            0% {
+              transform: none;
+            }
+
+            50% {
+              transform: scale(1.3);
+            }
+
+            100% {
+              transform: none;
+            }
+          }
+        }
       }
     }
   }
-
 }

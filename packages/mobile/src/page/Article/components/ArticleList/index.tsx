@@ -7,7 +7,9 @@ import {
 } from "@hooks/api/article1";
 import { useBoardArticlesQuery } from "@hooks/api/board1";
 import { useIntersect } from "@hooks/UseIntersect";
+import classnames from "classnames";
 import ArticleItem from "src/page/Article/components/ArticleItem";
+import { DefaultProps } from "src/type/props";
 
 import $ from "./style.module.scss";
 
@@ -29,7 +31,7 @@ const useArticles = () => {
   return useBoardArticlesQuery({ id: Number(kind) });
 };
 
-function ArticleList() {
+function ArticleList({ className }: DefaultProps) {
   const {
     data: articlesData,
     isFetching,
@@ -45,7 +47,7 @@ function ArticleList() {
   });
 
   return (
-    <div className={$["article-list"]}>
+    <div className={classnames($["article-list"], className)}>
       {articlesData?.pages[0].articles.map((articleData) => {
         const {
           id,

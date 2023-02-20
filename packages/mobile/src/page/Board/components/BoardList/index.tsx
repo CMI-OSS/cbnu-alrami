@@ -1,7 +1,7 @@
 /* eslint-disable no-loop-func */
 import { useLocation } from "react-router-dom";
 
-import { useBoardQuery, useBoardSubscribeQuery } from "@hooks/api/board1";
+import { useBoardsQuery, useBoardSubscribeQuery } from "@hooks/api/board1";
 import { ChildBoard, ResponseBoardDto } from "@shared/swagger-api/generated";
 import classnames from "classnames";
 import BoardItem from "src/page/Board/components/BoardItem";
@@ -11,7 +11,7 @@ import { DefaultProps } from "src/type/props";
 import $ from "./style.module.scss";
 
 function BoardList({ className }: DefaultProps) {
-  const { data: boardsData } = useBoardQuery({ uuid: "1111" });
+  const { data: boardsData } = useBoardsQuery({ uuid: "1111" });
   const { data: boardSubscribesData } = useBoardSubscribeQuery({
     uuid: "1111",
   });

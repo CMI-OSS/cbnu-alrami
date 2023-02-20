@@ -1,5 +1,6 @@
 import {
   ArticleApiService,
+  BoardApiService,
   CafeteriaMenu,
 } from "@shared/swagger-api/generated";
 import { GetParams } from "src/type/utils";
@@ -17,8 +18,10 @@ export const queryKey = {
   newArticles: [ "newArticles" ],
   popularArticles: [ "popularArticles" ],
   boardTrees: [ "boardTrees" ],
-  boardTree: (boardId: req.BoardTree["boardId"]) => {
-    return [ "boardTree", boardId ];
+  boardTree: (
+    params: GetParams<typeof BoardApiService.boardControllerFindOne>,
+  ) => {
+    return [ "boardTree", params ];
   },
   bookmarkSchedules: [ "bookmarkSchedules" ],
   subscribeBoards: [ "subscribeBoards" ],

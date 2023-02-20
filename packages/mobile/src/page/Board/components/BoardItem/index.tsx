@@ -74,19 +74,11 @@ function BoardItem({
           {isSubscribe ? (
             <div className={$.icon}>
               <button type="button" onClick={handleUnSubscriptionClick}>
-                <Subscription
-                  size={30}
-                  stroke="#D66D6E
-"
-                />
+                <Subscription size={30} stroke="#D66D6E" />
               </button>
               {isNotice ? (
                 <button type="button" onClick={handleUnNoticeClick}>
-                  <Alarm
-                    size={22}
-                    stroke="#D66D6E
-"
-                  />
+                  <Alarm size={22} stroke="#D66D6E" />
                 </button>
               ) : (
                 <button type="button" onClick={handleNoticeClick}>
@@ -103,6 +95,7 @@ function BoardItem({
       </Link>
     );
   }
+
   return (
     <Link className={$["board-item"]} to={to}>
       <div className={$.title}>{title}</div>

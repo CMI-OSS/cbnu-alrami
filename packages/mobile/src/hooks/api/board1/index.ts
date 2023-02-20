@@ -1,8 +1,4 @@
-import {
-  useCoreInfiniteQuery,
-  useCoreMutation,
-  useCoreQuery,
-} from "@hooks/api/core";
+import { useCoreInfiniteQuery, useCoreMutation, useCoreQuery } from "@hooks/api/core";
 import { BoardApiService } from "@shared/swagger-api/generated";
 import { queryKey } from "src/consts/react-query";
 import { queryClient } from "src/main";
@@ -27,11 +23,17 @@ export const useBoardArticlesQuery = (
   );
 };
 
-export const useBoardQuery = (
+export const useBoardsQuery = (
   params: GetParams<typeof BoardApiService.boardControllerFind>,
 ) => {
   return useCoreQuery(queryKey.boardTrees, () => {
     return BoardApiService.boardControllerFind(params);
+  });
+};
+
+export const useBoardQuery = (params: GetParams<typeof BoardApiService.boardControllerFindOne>) => {
+  return useCoreQuery(queryKey.boardTree(params), () => {
+    return BoardApiService.boardControllerFindOne(params);
   });
 };
 

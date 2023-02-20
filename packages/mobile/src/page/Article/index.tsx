@@ -19,7 +19,7 @@ function Article() {
         </div>
         <Slider />
       </div>
-      <ArticleList />
+      <ArticleList className={$["article-list-wrap"]} />
       <Footer />
     </div>
   );

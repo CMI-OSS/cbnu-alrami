@@ -1,0 +1,8 @@
+.board {
+  .children {
+    min-height: calc(100vh - 34px);
+    background: $black-0;
+    padding: 32px 24px;
+
+  }
+}

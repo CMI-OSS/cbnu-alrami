@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { isAndroid, isIOS } from "react-device-detect";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import HeadMeta from "@components/atoms/HeadMeta";
 import Article from "src/page/Article";
 import ArticleDetail from "src/page/Article/Detail";
+import Board from "src/page/Board";
 import { isStaging, isWebView } from "src/utils/webview";
 
 import useWindowSizeDetect from "./hooks/useWindowSizeDetect";
@@ -40,9 +42,11 @@ function App() {
   }, [ height ]);
 
   const appRoutes = [
-    { path: "/article/*", element: <Article /> },
-    { path: "/calendar", element: <Calendar /> },
     { path: "/home", element: <Home /> },
+    { path: "/calendar", element: <Calendar /> },
+    { path: "/article/*", element: <Article /> },
+    { path: "/article/detail/:articleId", element: <ArticleDetail /> },
+    { path: "/board/*", element: <Board /> },
     { path: "/cafeteria", element: <Cafeteria /> },
     { path: "/map", element: <Map /> },
     {
@@ -54,7 +58,6 @@ function App() {
     { path: "/place/more", element: <MoreImage /> },
     { path: "/school", element: <MapDetail /> },
     { path: "/setting/*", element: <SettingRoute /> },
-    { path: "/article/detail/:articleId", element: <ArticleDetail /> },
     { path: "/*", element: <Navigate replace to="/home" /> },
   ];
   const webRoutes = [
@@ -67,6 +70,7 @@ function App() {
   return (
     <BrowserRouter>
       {mode === "production" && !isWebView && <>딥링크</>}
+      <HeadMeta />
       <Routes>
         {routes.map((route) => {
           return (

@@ -1,6 +1,11 @@
-import { useCoreInfiniteQuery, useCoreQuery } from "@hooks/api/core";
+import {
+  useCoreInfiniteQuery,
+  useCoreMutation,
+  useCoreQuery,
+} from "@hooks/api/core";
 import { BoardApiService } from "@shared/swagger-api/generated";
 import { queryKey } from "src/consts/react-query";
+import { queryClient } from "src/main";
 import { GetParams } from "src/type/utils";
 
 export const useBoardArticlesQuery = (
@@ -35,5 +40,37 @@ export const useBoardSubscribeQuery = (
 ) => {
   return useCoreQuery(queryKey.subscribeBoards, () => {
     return BoardApiService.boardControllerFindSubscribeBoards(params);
+  });
+};
+
+export const useSubscribeBoardMutation = () => {
+  return useCoreMutation(BoardApiService.boardControllerSubscribe, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(queryKey.subscribeBoards);
+    },
+  });
+};
+
+export const useUnSubscribeBoardMutation = () => {
+  return useCoreMutation(BoardApiService.boardControllerUnsubscribe, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(queryKey.subscribeBoards);
+    },
+  });
+};
+
+export const useNoticeBoardMutation = () => {
+  return useCoreMutation(BoardApiService.boardControllerNotice, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(queryKey.subscribeBoards);
+    },
+  });
+};
+
+export const useUnNoticeBoardMutation = () => {
+  return useCoreMutation(BoardApiService.boardControllerUnnotice, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(queryKey.subscribeBoards);
+    },
   });
 };

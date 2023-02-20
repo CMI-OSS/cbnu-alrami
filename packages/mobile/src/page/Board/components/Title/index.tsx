@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-import { Subscription } from "@components/atoms/icon";
+import { UnSubscription } from "@components/atoms/icon";
 
 import $ from "./style.module.scss";
 
@@ -10,24 +10,23 @@ export const getBoardKind = () => {
   const pathnames = pathname.split("/").filter((path) => {
     return path !== "";
   });
-  const id = Number(pathnames.at(-1));
-
+  const id = pathnames.at(-1) || "";
   if (pathnames.length === 1) {
     return { kind: "전체" };
   }
-  if (pathnames.length === 3 && pathname[1] === "1") {
-    return { id, kind: "전공" };
+  if (id[0] === "1" && id.length === 3) {
+    return { kind: "전공" };
   }
-  if (pathnames.length === 2 && pathnames[1] === "1") {
-    return { id, kind: "단과대학" };
+  if (id[0] === "1" && id.length === 1) {
+    return { kind: "단과대학" };
   }
-  if (pathnames[1] === "2") {
-    return { id, kind: "공통" };
+  if (id[0] === "2" && id.length === 1) {
+    return { kind: "공통" };
   }
-  if (pathnames[1] === "3") {
-    return { id, kind: "학생회" };
+  if (id[0] === "3" && id.length === 1) {
+    return { kind: "학생회" };
   }
-  return { id, kind: "공지사항" };
+  return { kind: "공지사항" };
 };
 
 function Title() {
@@ -78,8 +77,9 @@ function Title() {
   }
   return (
     <div className={$.title}>
-      <Subscription size={20} />를 터치하여
-      <br />
+      <div className={$["icon-message"]}>
+        <UnSubscription stroke="#AAAAAA" size={36} />를 터치하여
+      </div>
       원하는 공지를 구독해요!
     </div>
   );

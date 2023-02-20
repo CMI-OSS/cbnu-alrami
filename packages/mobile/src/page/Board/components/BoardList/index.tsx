@@ -1,4 +1,8 @@
+/* eslint-disable no-loop-func */
+import { useLocation } from "react-router-dom";
+
 import { useBoardQuery } from "@hooks/api/board1";
+import { ChildBoard, ResponseBoardDto } from "@shared/swagger-api/generated";
 import classnames from "classnames";
 import BoardItem from "src/page/Board/components/BoardItem";
 import { getBoardKind } from "src/page/Board/components/Title";
@@ -8,11 +12,25 @@ import $ from "./style.module.scss";
 
 function BoardList({ className }: DefaultProps) {
   const { data: boardsData } = useBoardQuery({ uuid: "1111" });
-  const { id, kind } = getBoardKind();
+  const { kind } = getBoardKind();
+
   if (!boardsData) return <></>;
-  const childrensData = boardsData.find((boardData) => {
-    return boardData.id === id;
-  })?.children;
+
+  let boardChildrensData: ResponseBoardDto[] | ChildBoard[] = boardsData;
+  let pathnames = useLocation()
+    .pathname.split("/")
+    .filter((path) => {
+      return path !== "";
+    })
+    .slice(1);
+
+  while (pathnames.length) {
+    boardChildrensData =
+      boardChildrensData.find((boardData) => {
+        return boardData?.id === Number(pathnames[0]);
+      })?.children || [];
+    pathnames = pathnames.slice(1);
+  }
 
   if (kind === "전체") {
     return (
@@ -38,9 +56,10 @@ function BoardList({ className }: DefaultProps) {
 
   return (
     <div className={$["board-list"]}>
-      {childrensData?.map((childrenData) => {
-        const { id, name } = childrenData;
-        return <BoardItem key={id} id={id} title={name} />;
+      {boardChildrensData?.map((boardChildren) => {
+        const { id, name, children } = boardChildren;
+        const isLast = children?.length === 0;
+        return <BoardItem key={id} id={id} title={name} isLast={isLast} />;
       })}
     </div>
   );

@@ -1,11 +1,11 @@
 .board-list {
-  height: calc(100vh - 294px);
+  height: calc(100vh - 310px);
   overflow-y: auto;
 
-  > div {
+  > a {
     margin-bottom: 12px;
 
-    &.last-child {
+    &:last-child {
       margin-bottom: 0;
     }
   }

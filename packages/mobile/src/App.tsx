@@ -7,6 +7,7 @@ import HeadMeta from "@components/atoms/HeadMeta";
 import Article from "src/page/Article";
 import ArticleDetail from "src/page/Article/Detail";
 import Board from "src/page/Board";
+import BoardArticle from "src/page/Board/Article";
 import { isStaging, isWebView } from "src/utils/webview";
 
 import useWindowSizeDetect from "./hooks/useWindowSizeDetect";
@@ -47,6 +48,7 @@ function App() {
     { path: "/article/*", element: <Article /> },
     { path: "/article/detail/:articleId", element: <ArticleDetail /> },
     { path: "/board/*", element: <Board /> },
+    { path: "/board/article/*", element: <BoardArticle /> },
     { path: "/cafeteria", element: <Cafeteria /> },
     { path: "/map", element: <Map /> },
     {

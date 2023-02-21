@@ -5,7 +5,7 @@ import Line from "@components/atoms/Line";
 import {
   usePopularArticlesQuery,
   useSubscribeArticlesQuery,
-} from "@hooks/api/article1";
+} from "@hooks/api/article";
 import classNames from "classnames";
 
 import $ from "./style.module.scss";
@@ -74,7 +74,7 @@ function Article() {
           const { title, id } = articleData;
           return (
             <div className={$.title}>
-              <Link to={`/article/${id}`} key={id}>
+              <Link to={`/article/detail/${id}`} key={id}>
                 {title}
               </Link>
             </div>

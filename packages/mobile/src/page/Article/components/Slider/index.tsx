@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 
 import { Star } from "@components/atoms/icon";
-import { useArticleSubscribeBoardsQuery } from "@hooks/api/subscribe1";
+import { useSubscribeBoardsQuery } from "@hooks/api/board";
 import classNames from "classnames";
 import { DefaultProps } from "src/type/props";
 
@@ -25,7 +25,7 @@ const SliderItem = ({ id, children }: Props) => {
 };
 
 function Slider() {
-  const { data: articleSubscribeBoardsData } = useArticleSubscribeBoardsQuery({
+  const { data: subscribeBoardsData } = useSubscribeBoardsQuery({
     uuid: "1111",
   });
 
@@ -36,9 +36,9 @@ function Slider() {
       </SliderItem>
       <SliderItem id="subscribe">최신</SliderItem>
       <SliderItem id="popular">인기</SliderItem>
-      {articleSubscribeBoardsData?.map((subscribeBoardData) => {
-        const { id, name } = subscribeBoardData;
-        return <SliderItem id={`${id}`}>{name}</SliderItem>;
+      {subscribeBoardsData?.map((subscribeBoardData) => {
+        const { id, combinedName } = subscribeBoardData;
+        return <SliderItem id={`${id}`}>{combinedName}</SliderItem>;
       })}
     </div>
   );

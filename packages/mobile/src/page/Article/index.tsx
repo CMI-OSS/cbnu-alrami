@@ -13,13 +13,13 @@ function Article() {
       <div className={$.header}>
         <div className={$.title}>
           <span>공지사항</span>
-          <Link to="/subscription">
+          <Link to="/board">
             <Setting size={20} />
           </Link>
         </div>
         <Slider />
       </div>
-      <ArticleList />
+      <ArticleList className={$["article-list-wrap"]} />
       <Footer />
     </div>
   );

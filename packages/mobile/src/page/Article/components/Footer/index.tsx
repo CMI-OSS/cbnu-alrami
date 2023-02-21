@@ -2,7 +2,7 @@ import { Internet, Share, Star } from "@components/atoms/icon";
 import {
   useDeleteBookmarkArticleMutation,
   usePostBookmarkArticleMutation,
-} from "@hooks/api/article1";
+} from "@hooks/api/article";
 import { toastSuccess } from "src/utils/toast";
 import { isFromApp } from "src/utils/webview";
 
@@ -21,15 +21,19 @@ function ArticleFooter({
   isUser,
   isScraperArticle,
 }: Props) {
-  const postBookmark = usePostBookmarkArticleMutation({ id: articleId });
-  const deleteBookmark = useDeleteBookmarkArticleMutation({ id: articleId });
+  const uuid = "1111";
+  const postBookmark = usePostBookmarkArticleMutation({ id: articleId, uuid });
+  const deleteBookmark = useDeleteBookmarkArticleMutation({
+    id: articleId,
+    uuid,
+  });
 
   const toggleBookmark = () => {
     if (isBookmark) {
-      deleteBookmark.mutate({ id: articleId, uuid: "1111" });
+      deleteBookmark.mutate({ id: articleId, uuid });
       return;
     }
-    postBookmark.mutate({ id: articleId, uuid: "1111" });
+    postBookmark.mutate({ id: articleId, uuid });
   };
 
   const handleCopyClick = () => {

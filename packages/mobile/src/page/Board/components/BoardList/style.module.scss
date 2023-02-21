@@ -1,0 +1,12 @@
+.board-list {
+  height: calc(100vh - 310px);
+  overflow-y: auto;
+
+  > a {
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

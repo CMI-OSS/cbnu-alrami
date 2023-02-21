@@ -1,0 +1,29 @@
+.board-article {
+  .left {
+    span {
+      margin-left: 16px;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 28px;
+      color: $black-100;
+    }
+  }
+
+  .right {
+    .icon {
+      display: flex;
+
+      button {
+        margin-right: 8px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .article-list-wrap {
+    margin-top: 8px;
+  }
+}

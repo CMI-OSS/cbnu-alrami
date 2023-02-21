@@ -6,25 +6,54 @@ import {
 import { GetParams } from "src/type/utils";
 
 export const queryKey = {
+  // article 도메인
+  popularArticles: (
+    params?: GetParams<
+      typeof ArticleApiService.articleControllerFindPopularArticles
+    >,
+  ) => {
+    return [ "popularArticles", params ];
+  },
+  subscribeArticles: (
+    params?: GetParams<
+      typeof ArticleApiService.articleControllerFindSubscribeArticle
+    >,
+  ) => {
+    return [ "subscribeArticles", params ];
+  },
+  bookmarkArticles: (
+    params?: GetParams<
+      typeof ArticleApiService.articleControllerFindBookmarkArticle
+    >,
+  ) => {
+    return [ "bookmarkArticles", params ];
+  },
   article: (
     params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
   ) => {
     return [ "article", params ];
   },
-  boardArticles: (boardId: req.Article["boardId"]) => {
-    return [ "boardArticles", boardId ];
-  },
-  bookmarkArticles: [ "bookmarkArticles" ],
-  newArticles: [ "newArticles" ],
-  popularArticles: [ "popularArticles" ],
-  boardTrees: [ "boardTrees" ],
-  boardTree: (
-    params: GetParams<typeof BoardApiService.boardControllerFindOne>,
+  // board 도메인
+  boardArticles: (
+    params: GetParams<typeof BoardApiService.boardControllerFindArticlePage>,
   ) => {
-    return [ "boardTree", params ];
+    return [ "boardArticles", params ];
   },
+  subscribeBoards: (
+    params: GetParams<
+      typeof BoardApiService.boardControllerFindSubscribeBoards
+    >,
+  ) => {
+    return [ "subscribeBoards", params ];
+  },
+  boards: (params: GetParams<typeof BoardApiService.boardControllerFind>) => {
+    return [ "boards", params ];
+  },
+  board: (params: GetParams<typeof BoardApiService.boardControllerFindOne>) => {
+    return [ "board", params ];
+  },
+
   bookmarkSchedules: [ "bookmarkSchedules" ],
-  subscribeBoards: [ "subscribeBoards" ],
   weathers: [ "weathers" ],
   schedules: [ "schedules" ],
   todaysSchedules: [ "todaysSchedules" ],

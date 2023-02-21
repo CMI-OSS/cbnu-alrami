@@ -21,11 +21,11 @@ const useArticles = () => {
   }
 
   if (kind === "subscribe") {
-    return useSubscribeArticlesQuery();
+    return useSubscribeArticlesQuery({ uuid: "1111" });
   }
 
   if (kind === "bookmark") {
-    return useBookmarkArticlesQuery();
+    return useBookmarkArticlesQuery({ uuid: "1111" });
   }
 
   return useBoardArticlesQuery({ id: Number(kind) });
@@ -48,29 +48,31 @@ function ArticleList({ className }: DefaultProps) {
 
   return (
     <div className={classnames($["article-list"], className)}>
-      {articlesData?.pages[0].articles.map((articleData) => {
-        const {
-          id,
-          title,
-          createdDateTime,
-          bookmarkCount,
-          viewCount,
-          board: { name, parent },
-        } = articleData;
-        const boardName = parent?.name ? `${parent.name} > ${name}` : name;
-        return (
-          <ArticleItem
-            key={id}
-            {...{
-              id,
-              title,
-              createdDateTime,
-              viewCount,
-              bookmarkCount,
-              boardName,
-            }}
-          />
-        );
+      {articlesData?.pages.map((articlesData) => {
+        return articlesData.articles.map((article) => {
+          const {
+            id,
+            title,
+            createdDateTime,
+            bookmarkCount,
+            viewCount,
+            board: { name, parent },
+          } = article;
+          const boardName = parent?.name ? `${parent.name} > ${name}` : name;
+          return (
+            <ArticleItem
+              key={id}
+              {...{
+                id,
+                title,
+                createdDateTime,
+                viewCount,
+                bookmarkCount,
+                boardName,
+              }}
+            />
+          );
+        });
       })}
       <div ref={ref} />
     </div>

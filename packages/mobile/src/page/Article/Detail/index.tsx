@@ -16,22 +16,23 @@ import ArticleFooter from "src/page/Article/components/Footer";
 import $ from "./style.module.scss";
 
 function ArticleDetail() {
+  const uuid = "1111";
   const { pathname } = useLocation();
   const articleId = Number(pathname.split("/").at(-1));
   const [ isLikeClick, setIsLikeClick ] = useState(false);
   const { data: articleData, isLoading } = useArticleQuery({
     id: articleId,
-    uuid: "1111",
+    uuid,
   });
 
   const postLikeArticle = usePostLikeArticleMutation({
     id: articleId,
-    uuid: "1111",
+    uuid,
   });
 
   const deleteLikeArticle = useDeleteLikeArticleMutation({
     id: articleId,
-    uuid: "1111",
+    uuid,
   });
 
   if (isLoading) return <></>;
@@ -52,11 +53,11 @@ function ArticleDetail() {
   const handleToggleLikeClick = (articleId: number) => {
     if (isLike) {
       setIsLikeClick(false);
-      deleteLikeArticle.mutate({ id: articleId, uuid: "1111" });
+      deleteLikeArticle.mutate({ id: articleId, uuid });
       return;
     }
     setIsLikeClick(true);
-    postLikeArticle.mutate({ id: articleId, uuid: "1111" });
+    postLikeArticle.mutate({ id: articleId, uuid });
   };
 
   const isScraperArticle = `${id}`[0] === ("1" || "2");
@@ -102,7 +103,6 @@ function ArticleDetail() {
             </button>
           </div>
         </div>
-
         <ArticleFooter
           {...{ articleId, isBookmark, isUser, isScraperArticle }}
         />

@@ -10,15 +10,15 @@ export const getBoardKind = () => {
   const pathnames = pathname.split("/").filter((path) => {
     return path !== "";
   });
-  const id = pathnames.at(-1) || "";
-  if (pathnames.length === 1) {
+  const id = `${pathnames.at(-1)}`;
+  if (id === "board") {
     return { kind: "전체" };
-  }
-  if (id[0] === "1" && id.length === 3) {
-    return { kind: "전공" };
   }
   if (id[0] === "1" && id.length === 1) {
     return { kind: "단과대학" };
+  }
+  if (id[0] === "1" && id.length === 3) {
+    return { kind: "전공" };
   }
   if (id[0] === "2" && id.length === 1) {
     return { kind: "공통" };

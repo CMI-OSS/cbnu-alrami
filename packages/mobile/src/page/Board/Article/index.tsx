@@ -22,28 +22,29 @@ import $ from "./style.module.scss";
 
 function BoardArticle() {
   const id = Number(useLocation().pathname.split("/").at(-1));
-  const { data: boardData } = useBoardQuery({ id, uuid: "1111" });
-  const postSubscribeBoard = useSubscribeBoardMutation();
-  const deleteSubscribeBoard = useUnSubscribeBoardMutation();
-  const postNoticeBoard = useNoticeBoardMutation();
-  const deleteUnNoticeBoard = useUnNoticeBoardMutation();
+  const uuid = "1111";
+  const { data: boardData } = useBoardQuery({ id, uuid });
+  const postSubscribeBoard = useSubscribeBoardMutation({ id, uuid });
+  const deleteSubscribeBoard = useUnSubscribeBoardMutation({ id, uuid });
+  const postNoticeBoard = useNoticeBoardMutation({ id, uuid });
+  const deleteUnNoticeBoard = useUnNoticeBoardMutation({ id, uuid });
 
   if (!boardData) return <></>;
 
   const handleUnNoticeClick = () => {
-    deleteUnNoticeBoard.mutate({ id, uuid: "1111" });
+    deleteUnNoticeBoard.mutate({ id, uuid });
   };
 
   const handleNoticeClick = () => {
-    postNoticeBoard.mutate({ id, uuid: "1111" });
+    postNoticeBoard.mutate({ id, uuid });
   };
 
   const handleUnSubscriptionClick = () => {
-    deleteSubscribeBoard.mutate({ id, uuid: "1111" });
+    deleteSubscribeBoard.mutate({ id, uuid });
   };
 
   const handleSubscriptionClick = () => {
-    postSubscribeBoard.mutate({ id, uuid: "1111" });
+    postSubscribeBoard.mutate({ id, uuid });
   };
 
   const { name, isNotice, isSubscribe } = boardData;

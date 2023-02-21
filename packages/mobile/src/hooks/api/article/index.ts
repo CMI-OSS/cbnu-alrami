@@ -17,7 +17,7 @@ export const usePopularArticlesQuery = (
   >,
 ) => {
   return useCoreInfiniteQuery<ResponseArticlePageDto>(
-    queryKey.popularArticles,
+    queryKey.popularArticles(params),
     ({ pageParam = 1 }) => {
       return ArticleApiService.articleControllerFindPopularArticles({
         ...params,
@@ -38,12 +38,11 @@ export const useSubscribeArticlesQuery = (
   >,
 ) => {
   return useCoreInfiniteQuery<ResponseArticlePageDto>(
-    queryKey.newArticles,
+    queryKey.subscribeArticles(params),
     ({ pageParam = 1 }) => {
       return ArticleApiService.articleControllerFindSubscribeArticle({
         ...params,
         page: pageParam,
-        uuid: "1111",
       });
     },
     {
@@ -53,18 +52,18 @@ export const useSubscribeArticlesQuery = (
     },
   );
 };
+
 export const useBookmarkArticlesQuery = (
   params?: GetParams<
     typeof ArticleApiService.articleControllerFindBookmarkArticle
   >,
 ) => {
   return useCoreInfiniteQuery(
-    queryKey.bookmarkArticles,
+    queryKey.bookmarkArticles(params),
     ({ pageParam = 1 }) => {
       return ArticleApiService.articleControllerFindBookmarkArticle({
         ...params,
         page: pageParam,
-        uuid: "1111",
       });
     },
     {

@@ -11,18 +11,17 @@ import { DefaultProps } from "src/type/props";
 import $ from "./style.module.scss";
 
 function BoardList({ className }: DefaultProps) {
-  const { data: boardsData } = useBoardsQuery({ uuid: "1111" });
-  const { data: subscribeBoardsData } = useSubscribeBoardsQuery({
-    uuid: "1111",
-  });
-
+  const uuid = "1111";
+  const { data: boardsData } = useBoardsQuery({ uuid });
+  const { data: subscribeBoardsData } = useSubscribeBoardsQuery({ uuid });
+  const { pathname } = useLocation();
   const { kind } = getBoardKind();
 
   if (!boardsData) return <></>;
 
   let boardChildrensData: ResponseBoardDto[] | ChildBoard[] = boardsData;
-  let pathnames = useLocation()
-    .pathname.split("/")
+  let pathnames = pathname
+    .split("/")
     .filter((path) => {
       return path !== "";
     })
@@ -60,10 +59,10 @@ function BoardList({ className }: DefaultProps) {
 
   return (
     <div className={$["board-list"]}>
-      {boardChildrensData?.map((boardChildren) => {
-        const { id, name, children } = boardChildren;
+      {boardChildrensData?.map((boardChildrenData) => {
+        const { id, name, children } = boardChildrenData;
         const isLast = children?.length === 0;
-        const subscribeboard = subscribeBoardsData?.find(
+        const subscribeBoard = subscribeBoardsData?.find(
           (subscribeBoardData) => {
             return subscribeBoardData.id === id;
           },
@@ -74,8 +73,8 @@ function BoardList({ className }: DefaultProps) {
             id={id}
             title={name}
             isLast={isLast}
-            isNotice={subscribeboard?.isNotice ?? false}
-            isSubscribe={subscribeboard?.isSubscribe ?? false}
+            isNotice={subscribeBoard?.isNotice ?? false}
+            isSubscribe={subscribeBoard?.isSubscribe ?? false}
           />
         );
       })}

@@ -36,31 +36,32 @@ function BoardItem({
 }: Props) {
   const { pathname } = useLocation();
   const to = isLast ? `/board/article/${id}` : `${pathname}/${id}`;
-  const postSubscribeBoard = useSubscribeBoardMutation();
-  const deleteSubscribeBoard = useUnSubscribeBoardMutation();
-  const postNoticeBoard = useNoticeBoardMutation();
-  const deleteUnNoticeBoard = useUnNoticeBoardMutation();
+  const uuid = "1111";
+  const postSubscribeBoard = useSubscribeBoardMutation({ id, uuid });
+  const deleteSubscribeBoard = useUnSubscribeBoardMutation({ id, uuid });
+  const postNoticeBoard = useNoticeBoardMutation({ id, uuid });
+  const deleteUnNoticeBoard = useUnNoticeBoardMutation({ id, uuid });
 
   const handleUnNoticeClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    deleteUnNoticeBoard.mutate({ id, uuid: "1111" });
+    deleteUnNoticeBoard.mutate({ id, uuid });
   };
 
   const handleNoticeClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    postNoticeBoard.mutate({ id, uuid: "1111" });
+    postNoticeBoard.mutate({ id, uuid });
   };
 
   const handleUnSubscriptionClick = (
     e: React.MouseEvent<HTMLButtonElement>,
   ) => {
     e.preventDefault();
-    deleteSubscribeBoard.mutate({ id, uuid: "1111" });
+    deleteSubscribeBoard.mutate({ id, uuid });
   };
 
   const handleSubscriptionClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    postSubscribeBoard.mutate({ id, uuid: "1111" });
+    postSubscribeBoard.mutate({ id, uuid });
   };
 
   if (isLast) {

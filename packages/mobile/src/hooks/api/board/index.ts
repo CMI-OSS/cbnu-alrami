@@ -12,7 +12,7 @@ export const useBoardArticlesQuery = (
   params: GetParams<typeof BoardApiService.boardControllerFindArticlePage>,
 ) => {
   return useCoreInfiniteQuery(
-    queryKey.boardArticles(params.id),
+    queryKey.boardArticles(params),
     ({ pageParam = 1 }) => {
       return BoardApiService.boardControllerFindArticlePage({
         page: pageParam,
@@ -27,27 +27,11 @@ export const useBoardArticlesQuery = (
   );
 };
 
-export const useBoardsQuery = (
-  params: GetParams<typeof BoardApiService.boardControllerFind>,
-) => {
-  return useCoreQuery(queryKey.boardTrees, () => {
-    return BoardApiService.boardControllerFind(params);
-  });
-};
-
-export const useBoardQuery = (
-  params: GetParams<typeof BoardApiService.boardControllerFindOne>,
-) => {
-  return useCoreQuery(queryKey.boardTree(params), () => {
-    return BoardApiService.boardControllerFindOne(params);
-  });
-};
-
 export const useSubscribeBoardsQuery = (
   params: GetParams<typeof BoardApiService.boardControllerFindSubscribeBoards>,
 ) => {
   return useCoreQuery(
-    queryKey.subscribeBoards,
+    queryKey.subscribeBoards(params),
     () => {
       return BoardApiService.boardControllerFindSubscribeBoards(params);
     },
@@ -66,34 +50,62 @@ export const useSubscribeBoardsQuery = (
   );
 };
 
-export const useSubscribeBoardMutation = () => {
+export const useBoardsQuery = (
+  params: GetParams<typeof BoardApiService.boardControllerFind>,
+) => {
+  return useCoreQuery(queryKey.boards(params), () => {
+    return BoardApiService.boardControllerFind(params);
+  });
+};
+
+export const useBoardQuery = (
+  params: GetParams<typeof BoardApiService.boardControllerFindOne>,
+) => {
+  return useCoreQuery(queryKey.board(params), () => {
+    return BoardApiService.boardControllerFindOne(params);
+  });
+};
+
+export const useSubscribeBoardMutation = (
+  params: GetParams<typeof BoardApiService.boardControllerFindOne>,
+) => {
   return useCoreMutation(BoardApiService.boardControllerSubscribe, {
     onSuccess: () => {
-      queryClient.invalidateQueries(queryKey.subscribeBoards);
+      queryClient.invalidateQueries(queryKey.subscribeBoards(params));
+      queryClient.invalidateQueries(queryKey.board(params));
     },
   });
 };
 
-export const useUnSubscribeBoardMutation = () => {
+export const useUnSubscribeBoardMutation = (
+  params: GetParams<typeof BoardApiService.boardControllerFindOne>,
+) => {
   return useCoreMutation(BoardApiService.boardControllerUnsubscribe, {
     onSuccess: () => {
-      queryClient.invalidateQueries(queryKey.subscribeBoards);
+      queryClient.invalidateQueries(queryKey.subscribeBoards(params));
+      queryClient.invalidateQueries(queryKey.board(params));
     },
   });
 };
 
-export const useNoticeBoardMutation = () => {
+export const useNoticeBoardMutation = (
+  params: GetParams<typeof BoardApiService.boardControllerFindOne>,
+) => {
   return useCoreMutation(BoardApiService.boardControllerNotice, {
     onSuccess: () => {
-      queryClient.invalidateQueries(queryKey.subscribeBoards);
+      queryClient.invalidateQueries(queryKey.subscribeBoards(params));
+      queryClient.invalidateQueries(queryKey.board(params));
     },
   });
 };
 
-export const useUnNoticeBoardMutation = () => {
+export const useUnNoticeBoardMutation = (
+  params: GetParams<typeof BoardApiService.boardControllerFindOne>,
+) => {
   return useCoreMutation(BoardApiService.boardControllerUnnotice, {
     onSuccess: () => {
-      queryClient.invalidateQueries(queryKey.subscribeBoards);
+      queryClient.invalidateQueries(queryKey.subscribeBoards(params));
+      queryClient.invalidateQueries(queryKey.board(params));
     },
   });
 };

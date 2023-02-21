@@ -74,7 +74,7 @@ function Article() {
           const { title, id } = articleData;
           return (
             <div className={$.title}>
-              <Link to={`/article/${id}`} key={id}>
+              <Link to={`/article/detail/${id}`} key={id}>
                 {title}
               </Link>
             </div>

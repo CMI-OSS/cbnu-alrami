@@ -16,7 +16,7 @@ function BoardList({ className }: DefaultProps) {
   const { pathname } = useLocation();
   const { kind } = getBoardKind();
 
-  if (!boardsData) return <></>;
+  if (!boardsData) return <div className={$["board-list"]} />;
 
   let boardChildrensData: ResponseBoardDto[] | ChildBoard[] = boardsData;
   let pathnames = pathname

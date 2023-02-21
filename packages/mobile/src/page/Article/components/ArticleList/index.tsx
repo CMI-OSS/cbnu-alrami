@@ -8,36 +8,40 @@ import {
 import { useBoardArticlesQuery } from "@hooks/api/board";
 import { useIntersect } from "@hooks/UseIntersect";
 import classnames from "classnames";
+import guideEmptyArticle from "src/assets/guide_empty_article.png";
+import guideEmptyBookmark from "src/assets/guide_empty_bookmark.png";
+import guideEmptySubscription from "src/assets/guide_empty_subscription.png";
 import ArticleItem from "src/page/Article/components/ArticleItem";
 import { DefaultProps } from "src/type/props";
 
 import $ from "./style.module.scss";
 
-const useArticles = () => {
-  const { pathname } = useLocation();
-  const kind = pathname.split("/").at(-1);
+const useArticles = ({ kind }: { kind: string }) => {
   if (kind === "popular") {
     return usePopularArticlesQuery();
   }
 
   if (kind === "subscribe") {
-    return useSubscribeArticlesQuery({ uuid: "1111" });
+    return useSubscribeArticlesQuery();
   }
 
   if (kind === "bookmark") {
-    return useBookmarkArticlesQuery({ uuid: "1111" });
+    return useBookmarkArticlesQuery();
   }
 
   return useBoardArticlesQuery({ id: Number(kind) });
 };
 
 function ArticleList({ className }: DefaultProps) {
+  const { pathname } = useLocation();
+  const kind = pathname.split("/").at(-1) || "";
+
   const {
     data: articlesData,
     isFetching,
     hasNextPage,
     fetchNextPage,
-  } = useArticles();
+  } = useArticles({ kind });
 
   const ref = useIntersect(async (entry, observer) => {
     observer.unobserve(entry.target);
@@ -45,6 +49,44 @@ function ArticleList({ className }: DefaultProps) {
       await fetchNextPage();
     }
   });
+
+  const isArticleEmpty = articlesData?.pages[0].pagination.totalItemCount === 0;
+
+  if (isArticleEmpty && kind === "subscribe") {
+    return (
+      <div className={classnames($["empty-article-list"], className)}>
+        <img
+          width={266}
+          src={guideEmptySubscription}
+          alt="구독중인 공지사항 없음"
+        />
+      </div>
+    );
+  }
+
+  if (isArticleEmpty && kind === "bookmark") {
+    return (
+      <div className={classnames($["empty-article-list"], className)}>
+        <img
+          width={247}
+          src={guideEmptyBookmark}
+          alt="북마크된 공지사항 없음"
+        />
+      </div>
+    );
+  }
+
+  if (isArticleEmpty) {
+    return (
+      <div className={classnames($["empty-article-list"], className)}>
+        <img
+          width={248}
+          src={guideEmptyArticle}
+          alt="업데이트된 공지사항 없음"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className={classnames($["article-list"], className)}>

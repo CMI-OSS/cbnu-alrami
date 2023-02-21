@@ -10,10 +10,10 @@ import { boardOriginStatus } from "src/states";
 import $ from "./style.module.scss";
 
 function Article() {
-  const setBoardOriginState = useSetRecoilState(boardOriginStatus);
+  const setBoardOrigin = useSetRecoilState(boardOriginStatus);
 
   const handleSettingClick = () => {
-    setBoardOriginState("article");
+    setBoardOrigin("article");
   };
   return (
     <div className={$.article}>

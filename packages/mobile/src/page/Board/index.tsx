@@ -12,10 +12,10 @@ import { boardOriginStatus } from "src/states";
 import $ from "./style.module.scss";
 
 function Board() {
-  const boardOriginState = useRecoilValue(boardOriginStatus);
+  const boardOrigin = useRecoilValue(boardOriginStatus);
   const to =
-    boardOriginState === "setting" ? `/setting/board` : "/article/subscribe";
-  
+    boardOrigin === "setting" ? `/setting/board` : "/article/subscribe";
+
   return (
     <div className={$.board}>
       <FullPageModalTemplate

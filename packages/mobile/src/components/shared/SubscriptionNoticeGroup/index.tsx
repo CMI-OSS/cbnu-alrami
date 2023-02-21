@@ -17,7 +17,6 @@ import { DefaultProps } from "src/type/props";
 
 import $ from "./style.module.scss";
 
-
 type Props = {
   id: number;
   isNotice: boolean;
@@ -30,32 +29,31 @@ function SubscriptionNoticeGroup({
   isSubscribe,
   className,
 }: Props) {
-  const uuid = "1111";
-  const postSubscribeBoard = useSubscribeBoardMutation({ id, uuid });
-  const deleteSubscribeBoard = useUnSubscribeBoardMutation({ id, uuid });
-  const postNoticeBoard = useNoticeBoardMutation({ id, uuid });
-  const deleteUnNoticeBoard = useUnNoticeBoardMutation({ id, uuid });
+  const postSubscribeBoard = useSubscribeBoardMutation({ id });
+  const deleteSubscribeBoard = useUnSubscribeBoardMutation({ id });
+  const postNoticeBoard = useNoticeBoardMutation({ id });
+  const deleteUnNoticeBoard = useUnNoticeBoardMutation({ id });
 
   const handleUnNoticeClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    deleteUnNoticeBoard.mutate({ id, uuid });
+    deleteUnNoticeBoard.mutate({ id });
   };
 
   const handleNoticeClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    postNoticeBoard.mutate({ id, uuid });
+    postNoticeBoard.mutate({ id });
   };
 
   const handleUnSubscriptionClick = (
     e: React.MouseEvent<HTMLButtonElement>,
   ) => {
     e.preventDefault();
-    deleteSubscribeBoard.mutate({ id, uuid });
+    deleteSubscribeBoard.mutate({ id });
   };
 
   const handleSubscriptionClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    postSubscribeBoard.mutate({ id, uuid });
+    postSubscribeBoard.mutate({ id });
   };
 
   return (

@@ -61,7 +61,7 @@ export const queryKey = {
     return [ "cafeteria", name, date ];
   },
   schools: [ "schools" ],
-  school: (placeId: req.School["placeId"]) => {
+  school: (placeId: number) => {
     return [ "school", placeId ];
   },
 };

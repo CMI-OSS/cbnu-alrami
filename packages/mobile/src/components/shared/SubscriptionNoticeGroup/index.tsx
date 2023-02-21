@@ -14,7 +14,6 @@ import {
 } from "@hooks/api/board";
 import classnames from "classnames";
 import { DefaultProps } from "src/type/props";
-import { toastSuccess } from "src/utils/toast";
 
 import $ from "./style.module.scss";
 
@@ -37,60 +36,24 @@ function SubscriptionNoticeGroup({
 
   const handleUnNoticeClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    deleteUnNoticeBoard.mutate(
-      { id },
-      {
-        onSuccess: () => {
-          toastSuccess({
-            message: "구독이 해제되었습니다.",
-          });
-        },
-      },
-    );
+    deleteUnNoticeBoard.mutate({ id });
   };
 
   const handleNoticeClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    postNoticeBoard.mutate(
-      { id },
-      {
-        onSuccess: () => {
-          toastSuccess({
-            message: "구독이 추가되었습니다.",
-          });
-        },
-      },
-    );
+    postNoticeBoard.mutate({ id });
   };
 
   const handleUnSubscriptionClick = (
     e: React.MouseEvent<HTMLButtonElement>,
   ) => {
     e.preventDefault();
-    deleteSubscribeBoard.mutate(
-      { id },
-      {
-        onSuccess: () => {
-          toastSuccess({
-            message: "알림이 해제되었습니다.",
-          });
-        },
-      },
-    );
+    deleteSubscribeBoard.mutate({ id });
   };
 
   const handleSubscriptionClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    postSubscribeBoard.mutate(
-      { id },
-      {
-        onSuccess: () => {
-          toastSuccess({
-            message: "알림이 설정되었습니다.",
-          });
-        },
-      },
-    );
+    postSubscribeBoard.mutate({ id });
   };
 
   return (

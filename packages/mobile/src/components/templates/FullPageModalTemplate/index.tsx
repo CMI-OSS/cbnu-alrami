@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import $ from "./style.module.scss";
 
@@ -10,8 +10,10 @@ type Props = {
   children: React.ReactNode;
 };
 
+// MEMO: /board에서 +후 x클릭 시 히스토리에 쌓이기 때문에 설정부분 뒤로가기 분기처리
 function FullPageModalTemplate({ left, title, right, children }: Props) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   return (
     <div className={$["full-modal"]}>
@@ -20,6 +22,12 @@ function FullPageModalTemplate({ left, title, right, children }: Props) {
           type="button"
           className={$.left}
           onClick={() => {
+            if (pathname === "/setting/board") {
+              return navigate("/setting");
+            }
+            if (pathname === "/setting") {
+              return navigate("/home");
+            }
             return navigate(-1);
           }}
         >

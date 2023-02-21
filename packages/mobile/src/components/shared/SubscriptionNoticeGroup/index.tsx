@@ -12,16 +12,24 @@ import {
   useUnNoticeBoardMutation,
   useUnSubscribeBoardMutation,
 } from "@hooks/api/board";
+import classnames from "classnames";
+import { DefaultProps } from "src/type/props";
 
 import $ from "./style.module.scss";
+
 
 type Props = {
   id: number;
   isNotice: boolean;
   isSubscribe: boolean;
-};
+} & DefaultProps;
 
-function SubscriptionNoticeGroup({ id, isNotice, isSubscribe }: Props) {
+function SubscriptionNoticeGroup({
+  id,
+  isNotice,
+  isSubscribe,
+  className,
+}: Props) {
   const uuid = "1111";
   const postSubscribeBoard = useSubscribeBoardMutation({ id, uuid });
   const deleteSubscribeBoard = useUnSubscribeBoardMutation({ id, uuid });
@@ -51,7 +59,7 @@ function SubscriptionNoticeGroup({ id, isNotice, isSubscribe }: Props) {
   };
 
   return (
-    <div className={$["subscription-notice-group"]}>
+    <div className={classnames($["subscription-notice-group"], className)}>
       {isSubscribe ? (
         <div className={$.group}>
           <button type="button" onClick={handleUnSubscriptionClick}>

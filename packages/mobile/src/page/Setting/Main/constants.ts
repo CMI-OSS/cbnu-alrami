@@ -13,7 +13,7 @@ const settingMenuList = [
   {
     icon: Alarm,
     label: "구독/알림",
-    to: "./subscription",
+    to: "./board",
   },
   {
     icon: Food,

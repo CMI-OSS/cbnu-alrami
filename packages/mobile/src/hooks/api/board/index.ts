@@ -31,7 +31,7 @@ export const useSubscribeBoardsQuery = (
   params: GetParams<typeof BoardApiService.boardControllerFindSubscribeBoards>,
 ) => {
   return useCoreQuery(
-    queryKey.subscribeBoards(params),
+    queryKey.subscribeBoards,
     () => {
       return BoardApiService.boardControllerFindSubscribeBoards(params);
     },
@@ -71,8 +71,10 @@ export const useSubscribeBoardMutation = (
 ) => {
   return useCoreMutation(BoardApiService.boardControllerSubscribe, {
     onSuccess: () => {
-      queryClient.invalidateQueries(queryKey.subscribeBoards(params));
-      queryClient.invalidateQueries(queryKey.board(params));
+      Promise.all([
+        queryClient.invalidateQueries(queryKey.subscribeBoards),
+        queryClient.invalidateQueries(queryKey.board(params)),
+      ]);
     },
   });
 };
@@ -82,8 +84,10 @@ export const useUnSubscribeBoardMutation = (
 ) => {
   return useCoreMutation(BoardApiService.boardControllerUnsubscribe, {
     onSuccess: () => {
-      queryClient.invalidateQueries(queryKey.subscribeBoards(params));
-      queryClient.invalidateQueries(queryKey.board(params));
+      Promise.all([
+        queryClient.invalidateQueries(queryKey.subscribeBoards),
+        queryClient.invalidateQueries(queryKey.board(params)),
+      ]);
     },
   });
 };
@@ -93,8 +97,10 @@ export const useNoticeBoardMutation = (
 ) => {
   return useCoreMutation(BoardApiService.boardControllerNotice, {
     onSuccess: () => {
-      queryClient.invalidateQueries(queryKey.subscribeBoards(params));
-      queryClient.invalidateQueries(queryKey.board(params));
+      Promise.all([
+        queryClient.invalidateQueries(queryKey.subscribeBoards),
+        queryClient.invalidateQueries(queryKey.board(params)),
+      ]);
     },
   });
 };
@@ -104,8 +110,10 @@ export const useUnNoticeBoardMutation = (
 ) => {
   return useCoreMutation(BoardApiService.boardControllerUnnotice, {
     onSuccess: () => {
-      queryClient.invalidateQueries(queryKey.subscribeBoards(params));
-      queryClient.invalidateQueries(queryKey.board(params));
+      Promise.all([
+        queryClient.invalidateQueries(queryKey.subscribeBoards),
+        queryClient.invalidateQueries(queryKey.board(params)),
+      ]);
     },
   });
 };

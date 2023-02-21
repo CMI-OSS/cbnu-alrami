@@ -1,0 +1,13 @@
+.subscription-notice-group {
+  .group {
+    display: flex;
+
+    button {
+      margin-right: 8px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

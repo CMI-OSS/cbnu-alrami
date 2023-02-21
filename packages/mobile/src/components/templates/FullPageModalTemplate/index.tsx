@@ -10,11 +10,11 @@ type Props = {
   children: React.ReactNode;
 };
 
+// MEMO: /board에서 +후 x클릭 시 히스토리에 쌓이기 때문에 설정부분 뒤로가기 분기처리
 function FullPageModalTemplate({ left, title, right, children }: Props) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  // TODO: 분기처리 지우기.. 모달에서 X누르면 그 전 history state를 삭제가 안되서 이렇게 작업
   return (
     <div className={$["full-modal"]}>
       <div className={$.header}>
@@ -22,7 +22,10 @@ function FullPageModalTemplate({ left, title, right, children }: Props) {
           type="button"
           className={$.left}
           onClick={() => {
-            if (pathname === "/setting/subscription") {
+            if (pathname === "/setting/board") {
+              return navigate("/setting");
+            }
+            if (pathname === "/setting") {
               return navigate("/home");
             }
             return navigate(-1);

@@ -39,13 +39,7 @@ export const queryKey = {
   ) => {
     return [ "boardArticles", params ];
   },
-  subscribeBoards: (
-    params: GetParams<
-      typeof BoardApiService.boardControllerFindSubscribeBoards
-    >,
-  ) => {
-    return [ "subscribeBoards", params ];
-  },
+  subscribeBoards: [ "subscribeBoards" ],
   boards: (params: GetParams<typeof BoardApiService.boardControllerFind>) => {
     return [ "boards", params ];
   },

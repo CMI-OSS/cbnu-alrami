@@ -10,13 +10,11 @@ import { boardOriginStatus } from "src/states";
 import $ from "./style.module.scss";
 
 function Board() {
-  const { data: subscribeBoardsData } = useSubscribeBoardsQuery({
-    uuid: "1111",
-  });
-  const setBoardOriginState = useSetRecoilState(boardOriginStatus);
+  const { data: subscribeBoardsData } = useSubscribeBoardsQuery();
+  const setBoardOrigin = useSetRecoilState(boardOriginStatus);
 
   const handlePlusClick = () => {
-    setBoardOriginState("setting");
+    setBoardOrigin("setting");
   };
 
   return (

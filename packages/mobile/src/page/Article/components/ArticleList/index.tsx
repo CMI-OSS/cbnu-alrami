@@ -21,11 +21,11 @@ const useArticles = () => {
   }
 
   if (kind === "subscribe") {
-    return useSubscribeArticlesQuery({ uuid: "1111" });
+    return useSubscribeArticlesQuery();
   }
 
   if (kind === "bookmark") {
-    return useBookmarkArticlesQuery({ uuid: "1111" });
+    return useBookmarkArticlesQuery();
   }
 
   return useBoardArticlesQuery({ id: Number(kind) });

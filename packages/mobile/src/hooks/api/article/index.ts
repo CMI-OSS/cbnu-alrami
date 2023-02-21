@@ -10,6 +10,9 @@ import {
 import { queryKey } from "src/consts/react-query";
 import { queryClient } from "src/main";
 import { GetParams } from "src/type/utils";
+import { getUuid } from "src/utils/storage";
+
+const uuid = getUuid();
 
 export const usePopularArticlesQuery = (
   params?: GetParams<
@@ -38,10 +41,11 @@ export const useSubscribeArticlesQuery = (
   >,
 ) => {
   return useCoreInfiniteQuery<ResponseArticlePageDto>(
-    queryKey.subscribeArticles(params),
+    queryKey.subscribeArticles({ ...params, uuid }),
     ({ pageParam = 1 }) => {
       return ArticleApiService.articleControllerFindSubscribeArticle({
         ...params,
+        uuid,
         page: pageParam,
       });
     },
@@ -59,10 +63,11 @@ export const useBookmarkArticlesQuery = (
   >,
 ) => {
   return useCoreInfiniteQuery(
-    queryKey.bookmarkArticles(params),
+    queryKey.bookmarkArticles({ ...params, uuid }),
     ({ pageParam = 1 }) => {
       return ArticleApiService.articleControllerFindBookmarkArticle({
         ...params,
+        uuid,
         page: pageParam,
       });
     },
@@ -77,47 +82,75 @@ export const useBookmarkArticlesQuery = (
 export const useArticleQuery = (
   params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
 ) => {
-  return useCoreQuery(queryKey.article(params), () => {
-    return ArticleApiService.articleControllerFindOne(params);
+  return useCoreQuery(queryKey.article({ ...params, uuid }), () => {
+    return ArticleApiService.articleControllerFindOne({ ...params, uuid });
   });
 };
 
 export const usePostBookmarkArticleMutation = (
   params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
 ) => {
-  return useCoreMutation(ArticleApiService.articleControllerBookmark, {
-    onSuccess: () => {
-      return queryClient.invalidateQueries(queryKey.article(params));
+  return useCoreMutation(
+    () => {
+      return ArticleApiService.articleControllerBookmark({ ...params, uuid });
     },
-  });
+    {
+      onSuccess: () => {
+        return queryClient.invalidateQueries(
+          queryKey.article({ ...params, uuid }),
+        );
+      },
+    },
+  );
 };
 
 export const useDeleteBookmarkArticleMutation = (
   params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
 ) => {
-  return useCoreMutation(ArticleApiService.articleControllerUnbookmark, {
-    onSuccess: () => {
-      return queryClient.invalidateQueries(queryKey.article(params));
+  return useCoreMutation(
+    () => {
+      return ArticleApiService.articleControllerUnbookmark({ ...params, uuid });
     },
-  });
+    {
+      onSuccess: () => {
+        return queryClient.invalidateQueries(
+          queryKey.article({ ...params, uuid }),
+        );
+      },
+    },
+  );
 };
 
 export const usePostLikeArticleMutation = (
   params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
 ) => {
-  return useCoreMutation(ArticleApiService.articleControllerLike, {
-    onSuccess: () => {
-      return queryClient.invalidateQueries(queryKey.article(params));
+  return useCoreMutation(
+    () => {
+      return ArticleApiService.articleControllerLike({ ...params, uuid });
     },
-  });
+    {
+      onSuccess: () => {
+        return queryClient.invalidateQueries(
+          queryKey.article({ ...params, uuid }),
+        );
+      },
+    },
+  );
 };
 
 export const useDeleteLikeArticleMutation = (
   params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
 ) => {
-  return useCoreMutation(ArticleApiService.articleControllerUndoLike, {
-    onSuccess: () => {
-      return queryClient.invalidateQueries(queryKey.article(params));
+  return useCoreMutation(
+    () => {
+      return ArticleApiService.articleControllerUndoLike({ ...params, uuid });
     },
-  });
+    {
+      onSuccess: () => {
+        return queryClient.invalidateQueries(
+          queryKey.article({ ...params, uuid }),
+        );
+      },
+    },
+  );
 };

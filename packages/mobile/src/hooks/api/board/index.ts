@@ -7,6 +7,9 @@ import { BoardApiService } from "@shared/swagger-api/generated";
 import { queryKey } from "src/consts/react-query";
 import { queryClient } from "src/main";
 import { GetParams } from "src/type/utils";
+import { getUuid } from "src/utils/storage";
+
+const uuid = getUuid();
 
 export const useBoardArticlesQuery = (
   params: GetParams<typeof BoardApiService.boardControllerFindArticlePage>,
@@ -27,13 +30,11 @@ export const useBoardArticlesQuery = (
   );
 };
 
-export const useSubscribeBoardsQuery = (
-  params: GetParams<typeof BoardApiService.boardControllerFindSubscribeBoards>,
-) => {
+export const useSubscribeBoardsQuery = () => {
   return useCoreQuery(
     queryKey.subscribeBoards,
     () => {
-      return BoardApiService.boardControllerFindSubscribeBoards(params);
+      return BoardApiService.boardControllerFindSubscribeBoards({ uuid });
     },
     {
       select: (data) => {
@@ -50,70 +51,88 @@ export const useSubscribeBoardsQuery = (
   );
 };
 
-export const useBoardsQuery = (
-  params: GetParams<typeof BoardApiService.boardControllerFind>,
-) => {
-  return useCoreQuery(queryKey.boards(params), () => {
-    return BoardApiService.boardControllerFind(params);
+export const useBoardsQuery = () => {
+  return useCoreQuery(queryKey.boards({ uuid }), () => {
+    return BoardApiService.boardControllerFind({ uuid });
   });
 };
 
 export const useBoardQuery = (
   params: GetParams<typeof BoardApiService.boardControllerFindOne>,
 ) => {
-  return useCoreQuery(queryKey.board(params), () => {
-    return BoardApiService.boardControllerFindOne(params);
+  return useCoreQuery(queryKey.board({ ...params, uuid }), () => {
+    return BoardApiService.boardControllerFindOne({ ...params, uuid });
   });
 };
 
 export const useSubscribeBoardMutation = (
   params: GetParams<typeof BoardApiService.boardControllerFindOne>,
 ) => {
-  return useCoreMutation(BoardApiService.boardControllerSubscribe, {
-    onSuccess: () => {
-      Promise.all([
-        queryClient.invalidateQueries(queryKey.subscribeBoards),
-        queryClient.invalidateQueries(queryKey.board(params)),
-      ]);
+  return useCoreMutation(
+    () => {
+      return BoardApiService.boardControllerSubscribe({ ...params, uuid });
     },
-  });
+    {
+      onSuccess: () => {
+        Promise.all([
+          queryClient.invalidateQueries(queryKey.subscribeBoards),
+          queryClient.invalidateQueries(queryKey.board({ ...params, uuid })),
+        ]);
+      },
+    },
+  );
 };
 
 export const useUnSubscribeBoardMutation = (
   params: GetParams<typeof BoardApiService.boardControllerFindOne>,
 ) => {
-  return useCoreMutation(BoardApiService.boardControllerUnsubscribe, {
-    onSuccess: () => {
-      Promise.all([
-        queryClient.invalidateQueries(queryKey.subscribeBoards),
-        queryClient.invalidateQueries(queryKey.board(params)),
-      ]);
+  return useCoreMutation(
+    () => {
+      return BoardApiService.boardControllerUnsubscribe({ ...params, uuid });
     },
-  });
+    {
+      onSuccess: () => {
+        Promise.all([
+          queryClient.invalidateQueries(queryKey.subscribeBoards),
+          queryClient.invalidateQueries(queryKey.board({ ...params, uuid })),
+        ]);
+      },
+    },
+  );
 };
 
 export const useNoticeBoardMutation = (
   params: GetParams<typeof BoardApiService.boardControllerFindOne>,
 ) => {
-  return useCoreMutation(BoardApiService.boardControllerNotice, {
-    onSuccess: () => {
-      Promise.all([
-        queryClient.invalidateQueries(queryKey.subscribeBoards),
-        queryClient.invalidateQueries(queryKey.board(params)),
-      ]);
+  return useCoreMutation(
+    () => {
+      return BoardApiService.boardControllerNotice({ ...params, uuid });
     },
-  });
+    {
+      onSuccess: () => {
+        Promise.all([
+          queryClient.invalidateQueries(queryKey.subscribeBoards),
+          queryClient.invalidateQueries(queryKey.board({ ...params, uuid })),
+        ]);
+      },
+    },
+  );
 };
 
 export const useUnNoticeBoardMutation = (
   params: GetParams<typeof BoardApiService.boardControllerFindOne>,
 ) => {
-  return useCoreMutation(BoardApiService.boardControllerUnnotice, {
-    onSuccess: () => {
-      Promise.all([
-        queryClient.invalidateQueries(queryKey.subscribeBoards),
-        queryClient.invalidateQueries(queryKey.board(params)),
-      ]);
+  return useCoreMutation(
+    () => {
+      return BoardApiService.boardControllerUnnotice({ ...params, uuid });
     },
-  });
+    {
+      onSuccess: () => {
+        Promise.all([
+          queryClient.invalidateQueries(queryKey.subscribeBoards),
+          queryClient.invalidateQueries(queryKey.board({ ...params, uuid })),
+        ]);
+      },
+    },
+  );
 };

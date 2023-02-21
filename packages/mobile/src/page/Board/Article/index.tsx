@@ -11,8 +11,7 @@ import $ from "./style.module.scss";
 
 function BoardArticle() {
   const id = Number(useLocation().pathname.split("/").at(-1));
-  const uuid = "1111";
-  const { data: boardData } = useBoardQuery({ id, uuid });
+  const { data: boardData } = useBoardQuery({ id });
 
   if (!boardData) return <></>;
 

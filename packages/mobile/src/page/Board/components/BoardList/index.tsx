@@ -11,9 +11,8 @@ import { DefaultProps } from "src/type/props";
 import $ from "./style.module.scss";
 
 function BoardList({ className }: DefaultProps) {
-  const uuid = "1111";
-  const { data: boardsData } = useBoardsQuery({ uuid });
-  const { data: subscribeBoardsData } = useSubscribeBoardsQuery({ uuid });
+  const { data: boardsData } = useBoardsQuery();
+  const { data: subscribeBoardsData } = useSubscribeBoardsQuery();
   const { pathname } = useLocation();
   const { kind } = getBoardKind();
 

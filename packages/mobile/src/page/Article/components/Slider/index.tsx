@@ -25,9 +25,7 @@ const SliderItem = ({ id, children }: Props) => {
 };
 
 function Slider() {
-  const { data: subscribeBoardsData } = useSubscribeBoardsQuery({
-    uuid: "1111",
-  });
+  const { data: subscribeBoardsData } = useSubscribeBoardsQuery();
 
   return (
     <div className={$.slider}>

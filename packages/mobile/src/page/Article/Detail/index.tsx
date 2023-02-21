@@ -16,24 +16,14 @@ import ArticleFooter from "src/page/Article/components/Footer";
 import $ from "./style.module.scss";
 
 function ArticleDetail() {
-  const uuid = "1111";
   const { pathname } = useLocation();
   const articleId = Number(pathname.split("/").at(-1));
   const [ isLikeClick, setIsLikeClick ] = useState(false);
-  const { data: articleData, isLoading } = useArticleQuery({
-    id: articleId,
-    uuid,
-  });
+  const { data: articleData, isLoading } = useArticleQuery({ id: articleId });
 
-  const postLikeArticle = usePostLikeArticleMutation({
-    id: articleId,
-    uuid,
-  });
+  const postLikeArticle = usePostLikeArticleMutation({ id: articleId });
 
-  const deleteLikeArticle = useDeleteLikeArticleMutation({
-    id: articleId,
-    uuid,
-  });
+  const deleteLikeArticle = useDeleteLikeArticleMutation({ id: articleId });
 
   if (isLoading) return <></>;
   if (!articleData) return <>데이터가 없습니다.</>;
@@ -53,11 +43,11 @@ function ArticleDetail() {
   const handleToggleLikeClick = (articleId: number) => {
     if (isLike) {
       setIsLikeClick(false);
-      deleteLikeArticle.mutate({ id: articleId, uuid });
+      deleteLikeArticle.mutate({ id: articleId });
       return;
     }
     setIsLikeClick(true);
-    postLikeArticle.mutate({ id: articleId, uuid });
+    postLikeArticle.mutate({ id: articleId });
   };
 
   const isScraperArticle = `${id}`[0] === ("1" || "2");

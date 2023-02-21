@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { isAndroid, isIOS } from "react-device-detect";
+import React, { useEffect } from "react";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -24,19 +23,12 @@ import Report from "./page/Place/Report";
 import SettingRoute from "./page/Setting";
 
 function App() {
-  const [ uuid, setUuid ] = useState("");
   const [ _, height ] = useWindowSizeDetect();
 
   const setScreenSize = () => {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   };
-
-  useEffect(() => {
-    if (isAndroid || isIOS) {
-      setUuid(JSON.stringify(localStorage.getItem("token")));
-    }
-  }, []);
 
   useEffect(() => {
     setScreenSize();
@@ -62,6 +54,7 @@ function App() {
     { path: "/setting/*", element: <SettingRoute /> },
     { path: "/*", element: <Navigate replace to="/home" /> },
   ];
+
   const webRoutes = [
     { path: "/article/detail/:articleId", element: <ArticleDetail /> },
   ];

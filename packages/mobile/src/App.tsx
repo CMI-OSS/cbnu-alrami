@@ -71,7 +71,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {mode === "production" && !isWebView && <>딥링크</>}
+      {/* {mode === "production" && !isWebView && <>딥링크</>} */}
       <HeadMeta />
       <Routes>
         {routes.map((route) => {

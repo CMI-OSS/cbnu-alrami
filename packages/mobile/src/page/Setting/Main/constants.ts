@@ -1,4 +1,5 @@
 import {
+  Alarm,
   AppVersion,
   Email,
   Food,
@@ -10,6 +11,11 @@ import { Restaurant } from "src/type";
 
 const settingMenuList = [
   {
+    icon: Alarm,
+    label: "구독/알림",
+    to: "./subscription",
+  },
+  {
     icon: Food,
     label: "대표식당",
     to: "./cafeteria",
@@ -17,7 +23,7 @@ const settingMenuList = [
   {
     icon: Speaker,
     label: "공지사항",
-    to: `/preview?boardId=${CMI_BOARD_ID}`,
+    to: `/article/detail/${CMI_BOARD_ID}`,
   },
   {
     icon: AppVersion,

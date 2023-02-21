@@ -34,18 +34,4 @@
       rotate: 180deg;
     }
   }
-
-  .action {
-    .icon {
-      display: flex;
-
-      button {
-        margin-right: 8px;
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-    }
-  }
 }

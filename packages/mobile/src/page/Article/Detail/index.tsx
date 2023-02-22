@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import { Heart, LeftArrow } from "@components/atoms/icon";
-import { FillHeart } from "@components/atoms/icon/FillHeart";
+import HeadMeta from "@components/atoms/HeadMeta";
+import { FillHeart, Heart, LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import {
   useArticleQuery,
@@ -11,6 +11,7 @@ import {
 } from "@hooks/api/article";
 import classnames from "classnames";
 import dayjs from "dayjs";
+import { BASE_HEAD_META } from "src/constants";
 import ArticleFooter from "src/page/Article/components/Footer";
 
 import $ from "./style.module.scss";
@@ -56,6 +57,10 @@ function ArticleDetail() {
 
   return (
     <div className={$["article-detail"]}>
+      <HeadMeta
+        description={title}
+        url={`${BASE_HEAD_META}/article/detail/${articleId}`}
+      />
       <FullPageModalTemplate
         left={<LeftArrow stroke="#AAAAAA" size={16} />}
         title={name}

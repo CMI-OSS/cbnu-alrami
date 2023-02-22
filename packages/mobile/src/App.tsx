@@ -9,6 +9,7 @@ import Board from "src/page/Board";
 import BoardArticle from "src/page/Board/Article";
 import { isStaging, isWebView } from "src/utils/webview";
 
+import "src/polyfills";
 import useWindowSizeDetect from "./hooks/useWindowSizeDetect";
 import "./mobile.scss";
 import Cafeteria from "./page/Cafeteria";

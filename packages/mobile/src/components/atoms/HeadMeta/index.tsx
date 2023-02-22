@@ -1,15 +1,6 @@
 import { Helmet } from "react-helmet";
 
-const BASE_HEAD_META = {
-  description: "빠르고 정확한 충북대학교 공지사항 알림이",
-  keywords: "충북대학교, 충림이, 공지사항, 어플",
-  url: "https://dev-mobile.cmi.kro.kr",
-  title: "충북대학교 공지사항 알림이",
-  siteName: "충림이",
-  href: "/src/assets/favicon/favicon-16x16.png",
-  type: "website",
-  image: "/src/assets/favicon/favicon-16x16.png",
-};
+import { BASE_HEAD_META } from "src/constants";
 
 type Props = {
   title?: string;

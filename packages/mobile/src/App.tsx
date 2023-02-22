@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import HeadMeta from "@components/atoms/HeadMeta";
 import Article from "src/page/Article";
 import ArticleDetail from "src/page/Article/Detail";
 import Board from "src/page/Board";
 import BoardArticle from "src/page/Board/Article";
 import { isStaging, isWebView } from "src/utils/webview";
 
+import "src/polyfills";
 import useWindowSizeDetect from "./hooks/useWindowSizeDetect";
 import "./mobile.scss";
 import Cafeteria from "./page/Cafeteria";
@@ -65,7 +65,6 @@ function App() {
   return (
     <BrowserRouter>
       {/* {mode === "production" && !isWebView && <>딥링크</>} */}
-      <HeadMeta />
       <Routes>
         {routes.map((route) => {
           return (

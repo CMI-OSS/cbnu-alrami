@@ -73,10 +73,8 @@ function Article() {
         {articlesData?.pages[0]?.articles.map((articleData) => {
           const { title, id } = articleData;
           return (
-            <div className={$.title}>
-              <Link to={`/article/detail/${id}`} key={id}>
-                {title}
-              </Link>
+            <div className={$.title} key={id}>
+              <Link to={`/article/detail/${id}`}>{title}</Link>
             </div>
           );
         })}

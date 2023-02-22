@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import { Heart, LeftArrow } from "@components/atoms/icon";
-import { FillHeart } from "@components/atoms/icon/FillHeart";
+import { FillHeart, Heart, LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import {
   useArticleQuery,

@@ -1,28 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-236608494-2"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+<head>
+  <meta charset="UTF-8" />
+  <title>충북대학교 공지사항 알림이</title>
+  <meta
+    content="width=device-width, initial-scale=1.0, maximum-scale=1"
+    name="viewport"
+  />
+  <meta
+    content="빠르고 정확한 충북대학교 공지사항 알림이"
+    name="description"
+  />
+  <link href="/src/assets/favicon/favicon-16x16.png" rel="icon" />
+  <meta content="충북대학교, 충림이, 공지사항, 어플" name="keywords" />
+  <meta content="website" property="og:type" />
+  <meta content="충북대학교 공지사항 알림이" property="og:title" />
+  <meta content="충북대학교 공지사항 알림이" property="og:site_name" />
+  <meta content="/src/assets/favicon/favicon-16x16.png" property="og:image" />
+  <meta
+    content="빠르고 정확한 충북대학교 공지사항 알림이"
+    property="og:description"
+  />
+  <meta content="https://dev-mobile.cmi.kro.kr" property="og:url" />
+  <meta content="충북대학교 공지사항 알림이" name="twitter:title" />
+  <meta
+    content="빠르고 정확한 충북대학교 공지사항 알림이"
+    name="twitter:description"
+  />
+  <meta content="/src/assets/favicon/favicon-16x16.png" property="twitter:image" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=UA-236608494-2"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
-      gtag("config", "UA-236608494-2");
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script src="/src/main.tsx" type="module"></script>
-    <script
-      src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=rgggtz5358"
-      type="text/javascript"
-    ></script>
-  </body>
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+
+    gtag("config", "UA-236608494-2");
+  </script>
+</head>
+<body>
+<div id="root"></div>
+<script src="/src/main.tsx" type="module"></script>
+<script
+  src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=rgggtz5358"
+  type="text/javascript"
+></script>
+</body>
 </html>

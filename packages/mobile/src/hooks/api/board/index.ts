@@ -76,8 +76,14 @@ export const useSubscribeBoardMutation = (
     {
       onSuccess: () => {
         Promise.all([
-          queryClient.invalidateQueries(queryKey.subscribeBoards),
-          queryClient.invalidateQueries(queryKey.board({ ...params, uuid })),
+          queryClient.invalidateQueries({
+            queryKey: queryKey.subscribeBoards,
+            refetchType: "all",
+          }),
+          queryClient.invalidateQueries({
+            queryKey: queryKey.board({ ...params, uuid }),
+            refetchType: "all",
+          }),
         ]);
         toastSuccess({
           message: "구독이 추가되었습니다.",
@@ -97,8 +103,14 @@ export const useUnSubscribeBoardMutation = (
     {
       onSuccess: () => {
         Promise.all([
-          queryClient.invalidateQueries(queryKey.subscribeBoards),
-          queryClient.invalidateQueries(queryKey.board({ ...params, uuid })),
+          queryClient.invalidateQueries({
+            queryKey: queryKey.subscribeBoards,
+            refetchType: "all",
+          }),
+          queryClient.invalidateQueries({
+            queryKey: queryKey.board({ ...params, uuid }),
+            refetchType: "all",
+          }),
         ]);
         toastSuccess({
           message: "구독이 해제되었습니다.",
@@ -118,8 +130,14 @@ export const useNoticeBoardMutation = (
     {
       onSuccess: () => {
         Promise.all([
-          queryClient.invalidateQueries(queryKey.subscribeBoards),
-          queryClient.invalidateQueries(queryKey.board({ ...params, uuid })),
+          queryClient.invalidateQueries({
+            queryKey: queryKey.subscribeBoards,
+            refetchType: "all",
+          }),
+          queryClient.invalidateQueries({
+            queryKey: queryKey.board({ ...params, uuid }),
+            refetchType: "all",
+          }),
         ]);
         toastSuccess({
           message: "알림이 설정되었습니다.",
@@ -139,8 +157,14 @@ export const useUnNoticeBoardMutation = (
     {
       onSuccess: () => {
         Promise.all([
-          queryClient.invalidateQueries(queryKey.subscribeBoards),
-          queryClient.invalidateQueries(queryKey.board({ ...params, uuid })),
+          queryClient.invalidateQueries({
+            queryKey: queryKey.subscribeBoards,
+            refetchType: "all",
+          }),
+          queryClient.invalidateQueries({
+            queryKey: queryKey.board({ ...params, uuid }),
+            refetchType: "all",
+          }),
         ]);
         toastSuccess({
           message: "알림이 해제되었습니다.",

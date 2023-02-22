@@ -36,7 +36,11 @@ function Slider() {
       <SliderItem id="popular">인기</SliderItem>
       {subscribeBoardsData?.map((subscribeBoardData) => {
         const { id, combinedName } = subscribeBoardData;
-        return <SliderItem id={`${id}`}>{combinedName}</SliderItem>;
+        return (
+          <SliderItem key={id} id={`${id}`}>
+            {combinedName}
+          </SliderItem>
+        );
       })}
     </div>
   );

@@ -7,9 +7,11 @@ $empty-box-height: calc(var(--vh, 1vh) * 100 - $top-height - $footer-height);
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-height: 161px;
   height: calc(var(--vh, 1vh) * 100 - $top-height - $footer-height);
+  margin-top: 20px;
 
-  .discription {
+  .description {
     @include typography(14);
     color: $background-50;
     line-height: 30px;

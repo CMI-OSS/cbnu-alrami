@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { Hamburger, LeftArrow } from "@components/atoms/icon";
 import { Close } from "@components/atoms/icon/Close";
 import Footer from "@components/molecules/Footer";
-import { useSchoolQuery, useSchoolsQuery } from "src/hooks/api/school";
+import { useSchoolOneQuery, useSchoolQuery } from "src/hooks/api/school";
 import Spot from "src/page/Map/Spot";
 import { useAppDispatch, useAppSelector } from "src/store";
 import {
@@ -75,13 +75,13 @@ function Map() {
     data: schoolData,
     isLoading: schoolLoading,
     isError: schoolError,
-  } = useSchoolsQuery();
+  } = useSchoolQuery();
 
   const {
     data: schoolSeveralData,
     isLoading: schoolSeveralLoading,
     isError: schoolSeveralError,
-  } = useSchoolQuery(constructionId);
+  } = useSchoolOneQuery({id: constructionId});
 
   useEffect(() => {
     const initMap = () => {

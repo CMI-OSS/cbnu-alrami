@@ -11,10 +11,8 @@ export const useSchoolQuery = (params?: GetParams<typeof PlaceApiService.placeCo
   })
 };
 
-export const useSchoolQuery = (placeId: GetParams<typeof PlaceApiService.placeControllerFindOneSchool>["id"]) => {
-  return useCoreQuery(queryKey.school(placeId), () => {
-    return PlaceApiService.placeControllerFindOneSchool({
-      id: placeId
-    })
+export const useSchoolOneQuery = (params: GetParams<typeof PlaceApiService.placeControllerFindOneSchool>) => {
+  return useCoreQuery(queryKey.school({...params}), () => {
+    return PlaceApiService.placeControllerFindOneSchool({...params})
   });
 };

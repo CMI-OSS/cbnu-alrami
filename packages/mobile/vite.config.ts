@@ -5,7 +5,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
-export default defineConfig(({mode}) => {
+export default defineConfig(({ mode }) => {
   return {
     resolve: {
       alias: {
@@ -15,11 +15,16 @@ export default defineConfig(({mode}) => {
         "@hooks": path.resolve(__dirname, "./src/hooks"),
       },
     },
-    plugins: [ react(), mode === 'analyze'? visualizer({
-      filename: "./stat.html",
-      open: true,
-      brotliSize: true,
-    }): [] ],
+    plugins: [
+      react(),
+      mode === "analyze"
+        ? visualizer({
+            filename: "./stat.html",
+            open: true,
+            brotliSize: true,
+          })
+        : [],
+    ],
     css: {
       preprocessorOptions: {
         scss: {
@@ -34,5 +39,5 @@ export default defineConfig(({mode}) => {
         },
       },
     },
-  }
+  };
 });

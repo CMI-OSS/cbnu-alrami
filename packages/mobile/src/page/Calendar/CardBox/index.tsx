@@ -9,7 +9,7 @@ import { ScheduleType } from "src/page/Calendar";
 import CollegeCard from "../CollegeCard";
 import $ from "./style.module.scss";
 
-const CALLENDAR_UNVISIBLE_POINT = 320;
+const CALENDAR_UNVISIBLE_POINT = 320;
 
 type Props = {
   bookmarkedSchedules: FormattedSchedule[];
@@ -31,7 +31,7 @@ function CardBox({
     return (
       <section className={$["empty-box"]}>
         {scheduleType === "all" ? (
-          <span className={$.discription}>오늘은 일정이 없어요</span>
+          <span className={$.description}>오늘은 일정이 없어요</span>
         ) : (
           <img
             width={239}
@@ -53,7 +53,7 @@ function CardBox({
           />
         );
       })}
-      {y > CALLENDAR_UNVISIBLE_POINT && (
+      {y > CALENDAR_UNVISIBLE_POINT && (
         <button
           className={$["floating-button"]}
           type="button"

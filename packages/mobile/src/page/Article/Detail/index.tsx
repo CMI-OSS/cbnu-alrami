@@ -11,6 +11,7 @@ import {
 import classnames from "classnames";
 import dayjs from "dayjs";
 import ArticleFooter from "src/page/Article/components/Footer";
+import { getUuid } from "src/utils/storage";
 
 import $ from "./style.module.scss";
 
@@ -37,6 +38,7 @@ function ArticleDetail() {
     isBookmark,
     isLike,
     likeCount,
+    images,
   } = articleData;
 
   const handleToggleLikeClick = (articleId: number) => {
@@ -50,8 +52,9 @@ function ArticleDetail() {
   };
 
   const isScraperArticle = `${id}`[0] === ("1" || "2");
-  // TODO: uuid 로직 추가
-  const isUser = true;
+  const isUser = !!getUuid();
+
+  console.log(images);
 
   return (
     <div className={$["article-detail"]}>
@@ -66,6 +69,12 @@ function ArticleDetail() {
             &nbsp;/&nbsp;
             <span>조회수&nbsp;{viewCount}</span>
             &nbsp;/&nbsp;<span>좋아요&nbsp;{bookmarkCount}</span>
+          </div>
+          <div className={$.images}>
+            {images?.map((image) => {
+              const { id, url } = image;
+              return <img key={id} src={url} alt="이미지" />;
+            })}
           </div>
           <div
             className={$.content}

@@ -5,10 +5,10 @@ import { OpenAPI } from "@shared/swagger-api/generated/core/OpenAPI";
 import { RecoilRoot } from "recoil";
 
 import "./admin.scss";
-import AdminManagementPage from "./pages/AdminManagementPage2/Admin.route";
+import AdminManagementPage from "./pages/AdminPage/Admin.route";
 import BoardPage from "./pages/BoardPage/Board.route";
 import LoginPage from "./pages/Login";
-import PlaceManagementPage from "./pages/PlaceManagementPage/Place.route";
+import PlaceManagementPage from "./pages/PlacePage/Place.route";
 import { store } from "./store";
 
 function App() {

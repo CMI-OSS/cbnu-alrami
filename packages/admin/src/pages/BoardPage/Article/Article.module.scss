@@ -66,4 +66,9 @@
   &:hover {
     background-color: $blue-200;
   }
+
+  &.remove {
+    margin-left: 10px;
+    background-color: rgb(150, 17, 17);
+  }
 }

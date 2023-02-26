@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
 import { ResponseArticleDetailDto } from "@shared/swagger-api/generated/models/ResponseArticleDetailDto";
+import { Popconfirm } from "antd";
+import cx from "classnames";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 
@@ -17,11 +19,13 @@ export interface ArticleViewProps {
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     index: number,
   ) => void;
+  onClickRemove: () => void;
 }
 
 export default function ArticleView({
   article,
   onClickImage,
+  onClickRemove,
 }: ArticleViewProps) {
   const {
     id,
@@ -84,6 +88,19 @@ export default function ArticleView({
           className={$.button}
           onClick={handleClickEdit}
         />
+        <Popconfirm
+          title="정말 삭제하시겠습니까?"
+          description="삭제하면 되돌릴 수 없습니다."
+          onConfirm={onClickRemove}
+          okText="네"
+          cancelText="아니오"
+        >
+          <input
+            type="submit"
+            value="삭제"
+            className={cx($.button, $.remove)}
+          />
+        </Popconfirm>
       </div>
     </>
   );

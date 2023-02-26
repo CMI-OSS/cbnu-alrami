@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import { useQuery } from "react-query";
 import { useParams } from "react-router";
 
@@ -29,6 +30,12 @@ export default function Article() {
           currentIndex: index,
         }),
       );
+    },
+    onClickRemove: async () => {
+      await ArticleApiService.articleControllerRemove({
+        id: Number(articleId),
+      });
+      history.back();
     },
   };
 

@@ -62,7 +62,7 @@ export default function Navigation() {
     <></>
   ) : (
     <nav className={$.navigation}>
-      <div>{admin.nickname} 님</div>
+      <div className={$.nickname}>{admin.nickname} 님</div>
       <ul className={$["outer-ul"]}>
         {/* <li className={$.logo}>충림이v2 관리자</li> */}
         <ul>

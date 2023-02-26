@@ -12,7 +12,7 @@ export const useSchoolQuery = (params?: GetParams<typeof PlaceApiService.placeCo
 };
 
 export const useSchoolOneQuery = (params: GetParams<typeof PlaceApiService.placeControllerFindOneSchool>) => {
-  return useCoreQuery(queryKey.school({...params}), () => {
+  return useCoreQuery(queryKey.school(params), () => {
     return PlaceApiService.placeControllerFindOneSchool({...params})
   });
 };

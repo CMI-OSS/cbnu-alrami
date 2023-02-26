@@ -1,6 +1,5 @@
 import { ApiProperty, OmitType } from "@nestjs/swagger";
 import { IsEnum, IsOptional, IsString } from "class-validator";
-import { CreateBoardAuthorityDto } from "src/board-authority/dto/create-board-authority.dto";
 import { UpdatableCommonEntityKeys } from "src/common/entity";
 
 import { AdminAuthorityType } from "../admin.constant";
@@ -21,7 +20,7 @@ export class CreateAdminDto extends OmitType(Admin, [
   @IsOptional()
   authoirty?: AdminAuthorityType;
 
-  @ApiProperty({ type: [ CreateBoardAuthorityDto ] })
+  @ApiProperty({ type: [ Number ], description: "게시판 아이디 목록" })
   @IsOptional()
-  boards: CreateBoardAuthorityDto[];
+  boardIds: number[];
 }

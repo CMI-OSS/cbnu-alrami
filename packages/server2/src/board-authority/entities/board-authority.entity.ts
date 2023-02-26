@@ -9,7 +9,7 @@ import { BoardAuthorityProperty } from "../board-authority.swagger";
 
 @Entity()
 export class BoardAuthority extends CommonEntity {
-  @ManyToOne(() => Admin, (admin) => admin.boards)
+  @ManyToOne(() => Admin, (admin) => admin.authoirty, { onDelete: "CASCADE" })
   @JoinColumn()
   admin: Admin;
 

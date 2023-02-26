@@ -2,7 +2,6 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 
 import { CreateAdminDto } from "@shared/swagger-api/generated/models/CreateAdminDto";
-import { CreateBoardAuthorityDto } from "@shared/swagger-api/generated/models/CreateBoardAuthorityDto";
 import { ResponseBoardDto } from "@shared/swagger-api/generated/models/ResponseBoardDto";
 import { AdminApiService } from "@shared/swagger-api/generated/services/AdminApiService";
 import { BoardApiService } from "@shared/swagger-api/generated/services/BoardApiService";
@@ -12,9 +11,7 @@ import styles from "./Admin.module.scss";
 
 type SelectItem = { label: string; value: number };
 
-interface AdminForm extends Omit<CreateAdminDto, "boards"> {
-  boards: number[];
-}
+type AdminForm = CreateAdminDto;
 
 const Admin = () => {
   const [ form ] = Form.useForm();
@@ -31,7 +28,7 @@ const Admin = () => {
       onSuccess: (admin) => {
         form.setFieldsValue({
           ...admin,
-          boards: admin.boards.map(({ board }) => board.id),
+          boardIds: admin.boards.map((board) => board.id),
         });
       },
     },
@@ -65,20 +62,12 @@ const Admin = () => {
           id: Number(adminId),
           requestBody: {
             ...updateAdminDto,
-            boards: admin.boards.map((boardId) => ({
-              authority: CreateBoardAuthorityDto.authority.WRITE,
-              boardId,
-            })),
           },
         });
       } else {
         await AdminApiService.adminControllerCreate({
           requestBody: {
             ...admin,
-            boards: admin.boards.map((boardId) => ({
-              authority: CreateBoardAuthorityDto.authority.WRITE,
-              boardId,
-            })),
           },
         });
       }
@@ -123,7 +112,7 @@ const Admin = () => {
                 value: "StudentCouncil",
               },
               {
-                label: "루트",
+                label: "슈퍼",
                 value: "Super",
               },
             ]}
@@ -135,7 +124,7 @@ const Admin = () => {
         <Form.Item label="닉네임" name="nickname" required>
           <Input />
         </Form.Item>
-        <Form.Item label="관리할 게시판" name="boards">
+        <Form.Item label="관리할 게시판" name="boardIds">
           <Select
             showSearch
             mode="multiple"

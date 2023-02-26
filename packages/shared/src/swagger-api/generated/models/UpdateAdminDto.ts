@@ -2,8 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CreateBoardAuthorityDto } from './CreateBoardAuthorityDto';
-
 export type UpdateAdminDto = {
     /**
      * 닉네임
@@ -17,7 +15,10 @@ export type UpdateAdminDto = {
      * 비밀번호
      */
     password?: string;
-    boards?: Array<CreateBoardAuthorityDto>;
+    /**
+     * 게시판 아이디 목록
+     */
+    boardIds?: Array<number>;
 };
 
 export namespace UpdateAdminDto {

@@ -1,8 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString } from "class-validator";
-import { BoardAuthority } from "src/board-authority/entities/board-authority.entity";
+import { Board } from "src/board/entities/board.entity";
 import { UpdatableCommonEntity } from "src/common/entity";
-import { Column, Entity, OneToMany } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany } from "typeorm";
 
 import { AdminAuthorityType } from "../admin.constant";
 
@@ -41,8 +41,9 @@ export class Admin extends UpdatableCommonEntity {
 
   @ApiProperty({
     description: "권한이 부여된 게시판",
-    type: [ BoardAuthority ],
+    type: [ Board ],
   })
-  @OneToMany(() => BoardAuthority, (boardAuthority) => boardAuthority.admin)
-  boards: BoardAuthority[];
+  @ManyToMany((type) => Board)
+  @JoinTable()
+  boards: Board[];
 }

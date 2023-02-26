@@ -54,9 +54,9 @@ export default function Navigation() {
   const admin = useRecoilValue(adminSelector);
 
   const navMenus =
-    admin.authoirty === Admin.authoirty.STUDENT_COUNCIL
-      ? [ BOARD_MENUS ]
-      : [ BOARD_MENUS, ADMIN_MANAGE_MENUS, PLACE_MANAGE_MENUS ];
+    admin.authoirty === Admin.authoirty.SUPER
+      ? [ BOARD_MENUS, ADMIN_MANAGE_MENUS, PLACE_MANAGE_MENUS ]
+      : [ BOARD_MENUS ];
 
   return isLoginMatch ? (
     <></>

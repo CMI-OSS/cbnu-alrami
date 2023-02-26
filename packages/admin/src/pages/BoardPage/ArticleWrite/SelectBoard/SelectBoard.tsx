@@ -19,7 +19,7 @@ export default function SelectBoard({ boardId, onSelectBoard }: Props) {
     () => AdminApiService.adminControllerGetAuthorityBoards(),
     {
       onSuccess: (boards) => {
-        setSelectedBoardId(boardId ?? boards[0].board.id);
+        setSelectedBoardId(boardId ?? boards[0].id);
       },
     },
   );
@@ -32,16 +32,16 @@ export default function SelectBoard({ boardId, onSelectBoard }: Props) {
 
   if (isLoading || !authorityBoards) return null;
 
-  const options = authorityBoards?.map((authorityBoard) => ({
-    value: authorityBoard.board.id,
-    label: `${authorityBoard.board.parent?.name ?? ""} - ${
-      authorityBoard.board.name
+  const options = authorityBoards?.map((board) => ({
+    value: board.id,
+    label: `${board.parent?.name ? `${board.parent?.name} > ` : ""} ${
+      board.name
     }`,
   }));
 
   return (
     <Select
-      style={{ width: 150 }}
+      style={{ width: 250 }}
       onChange={setSelectedBoardId}
       value={selectedBoardId as any}
       options={options}

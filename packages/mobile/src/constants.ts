@@ -36,3 +36,5 @@ export const BASE_HEAD_META = {
   type: "website",
   image: "/src/assets/favicon/favicon-16x16.png",
 };
+
+export const DEFFERRED_LOADING_TIME = 1000;

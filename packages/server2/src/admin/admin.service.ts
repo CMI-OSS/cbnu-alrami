@@ -54,7 +54,7 @@ export class AdminService {
   async findOne(id: number) {
     const admin = await this.adminRepository.findOne({
       where: { id },
-      relations: { boards: true },
+      relations: { boards: { board: true } },
     });
     if (!admin) throw new NotFoundAdminException();
 

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { FillHeart, Heart, LeftArrow } from "@components/atoms/icon";
+import Image from "@components/atoms/Image";
+import Slider from "@components/molecules/Slider";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import {
   useArticleQuery,
@@ -19,7 +21,7 @@ function ArticleDetail() {
   const { pathname } = useLocation();
   const articleId = Number(pathname.split("/").at(-1));
   const [ isLikeClick, setIsLikeClick ] = useState(false);
-  const [ imageOrder, setImageOrder ] = useState(0);
+  const [ order, setOrder ] = useState(0);
   const { data: articleData, isLoading } = useArticleQuery({ id: articleId });
   const postLikeArticle = usePostLikeArticleMutation({ id: articleId });
   const deleteLikeArticle = useDeleteLikeArticleMutation({ id: articleId });
@@ -53,7 +55,7 @@ function ArticleDetail() {
   const isScraperArticle = `${id}`[0] === ("1" || "2");
   const isUser = !!getUuid();
 
-  console.log(images, imageOrder);
+  console.log(order);
 
   return (
     <div className={$["article-detail"]}>
@@ -70,30 +72,16 @@ function ArticleDetail() {
             &nbsp;/&nbsp;<span>좋아요&nbsp;{bookmarkCount}</span>
           </div>
           {!!images?.length && (
-            <div className={$["image-wrapper"]}>
-              <div className={$.images}>
-                <div className={$.order}>
-                  {imageOrder}/{images.length}
-                </div>
-                {images.map((image) => {
-                  const { id, url } = image;
-                  return <img key={id} src={url} alt="이미지" />;
-                })}
-              </div>
-              <div className={$.dots}>
-                {images.map((image, idx) => {
-                  return (
-                    <div
-                      key={image.id}
-                      className={$.dot}
-                      style={{
-                        background: imageOrder === idx ? "#d66d6e" : "#c3c3c3",
-                      }}
-                    />
-                  );
-                })}
-              </div>
-            </div>
+            <Slider
+              className={$.images}
+              total={images.length}
+              {...{ order, setOrder }}
+            >
+              {images.map((image) => {
+                const { url } = image;
+                return <Image src={url} alt="공지사항 이미지" />;
+              })}
+            </Slider>
           )}
           <div
             className={$.content}

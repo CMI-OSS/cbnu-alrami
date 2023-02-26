@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 
 import classNames from "classnames";
+import classnames from "classnames";
 import { DefaultProps } from "src/type/props";
 
 import $ from "./style.module.scss";
@@ -44,7 +45,7 @@ function Slider({ total, order, setOrder, className, children }: Props) {
   };
 
   return (
-    <div className={$["slider-container"]}>
+    <div className={classnames($["slider-container"], className)}>
       <div className={$.order}>
         {order + 1}/{total}
       </div>
@@ -54,21 +55,18 @@ function Slider({ total, order, setOrder, className, children }: Props) {
         onTouchEnd={handleTouchMove}
       >
         <div
+          className={$.slider}
           ref={sliderRef}
-          className={classNames($.slider, className)}
           style={{ transform: `translateX(${order * -100}%)` }}
         >
           {children}
         </div>
       </div>
-      <div className={$.total}>
+      <div className={$.dotdotdot}>
         {totals.map((totalOrder) => {
           return (
             <div
-              className={classNames(
-                $["total-element"],
-                totalOrder === order ? $.same : "",
-              )}
+              className={classNames($.dot, totalOrder === order ? $.same : "")}
             />
           );
         })}

@@ -1,6 +1,22 @@
 .slider-container {
   display: flex;
   flex-direction: column;
+  margin: 0 -24px;
+  user-select: none;
+
+  .order {
+    position: absolute;
+    right: 0;
+    width: 60px;
+    height: 32px;
+    padding: 8px;
+    margin: 12px 12px 0 0;
+    background: rgba(27, 27, 27, 0.85);
+    border-radius: 20px;
+    color: #fff;
+    z-index: 5;
+    text-align: center;
+  }
 
   .slider-wrapper {
     overflow-x: hidden;
@@ -10,28 +26,12 @@
     display: flex;
   }
 
-  .order {
-    position: absolute;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 32px;
-    padding: 8px;
-    margin: 12px 12px 0 0;
-    background: rgba(27, 27, 27, 0.85);
-    border-radius: 20px;
-    color: #fff;
-    z-index: 5;
-  }
-
-  .total {
+  .dotdotdot {
     display: flex;
     justify-content: center;
-    margin-bottom: 16px;
+    margin: 20px 0;
 
-    .total-element {
+    .dot {
       width: 6px;
       height: 6px;
       margin-right: 6px;

@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { FillHeart, Heart, LeftArrow } from "@components/atoms/icon";
 import Image from "@components/atoms/Image";
 import Slider from "@components/molecules/Slider";
+import ImageModal from "@components/shared/ImageModal";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import {
   useArticleQuery,
@@ -25,6 +26,7 @@ function ArticleDetail() {
   const { data: articleData, isLoading } = useArticleQuery({ id: articleId });
   const postLikeArticle = usePostLikeArticleMutation({ id: articleId });
   const deleteLikeArticle = useDeleteLikeArticleMutation({ id: articleId });
+  const [ enlargeModal, setEnlargeModal ] = useState(false);
 
   if (isLoading) return <></>;
   if (!articleData) return <>데이터가 없습니다.</>;
@@ -55,8 +57,6 @@ function ArticleDetail() {
   const isScraperArticle = `${id}`[0] === ("1" || "2");
   const isUser = !!getUuid();
 
-  console.log(order);
-
   return (
     <div className={$["article-detail"]}>
       <FullPageModalTemplate
@@ -73,13 +73,15 @@ function ArticleDetail() {
           </div>
           {!!images?.length && (
             <Slider
-              className={$.images}
               total={images.length}
               {...{ order, setOrder }}
+              onOpen={() => {
+                return setEnlargeModal(true);
+              }}
             >
               {images.map((image) => {
                 const { url } = image;
-                return <Image src={url} alt="공지사항 이미지" />;
+                return <Image key={url} src={url} alt="공지사항 이미지" />;
               })}
             </Slider>
           )}
@@ -112,6 +114,14 @@ function ArticleDetail() {
           {...{ articleId, isBookmark, isUser, isScraperArticle }}
         />
       </FullPageModalTemplate>
+      {enlargeModal && images?.length && (
+        <ImageModal
+          {...{ order, setOrder, images }}
+          onClose={() => {
+            return setEnlargeModal(false);
+          }}
+        />
+      )}
     </div>
   );
 }

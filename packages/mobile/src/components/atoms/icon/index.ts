@@ -55,3 +55,4 @@ export { Internet } from "./Internet";
 export { Share } from "./Share";
 export { Heart } from "./Heart";
 export { FillHeart } from "./FillHeart";
+export { Download } from "./Download";

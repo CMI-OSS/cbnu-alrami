@@ -19,10 +19,9 @@ function ArticleDetail() {
   const { pathname } = useLocation();
   const articleId = Number(pathname.split("/").at(-1));
   const [ isLikeClick, setIsLikeClick ] = useState(false);
+  const [ imageOrder, setImageOrder ] = useState(0);
   const { data: articleData, isLoading } = useArticleQuery({ id: articleId });
-
   const postLikeArticle = usePostLikeArticleMutation({ id: articleId });
-
   const deleteLikeArticle = useDeleteLikeArticleMutation({ id: articleId });
 
   if (isLoading) return <></>;
@@ -54,7 +53,7 @@ function ArticleDetail() {
   const isScraperArticle = `${id}`[0] === ("1" || "2");
   const isUser = !!getUuid();
 
-  console.log(images);
+  console.log(images, imageOrder);
 
   return (
     <div className={$["article-detail"]}>
@@ -70,12 +69,32 @@ function ArticleDetail() {
             <span>조회수&nbsp;{viewCount}</span>
             &nbsp;/&nbsp;<span>좋아요&nbsp;{bookmarkCount}</span>
           </div>
-          <div className={$.images}>
-            {images?.map((image) => {
-              const { id, url } = image;
-              return <img key={id} src={url} alt="이미지" />;
-            })}
-          </div>
+          {!!images?.length && (
+            <div className={$["image-wrapper"]}>
+              <div className={$.images}>
+                <div className={$.order}>
+                  {imageOrder}/{images.length}
+                </div>
+                {images.map((image) => {
+                  const { id, url } = image;
+                  return <img key={id} src={url} alt="이미지" />;
+                })}
+              </div>
+              <div className={$.dots}>
+                {images.map((image, idx) => {
+                  return (
+                    <div
+                      key={image.id}
+                      className={$.dot}
+                      style={{
+                        background: imageOrder === idx ? "#d66d6e" : "#c3c3c3",
+                      }}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          )}
           <div
             className={$.content}
             dangerouslySetInnerHTML={{ __html: content }}

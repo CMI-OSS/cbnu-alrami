@@ -25,7 +25,7 @@ type PlaceForm = {
   description?: string;
 };
 
-const FormDisabledDemo = () => {
+const Place = () => {
   const [ form ] = Form.useForm();
   const { placeId } = useParams();
   const { images } = useAppSelector((state) => state.ArticelWriteReducer);
@@ -173,4 +173,4 @@ const FormDisabledDemo = () => {
   );
 };
 
-export default () => <FormDisabledDemo />;
+export default Place;

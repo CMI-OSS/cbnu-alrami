@@ -25,11 +25,11 @@ const ADMIN_MANAGE_MENUS = {
   label: "관리자 관리",
   menus: [
     {
-      path: "/manage/add",
+      path: "/admin/add",
       label: "관리자 추가",
     },
     {
-      path: "/manage/list",
+      path: "/admin/list",
       label: "관리자 목록",
     },
   ],

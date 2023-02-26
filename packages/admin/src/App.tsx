@@ -5,7 +5,7 @@ import { OpenAPI } from "@shared/swagger-api/generated/core/OpenAPI";
 import { RecoilRoot } from "recoil";
 
 import "./admin.scss";
-import AdminManagementPage from "./pages/AdminManagementPage";
+import AdminManagementPage from "./pages/AdminManagementPage2/Admin.route";
 import BoardPage from "./pages/BoardPage/Board.route";
 import LoginPage from "./pages/Login";
 import PlaceManagementPage from "./pages/PlaceManagementPage/Place.route";
@@ -19,7 +19,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/board/*" element={<BoardPage />} />
-        <Route path="/manage/*" element={<AdminManagementPage />} />
+        <Route path="/admin/*" element={<AdminManagementPage />} />
         <Route path="/place/*" element={<PlaceManagementPage />} />
         <Route path="*" element={<Navigate to="/board" />} />
       </Routes>

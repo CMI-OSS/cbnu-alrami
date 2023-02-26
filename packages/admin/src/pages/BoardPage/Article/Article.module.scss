@@ -20,6 +20,14 @@
     border: 0;
   }
 
+  .sub-info {
+    display: flex;
+  }
+
+  .date {
+    margin-left: auto;
+  }
+
   .image-list {
     overflow: auto;
     display: flex;

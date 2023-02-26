@@ -45,12 +45,16 @@ export default function ArticleView({
       <article className={$.article}>
         <h2 className={$.title}>{title}</h2>
         <hr className={$.hr} />
-        <div>
-          <span>
-            조회수 : {viewCount} 북마크 : {bookmarkCount} {"   "} 작성일 :{" "}
-            {dayjs(createdDateTime).locale("ko").format("llll")} 최근 수정일 :{" "}
-            {dayjs(updatedDateTime).locale("ko").format("llll")}
-          </span>
+        <div className={$["sub-info"]}>
+          <div>
+            조회수 : {viewCount} 북마크 : {bookmarkCount} {"   "}
+          </div>
+          <div className={$.date}>
+            작성일 : {dayjs(createdDateTime).locale("ko").format("llll")}
+            <div>
+              최근 수정일 : {dayjs(updatedDateTime).locale("ko").format("llll")}
+            </div>
+          </div>
         </div>
 
         <div

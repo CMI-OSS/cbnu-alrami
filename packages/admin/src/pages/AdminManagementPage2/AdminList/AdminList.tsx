@@ -37,7 +37,7 @@ export default function AdminList() {
       <PaginationView
         current={page}
         pageSize={count}
-        total={admins.length}
+        total={data.length}
         onChange={handleClickPage}
       />
     </div>

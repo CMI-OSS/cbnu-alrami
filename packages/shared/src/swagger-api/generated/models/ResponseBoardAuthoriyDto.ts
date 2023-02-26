@@ -14,13 +14,13 @@ export type ResponseBoardAuthoriyDto = {
      */
     createdDateTime: string;
     /**
-     * 관리 권한
-     */
-    authority: ResponseBoardAuthoriyDto.authority;
-    /**
      * 관리 권한이 있는 게시판
      */
     board: ResponseBoardDto;
+    /**
+     * 관리 권한
+     */
+    authority: ResponseBoardAuthoriyDto.authority;
 };
 
 export namespace ResponseBoardAuthoriyDto {

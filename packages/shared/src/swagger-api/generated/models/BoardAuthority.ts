@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { Board } from './Board';
+
 export type BoardAuthority = {
     /**
      * 아이디
@@ -11,6 +13,10 @@ export type BoardAuthority = {
      * 생성 시간
      */
     createdDateTime: string;
+    /**
+     * 게시판
+     */
+    board: Board;
     /**
      * 관리 권한
      */

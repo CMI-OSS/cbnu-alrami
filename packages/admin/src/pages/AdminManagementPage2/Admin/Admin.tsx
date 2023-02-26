@@ -2,12 +2,19 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 
 import { CreateAdminDto } from "@shared/swagger-api/generated/models/CreateAdminDto";
+import { CreateBoardAuthorityDto } from "@shared/swagger-api/generated/models/CreateBoardAuthorityDto";
+import { ResponseBoardDto } from "@shared/swagger-api/generated/models/ResponseBoardDto";
 import { AdminApiService } from "@shared/swagger-api/generated/services/AdminApiService";
+import { BoardApiService } from "@shared/swagger-api/generated/services/BoardApiService";
 import { Button, Form, Input, message, Select } from "antd";
 
 import styles from "./Admin.module.scss";
 
-type AdminForm = CreateAdminDto;
+type SelectItem = { label: string; value: number };
+
+interface AdminForm extends Omit<CreateAdminDto, "boards"> {
+  boards: number[];
+}
 
 const Admin = () => {
   const [ form ] = Form.useForm();
@@ -22,10 +29,32 @@ const Admin = () => {
       enabled: isEdit,
       refetchOnWindowFocus: false,
       onSuccess: (admin) => {
-        form.setFieldsValue(admin);
+        form.setFieldsValue({
+          ...admin,
+          boards: admin.boards.map(({ board }) => board.id),
+        });
       },
     },
   );
+
+  const { data } = useQuery([ "boards" ], () =>
+    BoardApiService.boardControllerFind({ uuid: undefined }),
+  );
+
+  const getLeafBoardItems = (
+    boards: ResponseBoardDto[],
+    parentLable?: string,
+  ): SelectItem[] => {
+    return boards.reduce((prev, board) => {
+      const label = parentLable ? `${parentLable} > ${board.name}` : board.name;
+
+      if (board.children?.length) {
+        return [ ...prev, ...getLeafBoardItems(board.children, label) ];
+      }
+
+      return [ ...prev, { label, value: board.id } ];
+    }, [] as SelectItem[]);
+  };
 
   const onSubmit = async (admin: AdminForm) => {
     try {
@@ -34,11 +63,23 @@ const Admin = () => {
 
         await AdminApiService.adminControllerUpdate({
           id: Number(adminId),
-          requestBody: updateAdminDto,
+          requestBody: {
+            ...updateAdminDto,
+            boards: admin.boards.map((boardId) => ({
+              authority: CreateBoardAuthorityDto.authority.WRITE,
+              boardId,
+            })),
+          },
         });
       } else {
         await AdminApiService.adminControllerCreate({
-          requestBody: admin,
+          requestBody: {
+            ...admin,
+            boards: admin.boards.map((boardId) => ({
+              authority: CreateBoardAuthorityDto.authority.WRITE,
+              boardId,
+            })),
+          },
         });
       }
 
@@ -93,6 +134,16 @@ const Admin = () => {
         </Form.Item>
         <Form.Item label="닉네임" name="nickname" required>
           <Input />
+        </Form.Item>
+        <Form.Item label="관리할 게시판" name="boards">
+          <Select
+            showSearch
+            mode="multiple"
+            filterOption={(input, option) =>
+              (option?.label ?? "").includes(input)
+            }
+            options={getLeafBoardItems(data ?? [])}
+          />
         </Form.Item>
         <Form.Item className={styles.submit}>
           <Button type="primary" htmlType="submit" size="large">

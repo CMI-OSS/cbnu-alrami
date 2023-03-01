@@ -1,7 +1,8 @@
 import React from "react";
 
 import { Close, Download } from "@components/atoms/icon";
-import Slider from "@components/molecules/Slider";
+import Image from "@components/atoms/Image";
+import ImageSlider from "@components/molecules/ImageSlider";
 import { Image as ImageType } from "@shared/swagger-api/generated";
 import classnames from "classnames";
 import { DefaultProps } from "src/type/props";
@@ -16,13 +17,19 @@ type Props = {
 } & DefaultProps;
 
 function ImageModal({ order, setOrder, onClose, images }: Props) {
-  console.log({ order });
+  const handleDownloadClick = () => {
+    // TODO: 다운로드 로직 들어감
+  };
 
   return (
     <div className={classnames($["image-modal"], $.dimmed)}>
       <div className={$.header}>
         <div className={$.buttons}>
-          <button type="button" className={$.download}>
+          <button
+            type="button"
+            className={$.download}
+            onClick={handleDownloadClick}
+          >
             <Download size={16} stroke="#fff" />
           </button>
           <button
@@ -37,13 +44,16 @@ function ImageModal({ order, setOrder, onClose, images }: Props) {
         </div>
       </div>
       <div className={$.body}>
-        <Slider total={images.length} {...{ order, setOrder }}>
-          <div>tmffkfd</div>
-          {/* {images.map((image) => { */}
-          {/*  const { url } = image; */}
-          {/*  return <Image key={url} src={url} alt="공지사항 이미지" />; */}
-          {/* })} */}
-        </Slider>
+        <ImageSlider
+          className={$["modal-slider"]}
+          total={images.length}
+          {...{ order, setOrder }}
+        >
+          {images.map((image) => {
+            const { url } = image;
+            return <Image key={url} src={url} alt="공지사항 이미지" />;
+          })}
+        </ImageSlider>
       </div>
     </div>
   );

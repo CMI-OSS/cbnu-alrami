@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 import { FillHeart, Heart, LeftArrow } from "@components/atoms/icon";
 import Image from "@components/atoms/Image";
-import Slider from "@components/molecules/Slider";
+import ImageSlider from "@components/molecules/ImageSlider";
 import ImageModal from "@components/shared/ImageModal";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import {
@@ -72,7 +72,7 @@ function ArticleDetail() {
             &nbsp;/&nbsp;<span>좋아요&nbsp;{bookmarkCount}</span>
           </div>
           {!!images?.length && (
-            <Slider
+            <ImageSlider
               total={images.length}
               {...{ order, setOrder }}
               onOpen={() => {
@@ -83,7 +83,7 @@ function ArticleDetail() {
                 const { url } = image;
                 return <Image key={url} src={url} alt="공지사항 이미지" />;
               })}
-            </Slider>
+            </ImageSlider>
           )}
           <div
             className={$.content}

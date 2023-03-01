@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */
 import { useRef, useState } from "react";
 
-import classNames from "classnames";
 import classnames from "classnames";
 import { DefaultProps } from "src/type/props";
 
@@ -14,7 +13,7 @@ type Props = {
   setOrder: (prev: number) => void;
 } & DefaultProps;
 
-function Slider({
+function ImageSlider({
   onOpen,
   total,
   order,
@@ -78,7 +77,7 @@ function Slider({
         {totals.map((totalOrder) => {
           return (
             <div
-              className={classNames($.dot, totalOrder === order ? $.same : "")}
+              className={classnames($.dot, totalOrder === order ? $.same : "")}
             />
           );
         })}
@@ -87,4 +86,4 @@ function Slider({
   );
 }
 
-export default Slider;
+export default ImageSlider;

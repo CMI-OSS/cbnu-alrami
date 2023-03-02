@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { FillHeart, Heart, LeftArrow } from "@components/atoms/icon";
+import Image from "@components/atoms/Image";
+import ImageSlider from "@components/molecules/ImageSlider";
+import ImageModal from "@components/shared/ImageModal";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import {
   useArticleQuery,
@@ -11,6 +14,7 @@ import {
 import classnames from "classnames";
 import dayjs from "dayjs";
 import ArticleFooter from "src/page/Article/components/Footer";
+import { getUuid } from "src/utils/storage";
 
 import $ from "./style.module.scss";
 
@@ -18,11 +22,11 @@ function ArticleDetail() {
   const { pathname } = useLocation();
   const articleId = Number(pathname.split("/").at(-1));
   const [ isLikeClick, setIsLikeClick ] = useState(false);
+  const [ order, setOrder ] = useState(0);
   const { data: articleData, isLoading } = useArticleQuery({ id: articleId });
-
   const postLikeArticle = usePostLikeArticleMutation({ id: articleId });
-
   const deleteLikeArticle = useDeleteLikeArticleMutation({ id: articleId });
+  const [ enlargeModal, setEnlargeModal ] = useState(false);
 
   if (isLoading) return <></>;
   if (!articleData) return <>데이터가 없습니다.</>;
@@ -37,6 +41,7 @@ function ArticleDetail() {
     isBookmark,
     isLike,
     likeCount,
+    images,
   } = articleData;
 
   const handleToggleLikeClick = (articleId: number) => {
@@ -50,8 +55,7 @@ function ArticleDetail() {
   };
 
   const isScraperArticle = `${id}`[0] === ("1" || "2");
-  // TODO: uuid 로직 추가
-  const isUser = true;
+  const isUser = !!getUuid();
 
   return (
     <div className={$["article-detail"]}>
@@ -67,6 +71,20 @@ function ArticleDetail() {
             <span>조회수&nbsp;{viewCount}</span>
             &nbsp;/&nbsp;<span>좋아요&nbsp;{bookmarkCount}</span>
           </div>
+          {!!images?.length && (
+            <ImageSlider
+              total={images.length}
+              {...{ order, setOrder }}
+              onOpen={() => {
+                return setEnlargeModal(true);
+              }}
+            >
+              {images.map((image) => {
+                const { url } = image;
+                return <Image key={url} src={url} alt="공지사항 이미지" />;
+              })}
+            </ImageSlider>
+          )}
           <div
             className={$.content}
             dangerouslySetInnerHTML={{ __html: content }}
@@ -96,6 +114,14 @@ function ArticleDetail() {
           {...{ articleId, isBookmark, isUser, isScraperArticle }}
         />
       </FullPageModalTemplate>
+      {enlargeModal && images?.length && (
+        <ImageModal
+          {...{ order, setOrder, images }}
+          onClose={() => {
+            return setEnlargeModal(false);
+          }}
+        />
+      )}
     </div>
   );
 }

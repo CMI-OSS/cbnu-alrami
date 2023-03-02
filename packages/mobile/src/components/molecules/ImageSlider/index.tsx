@@ -1,17 +1,26 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */
 import { useRef, useState } from "react";
 
-import classNames from "classnames";
+import classnames from "classnames";
 import { DefaultProps } from "src/type/props";
 
 import $ from "./style.module.scss";
 
 type Props = {
+  onOpen?: () => void;
   total: number;
   order: number;
   setOrder: (prev: number) => void;
 } & DefaultProps;
 
-function Slider({ total, order, setOrder, className, children }: Props) {
+function ImageSlider({
+  onOpen,
+  total,
+  order,
+  setOrder,
+  className,
+  children,
+}: Props) {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [ touchStart, setTouchStart ] = useState(0);
   const totals = Array.from({ length: total }, (_, i) => {
@@ -44,7 +53,10 @@ function Slider({ total, order, setOrder, className, children }: Props) {
   };
 
   return (
-    <div className={$["slider-container"]}>
+    <div
+      className={classnames($["slider-container"], className)}
+      onClick={onOpen}
+    >
       <div className={$.order}>
         {order + 1}/{total}
       </div>
@@ -54,21 +66,18 @@ function Slider({ total, order, setOrder, className, children }: Props) {
         onTouchEnd={handleTouchMove}
       >
         <div
+          className={$.slider}
           ref={sliderRef}
-          className={classNames($.slider, className)}
           style={{ transform: `translateX(${order * -100}%)` }}
         >
           {children}
         </div>
       </div>
-      <div className={$.total}>
+      <div className={$.dotdotdot}>
         {totals.map((totalOrder) => {
           return (
             <div
-              className={classNames(
-                $["total-element"],
-                totalOrder === order ? $.same : "",
-              )}
+              className={classnames($.dot, totalOrder === order ? $.same : "")}
             />
           );
         })}
@@ -77,4 +86,4 @@ function Slider({ total, order, setOrder, className, children }: Props) {
   );
 }
 
-export default Slider;
+export default ImageSlider;

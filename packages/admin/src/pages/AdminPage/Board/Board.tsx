@@ -6,23 +6,33 @@ import { BoardApiService } from "@shared/swagger-api/generated/services/BoardApi
 import { PropsType } from "src/types/utils";
 
 import BoardView from "./Board.view";
+import BreadCrumb from "./BreadCrumb.view";
+
+const allBoard: BoardType = {
+  id: 0,
+  name: "전체",
+  createdDateTime: "",
+  updatedDateTime: "",
+};
 
 const Board = () => {
   const { data } = useQuery([ "boards" ], () =>
     BoardApiService.boardControllerFind({ uuid: undefined }),
   );
 
-  const [ selectedBoardStack, setSelectedBoardStack ] = useState<BoardType[]>([]);
+  const [ selectedBoardStack, setSelectedBoardStack ] = useState<BoardType[]>([
+    allBoard,
+  ]);
 
   const displayBoards = useMemo(() => {
-    if (selectedBoardStack.length === 0) return data ?? [];
+    if (selectedBoardStack.length === 1) return data ?? [];
 
     return selectedBoardStack.at(-1)?.children ?? [];
   }, [ data, selectedBoardStack ]);
 
   if (!data) return null;
 
-  const viewProp: PropsType<typeof BoardView> = {
+  const boardViewProp: PropsType<typeof BoardView> = {
     boards: displayBoards,
 
     onClick: (board) => {
@@ -30,7 +40,22 @@ const Board = () => {
     },
   };
 
-  return <BoardView {...viewProp} />;
+  const BreadCrumbViewProp: PropsType<typeof BreadCrumb> = {
+    boards: selectedBoardStack,
+    onClick: (board) => {
+      const index = selectedBoardStack.findIndex(
+        (_board) => _board.id === board.id,
+      );
+      setSelectedBoardStack(selectedBoardStack.slice(0, index + 1));
+    },
+  };
+
+  return (
+    <>
+      <BreadCrumb {...BreadCrumbViewProp} />
+      <BoardView {...boardViewProp} />
+    </>
+  );
 };
 
 export default Board;

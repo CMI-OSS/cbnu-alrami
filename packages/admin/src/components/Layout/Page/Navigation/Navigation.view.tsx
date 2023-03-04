@@ -12,7 +12,7 @@ const BOARD_MENUS = {
   label: "게시판",
   menus: [
     {
-      path: "/board/list",
+      path: "/board",
       label: "게시물 목록",
     },
     {

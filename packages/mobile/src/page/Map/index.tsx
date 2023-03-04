@@ -28,7 +28,7 @@ const INITIAL_CBNU_LONGITUDE = 127.45731862757414;
 function Map() {
   const [ constructionId, setConstructionId ] = useState(12);
   const dispatch = useAppDispatch();
-
+  
   const { isDisplayFloatingButton, isDisplayTooltip, isConstructionTooltip } =
     useAppSelector((state) => {
       return state.statusReducer.map;

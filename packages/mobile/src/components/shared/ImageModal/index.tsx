@@ -17,8 +17,21 @@ type Props = {
 } & DefaultProps;
 
 function ImageModal({ order, setOrder, onClose, images }: Props) {
-  const handleDownloadClick = () => {
-    // TODO: 다운로드 로직 들어감
+  // TODO: 백엔드 수정 후 확인필요
+  const handleDownloadClick = async () => {
+    const { id, url } = images[order];
+    const response = await fetch(url);
+    const file = await response.blob();
+    const downloadUrl = window.URL.createObjectURL(file);
+    const link = document.createElement("a");
+    document.body.appendChild(link);
+    link.download = `충림이공지사항${id}`;
+    link.href = downloadUrl;
+
+    link.click();
+
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(downloadUrl);
   };
 
   return (

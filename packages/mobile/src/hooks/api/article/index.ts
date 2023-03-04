@@ -83,6 +83,8 @@ export const useArticleQuery = (
   params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
 ) => {
   return useCoreQuery(queryKey.article({ ...params, uuid }), () => {
+    const a = ArticleApiService.articleControllerFindOne({ ...params, uuid });
+
     return ArticleApiService.articleControllerFindOne({ ...params, uuid });
   });
 };

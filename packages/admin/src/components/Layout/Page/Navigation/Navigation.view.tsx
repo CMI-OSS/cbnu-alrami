@@ -32,6 +32,10 @@ const ADMIN_MANAGE_MENUS = {
       path: "/admin/list",
       label: "관리자 목록",
     },
+    {
+      path: "/admin/board",
+      label: "게시판 관리",
+    },
   ],
 };
 const PLACE_MANAGE_MENUS = {

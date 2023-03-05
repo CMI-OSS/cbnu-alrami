@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import { Board } from "@shared/swagger-api/generated/models/Board";
 import { Button } from "antd";
 import classnames from "classnames";
@@ -10,6 +12,8 @@ interface BoardCardViewProps {
 }
 
 const BoardCardView = ({ board, onClick }: BoardCardViewProps) => {
+  const navigate = useNavigate();
+
   return (
     <div
       className={$.row}
@@ -23,6 +27,7 @@ const BoardCardView = ({ board, onClick }: BoardCardViewProps) => {
       <div className={classnames($.cell, $.scraps)}>
         <Button
           onClick={(e) => {
+            navigate(`/board/edit/${board.id}`);
             e.stopPropagation();
           }}
         >

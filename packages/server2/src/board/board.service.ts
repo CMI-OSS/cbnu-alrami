@@ -90,14 +90,22 @@ export class BoardService {
   }
 
   async update(id: number, updateBoardDto: UpdateBoardDto) {
+    let parentBoard: null | Board = null;
+
+    const { parentBoardId, ...updateBoard } = updateBoardDto;
+
     try {
-      if (typeof updateBoardDto.parentBoardId !== "undefined")
-        await this.findOne(updateBoardDto.parentBoardId);
+      if (parentBoardId) {
+        const targetBoard = await this.findOne(id);
+        parentBoard = await this.findOne(parentBoardId);
+        targetBoard.parent = parentBoard;
+        targetBoard.save();
+      }
     } catch (error) {
       throw new NotFoundParentBoardException();
     }
 
-    return this.boardRepository.update(id, updateBoardDto);
+    return this.boardRepository.update(id, updateBoard);
   }
 
   async remove(id: number) {

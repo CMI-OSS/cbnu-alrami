@@ -30,8 +30,8 @@ const BOARD_MENUS = {
       label: "게시판 목록",
     },
     {
-      path: "/board/write",
-      label: "게시판 작성",
+      path: "/board/new",
+      label: "게시판 추가",
     },
   ],
 };

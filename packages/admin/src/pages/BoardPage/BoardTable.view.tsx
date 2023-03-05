@@ -9,7 +9,7 @@ interface Props {
   onClick?: (board: Board) => any;
 }
 
-export default function BoardView({ boards, onClick }: Props) {
+export default function BoardTableView({ boards, onClick }: Props) {
   return (
     <div className={$.table}>
       <div className={classnames($.row, $.header)}>

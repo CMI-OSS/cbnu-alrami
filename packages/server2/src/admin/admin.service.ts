@@ -1,7 +1,7 @@
 import { ForbiddenException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { BoardAuthority } from "src/board-authority/entities/board-authority.entity";
 import { BoardService } from "src/board/board.service";
+import { Board } from "src/board/entities/board.entity";
 import { JWTService } from "src/common/jwt/jwt.service";
 import { PasswordUtils } from "src/common/util/password.utils";
 import { Repository } from "typeorm";
@@ -35,16 +35,16 @@ export class AdminService {
       throw new DuplicatedLoginIdException();
     }
 
-    await this.isExsistBoards(
-      createAdminDto.boards?.map((board) => board.boardId) ?? [],
-    );
-
     // eslint-disable-next-line no-param-reassign
     createAdminDto.password = await this.passwordUtils.encrypt(
       createAdminDto.password,
     );
 
-    return this.adminRepository.save({ ...createAdminDto });
+    const boards = await this.boardService.findByIds(
+      createAdminDto.boardIds ?? [],
+    );
+
+    return this.adminRepository.save({ ...createAdminDto, boards });
   }
 
   findAll() {
@@ -70,10 +70,6 @@ export class AdminService {
   async update(id: number, updateAdminDto: UpdateAdminDto) {
     const admin = await this.findOne(id);
 
-    await this.isExsistBoards(
-      updateAdminDto.boards?.map((board) => board.boardId) ?? [],
-    );
-
     if (updateAdminDto.password) {
       // eslint-disable-next-line no-param-reassign
       updateAdminDto.password = await this.passwordUtils.encrypt(
@@ -81,7 +77,11 @@ export class AdminService {
       );
     }
 
-    return this.adminRepository.save({ ...admin, ...updateAdminDto });
+    const boards = await this.boardService.findByIds(
+      updateAdminDto.boardIds ?? [],
+    );
+
+    return this.adminRepository.save({ ...admin, ...updateAdminDto, boards });
   }
 
   async remove(id: number) {
@@ -125,15 +125,15 @@ export class AdminService {
   async hasBoardAuthority(boardId: number, adminId: number): Promise<boolean> {
     const admin = await this.adminRepository.findOne({
       where: { id: adminId },
-      relations: { boards: { board: true } },
+      relations: { boards: true },
     });
 
     if (admin?.authoirty === AdminAuthorityType.Super) {
       return true;
     }
 
-    const board = await admin?.boards.find((boardAuthority) => {
-      return boardAuthority.board.id === boardId;
+    const board = await admin?.boards.find((board) => {
+      return board.id === boardId;
     });
 
     if (!board) {
@@ -143,10 +143,10 @@ export class AdminService {
     return true;
   }
 
-  async getAuthorityBoards(adminId: number): Promise<BoardAuthority[]> {
+  async getAuthorityBoards(adminId: number): Promise<Board[]> {
     const admin = await this.adminRepository.findOne({
       where: { id: adminId },
-      relations: { boards: { board: { parent: true } } },
+      relations: { boards: { parent: true } },
     });
 
     return admin?.boards ?? [];

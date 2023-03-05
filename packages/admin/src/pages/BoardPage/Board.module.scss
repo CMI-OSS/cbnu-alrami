@@ -1,0 +1,37 @@
+@import "@shared/styles/color.scss";
+
+.table {
+    padding: 10px;
+    border-radius: 5px;
+
+    .row {
+        background-color: $white;
+        margin-bottom: 5px;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+
+        &.header {
+            font-weight: bold;
+        }
+
+        display: flex;
+        cursor: pointer;
+
+        .cell {
+            min-width: 100px;
+            text-align: center;
+            flex: 1;
+        }
+
+        .id {
+            width: 80px;
+            text-align: center;
+        }
+
+        .title {
+            width: 300px;
+            text-align: left;
+        }
+    }
+}

@@ -8,28 +8,43 @@ import { adminSelector } from "src/store/admin.selector";
 
 import $ from "./Navigation.module.scss";
 
-const BOARD_MENUS = {
-  label: "게시판",
+const ARTICLE_MENUS = {
+  label: "게시물",
   menus: [
     {
-      path: "/board/list",
+      path: "/article",
       label: "게시물 목록",
     },
     {
-      path: "/board/write",
+      path: "/article/write",
       label: "게시물 작성",
     },
   ],
 };
+
+const BOARD_MENUS = {
+  label: "게시판",
+  menus: [
+    {
+      path: "/board",
+      label: "게시판 목록",
+    },
+    {
+      path: "/board/new",
+      label: "게시판 추가",
+    },
+  ],
+};
+
 const ADMIN_MANAGE_MENUS = {
   label: "관리자 관리",
   menus: [
     {
-      path: "/manage/add",
+      path: "/admin/add",
       label: "관리자 추가",
     },
     {
-      path: "/manage/list",
+      path: "/admin/list",
       label: "관리자 목록",
     },
   ],
@@ -54,15 +69,17 @@ export default function Navigation() {
   const admin = useRecoilValue(adminSelector);
 
   const navMenus =
-    admin.authoirty === Admin.authoirty.STUDENT_COUNCIL
-      ? [ BOARD_MENUS ]
-      : [ BOARD_MENUS, ADMIN_MANAGE_MENUS, PLACE_MANAGE_MENUS ];
+    admin.authoirty === Admin.authoirty.SUPER
+      ? [ ARTICLE_MENUS, BOARD_MENUS, ADMIN_MANAGE_MENUS, PLACE_MANAGE_MENUS ]
+      : [ ARTICLE_MENUS ];
 
   return isLoginMatch ? (
     <></>
   ) : (
     <nav className={$.navigation}>
-      <div>{admin.nickname} 님</div>
+      <div className={$.nickname}>
+        {admin.nickname} 님<br />
+      </div>
       <ul className={$["outer-ul"]}>
         {/* <li className={$.logo}>충림이v2 관리자</li> */}
         <ul>

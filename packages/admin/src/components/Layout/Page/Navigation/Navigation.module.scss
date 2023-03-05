@@ -9,6 +9,13 @@
   z-index: 1;
   background-color: $white;
 
+  .nickname {
+    display: flex;
+    margin-top: 30px;
+    justify-content: center;
+    font-size: large;
+  }
+
   .outer-ul {
     display: flex;
     flex-direction: column;

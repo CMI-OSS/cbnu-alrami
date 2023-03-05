@@ -2,20 +2,16 @@ import { Route, Routes } from "react-router-dom";
 
 import PageLayout from "src/components/Layout/Page/Page.view";
 
-import Article from "./Article/Article";
-import ArticleList from "./ArticleList/ArticleList";
-import ArticleWrite from "./ArticleWrite/ArticleWrite";
+import Board from "./Board";
+import BoardEdit from "./BoardEdit/BoardEdit";
 
-// `/board/*`
-export default function BoardRoute() {
+export default function BoardPage() {
   return (
     <PageLayout>
       <Routes>
-        <Route path="/write" element={<ArticleWrite />} />
-        <Route path="/edit/articles/:articleId" element={<ArticleWrite />} />
-        <Route path="/articles/:articleId" element={<Article />} />
-        <Route path="/list" element={<ArticleList />} />
-        <Route path="/:boardId" element={<ArticleList />} />
+        <Route path="/new" element={<BoardEdit />} />
+        <Route path="/edit/:boardId" element={<BoardEdit />} />
+        <Route path="*" element={<Board />} />
       </Routes>
     </PageLayout>
   );

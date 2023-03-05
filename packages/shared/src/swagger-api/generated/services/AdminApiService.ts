@@ -2,10 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { Admin } from '../models/Admin';
+import type { Board } from '../models/Board';
 import type { CreateAdminDto } from '../models/CreateAdminDto';
 import type { LoginDto } from '../models/LoginDto';
 import type { MutationResponse } from '../models/MutationResponse';
-import type { ResponseBoardAuthoriyDto } from '../models/ResponseBoardAuthoriyDto';
 import type { ResponseLoginDto } from '../models/ResponseLoginDto';
 import type { UpdateAdminDto } from '../models/UpdateAdminDto';
 
@@ -47,10 +47,10 @@ export class AdminApiService {
 
     /**
      * 권한이 있는 게시판 조회
-     * @returns ResponseBoardAuthoriyDto
+     * @returns Board
      * @throws ApiError
      */
-    public static adminControllerGetAuthorityBoards(): CancelablePromise<Array<ResponseBoardAuthoriyDto>> {
+    public static adminControllerGetAuthorityBoards(): CancelablePromise<Array<Board>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/admin/board',

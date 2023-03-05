@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { BoardAuthority } from './BoardAuthority';
+import type { Board } from './Board';
 
 export type Admin = {
     /**
@@ -32,7 +32,7 @@ export type Admin = {
     /**
      * 권한이 부여된 게시판
      */
-    boards: Array<BoardAuthority>;
+    boards: Array<Board>;
 };
 
 export namespace Admin {

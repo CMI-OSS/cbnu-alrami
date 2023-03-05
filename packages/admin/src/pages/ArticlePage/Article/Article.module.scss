@@ -1,0 +1,74 @@
+@import "@shared/styles/main.scss";
+@import "src/styles/mixin.scss";
+
+.article {
+  margin: 20px;
+  padding: 20px;
+  background-color: white;
+  .title {
+    font-size: 25px;
+  }
+
+  .content {
+    margin: 20px 0px;
+  }
+
+  .hr {
+    margin: 10px 0px;
+    background-color: rgb(209, 209, 209);
+    height: 1px;
+    border: 0;
+  }
+
+  .sub-info {
+    display: flex;
+  }
+
+  .date {
+    margin-left: auto;
+  }
+
+  .image-list {
+    overflow: auto;
+    display: flex;
+
+    .image-card {
+      width: 150px;
+      height: 150px;
+      margin-right: 15px;
+      cursor: pointer;
+      position: relative;
+      background-color: rgba(0, 0, 0, 0.1);
+
+      .image {
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 150px;
+        height: 150px;
+        resize: both;
+      }
+    }
+  }
+}
+
+.button {
+  @include no-line;
+  width: 5.5rem;
+  min-height: 2.3rem;
+  border-radius: 0.3rem;
+  background-color: #005299;
+  color: $white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-top: 20px;
+
+  &:hover {
+    background-color: $blue-200;
+  }
+
+  &.remove {
+    margin-left: 10px;
+    background-color: rgb(150, 17, 17);
+  }
+}

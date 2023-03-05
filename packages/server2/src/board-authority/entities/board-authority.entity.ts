@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { Admin } from "src/admin/entities/admin.entity";
 import { Board } from "src/board/entities/board.entity";
 import { CommonEntity } from "src/common/entity";
@@ -8,10 +9,11 @@ import { BoardAuthorityProperty } from "../board-authority.swagger";
 
 @Entity()
 export class BoardAuthority extends CommonEntity {
-  @ManyToOne(() => Admin, (admin) => admin.boards)
+  @ManyToOne(() => Admin, (admin) => admin.authoirty, { onDelete: "CASCADE" })
   @JoinColumn()
   admin: Admin;
 
+  @ApiProperty({ type: Board, description: "게시판" })
   @ManyToOne(() => Board, { onDelete: "CASCADE" })
   @JoinColumn()
   board: Board;

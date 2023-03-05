@@ -15,5 +15,9 @@ export type Image = {
      * 이미지 URL
      */
     url: string;
+    /**
+     * 순서
+     */
+    turn: number;
 };
 

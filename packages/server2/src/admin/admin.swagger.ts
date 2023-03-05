@@ -6,7 +6,7 @@ import {
   ApiOkResponse,
   ApiOperation,
 } from "@nestjs/swagger";
-import { ResponseBoardAuthoriyDto } from "src/board-authority/dto/response-board-authority.dto";
+import { Board } from "src/board/entities/board.entity";
 import { MutationResponse } from "src/common/types/response";
 
 import {
@@ -69,7 +69,7 @@ export const GetAuthoriyBoards = () => {
     ApiOperation({
       summary: "권한이 있는 게시판 조회",
     }),
-    ApiOkResponse({ type: ResponseBoardAuthoriyDto, isArray: true }),
+    ApiOkResponse({ type: Board, isArray: true }),
     ApiNotFoundResponse({
       type: NotFoundAdminException,
     }),

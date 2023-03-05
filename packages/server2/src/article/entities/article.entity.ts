@@ -69,7 +69,7 @@ export class Article extends UpdatableCommonEntity {
     example: 1000,
   })
   @IsNumber()
-  @Column({ type: "int" })
+  @Column({ type: "int", default: 0 })
   likeCount = 0;
 
   @ApiProperty({ description: "게시물이 속한 게시판", type: () => Board })

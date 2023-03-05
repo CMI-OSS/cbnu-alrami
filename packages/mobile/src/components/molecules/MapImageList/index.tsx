@@ -1,22 +1,39 @@
+import { useState } from 'react';
+
+import { Image as ImageType } from "@shared/swagger-api/generated";
+import ImageModal from "src/components/shared/ImageModal";
+
 import $ from "./style.module.scss";
 
-type mapImageListType = {
-  id: number;
-  src: string;
-  alt: string;
-};
-
 type Props = {
-  mapImageList: mapImageListType[];
-};
+  state: ImageType[]
+}
 
-function MapImageList({ mapImageList }: Props) {
+function MapImageList({ state }: Props) {
+  const [ order, setOrder ] = useState(0);
+  const [ enlargeModal, setEnlargeModal ] = useState(false);
+  const handleOpenModal = () => {
+    setEnlargeModal(true);
+  }
+
+  const images = state;
   return (
     <ul className={$.list}>
-      {mapImageList.map((item) => {
+      {images.map((image) => {
+        const { url } = image;
         return (
-          <li key={item.id} className={$.item}>
-            <img className={$.image} src={item.src} alt={item.alt} />
+          <li key={url} className={$.item}>
+            <button type="button" className={$.button} onClick={handleOpenModal}>
+              <img className={$.image} src={url} alt="상세 이미지" />
+            </button>
+            {enlargeModal && (
+                <ImageModal
+                  {...{ order, setOrder, images }}
+                  onClose={() => {
+                    return setEnlargeModal(false);
+                  }}
+                />
+            )}
           </li>
         );
       })}

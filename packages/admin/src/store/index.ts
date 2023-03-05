@@ -6,11 +6,9 @@ import ImagePreviewReducer from "src/pages/ArticlePage/ArticleWrite/UploadImage/
 
 import boardReducer from "./boardSlice";
 import logger from "./loggerMiddleware";
-import scraperReducer from "./scraperSlice";
 
 export const store = configureStore({
   reducer: {
-    scraperReducer,
     boardReducer,
     ImagePreviewReducer,
     ArticelWriteReducer,

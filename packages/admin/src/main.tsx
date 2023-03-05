@@ -8,7 +8,7 @@ import { RecoilRoot } from "recoil";
 import App from "./App";
 
 const queryClient = new QueryClient();
-OpenAPI.BASE = apiServer.local;
+OpenAPI.BASE = apiServer.dev;
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>

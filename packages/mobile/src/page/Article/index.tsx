@@ -6,15 +6,18 @@ import { useSetRecoilState } from "recoil";
 import ArticleList from "src/page/Article/components/ArticleList";
 import Slider from "src/page/Article/components/Slider";
 import { boardOriginStatus } from "src/states";
+import { getUuid } from "src/utils/storage";
 
 import $ from "./style.module.scss";
 
 function Article() {
   const setBoardOrigin = useSetRecoilState(boardOriginStatus);
+  const isUser = !!getUuid();
 
   const handleSettingClick = () => {
     setBoardOrigin("article");
   };
+
   return (
     <div className={$.article}>
       <div className={$.header}>

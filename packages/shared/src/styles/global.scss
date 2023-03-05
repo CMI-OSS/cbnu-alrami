@@ -90,11 +90,11 @@ button {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
   font: inherit;
   vertical-align: baseline;
   font-family: "Spoqa Han Sans Neo", "Sans-serif", serif;
   background-color: transparent;
+  touch-action: pan-x pan-y;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -118,7 +118,6 @@ html {
 }
 
 body {
-  line-height: 1;
   position: relative;
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
@@ -146,7 +145,6 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
   content: none;
 }
 
@@ -185,6 +183,7 @@ a {
 img {
   border: 0;
   vertical-align: top;
+  touch-action: pinch-zoom !important;
 }
 
 em {

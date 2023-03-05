@@ -56,6 +56,7 @@ const BoardEdit = () => {
     const createBoardDto: CreateBoardDto = {
       name: v.name,
       parentBoardId: v.parentBoardId ?? null,
+      url: v.url,
     };
     return createBoardDto;
   };

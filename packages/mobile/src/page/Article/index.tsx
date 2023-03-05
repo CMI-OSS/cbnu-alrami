@@ -23,11 +23,9 @@ function Article() {
       <div className={$.header}>
         <div className={$.title}>
           <span>공지사항</span>
-          {isUser && (
-            <Link to="/board" onClick={handleSettingClick}>
-              <Setting size={20} />
-            </Link>
-          )}
+          <Link to="/board" onClick={handleSettingClick}>
+            <Setting size={20} />
+          </Link>
         </div>
         <Slider />
       </div>

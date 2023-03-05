@@ -60,7 +60,7 @@ function ArticleDetail() {
   return (
     <div className={$["article-detail"]}>
       <FullPageModalTemplate
-        left={<LeftArrow stroke="#AAAAAA" size={16} />}
+        left={isUser ? <LeftArrow stroke="#AAAAAA" size={16} /> : <></>}
         title={name}
       >
         <div className={$.children}>

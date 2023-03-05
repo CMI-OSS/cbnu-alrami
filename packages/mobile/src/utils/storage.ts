@@ -50,3 +50,9 @@ export const getUuid = () => {
   const uuid = localStorage.getItem(TOKEN);
   return uuid ?? undefined;
 };
+
+export const setUuid = () => {
+  if (!getUuid()) {
+    localStorage.setItem(TOKEN, "1111");
+  }
+};

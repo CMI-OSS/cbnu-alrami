@@ -41,7 +41,7 @@ export default function ArticleView({
   const navigate = useNavigate();
 
   const handleClickEdit = () => {
-    navigate(`/board/edit/articles/${id}`);
+    navigate(`/article/edit/articles/${id}`);
   };
 
   return (

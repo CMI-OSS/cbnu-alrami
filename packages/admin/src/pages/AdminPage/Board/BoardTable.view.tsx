@@ -2,6 +2,7 @@ import { Board } from "@shared/swagger-api/generated/models/Board";
 import classnames from "classnames";
 
 import $ from "./Board.module.scss";
+import BoardCardView from "./BoardCard.view";
 
 interface Props {
   boards: Board[];
@@ -15,15 +16,10 @@ export default function BoardView({ boards, onClick }: Props) {
         <div className={classnames($.cell, $.id)}>ID</div>
         <div className={classnames($.cell, $.title)}>이름</div>
         <div className={classnames($.cell, $.scraps)}>URL</div>
+        <div className={classnames($.cell, $.scraps)}>수정</div>
       </div>
       {boards.map((board) => {
-        return (
-          <div className={$.row} onClick={() => onClick?.(board)}>
-            <div className={classnames($.cell, $.id)}>{board.id}</div>
-            <div className={classnames($.cell, $.title)}>{board.name}</div>
-            <div className={classnames($.cell, $.scraps)}>{board.url}</div>
-          </div>
-        );
+        return <BoardCardView onClick={onClick} board={board} />;
       })}
     </div>
   );

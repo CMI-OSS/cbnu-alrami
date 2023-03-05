@@ -26,7 +26,7 @@ export default function Submit({ isEdit, articleId, article, boardId }: Props) {
   const onSuccess = (data: ArticleMutationResponseDto) => {
     if (data) {
       queryClient.invalidateQueries({ queryKey: [ "article", articleId ] });
-      navigate(`/board/articles/${data.articleId}`);
+      navigate(`/article/articles/${data.articleId}`);
     }
   };
 
@@ -65,16 +65,16 @@ export default function Submit({ isEdit, articleId, article, boardId }: Props) {
           },
         });
       } else if (boardId) {
-          await writeArticle({
-            requestBody: {
-              boardId,
-              content,
-              title,
-              imageIds: images?.map((image) => image.id),
-              dateTime: dayjs().toISOString(),
-            },
-          });
-        }
+        await writeArticle({
+          requestBody: {
+            boardId,
+            content,
+            title,
+            imageIds: images?.map((image) => image.id),
+            dateTime: dayjs().toISOString(),
+          },
+        });
+      }
     },
   };
 

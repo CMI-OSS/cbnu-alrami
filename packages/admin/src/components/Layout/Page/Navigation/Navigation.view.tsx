@@ -8,19 +8,34 @@ import { adminSelector } from "src/store/admin.selector";
 
 import $ from "./Navigation.module.scss";
 
+const ARTICLE_MENUS = {
+  label: "게시물",
+  menus: [
+    {
+      path: "/article",
+      label: "게시물 목록",
+    },
+    {
+      path: "/article/write",
+      label: "게시물 작성",
+    },
+  ],
+};
+
 const BOARD_MENUS = {
   label: "게시판",
   menus: [
     {
       path: "/board",
-      label: "게시물 목록",
+      label: "게시판 목록",
     },
     {
       path: "/board/write",
-      label: "게시물 작성",
+      label: "게시판 작성",
     },
   ],
 };
+
 const ADMIN_MANAGE_MENUS = {
   label: "관리자 관리",
   menus: [
@@ -31,10 +46,6 @@ const ADMIN_MANAGE_MENUS = {
     {
       path: "/admin/list",
       label: "관리자 목록",
-    },
-    {
-      path: "/admin/board",
-      label: "게시판 관리",
     },
   ],
 };
@@ -59,14 +70,16 @@ export default function Navigation() {
 
   const navMenus =
     admin.authoirty === Admin.authoirty.SUPER
-      ? [ BOARD_MENUS, ADMIN_MANAGE_MENUS, PLACE_MANAGE_MENUS ]
-      : [ BOARD_MENUS ];
+      ? [ ARTICLE_MENUS, BOARD_MENUS, ADMIN_MANAGE_MENUS, PLACE_MANAGE_MENUS ]
+      : [ ARTICLE_MENUS ];
 
   return isLoginMatch ? (
     <></>
   ) : (
     <nav className={$.navigation}>
-      <div className={$.nickname}>{admin.nickname} 님</div>
+      <div className={$.nickname}>
+        {admin.nickname} 님<br />
+      </div>
       <ul className={$["outer-ul"]}>
         {/* <li className={$.logo}>충림이v2 관리자</li> */}
         <ul>

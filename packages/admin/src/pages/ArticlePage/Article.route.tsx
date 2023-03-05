@@ -6,7 +6,7 @@ import Article from "./Article/Article";
 import ArticleList from "./ArticleList/ArticleList";
 import ArticleWrite from "./ArticleWrite/ArticleWrite";
 
-// `/board/*`
+// `/article/*`
 export default function BoardRoute() {
   return (
     <PageLayout>

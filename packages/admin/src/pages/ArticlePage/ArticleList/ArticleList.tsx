@@ -32,7 +32,7 @@ export default function ArticleList() {
   );
 
   const handleClickArticle = (articleId: number) => {
-    navigate(`/board/articles/${articleId}`);
+    navigate(`/article/articles/${articleId}`);
   };
 
   const handleClickPage = (page: number) => {
@@ -44,7 +44,7 @@ export default function ArticleList() {
       <SelectBoard
         boardId={notSelected ? undefined : Number(boardId)}
         onSelectBoard={(_boardId: number) => {
-          if (Number(boardId) !== _boardId) navigate(`/board/${_boardId}`);
+          if (Number(boardId) !== _boardId) navigate(`/article/${_boardId}`);
         }}
       />
       {articlePageOutput ? (

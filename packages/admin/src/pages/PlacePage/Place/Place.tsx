@@ -7,8 +7,8 @@ import { SchoolDto } from "@shared/swagger-api/generated/models/SchoolDto";
 import { PlaceApiService } from "@shared/swagger-api/generated/services/PlaceApiService";
 import { Button, Form, Input, InputNumber, message, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { initImgList } from "src/pages/BoardPage/ArticleWrite/ArticleWrite.store";
-import UploadImage from "src/pages/BoardPage/ArticleWrite/UploadImage/UploadImage";
+import { initImgList } from "src/pages/ArticlePage/ArticleWrite/ArticleWrite.store";
+import UploadImage from "src/pages/ArticlePage/ArticleWrite/UploadImage/UploadImage";
 import { useAppDispatch, useAppSelector } from "src/store";
 
 import styles from "./Place.module.scss";

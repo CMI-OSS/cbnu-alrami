@@ -5,7 +5,7 @@ import { Board as BoardType } from "@shared/swagger-api/generated/models/Board";
 import { BoardApiService } from "@shared/swagger-api/generated/services/BoardApiService";
 import { PropsType } from "src/types/utils";
 
-import BoardView from "./Board.view";
+import BoardTableView from "./BoardTable.view";
 import BreadCrumb from "./BreadCrumb.view";
 
 const allBoard: BoardType = {
@@ -32,7 +32,7 @@ const Board = () => {
 
   if (!data) return null;
 
-  const boardViewProp: PropsType<typeof BoardView> = {
+  const boardViewProp: PropsType<typeof BoardTableView> = {
     boards: displayBoards,
 
     onClick: (board) => {
@@ -53,7 +53,7 @@ const Board = () => {
   return (
     <>
       <BreadCrumb {...BreadCrumbViewProp} />
-      <BoardView {...boardViewProp} />
+      <BoardTableView {...boardViewProp} />
     </>
   );
 };

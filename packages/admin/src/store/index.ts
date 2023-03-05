@@ -1,8 +1,8 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import { configureStore } from "@reduxjs/toolkit";
-import ArticelWriteReducer from "src/pages/BoardPage/ArticleWrite/ArticleWrite.store";
-import ImagePreviewReducer from "src/pages/BoardPage/ArticleWrite/UploadImage/ImagePreview/ImagePreview.store";
+import ArticelWriteReducer from "src/pages/ArticlePage/ArticleWrite/ArticleWrite.store";
+import ImagePreviewReducer from "src/pages/ArticlePage/ArticleWrite/UploadImage/ImagePreview/ImagePreview.store";
 
 import boardReducer from "./boardSlice";
 import logger from "./loggerMiddleware";

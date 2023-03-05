@@ -6,6 +6,7 @@ import Article from "src/page/Article";
 import ArticleDetail from "src/page/Article/Detail";
 import Board from "src/page/Board";
 import BoardArticle from "src/page/Board/Article";
+import { setUuid } from "src/utils/storage";
 import { isStaging, isWebView } from "src/utils/webview";
 
 import "src/polyfills";
@@ -33,6 +34,11 @@ function App() {
   useEffect(() => {
     setScreenSize();
   }, [ height ]);
+
+  // MEMO: prod 배포 시 삭제
+  useEffect(() => {
+    setUuid();
+  }, []);
 
   const appRoutes = [
     { path: "/home", element: <Home /> },

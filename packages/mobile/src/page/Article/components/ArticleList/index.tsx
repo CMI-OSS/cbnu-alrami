@@ -50,7 +50,9 @@ function ArticleList({ className }: DefaultProps) {
     }
   });
 
-  const isArticleEmpty = articlesData?.pages[0].pagination.totalItemCount === 0;
+  const isArticleEmpty =
+    !articlesData?.pages[0]?.articles ||
+    articlesData?.pages[0].pagination.totalItemCount === 0;
 
   if (isArticleEmpty && kind === "subscribe") {
     return (

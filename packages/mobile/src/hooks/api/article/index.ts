@@ -3,10 +3,7 @@ import {
   useCoreMutation,
   useCoreQuery,
 } from "@hooks/api/core";
-import {
-  ArticleApiService,
-  ResponseArticlePageDto,
-} from "@shared/swagger-api/generated";
+import { ArticleApiService } from "@shared/swagger-api/generated";
 import { queryKey } from "src/consts/react-query";
 import { queryClient } from "src/main";
 import { GetParams } from "src/type/utils";
@@ -19,7 +16,7 @@ export const usePopularArticlesQuery = (
     typeof ArticleApiService.articleControllerFindPopularArticles
   >,
 ) => {
-  return useCoreInfiniteQuery<ResponseArticlePageDto>(
+  return useCoreInfiniteQuery(
     queryKey.popularArticles(params),
     ({ pageParam = 1 }) => {
       return ArticleApiService.articleControllerFindPopularArticles({
@@ -28,8 +25,8 @@ export const usePopularArticlesQuery = (
       });
     },
     {
-      getNextPageParam: ({ pagination: { isEnd, currentPage } }) => {
-        return isEnd ? undefined : currentPage + 1;
+      getNextPageParam: ({ pagination }) => {
+        return pagination?.isEnd ? undefined : pagination?.currentPage + 1;
       },
     },
   );
@@ -40,7 +37,7 @@ export const useSubscribeArticlesQuery = (
     typeof ArticleApiService.articleControllerFindSubscribeArticle
   >,
 ) => {
-  return useCoreInfiniteQuery<ResponseArticlePageDto>(
+  return useCoreInfiniteQuery(
     queryKey.subscribeArticles({ ...params, uuid }),
     ({ pageParam = 1 }) => {
       return ArticleApiService.articleControllerFindSubscribeArticle({
@@ -50,8 +47,8 @@ export const useSubscribeArticlesQuery = (
       });
     },
     {
-      getNextPageParam: ({ pagination: { isEnd, currentPage } }) => {
-        return isEnd ? undefined : currentPage + 1;
+      getNextPageParam: ({ pagination }) => {
+        return pagination?.isEnd ? undefined : pagination?.currentPage + 1;
       },
     },
   );
@@ -72,8 +69,8 @@ export const useBookmarkArticlesQuery = (
       });
     },
     {
-      getNextPageParam: ({ pagination: { isEnd, currentPage } }) => {
-        return isEnd ? undefined : currentPage + 1;
+      getNextPageParam: ({ pagination }) => {
+        return pagination?.isEnd ? undefined : pagination?.currentPage + 1;
       },
     },
   );

@@ -5,7 +5,8 @@
   align-items: center;
   justify-content: center;
   width: 100vw;
-  height: calc(var(--vh, 1vh) * 100);
+  min-height: calc(var(--vh, 1vh) * 100);
+  padding-top: 40px;
   background-color: rgba(27, 27, 27, 0.85);
 
   .selector {

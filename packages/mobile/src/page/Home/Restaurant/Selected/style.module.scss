@@ -18,6 +18,7 @@
         @include typography(16);
         line-height: 25px;
         font-weight: 500;
+        color: $black-100;
       }
 
       > button {

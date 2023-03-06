@@ -59,15 +59,16 @@ function compareTemperature(
   currentTemperature?: number,
 ) {
   if (!currentTemperature) return false;
+  const currentTemperatureInt = Math.round(currentTemperature);
   if (!minTemp) {
-    if (maxTemp! >= currentTemperature) return true;
+    if (maxTemp! >= currentTemperatureInt) return true;
     return false;
   }
   if (!maxTemp) {
-    if (minTemp! <= currentTemperature) return true;
+    if (minTemp! <= currentTemperatureInt) return true;
     return false;
   }
-  return minTemp <= currentTemperature && currentTemperature <= maxTemp;
+  return minTemp <= currentTemperatureInt && currentTemperatureInt <= maxTemp;
 }
 
 function SuggestionModal({ currentTemperature, onClick }: Props) {

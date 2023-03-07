@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { CMILogo2, Setting } from "@components/atoms/icon";
+import { CMIAppLogo, Setting } from "@components/atoms/icon";
 import Footer from "@components/molecules/Footer";
 import { useTodaySchedulesQuery } from "@hooks/api/schedule";
 import { useWeathersQuery } from "@hooks/api/weather";
@@ -48,7 +48,7 @@ function Home() {
         />
       )}
       <header className={$.header}>
-        <CMILogo2 size={29} />
+        <CMIAppLogo size={29} />
         <Link to="/setting">
           <Setting size={24} stroke="#aaa" />
         </Link>

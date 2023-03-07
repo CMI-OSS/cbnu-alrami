@@ -5,7 +5,8 @@ export { Arrow } from "./Arrow"; // 완료
 export { Calendar } from "./Calendar"; // 완료
 export { Call } from "./Call"; // 완료
 export { Close } from "./Close"; // 완료
-export { CMILogo2 } from "./CMILogo2";
+export { CMIAppLogo } from "./CMIAppLogo";
+export { CMITeamLogo} from "./CMITeamLogo";
 export { Download } from "./Download";
 export { Email } from "./Email"; // 완료
 export { FillHeart } from "./FillHeart";

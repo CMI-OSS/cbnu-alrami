@@ -1,6 +1,6 @@
 import { IconProps } from "src/type/props";
 
-function CMILogo2({ size }: Omit<IconProps, "stroke">) {
+function CMIAppLogo({ size }: Omit<IconProps, "stroke">) {
   return (
     <svg
       width={size}
@@ -32,4 +32,4 @@ function CMILogo2({ size }: Omit<IconProps, "stroke">) {
   );
 }
 
-export { CMILogo2 };
+export { CMIAppLogo };

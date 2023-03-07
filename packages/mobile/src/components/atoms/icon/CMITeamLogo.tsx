@@ -1,6 +1,6 @@
 import { IconProps } from "src/type/props";
 
-function CMILogo({ size }: IconProps) {
+function CMITeamLogo({ size }: IconProps) {
   return (
     <svg
       width={size}
@@ -34,4 +34,4 @@ function CMILogo({ size }: IconProps) {
   );
 }
 
-export { CMILogo };
+export { CMITeamLogo };

@@ -25,8 +25,12 @@ export const GetSchedule = () => {
   return applyDecorators(
     ApiOperation({
       summary: "일정 조회",
-      description:
-        "타겟의 시작일을 기준으로 시작범위와 끝범위를 설정하여 일정을 조회합니다. \n (시작일 기준으로 오름차순 정렬) <br/> query.startDateTime <= target.startDateTime <= query.endDateTime",
+      description: `범위안에 해당하는 일정을 조회합니다. \n (시작일 기준으로 오름차순 정렬) <br/> 
+<--- target ---><br/> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<--- target ---><br/> 
+&nbsp;&nbsp;<---- target ---->    <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<--- query --->
+      `,
     }),
     ApiOkResponse({ type: Schedule, isArray: true }),
   );

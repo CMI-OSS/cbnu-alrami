@@ -31,8 +31,13 @@ export class ScheduleApiService {
 
     /**
      * 일정 조회
-     * 타겟의 시작일을 기준으로 시작범위와 끝범위를 설정하여 일정을 조회합니다.
-     * (시작일 기준으로 오름차순 정렬) <br/> query.startDateTime <= target.startDateTime <= query.endDateTime
+     * 범위안에 해당하는 일정을 조회합니다.
+     * (시작일 기준으로 오름차순 정렬) <br/>
+     * <--- target ---><br/>
+     * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<--- target ---><br/>
+     * &nbsp;&nbsp;<---- target ---->    <br/>
+     * &nbsp;&nbsp;&nbsp;&nbsp;<--- query --->
+     *
      * @returns Schedule
      * @throws ApiError
      */
@@ -41,11 +46,11 @@ export class ScheduleApiService {
         endDateTime = '2023-05-01',
     }: {
         /**
-         * 타겟의 시작일 기준 시작범위 (query.startDateTime <= target.startDateTime)
+         * query startDateTime
          */
         startDateTime?: string,
         /**
-         * 타겟의 시작일 기준 끝범위 (target.startDateTime <= query.endDateTime)
+         * query endDateTime
          */
         endDateTime?: string,
     }): CancelablePromise<Array<Schedule>> {

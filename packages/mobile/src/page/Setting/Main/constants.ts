@@ -23,7 +23,7 @@ const settingMenuList = [
   {
     icon: Speaker,
     label: "공지사항",
-    to: `/article/detail/${CMI_BOARD_ID}`,
+    to: `/board/article/${CMI_BOARD_ID}`,
   },
   {
     icon: AppVersion,

@@ -84,6 +84,10 @@ export const useSubscribeBoardMutation = (
             queryKey: queryKey.board({ ...params, uuid }),
             refetchType: "all",
           }),
+          queryClient.invalidateQueries({
+            queryKey: queryKey.subscribeArticles({ uuid }),
+            refetchType: "all",
+          }),
         ]);
         toastSuccess({
           message: "구독이 추가되었습니다.",
@@ -109,6 +113,11 @@ export const useUnSubscribeBoardMutation = (
           }),
           queryClient.invalidateQueries({
             queryKey: queryKey.board({ ...params, uuid }),
+            refetchType: "all",
+          }),
+
+          queryClient.invalidateQueries({
+            queryKey: queryKey.subscribeArticles({ uuid }),
             refetchType: "all",
           }),
         ]);

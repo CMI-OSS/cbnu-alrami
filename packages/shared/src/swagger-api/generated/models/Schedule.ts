@@ -24,11 +24,11 @@ export type Schedule = {
      */
     isHoliday: boolean;
     /**
-     * 타겟의 시작일 기준 시작범위 (query.startDateTime <= target.startDateTime)
+     * query startDateTime
      */
     startDateTime: string;
     /**
-     * 타겟의 시작일 기준 끝범위 (target.startDateTime <= query.endDateTime)
+     * query endDateTime
      */
     endDateTime?: string;
 };

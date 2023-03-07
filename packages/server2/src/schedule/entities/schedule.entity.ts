@@ -39,8 +39,7 @@ export class Schedule extends CommonEntity {
   isHoliday: boolean;
 
   @ApiProperty({
-    description:
-      "타겟의 시작일 기준 시작범위 (query.startDateTime <= target.startDateTime)",
+    description: "query startDateTime ",
     default: "2023-04-01",
   })
   @IsDateString()
@@ -48,8 +47,7 @@ export class Schedule extends CommonEntity {
   startDateTime: Date;
 
   @ApiProperty({
-    description:
-      "타겟의 시작일 기준 끝범위 (target.startDateTime <= query.endDateTime)",
+    description: "query endDateTime",
     default: "2023-05-01",
     required: false,
   })

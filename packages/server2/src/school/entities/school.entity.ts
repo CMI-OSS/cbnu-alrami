@@ -25,7 +25,7 @@ export class School extends UpdatableCommonEntity {
     type: "enum",
   })
   @IsEnum(SchoolArea)
-  @Column({ enum: SchoolArea })
+  @Column({ type: "enum", enum: SchoolArea })
   area: SchoolArea;
 
   @OneToOne(() => Place, { onDelete: "CASCADE" })

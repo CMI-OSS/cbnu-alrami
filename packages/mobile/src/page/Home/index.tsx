@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { Setting } from "@components/atoms/icon";
+import { CMIAppLogo, Setting } from "@components/atoms/icon";
 import Footer from "@components/molecules/Footer";
 import { useTodaySchedulesQuery } from "@hooks/api/schedule";
 import { useWeathersQuery } from "@hooks/api/weather";
@@ -48,10 +48,7 @@ function Home() {
         />
       )}
       <header className={$.header}>
-        <div className={$["header-content"]}>
-          <h1 className={$.title}>충림이</h1>
-          <p>오늘은 총 {scheduleData.schedules.length}개의 일정이 있어요</p>
-        </div>
+        <CMIAppLogo size={29} />
         <Link to="/setting">
           <Setting size={24} stroke="#aaa" />
         </Link>

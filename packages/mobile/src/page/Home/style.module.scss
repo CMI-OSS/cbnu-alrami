@@ -5,20 +5,7 @@
   .header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 30px;
-
-    .header-content {
-      .title {
-        @include typography(25);
-        font-weight: 500;
-        color: $black-100;
-      }
-
-      > p {
-        @include typography(16);
-        color: $black-50;
-      }
-    }
+    margin-bottom: 27px;
 
     > button {
       background: transparent;

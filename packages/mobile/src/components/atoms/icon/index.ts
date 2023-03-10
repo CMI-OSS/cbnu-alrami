@@ -5,11 +5,17 @@ export { Arrow } from "./Arrow"; // 완료
 export { Calendar } from "./Calendar"; // 완료
 export { Call } from "./Call"; // 완료
 export { Close } from "./Close"; // 완료
+export { CMIAppLogo } from "./CMIAppLogo";
+export { CMITeamLogo} from "./CMITeamLogo";
+export { Download } from "./Download";
 export { Email } from "./Email"; // 완료
+export { FillHeart } from "./FillHeart";
 export { Food } from "./Food"; // 완료
 export { Hamburger } from "./Hamburger"; // 완료
+export { Heart } from "./Heart";
 export { Home } from "./Home"; // 완료
 export { Info } from "./Info"; // 완료
+export { Internet } from "./Internet";
 export { Lab } from "./Lab"; // 완료
 export { LeftArrow } from "./LeftArrow"; // 완료
 export { LongArrow } from "./LongArrow"; // 완료
@@ -17,6 +23,7 @@ export { Map } from "./Map"; // 완료
 export { Person } from "./Person"; // 완료
 export { Plus } from "./Plus"; // 완료
 export { Setting } from "./Setting"; // 완료
+export { Share } from "./Share";
 export { Speaker } from "./Speaker"; // 완료
 export { Star } from "./Star"; // 완료
 export { Subscription } from "./Subscription"; // 완료
@@ -51,8 +58,3 @@ export { 연무 } from "./연무";
 export { 천둥번개 } from "./천둥번개";
 export { 황사 } from "./황사";
 export { 흐림 } from "./흐림";
-export { Internet } from "./Internet";
-export { Share } from "./Share";
-export { Heart } from "./Heart";
-export { FillHeart } from "./FillHeart";
-export { Download } from "./Download";

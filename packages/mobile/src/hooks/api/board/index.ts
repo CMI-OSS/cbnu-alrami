@@ -78,11 +78,9 @@ export const useSubscribeBoardMutation = (
         Promise.all([
           queryClient.invalidateQueries({
             queryKey: queryKey.subscribeBoards,
-            refetchType: "all",
           }),
           queryClient.invalidateQueries({
             queryKey: queryKey.board({ ...params, uuid }),
-            refetchType: "all",
           }),
           queryClient.invalidateQueries({
             queryKey: queryKey.subscribeArticles({ uuid }),
@@ -109,11 +107,9 @@ export const useUnSubscribeBoardMutation = (
         Promise.all([
           queryClient.invalidateQueries({
             queryKey: queryKey.subscribeBoards,
-            refetchType: "all",
           }),
           queryClient.invalidateQueries({
             queryKey: queryKey.board({ ...params, uuid }),
-            refetchType: "all",
           }),
 
           queryClient.invalidateQueries({
@@ -141,11 +137,9 @@ export const useNoticeBoardMutation = (
         Promise.all([
           queryClient.invalidateQueries({
             queryKey: queryKey.subscribeBoards,
-            refetchType: "all",
           }),
           queryClient.invalidateQueries({
             queryKey: queryKey.board({ ...params, uuid }),
-            refetchType: "all",
           }),
         ]);
         toastSuccess({
@@ -168,11 +162,9 @@ export const useUnNoticeBoardMutation = (
         Promise.all([
           queryClient.invalidateQueries({
             queryKey: queryKey.subscribeBoards,
-            refetchType: "all",
           }),
           queryClient.invalidateQueries({
             queryKey: queryKey.board({ ...params, uuid }),
-            refetchType: "all",
           }),
         ]);
         toastSuccess({

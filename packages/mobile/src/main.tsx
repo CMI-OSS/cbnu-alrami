@@ -16,9 +16,7 @@ import { persistor, store } from "./store";
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      retry: false,
+      staleTime: 30000,
     },
   },
 });

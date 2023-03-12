@@ -3,7 +3,7 @@ import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Article from "src/page/Article";
-import ArticleDetail from "src/page/Article/Detail";
+import ArticleDetail from "src/page/Article/components/Detail";
 import Board from "src/page/Board";
 import BoardArticle from "src/page/Board/Article";
 import { setUuid } from "src/utils/storage";

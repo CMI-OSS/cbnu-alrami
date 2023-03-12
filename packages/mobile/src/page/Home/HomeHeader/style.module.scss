@@ -1,0 +1,20 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 27px;
+
+    > button {
+        background: transparent;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    > div:last-child {
+        margin-right: 0;
+    }
+
+    > p {
+        padding-right: 10px;
+        line-height: 24px;
+    }
+}

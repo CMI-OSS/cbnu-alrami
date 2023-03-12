@@ -12,16 +12,16 @@ type Props = {
 function SuspenseFallback(props: Props) {
   const { height, isRoundBox } = props;
   return (
-    <DeferredComponent>
-      <div
-        className={classnames($["suspense-fallback"], {
-          [$["round-box"]]: isRoundBox,
-        })}
-        style={{ height }}
-      >
+    <div
+      className={classnames($["suspense-fallback"], {
+        [$["round-box"]]: isRoundBox,
+      })}
+      style={{ height }}
+    >
+      <DeferredComponent>
         <Loading width={64} borderWidth={4} color="#D66D6E" />
-      </div>
-    </DeferredComponent>
+      </DeferredComponent>
+    </div>
   );
 }
 

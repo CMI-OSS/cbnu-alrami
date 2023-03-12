@@ -22,89 +22,35 @@ const makeMarker = (map: naver.maps.Map, position: naver.maps.LatLng) => {
   });
 };
 
-const INITIAL_SMALL_LATITUDE = 36.62;
-const INITIAL_LARGE_LATITUDE = 36.635;
-const INITIAL_SMALL_LONGITUDE = 127.44;
-const INITIAL_LARGE_LONGITUDE = 127.465;
 const INITIAL_CBNU_LATITUDE = 36.62850496903595;
 const INITIAL_CBNU_LONGITUDE = 127.45731862757414;
 
 function Map() {
   const [ constructionId, setConstructionId ] = useState(12);
-  const [ myLocation, setMyLocation ] = useState({ latitude: 0, longitude: 0 });
   const dispatch = useAppDispatch();
-
-  const comparePosition = (latitude: number, longitude: number) => {
-    return (
-      latitude >= INITIAL_SMALL_LATITUDE &&
-      latitude <= INITIAL_LARGE_LATITUDE &&
-      longitude >= INITIAL_SMALL_LONGITUDE &&
-      longitude <= INITIAL_LARGE_LONGITUDE
-    );
-  };
-
+  
   const { isDisplayFloatingButton, isDisplayTooltip, isConstructionTooltip } =
     useAppSelector((state) => {
       return state.statusReducer.map;
     });
 
-  const success = (position: GeolocationPosition) => {
-    setMyLocation((previousState: any) => {
-      return {
-        latitude: comparePosition(
-          position.coords.latitude,
-          position.coords.longitude,
-        )
-          ? position.coords.latitude
-          : INITIAL_CBNU_LATITUDE,
-        longitude: comparePosition(
-          position.coords.latitude,
-          position.coords.longitude,
-        )
-          ? position.coords.longitude
-          : INITIAL_CBNU_LONGITUDE,
-      };
-    });
-  };
-
-  const error = () => {
-    alert("현재 위치를 알 수 없습니다.");
-  };
-
   const {
     data: schoolData,
-    isLoading: schoolLoading,
-    isError: schoolError,
   } = useSchoolQuery();
 
   const {
     data: schoolSeveralData,
-    isLoading: schoolSeveralLoading,
-    isError: schoolSeveralError,
   } = useSchoolOneQuery({id: constructionId});
 
-  useEffect(() => {
-    const initMap = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(success, error);
-      }
-      dispatch(hideConstructionTooltipStatus({ isConstructionTooltip: false }));
-      dispatch(hideFloatingButtonStatus({ isDisplayFloatingButton: true }));
-    };
-    initMap();
-  }, []);
-
-  useEffect(() => {
-    const currentPosition = [ myLocation.latitude, myLocation.longitude ];
+  const getMap = () => {
     const map = new naver.maps.Map("map", {
-      center: new naver.maps.LatLng(currentPosition[0], currentPosition[1]),
+      center: new naver.maps.LatLng(INITIAL_CBNU_LATITUDE, INITIAL_CBNU_LONGITUDE),
       zoom: 16,
       zoomControl: true,
       zoomControlOptions: {
         position: naver.maps.Position.TOP_RIGHT,
       },
     });
-    if (!schoolLoading) {
       schoolData?.forEach((place) => {
         const marker = makeMarker(
           map,
@@ -122,8 +68,17 @@ function Map() {
           );
         });
       });
-    }
-  }, [ myLocation ]);
+  }
+
+  useEffect(() => {
+    const initMap = () => {
+      dispatch(hideConstructionTooltipStatus({ isConstructionTooltip: false }));
+      dispatch(hideFloatingButtonStatus({ isDisplayFloatingButton: true }));
+      getMap();
+    };
+    initMap();
+  }, [ schoolData ]);
+
   return (
     <div id="map" className={$.map}>
       {isConstructionTooltip && (
@@ -159,7 +114,7 @@ function Map() {
           </NavLink>
         </div>
       )}
-      {isConstructionTooltip && !schoolSeveralLoading && schoolSeveralData && (
+      {isConstructionTooltip && schoolSeveralData && (
         <Spot
           schoolData={schoolSeveralData}
           url={schoolSeveralData.images![0]?.url}

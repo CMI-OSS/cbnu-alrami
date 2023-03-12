@@ -1,4 +1,3 @@
-import React from "react";
 
 import { Close, Download } from "@components/atoms/icon";
 import Image from "@components/atoms/Image";

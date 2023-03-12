@@ -1,6 +1,3 @@
-/* eslint-disable react/jsx-pascal-case */
-
-import { Weather as WeatherType } from "@shared/swagger-api/generated";
 import dayjs from "dayjs";
 import find from "lodash/find";
 import BorderBox from "src/components/atoms/BorderBox";
@@ -18,13 +15,10 @@ import {
   황사,
   흐림,
 } from "src/components/atoms/icon";
+import { useWeathersQuery } from "src/hooks/api/weather";
 
+import SuggestionModal from "../SuggestionModal";
 import $ from "./style.module.scss";
-
-type Props = {
-  weather: WeatherType;
-  onSuggestionClick: () => void;
-};
 
 const colors = {
   morning: "#E0F0FF",
@@ -120,9 +114,17 @@ const iconToBackgrounds = [
   },
 ];
 
-function Weather({ weather, onSuggestionClick }: Props) {
+type Props = {
+  isOpen: boolean;
+  handleSuggestionClick: () => void;
+};
+
+function Weather({ isOpen, handleSuggestionClick }: Props) {
+  const { data } = useWeathersQuery();
+  if (!data) return null;
+
+  const { currentWeather, currentTemp } = data;
   const currentTime = dayjs().hour() >= 12 ? "night" : "morning";
-  const { currentWeather } = weather;
   const timeTarget = find(iconToBackgrounds, ({ type, time }) => {
     return type === currentWeather && time === currentTime;
   });
@@ -133,17 +135,34 @@ function Weather({ weather, onSuggestionClick }: Props) {
 
   return (
     <div className={$.weather}>
-      <BorderBox height={156} background={iconToBackground?.backgroundColor}>
+      {isOpen && (
+        <SuggestionModal
+          currentTemperature={currentTemp}
+          onClick={handleSuggestionClick}
+        />
+      )}
+
+      <BorderBox
+        height={156}
+        background={iconToBackground?.backgroundColor}
+        className={$["weather-box"]}
+      >
         <div className={$.first}>
-          <span className={$.amount}>{weather.currentTemp ? `${weather.currentTemp}°C` : "날씨 정보 없음"}</span>
+          <span className={$.amount}>
+            {data.currentTemp ? `${data.currentTemp}°C` : "날씨 정보 없음"}
+          </span>
           <span className={$.description}>청주, {iconToBackground?.text}</span>
           <span className={$.celsius}>
-            {weather.minTemp} °C / {weather.maxTemp}°C
+            {data.minTemp} °C / {data.maxTemp}°C
           </span>
         </div>
         <div className={$.second}>
           {iconToBackground?.icon}
-          <button className={$.more} type="button" onClick={onSuggestionClick}>
+          <button
+            className={$.more}
+            type="button"
+            onClick={handleSuggestionClick}
+          >
             <Info size={14} stroke="#aaa" />
             기온별 옷차림
           </button>

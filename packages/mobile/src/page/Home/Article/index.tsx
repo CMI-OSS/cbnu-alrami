@@ -22,7 +22,7 @@ const useArticles = (kind: Props["kind"]) => {
   return useSubscribeArticlesQuery({ count: 5 });
 };
 
-const ArticleHeader = ({ kind, setKind }: Props) => {
+function ArticleHeader({ kind, setKind }: Props) {
   return (
     <div className={$.header}>
       <span>공지사항</span>
@@ -48,14 +48,13 @@ const ArticleHeader = ({ kind, setKind }: Props) => {
       </div>
     </div>
   );
-};
+}
 
 function Article() {
   const [ kind, setKind ] = useState<Props["kind"]>("popular");
-  const { data: articlesData, isLoading } = useArticles(kind);
+  const { data } = useArticles(kind);
 
-  if (isLoading) return <></>;
-  if (!articlesData?.pages[0]?.articles?.length || !articlesData) {
+  if (data && !data?.pages[0]?.articles?.length) {
     return (
       <div className={$.container}>
         <ArticleHeader {...{ kind, setKind }} />
@@ -70,7 +69,7 @@ function Article() {
       <ArticleHeader {...{ kind, setKind }} />
       <Line />
       <div className={$.content}>
-        {articlesData?.pages[0]?.articles.map((articleData) => {
+        {data?.pages[0]?.articles.map((articleData) => {
           const { title, id } = articleData;
           return (
             <div className={$.title} key={id}>

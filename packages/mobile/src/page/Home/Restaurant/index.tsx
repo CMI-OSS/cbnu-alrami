@@ -15,10 +15,9 @@ import $ from "./style.module.scss";
 
 type Props = {
   today: Dayjs;
-  isHoliday: boolean;
 };
 
-function Restaurant({ today, isHoliday }: Props) {
+function Restaurant({ today }: Props) {
   const {
     cardType,
     cafeteriaName,
@@ -27,6 +26,8 @@ function Restaurant({ today, isHoliday }: Props) {
     handleCafeteriaSelect,
     handleFinalGuideCancel,
   } = useRestaurant();
+
+  const isHoliday = today.day() === 0 || today.day() === 6;
 
   const target = CAFETERIA_LIST.find((cafeteria) => {
     return cafeteria.name === cafeteriaName;
@@ -59,7 +60,7 @@ function Restaurant({ today, isHoliday }: Props) {
 
   return (
     <AsyncBoundary
-      suspenseFallback={<SuspenseFallback height="160px" />}
+      suspenseFallback={<SuspenseFallback height="160px" isRoundBox />}
       errorFallback={ErrorFallback}
       fallBackHeight="160px"
       keys={[ cafeteriaName ]}

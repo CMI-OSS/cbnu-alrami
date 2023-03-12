@@ -34,6 +34,14 @@ function Map() {
       return state.statusReducer.map;
     });
 
+  const {
+    data: schoolData,
+  } = useSchoolQuery();
+
+  const {
+    data: schoolSeveralData,
+  } = useSchoolOneQuery({id: constructionId});
+
   const getMap = () => {
     const map = new naver.maps.Map("map", {
       center: new naver.maps.LatLng(INITIAL_CBNU_LATITUDE, INITIAL_CBNU_LONGITUDE),
@@ -43,7 +51,6 @@ function Map() {
         position: naver.maps.Position.TOP_RIGHT,
       },
     });
-    if (!schoolLoading) {
       schoolData?.forEach((place) => {
         const marker = makeMarker(
           map,
@@ -61,20 +68,7 @@ function Map() {
           );
         });
       });
-    }
   }
-
-  const {
-    data: schoolData,
-    isLoading: schoolLoading,
-    isError: schoolError,
-  } = useSchoolQuery();
-
-  const {
-    data: schoolSeveralData,
-    isLoading: schoolSeveralLoading,
-    isError: schoolSeveralError,
-  } = useSchoolOneQuery({id: constructionId});
 
   useEffect(() => {
     const initMap = () => {
@@ -83,7 +77,7 @@ function Map() {
       getMap();
     };
     initMap();
-  }, []);
+  }, [ schoolData ]);
 
   return (
     <div id="map" className={$.map}>
@@ -120,7 +114,7 @@ function Map() {
           </NavLink>
         </div>
       )}
-      {isConstructionTooltip && !schoolSeveralLoading && schoolSeveralData && (
+      {isConstructionTooltip && schoolSeveralData && (
         <Spot
           schoolData={schoolSeveralData}
           url={schoolSeveralData.images![0]?.url}

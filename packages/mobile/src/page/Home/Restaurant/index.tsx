@@ -4,6 +4,7 @@ import SuspenseFallback from "src/components/atoms/SuspenseFallback";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
 import { CAFETERIA_LIST } from "src/constants";
 
+import { HOME_MARGIN_BOTTOM } from "../constants";
 import EmptyCafeteria from "./EmptyCafeteria";
 import FinalGuide from "./FinalGuide";
 import Greeting from "./Greeting";
@@ -60,9 +61,15 @@ function Restaurant({ today }: Props) {
 
   return (
     <AsyncBoundary
-      suspenseFallback={<SuspenseFallback height="160px" isRoundBox />}
+      suspenseFallback={
+        <SuspenseFallback
+          height="160px"
+          isRoundBox
+          style={{ marginBottom: HOME_MARGIN_BOTTOM }}
+        />
+      }
       errorFallback={ErrorFallback}
-      fallBackHeight="160px"
+      fallBackHeight="159px"
       keys={[ cafeteriaName ]}
     >
       <Selected

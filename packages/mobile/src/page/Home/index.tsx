@@ -6,6 +6,7 @@ import SuspenseFallback from "src/components/atoms/SuspenseFallback";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
 import Article from "src/page/Home/Article";
 
+import { HOME_MARGIN_BOTTOM } from "./constants";
 import HomeHeader from "./HomeHeader";
 import { useHome } from "./hooks";
 import Restaurant from "./Restaurant";
@@ -27,7 +28,13 @@ function Home() {
       <HomeHeader />
 
       <AsyncBoundary
-        suspenseFallback={<SuspenseFallback height="156px" isRoundBox />}
+        suspenseFallback={
+          <SuspenseFallback
+            height="104px"
+            isRoundBox
+            style={{ marginBottom: HOME_MARGIN_BOTTOM }}
+          />
+        }
         errorFallback={ErrorFallback}
         fallBackHeight="156px"
       >
@@ -35,7 +42,13 @@ function Home() {
       </AsyncBoundary>
 
       <AsyncBoundary
-        suspenseFallback={<SuspenseFallback height="156px" isRoundBox />}
+        suspenseFallback={
+          <SuspenseFallback
+            height="156px"
+            isRoundBox
+            style={{ marginBottom: HOME_MARGIN_BOTTOM }}
+          />
+        }
         errorFallback={ErrorFallback}
         fallBackHeight="156px"
       >
@@ -45,7 +58,13 @@ function Home() {
       <Restaurant {...{ today }} />
 
       <AsyncBoundary
-        suspenseFallback={<SuspenseFallback height="319px" isRoundBox />}
+        suspenseFallback={
+          <SuspenseFallback
+            height="319px"
+            isRoundBox
+            style={{ marginBottom: HOME_MARGIN_BOTTOM }}
+          />
+        }
         errorFallback={ErrorFallback}
         fallBackHeight="319px"
       >

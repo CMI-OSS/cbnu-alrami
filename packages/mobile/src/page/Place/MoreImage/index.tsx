@@ -10,10 +10,12 @@ type Props = {
 
 function MoreImage() {
   const {state} = useLocation() as Props;
+
+  const images = state;
   return (
     <>
       <MapHeader title="이미지" />
-      <MapImageList state={state} />
+      <MapImageList images={images} />
     </>
   );
 }

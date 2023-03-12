@@ -6,17 +6,16 @@ import ImageModal from "src/components/shared/ImageModal";
 import $ from "./style.module.scss";
 
 type Props = {
-  state: ImageType[]
+  images: ImageType[]
 }
 
-function MapImageList({ state }: Props) {
+function MapImageList({ images }: Props) {
   const [ order, setOrder ] = useState(0);
   const [ enlargeModal, setEnlargeModal ] = useState(false);
   const handleOpenModal = () => {
     setEnlargeModal(true);
   }
 
-  const images = state;
   return (
     <ul className={$.list}>
       {images.map((image) => {

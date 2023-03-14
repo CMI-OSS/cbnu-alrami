@@ -155,13 +155,12 @@ export class ScheduleService {
     return Schedule.save();
   }
 
-  async isHoliday(date: Date) {
+  async isHoliday(date: string) {
     const holidaySchedule = await this.scheduleRepository.findOneBy({
-      startDateTime: date,
-      endDateTime: undefined,
+      startDateTime: date as unknown as Date,
       isHoliday: true,
     });
 
-    return holidaySchedule;
+    return holidaySchedule ?? { isHoliday: false };
   }
 }

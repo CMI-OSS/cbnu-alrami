@@ -16,12 +16,14 @@ import { UserHeader } from "src/user/user.gurad";
 
 import { CreateScheduleDto } from "./dto/create-schedule.dto";
 import { GetScheduleDto } from "./dto/get-schedule.dto";
+import { Schedule } from "./entities/schedule.entity";
 import { ScheduleService } from "./schedule.service";
 import {
   BookmarkSchedule,
   CreateSchedule,
   GetBookmarkSchedule,
   GetSchedule,
+  IsHolidaySchedule,
   UnBookmarkSchedule,
 } from "./schedule.swagger";
 
@@ -42,6 +44,7 @@ export class ScheduleController {
   @GetSchedule()
   @Get()
   findAll(@Query() getScheduleDto: GetScheduleDto) {
+    console.log({ getScheduleDto });
     return this.scheduleService.findAll(getScheduleDto);
   }
 
@@ -72,5 +75,11 @@ export class ScheduleController {
     return {
       success: !!(await this.scheduleService.unbookmark(id, user)),
     };
+  }
+
+  @IsHolidaySchedule()
+  @Get("holiday/:date")
+  async isHoliday(@Param("date") date: string): Promise<Partial<Schedule>> {
+    return this.scheduleService.isHoliday(date);
   }
 }

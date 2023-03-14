@@ -28,6 +28,7 @@ export type { NotFoundArticleException } from './models/NotFoundArticleException
 export type { NotFoundBoardException } from './models/NotFoundBoardException';
 export type { NotFoundBoardsException } from './models/NotFoundBoardsException';
 export type { PaginationResponseDto } from './models/PaginationResponseDto';
+export type { PartialSchdule } from './models/PartialSchdule';
 export type { PlaceSchoolDto } from './models/PlaceSchoolDto';
 export type { ResponseArticleDetailDto } from './models/ResponseArticleDetailDto';
 export type { ResponseArticleDto } from './models/ResponseArticleDto';

@@ -3,6 +3,7 @@
 /* eslint-disable */
 import type { CreateScheduleDto } from '../models/CreateScheduleDto';
 import type { MutationResponse } from '../models/MutationResponse';
+import type { PartialSchdule } from '../models/PartialSchdule';
 import type { Schedule } from '../models/Schedule';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -136,6 +137,25 @@ export class ScheduleApiService {
             },
             headers: {
                 'uuid': uuid,
+            },
+        });
+    }
+
+    /**
+     * 휴일 일정이 있는지 조회
+     * @returns PartialSchdule
+     * @throws ApiError
+     */
+    public static scheduleControllerIsHoliday({
+        date,
+    }: {
+        date: string,
+    }): CancelablePromise<PartialSchdule> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/schedule/holiday/{date}',
+            path: {
+                'date': date,
             },
         });
     }

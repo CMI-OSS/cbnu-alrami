@@ -9,7 +9,6 @@ import {
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { SuperGuard } from "src/admin/gurads/super.guard";
-import { UnBookmarkArticle } from "src/article/article.swagger";
 import { MutationResponse } from "src/common/types/response";
 import { User } from "src/user/entities/user.entity";
 import { UserSession } from "src/user/user.decoratoer";
@@ -17,12 +16,15 @@ import { UserHeader } from "src/user/user.gurad";
 
 import { CreateScheduleDto } from "./dto/create-schedule.dto";
 import { GetScheduleDto } from "./dto/get-schedule.dto";
+import { Schedule } from "./entities/schedule.entity";
 import { ScheduleService } from "./schedule.service";
 import {
   BookmarkSchedule,
   CreateSchedule,
   GetBookmarkSchedule,
   GetSchedule,
+  IsHolidaySchedule,
+  UnBookmarkSchedule,
 } from "./schedule.swagger";
 
 @ApiTags("[schedule] 일정 API")
@@ -42,6 +44,7 @@ export class ScheduleController {
   @GetSchedule()
   @Get()
   findAll(@Query() getScheduleDto: GetScheduleDto) {
+    console.log({ getScheduleDto });
     return this.scheduleService.findAll(getScheduleDto);
   }
 
@@ -63,7 +66,7 @@ export class ScheduleController {
     };
   }
 
-  @UnBookmarkArticle()
+  @UnBookmarkSchedule()
   @Delete(":id/bookmark")
   async unbookmark(
     @Param("id") id: number,
@@ -72,5 +75,11 @@ export class ScheduleController {
     return {
       success: !!(await this.scheduleService.unbookmark(id, user)),
     };
+  }
+
+  @IsHolidaySchedule()
+  @Get("holiday/:date")
+  async isHoliday(@Param("date") date: string): Promise<Partial<Schedule>> {
+    return this.scheduleService.isHoliday(date);
   }
 }

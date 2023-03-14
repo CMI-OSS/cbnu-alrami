@@ -9,7 +9,6 @@ import {
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { SuperGuard } from "src/admin/gurads/super.guard";
-import { UnBookmarkArticle } from "src/article/article.swagger";
 import { MutationResponse } from "src/common/types/response";
 import { User } from "src/user/entities/user.entity";
 import { UserSession } from "src/user/user.decoratoer";
@@ -23,6 +22,7 @@ import {
   CreateSchedule,
   GetBookmarkSchedule,
   GetSchedule,
+  UnBookmarkSchedule,
 } from "./schedule.swagger";
 
 @ApiTags("[schedule] 일정 API")
@@ -63,7 +63,7 @@ export class ScheduleController {
     };
   }
 
-  @UnBookmarkArticle()
+  @UnBookmarkSchedule()
   @Delete(":id/bookmark")
   async unbookmark(
     @Param("id") id: number,

@@ -154,4 +154,14 @@ export class ScheduleService {
 
     return Schedule.save();
   }
+
+  async isHoliday(date: Date) {
+    const holidaySchedule = await this.scheduleRepository.findOneBy({
+      startDateTime: date,
+      endDateTime: undefined,
+      isHoliday: true,
+    });
+
+    return holidaySchedule;
+  }
 }

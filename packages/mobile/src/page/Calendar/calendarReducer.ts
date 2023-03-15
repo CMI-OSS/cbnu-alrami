@@ -9,14 +9,16 @@ import {
 
 import { CalendarInfo } from "../../type/index";
 
-const monthReducer = (
+export type CalendarAction =
+  | "increment_month"
+  | "decrement_month"
+  | "decrement_date"
+  | "increment_date";
+
+const calendarReducer = (
   { year, month, date, day }: CalendarInfo,
   action: {
-    type:
-      | "increment_month"
-      | "decrement_month"
-      | "decrement_date"
-      | "increment_date";
+    type: CalendarAction;
   },
 ) => {
   const decrementDay = +(day !== undefined && (day === 0 ? 6 : day - 1));
@@ -83,4 +85,4 @@ const monthReducer = (
   }
 };
 
-export default monthReducer;
+export default calendarReducer;

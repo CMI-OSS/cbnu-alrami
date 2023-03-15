@@ -29,7 +29,9 @@ export const getDateMenuInQueryStr = (
       })
     : [ dayjs().year(), dayjs().month() + 1, dayjs().date() ];
   const day = dayjs(isStrictValidDate(queryDate) ? queryDate : undefined).day();
-  const menu = isValidMenu(queryMenu) ? queryMenu : selectedMenu;
+  const menu = isValidMenu(queryMenu)
+    ? queryMenu
+    : selectedMenu || CafeteriaMenu.name.BONGWAN;
 
   return {
     year,

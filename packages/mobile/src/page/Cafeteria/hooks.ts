@@ -32,18 +32,20 @@ export const useCafeteria = () => {
 
   const onDecrease = () => {
     const { year, month, date } = dispatchDate("decrement_date");
-    navigate(`?date=${getFullDate(year, month, date || 1)}&menu=${menu}`);
+    const fullDate = getFullDate(year, month, date || 1);
+    navigate(`?date=${fullDate}&menu=${menu}`, { replace: true });
   };
 
   const onIncrease = () => {
     const { year, month, date } = dispatchDate("increment_date");
-    navigate(`?date=${getFullDate(year, month, date || 1)}&menu=${menu}`);
+    const fullDate = getFullDate(year, month, date || 1);
+    navigate(`?date=${fullDate}&menu=${menu}`, { replace: true });
   };
 
   const handleMenu = (selectedMenu: CafeteriaMenu.name) => {
     dispatch(selectMenu({ selectedMenu }));
     const fullDate = getFullDate(year, month - 1, date);
-    navigate(`?date=${fullDate}&menu=${selectedMenu}`);
+    navigate(`?date=${fullDate}&menu=${selectedMenu}`, { replace: true });
   };
 
   return {

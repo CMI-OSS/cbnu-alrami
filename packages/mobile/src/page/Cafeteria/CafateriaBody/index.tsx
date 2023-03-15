@@ -22,7 +22,7 @@ function CafeteriaBody({ fullDate, day, selectedMenu }: Props) {
   return (
     <main
       className={classnames($.cafeteria, {
-        [$["no-menu"]]: cafeteriaMenu && !cafeteriaMenu.length,
+        [$["no-menu"]]: !isCafeteriaExist,
       })}
     >
       {isCafeteriaExist && (

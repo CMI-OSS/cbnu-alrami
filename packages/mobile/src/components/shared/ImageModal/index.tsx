@@ -1,4 +1,3 @@
-
 import { Close, Download } from "@components/atoms/icon";
 import Image from "@components/atoms/Image";
 import ImageSlider from "@components/molecules/ImageSlider";
@@ -17,6 +16,7 @@ type Props = {
 
 function ImageModal({ order, setOrder, onClose, images }: Props) {
   // TODO: 백엔드 수정 후 확인필요
+
   const handleDownloadClick = async () => {
     const { id, url } = images[order];
     const response = await fetch(url);

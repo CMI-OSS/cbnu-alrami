@@ -21,7 +21,6 @@ function ImageSlider({
   className,
   children,
 }: Props) {
-  console.log("testtest");
   const sliderRef = useRef<HTMLDivElement>(null);
   const [ touchStart, setTouchStart ] = useState(0);
   const totals = Array.from({ length: total }, (_, i) => {

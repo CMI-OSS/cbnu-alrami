@@ -15,8 +15,7 @@ type Props = {
 } & DefaultProps;
 
 function ImageModal({ order, setOrder, onClose, images }: Props) {
-  // TODO: 백엔드 수정 후 확인필요 브랜치테스트
-  console.log("dev바뀜123123123");
+  // TODO: 백엔드 수정 후 확인필요
   const handleDownloadClick = async () => {
     const { id, url } = images[order];
     const response = await fetch(url);

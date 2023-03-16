@@ -52,9 +52,9 @@ function ArticleHeader({ kind, setKind }: Props) {
 
 function Article() {
   const [ kind, setKind ] = useState<Props["kind"]>("popular");
-  const { data } = useArticles(kind);
+  const { data: articlesData } = useArticles(kind);
 
-  if (data && !data?.pages[0]?.articles?.length) {
+  if (articlesData && !articlesData?.pages[0]?.articles?.length) {
     return (
       <div className={$.container}>
         <ArticleHeader {...{ kind, setKind }} />
@@ -69,7 +69,7 @@ function Article() {
       <ArticleHeader {...{ kind, setKind }} />
       <Line />
       <div className={$.content}>
-        {data?.pages[0]?.articles.map((articleData) => {
+        {articlesData?.pages[0]?.articles.map((articleData) => {
           const { title, id } = articleData;
           return (
             <div className={$.title} key={id}>

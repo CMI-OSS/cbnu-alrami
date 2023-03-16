@@ -3,7 +3,7 @@ import { Restaurant } from "src/type";
 
 import { Menu } from "./type";
 
-export const CAFETERIA_MENUS: CafeteriaMenu["name"][] = [
+export const CAFETERIA_MENUS: (CafeteriaMenu["name"] | string)[] = [
   CafeteriaMenu.name.BONGWAN,
   CafeteriaMenu.name.YANGJINJAE,
   CafeteriaMenu.name.YANGSUNGJAE,

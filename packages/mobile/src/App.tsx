@@ -35,7 +35,7 @@ function App() {
     setScreenSize();
   }, [ height ]);
 
-  // MEMO: prod 배포 시 삭제1234
+  // MEMO: prod 배포 시 삭제z
   useEffect(() => {
     setUuid();
   }, []);

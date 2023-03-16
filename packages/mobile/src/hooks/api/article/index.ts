@@ -28,6 +28,7 @@ export const usePopularArticlesQuery = (
       getNextPageParam: ({ pagination }) => {
         return pagination?.isEnd ? undefined : pagination?.currentPage + 1;
       },
+      suspense: true,
     },
   );
 };
@@ -50,6 +51,7 @@ export const useSubscribeArticlesQuery = (
       getNextPageParam: ({ pagination }) => {
         return pagination?.isEnd ? undefined : pagination?.currentPage + 1;
       },
+      suspense: true,
     },
   );
 };

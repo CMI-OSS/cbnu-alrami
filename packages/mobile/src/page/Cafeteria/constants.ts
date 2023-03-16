@@ -11,16 +11,19 @@ type CafeteriaTimeData = {
   };
 };
 
+const WEEK = "(평일)";
+const HOLIDAY = "(휴일)";
+
 const dormitoryWeekTime = {
-  breakfast: "07:20 ~ 09:00",
-  lunch: "11:30 ~ 13:30",
-  dinner: "17:30 ~ 19:10",
+  breakfast: `${WEEK} 07:20 ~ 09:00`,
+  lunch: `${WEEK} 11:30 ~ 13:30`,
+  dinner: `${WEEK} 17:30 ~ 19:10`,
 };
 
 const dormitoryHolidayTime = {
-  breakfast: "08:00 ~ 09:00",
-  lunch: "12:00 ~ 13:00",
-  dinner: "17:30 ~ 19:00",
+  breakfast: `${HOLIDAY} 08:00 ~ 09:00`,
+  lunch: `${HOLIDAY} 12:00 ~ 13:00`,
+  dinner: `${HOLIDAY} 17:30 ~ 19:00`,
 };
 
 const cafeteriaTimeData = (isHoliday: boolean): CafeteriaTimeData => {

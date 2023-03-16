@@ -1,4 +1,4 @@
-import { IconProps, StyleProps } from "src/type/props";
+import { DefaultProps, IconProps } from "src/type/props";
 import { toastSuccess } from "src/utils/toast";
 import { isFromApp } from "src/utils/webview";
 
@@ -6,16 +6,15 @@ import { Share } from "../icon";
 
 type Props = {
   successMsg: string;
-  text?: JSX.Element;
 } & IconProps &
-  StyleProps;
+  DefaultProps;
 
 export default function ShareButton({
   size,
   stroke,
   className,
   successMsg,
-  text,
+  children,
 }: Props) {
   const handleCopyClick = () => {
     if (isFromApp) {
@@ -32,7 +31,7 @@ export default function ShareButton({
   return (
     <button type="button" onClick={handleCopyClick} className={className}>
       <Share size={size} stroke={stroke} />
-      {text}
+      {children}
     </button>
   );
 }

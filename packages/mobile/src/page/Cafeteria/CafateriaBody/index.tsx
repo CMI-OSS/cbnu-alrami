@@ -46,8 +46,9 @@ function CafeteriaBody({ fullDate, day, selectedMenu }: Props) {
             stroke="#9FB0C6"
             successMsg="식단 링크가 클립보드에 복사되었습니다."
             className={$["share-button"]}
-            text={<span className={$["share-button-text"]}>식단 공유하기</span>}
-          />
+          >
+            <span className={$["share-button-text"]}>식단 공유하기</span>
+          </ShareButton>
         </>
       )}
 

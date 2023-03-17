@@ -1,1 +1,13 @@
 $footer: 64px;
+
+// iOS 11.0
+$safe-area-top-11: constant(safe-area-inset-top);
+$safe-area-right-11: constant(safe-area-inset-right);
+$safe-area-bottom-11: constant(safe-area-inset-bottom);
+$safe-area-left-11: constant(safe-area-inset-left);
+
+// iOS 11.2+
+$safe-area-top-11-2: env(safe-area-inset-top);
+$safe-area-right-11-2: env(safe-area-inset-right);
+$safe-area-bottom-11-2: env(safe-area-inset-bottom);
+$safe-area-left-11-2: env(safe-area-inset-left);

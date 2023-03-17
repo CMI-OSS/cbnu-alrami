@@ -1,8 +1,5 @@
 .menu {
-  position: fixed;
-  top: 60px;
-  left: 0;
-  right: 0;
+  @include position(fixed, top 60px left 0 right 0);
   z-index: 100;
   padding: 11px 24px 11px 16px;
   background-color: $white;
@@ -11,7 +8,6 @@
 
 .list {
   display: flex;
-
   @include flicking;
 }
 

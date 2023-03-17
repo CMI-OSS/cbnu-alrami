@@ -3,6 +3,8 @@ import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiParam,
+  PartialType,
 } from "@nestjs/swagger";
 import { MutationResponse } from "src/common/types/response";
 import { UserGuard } from "src/user/user.gurad";
@@ -62,5 +64,17 @@ export const UnBookmarkSchedule = () => {
     }),
     ApiOkResponse({ type: MutationResponse }),
     UserGuard(),
+  );
+};
+
+class PartialSchdule extends PartialType(Schedule) {}
+
+export const IsHolidaySchedule = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "휴일 일정이 있는지 조회",
+    }),
+    ApiParam({ type: String, name: "date", example: "2023-03-01" }),
+    ApiOkResponse({ type: PartialSchdule }),
   );
 };

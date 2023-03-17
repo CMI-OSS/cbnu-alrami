@@ -78,6 +78,7 @@ export const useTodaySchedulesQuery = (
         const isHoliday = detectHoliday(data);
         return { schedules, isHoliday };
       },
+      suspense: true,
     },
   );
 };

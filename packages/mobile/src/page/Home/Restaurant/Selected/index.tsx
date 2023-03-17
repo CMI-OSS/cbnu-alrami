@@ -29,14 +29,12 @@ const getMealTime = (hour: number) => {
 function Selected(props: Props) {
   const { today, cafeteriaData, cafeteriaName, isHoliday, onClick, className } =
     props;
-  const { data } = useCafeteriaQuery(
-    cafeteriaData || CafeteriaMenu.name.BONGWAN,
-    today.format("YYYY-MM-DD"),
-  );
+  const { data } = useCafeteriaQuery(cafeteriaData, today.format("YYYY-MM-DD"));
   const menuData = data?.find(({ time }) => {
     return time === getMealTime(today.hour());
   });
 
+  if(!data) return null;
   if (!menuData)
     return (
       <EmptyCafeteria

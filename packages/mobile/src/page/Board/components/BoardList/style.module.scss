@@ -1,5 +1,5 @@
 .board-list {
-  height: calc(100vh - 310px);
+  height: calc(var(--vh, 1vh) * 100 - 310px);
   overflow-y: auto;
 
   > a {

@@ -2,7 +2,7 @@ import {
   ArticleApiService,
   BoardApiService,
   CafeteriaMenu,
-  PlaceApiService
+  PlaceApiService,
 } from "@shared/swagger-api/generated";
 import { GetParams } from "src/type/utils";
 
@@ -52,13 +52,20 @@ export const queryKey = {
   weathers: [ "weathers" ],
   schedules: [ "schedules" ],
   todaysSchedules: [ "todaysSchedules" ],
-  cafeteria: (name: CafeteriaMenu["name"], date: CafeteriaMenu["date"]) => {
+  cafeteria: (
+    name: CafeteriaMenu["name"] | string,
+    date: CafeteriaMenu["date"],
+  ) => {
     return [ "cafeteria", name, date ];
   },
-  schools: (params: GetParams<typeof PlaceApiService.placeControllerFindSchool>) => {
+  schools: (
+    params: GetParams<typeof PlaceApiService.placeControllerFindSchool>,
+  ) => {
     return [ "schools", params ];
   },
-  school: (params: GetParams<typeof PlaceApiService.placeControllerFindOneSchool>) => {
+  school: (
+    params: GetParams<typeof PlaceApiService.placeControllerFindOneSchool>,
+  ) => {
     return [ "school", params ];
   },
 };

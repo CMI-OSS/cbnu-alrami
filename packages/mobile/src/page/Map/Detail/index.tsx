@@ -63,9 +63,8 @@ function MapDetail() {
       <BorderBox className={$.detail}>
         <strong className={$["detail-title"]}>상세이미지</strong>
         <ImageList
-          isMoreContents
           name={detailData.name}
-          detailImageList={detailData.images!}
+          images={detailData.images!}
         />
       </BorderBox>
     </div>

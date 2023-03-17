@@ -1,28 +1,41 @@
+import { useState } from 'react';
 import { NavLink } from "react-router-dom";
 
 import { Plus } from "@components/atoms/icon";
+import ImageModal from "@components/shared/ImageModal";
+import { Image as ImageType } from "@shared/swagger-api/generated";
 
 import $ from "./style.module.scss";
 
-type DetailImageType = {
-  id: number;
-  url: string;
-};
 type Props = {
-  isMoreContents: boolean;
-  detailImageList: DetailImageType[];
+  images: ImageType[];
   name: string;
 };
 
-function ImageList({ isMoreContents, detailImageList, name }: Props) {
+function ImageList({ images, name }: Props) {
+  const [ order, setOrder ] = useState(0);
+  const [ enlargeModal, setEnlargeModal ] = useState(false);
+  const handleOpenModal = () => {
+    setEnlargeModal(true);
+  }
   return (
     <ul className={$["menu-list"]}>
-      {detailImageList.map((item, index) => {
+      {images.map((item, index) => {
         return (
           <li key={item.id} className={$["menu-item"]}>
-            <img className={$["menu-image"]} src={item.url} alt={name} />
-            {isMoreContents && index === 2 && (
-              <NavLink to="/more" className={$["more-status"]}>
+            <button type="button" className={$.button} onClick={handleOpenModal}>
+              <img className={$["menu-image"]} src={item.url} alt={name} />
+            </button>
+            {enlargeModal && (
+                <ImageModal
+                  {...{ order, setOrder, images }}
+                  onClose={() => {
+                    return setEnlargeModal(false);
+                  }}
+                />
+            )}
+            {images.length >= 3 && index === images.length - 1 && (
+              <NavLink to="/place/more" className={$["more-status"]} state={images} >
                 <div className={$["more-plus"]}>
                   <Plus stroke="#fff" size={35} />
                   {/* <ImagePlus className={$["more-plus"]} /> */}

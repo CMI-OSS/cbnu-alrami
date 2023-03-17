@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import { LeftArrow } from "@components/atoms/icon";
 
@@ -9,9 +9,13 @@ type Props = {
 };
 
 function MapHeader({ title }: Props) {
+  const navigate = useNavigate();
+  const {state} = useLocation();
   return (
     <div className={$.header}>
-      <NavLink to="./" className={$.link}>
+      <NavLink to="./" className={$.link} state={state} onClick={() => {
+        navigate(-1);
+      }}>
         <LeftArrow stroke="#aaa" size={16} />
         <span className="blind">뒤로 가기</span>
       </NavLink>

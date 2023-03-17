@@ -31,13 +31,12 @@ function Cafeteria() {
           onDecrease={onDecrease}
           onIncrease={onIncrease}
         />
+        <MenuList
+          menuList={CAFETERIA_LIST}
+          onClick={handleMenu}
+          clickedMenu={selectedMenu}
+        />
       </header>
-
-      <MenuList
-        menuList={CAFETERIA_LIST}
-        onClick={handleMenu}
-        clickedMenu={selectedMenu}
-      />
 
       <AsyncBoundary
         suspenseFallback={

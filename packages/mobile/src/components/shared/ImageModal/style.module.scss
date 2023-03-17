@@ -34,7 +34,7 @@
 }
 
 .dimmed {
-  @include position(fixed, top 0 left 0 right 0 bottom 0);
+  @include safe-area-position(fixed, top 0px left 0px right 0px bottom 0px);
   z-index: 101;
   background: rgba(27, 27, 27, 0.85);
 }

@@ -3,7 +3,9 @@ $chip-list: 60px;
 $place-header: 120px;
 
 .header {
-  @include position(fixed, top 0 right 0 left 0);
+  @include position(fixed, top 0 right 0 left 50%);
+  transform: translateX(-50%);
+  @include safe-area-width-100-percent(width, 0px);
   z-index: 100;
   height: $place-header;
   padding-top: $safe-area-top-11;

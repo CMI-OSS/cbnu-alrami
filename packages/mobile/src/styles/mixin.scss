@@ -23,3 +23,8 @@
     #{$height-prop}: calc(var(--vh, 1vh) * 100 - $value - ($safe-area-top-11 + $safe-area-bottom-11));
     #{$height-prop}: calc(var(--vh, 1vh) * 100 - $value - ($safe-area-top-11-2 + $safe-area-bottom-11-2));
 }
+
+@mixin safe-area-width-100-percent($width-prop, $value) {
+    #{$width-prop}: calc(100% - $value - ($safe-area-left-11 + $safe-area-right-11));
+    #{$width-prop}: calc(100% - $value - ($safe-area-left-11-2 + $safe-area-right-11-2));
+}

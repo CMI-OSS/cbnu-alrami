@@ -21,7 +21,7 @@ $footer-height: 64px;
   padding: 13px 10px 154px;
 
   .floating-button {
-    @include position(fixed, bottom 84px right 16px);
+    @include safe-area-position(fixed, bottom 84px right 16px);
     display: flex;
     align-items: center;
     justify-content: center;

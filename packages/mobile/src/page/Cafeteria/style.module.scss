@@ -1,7 +1,7 @@
 .header {
   z-index: 1;
   @include position(fixed, top 0);
-  width: 100%;
+  @include safe-area-width-100-percent(width, 0px);
   padding-top: $safe-area-top-11;
   padding-top: $safe-area-top-11-2;
   background-color: $white;

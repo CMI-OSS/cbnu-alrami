@@ -1,5 +1,7 @@
 .footer {
-  @include position(fixed, bottom 0px left 0px right 0px);
+  @include position(fixed, bottom 0px left 50%);
+  transform: translateX(-50%);
+  @include safe-area-width-100-percent(width, 0px);
   height: 64px;
   z-index: 110;
   display: flex;

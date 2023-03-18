@@ -1,9 +1,10 @@
 .article-footer {
-  @include position(fixed, bottom 0px left 0px);
+  @include position(fixed, bottom 0px left 50%);
+  transform: translateX(-50%);
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 100%;
+  @include safe-area-width-100-percent(width, 0px);
   height: 64px;
   box-sizing: content-box;
   padding-bottom: $safe-area-bottom-11;

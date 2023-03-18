@@ -2,8 +2,11 @@
     color: $black-80;
 
     .sticky-box {
-        position: sticky;
-        top: 0;
         z-index: 1;
+        @include position(fixed, top 0px);
+        width: 100%;
+        padding-top: $safe-area-top-11;
+        padding-top: $safe-area-top-11-2;
+        background-color: $white;
     }
 }

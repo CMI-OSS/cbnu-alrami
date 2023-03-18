@@ -1,6 +1,8 @@
 $top-height: 446px;
 $footer-height: 64px;
-$empty-box-height: calc(var(--vh, 1vh) * 100 - $top-height - $footer-height);
+$empty-box-height: calc(
+  var(--vh, 1vh) * 100 - $top-height - $footer-height - ($safe-area-top-11-2 + $safe-area-bottom-11-2)
+);
 
 .empty-box {
   display: flex;
@@ -8,7 +10,7 @@ $empty-box-height: calc(var(--vh, 1vh) * 100 - $top-height - $footer-height);
   align-items: center;
   justify-content: center;
   min-height: 161px;
-  height: calc(var(--vh, 1vh) * 100 - $top-height - $footer-height);
+  height: $empty-box-height;
   margin-top: 20px;
 
   .description {

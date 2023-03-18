@@ -1,6 +1,5 @@
 .board-list {
-  height: calc(var(--vh, 1vh) * 100 - 310px - ($safe-area-top-11 + $safe-area-bottom-11));
-  height: calc(var(--vh, 1vh) * 100 - 310px - ($safe-area-top-11-2 + $safe-area-bottom-11-2));
+  @include safe-area-100vh(height, 310px);
   overflow-y: auto;
 
   > a {

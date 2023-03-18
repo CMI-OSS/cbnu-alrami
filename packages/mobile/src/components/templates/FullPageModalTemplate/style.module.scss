@@ -1,6 +1,5 @@
 .full-modal {
-  height: calc(var(--vh, 1vh) * 100 - ($safe-area-top-11 + $safe-area-bottom-11));
-  height: calc(var(--vh, 1vh) * 100 - ($safe-area-top-11-2 + $safe-area-bottom-11-2));
+  @include safe-area-100vh(height, 0px);
 
   .header {
     position: sticky;

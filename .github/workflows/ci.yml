@@ -15,5 +15,5 @@ jobs:
       - name: yarn install and CI
         run: |
           yarn install
-          yarn install -g lerna
+          yarn global add lerna
           yarn lint

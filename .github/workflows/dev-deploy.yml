@@ -10,11 +10,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      
+      - run: 'echo "$SSH_KEY" > config.ts'
+        shell: bash
+        env:
+          config: ${{secrets.SERVER_CONFIG}}
+
       - name: Copy configuration file to remote
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: ${{ secrets.SERVER_CONFIG }}
-          remote: scp/single/test.ts
+          local: config.ts
+          remote: scp/single/config.ts
           host: ${{ secrets.DEV_SERVER_SSH_HOST }}
           username: ${{ secrets.DEV_SERVER_SSH_USER }}
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}

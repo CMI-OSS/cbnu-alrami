@@ -20,7 +20,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: configuration.ts
-          remote: github-action-deploy/server2/config/configuration.ts
+          remote: github-action-deploy/server2/src/config/configuration.ts
           host: ${{ secrets.DEV_SERVER_SSH_HOST }}
           username: ${{ secrets.DEV_SERVER_SSH_USER }}
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}

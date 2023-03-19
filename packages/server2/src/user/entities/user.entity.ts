@@ -12,9 +12,11 @@ export class User extends UpdatableCommonEntity {
   uuid: string;
 
   @Column({ type: "varchar", nullable: true })
+  @ApiProperty({ description: "FCN TOKEN", example: "abcd1234" })
   fcmToken?: string;
 
   @IsEnum(Device)
   @Column({ type: "enum", enum: Device, nullable: true })
+  @ApiProperty({ description: "devios 정보", example: "IOS", required: false })
   device?: Device;
 }

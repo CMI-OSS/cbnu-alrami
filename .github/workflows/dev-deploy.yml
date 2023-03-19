@@ -1,4 +1,4 @@
-name: CI
+name: deploy
 
 on:
   push:
@@ -17,5 +17,5 @@ jobs:
           username: ${{ secrets.DEV_SERVER_SSH_USER }}
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}
           port: ${{ secrets.DEV_SERVER_SSH_PORT }}
-          source: ${{ secrets.SERVER_CONFIG }}
-          target: "config-test.ts"
+          source: "tests/a.txt,tests/b.txt"
+          target: "config-test"

@@ -1,4 +1,4 @@
-name: deploy
+name: dev-deploy
 
 on:
   push:
@@ -17,5 +17,3 @@ jobs:
           username: ${{ secrets.DEV_SERVER_SSH_USER }}
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}
           port: ${{ secrets.DEV_SERVER_SSH_PORT }}
-          source: "tests/a.txt,tests/b.txt"
-          target: "config-test"

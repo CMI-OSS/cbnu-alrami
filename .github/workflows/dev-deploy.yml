@@ -10,10 +10,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: copy file via ssh password
-        uses: appleboy/scp-action@master
+      - name: Copy single file to remote
+        uses: garygrossgarten/github-action-scp@release
         with:
+          local: package.json
+          remote: scp/single/package.json
           host: ${{ secrets.DEV_SERVER_SSH_HOST }}
           username: ${{ secrets.DEV_SERVER_SSH_USER }}
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}
-          port: ${{ secrets.DEV_SERVER_SSH_PORT }}

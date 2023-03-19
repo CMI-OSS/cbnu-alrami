@@ -1,8 +1,8 @@
 $footerHeight: 65px;
-$footerLinkDistance: 20px;
+$footerLinkDistance: 20px; // footer와 link 사이의 거리
 $linkHeight: 61px;
-$linkTooltipDistance: 17px;
-$balloonBottom: $footerHeight + $footerLinkDistance + $linkHeight + $linkTooltipDistance;
+$linkTooltipDistance: 17px; // link와 tooltip 사이의 거리
+$balloonBottom: $footerHeight + $footerLinkDistance + $linkHeight + $linkTooltipDistance; // balloon의 bottom 위치
 
 .map {
   width: 100vw;

@@ -1,5 +1,5 @@
 .footer {
-  @include position(fixed, bottom 0px left 50%);
+  @include position(fixed, bottom 0 left 50%);
   transform: translateX(-50%);
   @include safe-area-width-100-percent(width, 0px);
   height: 64px;

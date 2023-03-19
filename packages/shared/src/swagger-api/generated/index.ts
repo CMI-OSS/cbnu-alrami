@@ -42,6 +42,7 @@ export { UpdateAdminDto } from './models/UpdateAdminDto';
 export type { UpdateArticleDto } from './models/UpdateArticleDto';
 export type { UpdateBoardDto } from './models/UpdateBoardDto';
 export type { UpdatePlaceDto } from './models/UpdatePlaceDto';
+export type { UpdateUserDto } from './models/UpdateUserDto';
 export { Weather } from './models/Weather';
 
 export { AdminApiService } from './services/AdminApiService';

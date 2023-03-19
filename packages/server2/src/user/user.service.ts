@@ -29,6 +29,10 @@ export class UserService {
     return this.userRepository.update(id, updateUserDto);
   }
 
+  upsert(createUserDto: CreateUserDto) {
+    return this.userRepository.upsert(createUserDto, [ "uuid" ]);
+  }
+
   deleteByFcmToken(fcmToken: string) {
     return this.userRepository.delete({ fcmToken });
   }

@@ -7,7 +7,7 @@ import { Device } from "../user.constant";
 
 @Entity()
 export class User extends UpdatableCommonEntity {
-  @Column({ type: "varchar" })
+  @Column({ type: "varchar", unique: true })
   @ApiProperty({ description: "사용자 uuid", example: "1111" })
   uuid: string;
 

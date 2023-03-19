@@ -39,6 +39,7 @@
     "dayjs": "^1.11.7",
     "fcm-node": "^1.6.1",
     "mysql2": "^2.3.3",
+    "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

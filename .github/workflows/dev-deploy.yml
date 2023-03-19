@@ -24,13 +24,14 @@ jobs:
           host: ${{ secrets.DEV_SERVER_SSH_HOST }}
           username: ${{ secrets.DEV_SERVER_SSH_USER }}
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}
-
+          port: ${{ secrets.DEV_SERVER_SSH_PORT }}
       - name: run deploy
         uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.DEV_SERVER_SSH_HOST }}
           username: ${{ secrets.DEV_SERVER_SSH_USER }}
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}
+          port: ${{ secrets.DEV_SERVER_SSH_PORT }}
           script: |
             cd github-action-deploy
             sh ./deploy.sh &

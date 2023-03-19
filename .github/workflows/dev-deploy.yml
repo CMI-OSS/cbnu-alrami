@@ -2,7 +2,7 @@ name: dev-deploy
 
 on:
   push:
-    branches: ['dev']
+    branches: ["dev"]
 
 jobs:
   build:
@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - run: 'echo "$configuration" > configuration.ts'
         shell: bash
         env:
@@ -20,11 +20,11 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: configuration.ts
-          remote: github-action-deploy/packages/server2/src/config/configuration.ts
+          remote: github-action-deploy/packages/server/src/config/configuration.ts
           host: ${{ secrets.DEV_SERVER_SSH_HOST }}
           username: ${{ secrets.DEV_SERVER_SSH_USER }}
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}
-          
+
       - name: run deploy
         uses: appleboy/ssh-action@v0.1.8
         with:

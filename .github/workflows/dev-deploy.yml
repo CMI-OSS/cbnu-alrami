@@ -10,11 +10,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Copy single file to remote
+      - name: Copy configuration file to remote
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: package.json
-          remote: scp/single/package.json
+          local: ${{ secrets.SERVER_CONFIG }}
+          remote: scp/single/test.ts
           host: ${{ secrets.DEV_SERVER_SSH_HOST }}
           username: ${{ secrets.DEV_SERVER_SSH_USER }}
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}

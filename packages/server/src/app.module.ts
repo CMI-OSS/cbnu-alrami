@@ -21,6 +21,7 @@ import { SubscribeBoard } from "./board/entities/subscribe-board.entity";
 import { CafeteriaMenuModule } from "./cafeteria-menu/cafeteria-menu.module";
 import { CafeteriaMenu } from "./cafeteria-menu/entities/cafeteria-menu.entity";
 import { HttpExceptionFilter } from "./common/http-exception-filter";
+import { isDev } from "./common/util/utils";
 import configuration from "./config/configuration";
 import { FcmModule } from "./fcm/fcm.module";
 import { Image } from "./image/entities/image.entity";
@@ -65,7 +66,7 @@ import { WeatherModule } from "./weather/weather.module";
           SubscribeBoard,
           Weather,
         ],
-        logging: "all",
+        logging: isDev ? "all" : undefined,
         synchronize: configuration.db.synchronize,
       }),
       inject: [ ConfigService ],

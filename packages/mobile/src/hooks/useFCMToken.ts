@@ -1,12 +1,20 @@
 import { useEffect } from "react";
 
+import { UserApiService } from "@shared/swagger-api/generated";
+import { getUuid } from "src/utils/storage";
+
 const useFCMToken = () => {
   useEffect(() => {
-    const handler = () => {
-      const token = localStorage.getItem("TOKEN");
+    const handler = async () => {
+      const token = localStorage.getItem("token");
 
-      if (token) {
-        console.log(token);
+      const uuid = getUuid();
+
+      if (token && uuid) {
+        await UserApiService.userControllerUpdate({
+          requestBody: { fcmToken: token },
+          uuid,
+        });
       } else {
         setTimeout(handler, 1000);
       }

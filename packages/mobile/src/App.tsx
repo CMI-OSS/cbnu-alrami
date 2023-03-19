@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Navigate } from "react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -10,6 +10,7 @@ import { setUuid } from "src/utils/storage";
 import { isStaging, isWebView } from "src/utils/webview";
 
 import "src/polyfills";
+import useFCMToken from "./hooks/useFCMToken";
 import useWindowSizeDetect from "./hooks/useWindowSizeDetect";
 import "./mobile.scss";
 import Cafeteria from "./page/Cafeteria";
@@ -39,6 +40,8 @@ function App() {
   useEffect(() => {
     setUuid();
   }, []);
+
+  useFCMToken();
 
   const appRoutes = [
     { path: "/home", element: <Home /> },

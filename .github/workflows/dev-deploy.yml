@@ -33,4 +33,4 @@ jobs:
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}
           script: |
             cd github-action-deploy
-            sh ./deploy.sh
+            sh ./deploy.sh &

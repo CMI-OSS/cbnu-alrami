@@ -11,10 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - run: 'echo "$SSH_KEY" > config.ts'
+      - run: 'echo "$config" > config.ts'
         shell: bash
         env:
-          config: ${{secrets.SERVER_CONFIG}}
+          config: ${{secrets.DEV_SERVER_CONFIG}}
 
       - name: Copy configuration file to remote
         uses: garygrossgarten/github-action-scp@release

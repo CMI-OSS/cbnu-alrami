@@ -1,56 +1,35 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { User } from "src/commons/entities/user.entity";
-import { errors } from "src/commons/error";
-import {
-  DeepPartial,
-  DeleteResult,
-  FindConditions,
-  FindManyOptions,
-  FindOneOptions,
-  ObjectLiteral,
-} from "typeorm";
+import { Repository } from "typeorm";
 
-import { UserCreateDto } from "./dto/userCreate.dto";
-import { UserRepository } from "./repository/user.repository";
-
-const { USER_NOT_FOUND, DB_ERROR } = errors;
+import { CreateUserDto } from "./dto/create-user.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
+import { User } from "./entities/user.entity";
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(UserRepository) private userRepository: UserRepository,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
   ) {}
 
-  async findOne(query: FindOneOptions<User>): Promise<User> {
-    const user = await this.userRepository.findOne(query);
-    return user;
+  create(createUserDto: CreateUserDto) {
+    return this.userRepository.save(createUserDto);
   }
 
-  async find(query: FindManyOptions<User>): Promise<User[]> {
-    const user = await this.userRepository.find(query);
-    return user;
+  findAll() {
+    return `This action returns all user`;
   }
 
-  async create(userCreateDto: UserCreateDto): Promise<User> {
-    const createdUser = await this.userRepository.create(userCreateDto);
-    const user = await this.userRepository.save(createdUser);
-    if (!user) throw DB_ERROR;
-    return user;
+  findOne(uuid: string) {
+    return this.userRepository.findOne({ where: { uuid } });
   }
 
-  async delete(query: FindConditions<User>): Promise<DeleteResult> {
-    const deleteResult = await this.userRepository.delete(query);
-    if (!deleteResult.raw) throw DB_ERROR;
-    return deleteResult;
+  update(id: number, updateUserDto: UpdateUserDto) {
+    return this.userRepository.update(id, updateUserDto);
   }
 
-  async update(
-    query: FindConditions<User>,
-    userUpdateDto: DeepPartial<User>,
-  ): Promise<ObjectLiteral[]> {
-    const updateResult = await this.userRepository.update(query, userUpdateDto);
-    if (!updateResult.raw) throw DB_ERROR;
-    return updateResult.generatedMaps;
+  deleteByFcmToken(fcmToken: string) {
+    return this.userRepository.delete({ fcmToken });
   }
 }

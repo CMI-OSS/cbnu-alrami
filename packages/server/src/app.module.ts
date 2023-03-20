@@ -1,77 +1,99 @@
-import { CacheModule, MiddlewareConsumer, Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { JwtModule } from "@nestjs/jwt";
+import { APP_FILTER } from "@nestjs/core";
+import { ScheduleModule as NestScheduleModule } from "@nestjs/schedule";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
+import { AdminModule } from "./admin/admin.module";
+import { Admin } from "./admin/entities/admin.entity";
+import { ArticleBookmark } from "./article-bookmark/entities/article-bookmark";
+import { ArticleLike } from "./article-like/entities/article-like.entity";
+import { ArticleView } from "./article-view/entities/article-view.entity";
 import { ArticleModule } from "./article/article.module";
-import { AuthModule } from "./auth/auth.module";
+import { Article } from "./article/entities/article.entity";
+import { AwsModule } from "./aws/aws.module";
 import { BoardAuthorityModule } from "./board-authority/board-authority.module";
+import { BoardAuthority } from "./board-authority/entities/board-authority.entity";
 import { BoardModule } from "./board/board.module";
-import { BoardTreeModule } from "./boardTree/boardTree.module";
-import { BookmarkModule } from "./bookmark/bookmark.module";
-import { CafeteriaModule } from "./cafeteria/cafeteria.module";
-import configuration from "./commons/config/configuration";
-import { ACCESS_PRIVATE_KEY } from "./commons/constants/constants";
-import { AuthMiddleware } from "./commons/middlewares/auth.middleware";
+import { Board } from "./board/entities/board.entity";
+import { SubscribeBoard } from "./board/entities/subscribe-board.entity";
+import { CafeteriaMenuModule } from "./cafeteria-menu/cafeteria-menu.module";
+import { CafeteriaMenu } from "./cafeteria-menu/entities/cafeteria-menu.entity";
+import { HttpExceptionFilter } from "./common/http-exception-filter";
+import { isDev } from "./common/util/utils";
+import configuration from "./config/configuration";
 import { FcmModule } from "./fcm/fcm.module";
-import { HitModule } from "./hit/hit.module";
+import { Image } from "./image/entities/image.entity";
 import { ImageModule } from "./image/image.module";
+import { Place } from "./place/entities/place.entity";
 import { PlaceModule } from "./place/place.module";
-import { SchedulesModule } from "./schedule/schedule.module";
-import { ScheduleBookmarkModule } from "./schedule_bookmark/schedule_bookmark.module";
-import { SubscribeModule } from "./subscribe/subscribe.module";
+import { Schedule } from "./schedule/entities/schedule.entity";
+import { ScheduleModule } from "./schedule/schedule.module";
+import { School } from "./school/entities/school.entity";
+import { SchoolModule } from "./school/school.module";
+import { User } from "./user/entities/user.entity";
+import { UserMiddleWare } from "./user/user.middleware";
 import { UserModule } from "./user/user.module";
+import { Weather } from "./weather/entities/weather.entity";
 import { WeatherModule } from "./weather/weather.module";
 
 @Module({
   imports: [
-    CacheModule.register({
-      ttl: 3600, // seconds
-      isGlobal: true,
-    }),
     ConfigModule.forRoot({
-      isGlobal: true,
-      load: [ configuration ],
+      load: [ () => configuration ],
     }),
+    ArticleModule,
     TypeOrmModule.forRootAsync({
       imports: [ ConfigModule ],
-      useFactory: async (config: ConfigService) => {
-        return {
-          ...config.get("db"),
-          entities: [ `${__dirname}/commons/entities/*.js` ],
-          namingStrategy: new SnakeNamingStrategy(),
-          charset: "utf8",
-          logging: [ "query" ],
-        };
-      },
+      useFactory: (configService: ConfigService) => ({
+        ...configService.get("db"),
+        namingStrategy: new SnakeNamingStrategy(),
+        entities: [
+          User,
+          Article,
+          ArticleView,
+          ArticleBookmark,
+          ArticleLike,
+          Admin,
+          Board,
+          BoardAuthority,
+          Schedule,
+          Image,
+          Place,
+          School,
+          CafeteriaMenu,
+          SubscribeBoard,
+          Weather,
+        ],
+        logging: isDev ? "all" : undefined,
+        synchronize: configuration.db.synchronize,
+      }),
       inject: [ ConfigService ],
     }),
-    FcmModule,
-    AuthModule,
-    ArticleModule,
-    ImageModule,
-    BoardTreeModule,
     BoardModule,
-    BookmarkModule,
-    ScheduleBookmarkModule,
-    UserModule,
-    CafeteriaModule,
-    PlaceModule,
-    SchedulesModule,
-    SubscribeModule,
-    WeatherModule,
-    HitModule,
-    JwtModule.register({
-      secret: ACCESS_PRIVATE_KEY,
-      signOptions: { expiresIn: "60m" },
-    }),
+    AdminModule,
     BoardAuthorityModule,
+    ScheduleModule,
+    ImageModule,
+    AwsModule,
+    PlaceModule,
+    SchoolModule,
+    CafeteriaMenuModule,
+    UserModule,
+    WeatherModule,
+    NestScheduleModule.forRoot(),
+    FcmModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes("*");
+    consumer.apply(UserMiddleWare).forRoutes("*");
   }
 }

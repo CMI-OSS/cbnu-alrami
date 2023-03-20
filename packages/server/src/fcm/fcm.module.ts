@@ -1,22 +1,11 @@
 import { Module } from "@nestjs/common";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { HitModule } from "src/hit/hit.module";
-import { SubscribeRepository } from "src/subscribe/subscribe.repository";
+import { BoardModule } from "src/board/board.module";
 
-import { BookmarkRepository } from "../bookmark/bookmark.repository";
-import { UserRepository } from "../user/repository/user.repository";
+import { UserModule } from "../user/user.module";
 import { FcmService } from "./fcm.service";
 
 @Module({
-  imports: [
-    HitModule,
-    TypeOrmModule.forFeature([
-      UserRepository,
-      BookmarkRepository,
-      SubscribeRepository,
-    ]),
-  ],
+  imports: [ BoardModule, UserModule ],
   providers: [ FcmService ],
-  exports: [ FcmService ],
 })
 export class FcmModule {}

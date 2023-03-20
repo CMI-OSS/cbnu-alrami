@@ -1,20 +1,14 @@
 import { HttpModule } from "@nestjs/axios";
 import { Module } from "@nestjs/common";
-import { ScheduleModule } from "@nestjs/schedule";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
+import { Schedule } from "./entities/schedule.entity";
 import { ScheduleController } from "./schedule.controller";
-import { ScheduleRepository } from "./schedule.repository";
 import { ScheduleService } from "./schedule.service";
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([ ScheduleRepository ]),
-    HttpModule,
-    ScheduleModule.forRoot(),
-  ],
-  providers: [ ScheduleService ],
+  imports: [ TypeOrmModule.forFeature([ Schedule ]), HttpModule ],
   controllers: [ ScheduleController ],
-  exports: [ ScheduleService ],
+  providers: [ ScheduleService ],
 })
-export class SchedulesModule {}
+export class ScheduleModule {}

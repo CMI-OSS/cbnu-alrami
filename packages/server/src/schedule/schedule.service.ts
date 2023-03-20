@@ -1,16 +1,15 @@
 import { HttpService } from "@nestjs/axios";
-import { Injectable } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { Cron, CronExpression } from "@nestjs/schedule";
+import { InjectRepository } from "@nestjs/typeorm";
 import { firstValueFrom } from "rxjs";
-import { Errors } from "src/commons/exception/exception.global";
+import configuration from "src/config/configuration";
+import { User } from "src/user/entities/user.entity";
+import { Between, LessThanOrEqual, MoreThanOrEqual, Repository } from "typeorm";
 
-import { Schedule } from "../commons/entities/schedule.entity";
-import { CreateSchedulesRequestDto } from "./dtos/create-schedules-request.dto";
-import { GetSchedulesRequestDto } from "./dtos/get-schedules-request.dto";
-import { ScheduleRepository } from "./schedule.repository";
-
-const { NO_DATA_IN_DB } = Errors;
+import { CreateScheduleDto } from "./dto/create-schedule.dto";
+import { GetScheduleDto } from "./dto/get-schedule.dto";
+import { Schedule } from "./entities/schedule.entity";
 
 interface holidayData {
   dateKind: "01";
@@ -22,32 +21,16 @@ interface holidayData {
 
 @Injectable()
 export class ScheduleService {
-  private readonly holidayKey;
-  private readonly holidayUrl;
+  private readonly holidayKey: string;
+  private readonly holidayUrl: string;
 
   constructor(
-    private readonly scheduleRepository: ScheduleRepository,
+    @InjectRepository(Schedule)
+    private scheduleRepository: Repository<Schedule>,
     private readonly httpService: HttpService,
-    private readonly configService: ConfigService,
   ) {
-    this.holidayKey = this.configService.get("holiday.key");
-    this.holidayUrl = this.configService.get("holiday.url");
-  }
-
-  private static getYear(): number {
-    const today = new Date();
-    return today.getFullYear();
-  }
-
-  public getSchedules(
-    getSchedulesRequestDto: GetSchedulesRequestDto,
-  ): Promise<Schedule[]> {
-    const { startDate, endDate } = getSchedulesRequestDto;
-
-    if (!endDate) {
-      return this.scheduleRepository.getDailySchedules(startDate);
-    }
-    return this.scheduleRepository.getSchedules(getSchedulesRequestDto);
+    this.holidayKey = configuration.holiday.key;
+    this.holidayUrl = configuration.holiday.url;
   }
 
   @Cron(CronExpression.EVERY_YEAR)
@@ -60,7 +43,7 @@ export class ScheduleService {
     const solYear = `&solYear=${year}`;
 
     const holiday = await firstValueFrom(
-      this.httpService.get(`${url}${serviceKey}${solYear}&numOfRows=30`),
+      this.httpService.get(`${url}${serviceKey}${solYear}&numOfRows=100`),
     );
 
     const holidayData: holidayData[] = holiday.data.response.body.items.item;
@@ -68,32 +51,116 @@ export class ScheduleService {
     await this.saveHoliday(holidayData);
   }
 
-  public async createSchedule(
-    createScheduleRequestDto: CreateSchedulesRequestDto,
-  ): Promise<void> {
-    const schedule = await this.scheduleRepository.create(
-      createScheduleRequestDto,
-    );
-    await this.scheduleRepository.save(schedule);
-  }
-
-  private async saveHoliday(holidayData): Promise<void> {
+  private async saveHoliday(holidayData: holidayData[]): Promise<void> {
     await Promise.all(
       holidayData.map(async (holiday) => {
         const { dateName, locdate } = holiday;
 
-        return this.scheduleRepository.saveHoliday(dateName, locdate);
+        return this.scheduleRepository.save({
+          content: dateName,
+          isHoliday: true,
+          startDateTime: locdate,
+        });
       }),
     );
   }
 
-  async findById(id: number): Promise<Schedule> {
-    const schedule = await this.scheduleRepository.findOne({
-      where: {
-        id,
+  private static getYear(): number {
+    const today = new Date();
+    return today.getFullYear();
+  }
+
+  async create(createArticleDto: CreateScheduleDto) {
+    return this.scheduleRepository.save({ ...createArticleDto });
+  }
+
+  findAll({ startDateTime, endDateTime }: GetScheduleDto) {
+    return this.scheduleRepository.find({
+      where: [
+        //           <--- target --->
+        // <--- query --->
+        {
+          startDateTime: MoreThanOrEqual(startDateTime),
+          ...(endDateTime && {
+            startDateTime: Between(startDateTime, endDateTime),
+          }),
+        },
+        // <--- target --->
+        //           <--- query --->
+        {
+          endDateTime: MoreThanOrEqual(startDateTime),
+          ...(endDateTime && {
+            endDateTime: Between(startDateTime, endDateTime),
+          }),
+        },
+        // <----- target ---->
+        //   <--- query --->
+        {
+          startDateTime: LessThanOrEqual(startDateTime),
+          ...(endDateTime && {
+            endDateTime: MoreThanOrEqual(endDateTime),
+          }),
+        },
+      ],
+      order: {
+        startDateTime: "ASC",
       },
     });
-    if (!schedule) throw NO_DATA_IN_DB;
-    return schedule;
+  }
+
+  async findBookmarkSchedules(user: User) {
+    const schedules: Schedule[] = await this.scheduleRepository.find({
+      where: {
+        bookmarkUsers: {
+          id: user.id,
+        },
+      },
+    });
+
+    return schedules;
+  }
+
+  async bookmark(id: number, user: User) {
+    const Schedule = await this.scheduleRepository.findOne({
+      where: { id },
+      relations: { bookmarkUsers: true },
+    });
+
+    if (!Schedule) throw new NotFoundException("찾을 수 없는 학사일정입니다.");
+
+    Schedule.bookmarkUsers = Schedule.bookmarkUsers
+      ? [ user, ...Schedule.bookmarkUsers ]
+      : [ user ];
+
+    return Schedule.save();
+  }
+
+  async unbookmark(id: number, user: User) {
+    const Schedule = await this.scheduleRepository.findOne({
+      where: {
+        id,
+        bookmarkUsers: {
+          id: user.id,
+        },
+      },
+      relations: { bookmarkUsers: true },
+    });
+
+    if (!Schedule) throw new NotFoundException("찾을 수 없는 학사일정입니다.");
+
+    Schedule.bookmarkUsers = Schedule.bookmarkUsers.filter(
+      (_user) => _user.id !== user.id,
+    );
+
+    return Schedule.save();
+  }
+
+  async isHoliday(date: string) {
+    const holidaySchedule = await this.scheduleRepository.findOneBy({
+      startDateTime: date as unknown as Date,
+      isHoliday: true,
+    });
+
+    return holidaySchedule ?? { isHoliday: false };
   }
 }

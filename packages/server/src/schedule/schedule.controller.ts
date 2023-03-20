@@ -1,49 +1,85 @@
-import { Body, Controller, Get, Post, Query } from "@nestjs/common";
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
+import { SuperGuard } from "src/admin/gurads/super.guard";
+import { MutationResponse } from "src/common/types/response";
+import { User } from "src/user/entities/user.entity";
+import { UserSession } from "src/user/user.decoratoer";
+import { UserHeader } from "src/user/user.gurad";
 
-import { Schedule } from "../commons/entities/schedule.entity";
-import { CreateSchedulesRequestDto } from "./dtos/create-schedules-request.dto";
-import { GetSchedulesRequestDto } from "./dtos/get-schedules-request.dto";
+import { CreateScheduleDto } from "./dto/create-schedule.dto";
+import { GetScheduleDto } from "./dto/get-schedule.dto";
+import { Schedule } from "./entities/schedule.entity";
 import { ScheduleService } from "./schedule.service";
+import {
+  BookmarkSchedule,
+  CreateSchedule,
+  GetBookmarkSchedule,
+  GetSchedule,
+  IsHolidaySchedule,
+  UnBookmarkSchedule,
+} from "./schedule.swagger";
 
-@Controller("schedules")
+@ApiTags("[schedule] 일정 API")
+@Controller("schedule")
 export class ScheduleController {
   constructor(private readonly scheduleService: ScheduleService) {}
 
-  @Get()
-  @ApiTags("[schedule] 학사 일정 API")
-  @ApiOperation({
-    summary: "학사 일정 조회 API",
-    description: "주어진 범위의 학사 일정을 조회합니다.",
-  })
-  @ApiResponse({
-    status: 200,
-    description: "범위 안의 학사 일정 객체",
-    type: Schedule,
-    isArray: true,
-  })
-  getSchedule(
-    @Query() getScheduleRequestDto: GetSchedulesRequestDto,
-  ): Promise<Schedule[]> {
-    return this.scheduleService.getSchedules(getScheduleRequestDto);
+  @SuperGuard()
+  @CreateSchedule()
+  @Post()
+  async create(
+    @Body() createScheduleDto: CreateScheduleDto,
+  ): Promise<MutationResponse> {
+    return { success: !!this.scheduleService.create(createScheduleDto) };
   }
 
-  @Post()
-  @ApiTags("[admin] 관리자 API")
-  @ApiOperation({
-    summary: "학사일정 추가",
-    description: "학사일정을 추가합니다",
-  })
-  @ApiBody({
-    description: "학사일정 세부 정보",
-    type: CreateSchedulesRequestDto,
-  })
-  @ApiResponse({
-    status: 201,
-  })
-  createSchedule(
-    @Body() createSchedulesRequestDto: CreateSchedulesRequestDto,
-  ): Promise<void> {
-    return this.scheduleService.createSchedule(createSchedulesRequestDto);
+  @GetSchedule()
+  @Get()
+  findAll(@Query() getScheduleDto: GetScheduleDto) {
+    console.log({ getScheduleDto });
+    return this.scheduleService.findAll(getScheduleDto);
+  }
+
+  @GetBookmarkSchedule()
+  @UserHeader
+  @Get("bookmark")
+  findBookmarkSchedule(@UserSession() user?: User) {
+    return user ? this.scheduleService.findBookmarkSchedules(user) : [];
+  }
+
+  @BookmarkSchedule()
+  @Post(":id/bookmark")
+  async bookmark(
+    @Param("id") id: number,
+    @UserSession() user: User,
+  ): Promise<MutationResponse> {
+    return {
+      success: !!(await this.scheduleService.bookmark(id, user)),
+    };
+  }
+
+  @UnBookmarkSchedule()
+  @Delete(":id/bookmark")
+  async unbookmark(
+    @Param("id") id: number,
+    @UserSession() user: User,
+  ): Promise<MutationResponse> {
+    return {
+      success: !!(await this.scheduleService.unbookmark(id, user)),
+    };
+  }
+
+  @IsHolidaySchedule()
+  @Get("holiday/:date")
+  async isHoliday(@Param("date") date: string): Promise<Partial<Schedule>> {
+    return this.scheduleService.isHoliday(date);
   }
 }

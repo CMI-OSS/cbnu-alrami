@@ -1,25 +1,15 @@
 import { Module } from "@nestjs/common";
-import { ScheduleModule } from "@nestjs/schedule";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { AwsModule } from "src/aws/aws.module";
 
-import { ArticleImageRepository } from "../articleImage/articleImage.repository";
-import { PlaceImageRepository } from "../place/repository/place.image.repository";
-import { AwsService } from "./aws.service";
+import { Image } from "./entities/image.entity";
 import { ImageController } from "./image.controller";
-import { ImageRepository } from "./image.repository";
 import { ImageService } from "./image.service";
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      ImageRepository,
-      ArticleImageRepository,
-      PlaceImageRepository,
-    ]),
-    ScheduleModule.forRoot(),
-  ],
-  providers: [ ImageService, AwsService ],
+  imports: [ TypeOrmModule.forFeature([ Image ]), AwsModule ],
   controllers: [ ImageController ],
-  exports: [ ImageService, AwsService ],
+  providers: [ ImageService ],
+  exports: [ ImageService ],
 })
 export class ImageModule {}

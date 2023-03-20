@@ -58,7 +58,7 @@ function App() {
     { path: "/place/more", element: <MoreImage /> },
     { path: "/school", element: <MapDetail /> },
     { path: "/setting/*", element: <SettingRoute /> },
-    { path: "/*", element: <Navigate replace to="/home" /> },
+    { path: "/*", element: <Home /> },
   ];
 
   const webRoutes = [

@@ -12,8 +12,19 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
+      - name: load configuration
+        run: 'echo "$configuration" > ./packages/server/src/config/configuration.ts'
+        shell: bash
+        env:
+          configuration: ${{secrets.DEV_SERVER_CONFIG}}
       - name: yarn install and CI
         run: |
           yarn install
           yarn global add lerna
           yarn lint
+
+      - name: build
+        run: |
+          yarn build:admin
+          yarn build:mobile
+          yarn build:server

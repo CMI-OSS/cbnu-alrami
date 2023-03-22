@@ -8,7 +8,7 @@ $cafeteria-padding-bottom: $footer + $cafeteria-body-padding;
 }
 
 .no-menu {
-  min-height: calc(var(--vh, 1vh) * 100);
+  @include safe-area-100vh(height, 0px);
   display: flex;
   flex-direction: column;
   align-items: center;

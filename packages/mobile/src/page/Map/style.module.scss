@@ -1,7 +1,8 @@
 $footerHeight: 65px;
-$footerLinkDistance: 20px;
+$footerLinkDistance: 20px; // footer와 link 사이의 거리
 $linkHeight: 61px;
-$linkTooltipDistance: 17px;
+$linkTooltipDistance: 17px; // link와 tooltip 사이의 거리
+$balloonBottom: $footerHeight + $footerLinkDistance + $linkHeight + $linkTooltipDistance; // balloon의 bottom 위치
 
 .map {
   width: 100vw;
@@ -26,20 +27,13 @@ $linkTooltipDistance: 17px;
   }
 }
 
-.place-arrow {
-  @include position(absolute, top 50% left 50%);
-  transform: translate(-50%, -50%);
-}
-
 .wrap {
   position: relative;
   z-index: 10;
 }
 
 .balloon {
-  position: fixed;
-  bottom: $footerHeight + $footerLinkDistance + $linkHeight + $linkTooltipDistance;
-  right: 26px;
+  @include safe-area-position(fixed, bottom $balloonBottom right 26px);
   border-radius: 10px;
   padding: 18px 12px 13px;
   background-color: $white;
@@ -79,32 +73,13 @@ $linkTooltipDistance: 17px;
 .text {
   margin-top: 6px;
 }
-.small_icon {
-  margin: 0 3px -1px 0;
-}
-
-.arrow {
-  position: absolute;
-  top: 30px;
-  right: 48px;
-  z-index: -1;
-}
 
 .link {
-  position: fixed;
-  right: 15px;
+  @include safe-area-position(fixed, bottom $footerHeight + $footerLinkDistance right 15px);
   display: flex;
   justify-content: center;
   width: 60px;
   height: 60px;
-  bottom: $footerHeight + $footerLinkDistance;
   background-color: $red-50;
   border-radius: 50%;
-}
-
-.icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }

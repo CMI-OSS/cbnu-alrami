@@ -1,0 +1,30 @@
+@mixin safe-area-position($position, $args: ()) {
+    $offsets: top $safe-area-top-11 $safe-area-top-11-2, right $safe-area-right-11 $safe-area-right-11-2,
+        bottom $safe-area-bottom-11 $safe-area-bottom-11-2, left $safe-area-left-11 $safe-area-left-11-2;
+
+    position: $position;
+
+    @each $offset in $offsets {
+        $index: index($args, nth($offset, 1));
+
+        @if $index {
+            $next: nth($args, $index + 1);
+            @if $next {
+                #{nth($offset, 1)}: calc(#{$next} + #{nth($offset, 2)});
+                #{nth($offset, 1)}: calc(#{$next} + #{nth($offset, 3)});
+            } @else {
+                @warn "Invalid value `#{$next}` for offset `#{nth($offset, 1)}`.";
+            }
+        }
+    }
+}
+
+@mixin safe-area-100vh($height-prop, $value) {
+    #{$height-prop}: calc(var(--vh, 1vh) * 100 - $value - ($safe-area-top-11 + $safe-area-bottom-11));
+    #{$height-prop}: calc(var(--vh, 1vh) * 100 - $value - ($safe-area-top-11-2 + $safe-area-bottom-11-2));
+}
+
+@mixin safe-area-width-100-percent($width-prop, $value) {
+    #{$width-prop}: calc(100% - $value - ($safe-area-left-11 + $safe-area-right-11));
+    #{$width-prop}: calc(100% - $value - ($safe-area-left-11-2 + $safe-area-right-11-2));
+}

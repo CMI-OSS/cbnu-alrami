@@ -1,5 +1,7 @@
+$calendar-header: 60px;
+
 .box {
-    padding: 10px 28px 3px;
+    padding: 10px + $calendar-header 28px 3px;
     color: $black-80;
     background-color: $black-0;
 

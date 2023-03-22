@@ -54,7 +54,7 @@ function Calendar() {
 
   return (
     <section className={$.calendar}>
-      <div className={$["sticky-box"]}>
+      <div className={$["calendar-header"]}>
         <CalendarHeader
           calendar={{ ...{ year, month } }}
           onDecrease={() => {

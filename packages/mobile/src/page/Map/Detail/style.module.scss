@@ -3,10 +3,7 @@
 }
 
 .header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  @include position(absolute, top 0 left 0 right 0);
   height: 58px;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 22.92%, rgba(0, 0, 0, 0) 100%);
 }
@@ -32,10 +29,7 @@
 }
 
 .back-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  @include position(absolute, top 0 left 0 right 0);
   z-index: -1;
   width: 100%;
   height: 398px;

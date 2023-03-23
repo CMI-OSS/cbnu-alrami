@@ -4,110 +4,95 @@ import {
   Delete,
   Get,
   Param,
-  Put,
-  UseGuards,
+  Patch,
+  Post,
+  Req,
 } from "@nestjs/common";
-import {
-  ApiBody,
-  ApiHeader,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from "@nestjs/swagger";
-import { Admin } from "src/commons/entities/admin.entity";
+import { ApiTags } from "@nestjs/swagger";
+import { MutationResponse } from "src/common/types/response";
 
-import { AdminSession } from "../commons/decorators/admin-session.decorator";
-import { AdminAuthGuard } from "../commons/guards/admin-auth.guard";
-import { AdminMasterGuard } from "../commons/guards/admin-master.guard";
 import { AdminService } from "./admin.service";
-import { AdminUpdateDto } from "./dto/admin-update.dto";
+import {
+  CreateAdmin,
+  DeleteAdmin,
+  GetAdmin,
+  GetAdmins,
+  GetAuthoriyBoards,
+  GetMe,
+  Login,
+  UpdateAdmin,
+} from "./admin.swagger";
+import { CreateAdminDto } from "./dto/create-admin.dto";
+import { LoginDto } from "./dto/login.dto";
+import { ResponseLoginDto } from "./dto/response-login.dto";
+import { UpdateAdminDto } from "./dto/update-admin.dto";
+import { AdminGuard } from "./gurads/admin.guard";
+import { SuperGuard } from "./gurads/super.guard";
 
 @ApiTags("[admin] 관리자 API")
-@Controller("admins")
+@Controller("admin")
 export class AdminController {
-  constructor(private adminService: AdminService) {}
+  constructor(private readonly adminService: AdminService) {}
 
-  @ApiOperation({
-    summary: "관리자 본인 조회",
-    description: "관리자 본인의 정보를 조회합니다.",
-  })
-  @ApiResponse({
-    status: 200,
-    description: "관리자 정보 객체",
-    type: Admin,
-  })
-  @ApiHeader({
-    name: "x-access-token",
-    description: "Admin JWT",
-    required: true,
-  })
-  @Get("me")
-  @UseGuards(AdminAuthGuard)
-  async findOne(@AdminSession() admin: Admin): Promise<Admin> {
-    return admin;
+  @SuperGuard()
+  @CreateAdmin()
+  @Post()
+  async create(
+    @Body() createAdminDto: CreateAdminDto,
+  ): Promise<MutationResponse> {
+    return { success: !!(await this.adminService.create(createAdminDto)) };
   }
 
-  @ApiOperation({
-    summary: "관리자 전체 목록 조회",
-    description: "관리자 전체 목록을 조회합니다.",
-  })
-  @ApiResponse({
-    status: 200,
-    description: "관리자 정보 배열 객체",
-    type: Admin,
-    isArray: true,
-  })
-  @ApiHeader({
-    name: "x-access-token",
-    description: "Super 권한을 가진 Admin JWT",
-    required: true,
-  })
+  @AdminGuard()
+  @GetAuthoriyBoards()
+  @Get("board")
+  getAuthorityBoards(@Req() req) {
+    const { admin } = req;
+    return this.adminService.getAuthorityBoards(admin.id);
+  }
+
+  @SuperGuard()
+  @GetAdmins()
   @Get()
-  @UseGuards(AdminMasterGuard)
-  async find(): Promise<Admin[]> {
-    return this.adminService.find();
+  findAll() {
+    return this.adminService.findAll();
   }
 
-  @ApiOperation({
-    summary: "관리자 수정",
-    description: "관리자 정보를 수정합니다",
-  })
-  @ApiBody({
-    description: "계정 만들기",
-    type: AdminUpdateDto,
-  })
-  @ApiResponse({
-    status: 200,
-  })
-  @ApiHeader({
-    name: "x-access-token",
-    description: "Super 권한을 가진 Admin JWT",
-    required: true,
-  })
-  @Put(":adminId")
-  @UseGuards(AdminMasterGuard)
+  @AdminGuard()
+  @GetMe()
+  @Get("/me")
+  findMe(@Req() req) {
+    console.log(req.admin);
+    return req.admin;
+  }
+
+  @SuperGuard()
+  @GetAdmin()
+  @Get(":id")
+  findOne(@Param("id") id: number) {
+    return this.adminService.findOne(id);
+  }
+
+  @SuperGuard()
+  @UpdateAdmin()
+  @Patch(":id")
   async update(
-    @Param("adminId") adminId: number,
-    @Body() adminUpdateDto: AdminUpdateDto,
-  ) {
-    return this.adminService.update(adminId, adminUpdateDto);
+    @Param("id") id: number,
+    @Body() updateAdminDto: UpdateAdminDto,
+  ): Promise<MutationResponse> {
+    return { success: !!this.adminService.update(id, updateAdminDto) };
   }
 
-  @ApiOperation({
-    summary: "관리자 삭제",
-    description: "관리자 정보를 삭제합니다",
-  })
-  @ApiResponse({
-    status: 204,
-  })
-  @ApiHeader({
-    name: "x-access-token",
-    description: "Super 권한을 가진 Admin JWT",
-    required: true,
-  })
-  @Delete(":adminId")
-  @UseGuards(AdminMasterGuard)
-  async delete(@Param("adminId") adminId: number) {
-    return this.adminService.delete(adminId);
+  @SuperGuard()
+  @DeleteAdmin()
+  @Delete(":id")
+  async remove(@Param("id") id: number): Promise<MutationResponse> {
+    return { success: !!(await this.adminService.remove(id)) };
+  }
+
+  @Login()
+  @Post("login")
+  async login(@Body() loginDto: LoginDto): Promise<ResponseLoginDto> {
+    return this.adminService.login(loginDto);
   }
 }

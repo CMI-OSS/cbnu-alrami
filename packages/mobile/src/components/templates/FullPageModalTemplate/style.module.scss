@@ -1,5 +1,5 @@
 .full-modal {
-  min-height: calc(var(--vh, 1vh) * 100);
+  @include safe-area-100vh(height, 0px);
 
   .header {
     position: sticky;
@@ -9,7 +9,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    min-height: 60px;
+    height: 60px;
     padding: 0 24px;
     background: #fff;
     z-index: 100;
@@ -29,5 +29,6 @@
 
   .children {
     overflow: auto;
+    height: calc(100% - 60px);
   }
 }

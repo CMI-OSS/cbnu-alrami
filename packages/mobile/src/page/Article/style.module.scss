@@ -1,7 +1,10 @@
 .article {
   .header {
-    position: fixed;
-    top: 0;
+    @include position(fixed, top 0);
+    @include safe-area-width-100-percent(width, 0px);
+    padding-top: $safe-area-top-11;
+    padding-top: $safe-area-top-11-2;
+    background-color: $white;
   }
 
   .title {

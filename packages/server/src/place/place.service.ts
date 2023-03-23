@@ -1,114 +1,97 @@
-import { Injectable } from "@nestjs/common";
-import { Builder } from "builder-pattern";
-import { Transactional } from "typeorm-transactional-cls-hooked";
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { ImageService } from "src/image/image.service";
+import { Place } from "src/place/entities/place.entity";
+import { SchoolDto } from "src/school/dto/create-school.dto";
+import { SchoolArea } from "src/school/school.constant";
+import { SchoolService } from "src/school/school.service";
+import { Repository } from "typeorm";
 
-import { Place } from "../commons/entities/place.entity";
-import { School } from "../commons/entities/school.entity";
-import { ImageService } from "../image/image.service";
-import { PlaceCreateRequestDto } from "./dtos/place.create.request.dto";
-import { PlaceResponseDto } from "./dtos/place.response.dto";
-import { PlaceUpdateRequestDto } from "./dtos/place.update.request.dto";
-import { PlacesResponseDto } from "./dtos/places.response.dto";
-import { PlaceImageRepository } from "./repository/place.image.repository";
-import { PlaceRepository } from "./repository/place.repository";
-import { SchoolRepository } from "./repository/school.repository";
+import { CreatePlaceDto } from "./dto/create-place.dto";
+import { UpdatePlaceDto } from "./dto/update-place.dto";
 
 @Injectable()
 export class PlaceService {
   constructor(
-    private readonly placeRepository: PlaceRepository,
-    private readonly schoolRepository: SchoolRepository,
-    private readonly imageService: ImageService,
-    private readonly placeImageRepository: PlaceImageRepository,
+    @InjectRepository(Place)
+    private placeRepository: Repository<Place>,
+    private imageService: ImageService,
+    private schoolService: SchoolService,
   ) {}
 
-  async findOne(placeId: number): Promise<PlaceResponseDto> {
-    const place = await this.placeRepository.findOne(placeId);
-
-    return {
-      ...place,
-      images: place.images.map((el) => {
-        return el.image;
-      }),
-    };
-  }
-
-  async find(): Promise<PlacesResponseDto[]> {
-    const places = await this.placeRepository.findAll();
-
-    return places.map(({ images, ...place }) => {
-      return {
-        ...place,
-        image: images[0]?.image,
-      };
+  findSchool(area?: SchoolArea) {
+    return this.placeRepository.find({
+      where: {
+        ...(area
+          ? {
+              school: {
+                area,
+              },
+            }
+          : { school: true }),
+      },
+      relations: { school: true },
     });
   }
 
-  @Transactional()
-  async create(placeCreateRequestDto: PlaceCreateRequestDto) {
-    const place = Builder(Place)
-      .name(placeCreateRequestDto.name)
-      .latitude(placeCreateRequestDto.latitude)
-      .longtitude(placeCreateRequestDto.longtitude)
-      .address(placeCreateRequestDto.address)
-      .contact(placeCreateRequestDto.contact)
-      .description(placeCreateRequestDto.description)
-      .tags(placeCreateRequestDto.tags)
-      .build();
-
-    const placeEntity = await this.placeRepository.save(place);
-
-    const school = Builder(School)
-      .place(placeEntity)
-      .buildingNumber(placeCreateRequestDto.buildingNumber)
-      .oldBuildingNumber(placeCreateRequestDto.oldBuildingNumber)
-      .area(placeCreateRequestDto.area)
-      .build();
-
-    await this.schoolRepository.save(school);
-
-    await Promise.all(
-      placeCreateRequestDto.imageIds.map(async (imageId) => {
-        const image = await this.imageService.findById(imageId);
-        await this.placeImageRepository.saveImages(image, placeEntity);
-      }),
-    );
+  findOneSchool(id: number) {
+    return this.placeRepository.findOne({
+      where: {
+        id,
+      },
+      relations: { school: true },
+    });
   }
 
-  @Transactional()
-  async update(placeId: number, placeUpdateRequestDto: PlaceUpdateRequestDto) {
-    const place = Builder(Place)
-      .name(placeUpdateRequestDto.name)
-      .latitude(placeUpdateRequestDto.latitude)
-      .longtitude(placeUpdateRequestDto.longtitude)
-      .address(placeUpdateRequestDto.address)
-      .contact(placeUpdateRequestDto.contact)
-      .description(placeUpdateRequestDto.description)
-      .tags(placeUpdateRequestDto.tags)
-      .build();
-
-    await this.placeRepository.update(placeId, place);
-    const placeEntity = await this.placeRepository.findOne(placeId);
-
-    await this.placeImageRepository.delete({ place: placeEntity });
-
-    const school = Builder(School)
-      .buildingNumber(placeUpdateRequestDto.buildingNumber)
-      .oldBuildingNumber(placeUpdateRequestDto.oldBuildingNumber)
-      .area(placeUpdateRequestDto.area)
-      .build();
-
-    await this.schoolRepository.update(placeId, school);
-
-    await Promise.all(
-      placeUpdateRequestDto.imageIds.map(async (imageId) => {
-        const image = await this.imageService.findById(imageId);
-        await this.placeImageRepository.saveImages(image, placeEntity);
-      }),
+  async create(createPlaceDto: CreatePlaceDto) {
+    const images = await this.imageService.findImages(
+      createPlaceDto.imageIds ?? [],
     );
+
+    return this.placeRepository.save({ ...createPlaceDto, images });
   }
 
-  async delete(placeId: number) {
-    await this.placeRepository.delete({ id: placeId });
+  async createSchool(createPlaceDto: CreatePlaceDto) {
+    const place = await this.create(createPlaceDto);
+
+    const school = await this.schoolService.create(
+      createPlaceDto.school as SchoolDto,
+      place,
+    );
+
+    await this.placeRepository.update(place.id, { school });
+
+    return place;
+  }
+
+  async update(id: number, { imageIds, ...placeDto }: UpdatePlaceDto) {
+    const place = await this.placeRepository.findOne({ where: { id } });
+
+    if (!place) throw new NotFoundException();
+
+    if (imageIds) {
+      const images = await this.imageService.findImages(imageIds);
+      place.images = images;
+      place.save();
+    }
+
+    return this.placeRepository.update(id, { ...placeDto });
+  }
+
+  async updateSchool(id: number, updatePlaceDto: UpdatePlaceDto) {
+    const { school: schoolDto, ...placeDto } = updatePlaceDto;
+
+    await this.update(id, placeDto);
+
+    const place = await this.findOneSchool(id);
+
+    if (schoolDto && place?.school)
+      await this.schoolService.update(place.school.id, schoolDto);
+
+    return place;
+  }
+
+  async remove(id: number) {
+    return this.placeRepository.delete({ id });
   }
 }

@@ -1,35 +1,35 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
 import * as FCM from "fcm-node";
-import { isNil } from "lodash";
-
-import { Device } from "../commons/entities/user.entity";
-import { SubscribeRepository } from "../subscribe/subscribe.repository";
-import { UserRepository } from "../user/repository/user.repository";
-import { Data } from "./fcm.interfaces";
+import { BoardService } from "src/board/board.service";
+import configuration from "src/config/configuration";
+import { Device } from "src/user/user.constant";
+import { UserService } from "src/user/user.service";
 
 @Injectable()
 export class FcmService {
-  private readonly serverKey;
+  private readonly serverKey: string;
   private readonly fcm;
-  private readonly collapseKeyAndroid;
-  private readonly collapseKeyIos;
+  private readonly collapseKeyAndroid: string;
+  private readonly collapseKeyIos: string;
 
   constructor(
-    private readonly configService: ConfigService,
-    private readonly subscribeRepository: SubscribeRepository,
-    private readonly userRepository: UserRepository,
+    private readonly boardService: BoardService,
+    private readonly userService: UserService,
   ) {
-    this.serverKey = this.configService.get("fcm").serverKey;
+    this.serverKey = configuration.fcm.key;
     this.fcm = new FCM(this.serverKey);
-    this.collapseKeyAndroid = this.configService.get("fcm").collapseKeyAndroid;
-    this.collapseKeyIos = this.configService.get("fcm").collapseKeyIos;
+    this.collapseKeyAndroid = configuration.fcm.aos;
+    this.collapseKeyIos = configuration.fcm.ios;
   }
 
-  private static message(to: string, data: Data, collapseKey: string) {
+  private static async message(
+    to: string,
+    data: { title: string; body: string },
+    collapseKey: string,
+  ) {
     const { title, body } = data;
 
-    if (isNil(title) || isNil(body)) {
+    if (title == null || body == null) {
       throw new BadRequestException("Is empty!");
     }
 
@@ -46,41 +46,35 @@ export class FcmService {
   }
 
   public async sendNotices(boardId: number): Promise<void> {
-    const subscribes = await this.subscribeRepository.findUserByBoard(boardId);
+    const subscribers = await this.boardService.getSubscribers(boardId);
 
-    if (subscribes.length === 0) {
+    if (subscribers.length === 0) {
       return;
     }
 
-    const userIds = subscribes.map((subscribe) => {
-      return subscribe.user.id;
-    });
-
-    const users = await this.userRepository.findUserById(userIds);
-
-    users.forEach((user) => {
+    subscribers.forEach((user) => {
       const data = { title: "CMI", body: "공지사항 등록" };
       const { fcmToken } = user;
 
-      if (user.device === Device.ANDROID) {
+      if (fcmToken && user.device === Device.AOS) {
         this.sendNotice(fcmToken, data, this.collapseKeyAndroid);
-      } else if (user.device === Device.IOS) {
+      } else if (fcmToken && user.device === Device.IOS) {
         this.sendNotice(fcmToken, data, this.collapseKeyIos);
       }
     });
   }
 
-  private async sendNotice(
+  async sendNotice(
     to: string,
-    data: Data,
+    data: { title: string; body: string },
     collapseKey: string,
   ): Promise<void> {
     await this.fcm.send(
-      FcmService.message(to, data, collapseKey),
+      await FcmService.message(to, data, collapseKey),
       async (err, res) => {
         if (err) {
           if (JSON.parse(err).results[0].error === "InvalidRegistration") {
-            await this.userRepository.delete({ fcmToken: to });
+            await this.userService.deleteByFcmToken(to);
           }
           throw new BadRequestException(err);
         } else {

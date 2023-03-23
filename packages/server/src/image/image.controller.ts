@@ -5,38 +5,47 @@ import {
   UseInterceptors,
 } from "@nestjs/common";
 import { FilesInterceptor } from "@nestjs/platform-express";
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import {
+  ApiBody,
+  ApiConsumes,
+  ApiCreatedResponse,
+  ApiOperation,
+  ApiTags,
+} from "@nestjs/swagger";
+import { AdminGuard } from "src/admin/gurads/admin.guard";
 
-import { UploadImageResponse } from "./dto/upload-image.response.dto";
+import { Image } from "./entities/image.entity";
 import { ImageService } from "./image.service";
 
-@Controller()
-@ApiTags("[image] 이미지 업로드 API")
+@ApiTags("[image] 이미지 API")
+@Controller("image")
 export class ImageController {
   constructor(private readonly imageService: ImageService) {}
 
-  @Post("upload/images")
-  @UseInterceptors(FilesInterceptor("image", 10))
-  @ApiOperation({
-    summary: "이미지 업로드 API",
-    description: "이미지를 AWS S3에 업로드합니다.",
+  @AdminGuard()
+  @Post("/upload")
+  @ApiConsumes("multipart/form-data")
+  @ApiOperation({ summary: "이미지 업로드" })
+  @ApiCreatedResponse({
+    description: "정상적으로 이미지가 업로드된 경우",
+    type: [ Image ],
   })
   @ApiBody({
     schema: {
+      type: "object",
       properties: {
-        image: { type: "File" },
+        images: {
+          type: "array",
+          items: {
+            type: "string",
+            format: "binary",
+          },
+        },
       },
     },
   })
-  @ApiResponse({
-    status: 201,
-    description: "이미지 URI",
-    type: "string[]",
-    isArray: true,
-  })
-  async uploadImages(
-    @UploadedFiles() images: Express.Multer.File[],
-  ): Promise<UploadImageResponse[]> {
-    return this.imageService.uploadImages(images);
+  @UseInterceptors(FilesInterceptor("images"))
+  upload(@UploadedFiles() images: Express.Multer.File[]) {
+    return this.imageService.upload(images);
   }
 }

@@ -1,10 +1,9 @@
-import { Internet, Share, Star } from "@components/atoms/icon";
+import { Internet, Star } from "@components/atoms/icon";
 import {
   useDeleteBookmarkArticleMutation,
   usePostBookmarkArticleMutation,
 } from "@hooks/api/article";
-import { toastSuccess } from "src/utils/toast";
-import { isFromApp } from "src/utils/webview";
+import ShareButton from "src/components/atoms/ShareButton";
 
 import $ from "./style.module.scss";
 
@@ -34,23 +33,13 @@ function ArticleFooter({
     postBookmark.mutate({ id: articleId });
   };
 
-  const handleCopyClick = () => {
-    if (isFromApp) {
-      baseApp.postMessage(window.location.href);
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-    }
-    toastSuccess({
-      message: "공지 링크가 클립보드에 복사되었습니다.",
-      style: { marginBottom: "58px" },
-    });
-  };
-
   return (
     <div className={$["article-footer"]}>
-      <button type="button" onClick={handleCopyClick}>
-        <Share size={24} stroke="#AAAAAA" />
-      </button>
+      <ShareButton
+        size={24}
+        stroke="#AAAAAA"
+        successMsg="공지 링크가 클립보드에 복사되었습니다."
+      />
       {isUser && (
         <button type="button" onClick={toggleBookmark}>
           <Star

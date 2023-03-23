@@ -1,5 +1,5 @@
 .setting-template {
-  height: calc(var(--vh, 1vh) * 100 - 60px);
+  min-height: 100%;
   display: flex;
   flex-direction: column;
 }

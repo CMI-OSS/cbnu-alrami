@@ -4,7 +4,8 @@
   }
 
   .children {
-    min-height: calc(100vh - 64px);
+    @include safe-area-100vh(min-height, 64px);
+
     padding: 20px 24px 80px 24px;
     background: $black-0;
     overflow-x: hidden;

@@ -1,12 +1,14 @@
 .article-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
+  @include position(fixed, bottom 0 left 50%);
+  transform: translateX(-50%);
   display: flex;
   justify-content: space-around;
-  width: 100%;
+  align-items: center;
+  @include safe-area-width-100-percent(width, 0px);
   height: 64px;
+  box-sizing: content-box;
+  padding-bottom: $safe-area-bottom-11;
+  padding-bottom: $safe-area-bottom-11-2;
   box-shadow: 0px -1px 10px rgba(0, 0, 0, 0.05);
   background: $black-0;
-
 }

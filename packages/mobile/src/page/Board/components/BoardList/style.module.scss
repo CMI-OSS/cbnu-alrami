@@ -1,5 +1,5 @@
 .board-list {
-  height: calc(100vh - 310px);
+  @include safe-area-100vh(height, 310px);
   overflow-y: auto;
 
   > a {

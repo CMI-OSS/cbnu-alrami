@@ -4,115 +4,130 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
-  Put,
-  UseGuards,
+  Query,
 } from "@nestjs/common";
-import {
-  ApiBody,
-  ApiHeader,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from "@nestjs/swagger";
-import { Board } from "src/commons/entities/board.entity";
-import { UserAuthGuard } from "src/commons/guards/user-auth.guard";
+import { ApiTags } from "@nestjs/swagger";
+import { SuperGuard } from "src/admin/gurads/super.guard";
+import { ArticleService } from "src/article/article.service";
+import { PaginationDto } from "src/common/dto/pagination.dto";
+import { MutationResponse } from "src/common/types/response";
+import { User } from "src/user/entities/user.entity";
+import { UserSession } from "src/user/user.decoratoer";
+import { UserHeader } from "src/user/user.gurad";
 
 import { BoardService } from "./board.service";
-import { BoardCreateDto } from "./dto/board.create.dto";
-import { BoardUpdateDto } from "./dto/board.update.dto";
+import {
+  CreateBoard,
+  DeleteBoard,
+  GetArticlePage,
+  GetBoard,
+  GetBoards,
+  GetSubscribeBoards,
+  NoticeBoard,
+  SubscribeBoard,
+  UnNoticeBoard,
+  UnSubscribeBoard,
+  UpdateBoard,
+} from "./board.swagger";
+import { CreateBoardDto } from "./dto/create-board.dto";
+import { UpdateBoardDto } from "./dto/update-board.dto";
 
-@Controller("boards")
-@ApiTags("[board] 공지사항 사이트 도메인 API")
+@ApiTags("[board] 게시판 API")
+@Controller("board")
 export class BoardController {
-  constructor(private readonly boardService: BoardService) {}
+  constructor(
+    private readonly articleService: ArticleService,
+    private readonly boardService: BoardService,
+  ) {}
 
+  @SuperGuard()
+  @CreateBoard()
   @Post()
-  @ApiOperation({
-    summary: "공지사항 사이트 생성 API",
-    description: "새로운 board를 생성한다.",
-  })
-  @ApiResponse({
-    status: 201,
-    description: "생성된 board 객체",
-    type: Board,
-  })
-  async create(@Body() boardCreateDto: BoardCreateDto) {
-    const board = await this.boardService.create(boardCreateDto);
-    return board;
+  async create(
+    @Body() createBoardDto: CreateBoardDto,
+  ): Promise<MutationResponse> {
+    return { success: !!(await this.boardService.create(createBoardDto)) };
   }
 
+  @GetSubscribeBoards()
+  @Get("subscribe")
+  @UserHeader
+  async findSubscribeBoards(@UserSession() user?: User) {
+    return user ? this.boardService.findSubscribeBoards(user) : [];
+  }
+
+  @GetBoard()
+  @Get(":id")
+  @UserHeader
+  async findOne(@Param("id") id: number, @UserSession() user?: User) {
+    return this.boardService.getBoardWithSubscribe(
+      await this.boardService.findOne(id),
+      user,
+    );
+  }
+
+  @GetBoards()
   @Get()
-  @ApiOperation({
-    summary: "전체 공지사항 사이트 조회 API",
-    description: "모든 board를 조회한다.",
-  })
-  @ApiHeader({
-    name: "uuid",
-    description: "user uuid",
-    required: true,
-  })
-  @ApiResponse({
-    status: 200,
-    description: "전체 공지사항 사이트 리스트",
-    type: Board,
-    isArray: true,
-  })
-  @UseGuards(UserAuthGuard)
-  async findAll(): Promise<Board[]> {
-    return this.boardService.findAll();
+  @UserHeader
+  async find(@UserSession() user?: User) {
+    return this.boardService.getBoardsWithSubscribe(
+      await this.boardService.findAll(),
+      user,
+    );
   }
 
-  @Get(":boardId")
-  @ApiOperation({
-    summary: "특정 공지사항 사이트 조회 API",
-    description: "id를 이용, 특정 board를 조회한다.",
-  })
-  @ApiResponse({
-    status: 200,
-    description: "path variable를 pk로 가지는 board 객체",
-    type: Board,
-  })
-  async findOne(@Param("boardId") boardId: number): Promise<Board> {
-    return this.boardService.findById(boardId);
+  @GetArticlePage()
+  @Get(":id/articles")
+  findArticlePage(@Param("id") id: number, @Query() query: PaginationDto) {
+    return this.articleService.findArticlePageByBoardId(
+      id,
+      query.page,
+      query.count,
+    );
   }
 
-  @Put(":boardId")
-  @ApiOperation({
-    summary: "특정 공지사항 사이트 수정 API",
-    description: "특정 board를 수정한다.",
-  })
-  @ApiBody({
-    schema: {
-      properties: {
-        name: { type: "string" },
-        url: { type: "string" },
-      },
-    },
-  })
-  @ApiResponse({
-    status: 200,
-    description: "수정한 board 객체",
-    type: Board,
-  })
+  @SuperGuard()
+  @UpdateBoard()
+  @Patch(":id")
   async update(
-    @Param("boardId") boardId: number,
-    @Body() boardUpdateDto: BoardUpdateDto,
-  ): Promise<Board> {
-    return this.boardService.update(boardId, boardUpdateDto);
+    @Param("id") id: number,
+    @Body() updateBoardDto: UpdateBoardDto,
+  ): Promise<MutationResponse> {
+    return {
+      success: !!(await this.boardService.update(id, updateBoardDto)),
+    };
   }
 
-  @Delete(":boardId")
-  @ApiOperation({
-    summary: "특정 공지사항 사이트 삭제 API",
-    description: "id를 이용, 특정 board를 삭제한다.",
-  })
-  @ApiResponse({
-    status: 200,
-    description: "true",
-    type: "string",
-  })
-  async remove(@Param("boardId") boardId: number) {
-    return this.boardService.remove(boardId);
+  @SuperGuard()
+  @DeleteBoard()
+  @Delete(":id")
+  async remove(@Param("id") id: number): Promise<MutationResponse> {
+    return { success: !!(await this.boardService.remove(id)) };
+  }
+
+  @SubscribeBoard()
+  @Post(":id/subscribe")
+  async subscribe(@Param("id") id: number, @UserSession() user: User) {
+    return { success: await this.boardService.subscribe(id, user) };
+  }
+
+  @UnSubscribeBoard()
+  @Delete(":id/subscribe")
+  async unsubscribe(@Param("id") id: number, @UserSession() user: User) {
+    return { success: await this.boardService.unsubscribe(id, user) };
+  }
+
+  @NoticeBoard()
+  @Post(":id/notice")
+  async notice(@Param("id") id: number, @UserSession() user: User) {
+    return { success: await this.boardService.notice(id, user) };
+  }
+
+  @UnNoticeBoard()
+  @Delete(":id/notice")
+  async unnotice(@Param("id") id: number, @UserSession() user: User) {
+    return { success: await this.boardService.unnotice(id, user) };
   }
 }

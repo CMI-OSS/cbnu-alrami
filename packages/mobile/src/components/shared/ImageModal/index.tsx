@@ -1,4 +1,3 @@
-
 import { Close, Download } from "@components/atoms/icon";
 import Image from "@components/atoms/Image";
 import ImageSlider from "@components/molecules/ImageSlider";

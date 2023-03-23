@@ -1,6 +1,5 @@
 $top-height: 446px;
 $footer-height: 64px;
-$empty-box-height: calc(var(--vh, 1vh) * 100 - $top-height - $footer-height);
 
 .empty-box {
   display: flex;
@@ -8,7 +7,7 @@ $empty-box-height: calc(var(--vh, 1vh) * 100 - $top-height - $footer-height);
   align-items: center;
   justify-content: center;
   min-height: 161px;
-  height: calc(var(--vh, 1vh) * 100 - $top-height - $footer-height);
+  @include safe-area-100vh(height, $top-height + $footer-height);
   margin-top: 20px;
 
   .description {
@@ -22,7 +21,7 @@ $empty-box-height: calc(var(--vh, 1vh) * 100 - $top-height - $footer-height);
   padding: 13px 10px 154px;
 
   .floating-button {
-    @include position(fixed, bottom 84px right 16px);
+    @include safe-area-position(fixed, bottom 84px right 16px);
     display: flex;
     align-items: center;
     justify-content: center;

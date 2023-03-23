@@ -1,7 +1,3 @@
-import { useReducer } from "react";
-
-import { CafeteriaMenu } from "@shared/swagger-api/generated";
-import dayjs from "dayjs";
 import ErrorFallback from "src/components/atoms/ErrorFallback";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
@@ -9,49 +5,38 @@ import Footer from "src/components/molecules/Footer";
 import MenuList from "src/components/molecules/MenuList";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
 import { CAFETERIA_LIST } from "src/constants";
-import { useAppDispatch, useAppSelector } from "src/store";
-import { selectMenu } from "src/store/cafeteriaSlice";
 
-import caledarReducer from "../Calendar/calendarReducer";
 import CafeteriaBody from "./CafateriaBody";
+import { useCafeteria } from "./hooks";
 import $ from "./style.module.scss";
 
 function Cafeteria() {
-  const [ { year, month, date, day }, dispatchDay ] = useReducer(caledarReducer, {
-    year: dayjs().year(),
-    month: dayjs().month(),
-    date: dayjs().date(),
-    day: dayjs().day(),
-  });
-
-  const dispatch = useAppDispatch();
-  const { selectedMenu } = useAppSelector((state) => {
-    return state.persistedReducer.cafeteria.cafeteria;
-  });
-  const handleMenu = (selectedMenu: CafeteriaMenu["name"]) => {
-    dispatch(selectMenu({ selectedMenu }));
-  };
-  const fullDate = `${year}-${month + 1}-${date}`;
+  const {
+    year,
+    month,
+    date,
+    day,
+    fullDate,
+    selectedMenu,
+    onDecrease,
+    onIncrease,
+    handleMenu,
+  } = useCafeteria();
 
   return (
     <>
       <header className={$.header}>
         <CalendarHeader
           calendar={{ ...{ year, month, date, day } }}
-          onDecrease={() => {
-            return dispatchDay({ type: "decrement_date" });
-          }}
-          onIncrease={() => {
-            return dispatchDay({ type: "increment_date" });
-          }}
+          onDecrease={onDecrease}
+          onIncrease={onIncrease}
+        />
+        <MenuList
+          menuList={CAFETERIA_LIST}
+          onClick={handleMenu}
+          clickedMenu={selectedMenu}
         />
       </header>
-
-      <MenuList
-        menuList={CAFETERIA_LIST}
-        onClick={handleMenu}
-        clickedMenu={selectedMenu}
-      />
 
       <AsyncBoundary
         suspenseFallback={

@@ -19,9 +19,7 @@
 }
 
 .button {
-  position: fixed;
-  right: 14px;
-  bottom: 14px;
+  @include safe-area-position(fixed, bottom 14px right 14px);
   display: flex;
   justify-content: center;
   width: 62px;
@@ -30,4 +28,3 @@
   border-radius: 50%;
   background-color: $red-50;
 }
-

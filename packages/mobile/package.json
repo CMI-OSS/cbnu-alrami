@@ -25,7 +25,8 @@
     "react-router-dom": "^6.2.2",
     "react-scroll": "^1.8.7",
     "recoil": "^0.7.6",
-    "rollup-plugin-visualizer": "^5.9.0"
+    "rollup-plugin-visualizer": "^5.9.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.18.10",

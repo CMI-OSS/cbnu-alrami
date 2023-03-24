@@ -4,125 +4,77 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
-  Put,
-  UseGuards,
+  Query,
 } from "@nestjs/common";
 import {
-  ApiBody,
-  ApiHeader,
+  ApiOkResponse,
   ApiOperation,
-  ApiResponse,
+  ApiQuery,
   ApiTags,
 } from "@nestjs/swagger";
+import { MutationResponse } from "src/common/types/response";
+import { SchoolArea } from "src/school/school.constant";
 
-import { AdminMasterGuard } from "../commons/guards/admin-master.guard";
-import { PlaceCreateRequestDto } from "./dtos/place.create.request.dto";
-import { PlaceResponseDto } from "./dtos/place.response.dto";
-import { PlaceUpdateRequestDto } from "./dtos/place.update.request.dto";
-import { PlacesResponseDto } from "./dtos/places.response.dto";
+import { CreatePlaceDto } from "./dto/create-place.dto";
+import { PlaceSchoolDto } from "./dto/response-place.dto";
+import { UpdatePlaceDto } from "./dto/update-place.dto";
 import { PlaceService } from "./place.service";
 
-@Controller("places")
+@ApiTags("[place] 장소 API")
+@Controller("place")
 export class PlaceController {
   constructor(private readonly placeService: PlaceService) {}
 
-  @Get("school/:placeId")
-  @ApiTags("[place] 캠퍼스맵 도메인 API")
   @ApiOperation({
-    summary: "학교 건물 조회 API",
-    description: "특정 학교 건물을 조회합니다.",
+    summary: "학교 건물 조회",
   })
-  @ApiResponse({
-    status: 200,
-    description: "학교 건물 객체",
-    type: PlaceResponseDto,
+  @ApiQuery({
+    name: "area",
+    required: false,
+    description: "구역(S,N,E)",
+    schema: { enum: Object.values(SchoolArea) },
   })
-  async findOne(@Param("placeId") placeId: number): Promise<PlaceResponseDto> {
-    return this.placeService.findOne(placeId);
-  }
-
+  @ApiOkResponse({ type: PlaceSchoolDto, isArray: true })
   @Get("school")
-  @ApiTags("[place] 캠퍼스맵 도메인 API")
-  @ApiOperation({
-    summary: "학교 건물 목록 조회 API",
-    description: "특정 학교 건물 목록을 조회합니다.",
-  })
-  @ApiResponse({
-    status: 200,
-    description: "학교 건물 목록 객체",
-    type: PlacesResponseDto,
-    isArray: true,
-  })
-  async find(): Promise<PlacesResponseDto[]> {
-    return this.placeService.find();
+  findSchool(@Query("area") area?: SchoolArea) {
+    return this.placeService.findSchool(area);
   }
 
+  @ApiOperation({
+    summary: "학교 건물 상세 조회",
+  })
+  @ApiOkResponse({ type: PlaceSchoolDto })
+  @Get("school/:id")
+  findOneSchool(@Param("id") id: number) {
+    return this.placeService.findOneSchool(id);
+  }
+
+  @ApiOperation({
+    summary: "학교 건물 생성",
+  })
+  @ApiOkResponse({ type: MutationResponse })
   @Post("school")
-  @ApiTags("[admin] 관리자 API")
-  @ApiOperation({
-    summary: "학교건물 생성",
-    description: "학교건물을 생성합니다.",
-  })
-  @ApiBody({
-    description: "학교건물 세부 정보",
-    type: PlaceCreateRequestDto,
-  })
-  @ApiResponse({
-    status: 201,
-  })
-  @ApiHeader({
-    name: "x-access-token",
-    description: "Super 권한을 가진 Admin JWT",
-    required: true,
-  })
-  @UseGuards(AdminMasterGuard)
-  async create(@Body() placeCreateRequestDto: PlaceCreateRequestDto) {
-    return this.placeService.create(placeCreateRequestDto);
+  create(@Body() createPlaceDto: CreatePlaceDto) {
+    return this.placeService.createSchool(createPlaceDto);
   }
 
-  @Put("school/:placeId")
-  @ApiTags("[admin] 관리자 API")
   @ApiOperation({
-    summary: "학교건물 수정",
-    description: "학교건물을 수정합니다.",
+    summary: "학교 건물 수정",
   })
-  @ApiBody({
-    description: "학교건물 세부 정보",
-    type: PlaceUpdateRequestDto,
-  })
-  @ApiResponse({
-    status: 200,
-  })
-  @ApiHeader({
-    name: "x-access-token",
-    description: "Super 권한을 가진 Admin JWT",
-    required: true,
-  })
-  @UseGuards(AdminMasterGuard)
-  update(
-    @Param("placeId") placeId: number,
-    @Body() placeUpdateRequestDto: PlaceUpdateRequestDto,
-  ) {
-    return this.placeService.update(placeId, placeUpdateRequestDto);
+  @ApiOkResponse({ type: MutationResponse })
+  @Patch("school/:id")
+  update(@Param("id") id: number, @Body() updatePlaceDto: UpdatePlaceDto) {
+    return this.placeService.updateSchool(id, updatePlaceDto);
   }
 
-  @Delete("school/:placeId")
-  @ApiTags("[admin] 관리자 API")
   @ApiOperation({
-    summary: "학교건물 삭제",
-    description: "학교건물을 삭제합니다.",
+    summary: "학교 건물 삭제",
   })
-  @ApiResponse({
-    status: 204,
-  })
-  @ApiHeader({
-    name: "x-access-token",
-    description: "Super 권한을 가진 Admin JWT",
-    required: true,
-  })
-  @UseGuards(AdminMasterGuard)
-  delete(@Param("placeId") placeId: number) {
-    return this.placeService.delete(placeId);
+  @ApiOkResponse({ type: MutationResponse })
+  @Delete("school/:id")
+  remove(@Param("id") id: number) {
+    return this.placeService.remove(id);
   }
 }

@@ -23,7 +23,7 @@ function App() {
         <Route path="/board/*" element={<BoardPage />} />
         <Route path="/admin/*" element={<AdminManagementPage />} />
         <Route path="/place/*" element={<PlaceManagementPage />} />
-        <Route path="*" element={<Navigate to="/article" />} />
+        <Route path="/*" element={<ArticlePage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,6 +1,5 @@
 .menu-list {
   @include flicking;
-  @include position(fixed, top 60px left 0 right 0);
   display: flex;
   z-index: 100;
   padding: 6px 12px;
@@ -19,21 +18,21 @@
     &-name {
       line-height: 30px;
     }
-    
+
     &:not(:first-child) {
       margin-left: 16px;
     }
-    
+
     &-clicked {
       background-color: $red-50;
       color: $white;
       border-radius: 100px;
-    
+
       &:hover {
         @include hover-status($white, none);
       }
     }
-    
+
     &-not-clicked {
       &:hover {
         @include hover-status(inherit, none);

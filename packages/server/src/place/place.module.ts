@@ -1,25 +1,16 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { ArticleImageModule } from "src/articleImage/articleImage.module";
 import { ImageModule } from "src/image/image.module";
+import { SchoolModule } from "src/school/school.module";
 
+import { Place } from "./entities/place.entity";
 import { PlaceController } from "./place.controller";
 import { PlaceService } from "./place.service";
-import { PlaceImageRepository } from "./repository/place.image.repository";
-import { PlaceRepository } from "./repository/place.repository";
-import { SchoolRepository } from "./repository/school.repository";
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      PlaceRepository,
-      SchoolRepository,
-      PlaceImageRepository,
-    ]),
-    ImageModule,
-    ArticleImageModule,
-  ],
+  imports: [ TypeOrmModule.forFeature([ Place ]), ImageModule, SchoolModule ],
   controllers: [ PlaceController ],
   providers: [ PlaceService ],
+  exports: [ PlaceService ],
 })
 export class PlaceModule {}

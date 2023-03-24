@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "declaration": true,
     "paths": {
+      "src/*": ["./src/*"],
       "@shared/*": ["../shared/src/*"]
     },
-    "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -15,7 +16,7 @@
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,

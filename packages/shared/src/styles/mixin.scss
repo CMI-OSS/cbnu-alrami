@@ -3,8 +3,8 @@
   overflow-x: auto;
 }
 
-@mixin ellipsis ($line : 1) {
-  @if($line == 1) {
+@mixin ellipsis($line: 1) {
+  @if ($line == 1) {
     display: block;
     overflow: hidden;
     white-space: nowrap;

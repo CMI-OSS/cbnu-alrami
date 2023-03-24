@@ -1,18 +1,13 @@
 import { HttpModule } from "@nestjs/axios";
 import { Module } from "@nestjs/common";
-import { ScheduleModule } from "@nestjs/schedule";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
+import { Weather } from "./entities/weather.entity";
 import { WeatherController } from "./weather.controller";
-import { WeatherRepository } from "./weather.repository";
 import { WeatherService } from "./weather.service";
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([ WeatherRepository ]),
-    HttpModule,
-    ScheduleModule.forRoot(),
-  ],
+  imports: [ HttpModule, TypeOrmModule.forFeature([ Weather ]) ],
   providers: [ WeatherService ],
   controllers: [ WeatherController ],
 })

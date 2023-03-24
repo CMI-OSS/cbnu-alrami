@@ -1,39 +1,25 @@
-import { Module } from "@nestjs/common";
+import { forwardRef, Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { AdminModule } from "src/admin/admin.module";
-import { ArticleImageModule } from "src/articleImage/articleImage.module";
+import { ArticleBookmarkModule } from "src/article-bookmark/article-bookmark.module";
+import { ArticleLikeModule } from "src/article-like/article-like.module";
+import { ArticleViewModule } from "src/article-view/article-view.module";
 import { BoardModule } from "src/board/board.module";
-import { BoardTreeModule } from "src/boardTree/boardTree.module";
-import { BookmarkRepository } from "src/bookmark/bookmark.repository";
-import { FcmModule } from "src/fcm/fcm.module";
-import { HitModule } from "src/hit/hit.module";
-import { HitRepository } from "src/hit/hit.repository";
 import { ImageModule } from "src/image/image.module";
-import { SubscribeModule } from "src/subscribe/subscribe.module";
-import { SubscribeRepository } from "src/subscribe/subscribe.repository";
-import { UserModule } from "src/user/user.module";
 
 import { ArticleController } from "./article.controller";
-import { ArticleRepository } from "./article.repository";
 import { ArticleService } from "./article.service";
+import { Article } from "./entities/article.entity";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      ArticleRepository,
-      BookmarkRepository,
-      HitRepository,
-      SubscribeRepository,
-    ]),
-    AdminModule,
-    BoardModule,
-    BoardTreeModule,
-    SubscribeModule,
+    TypeOrmModule.forFeature([ Article ]),
+    forwardRef(() => BoardModule),
+    forwardRef(() => ArticleViewModule),
+    forwardRef(() => ArticleBookmarkModule),
+    forwardRef(() => ArticleLikeModule),
     ImageModule,
-    HitModule,
-    FcmModule,
-    UserModule,
-    ArticleImageModule,
+    forwardRef(() => AdminModule),
   ],
   controllers: [ ArticleController ],
   providers: [ ArticleService ],

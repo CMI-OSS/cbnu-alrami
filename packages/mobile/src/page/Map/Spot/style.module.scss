@@ -1,5 +1,5 @@
 .wrap {
-  @include position(fixed, left 25px right 25px bottom 94px);
+  @include safe-area-position(fixed, left 25px right 25px bottom 94px);
   display: flex;
   align-items: center;
   padding: 20px 24px 30px 16px;

@@ -1,15 +1,20 @@
+$place-top-bar: 60px;
+$chip-list: 60px;
+$place-header: 120px;
+
 .header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
+  @include position(fixed, top 0 right 0 left 50%);
+  transform: translateX(-50%);
+  @include safe-area-width-100-percent(width, 0px);
   z-index: 100;
-  height: 60px;
+  height: $place-header;
+  padding-top: $safe-area-top-11;
+  padding-top: $safe-area-top-11-2;
   background-color: $white;
 }
 
 .link {
-  @include position(absolute, top 22px left 24px);
+  @include safe-area-position(absolute, top 22px left 24px);
   line-height: 0;
 }
 
@@ -35,7 +40,7 @@
 }
 
 .tooltip {
-  margin: 129px 8px 0;
+  margin: $place-header + 9px 8px 0;
   border-radius: 4px;
   background-color: $white;
   padding: 7px 21px;

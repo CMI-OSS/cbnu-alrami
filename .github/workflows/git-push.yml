@@ -15,12 +15,8 @@ jobs:
       - name: creates output
         run:
           sh ./build.sh
-          echo ${{ github.head_ref }}
-          echo ${{ github.base_ref }}
-          echo ${{ github }}
-          echo github.head_ref
-          echo github.base_ref
-          echo github
+          echo ${{ github.ref }}
+          echo ${{ github.ref_name }}
       - name: Pushes to another repository
         id: push_directory
         uses: cpina/github-action-push-to-another-repository@main

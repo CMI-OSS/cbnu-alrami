@@ -18,6 +18,9 @@ jobs:
           echo ${{ github.head_ref }}
           echo ${{ github.base_ref }}
           echo ${{ github }}
+          echo github.head_ref
+          echo github.base_ref
+          echo github
       - name: Pushes to another repository
         id: push_directory
         uses: cpina/github-action-push-to-another-repository@main

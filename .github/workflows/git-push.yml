@@ -13,7 +13,11 @@ jobs:
       - name: Install mustache (to update the date)
         run: apk add ruby && gem install mustache
       - name: creates output
-        run: sh ./build.sh
+        run:
+          sh ./build.sh
+          echo ${{ github.head_ref }}
+          echo ${{ github.base_ref }}
+          echo ${{ github }}
       - name: Pushes to another repository
         id: push_directory
         uses: cpina/github-action-push-to-another-repository@main
@@ -27,7 +31,4 @@ jobs:
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: ${{ github.base_ref }}
       - name: Test get variable exported by push-to-another-repository
-        run:
-            echo $DESTINATION_CLON
-            echo ${{ github.head_ref }}
-            echo ${{ github.base_ref }}
+        run: echo $DESTINATION_CLON

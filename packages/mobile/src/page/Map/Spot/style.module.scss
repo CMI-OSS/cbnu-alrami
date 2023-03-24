@@ -43,7 +43,7 @@
   display: block;
   line-height: 20px;
   margin-top: 8px;
-  color: $black-50;
+  color: $black-60;
 }
 
 .place-address {
@@ -57,7 +57,7 @@
     display: inline-block;
     margin-top: 16px;
     @include typography(12);
-    color: $black-50;
+    color: $black-60;
   }
 
   svg {

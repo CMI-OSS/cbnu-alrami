@@ -2,15 +2,15 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type CreateUserDto = {
+export type UpdateUserDto = {
     /**
      * 사용자 uuid
      */
-    uuid: string;
+    uuid?: string;
     /**
      * FCN TOKEN
      */
-    fcmToken: string;
+    fcmToken?: string;
     /**
      * devios 정보
      */

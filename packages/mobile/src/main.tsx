@@ -37,4 +37,4 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   </Provider>,
 );
 
-OpenAPI.BASE = apiServer.dev;
+OpenAPI.BASE = apiServer.local;

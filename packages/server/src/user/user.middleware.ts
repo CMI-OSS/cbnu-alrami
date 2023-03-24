@@ -14,8 +14,10 @@ export class UserMiddleWare implements NestMiddleware {
       let user = await this.userService.findOne(uuid);
 
       if (!user) {
-        user = await this.userService.create({ uuid } as CreateUserDto);
+        await this.userService.upsert({ uuid } as CreateUserDto);
+        user = await this.userService.findOne(uuid);
       }
+
       req.user = user;
     }
 

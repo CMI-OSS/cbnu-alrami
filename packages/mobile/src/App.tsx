@@ -1,15 +1,14 @@
-import React, { useEffect } from "react";
-import { Navigate } from "react-router";
+import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Article from "src/page/Article";
 import ArticleDetail from "src/page/Article/Detail";
 import Board from "src/page/Board";
 import BoardArticle from "src/page/Board/Article";
-import { setUuid } from "src/utils/storage";
 import { isStaging, isWebView } from "src/utils/webview";
 
 import "src/polyfills";
+import useFCMToken from "./hooks/useFCMToken";
 import useWindowSizeDetect from "./hooks/useWindowSizeDetect";
 import "./mobile.scss";
 import Cafeteria from "./page/Cafeteria";
@@ -35,10 +34,7 @@ function App() {
     setScreenSize();
   }, [ height ]);
 
-  // MEMO: prod 배포 시 삭제
-  useEffect(() => {
-    setUuid();
-  }, []);
+  useFCMToken();
 
   const appRoutes = [
     { path: "/home", element: <Home /> },

@@ -15,12 +15,13 @@
     padding: 0 24px;
     border-bottom: 1px solid #e5e5e5;
     background: $black-0;
-    font-size: 18px;
+    color:$black-100;
     font-weight: 500;
-    color: $black-100;
+    font-size: 18px;
+    line-height: 28px;
 
-    path {
-      stroke: $black-40;
+    svg {
+      stroke: $black-60;
     }
   }
 

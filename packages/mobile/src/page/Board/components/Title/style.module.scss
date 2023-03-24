@@ -8,5 +8,9 @@
   .icon-message {
     display: flex;
     align-items: center;
+
+    svg {
+      stroke: $black-60;
+    }
   }
 }

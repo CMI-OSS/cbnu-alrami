@@ -38,7 +38,7 @@ function Spot({ schoolData, type, placeId, url }: Props) {
           {type === "map" && (
             <span className={$.link}>
               <span className={$.text}>더보기</span>
-              <LongArrow size={4} stroke="#aaa" />
+              <LongArrow size={4} stroke="#5e5e5e" />
             </span>
           )}
         </div>

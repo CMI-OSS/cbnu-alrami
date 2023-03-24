@@ -103,7 +103,7 @@ function Map() {
                   );
                 }}
               >
-                <Close stroke="#aaa" size={11} />
+                <Close stroke="#5e5e5e" size={11} />
               </button>
               <p className={$.text}>다양한 장소를 탐색해요</p>
             </div>

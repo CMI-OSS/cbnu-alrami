@@ -59,7 +59,7 @@ function PlaceDetail() {
     <>
       <div className={$.header}>
         <NavLink to="/map" className={$.link}>
-          <LeftArrow stroke="#aaa" size={16} />
+          <LeftArrow stroke="#5e5e5e" size={16} />
           <span className="blind">뒤로가기</span>
         </NavLink>
         <h1 className={$.title}>캠퍼스맵</h1>

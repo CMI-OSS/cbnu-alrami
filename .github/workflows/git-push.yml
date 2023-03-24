@@ -25,6 +25,9 @@ jobs:
           destination-repository-name: cbnu-alrami
           user-email: ${{ secrets.ACCOUNT_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
-          target-branch: ${GITHUB_REF_NAME}
+          target-branch: ${{ github.base_ref }}
       - name: Test get variable exported by push-to-another-repository
-        run: echo $DESTINATION_CLONED_DIRECTORY
+        run:
+            echo $DESTINATION_CLON
+            echo ${{ github.head_ref }}
+            echo ${{ github.base_ref }}

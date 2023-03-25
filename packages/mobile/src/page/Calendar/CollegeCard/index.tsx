@@ -47,7 +47,7 @@ function CollegeCard(props: Props) {
         {isBookmarked ? (
           <Star size={20} fill="#d66d6e" stroke="#d66d6e" />
         ) : (
-          <Star size={20} stroke="#c3c3c3" />
+          <Star size={20} stroke="#5e5e5e" />
         )}
       </button>
     </BorderBox>

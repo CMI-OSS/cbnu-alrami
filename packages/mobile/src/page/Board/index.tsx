@@ -19,10 +19,10 @@ function Board() {
   return (
     <div className={$.board}>
       <FullPageModalTemplate
-        left={<LeftArrow stroke="#AAAAAA" size={16} />}
+        left={<LeftArrow size={16} />}
         right={
           <Link to={to}>
-            <Close size={16} stroke="#AAAAAA" />
+            <Close size={16} />
           </Link>
         }
       >

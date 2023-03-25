@@ -69,13 +69,13 @@ function SubscriptionNoticeGroup({
             </button>
           ) : (
             <button type="button" onClick={handleNoticeClick}>
-              <UnAlarm size={22} stroke="#AAAAAA" />
+              <UnAlarm size={22} stroke="#5E5E5E" />
             </button>
           )}
         </div>
       ) : (
         <button type="button" onClick={handleSubscriptionClick}>
-          <UnSubscription size={30} stroke="#AAAAAA" />
+          <UnSubscription size={30} stroke="#5E5E5E" />
         </button>
       )}
     </div>

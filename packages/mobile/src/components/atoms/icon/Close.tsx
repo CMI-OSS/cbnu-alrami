@@ -5,18 +5,18 @@ function Close({ size, stroke }: IconProps) {
     <svg
       width={size}
       height="100%"
-      viewBox="0 0 13 13"
+      viewBox="0 0 22 22"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M0.626343 12.0417L11.6263 1.49999"
+        d="M1.00342 21L20.4835 1"
         stroke={stroke}
         strokeWidth="1.2"
         strokeLinecap="round"
       />
       <path
-        d="M11.9199 12.0417L0.919922 1.49999"
+        d="M21.0034 21L1.52332 1"
         stroke={stroke}
         strokeWidth="1.2"
         strokeLinecap="round"

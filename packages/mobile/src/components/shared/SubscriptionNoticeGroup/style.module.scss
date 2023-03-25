@@ -2,12 +2,12 @@
   .group {
     display: flex;
 
-    button {
-      margin-right: 8px;
-
-      &:last-child {
-        margin-right: 0;
-      }
+    button:not(:last-child) {
+      margin-right: 28px;
     }
+  }
+
+  svg {
+    stroke: $black-60;
   }
 }

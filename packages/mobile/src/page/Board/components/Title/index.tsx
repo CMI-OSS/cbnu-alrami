@@ -78,7 +78,7 @@ function Title() {
   return (
     <div className={$.title}>
       <div className={$["icon-message"]}>
-        <UnSubscription stroke="#AAAAAA" size={36} />를 터치하여
+        <UnSubscription size={36} />를 터치하여
       </div>
       원하는 공지를 구독해요!
     </div>

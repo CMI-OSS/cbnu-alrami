@@ -22,7 +22,7 @@ function BoardArticle() {
       <FullPageModalTemplate
         left={
           <div className={$.left}>
-            <LeftArrow stroke="#AAAAAA" size={16} />
+            <LeftArrow size={16} />
             <span>{name}</span>
           </div>
         }

@@ -24,7 +24,7 @@ function ImageModal({ order, setOrder, onClose, images }: Props) {
     const downloadUrl = window.URL.createObjectURL(file);
     const link = document.createElement("a");
     document.body.appendChild(link);
-    link.download = `충림이공지사항${id}`;
+    link.download = `충림이이미지${id}`;
     link.href = downloadUrl;
 
     link.click();

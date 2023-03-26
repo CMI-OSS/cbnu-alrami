@@ -1,6 +1,7 @@
+import React from "react";
+
 import { Close, Download } from "@components/atoms/icon";
-import Image from "@components/atoms/Image";
-import ImageSlider from "@components/molecules/ImageSlider";
+import SwiperImage from "@components/molecules/SwiperImage";
 import { Image as ImageType } from "@shared/swagger-api/generated";
 import classnames from "classnames";
 import { DefaultProps } from "src/type/props";
@@ -17,13 +18,13 @@ type Props = {
 function ImageModal({ order, setOrder, onClose, images }: Props) {
   // TODO: 백엔드 수정 후 확인필요
   const handleDownloadClick = async () => {
-    const { id, url } = images[order];
+    const { id, url } = images[order-1];
     const response = await fetch(url);
     const file = await response.blob();
     const downloadUrl = window.URL.createObjectURL(file);
     const link = document.createElement("a");
     document.body.appendChild(link);
-    link.download = `충림이공지사항${id}`;
+    link.download = `충림이이미지${id}`;
     link.href = downloadUrl;
 
     link.click();
@@ -55,16 +56,13 @@ function ImageModal({ order, setOrder, onClose, images }: Props) {
         </div>
       </div>
       <div className={$.body}>
-        <ImageSlider
+        <SwiperImage
           className={$["modal-slider"]}
-          total={images.length}
-          {...{ order, setOrder }}
-        >
-          {images.map((image) => {
-            const { url } = image;
-            return <Image key={url} src={url} alt="공지사항 이미지" />;
+          imageDatas={images.map((image) => {
+            return image.url;
           })}
-        </ImageSlider>
+          {...{order, setOrder}}
+        />
       </div>
     </div>
   );

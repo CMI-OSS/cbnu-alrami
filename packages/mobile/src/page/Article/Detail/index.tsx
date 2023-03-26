@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { FillHeart, Heart, LeftArrow } from "@components/atoms/icon";
-import Image from "@components/atoms/Image";
-import ImageSlider from "@components/molecules/ImageSlider";
+import SwiperImage from "@components/molecules/SwiperImage";
 import ImageModal from "@components/shared/ImageModal";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import {
@@ -22,7 +21,7 @@ function ArticleDetail() {
   const { pathname } = useLocation();
   const articleId = Number(pathname.split("/").at(-1));
   const [ isLikeClick, setIsLikeClick ] = useState(false);
-  const [ order, setOrder ] = useState(0);
+  const [ order, setOrder ] = useState(1);
   const { data: articleData, isLoading } = useArticleQuery({ id: articleId });
   const postLikeArticle = usePostLikeArticleMutation({ id: articleId });
   const deleteLikeArticle = useDeleteLikeArticleMutation({ id: articleId });
@@ -72,18 +71,15 @@ function ArticleDetail() {
             &nbsp;/&nbsp;<span>좋아요&nbsp;{bookmarkCount}</span>
           </div>
           {!!images?.length && (
-            <ImageSlider
-              total={images.length}
-              {...{ order, setOrder }}
+            <SwiperImage
+              imageDatas={images.map((image) => {
+                return image.url;
+              })}
               onOpen={() => {
                 return setEnlargeModal(true);
               }}
-            >
-              {images.map((image) => {
-                const { url } = image;
-                return <Image key={url} src={url} alt="공지사항 이미지" />;
-              })}
-            </ImageSlider>
+              {...{order, setOrder}}
+            />
           )}
           <div
             className={$.content}

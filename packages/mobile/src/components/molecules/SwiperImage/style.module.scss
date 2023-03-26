@@ -1,9 +1,6 @@
-.slider-container {
+.swiper-image {
   position: relative;
-  display: flex;
-  flex-direction: column;
   margin: 0 -24px;
-  user-select: none;
 
   .order {
     position: absolute;
@@ -19,14 +16,44 @@
     text-align: center;
   }
 
-  .slider-wrapper {
+  .images {
     overflow-x: hidden;
-    transition: 0.6s;
+
+    .images-wrapper {
+      display: flex;
+    }
+
+      .image {
+        min-width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
   }
 
-  .slider {
+  .buttons {
+    position: absolute;
+    top: 50%;
     display: flex;
-    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    button:disabled {
+      visibility: hidden;
+    }
+  }
+
+  .left, .right {
+    width: 40px;
+    height: 40px;
+    background: rgba(27, 27, 27, 0.95);
+    border-radius: 50%;
+    svg {
+      stroke: $black-0;
+    }
+  }
+
+  .right {
+    transform: rotate(180deg);
   }
 
   .dotdotdot {

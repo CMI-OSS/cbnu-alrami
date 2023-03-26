@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { isDesktop } from "react-device-detect";
 
+import { Arrow } from "@components/atoms/icon";
 import classnames from "classnames";
 import { DefaultProps } from "src/type/props";
 
@@ -82,8 +84,6 @@ function SwiperImage({
     });
   };
 
-  console.log(touch, "터치터치");
-
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     setTouch({
       ...touch,
@@ -142,6 +142,16 @@ function SwiperImage({
             );
           })}
         </div>
+        {isDesktop && (
+          <div className={$.buttons}>
+            <button className={$.left} onClick={prevSlide} type="button">
+              <Arrow size={6} />
+            </button>
+            <button className={$.right} onClick={nextSlide} type="button">
+              <Arrow size={6} />
+            </button>
+          </div>
+        )}
       </div>
       <div className={$.dotdotdot}>
         {totals.map((totalOrder) => {

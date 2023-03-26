@@ -12,13 +12,13 @@ type Props = {
   images: ImageType[];
   order: number;
   setOrder: (prev: number) => void;
-  onClose: (value: boolean) => void;
+  onClose: () => void;
 } & DefaultProps;
 
 function ImageModal({ order, setOrder, onClose, images }: Props) {
   // TODO: 백엔드 수정 후 확인필요
   const handleDownloadClick = async () => {
-    const { id, url } = images[order-1];
+    const { id, url } = images[order - 1];
     const response = await fetch(url);
     const file = await response.blob();
     const downloadUrl = window.URL.createObjectURL(file);
@@ -44,13 +44,7 @@ function ImageModal({ order, setOrder, onClose, images }: Props) {
           >
             <Download size={16} stroke="#fff" />
           </button>
-          <button
-            type="button"
-            className={$.close}
-            onClick={() => {
-              return onClose(false);
-            }}
-          >
+          <button type="button" className={$.close} onClick={onClose}>
             <Close size={16} stroke="#fff" />
           </button>
         </div>
@@ -61,7 +55,7 @@ function ImageModal({ order, setOrder, onClose, images }: Props) {
           imageDatas={images.map((image) => {
             return image.url;
           })}
-          {...{order, setOrder}}
+          {...{ order, setOrder }}
         />
       </div>
     </div>

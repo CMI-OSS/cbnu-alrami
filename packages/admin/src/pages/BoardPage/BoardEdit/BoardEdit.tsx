@@ -136,21 +136,25 @@ const BoardEdit = () => {
         <Form.Item label="URL" name="url">
           <Input />
         </Form.Item>
-        <Form.Item className={styles.submit}>
-          <Button type="primary" htmlType="submit" size="large">
-            완료
-          </Button>
-          {isEdit && (
-            <Popconfirm
-              title="정말 삭제하시겠습니까?"
-              description="삭제하면 되돌릴 수 없습니다."
-              onConfirm={handleClickRemove}
-              okText="네"
-              cancelText="아니오"
-            >
-              <Button>삭제</Button>
-            </Popconfirm>
-          )}
+        <Form.Item>
+          <div className={styles.submit}>
+            <Button type="primary" htmlType="submit" size="large">
+              완료
+            </Button>
+            {isEdit && (
+              <Popconfirm
+                title="정말 삭제하시겠습니까?"
+                description="삭제하면 되돌릴 수 없습니다."
+                onConfirm={handleClickRemove}
+                okText="네"
+                cancelText="아니오"
+              >
+                <Button type="primary" size="large" danger>
+                  삭제
+                </Button>
+              </Popconfirm>
+            )}
+          </div>
         </Form.Item>
       </Form>
     </div>

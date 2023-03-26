@@ -202,7 +202,9 @@ export class BoardService {
     };
   }
 
-  async getSubscribers(boardId: number): Promise<User[]> {
+  async getNoticeUsers(boardId?: number): Promise<User[]> {
+    if (!boardId) return [];
+
     const board = await this.boardRepository.findOne({
       where: {
         id: boardId,
@@ -213,6 +215,10 @@ export class BoardService {
       },
     });
 
-    return board?.subscribes?.map(({ user }) => user) ?? [];
+    return (
+      board?.subscribes
+        ?.filter(({ notice, user }) => !!notice && user.fcmToken)
+        .map(({ user }) => user) ?? []
+    );
   }
 }

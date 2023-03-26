@@ -5,6 +5,7 @@ import { ArticleBookmarkModule } from "src/article-bookmark/article-bookmark.mod
 import { ArticleLikeModule } from "src/article-like/article-like.module";
 import { ArticleViewModule } from "src/article-view/article-view.module";
 import { BoardModule } from "src/board/board.module";
+import { FcmModule } from "src/fcm/fcm.module";
 import { ImageModule } from "src/image/image.module";
 
 import { ArticleController } from "./article.controller";
@@ -18,6 +19,7 @@ import { Article } from "./entities/article.entity";
     forwardRef(() => ArticleViewModule),
     forwardRef(() => ArticleBookmarkModule),
     forwardRef(() => ArticleLikeModule),
+    forwardRef(() => FcmModule),
     ImageModule,
     forwardRef(() => AdminModule),
   ],

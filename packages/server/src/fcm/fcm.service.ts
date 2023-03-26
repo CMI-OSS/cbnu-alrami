@@ -1,8 +1,13 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import {
+  BadRequestException,
+  forwardRef,
+  Inject,
+  Injectable,
+} from "@nestjs/common";
 import * as FCM from "fcm-node";
+import { Article } from "src/article/entities/article.entity";
 import { BoardService } from "src/board/board.service";
 import configuration from "src/config/configuration";
-import { Device } from "src/user/user.constant";
 import { UserService } from "src/user/user.service";
 
 @Injectable()
@@ -13,7 +18,9 @@ export class FcmService {
   private readonly collapseKeyIos: string;
 
   constructor(
+    @Inject(forwardRef(() => BoardService))
     private readonly boardService: BoardService,
+    @Inject(forwardRef(() => UserService))
     private readonly userService: UserService,
   ) {
     this.serverKey = configuration.fcm.key;
@@ -22,11 +29,7 @@ export class FcmService {
     this.collapseKeyIos = configuration.fcm.ios;
   }
 
-  private static async message(
-    to: string,
-    data: { title: string; body: string },
-    collapseKey: string,
-  ) {
+  private static message(to: string, data: { title: string; body: string }) {
     const { title, body } = data;
 
     if (title == null || body == null) {
@@ -35,52 +38,53 @@ export class FcmService {
 
     return {
       to,
-      collapse_key: collapseKey,
       notification: {
         title: data.title,
         body: data.body,
-        click_action: "Result3Activity",
       },
       data,
     };
   }
 
-  public async sendNotices(boardId: number): Promise<void> {
-    const subscribers = await this.boardService.getSubscribers(boardId);
+  public async sendNoticeArticle(article: Article): Promise<void> {
+    if (!article.board?.id)
+      throw new Error("[sendNoticeArticle] board가 존재하지 않음");
+
+    const subscribers = await this.boardService.getNoticeUsers(
+      article.board.id,
+    );
+
+    const board = await this.boardService.findOne(article.board.id);
 
     if (subscribers.length === 0) {
       return;
     }
 
+    const boardTitle = board.parent
+      ? `${board.parent.name} > ${board.name}`
+      : board.name;
+
     subscribers.forEach((user) => {
-      const data = { title: "CMI", body: "공지사항 등록" };
+      const data = { title: boardTitle, body: article.title };
       const { fcmToken } = user;
 
-      if (fcmToken && user.device === Device.AOS) {
-        this.sendNotice(fcmToken, data, this.collapseKeyAndroid);
-      } else if (fcmToken && user.device === Device.IOS) {
-        this.sendNotice(fcmToken, data, this.collapseKeyIos);
-      }
+      if (fcmToken) this.sendNotice(fcmToken, data);
     });
   }
 
   async sendNotice(
     to: string,
     data: { title: string; body: string },
-    collapseKey: string,
   ): Promise<void> {
-    await this.fcm.send(
-      await FcmService.message(to, data, collapseKey),
-      async (err, res) => {
-        if (err) {
-          if (JSON.parse(err).results[0].error === "InvalidRegistration") {
-            await this.userService.deleteByFcmToken(to);
-          }
-          throw new BadRequestException(err);
-        } else {
-          console.log("Successfully sent with response: ", res);
+    await this.fcm.send(FcmService.message(to, data), async (err, res) => {
+      if (err) {
+        if (JSON.parse(err).results[0].error === "InvalidRegistration") {
+          await this.userService.deleteByFcmToken(to);
         }
-      },
-    );
+        throw new BadRequestException(err);
+      } else {
+        // console.log("Successfully sent with response: ", res);
+      }
+    });
   }
 }

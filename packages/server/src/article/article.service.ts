@@ -9,6 +9,7 @@ import { ArticleBookmarkService } from "src/article-bookmark/article-bookmark.se
 import { ArticleLikeService } from "src/article-like/article-like.service";
 import { ArticleViewService } from "src/article-view/article-view.service";
 import { BoardService } from "src/board/board.service";
+import { FcmService } from "src/fcm/fcm.service";
 import { Image } from "src/image/entities/image.entity";
 import { ImageService } from "src/image/image.service";
 import { User } from "src/user/entities/user.entity";
@@ -41,6 +42,8 @@ export class ArticleService {
     private articleBookmarkService: ArticleBookmarkService,
     @Inject(forwardRef(() => ArticleLikeService))
     private articleLikeService: ArticleLikeService,
+    @Inject(forwardRef(() => FcmService))
+    private fcmService: FcmService,
     private imageService: ImageService,
     private boardService: BoardService,
   ) {}
@@ -67,6 +70,8 @@ export class ArticleService {
       images,
       author: admin,
     });
+
+    this.fcmService.sendNoticeArticle(article);
 
     return article;
   }

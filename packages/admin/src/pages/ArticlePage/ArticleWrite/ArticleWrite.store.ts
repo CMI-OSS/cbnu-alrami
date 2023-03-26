@@ -19,6 +19,9 @@ export const ArticleWriteSlice = createSlice({
   name,
   initialState,
   reducers: {
+    reset() {
+      return initialState;
+    },
     init(state, action: PayloadAction<ArticleWriteProps>) {
       return action.payload;
     },
@@ -67,6 +70,7 @@ export const ArticleWriteSlice = createSlice({
 });
 
 export const {
+  reset,
   init,
   setTitle,
   setContent,

@@ -56,19 +56,27 @@ export class BoardService {
     return board;
   }
 
-  async getBoardsWithSubscribe(boards: Board[], user?: User) {
+  async getBoardsWithSubscribe(
+    boards: Board[],
+    subscribeBoards: Board[],
+    user?: User,
+  ) {
     return Promise.all(
       boards.map(async (board) => {
         const { children } = board;
         const isLeaf = !children?.length;
 
         if (isLeaf) {
-          return this.getBoardWithSubscribe(board, user);
+          return this.getBoardWithSubscribe(board, subscribeBoards, user);
         }
 
         return {
           ...board,
-          children: await this.getBoardsWithSubscribe(children, user),
+          children: await this.getBoardsWithSubscribe(
+            children,
+            subscribeBoards,
+            user,
+          ),
         };
       }),
     );
@@ -86,7 +94,9 @@ export class BoardService {
       relations: { parent: true, children: true },
     });
 
-    return this.getBoardsWithSubscribe(boards, user);
+    const subscribeBoards = await this.getSubscribeBoards(user);
+
+    return this.getBoardsWithSubscribe(boards, subscribeBoards, user);
   }
 
   async update(id: number, updateBoardDto: UpdateBoardDto) {
@@ -179,12 +189,17 @@ export class BoardService {
   async getSubscribeBoards(user: User) {
     const boards = await this.boardRepository.find({
       where: { subscribes: { user: { id: user.id } } },
+      relations: { subscribes: true },
     });
 
     return boards;
   }
 
-  async getBoardWithSubscribe(board: Board, user?: User) {
+  async getBoardWithSubscribe(
+    board: Board,
+    subscribeBoards: Board[],
+    user?: User,
+  ) {
     if (!user) {
       return {
         ...board,
@@ -193,7 +208,13 @@ export class BoardService {
       };
     }
 
-    const { subscribe } = await this.getSubscribeBoard(board.id, user);
+    const targetBoard = subscribeBoards.find(
+      (_board) => _board.id === board.id,
+    );
+
+    const subscribe = targetBoard?.subscribes?.find(
+      (subscribeUser) => subscribeUser.user.id === user.id,
+    );
 
     return {
       ...board,

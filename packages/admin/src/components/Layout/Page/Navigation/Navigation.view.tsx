@@ -73,12 +73,20 @@ export default function Navigation() {
       ? [ ARTICLE_MENUS, BOARD_MENUS, ADMIN_MANAGE_MENUS, PLACE_MANAGE_MENUS ]
       : [ ARTICLE_MENUS ];
 
+  const handleClickLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  };
+
   return isLoginMatch ? (
     <></>
   ) : (
     <nav className={$.navigation}>
       <div className={$.nickname}>
         {admin.nickname} 님<br />
+      </div>
+      <div className={$.logout} onClick={handleClickLogout}>
+        로그아웃
       </div>
       <ul className={$["outer-ul"]}>
         {/* <li className={$.logo}>충림이v2 관리자</li> */}

@@ -5,7 +5,15 @@ import { CreatePlaceDto } from "@shared/swagger-api/generated/models/CreatePlace
 import { PlaceSchoolDto } from "@shared/swagger-api/generated/models/PlaceSchoolDto";
 import { SchoolDto } from "@shared/swagger-api/generated/models/SchoolDto";
 import { PlaceApiService } from "@shared/swagger-api/generated/services/PlaceApiService";
-import { Button, Form, Input, InputNumber, message, Select } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  message,
+  Popconfirm,
+  Select,
+} from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { initImgList } from "src/pages/ArticlePage/ArticleWrite/ArticleWrite.store";
 import UploadImage from "src/pages/ArticlePage/ArticleWrite/UploadImage/UploadImage";
@@ -106,6 +114,14 @@ const Place = () => {
     }
   };
 
+  const handleClickRemove = async () => {
+    await PlaceApiService.placeControllerRemove({
+      id: Number(placeId),
+    });
+
+    window.history.back();
+  };
+
   return (
     <div className={styles.wrapper}>
       {contextHolder}
@@ -167,6 +183,20 @@ const Place = () => {
           <Button type="primary" htmlType="submit" size="large">
             완료
           </Button>
+
+          {isEdit && (
+            <Popconfirm
+              title="정말 삭제하시겠습니까?"
+              description="삭제하면 되돌릴 수 없습니다."
+              onConfirm={handleClickRemove}
+              okText="네"
+              cancelText="아니오"
+            >
+              <Button type="primary" size="large" danger>
+                삭제
+              </Button>
+            </Popconfirm>
+          )}
         </Form.Item>
       </Form>
     </div>

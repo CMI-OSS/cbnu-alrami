@@ -4,6 +4,7 @@ import {
   Column,
   Entity,
   OneToMany,
+  PrimaryColumn,
   Tree,
   TreeChildren,
   TreeParent,
@@ -14,6 +15,10 @@ import { SubscribeBoard } from "./subscribe-board.entity";
 @Entity()
 @Tree("materialized-path")
 export class Board extends UpdatableCommonEntity {
+  @ApiProperty({ description: "아이디", example: 1 })
+  @PrimaryColumn()
+  id!: number;
+
   @ApiProperty({
     description: "게시판 제목",
     example: "소프트웨어학과",

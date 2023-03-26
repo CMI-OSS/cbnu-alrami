@@ -6,7 +6,7 @@ import { ChildBoard } from "@shared/swagger-api/generated/models/ChildBoard";
 import { CreateBoardDto } from "@shared/swagger-api/generated/models/CreateBoardDto";
 import { ResponseBoardDto } from "@shared/swagger-api/generated/models/ResponseBoardDto";
 import { BoardApiService } from "@shared/swagger-api/generated/services/BoardApiService";
-import { Button, Form, Input, message, Select } from "antd";
+import { Button, Form, Input, message, Popconfirm, Select } from "antd";
 
 import styles from "./BoardEdit.module.scss";
 
@@ -97,6 +97,14 @@ const BoardEdit = () => {
     }
   };
 
+  const handleClickRemove = async () => {
+    await BoardApiService.boardControllerRemove({
+      id: Number(boardId),
+    });
+
+    window.history.back();
+  };
+
   return (
     <div className={styles.wrapper}>
       {contextHolder}
@@ -132,6 +140,17 @@ const BoardEdit = () => {
           <Button type="primary" htmlType="submit" size="large">
             완료
           </Button>
+          {isEdit && (
+            <Popconfirm
+              title="정말 삭제하시겠습니까?"
+              description="삭제하면 되돌릴 수 없습니다."
+              onConfirm={handleClickRemove}
+              okText="네"
+              cancelText="아니오"
+            >
+              <Button>삭제</Button>
+            </Popconfirm>
+          )}
         </Form.Item>
       </Form>
     </div>

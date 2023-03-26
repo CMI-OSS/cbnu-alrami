@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { FillHeart, Heart, LeftArrow } from "@components/atoms/icon";
@@ -31,7 +31,7 @@ function ArticleDetail() {
   if (!articleData) return <>데이터가 없습니다.</>;
 
   const {
-    board: { id, name },
+    board: { name },
     title,
     viewCount,
     bookmarkCount,
@@ -41,6 +41,7 @@ function ArticleDetail() {
     isLike,
     likeCount,
     images,
+    url,
   } = articleData;
 
   const handleToggleLikeClick = (articleId: number) => {
@@ -53,7 +54,6 @@ function ArticleDetail() {
     postLikeArticle.mutate({ id: articleId });
   };
 
-  const isScraperArticle = `${id}`[0] === ("1" || "2");
   const isUser = !!getUuid();
 
   return (
@@ -78,7 +78,7 @@ function ArticleDetail() {
               onOpen={() => {
                 return setEnlargeModal(true);
               }}
-              {...{order, setOrder}}
+              {...{ order, setOrder }}
             />
           )}
           <div
@@ -106,9 +106,7 @@ function ArticleDetail() {
             </button>
           </div>
         </div>
-        <ArticleFooter
-          {...{ articleId, isBookmark, isUser, isScraperArticle }}
-        />
+        <ArticleFooter {...{ articleId, isBookmark, isUser, url }} />
       </FullPageModalTemplate>
       {enlargeModal && images?.length && (
         <ImageModal

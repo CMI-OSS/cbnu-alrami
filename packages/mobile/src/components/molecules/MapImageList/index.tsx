@@ -10,7 +10,7 @@ type Props = {
 }
 
 function MapImageList({ images }: Props) {
-  const [ order, setOrder ] = useState(0);
+  const [ order, setOrder ] = useState(1);
   const [ enlargeModal, setEnlargeModal ] = useState(false);
   const handleOpenModal = () => {
     setEnlargeModal(true);

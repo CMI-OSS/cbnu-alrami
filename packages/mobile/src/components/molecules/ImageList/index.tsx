@@ -13,7 +13,7 @@ type Props = {
 };
 
 function ImageList({ images, name }: Props) {
-  const [ order, setOrder ] = useState(0);
+  const [ order, setOrder ] = useState(1);
   const [ enlargeModal, setEnlargeModal ] = useState(false);
   const handleOpenModal = () => {
     setEnlargeModal(true);

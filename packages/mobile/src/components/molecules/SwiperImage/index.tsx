@@ -8,11 +8,17 @@ import $ from "./style.module.scss";
 type Props = {
   imageDatas: string[];
   onOpen?: () => void;
-  order:number;
+  order: number;
   setOrder: (prev: number) => void;
 } & DefaultProps;
 
-function SwiperImage({ imageDatas, onOpen, order, setOrder, className }: Props) {
+function SwiperImage({
+  imageDatas,
+  onOpen,
+  order,
+  setOrder,
+  className,
+}: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const images = [
     imageDatas[imageDatas?.length - 1],
@@ -75,6 +81,9 @@ function SwiperImage({ imageDatas, onOpen, order, setOrder, className }: Props) 
       transform: `translateX(-${order + 1}00%)`,
     });
   };
+
+  console.log(touch, "터치터치");
+
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     setTouch({
       ...touch,
@@ -95,6 +104,9 @@ function SwiperImage({ imageDatas, onOpen, order, setOrder, className }: Props) 
 
   const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
     const end = e.changedTouches[0].pageX;
+    if (touch.start === end) {
+      return;
+    }
     if (touch.start > end) {
       nextSlide();
     } else {
@@ -119,11 +131,11 @@ function SwiperImage({ imageDatas, onOpen, order, setOrder, className }: Props) 
         onTouchEnd={handleTouchEnd}
       >
         <div className={$["images-wrapper"]} ref={ref} style={style}>
-          {images.map((image,index) => {
+          {images.map((image, index) => {
             return (
               <img
                 className={$.image}
-                key={`${image+index}`}
+                key={`${image + index}`}
                 src={image}
                 alt="충림이 이미지"
               />

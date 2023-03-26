@@ -29,8 +29,12 @@ export class FcmService {
     this.collapseKeyIos = configuration.fcm.ios;
   }
 
-  private static message(to: string, data: { title: string; body: string }) {
-    const { title, body } = data;
+  private static message(
+    to: string,
+    notification: { title: string; body: string },
+    data?: object,
+  ) {
+    const { title, body } = notification;
 
     if (title == null || body == null) {
       throw new BadRequestException("Is empty!");
@@ -38,10 +42,7 @@ export class FcmService {
 
     return {
       to,
-      notification: {
-        title: data.title,
-        body: data.body,
-      },
+      notification,
       data,
     };
   }
@@ -65,26 +66,33 @@ export class FcmService {
       : board.name;
 
     subscribers.forEach((user) => {
-      const data = { title: boardTitle, body: article.title };
+      const notification = { title: boardTitle, body: article.title };
       const { fcmToken } = user;
 
-      if (fcmToken) this.sendNotice(fcmToken, data);
+      if (fcmToken)
+        this.sendNotice(fcmToken, notification, {
+          articleId: article.id.toString(),
+        });
     });
   }
 
   async sendNotice(
     to: string,
-    data: { title: string; body: string },
+    notification: { title: string; body: string },
+    data: object,
   ): Promise<void> {
-    await this.fcm.send(FcmService.message(to, data), async (err, res) => {
-      if (err) {
-        if (JSON.parse(err).results[0].error === "InvalidRegistration") {
-          await this.userService.deleteByFcmToken(to);
+    await this.fcm.send(
+      FcmService.message(to, notification, data),
+      async (err, res) => {
+        if (err) {
+          if (JSON.parse(err).results[0].error === "InvalidRegistration") {
+            await this.userService.deleteByFcmToken(to);
+          }
+          throw new BadRequestException(err);
+        } else {
+          // console.log("Successfully sent with response: ", res);
         }
-        throw new BadRequestException(err);
-      } else {
-        // console.log("Successfully sent with response: ", res);
-      }
-    });
+      },
+    );
   }
 }

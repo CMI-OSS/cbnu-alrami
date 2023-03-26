@@ -5,7 +5,7 @@ import { CreateAdminDto } from "@shared/swagger-api/generated/models/CreateAdmin
 import { ResponseBoardDto } from "@shared/swagger-api/generated/models/ResponseBoardDto";
 import { AdminApiService } from "@shared/swagger-api/generated/services/AdminApiService";
 import { BoardApiService } from "@shared/swagger-api/generated/services/BoardApiService";
-import { Button, Form, Input, message, Select } from "antd";
+import { Button, Form, Input, message, Popconfirm, Select } from "antd";
 
 import styles from "./Admin.module.scss";
 
@@ -85,6 +85,14 @@ const Admin = () => {
     }
   };
 
+  const handleClickRemove = async () => {
+    await AdminApiService.adminControllerRemove({
+      id: Number(adminId),
+    });
+
+    window.history.back();
+  };
+
   return (
     <div className={styles.wrapper}>
       {contextHolder}
@@ -138,6 +146,20 @@ const Admin = () => {
           <Button type="primary" htmlType="submit" size="large">
             완료
           </Button>
+
+          {isEdit && (
+            <Popconfirm
+              title="정말 삭제하시겠습니까?"
+              description="삭제하면 되돌릴 수 없습니다."
+              okText="네"
+              cancelText="아니오"
+              onConfirm={handleClickRemove}
+            >
+              <Button type="primary" size="large" danger>
+                삭제
+              </Button>
+            </Popconfirm>
+          )}
         </Form.Item>
       </Form>
     </div>

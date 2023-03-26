@@ -11,15 +11,10 @@ type Props = {
   articleId: number;
   isBookmark: boolean;
   isUser: boolean;
-  isScraperArticle: boolean;
+  url?: string;
 };
 
-function ArticleFooter({
-  articleId,
-  isBookmark,
-  isUser,
-  isScraperArticle,
-}: Props) {
+function ArticleFooter({ articleId, isBookmark, isUser, url }: Props) {
   const postBookmark = usePostBookmarkArticleMutation({ id: articleId });
   const deleteBookmark = useDeleteBookmarkArticleMutation({
     id: articleId,
@@ -31,6 +26,10 @@ function ArticleFooter({
       return;
     }
     postBookmark.mutate({ id: articleId });
+  };
+
+  const handleClickUrl = () => {
+    window.open(url);
   };
 
   return (
@@ -49,9 +48,10 @@ function ArticleFooter({
           />
         </button>
       )}
-      {isScraperArticle && (
-        // TODO: 네이티브 로직 필요
-        <Internet size={24} stroke="#5e5e5e" />
+      {url && (
+        <button type="button" onClick={handleClickUrl}>
+          <Internet size={24} stroke="#5e5e5e" />
+        </button>
       )}
     </div>
   );

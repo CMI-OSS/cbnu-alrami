@@ -38,22 +38,3 @@ $place-header: 120px;
   background-color: inherit;
   flex: 0 0 auto;
 }
-
-.tooltip {
-  margin: $place-header + 9px 8px 0;
-  border-radius: 4px;
-  background-color: $white;
-  padding: 7px 21px;
-
-  & + .content {
-    .image_list {
-      margin-top: 0;
-    }
-  }
-
-  .tooltip_title {
-    font-size: 12px;
-    line-height: 20px;
-    color: $black-60;
-  }
-}

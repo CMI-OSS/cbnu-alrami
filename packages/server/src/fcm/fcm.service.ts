@@ -72,7 +72,7 @@ export class FcmService {
       if (fcmToken)
         this.sendNotice(fcmToken, notification, {
           articleId: article.id.toString(),
-          url: `https://dev-mobile.cmi.kro.kr/article/detail/${  article.id}`,
+          url: `https://dev-mobile.cmiteam.kr/article/detail/${article.id}`,
         });
     });
   }

@@ -18,7 +18,12 @@ export default function ShareButton({
 }: Props) {
   const handleCopyClick = () => {
     if (isFromApp) {
-      baseApp.postMessage(window.location.href);
+      baseApp.postMessage(
+        JSON.stringify({
+          action: "copy",
+          url: window.location.href,
+        }),
+      );
     } else {
       navigator.clipboard.writeText(window.location.href);
     }

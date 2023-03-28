@@ -20,10 +20,6 @@ $balloonBottom: $footerHeight + $footerLinkDistance + $linkHeight + $linkTooltip
   svg {
     position: relative;
     left: 16px;
-
-    path {
-      fill: $black-80;
-    }
   }
 }
 

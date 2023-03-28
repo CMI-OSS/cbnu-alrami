@@ -4,6 +4,7 @@ import {
   usePostBookmarkArticleMutation,
 } from "@hooks/api/article";
 import ShareButton from "src/components/atoms/ShareButton";
+import { isFromApp } from "src/utils/webview";
 
 import $ from "./style.module.scss";
 
@@ -29,7 +30,11 @@ function ArticleFooter({ articleId, isBookmark, isUser, url }: Props) {
   };
 
   const handleClickUrl = () => {
-    window.open(url);
+    if (isFromApp) {
+      baseApp.postMessage(JSON.stringify({ action: "navigate", url }));
+    } else {
+      window.open(url);
+    }
   };
 
   return (

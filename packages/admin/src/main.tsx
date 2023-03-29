@@ -7,7 +7,13 @@ import { RecoilRoot } from "recoil";
 
 import App from "./App";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 OpenAPI.BASE = apiServer.dev;
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

@@ -62,8 +62,13 @@ export class BoardController {
   @Get(":id")
   @UserHeader
   async findOne(@Param("id") id: number, @UserSession() user?: User) {
+    const subscribeBoards = user
+      ? await this.boardService.getSubscribeBoards(user)
+      : [];
+
     return this.boardService.getBoardWithSubscribe(
       await this.boardService.findOne(id),
+      subscribeBoards,
       user,
     );
   }
@@ -72,8 +77,13 @@ export class BoardController {
   @Get()
   @UserHeader
   async find(@UserSession() user?: User) {
+    const subscribeBoards = user
+      ? await this.boardService.getSubscribeBoards(user)
+      : [];
+
     return this.boardService.getBoardsWithSubscribe(
       await this.boardService.findAll(),
+      subscribeBoards,
       user,
     );
   }

@@ -16,6 +16,14 @@
     font-size: large;
   }
 
+  .logout {
+    display: flex;
+    margin-top: 10px;
+    font-size: small;
+    justify-content: center;
+    cursor: pointer;
+  }
+
   .outer-ul {
     display: flex;
     flex-direction: column;

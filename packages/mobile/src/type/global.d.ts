@@ -12,5 +12,5 @@ declare module "*.scss" {
 }
 
 declare namespace baseApp {
-  function postMessage(url: string);
+  function postMessage(message: string);
 }

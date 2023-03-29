@@ -6,7 +6,7 @@ import { ArticleApiService } from "@shared/swagger-api/generated/services/Articl
 import { useAppDispatch } from "src/store";
 
 import styles from "./ArticleWrite.module.scss";
-import { init } from "./ArticleWrite.store";
+import { init, reset } from "./ArticleWrite.store";
 import SelectBoard from "./SelectBoard/SelectBoard";
 import Submit from "./Submit/Submit";
 import UploadImage from "./UploadImage/UploadImage";
@@ -34,6 +34,8 @@ export default function ArticleWrite() {
 
   if (article) {
     dispatch(init(article));
+  } else {
+    dispatch(reset());
   }
 
   return (

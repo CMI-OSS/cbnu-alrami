@@ -1,10 +1,9 @@
-import React from "react";
-
 import { Close, Download } from "@components/atoms/icon";
 import SwiperImage from "@components/molecules/SwiperImage";
 import { Image as ImageType } from "@shared/swagger-api/generated";
 import classnames from "classnames";
 import { DefaultProps } from "src/type/props";
+import { isFromApp } from "src/utils/webview";
 
 import $ from "./style.module.scss";
 
@@ -12,25 +11,36 @@ type Props = {
   images: ImageType[];
   order: number;
   setOrder: (prev: number) => void;
-  onClose: (value: boolean) => void;
+  onClose: () => void;
 } & DefaultProps;
 
 function ImageModal({ order, setOrder, onClose, images }: Props) {
   // TODO: 백엔드 수정 후 확인필요
   const handleDownloadClick = async () => {
-    const { id, url } = images[order-1];
-    const response = await fetch(url);
-    const file = await response.blob();
-    const downloadUrl = window.URL.createObjectURL(file);
-    const link = document.createElement("a");
-    document.body.appendChild(link);
-    link.download = `충림이이미지${id}`;
-    link.href = downloadUrl;
+    const { id, url } = images[order - 1];
 
-    link.click();
+    if (isFromApp) {
+      baseApp.postMessage(
+        JSON.stringify({
+          action: "image",
+          url,
+          preview: false,
+        }),
+      );
+    } else {
+      const response = await fetch(url);
+      const file = await response.blob();
+      const downloadUrl = window.URL.createObjectURL(file);
+      const link = document.createElement("a");
+      document.body.appendChild(link);
+      link.download = `충림이이미지${id}`;
+      link.href = downloadUrl;
 
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(downloadUrl);
+      link.click();
+
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(downloadUrl);
+    }
   };
 
   return (
@@ -44,13 +54,7 @@ function ImageModal({ order, setOrder, onClose, images }: Props) {
           >
             <Download size={16} stroke="#fff" />
           </button>
-          <button
-            type="button"
-            className={$.close}
-            onClick={() => {
-              return onClose(false);
-            }}
-          >
+          <button type="button" className={$.close} onClick={onClose}>
             <Close size={16} stroke="#fff" />
           </button>
         </div>
@@ -61,7 +65,7 @@ function ImageModal({ order, setOrder, onClose, images }: Props) {
           imageDatas={images.map((image) => {
             return image.url;
           })}
-          {...{order, setOrder}}
+          {...{ order, setOrder }}
         />
       </div>
     </div>

@@ -58,7 +58,7 @@ export default function Submit({ isEdit, articleId, article, boardId }: Props) {
         await updateArticle({
           id: articleId,
           requestBody: {
-            boardId: 30101,
+            boardId,
             content,
             title,
             imageIds: images?.map((image) => image.id),

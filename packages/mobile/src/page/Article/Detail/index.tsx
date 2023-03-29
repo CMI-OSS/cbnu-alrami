@@ -34,7 +34,6 @@ function ArticleDetail() {
     board: { name },
     title,
     viewCount,
-    bookmarkCount,
     createdDateTime,
     content,
     isBookmark,
@@ -68,7 +67,7 @@ function ArticleDetail() {
             <span>{dayjs(createdDateTime).format("YYYY-MM-DD")}</span>
             &nbsp;/&nbsp;
             <span>조회수&nbsp;{viewCount}</span>
-            &nbsp;/&nbsp;<span>좋아요&nbsp;{bookmarkCount}</span>
+            &nbsp;/&nbsp;<span>좋아요&nbsp;{likeCount}</span>
           </div>
           {!!images?.length && (
             <SwiperImage

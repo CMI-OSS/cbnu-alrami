@@ -11,7 +11,7 @@ type Props = {
   title: string;
   createdDateTime: string;
   viewCount: number;
-  bookmarkCount: number;
+  likeCount: number;
 };
 
 function ArticleItem({
@@ -20,7 +20,7 @@ function ArticleItem({
   title,
   createdDateTime,
   viewCount,
-  bookmarkCount,
+  likeCount,
 }: Props) {
   return (
     <Link className={$["article-item"]} to={`/article/detail/${id}`}>
@@ -29,7 +29,7 @@ function ArticleItem({
       <div className={$.info}>
         <span>{dayjs(createdDateTime).format("YYYY-MM-DD")}</span>&nbsp;/&nbsp;
         <span>조회수&nbsp;{viewCount}</span>
-        &nbsp;/&nbsp;<span>좋아요&nbsp;{bookmarkCount}</span>
+        &nbsp;/&nbsp;<span>좋아요&nbsp;{likeCount}</span>
       </div>
     </Link>
   );

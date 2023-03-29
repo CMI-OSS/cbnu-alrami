@@ -98,7 +98,7 @@ function ArticleList({ className }: DefaultProps) {
             id,
             title,
             createdDateTime,
-            bookmarkCount,
+            likeCount,
             viewCount,
             board: { name, parent },
           } = article;
@@ -111,7 +111,7 @@ function ArticleList({ className }: DefaultProps) {
                 title,
                 createdDateTime,
                 viewCount,
-                bookmarkCount,
+                likeCount,
                 boardName,
               }}
             />

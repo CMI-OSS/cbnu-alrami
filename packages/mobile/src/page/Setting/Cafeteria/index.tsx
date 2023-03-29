@@ -31,11 +31,12 @@ function Cafeteria() {
       </div>
 
       <BorderBox className={$["select-cafeteria"]}>
-        {cafeterias.map((label) => {
+        {cafeterias.map((label, index) => {
           return (
             <RadioSelect
               key={label}
               label={label}
+              index={index}
               className={$["radio-select"]}
               isChecked={selected === label}
               handleChange={handleSelectedCafeteria}

@@ -7,7 +7,6 @@ import $ from "./style.module.scss";
 
 type Props<T extends string> = {
   label: T;
-  index?: number;
   isChecked?: boolean;
   handleChange: (label: T) => void;
 } & StyleProps;
@@ -15,20 +14,19 @@ type Props<T extends string> = {
 function RadioSelect<T extends string>({
   className,
   label,
-  index,
   isChecked,
   handleChange,
   style,
 }: Props<T>) {
   return (
     <div className={classnames($["radio-box"], className)} style={style}>
-      <label htmlFor={`radio_${index}`} className={$["radio-label"]}>
+      <label htmlFor={`${label}`} className={$["radio-label"]}>
         {label}
       </label>
 
       <span className={classnames($.radio, { [$.checked]: isChecked })}>
         <input
-          id={`radio_${index}`}
+          id={`${label}`}
           type="radio"
           checked={isChecked}
           value={label}

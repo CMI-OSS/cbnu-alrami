@@ -20,13 +20,13 @@ function RadioSelect<T extends string>({
 }: Props<T>) {
   return (
     <div className={classnames($["radio-box"], className)} style={style}>
-      <label htmlFor="radio" className={$["radio-label"]}>
+      <label htmlFor={`${label}`} className={$["radio-label"]}>
         {label}
       </label>
 
       <span className={classnames($.radio, { [$.checked]: isChecked })}>
         <input
-          id="radio"
+          id={`${label}`}
           type="radio"
           checked={isChecked}
           value={label}

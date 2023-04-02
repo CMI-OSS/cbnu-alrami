@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { Setting } from "@components/atoms/icon";
 import Footer from "@components/molecules/Footer";
@@ -14,6 +15,9 @@ import { getUuid } from "src/utils/storage";
 import $ from "./style.module.scss";
 
 function Article() {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
   const setBoardOrigin = useSetRecoilState(boardOriginStatus);
   const isUser = !!getUuid();
 

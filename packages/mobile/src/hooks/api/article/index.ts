@@ -17,7 +17,7 @@ export const usePopularArticlesQuery = (
   >,
 ) => {
   return useCoreInfiniteQuery(
-    queryKey.popularArticles(params),
+    queryKey.popularArticles(),
     ({ pageParam = 1 }) => {
       return ArticleApiService.articleControllerFindPopularArticles({
         ...params,
@@ -39,7 +39,7 @@ export const useSubscribeArticlesQuery = (
   >,
 ) => {
   return useCoreInfiniteQuery(
-    queryKey.subscribeArticles({ ...params, uuid }),
+    queryKey.subscribeArticles(),
     ({ pageParam = 1 }) => {
       return ArticleApiService.articleControllerFindSubscribeArticle({
         ...params,
@@ -62,7 +62,7 @@ export const useBookmarkArticlesQuery = (
   >,
 ) => {
   return useCoreInfiniteQuery(
-    queryKey.bookmarkArticles({ ...params, uuid }),
+    queryKey.bookmarkArticles(),
     ({ pageParam = 1 }) => {
       return ArticleApiService.articleControllerFindBookmarkArticle({
         ...params,
@@ -79,11 +79,29 @@ export const useBookmarkArticlesQuery = (
 };
 
 export const useArticleQuery = (
-  params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
+  params: GetParams<typeof ArticleApiService.articleControllerFindOne> & {
+    boardId: number;
+  },
 ) => {
-  return useCoreQuery(queryKey.article({ ...params, uuid }), () => {
-    return ArticleApiService.articleControllerFindOne({ ...params, uuid });
-  });
+  return useCoreQuery(
+    queryKey.article({ ...params, uuid }),
+    () => {
+      return ArticleApiService.articleControllerFindOne({ ...params, uuid });
+    },
+    {
+      staleTime: 5000,
+      onSuccess: () => {
+        Promise.all([
+          queryClient.invalidateQueries(queryKey.popularArticles()),
+          queryClient.invalidateQueries(queryKey.subscribeArticles()),
+          queryClient.invalidateQueries(queryKey.bookmarkArticles()),
+          queryClient.invalidateQueries(
+            queryKey.boardArticles({ id: params.boardId }),
+          ),
+        ]);
+      },
+    },
+  );
 };
 
 export const usePostBookmarkArticleMutation = (
@@ -95,9 +113,10 @@ export const usePostBookmarkArticleMutation = (
     },
     {
       onSuccess: () => {
-        return queryClient.invalidateQueries(
-          queryKey.article({ ...params, uuid }),
-        );
+        Promise.all([
+          queryClient.invalidateQueries(queryKey.article({ ...params, uuid })),
+          queryClient.invalidateQueries(queryKey.bookmarkArticles()),
+        ]);
       },
     },
   );
@@ -112,9 +131,10 @@ export const useDeleteBookmarkArticleMutation = (
     },
     {
       onSuccess: () => {
-        return queryClient.invalidateQueries(
-          queryKey.article({ ...params, uuid }),
-        );
+        Promise.all([
+          queryClient.invalidateQueries(queryKey.article({ ...params, uuid })),
+          queryClient.invalidateQueries(queryKey.bookmarkArticles()),
+        ]);
       },
     },
   );
@@ -129,9 +149,12 @@ export const usePostLikeArticleMutation = (
     },
     {
       onSuccess: () => {
-        return queryClient.invalidateQueries(
-          queryKey.article({ ...params, uuid }),
-        );
+        Promise.all([
+          queryClient.invalidateQueries(queryKey.article({ ...params, uuid })),
+          queryClient.invalidateQueries(queryKey.popularArticles()),
+          queryClient.invalidateQueries(queryKey.subscribeArticles()),
+          queryClient.invalidateQueries(queryKey.bookmarkArticles()),
+        ]);
       },
     },
   );
@@ -146,9 +169,12 @@ export const useDeleteLikeArticleMutation = (
     },
     {
       onSuccess: () => {
-        return queryClient.invalidateQueries(
-          queryKey.article({ ...params, uuid }),
-        );
+        Promise.all([
+          queryClient.invalidateQueries(queryKey.article({ ...params, uuid })),
+          queryClient.invalidateQueries(queryKey.popularArticles()),
+          queryClient.invalidateQueries(queryKey.subscribeArticles()),
+          queryClient.invalidateQueries(queryKey.bookmarkArticles()),
+        ]);
       },
     },
   );

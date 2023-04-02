@@ -7,6 +7,7 @@ import $ from "./style.module.scss";
 
 type Props = {
   id: number;
+  boardId: number;
   boardName: string;
   title: string;
   createdDateTime: string;
@@ -16,6 +17,7 @@ type Props = {
 
 function ArticleItem({
   id,
+  boardId,
   boardName,
   title,
   createdDateTime,
@@ -23,7 +25,7 @@ function ArticleItem({
   likeCount,
 }: Props) {
   return (
-    <Link className={$["article-item"]} to={`/article/detail/${id}`}>
+    <Link className={$["article-item"]} to={`/article/detail/${boardId}/${id}`}>
       <div className={$["board-name"]}>{boardName}</div>
       <div className={$.title}>{title}</div>
       <div className={$.info}>

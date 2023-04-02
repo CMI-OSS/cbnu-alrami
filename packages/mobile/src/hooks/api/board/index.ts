@@ -76,16 +76,9 @@ export const useSubscribeBoardMutation = (
     {
       onSuccess: () => {
         Promise.all([
-          queryClient.invalidateQueries({
-            queryKey: queryKey.subscribeBoards,
-          }),
-          queryClient.invalidateQueries({
-            queryKey: queryKey.board({ ...params, uuid }),
-          }),
-          queryClient.invalidateQueries({
-            queryKey: queryKey.subscribeArticles({ uuid }),
-            refetchType: "all",
-          }),
+          queryClient.invalidateQueries(queryKey.subscribeBoards),
+          queryClient.invalidateQueries(queryKey.board({ ...params, uuid })),
+          queryClient.invalidateQueries(queryKey.subscribeArticles({ uuid })),
         ]);
         toastSuccess({
           message: "구독이 추가되었습니다.",
@@ -105,17 +98,9 @@ export const useUnSubscribeBoardMutation = (
     {
       onSuccess: () => {
         Promise.all([
-          queryClient.invalidateQueries({
-            queryKey: queryKey.subscribeBoards,
-          }),
-          queryClient.invalidateQueries({
-            queryKey: queryKey.board({ ...params, uuid }),
-          }),
-
-          queryClient.invalidateQueries({
-            queryKey: queryKey.subscribeArticles({ uuid }),
-            refetchType: "all",
-          }),
+          queryClient.invalidateQueries(queryKey.subscribeBoards),
+          queryClient.invalidateQueries(queryKey.board({ ...params, uuid })),
+          queryClient.invalidateQueries(queryKey.subscribeArticles({ uuid })),
         ]);
         toastSuccess({
           message: "구독이 해제되었습니다.",

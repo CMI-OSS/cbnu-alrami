@@ -100,7 +100,7 @@ function ArticleList({ className }: DefaultProps) {
             createdDateTime,
             likeCount,
             viewCount,
-            board: { name, parent },
+            board: { id: boardId, name, parent },
           } = article;
           const boardName = parent?.name ? `${parent.name} > ${name}` : name;
           return (
@@ -108,6 +108,7 @@ function ArticleList({ className }: DefaultProps) {
               key={id}
               {...{
                 id,
+                boardId,
                 title,
                 createdDateTime,
                 viewCount,

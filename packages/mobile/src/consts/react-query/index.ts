@@ -8,12 +8,8 @@ import { GetParams } from "src/type/utils";
 
 export const queryKey = {
   // article 도메인
-  popularArticles: (
-    params?: GetParams<
-      typeof ArticleApiService.articleControllerFindPopularArticles
-    >,
-  ) => {
-    return [ "popularArticles", params ];
+  popularArticles: () => {
+    return [ "popularArticles" ];
   },
   subscribeArticles: (
     params?: GetParams<
@@ -22,12 +18,8 @@ export const queryKey = {
   ) => {
     return [ "subscribeArticles", params ];
   },
-  bookmarkArticles: (
-    params?: GetParams<
-      typeof ArticleApiService.articleControllerFindBookmarkArticle
-    >,
-  ) => {
-    return [ "bookmarkArticles", params ];
+  bookmarkArticles: () => {
+    return [ "bookmarkArticles" ];
   },
   article: (
     params: GetParams<typeof ArticleApiService.articleControllerFindOne>,

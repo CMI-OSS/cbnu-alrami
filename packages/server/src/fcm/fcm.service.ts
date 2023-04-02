@@ -86,10 +86,13 @@ export class FcmService {
       FcmService.message(to, notification, data),
       async (err, res) => {
         if (err) {
-          if (JSON.parse(err).results[0].error === "InvalidRegistration") {
+          const { error } = JSON.parse(err).results[0];
+
+          if ([ "InvalidRegistration", "NotRegistered" ].includes(error)) {
             await this.userService.deleteByFcmToken(to);
           }
-          throw new BadRequestException(err);
+
+          console.error("[sendNotice] ", { err });
         } else {
           // console.log("Successfully sent with response: ", res);
         }

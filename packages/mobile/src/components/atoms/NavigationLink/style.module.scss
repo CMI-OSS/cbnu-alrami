@@ -3,11 +3,13 @@
   flex-direction: column;
   justify-content: center;
   padding: 10px;
+  height: 64px;
   align-items: center;
-  font-size: 10px;
 
   .label {
-    margin-top: 6px;
+    font-size: 12px;
+    line-height: 12px;
+    margin-top: 10px;
     color: $black-60;
   }
 }

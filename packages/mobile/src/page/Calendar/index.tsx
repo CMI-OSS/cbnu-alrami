@@ -16,8 +16,6 @@ import caledarReducer from "./calendarReducer";
 import $ from "./style.module.scss";
 import useSelectedDate from "./useSelectedDate";
 
-export const MOCK_UUID = "1111";
-
 export type ScheduleType = "all" | "bookmark";
 
 export type DateMap = {
@@ -36,7 +34,7 @@ function Calendar() {
   const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
 
   const { data: allSchedules } = useFullSchedulesQuery(year);
-  const { data: bookmarkedSchedules } = useBookmarkSchedulesQuery(MOCK_UUID);
+  const { data: bookmarkedSchedules } = useBookmarkSchedulesQuery();
   if (!bookmarkedSchedules || !allSchedules) return <div>없음</div>;
 
   const allScheduleMap = getCalendarMap(year, month, allSchedules);

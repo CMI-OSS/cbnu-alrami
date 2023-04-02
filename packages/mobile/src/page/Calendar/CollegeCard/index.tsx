@@ -10,8 +10,8 @@ import classNames from "classnames";
 import { Dayjs } from "dayjs";
 import { DefaultProps } from "src/type/props";
 import { getDatePeriod } from "src/utils/calendarTools";
+import { getUuid } from "src/utils/storage";
 
-import { MOCK_UUID } from "..";
 import $ from "./style.module.scss";
 
 type Props = {
@@ -33,10 +33,10 @@ function CollegeCard(props: Props) {
 
   const handleStarClick = () => {
     if (isBookmarked) {
-      removeScheduleBookmark.mutate({ id, uuid: MOCK_UUID });
+      removeScheduleBookmark.mutate({ id, uuid: getUuid() });
       return;
     }
-    addScheduleBookmark.mutate({ id, uuid: MOCK_UUID });
+    addScheduleBookmark.mutate({ id, uuid: getUuid() });
   };
 
   return (

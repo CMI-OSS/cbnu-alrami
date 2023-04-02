@@ -1,5 +1,5 @@
 ---
-name: QA
+name: QA 레포트
 about: QA 이슈
 title: "[QA] "
 labels: QA - 버그

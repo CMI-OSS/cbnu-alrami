@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import Article from "src/page/Article";
 import ArticleDetail from "src/page/Article/Detail";
@@ -37,9 +37,11 @@ function App() {
   useFCMToken();
 
   const appRoutes = [
+    { path: "/", element: <Navigate replace to="/home" /> },
     { path: "/home", element: <Home /> },
     { path: "/calendar", element: <Calendar /> },
     { path: "/article/*", element: <Article /> },
+    { path: "/article", element: <Navigate replace to="/article/subscribe" /> },
     { path: "/article/detail/:boardId/:articleId", element: <ArticleDetail /> },
     { path: "/board/*", element: <Board /> },
     { path: "/board/article/*", element: <BoardArticle /> },

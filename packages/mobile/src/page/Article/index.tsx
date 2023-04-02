@@ -21,12 +21,6 @@ function Article() {
   const setBoardOrigin = useSetRecoilState(boardOriginStatus);
   const isUser = !!getUuid();
 
-  useEffect(() => {
-    if (pathname === "/article") {
-      navigate(`/article/subscribe`);
-    }
-  }, []);
-
   const handleSettingClick = () => {
     setBoardOrigin("article");
   };

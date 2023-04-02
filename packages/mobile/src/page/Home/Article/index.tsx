@@ -73,7 +73,9 @@ function Article() {
           const { title, id } = articleData;
           return (
             <div className={$.title} key={id}>
-              <Link to={`/article/detail/${id}`}>{title}</Link>
+              <Link to={`/article/detail/${articleData.board.id}/${id}`}>
+                {title}
+              </Link>
             </div>
           );
         })}

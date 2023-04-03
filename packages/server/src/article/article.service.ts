@@ -71,7 +71,7 @@ export class ArticleService {
       author: admin,
     });
 
-    this.fcmService.sendNoticeArticle(article);
+    // this.fcmService.sendNoticeArticle(article);
 
     return article;
   }

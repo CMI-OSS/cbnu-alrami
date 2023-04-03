@@ -38,3 +38,4 @@ export const BASE_HEAD_META = {
 };
 
 export const DEFFERRED_LOADING_TIME = 1000;
+export const EMPTY_TITLE_GUIDE_MESSAGE = "제목이 없는 공지사항입니다";

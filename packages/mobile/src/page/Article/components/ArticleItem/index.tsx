@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import dayjs from "dayjs";
+import { EMPTY_TITLE_GUIDE_MESSAGE } from "src/constants";
 import { setRecentBoardId } from "src/utils/storage";
 
 import $ from "./style.module.scss";
@@ -34,7 +35,7 @@ function ArticleItem({
       }}
     >
       <div className={$["board-name"]}>{boardName}</div>
-      <div className={$.title}>{title}</div>
+      <div className={$.title}>{title || EMPTY_TITLE_GUIDE_MESSAGE}</div>
       <div className={$.info}>
         <span>{dayjs(createdDateTime).format("YYYY-MM-DD")}</span>&nbsp;/&nbsp;
         <span>조회수&nbsp;{viewCount}</span>

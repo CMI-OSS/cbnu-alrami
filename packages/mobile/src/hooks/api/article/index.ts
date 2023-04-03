@@ -7,7 +7,7 @@ import { ArticleApiService } from "@shared/swagger-api/generated";
 import { queryKey } from "src/consts/react-query";
 import { queryClient } from "src/main";
 import { GetParams } from "src/type/utils";
-import { getUuid } from "src/utils/storage";
+import { getRecentBoardId, getUuid } from "src/utils/storage";
 
 const uuid = getUuid();
 
@@ -79,9 +79,7 @@ export const useBookmarkArticlesQuery = (
 };
 
 export const useArticleQuery = (
-  params: GetParams<typeof ArticleApiService.articleControllerFindOne> & {
-    boardId: number;
-  },
+  params: GetParams<typeof ArticleApiService.articleControllerFindOne>,
 ) => {
   return useCoreQuery(
     queryKey.article({ ...params, uuid }),
@@ -96,7 +94,7 @@ export const useArticleQuery = (
           queryClient.invalidateQueries(queryKey.subscribeArticles()),
           queryClient.invalidateQueries(queryKey.bookmarkArticles()),
           queryClient.invalidateQueries(
-            queryKey.boardArticles({ id: params.boardId }),
+            queryKey.boardArticles({ id: Number(getRecentBoardId())! }),
           ),
         ]);
       },

@@ -15,9 +15,6 @@ import { getUuid } from "src/utils/storage";
 import $ from "./style.module.scss";
 
 function Article() {
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
-
   const setBoardOrigin = useSetRecoilState(boardOriginStatus);
   const isUser = !!getUuid();
 

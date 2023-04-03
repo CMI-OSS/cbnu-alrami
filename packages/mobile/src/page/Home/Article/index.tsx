@@ -7,6 +7,7 @@ import {
   useSubscribeArticlesQuery,
 } from "@hooks/api/article";
 import classNames from "classnames";
+import { EMPTY_TITLE_GUIDE_MESSAGE } from "src/constants";
 import { setRecentBoardId } from "src/utils/storage";
 
 import $ from "./style.module.scss";
@@ -80,7 +81,7 @@ function Article() {
                   return setRecentBoardId(articleData.board.id);
                 }}
               >
-                {title}
+                {title || EMPTY_TITLE_GUIDE_MESSAGE}
               </Link>
             </div>
           );

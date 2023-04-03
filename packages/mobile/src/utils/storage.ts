@@ -6,6 +6,7 @@ const SHOW_CAFETERIA_SELECT_GUIDE = "SHOW_CAFETERIA_SELECT_GUIDE" as const;
 const SHOW_CAFETERIA_SELECT_FINAL_GUIDE =
   "SHOW_CAFETERIA_SELECT_FINAL_GUIDE" as const;
 const uuidKey = "uuid" as const;
+const RECENT_BOARD_ID = "RECENT_BOARD_ID" as const;
 
 export const getSelectedCafeteria = () => {
   const item = localStorage.getItem(SELECTED_CAFETERIA);
@@ -58,4 +59,12 @@ export const createUuid = () => {
   localStorage.setItem(uuidKey, uuid);
 
   return uuid;
+};
+
+export const setRecentBoardId = (boardId: number) => {
+  localStorage.setItem(RECENT_BOARD_ID, `${boardId}`);
+};
+
+export const getRecentBoardId = () => {
+  return localStorage.getItem(RECENT_BOARD_ID);
 };

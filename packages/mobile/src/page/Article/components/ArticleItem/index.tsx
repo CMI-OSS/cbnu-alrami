@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import dayjs from "dayjs";
+import { setRecentBoardId } from "src/utils/storage";
 
 import $ from "./style.module.scss";
 
@@ -25,7 +26,13 @@ function ArticleItem({
   likeCount,
 }: Props) {
   return (
-    <Link className={$["article-item"]} to={`/article/detail/${boardId}/${id}`}>
+    <Link
+      className={$["article-item"]}
+      to={`/article/detail/${id}`}
+      onClick={() => {
+        return setRecentBoardId(boardId);
+      }}
+    >
       <div className={$["board-name"]}>{boardName}</div>
       <div className={$.title}>{title}</div>
       <div className={$.info}>

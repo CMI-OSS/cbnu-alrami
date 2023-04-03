@@ -7,6 +7,7 @@ import {
   useSubscribeArticlesQuery,
 } from "@hooks/api/article";
 import classNames from "classnames";
+import { setRecentBoardId } from "src/utils/storage";
 
 import $ from "./style.module.scss";
 
@@ -73,7 +74,12 @@ function Article() {
           const { title, id } = articleData;
           return (
             <div className={$.title} key={id}>
-              <Link to={`/article/detail/${articleData.board.id}/${id}`}>
+              <Link
+                to={`/article/detail/${id}`}
+                onClick={() => {
+                  return setRecentBoardId(articleData.board.id);
+                }}
+              >
                 {title}
               </Link>
             </div>

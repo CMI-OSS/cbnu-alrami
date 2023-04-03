@@ -20,12 +20,10 @@ import $ from "./style.module.scss";
 function ArticleDetail() {
   const { pathname } = useLocation();
   const articleId = Number(pathname.split("/").at(-1));
-  const boardId = Number(pathname.split("/").at(-2));
   const [ isLikeClick, setIsLikeClick ] = useState(false);
   const [ order, setOrder ] = useState(1);
   const { data: articleData, isLoading } = useArticleQuery({
     id: articleId,
-    boardId,
   });
   const postLikeArticle = usePostLikeArticleMutation({ id: articleId });
   const deleteLikeArticle = useDeleteLikeArticleMutation({ id: articleId });

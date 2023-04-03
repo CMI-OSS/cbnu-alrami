@@ -42,7 +42,7 @@ function App() {
     { path: "/calendar", element: <Calendar /> },
     { path: "/article/*", element: <Article /> },
     { path: "/article", element: <Navigate replace to="/article/subscribe" /> },
-    { path: "/article/detail/:boardId/:articleId", element: <ArticleDetail /> },
+    { path: "/article/detail/:articleId", element: <ArticleDetail /> },
     { path: "/board/*", element: <Board /> },
     { path: "/board/article/*", element: <BoardArticle /> },
     { path: "/cafeteria", element: <Cafeteria /> },
@@ -60,7 +60,7 @@ function App() {
   ];
 
   const webRoutes = [
-    { path: "/article/detail/:boardId/:articleId", element: <ArticleDetail /> },
+    { path: "/article/detail/:articleId", element: <ArticleDetail /> },
   ];
 
   const mode = import.meta.env.MODE;

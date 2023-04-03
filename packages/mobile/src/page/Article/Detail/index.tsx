@@ -36,7 +36,7 @@ function ArticleDetail() {
     board: { name },
     title,
     viewCount,
-    createdDateTime,
+    dateTime,
     content,
     isBookmark,
     isLike,
@@ -66,7 +66,7 @@ function ArticleDetail() {
         <div className={$.children}>
           <div className={$.title}>{title}</div>
           <div className={$.info}>
-            <span>{dayjs(createdDateTime).format("YYYY-MM-DD")}</span>
+            <span>{dayjs(dateTime).format("YYYY-MM-DD")}</span>
             &nbsp;/&nbsp;
             <span>조회수&nbsp;{viewCount}</span>
             &nbsp;/&nbsp;<span>좋아요&nbsp;{likeCount}</span>

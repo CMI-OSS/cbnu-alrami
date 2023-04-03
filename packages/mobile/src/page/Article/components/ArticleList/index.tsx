@@ -97,7 +97,7 @@ function ArticleList({ className }: DefaultProps) {
           const {
             id,
             title,
-            createdDateTime,
+            dateTime,
             likeCount,
             viewCount,
             board: { id: boardId, name, parent },
@@ -110,7 +110,7 @@ function ArticleList({ className }: DefaultProps) {
                 id,
                 boardId,
                 title,
-                createdDateTime,
+                dateTime,
                 viewCount,
                 likeCount,
                 boardName,

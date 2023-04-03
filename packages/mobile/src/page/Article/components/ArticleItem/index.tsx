@@ -12,7 +12,7 @@ type Props = {
   boardId: number;
   boardName: string;
   title: string;
-  createdDateTime: string;
+  dateTime: string;
   viewCount: number;
   likeCount: number;
 };
@@ -22,7 +22,7 @@ function ArticleItem({
   boardId,
   boardName,
   title,
-  createdDateTime,
+  dateTime,
   viewCount,
   likeCount,
 }: Props) {
@@ -37,7 +37,7 @@ function ArticleItem({
       <div className={$["board-name"]}>{boardName}</div>
       <div className={$.title}>{title || EMPTY_TITLE_GUIDE_MESSAGE}</div>
       <div className={$.info}>
-        <span>{dayjs(createdDateTime).format("YYYY-MM-DD")}</span>&nbsp;/&nbsp;
+        <span>{dayjs(dateTime).format("YYYY-MM-DD")}</span>&nbsp;/&nbsp;
         <span>조회수&nbsp;{viewCount}</span>
         &nbsp;/&nbsp;<span>좋아요&nbsp;{likeCount}</span>
       </div>

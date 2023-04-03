@@ -29,7 +29,7 @@
     .time {
       @include typography(14);
       line-height: 30px;
-      color: $black-40;
+      color: $black-50;
     }
   }
 
@@ -48,7 +48,7 @@
     .empty-menu {
       @include typography(13);
       margin: 39px 0 27px;
-      color: $black-40;
+      color: $black-50;
     }
   }
 }

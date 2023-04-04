@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { Question } from "@components/atoms/icon";
 import Line from "@components/atoms/Line";
+import Popover from "@components/atoms/Popover";
 import {
   usePopularArticlesQuery,
   useSubscribeArticlesQuery,
@@ -47,6 +49,25 @@ function ArticleHeader({ kind, setKind }: Props) {
         >
           최신
         </button>
+        <Popover
+          placement="left"
+          overlay={
+            <div className={$.overlay}>
+              인기 게시판은 전체 공지 중 최근 2주간
+              <br />
+              좋아요, 조회수 높은 순으로 제공됩니다.
+              <br />
+              최신 게시판은 구독한 게시판의 공지들이
+              <br />
+              최신 순서로 제공됩니다.
+            </div>
+          }
+          trigger="click"
+        >
+          <div className={$.trigger}>
+            <Question size={14} stroke="#aaa" />
+          </div>
+        </Popover>
       </div>
     </div>
   );

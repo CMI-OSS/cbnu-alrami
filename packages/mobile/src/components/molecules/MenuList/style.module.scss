@@ -1,23 +1,20 @@
 .menu-list {
   @include flicking;
   display: flex;
+  justify-content: space-between;
   z-index: 100;
   padding: 6px 12px;
   background-color: $white;
   border-top: 1px solid $background;
 
   .menu {
-    height: 36px;
     display: flex;
     align-items: center;
-    padding: 14px 18px;
+    padding: 6.5px 18px;
+    line-height: 23px;
     white-space: nowrap;
     background-color: $white;
     color: $black-80;
-
-    &-name {
-      line-height: 30px;
-    }
 
     &:not(:first-child) {
       margin-left: 16px;

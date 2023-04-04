@@ -4,6 +4,7 @@ import {
   useCoreQuery,
 } from "@hooks/api/core";
 import { BoardApiService } from "@shared/swagger-api/generated";
+import { useQueries } from "@tanstack/react-query";
 import { queryKey } from "src/consts/react-query";
 import { queryClient } from "src/main";
 import { GetParams } from "src/type/utils";
@@ -63,6 +64,19 @@ export const useBoardQuery = (
 ) => {
   return useCoreQuery(queryKey.board({ ...params, uuid }), () => {
     return BoardApiService.boardControllerFindOne({ ...params, uuid });
+  });
+};
+
+export const useBreadcrumbQuery = (boardIds: number[]) => {
+  return useQueries({
+    queries: boardIds.map((boardId) => {
+      return {
+        queryKey: [ "breadcrumb", boardId ],
+        queryFn: () => {
+          return BoardApiService.boardControllerFindOne({ id: boardId });
+        },
+      };
+    }),
   });
 };
 

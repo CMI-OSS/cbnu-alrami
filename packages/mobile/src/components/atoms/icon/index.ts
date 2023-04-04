@@ -1,37 +1,38 @@
 export { Airplane } from "./Airplane";
-export { Alarm } from "./Alarm"; // 완료
-export { AppVersion } from "./AppVersion"; // 완료
-export { Arrow } from "./Arrow"; // 완료
-export { Calendar } from "./Calendar"; // 완료
-export { Call } from "./Call"; // 완료
-export { Close } from "./Close"; // 완료
+export { Alarm } from "./Alarm";
+export { AppVersion } from "./AppVersion";
+export { Arrow } from "./Arrow";
+export { Calendar } from "./Calendar";
+export { Call } from "./Call";
+export { Close } from "./Close";
 export { CMIAppLogo } from "./CMIAppLogo";
-export { CMITeamLogo} from "./CMITeamLogo";
+export { CMITeamLogo } from "./CMITeamLogo";
 export { Download } from "./Download";
-export { Email } from "./Email"; // 완료
+export { Email } from "./Email";
 export { FillHeart } from "./FillHeart";
-export { Food } from "./Food"; // 완료
-export { Hamburger } from "./Hamburger"; // 완료
+export { Food } from "./Food";
+export { Hamburger } from "./Hamburger";
 export { Heart } from "./Heart";
-export { Home } from "./Home"; // 완료
-export { Info } from "./Info"; // 완료
+export { Home } from "./Home";
+export { Info } from "./Info";
 export { Internet } from "./Internet";
-export { Lab } from "./Lab"; // 완료
-export { LeftArrow } from "./LeftArrow"; // 완료
-export { LongArrow } from "./LongArrow"; // 완료
-export { Map } from "./Map"; // 완료
-export { Person } from "./Person"; // 완료
-export { Plus } from "./Plus"; // 완료
-export { Setting } from "./Setting"; // 완료
+export { Lab } from "./Lab";
+export { LeftArrow } from "./LeftArrow";
+export { LongArrow } from "./LongArrow";
+export { Map } from "./Map";
+export { Person } from "./Person";
+export { Plus } from "./Plus";
+export { Question } from "./Question";
+export { Setting } from "./Setting";
 export { Share } from "./Share";
-export { Speaker } from "./Speaker"; // 완료
-export { Star } from "./Star"; // 완료
-export { Subscription } from "./Subscription"; // 완료
-export { Theme } from "./Theme"; // 완료
-export { Time } from "./Time"; // 완료
-export { UnAlarm } from "./UnAlarm"; // 완료
-export { UnSubscription } from "./UnSubscription"; // 완료
-export { Write } from "./Write"; // 완료
+export { Speaker } from "./Speaker";
+export { Star } from "./Star";
+export { Subscription } from "./Subscription";
+export { Theme } from "./Theme";
+export { Time } from "./Time";
+export { UnAlarm } from "./UnAlarm";
+export { UnSubscription } from "./UnSubscription";
+export { Write } from "./Write";
 export { 가끔눈_낮 } from "./가끔눈_낮";
 export { 가끔눈_밤 } from "./가끔눈_밤";
 export { 가끔눈또는비_낮 } from "./가끔눈또는비_낮";

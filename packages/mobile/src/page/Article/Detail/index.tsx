@@ -12,6 +12,7 @@ import {
 } from "@hooks/api/article";
 import classnames from "classnames";
 import dayjs from "dayjs";
+import { EMPTY_TITLE_GUIDE_MESSAGE } from "src/constants";
 import ArticleFooter from "src/page/Article/components/Footer";
 import { getUuid } from "src/utils/storage";
 
@@ -36,7 +37,7 @@ function ArticleDetail() {
     board: { name },
     title,
     viewCount,
-    createdDateTime,
+    dateTime,
     content,
     isBookmark,
     isLike,
@@ -64,9 +65,9 @@ function ArticleDetail() {
         title={name}
       >
         <div className={$.children}>
-          <div className={$.title}>{title}</div>
+          <div className={$.title}>{title || EMPTY_TITLE_GUIDE_MESSAGE}</div>
           <div className={$.info}>
-            <span>{dayjs(createdDateTime).format("YYYY-MM-DD")}</span>
+            <span>{dayjs(dateTime).format("YYYY-MM-DD")}</span>
             &nbsp;/&nbsp;
             <span>조회수&nbsp;{viewCount}</span>
             &nbsp;/&nbsp;<span>좋아요&nbsp;{likeCount}</span>

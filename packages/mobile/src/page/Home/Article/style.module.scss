@@ -9,8 +9,9 @@
     font-size: 16px;
 
     .button-wrapper {
-      font-size: 14px;
+      display: flex;
       margin-bottom: 16px;
+      font-size: 14px;
 
       .popular {
         margin-right: 20px;
@@ -18,6 +19,7 @@
       }
 
       .subscribe {
+        margin-right: 8px;
         color: $black-40;
       }
 
@@ -47,4 +49,14 @@
     align-items: center;
     height: 120px;
   }
+}
+
+.overlay {
+  border-radius: 4px;
+  font-size: 12px;
+  color: #676767;
+}
+
+.trigger {
+  margin-bottom: 2px;
 }

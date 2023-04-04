@@ -124,7 +124,7 @@ function SuggestionModal({ currentTemperature, onClick }: Props) {
           aria-label="옷차림 추천 닫기"
           onClick={onClick}
         >
-          <Close size={14} stroke="#828282" />
+          <Close size={14} stroke="#5E5E5E" />
         </button>
       </div>
     </div>

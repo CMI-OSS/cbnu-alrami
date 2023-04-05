@@ -34,6 +34,12 @@ const TEMPERATURE_LIST = [
     suggestionList: "얇은 니트, 맨투맨, 가디건, 청바지",
   },
   {
+    minTemp: 12,
+    maxTemp: 16,
+    displayTemp: "12~16°C",
+    suggestionList: "후드티, 바람막이, 슬랙스",
+  },
+  {
     minTemp: 9,
     maxTemp: 11,
     displayTemp: "9~11°C",

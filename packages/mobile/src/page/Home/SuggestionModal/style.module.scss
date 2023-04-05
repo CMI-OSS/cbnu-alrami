@@ -1,71 +1,102 @@
+$total-margin-of-top-and-bottom: 130px;
+
+@mixin default-gradient-box {
+  position: absolute;
+  width: 324px;
+  border-radius: 20px 20px 0 0;
+  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+}
+
 .suggestion-modal {
-  @include position(absolute, top 0 left 0 right 0 bottom 0);
+  @include safe-area-position(absolute, top 0px left 0px right 0px bottom 0px);
+  @include safe-area-100vh(height, 0px);
   display: flex;
   align-items: center;
   justify-content: center;
-  height: calc(var(--vh, 1vh) * 100);
-  z-index: 120;
+  z-index: 1200;
   background-color: rgba(27, 27, 27, 0.85);
 
   .content-box {
     position: relative;
-    display: flex;
     width: 324px;
-    height: 696px;
     background-color: $black-0;
     border-radius: 20px;
 
-    .close-button {
-      @include position(absolute, top 25px right 27px);
-    }
+    .scroll-box {
+      @include safe-area-100vh(max-height, $total-margin-of-top-and-bottom);
+      overflow-y: scroll;
 
-    .temperature-list {
-      margin: 74px 0 0 30px;
+      .content {
+        display: flex;
+        margin: 70px 0 40px;
 
-      .temperature {
-        @include typography(16);
-        text-align: right;
-        line-height: 26px;
-        letter-spacing: 0.015em;
-        color: $black-40;
+        .temperature-list {
+          margin-left: 30px;
 
-        &:not(:first-child) {
-          margin-top: 61px;
+          .temperature {
+            @include typography(16);
+            text-align: right;
+            line-height: 26px;
+            letter-spacing: 0.015em;
+            color: $black-40;
+
+            &:not(:first-child) {
+              margin-top: 61px;
+            }
+          }
+
+          .current-temperature {
+            color: $black-80;
+          }
+        }
+
+        .temperature-bar {
+          width: 8px;
+          height: 577px;
+          margin: 2px 0 0 25px;
+          background: linear-gradient(180deg, #f47979 0%, #769de9 100%);
+          border-radius: 20px;
+        }
+
+        .suggestion-list {
+          margin-left: 26px;
+
+          .suggestion {
+            @include typography(14);
+            width: 138px;
+            line-height: 30px;
+            letter-spacing: 0.01em;
+            word-break: keep-all;
+            color: $black-40;
+
+            &:not(:first-child) {
+              margin-top: 27px;
+            }
+          }
+
+          .current-suggestion {
+            color: $black-80;
+          }
         }
       }
-
-      .current-temperature {
-        color: $black-80;
-      }
     }
+  }
 
-    .temperature-bar {
-      width: 8px;
-      height: 577px;
-      margin: 72px 0 0 25px;
-      background: linear-gradient(180deg, #f47979 0%, #769de9 100%);
-      border-radius: 20px;
-    }
+  .top-gradient-box {
+    @include default-gradient-box();
+    height: 70px;
+    top: 0;
+  }
 
-    .suggestion-list {
-      margin: 74px 0 0 26px;
+  .bottom-gradient-box {
+    @include default-gradient-box();
+    height: 47px;
+    bottom: 0;
+    transform: rotate(-180deg);
+  }
 
-      .suggestion {
-        @include typography(14);
-        width: 138px;
-        line-height: 30px;
-        letter-spacing: 0.01em;
-        word-break: keep-all;
-        color: $black-40;
-
-        &:not(:first-child) {
-          margin-top: 27px;
-        }
-      }
-
-      .current-suggestion {
-        color: $black-80;
-      }
-    }
+  .close-button {
+    @include position(absolute, top 25px right 27px);
+    z-index: 1;
   }
 }

@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { useBoardsQuery } from "@hooks/api/board";
 
 import $ from "./style.module.scss";
 
-const getName = (boardsData: any, boardId: number): any => {
+const getChildren = (boardsData: any, boardId: number): any => {
   let children;
   // eslint-disable-next-line no-restricted-syntax
   for (const boardData of boardsData) {
     if (boardData.id === boardId) return boardData;
-    children = children || getName(boardData.children, boardId);
+    children = children || getChildren(boardData.children, boardId);
     if (children) return children;
   }
   return children;
@@ -25,23 +25,35 @@ function BreadCrumb() {
       return Number(boardId);
     });
   const { data: boardsData } = useBoardsQuery();
-  const [ breadcrumb, setBreadcrumb ] = useState<string>();
+  const INIT_BREADCRUMB = { path: "/board", name: "전체" };
+  const [ breadcrumbs, setBreadcrumbs ] = useState<
+    { path: string; name: string }[]
+  >([ INIT_BREADCRUMB ]);
 
   useEffect(() => {
-    if (boardIds.length === 0 || !boardsData?.length) {
-      setBreadcrumb("전체");
-      return;
-    }
-    const names = [ "전체" ];
+    const newBreadcrumbs = [ INIT_BREADCRUMB ];
+
     for (let i = 0; i < boardIds.length; i += 1) {
-      const name = getName(boardsData, boardIds[i])?.name;
-      if (name) {
-        names.push(name);
-      }
+      const id = getChildren(boardsData, boardIds[i])?.id;
+      const name = getChildren(boardsData, boardIds[i])?.name;
+      const { path } = newBreadcrumbs.at(-1)!;
+      newBreadcrumbs.push({ path: `${path}/${id}`, name });
     }
-    setBreadcrumb(names.join(" > "));
-  }, [ boardIds ]);
-  return <div className={$.breadcrumb}>{breadcrumb}</div>;
+
+    setBreadcrumbs(newBreadcrumbs);
+  }, [ boardIds.length, boardsData?.length ]);
+
+  return (
+    <div className={$.breadcrumb}>
+      {breadcrumbs.map(({ name, path }) => {
+        return (
+          <div key={path} className={$["breadcrumb-item"]}>
+            <Link to={`${path}`}>{name}</Link>
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 export default BreadCrumb;

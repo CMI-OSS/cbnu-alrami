@@ -33,7 +33,6 @@
   .food-box {
     display: flex;
     align-items: center;
-    justify-content: center;
 
     .cafeteria-content {
       @include typography(13);

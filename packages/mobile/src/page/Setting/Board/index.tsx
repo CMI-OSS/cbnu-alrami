@@ -3,19 +3,19 @@ import { Link } from "react-router-dom";
 import { Plus } from "@components/atoms/icon";
 import SubscriptionNoticeGroup from "@components/shared/SubscriptionNoticeGroup";
 import { useSubscribeBoardsQuery } from "@hooks/api/board";
-import { useSetRecoilState } from "recoil";
 import guideEmptySubscriptionSetting from "src/assets/guide_empty_subscription_setting.png";
 import SettingTemplate from "src/page/Setting/SettingTemplate";
-import { boardOriginStatus } from "src/states";
+import { useAppDispatch } from "src/store";
+import { setBoardOrigin } from "src/store/noticeSlice";
 
 import $ from "./style.module.scss";
 
 function Board() {
+  const dispatch = useAppDispatch();
   const { data: subscribeBoardsData } = useSubscribeBoardsQuery();
-  const setBoardOrigin = useSetRecoilState(boardOriginStatus);
 
   const handlePlusClick = () => {
-    setBoardOrigin("setting");
+    dispatch(setBoardOrigin({ origin: "setting" }));
   };
 
   if (!subscribeBoardsData?.length) {

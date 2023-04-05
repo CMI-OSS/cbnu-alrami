@@ -3,23 +3,23 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { Setting } from "@components/atoms/icon";
 import Footer from "@components/molecules/Footer";
-import { useSetRecoilState } from "recoil";
 import ErrorFallback from "src/components/atoms/ErrorFallback";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
 import ArticleList from "src/page/Article/components/ArticleList";
 import Slider from "src/page/Article/components/Slider";
-import { boardOriginStatus } from "src/states";
+import { useAppDispatch } from "src/store";
+import { setBoardOrigin } from "src/store/noticeSlice";
 import { getUuid } from "src/utils/storage";
 
 import $ from "./style.module.scss";
 
 function Article() {
-  const setBoardOrigin = useSetRecoilState(boardOriginStatus);
+  const dispatch = useAppDispatch();
   const isUser = !!getUuid();
 
   const handleSettingClick = () => {
-    setBoardOrigin("article");
+    dispatch(setBoardOrigin({ origin: "article" }));
   };
 
   return (

@@ -5,6 +5,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 import cafeteriaReducer from "./cafeteriaSlice";
+import noticeReducer from "./noticeSlice";
 import placeReducer from "./placeSlice";
 import settingReducer from "./settingSlice";
 import statusReducer from "./statusSlice";
@@ -25,6 +26,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
   reducer: {
     statusReducer,
+    noticeReducer,
     placeReducer,
     settingReducer,
     cafeteriaReducer,

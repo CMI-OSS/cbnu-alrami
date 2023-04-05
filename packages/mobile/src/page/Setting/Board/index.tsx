@@ -53,7 +53,7 @@ function Board() {
           const { id, combinedName, isNotice, isSubscribe } =
             subscribeBoardData;
           return (
-            <div className={$.item}>
+            <Link key={id} className={$.item} to={`/board/article/${id}`}>
               <span>{combinedName}</span>
               <SubscriptionNoticeGroup
                 className={$.buttons}
@@ -61,7 +61,7 @@ function Board() {
                 isNotice={isNotice ?? false}
                 isSubscribe={isSubscribe ?? false}
               />
-            </div>
+            </Link>
           );
         })}
       </div>

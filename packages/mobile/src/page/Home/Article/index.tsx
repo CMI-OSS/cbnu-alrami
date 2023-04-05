@@ -30,7 +30,7 @@ function ArticleHeader({ kind, setKind }: Props) {
   return (
     <div className={$.header}>
       <div className={$["guide-wrapper"]}>
-        <span>공지사항</span>
+        <span className={$.title}>공지사항</span>
         <Popover
           placement="right"
           overlay={

@@ -11,8 +11,6 @@
     color: $black-100;
 
     .title-box {
-      font-weight: 500;
-
       .title {
         @include typography(18);
         line-height: 25px;

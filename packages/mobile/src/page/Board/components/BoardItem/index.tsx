@@ -31,7 +31,7 @@ function BoardItem({
       <Link className={classnames($["board-item"], $.last)} to={to}>
         <div className={$.title}>
           {title}
-          <Arrow size={4} stroke="#AAAAAA" />
+          <Arrow size={6} stroke="#AAAAAA" />
         </div>
         <SubscriptionNoticeGroup
           id={id}

@@ -29,26 +29,8 @@ const useArticles = (kind: Props["kind"]) => {
 function ArticleHeader({ kind, setKind }: Props) {
   return (
     <div className={$.header}>
-      <span>공지사항</span>
-      <div className={$["button-wrapper"]}>
-        <button
-          type="button"
-          onClick={() => {
-            return setKind("popular");
-          }}
-          className={classNames($.popular, kind === "popular" && $.active)}
-        >
-          인기
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            return setKind("subscribe");
-          }}
-          className={classNames($.subscribe, kind === "subscribe" && $.active)}
-        >
-          최신
-        </button>
+      <div className={$["guide-wrapper"]}>
+        <span>공지사항</span>
         <Popover
           placement="left"
           overlay={
@@ -69,6 +51,26 @@ function ArticleHeader({ kind, setKind }: Props) {
           </div>
         </Popover>
       </div>
+      <div className={$["button-wrapper"]}>
+        <button
+          type="button"
+          onClick={() => {
+            return setKind("popular");
+          }}
+          className={classNames($.popular, kind === "popular" && $.active)}
+        >
+          인기
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            return setKind("subscribe");
+          }}
+          className={classNames($.subscribe, kind === "subscribe" && $.active)}
+        >
+          최신
+        </button>
+      </div>
     </div>
   );
 }
@@ -76,7 +78,7 @@ function ArticleHeader({ kind, setKind }: Props) {
 function Article() {
   const [ kind, setKind ] = useState<Props["kind"]>("popular");
   const { data: articlesData } = useArticles(kind);
-
+  
   if (articlesData && !articlesData?.pages[0]?.articles?.length) {
     return (
       <div className={$.container}>

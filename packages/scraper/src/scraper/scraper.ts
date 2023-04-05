@@ -34,6 +34,11 @@ export const scraping = async ({ scenario }: scrapingProps) => {
     const stringScript = stringify(jsScript);
     if (!stringScript) throw new Error("script 변환 오류");
 
+    // 모든 이미지 URL을 절대경로로 전환
+    await scraper.evaluate(
+      `document.querySelectorAll('img,iframe,frame').forEach(url=>url.src=url.src)`,
+    );
+
     await scraper.evaluate(`${namespace}=${stringScript}`);
     const data = await scraper.evaluate(`${namespace}.${scrapFunctionName}()`);
 

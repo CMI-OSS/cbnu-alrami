@@ -19,8 +19,8 @@
   },
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --detectOpenHandles",
-    "start": "ts-node -r tsconfig-paths/register ./src/index.ts",
-    "dev": "ts-node-dev -r tsconfig-paths/register ./src/index.ts"
+    "start": "ts-node -r tsconfig-paths/register ./src/main.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register ./src/main.ts"
   },
   "bugs": {
     "url": "https://github.com/CMI-OSS/cbnu-alrami/issues"

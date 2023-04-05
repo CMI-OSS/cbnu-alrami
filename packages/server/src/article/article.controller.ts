@@ -31,12 +31,14 @@ import {
   GetBookmarkArtice,
   GetPopularArticle,
   GetSubscribeArticle,
+  IsDuplicated,
   LikeArticle,
   UnBookmarkArticle,
   UndoLikeArticle,
   UpdateArticle,
 } from "./article.swagger";
 import { CreateArticleDto } from "./dto/create-article.dto";
+import { DuplicatedResponseDto } from "./dto/duplicate.dto";
 import { ArticleMutationResponseDto } from "./dto/response-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
 
@@ -71,6 +73,18 @@ export class ArticleController {
     return {
       success: !!article,
       articleId: article.id,
+    };
+  }
+
+  @IsDuplicated()
+  @Get("duplicate")
+  async isDuplicated(
+    @Query("url") url: string,
+  ): Promise<DuplicatedResponseDto> {
+    const article = await this.articleService.findOneByUrl(url);
+
+    return {
+      isDuplicated: !!article,
     };
   }
 

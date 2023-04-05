@@ -5,7 +5,7 @@ const script = {
   site_id: boardTree.전공.생활과학대학.소비자학과.공지사항.id,
   site: "소비자학과",
   category: "학과공지사항",
-  noticeListSelector: ".md_mVer_noDisplay",
+  noticeListSelector: ".jmboardskin1 tr:not(.jTh):not(.jTh2)",
   noticeContentsSelector: "#lightgallery",
   getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);

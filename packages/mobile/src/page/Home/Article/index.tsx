@@ -32,7 +32,7 @@ function ArticleHeader({ kind, setKind }: Props) {
       <div className={$["guide-wrapper"]}>
         <span>공지사항</span>
         <Popover
-          placement="left"
+          placement="right"
           overlay={
             <div className={$.overlay}>
               인기 게시판은 전체 공지 중 최근 2주간

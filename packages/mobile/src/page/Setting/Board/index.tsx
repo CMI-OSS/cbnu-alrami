@@ -3,27 +3,20 @@ import { Link } from "react-router-dom";
 import { Plus } from "@components/atoms/icon";
 import SubscriptionNoticeGroup from "@components/shared/SubscriptionNoticeGroup";
 import { useSubscribeBoardsQuery } from "@hooks/api/board";
-import { useSetRecoilState } from "recoil";
 import guideEmptySubscriptionSetting from "src/assets/guide_empty_subscription_setting.png";
 import SettingTemplate from "src/page/Setting/SettingTemplate";
-import { boardOriginStatus } from "src/states";
 
 import $ from "./style.module.scss";
 
 function Board() {
   const { data: subscribeBoardsData } = useSubscribeBoardsQuery();
-  const setBoardOrigin = useSetRecoilState(boardOriginStatus);
-
-  const handlePlusClick = () => {
-    setBoardOrigin("setting");
-  };
 
   if (!subscribeBoardsData?.length) {
     return (
       <SettingTemplate
         title="구독/알림"
         right={
-          <Link to="/board" onClick={handlePlusClick}>
+          <Link to="/board">
             <Plus size={16} stroke="#AAAAAA" />
           </Link>
         }
@@ -43,7 +36,7 @@ function Board() {
     <SettingTemplate
       title="구독/알림"
       right={
-        <Link to="/board" onClick={handlePlusClick}>
+        <Link to="/board">
           <Plus size={16} stroke="#AAAAAA" />
         </Link>
       }

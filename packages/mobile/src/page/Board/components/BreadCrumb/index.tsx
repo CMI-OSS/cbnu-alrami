@@ -1,8 +1,20 @@
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import { useBreadcrumbQuery } from "@hooks/api/board";
+import { useBoardsQuery } from "@hooks/api/board";
 
 import $ from "./style.module.scss";
+
+const getName = (boardsData: any, boardId: number): any => {
+  let children;
+  // eslint-disable-next-line no-restricted-syntax
+  for (const boardData of boardsData) {
+    if (boardData.id === boardId) return boardData;
+    children = children || getName(boardData.children, boardId);
+    if (children) return children;
+  }
+  return children;
+};
 
 function BreadCrumb() {
   const { pathname } = useLocation();
@@ -12,12 +24,23 @@ function BreadCrumb() {
     .map((boardId) => {
       return Number(boardId);
     });
-  const results = useBreadcrumbQuery(boardIds);
-  const datas = results.map((result) => {
-    return result.data?.name;
-  });
-  const breadcrumb =
-    datas.length !== 0 ? `전체 > ${datas.join(" > ")}` : "전체";
+  const { data: boardsData } = useBoardsQuery();
+  const [ breadcrumb, setBreadcrumb ] = useState<string>();
+
+  useEffect(() => {
+    if (boardIds.length === 0 || !boardsData?.length) {
+      setBreadcrumb("전체");
+      return;
+    }
+    const names = [ "전체" ];
+    for (let i = 0; i < boardIds.length; i += 1) {
+      const name = getName(boardsData, boardIds[i])?.name;
+      if (name) {
+        names.push(name);
+      }
+    }
+    setBreadcrumb(names.join(" > "));
+  }, [ boardIds ]);
   return <div className={$.breadcrumb}>{breadcrumb}</div>;
 }
 

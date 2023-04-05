@@ -47,7 +47,7 @@ function ArticleHeader({ kind, setKind }: Props) {
           trigger="click"
         >
           <div className={$.trigger}>
-            <Question size={14} stroke="#aaa" />
+            <Question size={16} stroke="#aaa" />
           </div>
         </Popover>
       </div>
@@ -78,7 +78,7 @@ function ArticleHeader({ kind, setKind }: Props) {
 function Article() {
   const [ kind, setKind ] = useState<Props["kind"]>("popular");
   const { data: articlesData } = useArticles(kind);
-  
+
   if (articlesData && !articlesData?.pages[0]?.articles?.length) {
     return (
       <div className={$.container}>

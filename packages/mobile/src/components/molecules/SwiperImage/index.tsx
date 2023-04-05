@@ -40,6 +40,7 @@ function SwiperImage({
     transform: `translateX(-${order}00%)`,
     transition: `all 0.4s ease-in-out`,
   });
+  const isSeveralImage = images.length > 3;
 
   useEffect(() => {
     if (order === 0) {
@@ -85,6 +86,8 @@ function SwiperImage({
   };
 
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!isSeveralImage) return;
+
     setTouch({
       ...touch,
       start: e.touches[0].pageX,
@@ -92,6 +95,8 @@ function SwiperImage({
   };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!isSeveralImage) return;
+
     if (ref?.current) {
       const current = ref.current.clientWidth * order;
       const result = -current + (e.targetTouches[0].pageX - touch.start);
@@ -103,6 +108,8 @@ function SwiperImage({
   };
 
   const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!isSeveralImage) return;
+
     const end = e.changedTouches[0].pageX;
     if (touch.start === end) {
       return;
@@ -142,7 +149,7 @@ function SwiperImage({
             );
           })}
         </div>
-        {isDesktop && (
+        {isDesktop && isSeveralImage && (
           <div className={$.buttons}>
             <button className={$.left} onClick={prevSlide} type="button">
               <Arrow size={6} />

@@ -1,19 +1,20 @@
-$top-height: 446px;
-$footer-height: 64px;
+$height-of-calendar-and-radio: 453px;
 
 .empty-box {
+  @include safe-area-100vh(min-height, calc($footer + $height-of-calendar-and-radio));
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 161px;
-  @include safe-area-100vh(height, $top-height + $footer-height);
-  margin-top: 20px;
 
   .description {
     @include typography(14);
     color: $background-50;
     line-height: 30px;
+  }
+
+  .image {
+    margin: 20px 0 calc($footer + 20px);
   }
 }
 

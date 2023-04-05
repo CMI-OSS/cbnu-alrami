@@ -6,12 +6,15 @@
   .header {
     display: flex;
     justify-content: space-between;
-    font-size: 16px;
+    margin-bottom: 16px;
+
+    .guide-wrapper {
+      display: flex;
+      font-size: 16px;
+    }
 
     .button-wrapper {
       display: flex;
-      margin-bottom: 16px;
-      font-size: 14px;
 
       .popular {
         margin-right: 20px;
@@ -31,7 +34,7 @@
 
   .content {
     padding-top: 24px;
-    size: 13px;
+    font-size: 13px;
 
     .title {
       margin-bottom: 28px;
@@ -58,5 +61,5 @@
 }
 
 .trigger {
-  margin-bottom: 2px;
+  margin-left: 8px;
 }

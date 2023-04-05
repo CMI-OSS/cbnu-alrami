@@ -34,6 +34,12 @@ const TEMPERATURE_LIST = [
     suggestionList: "얇은 니트, 맨투맨, 가디건, 청바지",
   },
   {
+    minTemp: 12,
+    maxTemp: 16,
+    displayTemp: "12~16°C",
+    suggestionList: "후드티, 바람막이, 슬랙스",
+  },
+  {
     minTemp: 9,
     maxTemp: 11,
     displayTemp: "9~11°C",
@@ -75,6 +81,49 @@ function SuggestionModal({ currentTemperature, onClick }: Props) {
   return (
     <div className={$["suggestion-modal"]}>
       <div className={$["content-box"]}>
+        <div className={$["scroll-box"]}>
+          <div className={$.content}>
+            <ul className={$["temperature-list"]}>
+              {TEMPERATURE_LIST.map(({ minTemp, maxTemp, displayTemp }) => {
+                return (
+                  <li
+                    key={displayTemp}
+                    className={classNames($.temperature, {
+                      [$["current-temperature"]]: compareTemperature(
+                        minTemp,
+                        maxTemp,
+                        currentTemperature,
+                      ),
+                    })}
+                  >
+                    {displayTemp}
+                  </li>
+                );
+              })}
+            </ul>
+            <div className={$["temperature-bar"]}></div>
+            <ul className={$["suggestion-list"]}>
+              {TEMPERATURE_LIST.map(({ minTemp, maxTemp, suggestionList }) => {
+                return (
+                  <li
+                    key={suggestionList}
+                    className={classNames($.suggestion, {
+                      [$["current-suggestion"]]: compareTemperature(
+                        minTemp,
+                        maxTemp,
+                        currentTemperature,
+                      ),
+                    })}
+                  >
+                    {suggestionList}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+        <div className={$["top-gradient-box"]}></div>
+        <div className={$["bottom-gradient-box"]}></div>
         <button
           className={$["close-button"]}
           type="button"
@@ -83,43 +132,6 @@ function SuggestionModal({ currentTemperature, onClick }: Props) {
         >
           <Close size={14} stroke="#5E5E5E" />
         </button>
-        <ul className={$["temperature-list"]}>
-          {TEMPERATURE_LIST.map(({ minTemp, maxTemp, displayTemp }) => {
-            return (
-              <li
-                key={displayTemp}
-                className={classNames($.temperature, {
-                  [$["current-temperature"]]: compareTemperature(
-                    minTemp,
-                    maxTemp,
-                    currentTemperature,
-                  ),
-                })}
-              >
-                {displayTemp}
-              </li>
-            );
-          })}
-        </ul>
-        <div className={$["temperature-bar"]}></div>
-        <ul className={$["suggestion-list"]}>
-          {TEMPERATURE_LIST.map(({ minTemp, maxTemp, suggestionList }) => {
-            return (
-              <li
-                key={suggestionList}
-                className={classNames($.suggestion, {
-                  [$["current-suggestion"]]: compareTemperature(
-                    minTemp,
-                    maxTemp,
-                    currentTemperature,
-                  ),
-                })}
-              >
-                {suggestionList}
-              </li>
-            );
-          })}
-        </ul>
       </div>
     </div>
   );

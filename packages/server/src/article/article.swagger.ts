@@ -13,6 +13,7 @@ import {
   DuplicatedArticleException,
   NotFoundArticleException,
 } from "./article.exception";
+import { DuplicatedResponseDto } from "./dto/duplicate.dto";
 import {
   ArticleMutationResponseDto,
   ResponseArticleDetailDto,
@@ -41,6 +42,15 @@ export const GetArtice = () => {
     ApiNotFoundResponse({
       type: NotFoundArticleException,
     }),
+  );
+};
+
+export const IsDuplicated = () => {
+  return applyDecorators(
+    ApiOperation({
+      summary: "게시물 중복 여부",
+    }),
+    ApiOkResponse({ type: () => DuplicatedResponseDto }),
   );
 };
 

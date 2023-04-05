@@ -7,7 +7,6 @@ import { apiServer } from "@shared/constant";
 import { OpenAPI } from "@shared/swagger-api/generated/";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { RecoilRoot } from "recoil";
 import { PersistGate } from "redux-persist/integration/react";
 
 import App from "./App";
@@ -27,9 +26,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <ReactQueryDevtools initialIsOpen />
       <React.StrictMode>
         <PersistGate loading={null} persistor={persistor}>
-          <RecoilRoot>
-            <App />
-          </RecoilRoot>
+          <App />
           <Toast />
         </PersistGate>
       </React.StrictMode>

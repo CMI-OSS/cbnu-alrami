@@ -3,6 +3,7 @@
 /* eslint-disable */
 import type { ArticleMutationResponseDto } from '../models/ArticleMutationResponseDto';
 import type { CreateArticleDto } from '../models/CreateArticleDto';
+import type { DuplicatedResponseDto } from '../models/DuplicatedResponseDto';
 import type { MutationResponse } from '../models/MutationResponse';
 import type { ResponseArticleDetailDto } from '../models/ResponseArticleDetailDto';
 import type { ResponseArticlePageDto } from '../models/ResponseArticlePageDto';
@@ -29,6 +30,25 @@ export class ArticleApiService {
             url: '/article',
             body: requestBody,
             mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * 게시물 중복 여부
+     * @returns DuplicatedResponseDto
+     * @throws ApiError
+     */
+    public static articleControllerIsDuplicated({
+        url,
+    }: {
+        url: string,
+    }): CancelablePromise<DuplicatedResponseDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/article/duplicate',
+            query: {
+                'url': url,
+            },
         });
     }
 

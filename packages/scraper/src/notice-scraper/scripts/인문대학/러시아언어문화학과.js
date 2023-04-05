@@ -27,6 +27,12 @@ const script = {
       })
       .filter(Boolean);
   },
+
+  getContentDate() {
+    return document.querySelector(
+      "#contents > div.bbs_info.clearfix > div.bbs_left.bbs_count > span:nth-child(1) > strong",
+    ).innerText;
+  },
   getContentsHtml() {
     return document.querySelector(this.noticeContentsSelector).outerHTML;
   },

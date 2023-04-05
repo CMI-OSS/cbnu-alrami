@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 
 import { useAppDispatch } from "src/store";
+import { setOrigin } from "src/store/boardSlice";
 import { showSettingContact } from "src/store/settingSlice";
 
 import $ from "./style.module.scss";
@@ -19,10 +20,13 @@ function Menu({ route, config }: Props) {
   const dispatch = useAppDispatch();
 
   const modalList = label === "문의하기";
-  const handleModalShow = (e: React.MouseEvent) => {
+  const handleClick = (e: React.MouseEvent) => {
     if (modalList) {
       e.preventDefault();
       dispatch(showSettingContact({ isDisplayContact: true }));
+    }
+    if (label === "구독/알림") {
+      dispatch(setOrigin({ origin: "" }));
     }
   };
 
@@ -32,7 +36,7 @@ function Menu({ route, config }: Props) {
         key={to}
         to={to}
         className={$["setting-menu"]}
-        onClick={handleModalShow}
+        onClick={handleClick}
       >
         <div className={$["icon-box"]}>
           <route.icon size={18} stroke="#5e5e5e" />

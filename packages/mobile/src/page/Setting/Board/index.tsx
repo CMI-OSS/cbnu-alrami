@@ -5,25 +5,18 @@ import SubscriptionNoticeGroup from "@components/shared/SubscriptionNoticeGroup"
 import { useSubscribeBoardsQuery } from "@hooks/api/board";
 import guideEmptySubscriptionSetting from "src/assets/guide_empty_subscription_setting.png";
 import SettingTemplate from "src/page/Setting/SettingTemplate";
-import { useAppDispatch } from "src/store";
-import { setBoardOrigin } from "src/store/noticeSlice";
 
 import $ from "./style.module.scss";
 
 function Board() {
-  const dispatch = useAppDispatch();
   const { data: subscribeBoardsData } = useSubscribeBoardsQuery();
-
-  const handlePlusClick = () => {
-    dispatch(setBoardOrigin({ origin: "setting" }));
-  };
 
   if (!subscribeBoardsData?.length) {
     return (
       <SettingTemplate
         title="구독/알림"
         right={
-          <Link to="/board" onClick={handlePlusClick}>
+          <Link to="/board">
             <Plus size={16} stroke="#AAAAAA" />
           </Link>
         }
@@ -43,7 +36,7 @@ function Board() {
     <SettingTemplate
       title="구독/알림"
       right={
-        <Link to="/board" onClick={handlePlusClick}>
+        <Link to="/board">
           <Plus size={16} stroke="#AAAAAA" />
         </Link>
       }

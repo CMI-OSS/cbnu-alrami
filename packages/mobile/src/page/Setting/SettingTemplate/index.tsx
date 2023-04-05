@@ -13,7 +13,7 @@ type Props = {
 function SettingTemplate({ className, title, children, right }: Props) {
   return (
     <FullPageModalTemplate
-      left={<LeftArrow stroke="#AAAAAA" size={16} />}
+      left={<LeftArrow stroke="#5e5e5e" size={16} />}
       title={title}
       right={right}
     >

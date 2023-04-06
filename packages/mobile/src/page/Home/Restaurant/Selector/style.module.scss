@@ -1,12 +1,9 @@
 .dimmed-box {
-  @include position(absolute, top 0 left 0);
-  z-index: 120;
+  @include position(fixed, top 0px left 0px right 0px bottom 0px);
+  z-index: 1200;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  min-height: calc(var(--vh, 1vh) * 100);
-  padding-top: 40px;
   background-color: rgba(27, 27, 27, 0.85);
 
   .selector {

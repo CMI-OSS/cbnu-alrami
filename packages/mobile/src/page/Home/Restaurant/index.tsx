@@ -43,7 +43,6 @@ function Restaurant({ today }: Props) {
         cafeteriaName={cafeteriaName}
         onSelectorCancel={handleSelectorCancel}
         onCafeteriaSelect={handleCafeteriaSelect}
-        className={$.cafeteria}
       />
     );
   if (cardType === "finalGuide")

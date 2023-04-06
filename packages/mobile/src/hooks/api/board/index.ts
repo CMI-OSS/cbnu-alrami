@@ -4,7 +4,6 @@ import {
   useCoreQuery,
 } from "@hooks/api/core";
 import { BoardApiService } from "@shared/swagger-api/generated";
-import { useQueries } from "@tanstack/react-query";
 import { queryKey } from "src/consts/react-query";
 import { queryClient } from "src/main";
 import { GetParams } from "src/type/utils";

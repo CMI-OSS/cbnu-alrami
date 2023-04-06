@@ -35,7 +35,7 @@ function BoardList({ className }: DefaultProps) {
       dispatch(sliceBreadcrumb({ diff }));
     }
   }, [ pathname ]);
-  
+
   if (!boardsData) return <div className={$["board-list"]} />;
 
   let boardChildrensData: ResponseBoardDto[] | ChildBoard[] = boardsData;

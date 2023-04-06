@@ -11,16 +11,16 @@
         .first {
             display: flex;
             flex-direction: column;
-            margin-top: 32px;
+            margin-top: 30px;
 
             .amount {
-                margin-bottom: 15px;
+                margin-bottom: 11px;
                 color: $black-80;
                 @include typography(22);
             }
 
             .description {
-                margin-bottom: 15px;
+                margin-bottom: 12px;
                 @include typography(14);
                 color: $black-60;
             }
@@ -36,13 +36,14 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
+            justify-content: space-between;
             margin-top: 26px;
 
             .more {
                 @include typography(12);
                 display: flex;
                 align-items: center;
-                margin: 36px 0 24px;
+                margin-bottom: 24px;
 
                 svg {
                     margin-right: 5px;

@@ -1,6 +1,6 @@
 import { CafeteriaMenu } from "@shared/swagger-api/generated";
 import classnames from "classnames";
-import noMenu from "src/assets/no_menu.png";
+import noMenu from "src/assets/no_menu.svg";
 import ShareButton from "src/components/atoms/ShareButton";
 import CafeteriaMenuCard from "src/components/molecules/CafeteriaMenuCard";
 import { useCafeteriaQuery } from "src/hooks/api/cafeteria";

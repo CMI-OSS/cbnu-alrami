@@ -53,9 +53,13 @@ export const useSubscribeBoardsQuery = () => {
 };
 
 export const useBoardsQuery = () => {
-  return useCoreQuery(queryKey.boards({ uuid }), () => {
-    return BoardApiService.boardControllerFind({ uuid });
-  });
+  return useCoreQuery(
+    queryKey.boards({ uuid }),
+    () => {
+      return BoardApiService.boardControllerFind({ uuid });
+    },
+    { staleTime: 300000 },
+  );
 };
 
 export const useBoardQuery = (

@@ -1,25 +1,27 @@
-import { useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { Setting } from "@components/atoms/icon";
 import Footer from "@components/molecules/Footer";
-import { useSetRecoilState } from "recoil";
+import { useSubscribeBoardsQuery } from "@hooks/api/board";
 import ErrorFallback from "src/components/atoms/ErrorFallback";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
 import ArticleList from "src/page/Article/components/ArticleList";
 import Slider from "src/page/Article/components/Slider";
-import { boardOriginStatus } from "src/states";
+import { useAppDispatch } from "src/store";
+import { setOrigin } from "src/store/boardSlice";
 import { getUuid } from "src/utils/storage";
 
 import $ from "./style.module.scss";
 
 function Article() {
-  const setBoardOrigin = useSetRecoilState(boardOriginStatus);
-  const isUser = !!getUuid();
+  const dispatch = useAppDispatch();
+  const hasSubscribeBoard = useSubscribeBoardsQuery().data?.length;
+  const path = hasSubscribeBoard ? "/setting/board" : "/board";
+  const origin = useLocation().pathname.split("/").at(-1) || "subscribe";
 
   const handleSettingClick = () => {
-    setBoardOrigin("article");
+    dispatch(setOrigin({ origin }));
   };
 
   return (
@@ -27,7 +29,7 @@ function Article() {
       <div className={$.header}>
         <div className={$.title}>
           <span>공지사항</span>
-          <Link to="/board" onClick={handleSettingClick}>
+          <Link to={path} onClick={handleSettingClick}>
             <Setting size={20} />
           </Link>
         </div>

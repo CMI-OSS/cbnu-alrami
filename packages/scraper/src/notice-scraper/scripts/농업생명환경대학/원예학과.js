@@ -22,6 +22,11 @@ const script = {
       };
     });
   },
+  getContentDate() {
+    return document.querySelector(
+      "#contentsArea > div > div.tableWrap > table > tbody > tr:nth-child(1) > td:nth-child(4)",
+    ).innerText;
+  },
   getContentsHtml() {
     return document.querySelector(this.noticeContentsSelector).outerHTML;
   },

@@ -17,9 +17,14 @@ const script = {
         site_id: this.site_id,
         title: row[1].querySelector("a").innerText.trim(),
         url: row[1].querySelector("a").href.trim(),
-        date: row[3].innerText.trim(),
+        date: null,
       };
     });
+  },
+  getContentDate() {
+    return document
+      .querySelector("#view > div:nth-child(1) > span:nth-child(1)")
+      .innerText.replace("작성일 : ", "");
   },
 };
 

@@ -6,21 +6,21 @@
     .weather-box {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        padding: 32px 30px 25px 29px;
+        padding: 0 30px;    
 
         .first {
             display: flex;
             flex-direction: column;
+            margin-top: 30px;
 
             .amount {
-                margin-bottom: 15px;
+                margin-bottom: 11px;
                 color: $black-80;
                 @include typography(22);
             }
 
             .description {
-                margin-bottom: 17px;
+                margin-bottom: 12px;
                 @include typography(14);
                 color: $black-60;
             }
@@ -37,11 +37,14 @@
             flex-direction: column;
             align-items: flex-end;
             justify-content: space-between;
-            height: 100%;
+            margin-top: 26px;
 
             .more {
+                @include typography(12);
                 display: flex;
                 align-items: center;
+                margin-bottom: 24px;
+
                 svg {
                     margin-right: 5px;
                 }

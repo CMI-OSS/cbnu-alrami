@@ -59,7 +59,7 @@ function Selected(props: Props) {
             aria-label="대표 식당 변경하기"
             onClick={onClick}
           >
-            <Write stroke="#5E5E5E" size={12} />
+            <Write stroke="#5E5E5E" size={14} />
           </button>
         </div>
         <span className={$.time}>{mealPeriod}</span>

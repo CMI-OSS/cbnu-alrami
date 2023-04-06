@@ -11,11 +11,8 @@
     color: $black-100;
 
     .title-box {
-      @include typography(16);
-      font-weight: 500;
-
       .title {
-        @include typography(16);
+        @include typography(18);
         line-height: 25px;
         font-weight: 500;
         color: $black-100;
@@ -36,7 +33,6 @@
   .food-box {
     display: flex;
     align-items: center;
-    justify-content: center;
 
     .cafeteria-content {
       @include typography(13);

@@ -20,16 +20,20 @@ function FullPageModalTemplate({
 }: Props) {
   const navigate = useNavigate();
 
+  const handleBackClick = () => {
+    if (onNavigate) {
+      return onNavigate();
+    }
+    if (window.history.length <= 1) {
+      return navigate("/");
+    }
+    return navigate(-1);
+  };
+
   return (
     <div className={$["full-modal"]}>
       <div className={$.header}>
-        <button
-          type="button"
-          className={$.left}
-          onClick={() => {
-            return onNavigate ? onNavigate() : navigate(-1);
-          }}
-        >
+        <button type="button" className={$.left} onClick={handleBackClick}>
           {left}
         </button>
         <div className={$.title}>{title}</div>

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ArticleMutationResponseDto } from "@shared/swagger-api/generated/models/ArticleMutationResponseDto";
 import { CreateArticleDto } from "@shared/swagger-api/generated/models/CreateArticleDto";
 import { ArticleApiService } from "@shared/swagger-api/generated/services/ArticleApiService";
+import { message } from "antd";
 import dayjs from "dayjs";
 import { useAppSelector } from "src/store";
 
@@ -17,6 +18,8 @@ interface Props {
 }
 
 export default function Submit({ isEdit, articleId, article, boardId }: Props) {
+  const [ messageApi, contextHolder ] = message.useMessage();
+
   const { title, content, images } = useAppSelector(
     (state) => state.ArticelWriteReducer,
   );
@@ -31,7 +34,10 @@ export default function Submit({ isEdit, articleId, article, boardId }: Props) {
   };
 
   const onError = (error: any) => {
-    alert(error.body.message);
+    messageApi.open({
+      type: "error",
+      content: error.body.message,
+    });
   };
 
   const { mutate: writeArticle } = useMutation(
@@ -54,6 +60,22 @@ export default function Submit({ isEdit, articleId, article, boardId }: Props) {
 
   const viewProps: ViewProps = {
     onSubmit: async () => {
+      if (!title) {
+        messageApi.open({
+          type: "error",
+          content: "제목을 입력해주세요",
+        });
+        return;
+      }
+
+      if (!content) {
+        messageApi.open({
+          type: "error",
+          content: "내용을 입력해주세요",
+        });
+        return;
+      }
+
       if (isEdit && articleId && article) {
         await updateArticle({
           id: articleId,
@@ -78,5 +100,10 @@ export default function Submit({ isEdit, articleId, article, boardId }: Props) {
     },
   };
 
-  return <SubmitView {...viewProps} />;
+  return (
+    <>
+      {contextHolder}
+      <SubmitView {...viewProps} />
+    </>
+  );
 }

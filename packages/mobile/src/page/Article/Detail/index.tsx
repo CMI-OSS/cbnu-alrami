@@ -59,19 +59,11 @@ function ArticleDetail() {
 
   const isUser = !!getUuid();
 
-  const handleBackClick = () => {
-    if (window.history.length <= 1) {
-      return navigate("/");
-    }
-    return navigate(-1);
-  };
-
   return (
     <div className={$["article-detail"]}>
       <FullPageModalTemplate
         left={isUser ? <LeftArrow stroke="#5e5e5e" size={16} /> : <></>}
         title={name}
-        onNavigate={handleBackClick}
       >
         <div className={$.children}>
           <div className={$.title}>{title || EMPTY_TITLE_GUIDE_MESSAGE}</div>

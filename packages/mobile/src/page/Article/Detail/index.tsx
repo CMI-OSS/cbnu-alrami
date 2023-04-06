@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { FillHeart, Heart, LeftArrow } from "@components/atoms/icon";
 import SwiperImage from "@components/molecules/SwiperImage";
@@ -29,7 +29,6 @@ function ArticleDetail() {
   const postLikeArticle = usePostLikeArticleMutation({ id: articleId });
   const deleteLikeArticle = useDeleteLikeArticleMutation({ id: articleId });
   const [ enlargeModal, setEnlargeModal ] = useState(false);
-  const navigate = useNavigate();
 
   if (isLoading) return <></>;
   if (!articleData) return <>데이터가 없습니다.</>;

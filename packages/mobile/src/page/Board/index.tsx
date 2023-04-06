@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Close, LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import BoardList from "src/page/Board/components/BoardList";
-import BreadCrumb from "src/page/Board/components/BreadCrumb";
+import Breadcrumb from "src/page/Board/components/Breadcrumb";
 import Title from "src/page/Board/components/Title";
 
 import $ from "./style.module.scss";
@@ -29,7 +29,7 @@ function Board() {
         }
       >
         <div className={$.children}>
-          <BreadCrumb />
+          <Breadcrumb />
           <Title />
           <BoardList />
         </div>

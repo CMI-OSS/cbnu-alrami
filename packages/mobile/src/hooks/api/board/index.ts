@@ -71,19 +71,6 @@ export const useBoardQuery = (
   });
 };
 
-export const useBreadcrumbQuery = (boardIds: number[]) => {
-  return useQueries({
-    queries: boardIds.map((boardId) => {
-      return {
-        queryKey: [ "breadcrumb", boardId ],
-        queryFn: () => {
-          return BoardApiService.boardControllerFindOne({ id: boardId });
-        },
-      };
-    }),
-  });
-};
-
 export const useSubscribeBoardMutation = (
   params: GetParams<typeof BoardApiService.boardControllerFindOne>,
 ) => {

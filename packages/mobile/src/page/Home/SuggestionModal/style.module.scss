@@ -8,8 +8,8 @@ $total-margin-of-top-and-bottom: 130px;
 }
 
 .suggestion-modal {
-  @include safe-area-position(absolute, top 0px left 0px right 0px bottom 0px);
-  @include safe-area-100vh(height, 0px);
+  @include position(fixed, top 0px left 0px right 0px bottom 0px);
+  height: calc(var(--vh, 1vh) * 100);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,7 +52,7 @@ $total-margin-of-top-and-bottom: 130px;
 
         .temperature-bar {
           width: 8px;
-          height: 577px;
+          height: 669px;
           margin: 2px 0 0 25px;
           background: linear-gradient(180deg, #f47979 0%, #769de9 100%);
           border-radius: 20px;

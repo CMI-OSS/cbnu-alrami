@@ -8,9 +8,9 @@ import {
 import { useBoardArticlesQuery } from "@hooks/api/board";
 import { useIntersect } from "@hooks/UseIntersect";
 import classnames from "classnames";
-import guideEmptyArticle from "src/assets/guide_empty_article.png";
-import guideEmptyBookmark from "src/assets/guide_empty_bookmark.png";
-import guideEmptySubscription from "src/assets/guide_empty_subscription.png";
+import guideEmptyArticle from "src/assets/guide_empty_article.svg";
+import guideEmptyBookmark from "src/assets/guide_empty_bookmark.svg";
+import guideEmptySubscription from "src/assets/guide_empty_subscription.svg";
 import ArticleItem from "src/page/Article/components/ArticleItem";
 import { DefaultProps } from "src/type/props";
 

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Plus } from "@components/atoms/icon";
 import SubscriptionNoticeGroup from "@components/shared/SubscriptionNoticeGroup";
 import { useSubscribeBoardsQuery } from "@hooks/api/board";
-import guideEmptySubscriptionSetting from "src/assets/guide_empty_subscription_setting.png";
+import guideEmptySubscriptionSetting from "src/assets/guide_empty_subscription_setting.svg";
 import SettingTemplate from "src/page/Setting/SettingTemplate";
 
 import $ from "./style.module.scss";

@@ -1,7 +1,7 @@
 import { animateScroll } from "react-scroll";
 
 import { Arrow } from "@components/atoms/icon";
-import guideEmptyFavoritesSchedule from "src/assets/guide_empty_favorites_schedule.png";
+import guideEmptyFavoritesSchedule from "src/assets/guide_empty_favorites_schedule.svg";
 import { FormattedSchedule } from "src/hooks/api/schedule";
 import useScroll from "src/hooks/useScroll";
 import { ScheduleType } from "src/page/Calendar";

@@ -43,12 +43,15 @@ function ArticleList({ className }: DefaultProps) {
     fetchNextPage,
   } = useArticles({ kind });
 
-  const ref = useIntersect(async (entry, observer) => {
-    observer.unobserve(entry.target);
-    if (hasNextPage && !isFetching) {
-      await fetchNextPage();
-    }
-  });
+  const ref = useIntersect(
+    async (entry, observer) => {
+      observer.unobserve(entry.target);
+      if (hasNextPage && !isFetching) {
+        await fetchNextPage();
+      }
+    },
+    { rootMargin: "0px 0px 30% 0px" },
+  );
 
   const isArticleEmpty =
     !articlesData?.pages[0]?.articles ||

@@ -1,7 +1,6 @@
-import { NavLink } from "react-router-dom";
-
 import { LeftArrow } from "@components/atoms/icon";
 import ChipGroup from "@components/molecules/ChipGroup";
+import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import { PlaceSchoolDto } from "@shared/swagger-api/generated";
 import { useSchoolQuery } from "src/hooks/api/school";
 import useSearch from "src/hooks/useSearch";
@@ -55,25 +54,21 @@ function PlaceDetail() {
   };
 
   return (
-    <>
-      <div className={$.header}>
-        <NavLink to="/map" className={$.link}>
-          <LeftArrow stroke="#5e5e5e" size={16} />
-          <span className="blind">뒤로가기</span>
-        </NavLink>
-        <h1 className={$.title}>캠퍼스맵</h1>
-        <ChipGroup
-          list={menuList}
-          handleSelectMenu={handleMenu}
-          selectedMenu={checkMenu(position)}
-        />
-        {/* [D] 식당 작업 후 진행 예정 */}
-        {/* <NavLink to="/call" className={$.place_link}>
+    <FullPageModalTemplate
+      left={<LeftArrow stroke="#5e5e5e" size={16} />}
+      title="캠퍼스맵"
+    >
+      <ChipGroup
+        list={menuList}
+        handleSelectMenu={handleMenu}
+        selectedMenu={checkMenu(position)}
+      />
+      {/* [D] 식당 작업 후 진행 예정 */}
+      {/* <NavLink to="/call" className={$.place_link}>
           제보하기
         </NavLink> */}
-      </div>
       <DetailGroup schoolDatas={schoolDatas} />
-    </>
+    </FullPageModalTemplate>
   );
 }
 

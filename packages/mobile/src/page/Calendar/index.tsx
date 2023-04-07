@@ -4,6 +4,7 @@ import {
   useBookmarkSchedulesQuery,
   useFullSchedulesQuery,
 } from "@hooks/api/schedule";
+import useSwipe from "@hooks/useSwipe";
 import dayjs, { Dayjs } from "dayjs";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
 import Footer from "src/components/molecules/Footer";
@@ -32,6 +33,7 @@ function Calendar() {
     month: today.month(),
   });
   const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
+  const swipeRef = useSwipe();
 
   const { data: allSchedules } = useFullSchedulesQuery(year);
   const { data: bookmarkedSchedules } = useBookmarkSchedulesQuery();
@@ -51,7 +53,7 @@ function Calendar() {
   };
 
   return (
-    <section className={$.calendar}>
+    <section className={$.calendar} ref={swipeRef}>
       <div className={$["calendar-header"]}>
         <CalendarHeader
           calendar={{ ...{ year, month } }}

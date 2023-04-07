@@ -122,7 +122,7 @@ function ArticleList({ className }: DefaultProps) {
           );
         });
       })}
-      <div ref={ref}></div>
+      <div ref={ref} />
     </div>
   );
 }

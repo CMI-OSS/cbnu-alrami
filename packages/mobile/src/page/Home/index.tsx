@@ -1,4 +1,5 @@
 import Footer from "@components/molecules/Footer";
+import useSwipe from "@hooks/useSwipe";
 import classNames from "classnames";
 import dayjs from "dayjs";
 import ErrorFallback from "src/components/atoms/ErrorFallback";
@@ -17,6 +18,7 @@ import Weather from "./Weather";
 function Home() {
   const today = dayjs();
   const { isOpen, handleSuggestionClick } = useHome(); // TODO: Weather 컴포넌트로 옮기기
+  const swipeRef = useSwipe();
 
   return (
     <section
@@ -24,6 +26,7 @@ function Home() {
         // TODO: Modal 처리 로직 만들기(React.Portal)
         [$["suggestion-mode"]]: isOpen,
       })}
+      ref={swipeRef}
     >
       <HomeHeader />
 

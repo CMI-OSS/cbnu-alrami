@@ -61,9 +61,11 @@ function App() {
   ];
 
   const webRoutes = [
+    { path: "/", element: <Navigate replace to="/home" /> },
+    { path: "/home", element: <Home /> },
     { path: "/article/detail/:articleId", element: <ArticleDetail /> },
     { path: "/cafeteria", element: <Cafeteria /> },
-    { path: "/*", element: <Home /> },
+    { path: "/*", element: <Navigate replace to="/home" /> },
   ];
 
   const routes = isMobileProduction && !isWebView ? webRoutes : appRoutes;

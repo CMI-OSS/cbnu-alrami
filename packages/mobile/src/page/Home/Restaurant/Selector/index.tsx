@@ -31,7 +31,7 @@ function Selector({
         className={classNames($.selector, className)}
       >
         <span className={$["selector-title"]}>식당 선택</span>
-        <ul>
+        <ul className={$.list}>
           {SELECTOR_ITEMS.map(({ name, id }) => {
             return (
               <li key={id} className={$.item}>
@@ -54,6 +54,8 @@ function Selector({
         <button type="button" className={$.cancel} onClick={onSelectorCancel}>
           취소
         </button>
+        <div className={$["top-gradient-box"]}></div>
+        <div className={$["bottom-gradient-box"]}></div>
       </BorderBox>
     </div>
   );

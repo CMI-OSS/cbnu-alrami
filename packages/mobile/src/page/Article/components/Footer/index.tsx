@@ -42,7 +42,7 @@ function ArticleFooter({ articleId, isBookmark, isUser, url }: Props) {
       <ShareButton
         size={24}
         stroke="#5e5e5e"
-        successMsg="공지 링크가 클립보드에 복사되었습니다."
+        successMsg="공지사항 링크가 클립보드에 복사되었습니다."
       />
       {isUser && (
         <button type="button" onClick={toggleBookmark}>

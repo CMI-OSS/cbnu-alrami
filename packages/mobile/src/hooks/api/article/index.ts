@@ -8,6 +8,7 @@ import { queryKey } from "src/consts/react-query";
 import { queryClient } from "src/main";
 import { GetParams } from "src/type/utils";
 import { getRecentBoardId, getUuid } from "src/utils/storage";
+import { toastSuccess } from "src/utils/toast";
 
 const uuid = getUuid();
 
@@ -115,6 +116,9 @@ export const usePostBookmarkArticleMutation = (
           queryClient.invalidateQueries(queryKey.article({ ...params, uuid })),
           queryClient.invalidateQueries(queryKey.bookmarkArticles()),
         ]);
+        toastSuccess({
+          message: "공지사항이 북마크 되었습니다.",
+        });
       },
     },
   );
@@ -133,6 +137,9 @@ export const useDeleteBookmarkArticleMutation = (
           queryClient.invalidateQueries(queryKey.article({ ...params, uuid })),
           queryClient.invalidateQueries(queryKey.bookmarkArticles()),
         ]);
+        toastSuccess({
+          message: "공지사항이 북마크 해제되었습니다.",
+        });
       },
     },
   );

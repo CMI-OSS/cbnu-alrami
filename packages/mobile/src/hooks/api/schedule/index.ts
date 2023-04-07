@@ -5,7 +5,7 @@ import {
   ScheduleApiService,
 } from "@shared/swagger-api/generated";
 import dayjs, { Dayjs } from "dayjs";
-import { queryKey } from "src/consts/react-query";
+import { queryKey } from "src/consts/react-query/queryKey";
 import { queryClient } from "src/main";
 import { GetParams } from "src/type/utils";
 import { getUuid } from "src/utils/storage";

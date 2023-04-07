@@ -4,7 +4,8 @@ import {
   useCoreQuery,
 } from "@hooks/api/core";
 import { ArticleApiService } from "@shared/swagger-api/generated";
-import { queryKey } from "src/consts/react-query";
+import { queryKey } from "src/consts/react-query/queryKey";
+import { staleTime } from "src/consts/react-query/staleTime";
 import { queryClient } from "src/main";
 import { GetParams } from "src/type/utils";
 import { getRecentBoardId, getUuid } from "src/utils/storage";
@@ -88,7 +89,7 @@ export const useArticleQuery = (
       return ArticleApiService.articleControllerFindOne({ ...params, uuid });
     },
     {
-      staleTime: 5000,
+      staleTime: staleTime.short,
       onSuccess: () => {
         Promise.all([
           queryClient.invalidateQueries(queryKey.popularArticles()),

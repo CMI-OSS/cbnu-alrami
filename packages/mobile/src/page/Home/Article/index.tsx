@@ -35,13 +35,13 @@ function ArticleHeader({ kind, setKind }: Props) {
           placement="right"
           overlay={
             <div className={$.overlay}>
-              인기 게시판은 전체 공지 중 최근 2주간
+              인기는 전체 공지사항 중 최근 2주간
               <br />
               좋아요, 조회수 높은 순으로 제공됩니다.
               <br />
-              최신 게시판은 구독한 게시판의 공지들이
+              최신은 구독한 게시판의 공지사항이
               <br />
-              최신 순서로 제공됩니다.
+              등록된 순서로 제공됩니다.
             </div>
           }
           trigger="click"

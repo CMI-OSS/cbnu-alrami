@@ -8,6 +8,7 @@ import { OpenAPI } from "@shared/swagger-api/generated/";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PersistGate } from "redux-persist/integration/react";
+import { staleTime } from "src/consts/react-query/staleTime";
 
 import App from "./App";
 import { persistor, store } from "./store";
@@ -15,7 +16,7 @@ import { persistor, store } from "./store";
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 30000,
+      staleTime: staleTime.basic,
     },
   },
 });

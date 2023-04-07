@@ -65,7 +65,7 @@ function BoardList({ className }: DefaultProps) {
         <BoardItem
           id={boardsData[2].id}
           title={boardsData[2].name}
-          content="학생회의 공지를 받아볼 수 있어요"
+          content="학생회의 공지사항을 받아볼 수 있어요"
         />
       </div>
     );

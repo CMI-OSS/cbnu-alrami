@@ -1,6 +1,6 @@
 import { useCoreQuery } from "@hooks/api/core";
 import { WeatherApiService } from "@shared/swagger-api/generated";
-import { queryKey } from "src/consts/react-query";
+import { queryKey } from "src/consts/react-query/queryKey";
 
 const roundToOneDecimal = (num?: number) => {
   if (!num) return 0;

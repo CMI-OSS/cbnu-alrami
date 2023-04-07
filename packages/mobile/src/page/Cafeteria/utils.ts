@@ -1,7 +1,7 @@
 import { CafeteriaMenu } from "@shared/swagger-api/generated";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { CAFETERIA_MENUS } from "src/constants";
+import { CAFETERIA_MENUS } from "src/consts";
 
 type QueryString = string | null;
 

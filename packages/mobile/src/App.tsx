@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
+import { isMobileProduction } from "@shared/util";
 import Article from "src/page/Article";
 import ArticleDetail from "src/page/Article/Detail";
 import Board from "src/page/Board";
 import BoardArticle from "src/page/Board/Article";
-import { isStaging, isWebView } from "src/utils/webview";
+import { isWebView } from "src/utils/webview";
 
 import "src/polyfills";
 import useFCMToken from "./hooks/useFCMToken";
@@ -61,14 +62,14 @@ function App() {
 
   const webRoutes = [
     { path: "/article/detail/:articleId", element: <ArticleDetail /> },
+    { path: "/cafeteria", element: <Cafeteria /> },
+    { path: "/*", element: <Home /> },
   ];
 
-  const mode = import.meta.env.MODE;
-  const routes = isStaging && !isWebView ? webRoutes : appRoutes;
+  const routes = isMobileProduction && !isWebView ? webRoutes : appRoutes;
 
   return (
     <BrowserRouter>
-      {/* {mode === "production" && !isWebView && <>딥링크</>} */}
       <Routes>
         {routes.map((route) => {
           return (

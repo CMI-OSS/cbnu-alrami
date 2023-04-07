@@ -1,4 +1,4 @@
-export type Configutation = {
+export type Configuration = {
   server: {
     env: "dev" | "production";
     host: string;

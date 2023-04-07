@@ -4,7 +4,7 @@ import CalendarHeader from "src/components/molecules/CalendarHeader";
 import Footer from "src/components/molecules/Footer";
 import MenuList from "src/components/molecules/MenuList";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
-import { CAFETERIA_LIST } from "src/constants";
+import { CAFETERIA_LIST } from "src/consts";
 
 import CafeteriaBody from "./CafateriaBody";
 import { useCafeteria } from "./hooks";

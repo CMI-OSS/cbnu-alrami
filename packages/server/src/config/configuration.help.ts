@@ -1,6 +1,6 @@
-import { Configutation } from "./types";
+import { Configuration } from "./types";
 
-const configuration: Configutation = {
+const configuration: Configuration = {
   server: {
     env: "dev",
     host: "",

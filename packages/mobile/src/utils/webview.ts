@@ -1,4 +1,4 @@
-import { getUA, isMobile } from "react-device-detect";
+import { getUA, isMobile, isDesktop } from "react-device-detect";
 
 const CBNU_ALRAMI_IOS_USER_AGENT = "cbnu_alrami_ios";
 const CBNU_ALRAMI_ANDROID_USER_AGENT = "cbnu_alrami_android";
@@ -10,4 +10,4 @@ const isFromApp = isFromIosApp || isFromAndroidApp;
 
 const isWebView = isMobile && isFromApp;
 
-export { isFromApp, isWebView };
+export { isFromApp, isWebView, isDesktop };

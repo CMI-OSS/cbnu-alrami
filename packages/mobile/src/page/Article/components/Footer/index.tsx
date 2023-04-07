@@ -6,18 +6,17 @@ import {
 import ShareButton from "src/components/atoms/ShareButton";
 import { useAppDispatch } from "src/store";
 import { setHasFooter } from "src/store/toastSlice";
-import { isFromApp } from "src/utils/webview";
+import { isDesktop, isDevOrWebview, isFromApp } from "src/utils/webview";
 
 import $ from "./style.module.scss";
 
 type Props = {
   articleId: number;
   isBookmark: boolean;
-  isUser: boolean;
   url?: string;
 };
 
-function ArticleFooter({ articleId, isBookmark, isUser, url }: Props) {
+function ArticleFooter({ articleId, isBookmark, url }: Props) {
   const postBookmark = usePostBookmarkArticleMutation({ id: articleId });
   const deleteBookmark = useDeleteBookmarkArticleMutation({
     id: articleId,
@@ -46,9 +45,13 @@ function ArticleFooter({ articleId, isBookmark, isUser, url }: Props) {
       <ShareButton
         size={24}
         stroke="#5e5e5e"
-        successMsg="공지사항 링크가 클립보드에 복사되었습니다."
+        successMsg={
+          isDesktop
+            ? "공지사항 링크가 복사되었습니다."
+            : "공지사항 링크가 클립보드에 복사되었습니다."
+        }
       />
-      {isUser && (
+      {isDevOrWebview && (
         <button type="button" onClick={toggleBookmark}>
           <Star
             size={24}

@@ -9,4 +9,4 @@ const setOpenApiBase = () => {
   OpenAPI.BASE = baseURL;
 };
 
-export { isMobileProduction,  setOpenApiBase };
+export { isMobileProduction,  isProduction, setOpenApiBase };

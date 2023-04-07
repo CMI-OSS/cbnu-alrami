@@ -3,11 +3,10 @@ import {
   useDeleteBookmarkArticleMutation,
   usePostBookmarkArticleMutation,
 } from "@hooks/api/article";
-import { isProduction } from "@shared/util";
 import ShareButton from "src/components/atoms/ShareButton";
 import { useAppDispatch } from "src/store";
 import { setHasFooter } from "src/store/toastSlice";
-import { isDesktop, isFromApp, isWebView } from "src/utils/webview";
+import { isDesktop, isDevOrWebview, isFromApp } from "src/utils/webview";
 
 import $ from "./style.module.scss";
 
@@ -41,8 +40,6 @@ function ArticleFooter({ articleId, isBookmark, url }: Props) {
     }
   };
 
-  const isShowBookmark = !isProduction || isWebView;
-
   return (
     <div className={$["article-footer"]}>
       <ShareButton
@@ -54,7 +51,7 @@ function ArticleFooter({ articleId, isBookmark, url }: Props) {
             : "공지사항 링크가 클립보드에 복사되었습니다."
         }
       />
-      {isShowBookmark && (
+      {isDevOrWebview && (
         <button type="button" onClick={toggleBookmark}>
           <Star
             size={24}

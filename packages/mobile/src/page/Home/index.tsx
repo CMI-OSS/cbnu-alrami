@@ -6,12 +6,12 @@ import ErrorFallback from "src/components/atoms/ErrorFallback";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
 import ReloadButton from "src/components/shared/ReloadButton";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
-import { queryClient } from "src/main";
 import Article from "src/page/Home/Article";
 
 import { HOME_MARGIN_BOTTOM } from "./constants";
 import HomeHeader from "./HomeHeader";
 import { useHome } from "./hooks";
+import reloadHomeQueries from "./reloadHomeQueries";
 import Restaurant from "./Restaurant";
 import ScheduleContainer from "./ScheduleContainer";
 import $ from "./style.module.scss";
@@ -21,10 +21,6 @@ function Home() {
   const today = dayjs();
   const { isOpen, handleSuggestionClick } = useHome(); // TODO: Weather 컴포넌트로 옮기기
   const swipeRef = useSwipe();
-
-  const reload = () => {
-    queryClient.refetchQueries();
-  };
 
   return (
     <section
@@ -81,7 +77,7 @@ function Home() {
       </AsyncBoundary>
       <ReloadButton
         buttonType="icon"
-        onClick={reload}
+        onClick={reloadHomeQueries}
         className={$["reload-button"]}
       />
       <Footer />

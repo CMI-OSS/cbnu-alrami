@@ -4,11 +4,10 @@ import classnames from "classnames";
 import noMenu from "src/assets/no_menu.svg";
 import ShareButton from "src/components/atoms/ShareButton";
 import CafeteriaMenuCard from "src/components/molecules/CafeteriaMenuCard";
-import { queryKey } from "src/consts/react-query/queryKey";
 import { useCafeteriaQuery } from "src/hooks/api/cafeteria";
-import { queryClient } from "src/main";
 
 import { getCafeteriaTime } from "../constants";
+import reloadCafeteriaQueries from "./reloadCafeteriaQueries";
 import $ from "./style.module.scss";
 
 type Props = {
@@ -22,10 +21,8 @@ function CafeteriaBody({ fullDate, day, selectedMenu }: Props) {
   const { data: cafeteriaMenu } = useCafeteriaQuery(selectedMenu, fullDate);
   const isCafeteriaExist = cafeteriaMenu && cafeteriaMenu.length > 0;
 
-  const reload = () => {
-    queryClient.refetchQueries({
-      queryKey: queryKey.cafeteria(selectedMenu, fullDate),
-    });
+  const handleReloadClick = () => {
+    return reloadCafeteriaQueries({ selectedMenu, fullDate });
   };
 
   return (
@@ -59,7 +56,7 @@ function CafeteriaBody({ fullDate, day, selectedMenu }: Props) {
             />
             <ReloadButton
               buttonType="icon"
-              onClick={reload}
+              onClick={handleReloadClick}
               className={$["reload-button"]}
             />
           </div>
@@ -70,7 +67,11 @@ function CafeteriaBody({ fullDate, day, selectedMenu }: Props) {
         <div className={$["go-out"]}>
           <img src={noMenu} alt="메뉴가 없습니다." width="130" height="130" />
           <span className={$["go-out-text"]}>오늘은 식단이 없어요</span>
-          <ReloadButton buttonType="text" onClick={reload} className={$['reload-button']} />
+          <ReloadButton
+            buttonType="text"
+            onClick={handleReloadClick}
+            className={$["reload-button"]}
+          />
         </div>
       )}
     </main>

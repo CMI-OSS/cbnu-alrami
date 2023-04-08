@@ -5,10 +5,10 @@ import guideEmptyFavoritesSchedule from "src/assets/guide_empty_favorites_schedu
 import ReloadButton from "src/components/shared/ReloadButton";
 import { FormattedSchedule } from "src/hooks/api/schedule";
 import useScroll from "src/hooks/useScroll";
-import { queryClient } from "src/main";
 import { ScheduleType } from "src/page/Calendar";
 
 import CollegeCard from "../CollegeCard";
+import reloadCalendarQueries from "./reloadCalendarQueries";
 import $ from "./style.module.scss";
 
 const CALENDAR_UNVISIBLE_POINT = 320;
@@ -25,10 +25,6 @@ function CardBox({ scheduleType, todaysSchedules, bookmarkSchedules }: Props) {
     return id;
   });
 
-  const reload = () => {
-    queryClient.refetchQueries();
-  };
-
   if (todaysSchedules.length === 0)
     return (
       <section className={$["empty-box"]}>
@@ -37,7 +33,7 @@ function CardBox({ scheduleType, todaysSchedules, bookmarkSchedules }: Props) {
             <span className={$.description}>오늘은 일정이 없어요</span>
             <ReloadButton
               className={$["reload-button"]}
-              onClick={reload}
+              onClick={reloadCalendarQueries}
               buttonType="text"
             />
           </>
@@ -51,7 +47,7 @@ function CardBox({ scheduleType, todaysSchedules, bookmarkSchedules }: Props) {
             />
             <ReloadButton
               className={$["reload-button"]}
-              onClick={reload}
+              onClick={reloadCalendarQueries}
               buttonType="text"
             />
           </div>
@@ -72,7 +68,7 @@ function CardBox({ scheduleType, todaysSchedules, bookmarkSchedules }: Props) {
       })}
       <ReloadButton
         className={$["reload-button"]}
-        onClick={reload}
+        onClick={reloadCalendarQueries}
         buttonType="icon"
       />
       {y > CALENDAR_UNVISIBLE_POINT && (

@@ -15,7 +15,7 @@ import { persistor, store } from "./store";
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: staleTime.basic,
+      staleTime: staleTime.DEFAULT,
     },
   },
 });

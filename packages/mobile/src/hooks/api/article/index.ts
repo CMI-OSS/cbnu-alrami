@@ -89,7 +89,7 @@ export const useArticleQuery = (
       return ArticleApiService.articleControllerFindOne({ ...params, uuid });
     },
     {
-      staleTime: staleTime.short,
+      staleTime: staleTime.SEC_5,
       onSuccess: () => {
         Promise.all([
           queryClient.invalidateQueries(queryKey.popularArticles()),

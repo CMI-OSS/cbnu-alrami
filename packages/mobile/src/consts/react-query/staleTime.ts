@@ -1,5 +1,6 @@
 export const staleTime = {
-  short: 1000 * 5,
-  basic: 1000 * 30,
-  long: 1000 * 300,
+  SEC_5: 1000 * 5, // 5s
+  DEFAULT: 1000 * 30, // 30s
+  MIN_5: 1000 * 60 * 5, // 5m
+  MIN_10: 1000 * 60 * 10, // 10m
 };

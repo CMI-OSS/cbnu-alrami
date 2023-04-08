@@ -10,10 +10,15 @@ import $ from "./style.module.scss";
 
 type Props = {
   isOpen: boolean;
-  handleSuggestionClick: () => void;
+  onSuggestionModalOpen: () => void;
+  onSuggestionModalClose: () => void;
 };
 
-function Weather({ isOpen, handleSuggestionClick }: Props) {
+function Weather({
+  isOpen,
+  onSuggestionModalOpen,
+  onSuggestionModalClose,
+}: Props) {
   const { data } = useWeathersQuery();
   if (!data) return null;
 
@@ -32,7 +37,7 @@ function Weather({ isOpen, handleSuggestionClick }: Props) {
       {isOpen && (
         <SuggestionModal
           currentTemperature={currentTemp}
-          onClick={handleSuggestionClick}
+          onClick={onSuggestionModalClose}
         />
       )}
 
@@ -55,7 +60,7 @@ function Weather({ isOpen, handleSuggestionClick }: Props) {
           <button
             className={$.more}
             type="button"
-            onClick={handleSuggestionClick}
+            onClick={onSuggestionModalOpen}
           >
             <Info size={14} stroke="#aaa" />
             기온별 옷차림

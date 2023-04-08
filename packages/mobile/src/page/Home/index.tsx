@@ -4,7 +4,9 @@ import classNames from "classnames";
 import dayjs from "dayjs";
 import ErrorFallback from "src/components/atoms/ErrorFallback";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
+import ReloadButton from "src/components/shared/ReloadButton";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
+import { queryClient } from "src/main";
 import Article from "src/page/Home/Article";
 
 import { HOME_MARGIN_BOTTOM } from "./constants";
@@ -19,6 +21,10 @@ function Home() {
   const today = dayjs();
   const { isOpen, handleSuggestionClick } = useHome(); // TODO: Weather 컴포넌트로 옮기기
   const swipeRef = useSwipe();
+
+  const reload = () => {
+    queryClient.refetchQueries();
+  };
 
   return (
     <section
@@ -73,6 +79,7 @@ function Home() {
       >
         <Article />
       </AsyncBoundary>
+      <ReloadButton buttonType="icon" onClick={reload} />
       <Footer />
     </section>
   );

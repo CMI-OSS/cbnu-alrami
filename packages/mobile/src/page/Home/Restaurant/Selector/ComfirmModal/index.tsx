@@ -9,11 +9,11 @@ function ConfirmModal({ onCancelClick, onAgreeClick }: Props) {
   return (
     <div className={$["confirm-dimmed-box"]}>
       <div className={$["confirm-modal"]}>
-        <span className={$.description}>
+        <p className={$.description}>
           홈화면에 식단을 표시하지
           <br />
           않으시겠습니까?
-        </span>
+        </p>
         <div className={$["button-box"]}>
           <button
             type="button"

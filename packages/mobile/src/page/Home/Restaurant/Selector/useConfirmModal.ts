@@ -2,7 +2,9 @@ import { useState } from "react";
 
 import { Restaurant } from "src/type";
 
-function useConfirmModal(onCafeteriaSelect: (name: Restaurant) => void) {
+type OnCafeteriaSelect = (name: Restaurant) => void;
+
+function useConfirmModal(onCafeteriaSelect: OnCafeteriaSelect) {
   const [ isConfirmOpen, setIsConfirmOpen ] = useState(false);
 
   const handleSelect = (name: Restaurant) => {

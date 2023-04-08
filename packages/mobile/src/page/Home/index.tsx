@@ -79,7 +79,11 @@ function Home() {
       >
         <Article />
       </AsyncBoundary>
-      <ReloadButton buttonType="icon" onClick={reload} />
+      <ReloadButton
+        buttonType="icon"
+        onClick={reload}
+        className={$["reload-button"]}
+      />
       <Footer />
     </section>
   );

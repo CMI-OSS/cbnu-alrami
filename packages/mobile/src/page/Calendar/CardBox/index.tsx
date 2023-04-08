@@ -35,7 +35,11 @@ function CardBox({ scheduleType, todaysSchedules, bookmarkSchedules }: Props) {
         {scheduleType === "all" ? (
           <>
             <span className={$.description}>오늘은 일정이 없어요</span>
-            <ReloadButton onClick={reload} buttonType="text" />
+            <ReloadButton
+              className={$["reload-button"]}
+              onClick={reload}
+              buttonType="text"
+            />
           </>
         ) : (
           <div className={$["guide-image-box"]}>
@@ -45,7 +49,11 @@ function CardBox({ scheduleType, todaysSchedules, bookmarkSchedules }: Props) {
               src={guideEmptyFavoritesSchedule}
               alt="즐겨찾기된 학사일정 없음"
             />
-            <ReloadButton onClick={reload} buttonType="text" />
+            <ReloadButton
+              className={$["reload-button"]}
+              onClick={reload}
+              buttonType="text"
+            />
           </div>
         )}
       </section>
@@ -62,7 +70,11 @@ function CardBox({ scheduleType, todaysSchedules, bookmarkSchedules }: Props) {
           />
         );
       })}
-      <ReloadButton onClick={reload} buttonType="icon" />
+      <ReloadButton
+        className={$["reload-button"]}
+        onClick={reload}
+        buttonType="icon"
+      />
       {y > CALENDAR_UNVISIBLE_POINT && (
         <button
           className={$["floating-button"]}

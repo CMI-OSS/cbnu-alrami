@@ -24,6 +24,7 @@ export { Map } from "./Map";
 export { Person } from "./Person";
 export { Plus } from "./Plus";
 export { Question } from "./Question";
+export { Reload } from "./Reload";
 export { Setting } from "./Setting";
 export { Share } from "./Share";
 export { Speaker } from "./Speaker";

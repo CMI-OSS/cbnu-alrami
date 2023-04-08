@@ -12,18 +12,14 @@ import $ from "./style.module.scss";
 const CALENDAR_UNVISIBLE_POINT = 320;
 
 type Props = {
-  bookmarkedSchedules: FormattedSchedule[];
+  bookmarkSchedules: FormattedSchedule[];
   scheduleType: ScheduleType;
   todaysSchedules: FormattedSchedule[];
 };
 
-function CardBox({
-  scheduleType,
-  todaysSchedules,
-  bookmarkedSchedules,
-}: Props) {
+function CardBox({ scheduleType, todaysSchedules, bookmarkSchedules }: Props) {
   const { y } = useScroll();
-  const bookmarkedIDList = bookmarkedSchedules.map(({ id }) => {
+  const bookmarkedIDList = bookmarkSchedules.map(({ id }) => {
     return id;
   });
 

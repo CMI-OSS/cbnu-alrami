@@ -1,4 +1,8 @@
-import { useCoreMutation, useCoreQuery } from "@hooks/api/core";
+import {
+  CustomQueryOptions,
+  useCoreMutation,
+  useCoreQuery,
+} from "@hooks/api/core";
 import {
   MutationResponse,
   Schedule,
@@ -31,30 +35,34 @@ const detectHoliday = (schedules: Schedule[]) => {
   return isHoliday;
 };
 
-export const useFullSchedulesQuery = (year: number) => {
-  return useCoreQuery<Schedule[], FormattedSchedule[]>(
-    queryKey.schedules,
-    () => {
+export const fullScheduleQuery = (
+  year: number,
+): CustomQueryOptions<Schedule[], FormattedSchedule[]> => {
+  return {
+    queryKey: queryKey.schedules,
+    queryFn: () => {
       return ScheduleApiService.scheduleControllerFindAll({
         startDateTime: `${year}-01-01`,
         endDateTime: `${year}-12-31`,
       });
     },
-    {
-      select: (data) => {
-        const schedules = data.map(
-          ({ startDateTime, endDateTime, ...last }) => {
-            return {
-              startDateTime: dayjs(startDateTime),
-              endDateTime: endDateTime ? dayjs(endDateTime) : null,
-              ...last,
-            };
-          },
-        );
-        return schedules;
-      },
+    suspense: true,
+    select: (data) => {
+      const schedules = data.map(({ startDateTime, endDateTime, ...last }) => {
+        return {
+          startDateTime: dayjs(startDateTime),
+          endDateTime: endDateTime ? dayjs(endDateTime) : null,
+          ...last,
+        };
+      });
+      return schedules;
     },
-  );
+  };
+};
+
+export const useFullSchedulesQuery = (year: number) => {
+  const { queryKey, queryFn, ...rest } = fullScheduleQuery(year);
+  return useCoreQuery<Schedule[], FormattedSchedule[]>(queryKey, queryFn, rest);
 };
 
 export const useTodaySchedulesQuery = (
@@ -84,29 +92,32 @@ export const useTodaySchedulesQuery = (
   );
 };
 
+export const bookmarkScheduleQuery: CustomQueryOptions<
+  Schedule[],
+  FormattedSchedule[]
+> = {
+  queryKey: queryKey.bookmarkSchedules,
+  queryFn: () => {
+    return ScheduleApiService.scheduleControllerFindBookmarkSchedule({
+      uuid: getUuid(),
+    });
+  },
+  suspense: true,
+  select: (data) => {
+    const schedules = data.map(({ startDateTime, endDateTime, ...last }) => {
+      return {
+        startDateTime: dayjs(startDateTime),
+        endDateTime: endDateTime ? dayjs(endDateTime) : null,
+        ...last,
+      };
+    });
+    return schedules;
+  },
+};
+
 export const useBookmarkSchedulesQuery = () => {
-  return useCoreQuery<Schedule[], FormattedSchedule[]>(
-    queryKey.bookmarkSchedules,
-    () => {
-      return ScheduleApiService.scheduleControllerFindBookmarkSchedule({
-        uuid: getUuid(),
-      });
-    },
-    {
-      select: (data) => {
-        const schedules = data.map(
-          ({ startDateTime, endDateTime, ...last }) => {
-            return {
-              startDateTime: dayjs(startDateTime),
-              endDateTime: endDateTime ? dayjs(endDateTime) : null,
-              ...last,
-            };
-          },
-        );
-        return schedules;
-      },
-    },
-  );
+  const { queryKey, queryFn, ...rest } = bookmarkScheduleQuery;
+  return useCoreQuery<Schedule[], FormattedSchedule[]>(queryKey, queryFn, rest);
 };
 
 export const useAddScheduleBookmarkMutation = () => {

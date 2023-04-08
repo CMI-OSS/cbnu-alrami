@@ -31,8 +31,14 @@ $total-margin-of-top-and-bottom: 220px;
       z-index: 1;
     }
 
+    .top-gradient-box {
+      @include default-gradient-box();
+      height: 70px;
+      top: 0;
+    }
+
     .list {
-      height: calc(var(--vh, 1vh) * 100 - $total-margin-of-top-and-bottom);
+      @include safe-area-100vh(height, $total-margin-of-top-and-bottom);
       max-height: 460px;
       width: 100%;
       overflow-y: scroll;
@@ -74,12 +80,6 @@ $total-margin-of-top-and-bottom: 220px;
       border-radius: 100px;
       line-height: 30px;
       z-index: 1;
-    }
-
-    .top-gradient-box {
-      @include default-gradient-box();
-      height: 70px;
-      top: 0;
     }
 
     .bottom-gradient-box {

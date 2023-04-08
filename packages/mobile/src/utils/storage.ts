@@ -1,4 +1,5 @@
 import { Restaurant } from "src/type";
+import { isDevOrWebview } from "src/utils/webview";
 import { v4 as uuidv4 } from "uuid";
 
 const SELECTED_CAFETERIA = "SELECTED_CAFETERIA" as const;
@@ -49,6 +50,7 @@ export const getShowCafeteriaSelectFinalGuide = () => {
 };
 
 export const getUuid = () => {
+  if (!isDevOrWebview) return "";
   const uuid = localStorage.getItem(uuidKey);
   return uuid ?? createUuid();
 };

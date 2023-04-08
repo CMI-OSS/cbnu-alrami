@@ -1,5 +1,7 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import useSwipe from "@hooks/useSwipe";
 
 import $ from "./style.module.scss";
 
@@ -9,6 +11,7 @@ type Props = {
   right?: JSX.Element;
   children: React.ReactNode;
   onNavigate?: () => void;
+  style?: React.CSSProperties;
 };
 
 function FullPageModalTemplate({
@@ -17,9 +20,10 @@ function FullPageModalTemplate({
   right,
   children,
   onNavigate,
+  style,
 }: Props) {
   const navigate = useNavigate();
-
+  const swipeRef = useSwipe();
   const handleBackClick = () => {
     if (onNavigate) {
       return onNavigate();
@@ -31,8 +35,8 @@ function FullPageModalTemplate({
   };
 
   return (
-    <div className={$["full-modal"]}>
-      <div className={$.header}>
+    <div className={$["full-modal"]} ref={swipeRef}>
+      <div className={$.header} style={style}>
         <button type="button" className={$.left} onClick={handleBackClick}>
           {left}
         </button>

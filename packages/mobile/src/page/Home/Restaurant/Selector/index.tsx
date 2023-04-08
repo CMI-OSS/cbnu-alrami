@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import BorderBox from "src/components/atoms/BorderBox";
-import { CAFETERIA_LIST } from "src/constants";
+import { CAFETERIA_LIST } from "src/consts";
 import { Restaurant } from "src/type";
 
 import $ from "./style.module.scss";

@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet";
 
-import { BASE_HEAD_META } from "src/constants";
+import { BASE_HEAD_META } from "src/consts";
 
 type Props = {
   title?: string;

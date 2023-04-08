@@ -6,7 +6,7 @@ import {
   Person,
   Speaker,
 } from "src/components/atoms/icon";
-import { CMI_BOARD_ID } from "src/constants";
+import { CMI_BOARD_ID } from "src/consts";
 import { Restaurant } from "src/type";
 
 const settingMenuList = [

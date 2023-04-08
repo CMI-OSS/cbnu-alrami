@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import dayjs from "dayjs";
-import { EMPTY_TITLE_GUIDE_MESSAGE } from "src/constants";
+import { EMPTY_TITLE_GUIDE_MESSAGE } from "src/consts";
 import { setRecentBoardId } from "src/utils/storage";
 
 import $ from "./style.module.scss";

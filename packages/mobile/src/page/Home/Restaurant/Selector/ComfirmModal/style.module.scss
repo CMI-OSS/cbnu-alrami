@@ -12,15 +12,6 @@
     background-color: $black-0;
   }
 
-  .description {
-    @include typography(14);
-    display: block;
-    margin-top: 47px;
-    line-height: 30px;
-    color: $black-80;
-    text-align: center;
-  }
-
   .button-box {
     display: flex;
     align-items: center;

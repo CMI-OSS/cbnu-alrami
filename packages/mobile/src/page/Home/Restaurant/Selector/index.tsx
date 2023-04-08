@@ -1,11 +1,11 @@
 import classNames from "classnames";
 import BorderBox from "src/components/atoms/BorderBox";
 import { CAFETERIA_LIST } from "src/consts";
+import useModal from "src/hooks/useModal";
 import { Restaurant } from "src/type";
 
 import ConfirmModal from "./ComfirmModal";
 import $ from "./style.module.scss";
-import useConfirmModal from "./useConfirmModal";
 
 type Props = {
   cafeteriaName: Restaurant;
@@ -25,12 +25,23 @@ function Selector({
   onCafeteriaSelect,
   className,
 }: Props) {
-  const {
-    isConfirmOpen,
-    handleAgreeClick,
-    handleCloseModalClick,
-    handleSelect,
-  } = useConfirmModal(onCafeteriaSelect);
+  const { isOpen, handleModalClose, handleModalOpen } = useModal();
+
+  const handleSelect = (name: Restaurant) => {
+    if (name === "표시 안함") {
+      handleModalOpen();
+      return;
+    }
+    onCafeteriaSelect(name);
+  };
+
+  const handleCloseModalClick = () => {
+    return handleModalClose();
+  };
+
+  const handleAgreeClick = () => {
+    return onCafeteriaSelect("표시 안함");
+  };
 
   return (
     <div className={$["dimmed-box"]}>
@@ -64,11 +75,17 @@ function Selector({
           취소
         </button>
       </BorderBox>
-      {isConfirmOpen && (
+      {isOpen && (
         <ConfirmModal
           onAgreeClick={handleAgreeClick}
           onCancelClick={handleCloseModalClick}
-        />
+        >
+          <p className={$.description}>
+            홈화면에 식단을 표시하지
+            <br />
+            않으시겠습니까?
+          </p>
+        </ConfirmModal>
       )}
     </div>
   );

@@ -1,19 +1,18 @@
+import { ReactNode } from "react";
+
 import $ from "./style.module.scss";
 
 type Props = {
   onCancelClick: () => void;
   onAgreeClick: () => void;
+  children: string | ReactNode;
 };
 
-function ConfirmModal({ onCancelClick, onAgreeClick }: Props) {
+function ConfirmModal({ onCancelClick, onAgreeClick, children }: Props) {
   return (
     <div className={$["confirm-dimmed-box"]}>
       <div className={$["confirm-modal"]}>
-        <p className={$.description}>
-          홈화면에 식단을 표시하지
-          <br />
-          않으시겠습니까?
-        </p>
+        {children}
         <div className={$["button-box"]}>
           <button
             type="button"

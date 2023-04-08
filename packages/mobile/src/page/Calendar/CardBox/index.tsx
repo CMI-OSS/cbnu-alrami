@@ -5,6 +5,7 @@ import guideEmptyFavoritesSchedule from "src/assets/guide_empty_favorites_schedu
 import ReloadButton from "src/components/shared/ReloadButton";
 import { FormattedSchedule } from "src/hooks/api/schedule";
 import useScroll from "src/hooks/useScroll";
+import { queryClient } from "src/main";
 import { ScheduleType } from "src/page/Calendar";
 
 import CollegeCard from "../CollegeCard";
@@ -16,19 +17,17 @@ type Props = {
   bookmarkSchedules: FormattedSchedule[];
   scheduleType: ScheduleType;
   todaysSchedules: FormattedSchedule[];
-  onClickReload: () => void;
 };
 
-function CardBox({
-  scheduleType,
-  todaysSchedules,
-  bookmarkSchedules,
-  onClickReload,
-}: Props) {
+function CardBox({ scheduleType, todaysSchedules, bookmarkSchedules }: Props) {
   const { y } = useScroll();
   const bookmarkedIDList = bookmarkSchedules.map(({ id }) => {
     return id;
   });
+
+  const reload = () => {
+    queryClient.refetchQueries();
+  };
 
   if (todaysSchedules.length === 0)
     return (
@@ -36,7 +35,7 @@ function CardBox({
         {scheduleType === "all" ? (
           <>
             <span className={$.description}>오늘은 일정이 없어요</span>
-            <ReloadButton onClick={onClickReload} buttonType="text" />
+            <ReloadButton onClick={reload} buttonType="text" />
           </>
         ) : (
           <div className={$["guide-image-box"]}>
@@ -46,7 +45,7 @@ function CardBox({
               src={guideEmptyFavoritesSchedule}
               alt="즐겨찾기된 학사일정 없음"
             />
-            <ReloadButton onClick={onClickReload} buttonType="text" />
+            <ReloadButton onClick={reload} buttonType="text" />
           </div>
         )}
       </section>
@@ -63,7 +62,7 @@ function CardBox({
           />
         );
       })}
-      <ReloadButton onClick={onClickReload} buttonType="icon" />
+      <ReloadButton onClick={reload} buttonType="icon" />
       {y > CALENDAR_UNVISIBLE_POINT && (
         <button
           className={$["floating-button"]}

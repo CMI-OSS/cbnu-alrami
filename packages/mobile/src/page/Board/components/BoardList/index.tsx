@@ -1,4 +1,5 @@
 /* eslint-disable no-loop-func */
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import { useBoardsQuery, useSubscribeBoardsQuery } from "@hooks/api/board";
@@ -6,6 +7,8 @@ import { ChildBoard, ResponseBoardDto } from "@shared/swagger-api/generated";
 import classnames from "classnames";
 import BoardItem from "src/page/Board/components/BoardItem";
 import { getBoardKind } from "src/page/Board/components/Title";
+import { useAppDispatch, useAppSelector } from "src/store";
+import { sliceBreadcrumb } from "src/store/boardSlice";
 import { DefaultProps } from "src/type/props";
 
 import $ from "./style.module.scss";
@@ -15,16 +18,28 @@ function BoardList({ className }: DefaultProps) {
   const { data: subscribeBoardsData } = useSubscribeBoardsQuery();
   const { pathname } = useLocation();
   const { kind } = getBoardKind();
+  const { breadcrumb } = useAppSelector((state) => {
+    return state.boardReducer;
+  });
+  const dispatch = useAppDispatch();
+  const paths = pathname
+    .split("/")
+    .slice(1)
+    .filter((path) => {
+      return path !== "";
+    });
+
+  useEffect(() => {
+    const diff = Math.abs(breadcrumb.length - paths.length);
+    if (diff) {
+      dispatch(sliceBreadcrumb({ diff }));
+    }
+  }, [ pathname ]);
 
   if (!boardsData) return <div className={$["board-list"]} />;
 
   let boardChildrensData: ResponseBoardDto[] | ChildBoard[] = boardsData;
-  let pathnames = pathname
-    .split("/")
-    .filter((path) => {
-      return path !== "";
-    })
-    .slice(1);
+  let pathnames = paths.slice(1);
 
   while (pathnames.length) {
     boardChildrensData =
@@ -50,7 +65,7 @@ function BoardList({ className }: DefaultProps) {
         <BoardItem
           id={boardsData[2].id}
           title={boardsData[2].name}
-          content="학생회의 공지를 받아볼 수 있어요"
+          content="학생회의 공지사항을 받아볼 수 있어요"
         />
       </div>
     );

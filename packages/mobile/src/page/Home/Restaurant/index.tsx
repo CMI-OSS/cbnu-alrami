@@ -2,7 +2,7 @@ import { Dayjs } from "dayjs";
 import ErrorFallback from "src/components/atoms/ErrorFallback";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
-import { CAFETERIA_LIST } from "src/constants";
+import { CAFETERIA_LIST } from "src/consts";
 
 import { HOME_MARGIN_BOTTOM } from "../constants";
 import EmptyCafeteria from "./EmptyCafeteria";
@@ -43,7 +43,6 @@ function Restaurant({ today }: Props) {
         cafeteriaName={cafeteriaName}
         onSelectorCancel={handleSelectorCancel}
         onCafeteriaSelect={handleCafeteriaSelect}
-        className={$.cafeteria}
       />
     );
   if (cardType === "finalGuide")

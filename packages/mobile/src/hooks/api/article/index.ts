@@ -4,10 +4,12 @@ import {
   useCoreQuery,
 } from "@hooks/api/core";
 import { ArticleApiService } from "@shared/swagger-api/generated";
-import { queryKey } from "src/consts/react-query";
+import { queryKey } from "src/consts/react-query/queryKey";
+import { staleTime } from "src/consts/react-query/staleTime";
 import { queryClient } from "src/main";
 import { GetParams } from "src/type/utils";
 import { getRecentBoardId, getUuid } from "src/utils/storage";
+import { toastSuccess } from "src/utils/toast";
 
 const uuid = getUuid();
 
@@ -87,7 +89,7 @@ export const useArticleQuery = (
       return ArticleApiService.articleControllerFindOne({ ...params, uuid });
     },
     {
-      staleTime: 5000,
+      staleTime: staleTime.short,
       onSuccess: () => {
         Promise.all([
           queryClient.invalidateQueries(queryKey.popularArticles()),
@@ -115,6 +117,9 @@ export const usePostBookmarkArticleMutation = (
           queryClient.invalidateQueries(queryKey.article({ ...params, uuid })),
           queryClient.invalidateQueries(queryKey.bookmarkArticles()),
         ]);
+        toastSuccess({
+          message: "공지사항이 북마크 되었습니다.",
+        });
       },
     },
   );
@@ -133,6 +138,9 @@ export const useDeleteBookmarkArticleMutation = (
           queryClient.invalidateQueries(queryKey.article({ ...params, uuid })),
           queryClient.invalidateQueries(queryKey.bookmarkArticles()),
         ]);
+        toastSuccess({
+          message: "공지사항이 북마크 해제되었습니다.",
+        });
       },
     },
   );

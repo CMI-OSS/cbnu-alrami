@@ -12,7 +12,7 @@ import {
 } from "@hooks/api/article";
 import classnames from "classnames";
 import dayjs from "dayjs";
-import { EMPTY_TITLE_GUIDE_MESSAGE } from "src/constants";
+import { EMPTY_TITLE_GUIDE_MESSAGE } from "src/consts";
 import ArticleFooter from "src/page/Article/components/Footer";
 import { getUuid } from "src/utils/storage";
 
@@ -56,12 +56,10 @@ function ArticleDetail() {
     postLikeArticle.mutate({ id: articleId });
   };
 
-  const isUser = !!getUuid();
-
   return (
     <div className={$["article-detail"]}>
       <FullPageModalTemplate
-        left={isUser ? <LeftArrow stroke="#5e5e5e" size={16} /> : <></>}
+        left={<LeftArrow stroke="#5e5e5e" size={16} />}
         title={name}
       >
         <div className={$.children}>
@@ -108,7 +106,7 @@ function ArticleDetail() {
             </button>
           </div>
         </div>
-        <ArticleFooter {...{ articleId, isBookmark, isUser, url }} />
+        <ArticleFooter {...{ articleId, isBookmark, url }} />
       </FullPageModalTemplate>
       {enlargeModal && images?.length && (
         <ImageModal

@@ -1,5 +1,6 @@
 import { useReducer } from "react";
 
+import useSwipe from "@hooks/useSwipe";
 import dayjs, { Dayjs } from "dayjs";
 import ErrorFallback from "src/components/atoms/ErrorFallback";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
@@ -28,9 +29,10 @@ function Calendar() {
     year: today.year(),
     month: today.month(),
   });
+  const swipeRef = useSwipe();
 
   return (
-    <section className={$.calendar}>
+    <section className={$.calendar} ref={swipeRef}>
       <div className={$["calendar-header"]}>
         <CalendarHeader
           calendar={{ ...{ year, month } }}

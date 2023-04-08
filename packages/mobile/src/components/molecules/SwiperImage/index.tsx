@@ -145,6 +145,7 @@ function SwiperImage({
                 key={`${image + index}`}
                 src={image}
                 alt="충림이 이미지"
+                data-id="swiper-image"
               />
             );
           })}
@@ -164,6 +165,7 @@ function SwiperImage({
         {totals.map((totalOrder) => {
           return (
             <div
+              key={totalOrder}
               className={classnames($.dot, totalOrder === order ? $.same : "")}
             />
           );

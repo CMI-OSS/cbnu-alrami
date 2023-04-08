@@ -4,7 +4,8 @@ import {
   useCoreQuery,
 } from "@hooks/api/core";
 import { BoardApiService } from "@shared/swagger-api/generated";
-import { queryKey } from "src/consts/react-query";
+import { queryKey } from "src/consts/react-query/queryKey";
+import { staleTime } from "src/consts/react-query/staleTime";
 import { queryClient } from "src/main";
 import { GetParams } from "src/type/utils";
 import { getUuid } from "src/utils/storage";
@@ -53,9 +54,13 @@ export const useSubscribeBoardsQuery = () => {
 };
 
 export const useBoardsQuery = () => {
-  return useCoreQuery(queryKey.boards({ uuid }), () => {
-    return BoardApiService.boardControllerFind({ uuid });
-  });
+  return useCoreQuery(
+    queryKey.boards({ uuid }),
+    () => {
+      return BoardApiService.boardControllerFind({ uuid });
+    },
+    { staleTime: staleTime.long },
+  );
 };
 
 export const useBoardQuery = (

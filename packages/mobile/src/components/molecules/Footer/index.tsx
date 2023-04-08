@@ -19,7 +19,7 @@ function Footer() {
     {
       id: 3,
       icon: Speaker,
-      label: "공지",
+      label: "공지사항",
       to: "/article",
     },
     {

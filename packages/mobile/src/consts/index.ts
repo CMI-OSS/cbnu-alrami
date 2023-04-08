@@ -1,7 +1,7 @@
 import { CafeteriaMenu } from "@shared/swagger-api/generated";
 import { Restaurant } from "src/type";
 
-import { Menu } from "./type";
+import { Menu } from "../type";
 
 export const CAFETERIA_MENUS: (CafeteriaMenu["name"] | string)[] = [
   CafeteriaMenu.name.BONGWAN,

@@ -1,0 +1,10 @@
+.breadcrumb {
+  display: flex;
+  margin-bottom: 4px;
+  line-height: 30px;
+  color: $black-40;
+
+  .breadcrumb-item:not(:last-child)::after {
+    content: '\00a0 >\00a0 '
+  }
+}

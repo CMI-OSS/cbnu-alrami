@@ -9,6 +9,7 @@ import cafeteriaReducer from "./cafeteriaSlice";
 import placeReducer from "./placeSlice";
 import settingReducer from "./settingSlice";
 import statusReducer from "./statusSlice";
+import toastReducer from "./toastSlice";
 
 const persistConfig = {
   key: "root",
@@ -30,6 +31,7 @@ export const store = configureStore({
     placeReducer,
     settingReducer,
     cafeteriaReducer,
+    toastReducer,
     persistedReducer,
   },
   middleware: (getDefaultMiddleware) => {

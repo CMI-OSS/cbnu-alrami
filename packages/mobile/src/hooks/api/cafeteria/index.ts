@@ -3,8 +3,8 @@ import {
   CafeteriaMenuApiService,
 } from "@shared/swagger-api/generated";
 import { useQueries } from "@tanstack/react-query";
-import { CAFETERIA_MENUS } from "src/constants";
-import { queryKey } from "src/consts/react-query";
+import { CAFETERIA_MENUS } from "src/consts";
+import { queryKey } from "src/consts/react-query/queryKey";
 
 import { useCoreQuery } from "../core";
 

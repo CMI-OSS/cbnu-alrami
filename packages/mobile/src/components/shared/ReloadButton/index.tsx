@@ -25,7 +25,7 @@ function ReloadButton({ className, buttonType, onClick }: Props) {
       onClick={onClick}
       className={classNames($["reload-button"], className)}
     >
-      <Reload stroke="#9FB0C6" size={18} />
+      <Reload stroke="#9FB0C6" size={20} />
     </button>
   );
 }

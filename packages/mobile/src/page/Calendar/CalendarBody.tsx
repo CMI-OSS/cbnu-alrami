@@ -26,8 +26,10 @@ type Props = {
 export default function CalendarBody({ today, month, year }: Props) {
   queryClient.prefetchQuery(fullScheduleQuery(year));
   queryClient.prefetchQuery(bookmarkScheduleQuery);
-  const { data: allSchedules } = useFullSchedulesQuery(year);
-  const { data: bookmarkSchedules } = useBookmarkSchedulesQuery();
+  const { data: allSchedules, refetch: refetchAllSchedules } =
+    useFullSchedulesQuery(year);
+  const { data: bookmarkSchedules, refetch: refetchBookmarkedSchedules } =
+    useBookmarkSchedulesQuery();
   const [ toggleSchedule, setToggleSchedule ] = useState<ScheduleType>("all");
   const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
 
@@ -43,19 +45,24 @@ export default function CalendarBody({ today, month, year }: Props) {
     setToggleSchedule(value as ScheduleType);
   };
 
+  const reloadAllScheduleData = () => {
+    refetchAllSchedules();
+    refetchBookmarkedSchedules();
+  }
+
   return (
     <>
       <ScheduleCalendar
         {...{ calendarMap, today, month, year }}
         {...{ toggleSchedule, selectedDate, setSelectedDate }}
       />
-
       <RadioBox
         toggle={toggleSchedule}
         onToggleChange={handleScheduleToggleChange}
       />
       <CardBox
         scheduleType={toggleSchedule}
+        onClickReload={reloadAllScheduleData}
         {...{ year, selectedDate, todaysSchedules, bookmarkSchedules }}
       />
     </>

@@ -2,6 +2,7 @@ import { animateScroll } from "react-scroll";
 
 import { Arrow } from "@components/atoms/icon";
 import guideEmptyFavoritesSchedule from "src/assets/guide_empty_favorites_schedule.svg";
+import ReloadButton from "src/components/shared/ReloadButton";
 import { FormattedSchedule } from "src/hooks/api/schedule";
 import useScroll from "src/hooks/useScroll";
 import { ScheduleType } from "src/page/Calendar";
@@ -15,9 +16,15 @@ type Props = {
   bookmarkSchedules: FormattedSchedule[];
   scheduleType: ScheduleType;
   todaysSchedules: FormattedSchedule[];
+  onClickReload: () => void;
 };
 
-function CardBox({ scheduleType, todaysSchedules, bookmarkSchedules }: Props) {
+function CardBox({
+  scheduleType,
+  todaysSchedules,
+  bookmarkSchedules,
+  onClickReload,
+}: Props) {
   const { y } = useScroll();
   const bookmarkedIDList = bookmarkSchedules.map(({ id }) => {
     return id;
@@ -27,14 +34,20 @@ function CardBox({ scheduleType, todaysSchedules, bookmarkSchedules }: Props) {
     return (
       <section className={$["empty-box"]}>
         {scheduleType === "all" ? (
-          <span className={$.description}>오늘은 일정이 없어요</span>
+          <>
+            <span className={$.description}>오늘은 일정이 없어요</span>
+            <ReloadButton onClick={onClickReload} buttonType="text" />
+          </>
         ) : (
-          <img
-            className={$.image}
-            width={239}
-            src={guideEmptyFavoritesSchedule}
-            alt="즐겨찾기된 학사일정 없음"
-          />
+          <div className={$["guide-image-box"]}>
+            <img
+              className={$.image}
+              width={239}
+              src={guideEmptyFavoritesSchedule}
+              alt="즐겨찾기된 학사일정 없음"
+            />
+            <ReloadButton onClick={onClickReload} buttonType="text" />
+          </div>
         )}
       </section>
     );
@@ -50,6 +63,7 @@ function CardBox({ scheduleType, todaysSchedules, bookmarkSchedules }: Props) {
           />
         );
       })}
+      <ReloadButton onClick={onClickReload} buttonType="icon" />
       {y > CALENDAR_UNVISIBLE_POINT && (
         <button
           className={$["floating-button"]}

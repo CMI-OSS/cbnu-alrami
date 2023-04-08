@@ -39,17 +39,20 @@ export const queryKey = {
   board: (params: GetParams<typeof BoardApiService.boardControllerFindOne>) => {
     return [ "board", params ];
   },
-
+  // Home, Calendar 도메인
   bookmarkSchedules: [ "bookmarkSchedules" ],
   weathers: [ "weathers" ],
   schedules: [ "schedules" ],
   todaysSchedules: [ "todaysSchedules" ],
+  holiday: [ "holiday" ],
+  // Cafeteria 도메인
   cafeteria: (
     name: CafeteriaMenu["name"] | string,
     date: CafeteriaMenu["date"],
   ) => {
     return [ "cafeteria", name, date ];
   },
+  // Map, Place 도메인
   schools: (
     params: GetParams<typeof PlaceApiService.placeControllerFindSchool>,
   ) => {

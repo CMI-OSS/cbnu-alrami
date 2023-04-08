@@ -28,8 +28,6 @@ function Restaurant({ today }: Props) {
     handleFinalGuideCancel,
   } = useRestaurant();
 
-  const isHoliday = today.day() === 0 || today.day() === 6;
-
   const target = CAFETERIA_LIST.find((cafeteria) => {
     return cafeteria.name === cafeteriaName;
   });
@@ -72,7 +70,7 @@ function Restaurant({ today }: Props) {
       keys={[ cafeteriaName ]}
     >
       <Selected
-        {...{ isHoliday, today }}
+        {...{ today }}
         cafeteriaData={target.id}
         cafeteriaName={cafeteriaName}
         onClick={handleSelectorClick}

@@ -2,6 +2,7 @@
 
 import { stringify } from "javascript-stringify";
 import puppeteer from "puppeteer";
+import { log } from "src/common/log";
 
 import { IS_DEV } from "../common/isDev";
 import configuration from "../config/configuration";
@@ -44,7 +45,7 @@ export const scraping = async ({ scenario }: scrapingProps) => {
 
     return data;
   } catch (error) {
-    console.log(`[srapping - ${scenario.name}] ${error}`);
+    log(`[srapping - ${scenario.name}] ${error}`);
   } finally {
     browser.close();
   }

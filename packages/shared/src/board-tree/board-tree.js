@@ -1,4 +1,5 @@
-import { writeFileSync } from "fs";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { writeFileSync } = require("fs");
 
 const root = {
   전공: {
@@ -133,6 +134,7 @@ const root = {
     "소프트웨어학과 학생회": { 공지사항: {} },
   },
   충림이: {},
+  동아리: {},
 };
 
 let insertBoardSql = ``;

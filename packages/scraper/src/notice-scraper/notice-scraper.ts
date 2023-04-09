@@ -14,7 +14,7 @@ const getISODate = (date: string) => {
 };
 
 export const scrapingNotices = async () => {
-  login();
+  await login();
 
   for (const noticeScript of noticeScripts) {
     if (

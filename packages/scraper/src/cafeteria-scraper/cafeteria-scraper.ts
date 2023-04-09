@@ -14,7 +14,7 @@ const toCafeteriaTime = (time: number) => {
 };
 
 export const scrapingCafeterias = async () => {
-  login();
+  await login();
   for (const scenario of cafeteriaScenarios) {
     const result = await scraping({ scenario });
 

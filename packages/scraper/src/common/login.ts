@@ -4,9 +4,12 @@ import { AdminApiService } from "@shared/swagger-api/generated/services/AdminApi
 
 import configuration from "../config/configuration";
 
-OpenAPI.BASE = apiServer.local;
-
 export const login = async () => {
+  OpenAPI.BASE =
+    configuration.env === "production"
+      ? apiServer.production_local
+      : apiServer.local;
+
   const { accessToken } = await AdminApiService.adminControllerLogin({
     requestBody: {
       loginId: configuration.scraperLoginId,

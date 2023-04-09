@@ -5,7 +5,7 @@ import $ from "./style.module.scss";
 type Props = {
   onCancelClick: () => void;
   onAgreeClick: () => void;
-  children: string | ReactNode;
+  children: ReactNode;
 };
 
 function ConfirmModal({ onCancelClick, onAgreeClick, children }: Props) {

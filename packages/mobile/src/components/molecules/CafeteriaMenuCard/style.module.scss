@@ -1,5 +1,4 @@
 .cafeteria-menu-card {
-  min-height: 160px;
   margin-bottom: 24px;
   padding: 22px 24px 15px;
   &:last-of-type {
@@ -8,14 +7,18 @@
   .time {
     display: flex;
     margin-bottom: 17px;
-    @include typography(16);
     .meal-time {
+      font-weight: 500;
+      @include typography(16);
+      line-height: 25px;
       color: $black-100;
     }
     &-info {
       margin-left: auto;
+      font-weight: 400;
       @include typography(14);
-      color: $black-40;
+      line-height: 30px;
+      color: $black-50;
     }
   }
   .meal {

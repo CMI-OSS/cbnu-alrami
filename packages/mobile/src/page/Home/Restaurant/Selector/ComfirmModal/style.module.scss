@@ -1,0 +1,40 @@
+.confirm-dimmed-box {
+  @include position(fixed, top 0px left 0px right 0px bottom 0px);
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(27, 27, 27, 0.95);
+
+  .confirm-modal {
+    width: 329px;
+    border-radius: 20px;
+    background-color: $black-0;
+  }
+
+  .button-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 28px 0 25px;
+
+    .button {
+      @include typography(14);
+      width: 92px;
+      height: 36px;
+      border-radius: 100px;
+
+      &:first-child {
+        color: $black-80;
+        border: 0.3px solid $black-50;
+      }
+
+      &:last-child {
+        margin-left: 28px;
+        color: $black-0;
+        background-color: $red-50;
+      }
+    }
+  }
+}

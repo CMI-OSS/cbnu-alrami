@@ -4,7 +4,6 @@ $total-margin-of-top-and-bottom: 220px;
   position: absolute;
   width: 328px;
   border-radius: 18px 18px 0 0;
-  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.9375) 56.25%, rgba(255, 255, 255, 0) 100%);
 }
 
 .dimmed-box {
@@ -35,6 +34,7 @@ $total-margin-of-top-and-bottom: 220px;
       @include default-gradient-box();
       height: 70px;
       top: 0;
+      background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.9375) 56.25%, rgba(255, 255, 255, 0) 100%);
     }
 
     .list {
@@ -85,9 +85,19 @@ $total-margin-of-top-and-bottom: 220px;
 
     .bottom-gradient-box {
       @include default-gradient-box();
-      height: 104px;
+      height: 84px;
       bottom: 0;
       transform: rotate(-180deg);
+      background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.9375) 80.25%, rgba(255, 255, 255, 0) 100%);
     }
+  }
+
+  .description {
+    @include typography(14);
+    display: block;
+    margin-top: 47px;
+    line-height: 30px;
+    color: $black-80;
+    text-align: center;
   }
 }

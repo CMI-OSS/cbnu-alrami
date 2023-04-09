@@ -1,7 +1,7 @@
 import { queryKey } from "src/consts/react-query/queryKey";
 import { queryClient } from "src/main";
 
-import { getUpperCasePosition } from "./PlaceDetailBody";
+import getUpperCasePosition from "./getUpperCasePosition";
 
 function reloadPlaceQueries(position: string) {
   const area = getUpperCasePosition(position);

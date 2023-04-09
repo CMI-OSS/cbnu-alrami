@@ -20,8 +20,6 @@ function PlaceDetail() {
 
   const checkMenu = (position: string) => {
     switch (position) {
-      case undefined:
-        return 0;
       case "north":
         return 1;
       case "east":

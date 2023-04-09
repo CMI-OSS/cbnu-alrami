@@ -90,17 +90,6 @@ export class FcmService {
         url: `https://dev-mobile.cmiteam.kr/article/detail/${article.id}`,
       });
     }
-
-    // subscribers.forEach((user) => {
-    //   const notification = { title: boardTitle, body: article.title };
-    //   const { fcmToken } = user;
-
-    //   if (fcmToken)
-    //     this.sendNotice(fcmToken, notification, {
-    //       articleId: article.id.toString(),
-    //       url: `https://dev-mobile.cmiteam.kr/article/detail/${article.id}`,
-    //     });
-    // });
   }
 
   async sendNotice(

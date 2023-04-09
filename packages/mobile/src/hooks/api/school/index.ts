@@ -6,17 +6,25 @@ import { GetParams } from "src/type/utils";
 export const useSchoolsQuery = (
   params?: GetParams<typeof PlaceApiService.placeControllerFindSchool>,
 ) => {
-  return useCoreQuery(queryKey.schools({ ...params }), () => {
-    return PlaceApiService.placeControllerFindSchool({
-      ...params,
-    });
-  }, {suspense: true});
+  return useCoreQuery(
+    queryKey.schools({ ...params }),
+    () => {
+      return PlaceApiService.placeControllerFindSchool({
+        ...params,
+      });
+    },
+    { suspense: true },
+  );
 };
 
 export const useSchoolQuery = (
   params: GetParams<typeof PlaceApiService.placeControllerFindOneSchool>,
 ) => {
-  return useCoreQuery(queryKey.school(params), () => {
-    return PlaceApiService.placeControllerFindOneSchool({ ...params });
-  }, {suspense: true});
+  return useCoreQuery(
+    queryKey.school(params),
+    () => {
+      return PlaceApiService.placeControllerFindOneSchool({ ...params });
+    },
+    { suspense: true },
+  );
 };

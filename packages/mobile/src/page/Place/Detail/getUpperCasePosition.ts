@@ -5,7 +5,8 @@ type GetUpperCasePosition = (
 ) => PlaceSchoolDto["school"]["area"];
 
 const getUpperCasePosition: GetUpperCasePosition = (position) => {
-  const area = position === "all" ? undefined : position.split("")[0].toUpperCase();
+  const area =
+    position === "all" ? undefined : position.split("")[0].toUpperCase();
   return area as PlaceSchoolDto["school"]["area"];
 };
 

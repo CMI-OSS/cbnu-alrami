@@ -9,8 +9,7 @@ describe("[학생식당 스크래퍼]", () => {
     await login();
   });
   test("실행", async () => {
-    const data = await scrapingCafeterias();
-    console.log(data);
+    await scrapingCafeterias();
   });
 });
 

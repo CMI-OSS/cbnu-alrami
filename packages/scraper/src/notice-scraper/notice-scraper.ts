@@ -1,6 +1,7 @@
 import { ArticleApiService } from "@shared/swagger-api/generated/services/ArticleApiService";
 import dayjs from "dayjs";
 import { log } from "src/common/log";
+import { login } from "src/common/login";
 import noticeScripts from "src/notice-scraper/scripts/index";
 
 import { scraping } from "../scraper/scraper";
@@ -13,6 +14,8 @@ const getISODate = (date: string) => {
 };
 
 export const scrapingNotices = async () => {
+  login();
+
   for (const noticeScript of noticeScripts) {
     if (
       excludeSites.some((site) => {

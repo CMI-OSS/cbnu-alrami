@@ -4721,6 +4721,11 @@
   resolved "https://registry.npmjs.org/@types/navermaps/-/navermaps-3.0.13.tgz"
   integrity sha512-kA9Ss2FWm91IojmV8M6M3wtMcRjvVf4z0iAmoZD1xUqn3iJNoq2THvbOiQdbcO6Iu06a/bmXrXH7nKIlShmOZg==
 
+"@types/node-cron@^3.0.7":
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/@types/node-cron/-/node-cron-3.0.7.tgz#978bf75f7247385c61d23b6a060ba9eedb03e2f4"
+  integrity sha512-9PuLtBboc/+JJ7FshmJWv769gDonTpItN0Ol5TMwclpSQNjVyB2SRxSKBcTtbSysSL5R7Oea06kTTFNciCoYwA==
+
 "@types/node@*", "@types/node@^16.0.0", "@types/node@^16.11.1":
   version "16.11.35"
   resolved "https://registry.npmjs.org/@types/node/-/node-16.11.35.tgz"
@@ -11918,6 +11923,13 @@ neo-async@^2.6.0, neo-async@^2.6.2:
   version "2.6.2"
   resolved "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
+
+node-cron@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/node-cron/-/node-cron-3.0.2.tgz#bb0681342bd2dfb568f28e464031280e7f06bd01"
+  integrity sha512-iP8l0yGlNpE0e6q1o185yOApANRe47UPbLf4YxfbiNHt/RU5eBcGB/e0oudruheSf+LQeDMezqC5BVAb5wwRcQ==
+  dependencies:
+    uuid "8.3.2"
 
 node-emoji@1.11.0:
   version "1.11.0"

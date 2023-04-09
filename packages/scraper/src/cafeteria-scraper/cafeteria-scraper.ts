@@ -1,5 +1,6 @@
 import { CafeteriaMenu } from "@shared/swagger-api/generated/models/CafeteriaMenu";
 import { CafeteriaMenuApiService } from "@shared/swagger-api/generated/services/CafeteriaMenuApiService";
+import { login } from "src/common/login";
 
 import { scraping } from "../scraper/scraper";
 import { cafeteriaScenarios } from "./cafeteria-scenario";
@@ -13,6 +14,7 @@ const toCafeteriaTime = (time: number) => {
 };
 
 export const scrapingCafeterias = async () => {
+  login();
   for (const scenario of cafeteriaScenarios) {
     const result = await scraping({ scenario });
 

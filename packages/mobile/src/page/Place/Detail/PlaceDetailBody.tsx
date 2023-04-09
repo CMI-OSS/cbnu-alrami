@@ -2,24 +2,14 @@ import { PlaceSchoolDto } from "@shared/swagger-api/generated";
 import { useSchoolsQuery } from "src/hooks/api/school";
 import DetailGroup from "src/page/Place/DetailGroup";
 
+import getUpperCasePosition from "./getUpperCasePosition";
+
 type Props = { position: string };
 
-type GetUpperCasePosition = (
-  position: string,
-) => PlaceSchoolDto["school"]["area"];
-
-export const getUpperCasePosition: GetUpperCasePosition = (position) => {
-  const area = position === "all" ? undefined : position.split("")[0].toUpperCase();
-  return area as PlaceSchoolDto["school"]["area"];
-};
-
 function PlaceDetailBody({ position }: Props) {
-  const currentPosition =
-    position === "all" ? undefined : position.split("")[0].toUpperCase();
+  const currentPosition = getUpperCasePosition(position);
 
-  const { data: schoolsData } = useSchoolsQuery({
-    area: currentPosition as PlaceSchoolDto["school"]["area"],
-  });
+  const { data: schoolsData } = useSchoolsQuery({ area: currentPosition });
 
   if (!schoolsData) return null;
 

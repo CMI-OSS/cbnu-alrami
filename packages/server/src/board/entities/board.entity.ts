@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, OmitType } from "@nestjs/swagger";
 import { UpdatableCommonEntity } from "src/common/entity";
 import {
   Column,
@@ -14,7 +14,7 @@ import { SubscribeBoard } from "./subscribe-board.entity";
 
 @Entity()
 @Tree("materialized-path")
-export class Board extends UpdatableCommonEntity {
+export class Board extends OmitType(UpdatableCommonEntity, [ "id" ]) {
   @ApiProperty({ description: "아이디", example: 1 })
   @PrimaryColumn()
   id!: number;

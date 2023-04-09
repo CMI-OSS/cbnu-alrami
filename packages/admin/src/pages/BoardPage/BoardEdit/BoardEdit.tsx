@@ -54,6 +54,7 @@ const BoardEdit = () => {
 
   const formToBoardDto = (v: BoardForm) => {
     const createBoardDto: CreateBoardDto = {
+      id: Number(v.id),
       name: v.name,
       parentBoardId: v.parentBoardId ?? null,
       url: v.url,
@@ -74,9 +75,11 @@ const BoardEdit = () => {
   const onSubmit = async (v: BoardForm) => {
     try {
       if (isEdit) {
+        const { id, ...requestBody } = formToBoardDto(v);
+
         await BoardApiService.boardControllerUpdate({
           id: Number(boardId),
-          requestBody: formToBoardDto(v),
+          requestBody,
         });
       } else {
         await BoardApiService.boardControllerCreate({

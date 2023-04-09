@@ -8,6 +8,8 @@ import * as FCM from "fcm-node";
 import { Article } from "src/article/entities/article.entity";
 import { BoardService } from "src/board/board.service";
 import configuration from "src/config/configuration";
+import { mobileServer } from "src/config/constant";
+import isServerProduction from "src/config/util";
 import { UserService } from "src/user/user.service";
 
 @Injectable()
@@ -87,7 +89,9 @@ export class FcmService {
 
       this.sendNotice(chunkTokens, notification, {
         articleId: article.id.toString(),
-        url: `https://dev-mobile.cmiteam.kr/article/detail/${article.id}`,
+        url: `${
+          isServerProduction ? mobileServer.production : mobileServer.dev
+        }/article/detail/${article.id}`,
       });
     }
   }

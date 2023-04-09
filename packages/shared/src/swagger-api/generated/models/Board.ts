@@ -6,10 +6,6 @@ import type { ChildBoard } from './ChildBoard';
 
 export type Board = {
     /**
-     * 아이디
-     */
-    id: number;
-    /**
      * 생성 시간
      */
     createdDateTime: string;
@@ -17,6 +13,10 @@ export type Board = {
      * 수정 시간
      */
     updatedDateTime: string;
+    /**
+     * 아이디
+     */
+    id: number;
     /**
      * 게시판 제목
      */

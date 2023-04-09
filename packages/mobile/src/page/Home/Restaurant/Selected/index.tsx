@@ -4,7 +4,9 @@ import { Dayjs } from "dayjs";
 import BorderBox from "src/components/atoms/BorderBox";
 import { Write } from "src/components/atoms/icon";
 import Line from "src/components/atoms/Line";
-import { useCafeteriaQuery } from "src/hooks/api/cafeteria";
+import { cafeteriaQuery, useCafeteriaQuery } from "src/hooks/api/cafeteria";
+import { holidayQuery, useHoliday } from "src/hooks/api/schedule";
+import { queryClient } from "src/main";
 import { getCafeteriaTime } from "src/page/Cafeteria/constants";
 import { Restaurant } from "src/type";
 
@@ -15,7 +17,6 @@ type Props = {
   today: Dayjs;
   cafeteriaData: CafeteriaMenu.name;
   cafeteriaName: Omit<Restaurant, "표시 안함">;
-  isHoliday: boolean;
   onClick: () => void;
   className?: string;
 };
@@ -27,14 +28,18 @@ const getMealTime = (hour: number) => {
 };
 
 function Selected(props: Props) {
-  const { today, cafeteriaData, cafeteriaName, isHoliday, onClick, className } =
-    props;
-  const { data } = useCafeteriaQuery(cafeteriaData, today.format("YYYY-MM-DD"));
+  const { today, cafeteriaData, cafeteriaName, onClick, className } = props;
+  const fullDate = today.format("YYYY-MM-DD");
+
+  queryClient.prefetchQuery(holidayQuery(fullDate));
+  queryClient.prefetchQuery(cafeteriaQuery(cafeteriaData, fullDate));
+  const { data: isHoliday } = useHoliday(fullDate);
+  const { data } = useCafeteriaQuery(cafeteriaData, fullDate);
   const menuData = data?.find(({ time }) => {
     return time === getMealTime(today.hour());
   });
 
-  if(!data) return null;
+  if (!data || !isHoliday) return null;
   if (!menuData)
     return (
       <EmptyCafeteria

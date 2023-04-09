@@ -5,12 +5,12 @@ import { FcmService } from "./fcm.service";
 
 describe("FCM module", () => {
   let fcmService: FcmService;
-  const data = { title: "CMI", body: "공지사항 등록" };
-  const 제스 =
-    "fH3Qkxyj-UnQr2PFa-xHL0:APA91bFS9BAXPqPSM5RLt-QmsEbYFsTPbHDsRFeQcCRYqAzpbet3BD298gLxDgkPMs0S7CTiGqLLkTpiSTnY8cBgl5pXeoRfRuH3VZkMHAwfhGehOFtZ3kO5e-YIu1gB8b8cNITzYCQI";
+  const data = { title: "CMI", body: "공지사항 알림 테스트" };
+  const IOS =
+    "cyZiY2-vLkjni_Qx7RBOLq:APA91bEmEYg6TZpvaXYLZ3cmzsxsQ9aZslqhf9Gki-EPo6APk48dmNp16KmzDN2JHmm9Gy_GEjbk4ZSSWwltRisOnobSEVBuPBM-MN1WnHhhLpVe8wKIsj3zUSdsgi-pGmeZJWWI5jvc";
 
-  const 브루니 =
-    "d_2nPsxlDkYMottYFPHjOY:APA91bHpaRkD6lmcc1CFLRY1Gb0mBQVMVd6RoQw0OwPNVmUBa_hqRuaWT-j3V5VxSPUFpB3-sVaI6bdEeMaNLeLEUzzlqEhirE-fN1na6F_Mr0w0EOOQ11B5JUAMRRLovbMN0IqZ48Zm";
+  const ANDORIOD =
+    "fsbiefTlSSmSSUArzfyPK9:APA91bGG14rAlFJGLjJoa6JW03ziDK3Er01j9hfMmSj98O7M3LpH17G2ArIw9K91YPoUZsIGd8Ec86R2XDHkpx_LqJWbjNatrutJkYEu2KI5LdJHF6wcGCtNU625FWTz43Ea__YPVwH_";
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
@@ -21,10 +21,14 @@ describe("FCM module", () => {
   });
 
   test("send message ios", async () => {
-    await fcmService.sendNotice(제스, data, {});
+    await fcmService.sendNotice(IOS, data, {});
   });
 
   test("send message aos", async () => {
-    await fcmService.sendNotice(브루니, data, {});
+    await fcmService.sendNotice(ANDORIOD, data, {});
+  });
+
+  test("send message multiple", async () => {
+    await fcmService.sendNotice([ ANDORIOD, IOS, "4444" ], data, {});
   });
 });

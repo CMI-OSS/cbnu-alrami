@@ -15,6 +15,7 @@ function MapDetail() {
       style={{
         background:
           "linear-gradient(180deg, rgba(0, 0, 0, 0.5) 22.92%, rgba(0, 0, 0, 0) 100%)",
+        zIndex: 100,
       }}
     >
       {/* [D] 식당 스펙 추가 후 작업 진행 예정 */}

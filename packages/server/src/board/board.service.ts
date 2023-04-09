@@ -139,7 +139,7 @@ export class BoardService {
       ? [ ...board.subscribes, newSubscribe ]
       : [ newSubscribe ];
 
-    return !!board.save();
+    return !!(await this.boardRepository.save(board));
   }
 
   async unsubscribe(id: number, user: User) {

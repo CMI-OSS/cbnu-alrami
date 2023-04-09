@@ -48,4 +48,4 @@ jobs:
           script: |
             cd github-action-production
             git pull
-            sh ./deploy.sh
+            sh ./deploy_production.sh

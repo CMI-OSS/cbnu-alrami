@@ -4,11 +4,11 @@ import {
   Inject,
   Injectable,
 } from "@nestjs/common";
-import { mobileServer } from "@shared/constant";
 import * as FCM from "fcm-node";
 import { Article } from "src/article/entities/article.entity";
 import { BoardService } from "src/board/board.service";
 import configuration from "src/config/configuration";
+import { mobileServer } from "src/config/constant";
 import isServerProduction from "src/config/util";
 import { UserService } from "src/user/user.service";
 

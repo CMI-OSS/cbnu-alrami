@@ -4,12 +4,12 @@ import { DefaultProps } from "src/type/props";
 
 import $ from "./style.module.scss";
 
-type Props = {
+export type ReloadButtonProps = {
   buttonType: "text" | "icon";
   onClick: () => void;
 } & DefaultProps;
 
-function ReloadButton({ className, buttonType, onClick }: Props) {
+function ReloadButton({ className, buttonType, onClick }: ReloadButtonProps) {
   if (buttonType === "text")
     return (
       <button

@@ -2,7 +2,9 @@ import { animateScroll } from "react-scroll";
 
 import { Arrow } from "@components/atoms/icon";
 import guideEmptyFavoritesSchedule from "src/assets/guide_empty_favorites_schedule.svg";
-import ReloadButton from "src/components/shared/ReloadButton";
+import ReloadButton, {
+  ReloadButtonProps,
+} from "src/components/shared/ReloadButton";
 import { FormattedSchedule } from "src/hooks/api/schedule";
 import useScroll from "src/hooks/useScroll";
 import { ScheduleType } from "src/page/Calendar";
@@ -25,17 +27,25 @@ function CardBox({ scheduleType, todaysSchedules, bookmarkSchedules }: Props) {
     return id;
   });
 
+  const ReloadButtonForCalendar = ({
+    buttonType,
+  }: Pick<ReloadButtonProps, "buttonType">) => {
+    return (
+      <ReloadButton
+        buttonType={buttonType}
+        onClick={reloadCalendarQueries}
+        className={$["reload-button"]}
+      />
+    );
+  };
+
   if (todaysSchedules.length === 0)
     return (
       <section className={$["empty-box"]}>
         {scheduleType === "all" ? (
           <>
             <span className={$.description}>오늘은 일정이 없어요</span>
-            <ReloadButton
-              className={$["reload-button"]}
-              onClick={reloadCalendarQueries}
-              buttonType="text"
-            />
+            <ReloadButtonForCalendar buttonType="text" />
           </>
         ) : (
           <div className={$["guide-image-box"]}>
@@ -45,11 +55,7 @@ function CardBox({ scheduleType, todaysSchedules, bookmarkSchedules }: Props) {
               src={guideEmptyFavoritesSchedule}
               alt="즐겨찾기된 학사일정 없음"
             />
-            <ReloadButton
-              className={$["reload-button"]}
-              onClick={reloadCalendarQueries}
-              buttonType="text"
-            />
+            <ReloadButtonForCalendar buttonType="text" />
           </div>
         )}
       </section>
@@ -66,11 +72,7 @@ function CardBox({ scheduleType, todaysSchedules, bookmarkSchedules }: Props) {
           />
         );
       })}
-      <ReloadButton
-        className={$["reload-button"]}
-        onClick={reloadCalendarQueries}
-        buttonType="icon"
-      />
+      <ReloadButtonForCalendar buttonType="icon" />
       {y > CALENDAR_UNVISIBLE_POINT && (
         <button
           className={$["floating-button"]}

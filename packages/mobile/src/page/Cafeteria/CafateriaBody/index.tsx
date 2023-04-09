@@ -1,4 +1,6 @@
-import ReloadButton from "@components/shared/ReloadButton";
+import ReloadButton, {
+  ReloadButtonProps,
+} from "@components/shared/ReloadButton";
 import { CafeteriaMenu } from "@shared/swagger-api/generated";
 import classnames from "classnames";
 import noMenu from "src/assets/no_menu.svg";
@@ -23,6 +25,18 @@ function CafeteriaBody({ fullDate, day, selectedMenu }: Props) {
 
   const handleReloadClick = () => {
     return reloadCafeteriaQueries({ selectedMenu, fullDate });
+  };
+
+  const ReloadButtonForCafeteria = ({
+    buttonType,
+  }: Pick<ReloadButtonProps, "buttonType">) => {
+    return (
+      <ReloadButton
+        buttonType={buttonType}
+        onClick={handleReloadClick}
+        className={$["reload-button"]}
+      />
+    );
   };
 
   return (
@@ -54,11 +68,7 @@ function CafeteriaBody({ fullDate, day, selectedMenu }: Props) {
               successMsg="식단 링크가 클립보드에 복사되었습니다."
               className={$["share-button"]}
             />
-            <ReloadButton
-              buttonType="icon"
-              onClick={handleReloadClick}
-              className={$["reload-button"]}
-            />
+            <ReloadButtonForCafeteria buttonType="icon" />
           </div>
         </>
       )}
@@ -67,11 +77,7 @@ function CafeteriaBody({ fullDate, day, selectedMenu }: Props) {
         <div className={$["go-out"]}>
           <img src={noMenu} alt="메뉴가 없습니다." width="130" height="130" />
           <span className={$["go-out-text"]}>오늘은 식단이 없어요</span>
-          <ReloadButton
-            buttonType="text"
-            onClick={handleReloadClick}
-            className={$["reload-button"]}
-          />
+          <ReloadButtonForCafeteria buttonType="text" />
         </div>
       )}
     </main>

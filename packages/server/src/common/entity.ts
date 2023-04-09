@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-export abstract class CommonEntity extends BaseEntity {
+export class CommonEntity extends BaseEntity {
   @ApiProperty({ description: "아이디", example: 1 })
   @PrimaryGeneratedColumn()
   id!: number;
@@ -18,7 +18,7 @@ export abstract class CommonEntity extends BaseEntity {
   createdDateTime: Date;
 }
 
-export abstract class UpdatableCommonEntity extends CommonEntity {
+export class UpdatableCommonEntity extends CommonEntity {
   @ApiProperty({ description: "수정 시간" })
   @UpdateDateColumn({
     type: "timestamp",

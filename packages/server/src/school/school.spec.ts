@@ -2,10 +2,10 @@
 /* eslint-disable no-restricted-syntax */
 import { Test } from "@nestjs/testing";
 import { AppModule } from "src/app.module";
+import { PlaceService } from "src/place/place.service";
 
 import { CreateSchoolDto } from "./dto/create-school.dto";
 import { SchoolArea } from "./school.constant";
-import { SchoolService } from "./school.service";
 
 jest.setTimeout(600000);
 
@@ -518,20 +518,20 @@ const SeedSchools: CreateSchoolDto[] = [
   },
 ];
 
-describe.skip("SchoolModule", () => {
-  let schoolService: SchoolService;
+describe("SchoolModule", () => {
+  let placeService: PlaceService;
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
       imports: [ AppModule ],
     }).compile();
 
-    schoolService = module.get<SchoolService>(SchoolService);
+    placeService = module.get<PlaceService>(PlaceService);
   });
 
   test("create school seed", async () => {
     for (const school of SeedSchools) {
-      await schoolService.create(school);
+      await placeService.createSchool(placeService.toCreatePlaceDto(school));
     }
   });
 });

@@ -108,10 +108,12 @@ export class BoardService {
       if (parentBoardId) {
         const targetBoard = await this.findOne(id);
         parentBoard = await this.findOne(parentBoardId);
+
         targetBoard.parent = parentBoard;
-        targetBoard.save();
+        this.boardRepository.save(targetBoard);
       }
     } catch (error) {
+      console.log({ error });
       throw new NotFoundParentBoardException();
     }
 
@@ -137,7 +139,7 @@ export class BoardService {
       ? [ ...board.subscribes, newSubscribe ]
       : [ newSubscribe ];
 
-    return !!board.save();
+    return !!(await this.boardRepository.save(board));
   }
 
   async unsubscribe(id: number, user: User) {

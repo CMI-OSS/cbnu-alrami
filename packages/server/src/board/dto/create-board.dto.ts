@@ -9,6 +9,10 @@ export class CreateBoardDto extends OmitType(Board, [
   "children",
   "parent",
 ]) {
+  @ApiProperty({ description: "게시판 ID" })
+  @IsNumber()
+  id: number;
+
   @IsString()
   name: string;
 

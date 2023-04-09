@@ -3,9 +3,13 @@ import { OpenAPI } from "@shared/swagger-api/generated/core/OpenAPI";
 import { schedule } from "node-cron";
 
 import { scrapingCafeterias } from "./cafeteria-scraper/cafeteria-scraper";
+import configuration from "./config/configuration";
 import { scrapingNotices } from "./notice-scraper/notice-scraper";
 
-OpenAPI.BASE = apiServer.local;
+OpenAPI.BASE =
+  configuration.env === "production"
+    ? apiServer.production_local
+    : apiServer.local;
 
 // 3시간에 한번씩 실행
 schedule("0 */3 * * *", () => {

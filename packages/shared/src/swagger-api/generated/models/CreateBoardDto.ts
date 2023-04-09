@@ -12,6 +12,10 @@ export type CreateBoardDto = {
      */
     url?: string;
     /**
+     * 게시판 ID
+     */
+    id: number;
+    /**
      * 상위 게시판 ID
      */
     parentBoardId: number | null;

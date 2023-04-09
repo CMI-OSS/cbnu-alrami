@@ -1,8 +1,8 @@
-name: dev-deploy
+name: production-deploy
 
 on:
   push:
-    branches: ["dev"]
+    branches: ["production"]
 
 jobs:
   build:
@@ -14,25 +14,26 @@ jobs:
       - run: 'echo "$configuration" > configuration.ts'
         shell: bash
         env:
-          configuration: ${{secrets.DEV_SERVER_CONFIG}}
+          configuration: ${{secrets.PRODUCTION_SERVER_CONFIG}}
       - name: Copy server configuration file to remote
         uses: garygrossgarten/github-action-scp@release
         with:
           local: configuration.ts
-          remote: github-action-deploy/packages/server/src/config/configuration.ts
+          remote: github-action-production/packages/server/src/config/configuration.ts
           host: ${{ secrets.DEV_SERVER_SSH_HOST }}
           username: ${{ secrets.DEV_SERVER_SSH_USER }}
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}
           port: ${{ secrets.DEV_SERVER_SSH_PORT }}
+
       - run: 'echo "$configuration" > configuration.ts'
         shell: bash
         env:
-          configuration: ${{secrets.DEV_SCRAPER_CONFIG}}
+          configuration: ${{secrets.PRODUCTION_SCRAPER_CONFIG}}
       - name: Copy scraper configuration file to remote
         uses: garygrossgarten/github-action-scp@release
         with:
           local: configuration.ts
-          remote: github-action-deploy/packages/scraper/src/config/configuration.ts
+          remote: github-action-production/packages/scraper/src/config/configuration.ts
           host: ${{ secrets.DEV_SERVER_SSH_HOST }}
           username: ${{ secrets.DEV_SERVER_SSH_USER }}
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}
@@ -45,6 +46,6 @@ jobs:
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}
           port: ${{ secrets.DEV_SERVER_SSH_PORT }}
           script: |
-            cd github-action-deploy
+            cd github-action-production
             git pull
             sh ./deploy.sh

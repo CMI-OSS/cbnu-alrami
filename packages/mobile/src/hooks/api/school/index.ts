@@ -10,7 +10,7 @@ export const useSchoolsQuery = (
     return PlaceApiService.placeControllerFindSchool({
       ...params,
     });
-  });
+  }, {suspense: true});
 };
 
 export const useSchoolQuery = (
@@ -18,5 +18,5 @@ export const useSchoolQuery = (
 ) => {
   return useCoreQuery(queryKey.school(params), () => {
     return PlaceApiService.placeControllerFindOneSchool({ ...params });
-  });
+  }, {suspense: true});
 };

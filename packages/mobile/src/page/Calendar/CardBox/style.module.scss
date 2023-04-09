@@ -7,19 +7,33 @@ $height-of-calendar-and-radio: 453px;
   align-items: center;
   justify-content: center;
 
+  .reload-button {
+    width: 100%;
+    padding: 24px 0;
+  }
+
   .description {
     @include typography(14);
     color: $background-50;
     line-height: 30px;
   }
 
-  .image {
+  .guide-image-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin: 20px 0 calc($footer + 20px);
   }
 }
 
 .card-box {
   padding: 13px 10px 154px;
+
+  .reload-button {
+    width: 100%;
+    padding: 24px 0;
+  }
 
   .floating-button {
     @include safe-area-position(fixed, bottom 84px right 16px);

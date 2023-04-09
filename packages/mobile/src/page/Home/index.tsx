@@ -4,12 +4,14 @@ import classNames from "classnames";
 import dayjs from "dayjs";
 import ErrorFallback from "src/components/atoms/ErrorFallback";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
+import ReloadButton from "src/components/shared/ReloadButton";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
 import useModal from "src/hooks/useModal";
 import Article from "src/page/Home/Article";
 
 import { HOME_MARGIN_BOTTOM } from "./constants";
 import HomeHeader from "./HomeHeader";
+import reloadHomeQueries from "./reloadHomeQueries";
 import Restaurant from "./Restaurant";
 import ScheduleContainer from "./ScheduleContainer";
 import $ from "./style.module.scss";
@@ -79,6 +81,11 @@ function Home() {
       >
         <Article />
       </AsyncBoundary>
+      <ReloadButton
+        buttonType="icon"
+        onClick={reloadHomeQueries}
+        className={$["reload-button"]}
+      />
       <Footer />
     </section>
   );

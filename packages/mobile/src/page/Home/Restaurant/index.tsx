@@ -2,7 +2,7 @@ import { Dayjs } from "dayjs";
 import ErrorFallback from "src/components/atoms/ErrorFallback";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
-import { CAFETERIA_LIST } from "src/consts";
+import getCafeteriaData from "src/utils/getCafeteriaData";
 
 import { HOME_MARGIN_BOTTOM } from "../constants";
 import EmptyCafeteria from "./EmptyCafeteria";
@@ -28,9 +28,9 @@ function Restaurant({ today }: Props) {
     handleFinalGuideCancel,
   } = useRestaurant();
 
-  const target = CAFETERIA_LIST.find((cafeteria) => {
-    return cafeteria.name === cafeteriaName;
-  });
+  const isHoliday = today.day() === 0 || today.day() === 6;
+
+  const target = getCafeteriaData(cafeteriaName);
 
   if (cardType === "none") return null;
   if (cardType === "greeting")

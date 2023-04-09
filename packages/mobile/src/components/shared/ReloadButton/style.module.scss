@@ -1,0 +1,17 @@
+.reload-button-with-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .reload-text {
+    @include typography(14);
+    margin-left: 5px;
+    color: $background-50;
+  }
+}
+
+.reload-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

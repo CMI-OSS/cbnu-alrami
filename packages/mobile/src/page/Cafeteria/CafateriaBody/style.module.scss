@@ -25,17 +25,25 @@ $cafeteria-padding-bottom: $footer + $cafeteria-body-padding;
       color: $background-50;
     }
   }
+
+  .reload-button {
+    padding: 19px;
+  }
 }
 
-.share-button {
+.button-box {
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin: 36px auto 36px - $cafeteria-body-padding;
-  &-text {
-    margin-left: 5px;
-    @include typography(14);
-    line-height: 30px;
-    color: $background-50;
+  justify-content: center;
+
+  .reload-button {
+    padding: 20px 20px 20px 28px;
+  }
+
+  .share-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 28px 20px 20px;
   }
 }

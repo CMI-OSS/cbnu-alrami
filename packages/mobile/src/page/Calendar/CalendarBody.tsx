@@ -49,7 +49,6 @@ export default function CalendarBody({ today, month, year }: Props) {
         {...{ calendarMap, today, month, year }}
         {...{ toggleSchedule, selectedDate, setSelectedDate }}
       />
-
       <RadioBox
         toggle={toggleSchedule}
         onToggleChange={handleScheduleToggleChange}

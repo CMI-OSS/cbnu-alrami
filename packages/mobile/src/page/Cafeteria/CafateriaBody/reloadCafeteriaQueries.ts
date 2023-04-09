@@ -8,7 +8,7 @@ type Props = {
 };
 
 function reloadCafeteriaQueries({ selectedMenu, fullDate }: Props) {
-  queryClient.refetchQueries({
+  queryClient.resetQueries({
     queryKey: queryKey.cafeteria(selectedMenu, fullDate),
   });
 }

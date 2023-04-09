@@ -7,7 +7,7 @@ type Props = {
 
 function refetchManyQueries({ queryClient, queryKeys }: Props) {
   queryKeys.forEach((key) => {
-    return queryClient.refetchQueries(key);
+    return queryClient.resetQueries(key);
   });
 }
 

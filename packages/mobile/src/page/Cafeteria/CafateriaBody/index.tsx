@@ -20,9 +20,10 @@ function CafeteriaBody({ fullDate, selectedMenu }: Props) {
   queryClient.prefetchQuery(cafeteriaQuery(selectedMenu, fullDate));
   const { data: cafeteriaMenu } = useCafeteriaQuery(selectedMenu, fullDate);
   const { data: isHoliday } = useHoliday(fullDate);
-  const isCafeteriaExist = cafeteriaMenu && cafeteriaMenu.length > 0;
 
-  if (!isHoliday) return null;
+  if (isHoliday === undefined || !cafeteriaMenu) return null;
+  const isCafeteriaExist = cafeteriaMenu.length > 0;
+
   return (
     <main
       className={classnames($.cafeteria, {

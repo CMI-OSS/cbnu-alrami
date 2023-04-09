@@ -55,11 +55,13 @@ function Home() {
         errorFallback={ErrorFallback}
         fallBackHeight="156px"
       >
-        <Weather 
-          isOpen={isOpen}
-          onSuggestionModalClose={handleModalClose}
-          onSuggestionModalOpen={handleModalOpen}
-          />
+        <Weather
+          {...{
+            isOpen,
+            handleModalClose,
+            handleModalOpen,
+          }}
+        />
       </AsyncBoundary>
 
       <Restaurant {...{ today }} />

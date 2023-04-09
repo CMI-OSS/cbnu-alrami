@@ -35,10 +35,6 @@ function Selector({
     onCafeteriaSelect(name);
   };
 
-  const handleCloseModalClick = () => {
-    return handleModalClose();
-  };
-
   const handleAgreeClick = () => {
     return onCafeteriaSelect("표시 안함");
   };
@@ -80,7 +76,7 @@ function Selector({
       {isOpen && (
         <ConfirmModal
           onAgreeClick={handleAgreeClick}
-          onCancelClick={handleCloseModalClick}
+          onCancelClick={handleModalClose}
         >
           <p className={$.description}>
             홈화면에 식단을 표시하지

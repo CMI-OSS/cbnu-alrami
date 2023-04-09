@@ -3,21 +3,18 @@ import find from "lodash/find";
 import BorderBox from "src/components/atoms/BorderBox";
 import { Info } from "src/components/atoms/icon";
 import { useWeathersQuery } from "src/hooks/api/weather";
+import { UseModalReturn } from "src/hooks/useModal";
 
 import SuggestionModal from "../SuggestionModal";
 import { iconToBackgrounds } from "./constants";
 import $ from "./style.module.scss";
 
-type Props = {
-  isOpen: boolean;
-  onSuggestionModalOpen: () => void;
-  onSuggestionModalClose: () => void;
-};
+type Props = UseModalReturn;
 
 function Weather({
   isOpen,
-  onSuggestionModalOpen,
-  onSuggestionModalClose,
+  handleModalClose,
+  handleModalOpen,
 }: Props) {
   const { data } = useWeathersQuery();
   if (!data) return null;
@@ -37,7 +34,7 @@ function Weather({
       {isOpen && (
         <SuggestionModal
           currentTemperature={currentTemp}
-          onClick={onSuggestionModalClose}
+          onClick={handleModalClose}
         />
       )}
 
@@ -60,7 +57,7 @@ function Weather({
           <button
             className={$.more}
             type="button"
-            onClick={onSuggestionModalOpen}
+            onClick={handleModalOpen}
           >
             <Info size={14} stroke="#aaa" />
             기온별 옷차림

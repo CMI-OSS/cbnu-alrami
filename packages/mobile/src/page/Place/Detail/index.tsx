@@ -15,10 +15,10 @@ function PlaceDetail() {
   const dispatch = useAppDispatch();
 
   const bodyHeight =
-  "calc(var(--vh, 1vh) * 100 - (env(safe-area-inset-top) + env(safe-area-inset-bottom)))";
+    "calc(var(--vh, 1vh) * 100 - (env(safe-area-inset-top) + env(safe-area-inset-bottom)))";
   const position = useSearch({ target: "position" })!;
-  
-    const checkMenu = (position: string) => {
+
+  const checkMenu = (position: string) => {
     switch (position) {
       case undefined:
         return 0;
@@ -52,11 +52,11 @@ function PlaceDetail() {
           제보하기
         </NavLink> */}
       <AsyncBoundary
-          suspenseFallback={<SuspenseFallback height={bodyHeight} />}
-          errorFallback={ErrorFallback}
-          fallBackHeight={bodyHeight}
+        suspenseFallback={<SuspenseFallback height={bodyHeight} />}
+        errorFallback={ErrorFallback}
+        fallBackHeight={bodyHeight}
       >
-        <PlaceDetailBody position={position}/>
+        <PlaceDetailBody position={position} />
       </AsyncBoundary>
     </FullPageModalTemplate>
   );

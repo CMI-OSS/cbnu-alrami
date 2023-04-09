@@ -8,16 +8,14 @@ import Info from "src/page/Map/Info";
 import $ from "./style.module.scss";
 
 function MapDetailBody() {
-    const detailId = +useSearch({ target: "id" })!;
-    const {
-      data: detailData,
-    } = useSchoolOneQuery({ id: detailId });
+  const detailId = +useSearch({ target: "id" })!;
+  const { data: detailData } = useSchoolOneQuery({ id: detailId });
 
-    if(!detailData) return null;
+  if (!detailData) return null;
 
-    return (
-        <>
-        <div
+  return (
+    <>
+      <div
         className={$["back-image"]}
         style={{
           backgroundImage: `url(
@@ -40,8 +38,8 @@ function MapDetailBody() {
         <strong className={$["detail-title"]}>상세이미지</strong>
         <ImageList name={detailData.name} images={detailData.images!} />
       </BorderBox>
-        </>
-    )
+    </>
+  );
 }
 
 export default MapDetailBody;

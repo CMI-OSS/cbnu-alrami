@@ -15,12 +15,25 @@ jobs:
         shell: bash
         env:
           configuration: ${{secrets.DEV_SERVER_CONFIG}}
-
-      - name: Copy configuration file to remote
+      - name: Copy server configuration file to remote
         uses: garygrossgarten/github-action-scp@release
         with:
           local: configuration.ts
           remote: github-action-deploy/packages/server/src/config/configuration.ts
+          host: ${{ secrets.DEV_SERVER_SSH_HOST }}
+          username: ${{ secrets.DEV_SERVER_SSH_USER }}
+          password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}
+          port: ${{ secrets.DEV_SERVER_SSH_PORT }}
+          
+      - run: 'echo "$configuration" > configuration.ts'
+        shell: bash
+        env:
+          configuration: ${{secrets.DEV_SCRAPER_CONFIG}}
+      - name: Copy scraper configuration file to remote
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: configuration.ts
+          remote: github-action-deploy/packages/scraper/src/config/configuration.ts
           host: ${{ secrets.DEV_SERVER_SSH_HOST }}
           username: ${{ secrets.DEV_SERVER_SSH_USER }}
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}

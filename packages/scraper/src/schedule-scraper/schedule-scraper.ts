@@ -6,7 +6,7 @@ import { scraping } from "../scraper/scraper";
 import arrayToDate from "./utils";
 
 export const scrapingSchdule = async () => {
-  login();
+  await login();
 
   const schdules = await scraping({
     scenario: {

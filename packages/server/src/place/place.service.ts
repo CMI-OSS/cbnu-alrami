@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ImageService } from "src/image/image.service";
 import { Place } from "src/place/entities/place.entity";
-import { SchoolDto } from "src/school/dto/create-school.dto";
+import { CreateSchoolDto, SchoolDto } from "src/school/dto/create-school.dto";
 import { SchoolArea } from "src/school/school.constant";
 import { SchoolService } from "src/school/school.service";
 import { Repository } from "typeorm";
@@ -93,5 +93,14 @@ export class PlaceService {
 
   async remove(id: number) {
     return this.placeRepository.delete({ id });
+  }
+
+  toCreatePlaceDto(createSchoolDto: CreateSchoolDto): CreatePlaceDto {
+    const { place, ...school } = createSchoolDto;
+
+    return {
+      ...place,
+      school,
+    };
   }
 }

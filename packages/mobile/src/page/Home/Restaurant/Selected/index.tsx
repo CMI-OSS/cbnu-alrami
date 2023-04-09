@@ -39,7 +39,7 @@ function Selected(props: Props) {
     return time === getMealTime(today.hour());
   });
 
-  if (!data || !isHoliday) return null;
+  if (!data || isHoliday === undefined) return null;
   if (!menuData)
     return (
       <EmptyCafeteria

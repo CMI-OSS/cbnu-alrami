@@ -6,7 +6,7 @@ import { useQueries } from "@tanstack/react-query";
 import { CAFETERIA_MENUS } from "src/consts";
 import { queryKey } from "src/consts/react-query/queryKey";
 
-import { useCoreQuery } from "../core";
+import { CustomQueryOptions, useCoreQuery } from "../core";
 
 export const useCafeteriasQuery = (date: CafeteriaMenu["date"]) => {
   return useQueries({
@@ -24,18 +24,26 @@ export const useCafeteriasQuery = (date: CafeteriaMenu["date"]) => {
   });
 };
 
-export const useCafeteriaQuery = (
+export const cafeteriaQuery = (
   name: CafeteriaMenu["name"],
   date: CafeteriaMenu["date"],
-) => {
-  return useCoreQuery<CafeteriaMenu[]>(
-    queryKey.cafeteria(name, date),
-    () => {
+): CustomQueryOptions<CafeteriaMenu[]> => {
+  return {
+    queryKey: queryKey.cafeteria(name, date),
+    queryFn: () => {
       return CafeteriaMenuApiService.cafeteriaMenuControllerFindAll({
         name,
         date,
       });
     },
-    { suspense: true },
-  );
+    suspense: true,
+  };
+};
+
+export const useCafeteriaQuery = (
+  name: CafeteriaMenu["name"],
+  date: CafeteriaMenu["date"],
+) => {
+  const { queryKey, queryFn, ...rest } = cafeteriaQuery(name, date);
+  return useCoreQuery<CafeteriaMenu[]>(queryKey, queryFn, rest);
 };

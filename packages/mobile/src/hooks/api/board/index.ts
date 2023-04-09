@@ -59,7 +59,7 @@ export const useBoardsQuery = () => {
     () => {
       return BoardApiService.boardControllerFind({ uuid });
     },
-    { staleTime: staleTime.long },
+    { staleTime: staleTime.MIN_5 },
   );
 };
 

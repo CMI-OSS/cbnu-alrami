@@ -48,7 +48,7 @@ function Cafeteria() {
         fallBackHeight="calc(var(--vh, 1vh) * 100)"
         keys={[ fullDate, selectedMenu ]}
       >
-        <CafeteriaBody day={day || 1} {...{ fullDate, selectedMenu }} />
+        <CafeteriaBody {...{ fullDate, selectedMenu }} />
       </AsyncBoundary>
 
       <Footer />

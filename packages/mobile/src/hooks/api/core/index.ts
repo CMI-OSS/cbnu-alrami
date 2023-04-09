@@ -12,7 +12,7 @@ import type {
 import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 
-export type CustomQueryOptions<T, U> = UseQueryOptions<
+export type CustomQueryOptions<T, U = null> = UseQueryOptions<
   T,
   AxiosError,
   U extends null ? T : U

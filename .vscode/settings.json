@@ -20,5 +20,6 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
-  "eslint.workingDirectories": ["./packages/admin"]
+  "eslint.workingDirectories": ["./packages/admin"],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

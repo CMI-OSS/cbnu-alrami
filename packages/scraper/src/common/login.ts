@@ -10,6 +10,8 @@ export const login = async () => {
       ? apiServer.production_local
       : apiServer.local;
 
+  console.log(OpenAPI.BASE);
+
   const { accessToken } = await AdminApiService.adminControllerLogin({
     requestBody: {
       loginId: configuration.scraperLoginId,

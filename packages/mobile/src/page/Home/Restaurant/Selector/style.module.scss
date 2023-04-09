@@ -1,3 +1,12 @@
+$total-margin-of-top-and-bottom: 220px;
+
+@mixin default-gradient-box {
+  position: absolute;
+  width: 328px;
+  border-radius: 18px 18px 0 0;
+  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.9375) 56.25%, rgba(255, 255, 255, 0) 100%);
+}
+
 .dimmed-box {
   @include position(fixed, top 0px left 0px right 0px bottom 0px);
   z-index: 1200;
@@ -7,48 +16,78 @@
   background-color: rgba(27, 27, 27, 0.85);
 
   .selector {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 28px 0 27px;
 
     .selector-title {
       @include typography(18);
+      position: relative;
+      margin-top: 40px;
       font-weight: 500;
-      line-height: 28px;
+      line-height: 0;
       color: $black-100;
+      z-index: 1;
     }
 
-    .item {
-      margin-top: 38px;
-      text-align: center;
+    .top-gradient-box {
+      @include default-gradient-box();
+      height: 70px;
+      top: 0;
+    }
 
-      .button {
-        @include typography(16);
-        margin: -10px;
-        padding: 10px;
-        line-height: 26px;
-        color: $black-40;
-      }
+    .list {
+      @include safe-area-100vh(height, $total-margin-of-top-and-bottom);
+      max-height: 460px;
+      width: 100%;
+      overflow-y: scroll;
 
-      .selected {
-        @include typography(18);
-        line-height: 28px;
-        font-weight: 500;
-        color: $black-100;
+      .item {
+        margin-top: 38px;
+        text-align: center;
+
+        &:first-child {
+          margin-top: 33px;
+        }
+
+        .button {
+          @include typography(16);
+          margin: -10px;
+          padding: 10px;
+          width: 100%;
+          line-height: 26px;
+          color: $black-40;
+        }
+
+        .selected {
+          @include typography(18);
+          line-height: 28px;
+          font-weight: 500;
+          color: $black-100;
+        }
       }
     }
 
     .cancel {
       @include typography(14);
+      position: relative;
       width: 96px;
       height: 40px;
-      margin-top: 37px;
+      margin-bottom: 27px;
       color: $black-60;
       background-color: $black-0;
       border: 0.3px solid $black-50;
       border-radius: 100px;
       line-height: 30px;
+      z-index: 1;
+    }
+
+    .bottom-gradient-box {
+      @include default-gradient-box();
+      height: 104px;
+      bottom: 0;
+      transform: rotate(-180deg);
     }
   }
 }

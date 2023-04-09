@@ -6,7 +6,9 @@ import classnames from "classnames";
 import noMenu from "src/assets/no_menu.svg";
 import ShareButton from "src/components/atoms/ShareButton";
 import CafeteriaMenuCard from "src/components/molecules/CafeteriaMenuCard";
-import { useCafeteriaQuery } from "src/hooks/api/cafeteria";
+import { cafeteriaQuery, useCafeteriaQuery } from "src/hooks/api/cafeteria";
+import { holidayQuery, useHoliday } from "src/hooks/api/schedule";
+import { queryClient } from "src/main";
 
 import { getCafeteriaTime } from "../constants";
 import reloadCafeteriaQueries from "./reloadCafeteriaQueries";
@@ -14,14 +16,17 @@ import $ from "./style.module.scss";
 
 type Props = {
   fullDate: string;
-  day: number;
   selectedMenu: CafeteriaMenu["name"];
 };
 
-function CafeteriaBody({ fullDate, day, selectedMenu }: Props) {
-  const isHoliday = day === 6 || day === 0;
+function CafeteriaBody({ fullDate, selectedMenu }: Props) {
+  queryClient.prefetchQuery(holidayQuery(fullDate));
+  queryClient.prefetchQuery(cafeteriaQuery(selectedMenu, fullDate));
   const { data: cafeteriaMenu } = useCafeteriaQuery(selectedMenu, fullDate);
-  const isCafeteriaExist = cafeteriaMenu && cafeteriaMenu.length > 0;
+  const { data: isHoliday } = useHoliday(fullDate);
+
+  if (isHoliday === undefined || !cafeteriaMenu) return null;
+  const isCafeteriaExist = cafeteriaMenu.length > 0;
 
   const handleReloadClick = () => {
     return reloadCafeteriaQueries({ selectedMenu, fullDate });

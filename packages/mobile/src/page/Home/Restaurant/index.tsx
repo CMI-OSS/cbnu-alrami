@@ -70,7 +70,7 @@ function Restaurant({ today }: Props) {
       keys={[ cafeteriaName ]}
     >
       <Selected
-        {...{ isHoliday, today }}
+        {...{ today }}
         cafeteriaData={target.id}
         cafeteriaName={cafeteriaName}
         onClick={handleSelectorClick}

@@ -30,7 +30,7 @@ export class FcmService {
   }
 
   private static message(
-    to: string,
+    to: string | string[],
     notification: { title: string; body: string },
     data?: object,
   ) {
@@ -40,8 +40,16 @@ export class FcmService {
       throw new BadRequestException("Is empty!");
     }
 
+    if (typeof to === "string") {
+      return {
+        to,
+        notification,
+        data,
+      };
+    }
+
     return {
-      to,
+      registration_ids: to,
       notification,
       data,
     };
@@ -65,20 +73,28 @@ export class FcmService {
       ? `${board.parent.name} > ${board.name}`
       : board.name;
 
-    subscribers.forEach((user) => {
-      const notification = { title: boardTitle, body: article.title };
-      const { fcmToken } = user;
+    const notification = { title: boardTitle, body: article.title };
+    const tokens = subscribers
+      .map((subscriber) => subscriber.fcmToken)
+      .filter((value): value is string => {
+        return typeof value === "string";
+      });
 
-      if (fcmToken)
-        this.sendNotice(fcmToken, notification, {
-          articleId: article.id.toString(),
-          url: `https://dev-mobile.cmiteam.kr/article/detail/${article.id}`,
-        });
-    });
+    const chunkSize = 1000;
+
+    for (let i = 0; i < tokens.length; i += chunkSize) {
+      const chunkTokens = tokens.slice(i, i + chunkSize);
+
+      this.sendNotice(chunkTokens, notification, {
+        articleId: article.id.toString(),
+        url: `https://dev-mobile.cmiteam.kr/article/detail/${article.id}`,
+      });
+    }
   }
 
   async sendNotice(
-    to: string,
+    // FCM에서는 단일 요청으로 최대 2000개의 등록 토큰에게 알림을 보낼 수 있습니다
+    to: string | string[],
     notification: { title: string; body: string },
     data: object,
   ): Promise<void> {
@@ -86,10 +102,12 @@ export class FcmService {
       FcmService.message(to, notification, data),
       async (err, res) => {
         if (err) {
-          const { error } = JSON.parse(err).results[0];
+          if (typeof to === "string") {
+            const { error } = JSON.parse(err).results[0];
 
-          if ([ "InvalidRegistration", "NotRegistered" ].includes(error)) {
-            await this.userService.deleteByFcmToken(to);
+            if ([ "InvalidRegistration", "NotRegistered" ].includes(error)) {
+              await this.userService.deleteByFcmToken(to);
+            }
           }
 
           console.error("[sendNotice] ", { err });

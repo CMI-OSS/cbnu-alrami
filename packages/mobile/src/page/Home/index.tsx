@@ -6,11 +6,11 @@ import ErrorFallback from "src/components/atoms/ErrorFallback";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
 import ReloadButton from "src/components/shared/ReloadButton";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
+import useModal from "src/hooks/useModal";
 import Article from "src/page/Home/Article";
 
 import { HOME_MARGIN_BOTTOM } from "./constants";
 import HomeHeader from "./HomeHeader";
-import { useHome } from "./hooks";
 import reloadHomeQueries from "./reloadHomeQueries";
 import Restaurant from "./Restaurant";
 import ScheduleContainer from "./ScheduleContainer";
@@ -19,8 +19,8 @@ import Weather from "./Weather";
 
 function Home() {
   const today = dayjs();
-  const { isOpen, handleSuggestionClick } = useHome(); // TODO: Weather 컴포넌트로 옮기기
   const swipeRef = useSwipe();
+  const { isOpen, handleModalClose, handleModalOpen } = useModal();
 
   return (
     <section
@@ -57,7 +57,13 @@ function Home() {
         errorFallback={ErrorFallback}
         fallBackHeight="156px"
       >
-        <Weather {...{ isOpen, handleSuggestionClick }} />
+        <Weather
+          {...{
+            isOpen,
+            handleModalClose,
+            handleModalOpen,
+          }}
+        />
       </AsyncBoundary>
 
       <Restaurant {...{ today }} />

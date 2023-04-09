@@ -40,7 +40,7 @@
     "build:mobile": "lerna run --scope mobile build --stream",
     "test:mobile": "lerna run --scope mobile test --stream",
     "analyze:mobile": "lerna run --scope mobile analyze --stream",
-    "start:scraper": "lerna run --scope scraper start",
+    "start:scraper": "lerna run --scope scraper start --stream",
     "dev:scraper": "lerna run --scope scraper dev --stream",
     "start:server": "lerna run --scope server start",
     "build:server": "lerna run --scope server build --stream",

@@ -9,11 +9,15 @@ export const useSchoolsQuery = (
     | Omit<CustomQueryOptions<PlaceSchoolDto[], null>, "queryKey" | "queryFn">
     | undefined,
 ) => {
-  return useCoreQuery(queryKey.schools({ ...params }), () => {
-    return PlaceApiService.placeControllerFindSchool({
-      ...params,
-    });
-  }, options);
+  return useCoreQuery(
+    queryKey.schools({ ...params }),
+    () => {
+      return PlaceApiService.placeControllerFindSchool({
+        ...params,
+      });
+    },
+    options,
+  );
 };
 
 export const useSchoolQuery = (

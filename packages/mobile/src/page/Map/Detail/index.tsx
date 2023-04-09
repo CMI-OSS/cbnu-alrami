@@ -1,26 +1,14 @@
 import { LeftArrow } from "@components/atoms/icon";
-import ImageList from "@components/molecules/ImageList";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
-import classNames from "classnames";
-import BorderBox from "src/components/atoms/BorderBox";
-import { useSchoolOneQuery } from "src/hooks/api/school";
-import useSearch from "src/hooks/useSearch";
-import Info from "src/page/Map/Info";
-
-import $ from "./style.module.scss";
+import ErrorFallback from "src/components/atoms/ErrorFallback";
+import SuspenseFallback from "src/components/atoms/SuspenseFallback";
+import AsyncBoundary from "src/components/templates/AsyncBoundary";
+import MapDetailBody from "src/page/Map/Detail/MapDetailBody";
 
 function MapDetail() {
-  const detailId = +useSearch({ target: "id" })!;
-  const {
-    data: detailData,
-    isLoading: detailLoading,
-    isError: detailError,
-  } = useSchoolOneQuery({ id: detailId });
-  if (detailLoading) return <div>로딩중입니다.</div>;
-  if (detailError) return <div>에러가 발생했습니다.</div>;
-  if (detailData === undefined)
-    return <div>캠퍼스 장소 리스트 불러오기 실패</div>;
-
+  const bodyHeight =
+    "calc(var(--vh, 1vh) * 100 - (env(safe-area-inset-top) + env(safe-area-inset-bottom)))";
+  
   return (
     <FullPageModalTemplate
       left={<LeftArrow stroke="#5e5e5e" size={16} />}
@@ -30,29 +18,13 @@ function MapDetail() {
       {/* <NavLink to="/call" className={$["link-call"]}>
           <span className="blind">제보하기</span>
         </NavLink> */}
-      <div
-        className={$["back-image"]}
-        style={{
-          backgroundImage: `url(
-            ${detailData.images![0]?.url}
-          )`,
-        }}
-      />
-      <Info
-        buildingNumber={detailData.school?.buildingNumber}
-        oldBuildingNumber={detailData.school?.oldBuildingNumber}
-        name={detailData.name}
-        address={detailData.address}
-        contact={detailData.contact}
-      />
-      <BorderBox className={classNames($.menu, $.description)}>
-        <strong className={$["description-title"]}>설명</strong>
-        <p className={$["description-text"]}>{detailData.description}</p>
-      </BorderBox>
-      <BorderBox className={$.detail}>
-        <strong className={$["detail-title"]}>상세이미지</strong>
-        <ImageList name={detailData.name} images={detailData.images!} />
-      </BorderBox>
+      <AsyncBoundary
+          suspenseFallback={<SuspenseFallback height={bodyHeight} />}
+          errorFallback={ErrorFallback}
+          fallBackHeight={bodyHeight}
+      >
+        <MapDetailBody />
+      </AsyncBoundary>
     </FullPageModalTemplate>
   );
 }

@@ -4,13 +4,13 @@ import { NavLink } from "react-router-dom";
 import { Hamburger, LeftArrow } from "@components/atoms/icon";
 import { Close } from "@components/atoms/icon/Close";
 import Footer from "@components/molecules/Footer";
-import { useSchoolOneQuery, useSchoolQuery } from "src/hooks/api/school";
+import { useSchoolQuery, useSchoolsQuery } from "src/hooks/api/school";
 import Spot from "src/page/Map/Spot";
 import { useAppDispatch, useAppSelector } from "src/store";
 import {
   hideConstructionTooltipStatus,
   hideFloatingButtonStatus,
-  hideTooltipButtonStatus
+  hideTooltipButtonStatus,
 } from "src/store/statusSlice";
 
 import $ from "./style.module.scss";
@@ -28,47 +28,44 @@ const INITIAL_CBNU_LONGITUDE = 127.45731862757414;
 function Map() {
   const [ constructionId, setConstructionId ] = useState(12);
   const dispatch = useAppDispatch();
-  
+
   const { isDisplayFloatingButton, isDisplayTooltip, isConstructionTooltip } =
     useAppSelector((state) => {
       return state.statusReducer.map;
     });
 
-  const {
-    data: schoolData,
-  } = useSchoolQuery();
+  const { data: schoolData } = useSchoolsQuery();
 
-  const {
-    data: schoolSeveralData,
-  } = useSchoolOneQuery({id: constructionId});
+  const { data: schoolSeveralData } = useSchoolQuery({ id: constructionId });
 
   const getMap = () => {
     const map = new naver.maps.Map("map", {
-      center: new naver.maps.LatLng(INITIAL_CBNU_LATITUDE, INITIAL_CBNU_LONGITUDE),
+      center: new naver.maps.LatLng(
+        INITIAL_CBNU_LATITUDE,
+        INITIAL_CBNU_LONGITUDE,
+      ),
       zoom: 16,
       zoomControl: true,
       zoomControlOptions: {
         position: naver.maps.Position.TOP_RIGHT,
       },
     });
-      schoolData?.forEach((place) => {
-        const marker = makeMarker(
-          map,
-          new naver.maps.LatLng(place.latitude, place.longtitude),
+    schoolData?.forEach((place) => {
+      const marker = makeMarker(
+        map,
+        new naver.maps.LatLng(place.latitude, place.longtitude),
+      );
+      naver.maps.Event.addListener(marker, "click", (e) => {
+        map.panTo(e.coord, { duration: 300, easing: "easeOutCubic" });
+        e.domEvent.stopPropagation();
+        setConstructionId(place.id);
+        dispatch(hideFloatingButtonStatus({ isDisplayFloatingButton: false }));
+        dispatch(
+          hideConstructionTooltipStatus({ isConstructionTooltip: true }),
         );
-        naver.maps.Event.addListener(marker, "click", (e) => {
-          map.panTo(e.coord, { duration: 300, easing: "easeOutCubic" });
-          e.domEvent.stopPropagation();
-          setConstructionId(place.id);
-          dispatch(
-            hideFloatingButtonStatus({ isDisplayFloatingButton: false }),
-          );
-          dispatch(
-            hideConstructionTooltipStatus({ isConstructionTooltip: true }),
-          );
-        });
       });
-  }
+    });
+  };
 
   useEffect(() => {
     const initMap = () => {

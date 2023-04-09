@@ -12,10 +12,9 @@ function MapDetailBody() {
   const detailId = +useSearch({ target: "id" })!;
   const { data: detailData } = useSchoolQuery({ id: detailId });
 
+  if (!detailData) return null;
   const { school, name, address, contact, description, images } =
     detailData as PlaceSchoolDto;
-  if (!detailData) return null;
-
   return (
     <>
       <div

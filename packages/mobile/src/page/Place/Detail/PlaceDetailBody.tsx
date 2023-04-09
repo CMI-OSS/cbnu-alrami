@@ -9,7 +9,10 @@ type Props = { position: string };
 function PlaceDetailBody({ position }: Props) {
   const currentPosition = getUpperCasePosition(position);
 
-  const { data: schoolsData } = useSchoolsQuery({ area: currentPosition });
+  const { data: schoolsData } = useSchoolsQuery(
+    { area: currentPosition },
+    { suspense: true },
+  );
 
   if (!schoolsData) return null;
 

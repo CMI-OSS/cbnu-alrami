@@ -6,6 +6,7 @@ import Hammer from "hammerjs";
 const useSwipe = () => {
   const navigate = useNavigate();
   const swipeRef = useRef<HTMLDivElement>(null);
+
   const handleSwipe = (e: HammerInput) => {
     const isSwiperImage = e.target.dataset.id === "swiper-image";
     if (isSwiperImage) return;

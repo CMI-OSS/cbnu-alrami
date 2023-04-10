@@ -10,11 +10,11 @@ import {
   useDeleteLikeArticleMutation,
   usePostLikeArticleMutation,
 } from "@hooks/api/article";
+import useModal from "@hooks/useModal";
 import classnames from "classnames";
 import dayjs from "dayjs";
 import { EMPTY_TITLE_GUIDE_MESSAGE } from "src/consts";
 import ArticleFooter from "src/page/Article/components/Footer";
-import { getUuid } from "src/utils/storage";
 
 import $ from "./style.module.scss";
 
@@ -28,7 +28,7 @@ function ArticleDetail() {
   });
   const postLikeArticle = usePostLikeArticleMutation({ id: articleId });
   const deleteLikeArticle = useDeleteLikeArticleMutation({ id: articleId });
-  const [ enlargeModal, setEnlargeModal ] = useState(false);
+  const { isOpen, handleModalClose, handleModalOpen } = useModal();
 
   if (isLoading) return <></>;
   if (!articleData) return <>데이터가 없습니다.</>;
@@ -55,7 +55,6 @@ function ArticleDetail() {
     setIsLikeClick(true);
     postLikeArticle.mutate({ id: articleId });
   };
-
   return (
     <div className={$["article-detail"]}>
       <FullPageModalTemplate
@@ -75,9 +74,7 @@ function ArticleDetail() {
               imageDatas={images.map((image) => {
                 return image.url;
               })}
-              onOpen={() => {
-                return setEnlargeModal(true);
-              }}
+              onOpen={handleModalOpen}
               {...{ order, setOrder }}
             />
           )}
@@ -108,12 +105,10 @@ function ArticleDetail() {
         </div>
         <ArticleFooter {...{ articleId, isBookmark, url }} />
       </FullPageModalTemplate>
-      {enlargeModal && images?.length && (
+      {isOpen && images?.length && (
         <ImageModal
           {...{ order, setOrder, images }}
-          onClose={() => {
-            return setEnlargeModal(false);
-          }}
+          onClose={handleModalClose}
         />
       )}
     </div>

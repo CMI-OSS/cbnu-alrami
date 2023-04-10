@@ -9,6 +9,7 @@ import CafeteriaMenuCard from "src/components/molecules/CafeteriaMenuCard";
 import { cafeteriaQuery, useCafeteriaQuery } from "src/hooks/api/cafeteria";
 import { holidayQuery, useHoliday } from "src/hooks/api/schedule";
 import { queryClient } from "src/main";
+import { isDesktop } from "src/utils/webview";
 
 import { getCafeteriaTime } from "../constants";
 import reloadCafeteriaQueries from "./reloadCafeteriaQueries";
@@ -70,7 +71,11 @@ function CafeteriaBody({ fullDate, selectedMenu }: Props) {
             <ShareButton
               size={20}
               stroke="#9FB0C6"
-              successMsg="식단 링크가 클립보드에 복사되었습니다."
+              successMsg={
+                isDesktop
+                  ? "식단 링크가 복사되었습니다."
+                  : "식단 링크가 클립보드에 복사되었습니다."
+              }
               className={$["share-button"]}
             />
             <ReloadButtonForCafeteria buttonType="icon" />

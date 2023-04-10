@@ -1,10 +1,6 @@
 .full-modal {
   @include safe-area-100vh(height, 0px);
 
-  &.map-header {
-    height: inherit;
-  }
-
   .header {
     position: sticky;
     top: 0;

@@ -38,10 +38,7 @@ function FullPageModalTemplate({
   };
 
   return (
-    <div
-      className={classNames($["full-modal"], className && $["map-header"])}
-      ref={swipeRef}
-    >
+    <div className={classNames($["full-modal"], className)} ref={swipeRef}>
       <div className={$.header} style={style}>
         <button type="button" className={$.left} onClick={handleBackClick}>
           {left}

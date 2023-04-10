@@ -15,6 +15,7 @@ import classnames from "classnames";
 import dayjs from "dayjs";
 import { EMPTY_TITLE_GUIDE_MESSAGE } from "src/consts";
 import ArticleFooter from "src/page/Article/components/Footer";
+import { isDevOrWebview } from "src/utils/webview";
 
 import $ from "./style.module.scss";
 
@@ -45,6 +46,7 @@ function ArticleDetail() {
     images,
     url,
   } = articleData;
+
 
   const handleToggleLikeClick = (articleId: number) => {
     if (isLike) {
@@ -105,7 +107,7 @@ function ArticleDetail() {
         </div>
         <ArticleFooter {...{ articleId, isBookmark, url }} />
       </FullPageModalTemplate>
-      {isOpen && images?.length && (
+      {isOpen && images?.length && isDevOrWebview && (
         <ImageModal
           {...{ order, setOrder, images }}
           onClose={handleModalClose}

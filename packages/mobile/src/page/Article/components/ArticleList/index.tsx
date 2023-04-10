@@ -50,7 +50,7 @@ function ArticleList({ className }: DefaultProps) {
         await fetchNextPage();
       }
     },
-    { rootMargin: "0px 0px 30% 0px" },
+    { rootMargin: "60% 0px" },
   );
 
   const isArticleEmpty =

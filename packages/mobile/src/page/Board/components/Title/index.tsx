@@ -26,7 +26,7 @@ export const getBoardKind = () => {
   if (id[0] === "3" && id.length === 1) {
     return { kind: "학생회" };
   }
-  if(id[0]==="5" && id.length===1) {
+  if (id[0]==="5" && id.length===1) {
     return { kind: "동아리" };
   }
   return { kind: "공지사항" };

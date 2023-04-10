@@ -67,6 +67,11 @@ function BoardList({ className }: DefaultProps) {
           title={boardsData[2].name}
           content="학생회의 공지사항을 받아볼 수 있어요"
         />
+        <BoardItem
+          id={boardsData[4].id}
+          title={boardsData[4].name}
+          content="동아리의 공지사항을 받아볼 수 있어요"
+        />
       </div>
     );
   }

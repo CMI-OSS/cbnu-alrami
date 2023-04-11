@@ -7,9 +7,15 @@ import $ from "./style.module.scss";
 export type ReloadButtonProps = {
   buttonType: "text" | "icon";
   onClick: () => void;
+  stroke?: string;
 } & DefaultProps;
 
-function ReloadButton({ className, buttonType, onClick }: ReloadButtonProps) {
+function ReloadButton({
+  className,
+  buttonType,
+  onClick,
+  stroke = "#9FB0C6",
+}: ReloadButtonProps) {
   if (buttonType === "text")
     return (
       <button
@@ -17,7 +23,7 @@ function ReloadButton({ className, buttonType, onClick }: ReloadButtonProps) {
         onClick={onClick}
         className={classNames($["reload-button-with-text"], className)}
       >
-        <Reload stroke="#9FB0C6" size={12.5} />
+        <Reload stroke={stroke} size={12.5} />
         <span className={$["reload-text"]}>새로고침</span>
       </button>
     );
@@ -28,7 +34,7 @@ function ReloadButton({ className, buttonType, onClick }: ReloadButtonProps) {
       onClick={onClick}
       className={classNames($["reload-button"], className)}
     >
-      <Reload stroke="#9FB0C6" size={20} />
+      <Reload stroke={stroke} size={20} />
     </button>
   );
 }

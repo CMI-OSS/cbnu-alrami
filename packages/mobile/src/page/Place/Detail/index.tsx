@@ -3,6 +3,7 @@ import ChipGroup from "@components/molecules/ChipGroup";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import ErrorFallback from "src/components/atoms/ErrorFallback";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
+import ReloadButton from "src/components/shared/ReloadButton";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
 import useSearch from "src/hooks/useSearch";
 import PlaceDetailBody from "src/page/Place/Detail/PlaceDetailBody";
@@ -10,6 +11,7 @@ import { useAppDispatch } from "src/store";
 import { setHashMenu } from "src/store/placeSlice";
 
 import { menuList } from "../../../__mocks__/index";
+import reloadPlaceQueries from "./reloadPlaceQueries";
 
 function PlaceDetail() {
   const dispatch = useAppDispatch();
@@ -35,10 +37,15 @@ function PlaceDetail() {
     dispatch(setHashMenu({ hashString: position }));
   };
 
+  const handleReloadClick = () => {
+    return reloadPlaceQueries(position);
+  };
+
   return (
     <FullPageModalTemplate
       left={<LeftArrow stroke="#5e5e5e" size={16} />}
       title="캠퍼스맵"
+      right={<ReloadButton buttonType="icon" onClick={handleReloadClick} stroke="#5E5E5E" />}
     >
       <ChipGroup
         list={menuList}

@@ -2,10 +2,8 @@
   position: relative;
 }
 
-.header {
-  @include position(absolute, top 0 left 0 right 0);
-  height: 58px;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 22.92%, rgba(0, 0, 0, 0) 100%);
+.map-header {
+  height: inherit;
 }
 
 .detail-button {

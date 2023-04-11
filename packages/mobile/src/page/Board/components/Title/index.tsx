@@ -26,6 +26,9 @@ export const getBoardKind = () => {
   if (id[0] === "3" && id.length === 1) {
     return { kind: "학생회" };
   }
+  if (id[0]==="5" && id.length===1) {
+    return { kind: "동아리" };
+  }
   return { kind: "공지사항" };
 };
 
@@ -66,10 +69,10 @@ function Title() {
       </div>
     );
   }
-  if (kind === "학생회") {
+  if (kind === "학생회" || kind === "동아리" ) {
     return (
       <div className={$.title}>
-        어떤 학생회의 공지사항을
+        어떤 {kind}의 공지사항을
         <br />
         받아볼까요?
       </div>

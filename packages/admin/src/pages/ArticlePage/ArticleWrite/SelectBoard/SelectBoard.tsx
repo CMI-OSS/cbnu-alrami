@@ -17,12 +17,20 @@ export default function SelectBoard({ boardId, onSelectBoard }: Props) {
   const { data: authorityBoards, isLoading } = useQuery(
     [ "boardAuthority" ],
     () => AdminApiService.adminControllerGetAuthorityBoards(),
-    {
-      onSuccess: (boards) => {
-        setSelectedBoardId(boardId ?? boards[0].id);
-      },
-    },
   );
+
+  useEffect(() => {
+    if (authorityBoards) {
+      if (boardId) {
+        setSelectedBoardId(boardId);
+        onSelectBoard?.(boardId);
+      } else {
+        const { id } = authorityBoards[0];
+        setSelectedBoardId(id);
+        onSelectBoard?.(id);
+      }
+    }
+  }, [ authorityBoards, boardId ]);
 
   useEffect(() => {
     if (selectedBoardId) {

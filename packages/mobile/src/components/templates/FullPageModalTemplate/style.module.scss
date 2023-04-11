@@ -29,5 +29,6 @@
   .children {
     overflow: auto;
     height: calc(100% - 60px);
+    touch-action: pan-y !important;
   }
 }

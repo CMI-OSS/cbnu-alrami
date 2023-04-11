@@ -20,6 +20,18 @@
     font-size: 18px;
     line-height: 28px;
 
+    .icon-box {
+      display: flex;
+      justify-content: center;
+
+      .setting-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 33px;
+      }
+    }
+
     svg {
       stroke: $black-60;
     }

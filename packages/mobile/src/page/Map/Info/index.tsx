@@ -31,7 +31,7 @@ function Info({
               <span className={$["item-text"]}>{address}</span>
             </li>
             <li className={$.item}>
-              <Call size={14} stroke="#aaa" />
+              <Call size={14} stroke="#c4c4c4" />
               <span className={$["item-text"]}>{contact}</span>
             </li>
           </ul>

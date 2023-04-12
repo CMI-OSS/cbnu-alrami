@@ -1,7 +1,7 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
-  url: "http://edu.chungbuk.ac.kr/edu/selectBbsNttList.do?key=170&bbsNo=8",
+  url: "https://edu.chungbuk.ac.kr/edu/selectBbsNttList.do?key=170&bbsNo=8",
   site_id: boardTree.전공.사범대학.교유학과.공지사항.id,
   site: "교육학과",
   category: "공지사항",

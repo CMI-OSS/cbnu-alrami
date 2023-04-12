@@ -1,7 +1,7 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
-  url: "http://civil.chungbuk.ac.kr/index.php?mid=civil_sub0301",
+  url: "https://civil.chungbuk.ac.kr/index.php?mid=civil_sub0301",
   site_id: boardTree.전공.공과대학.토목공학부.공지사항.id,
   site: "토목공학부",
   category: "공지사항",

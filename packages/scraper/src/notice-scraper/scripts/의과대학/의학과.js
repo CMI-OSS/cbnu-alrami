@@ -1,7 +1,7 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
-  url: "http://medweb.chungbuk.ac.kr/master.php?pg_idx=23",
+  url: "https://medweb.chungbuk.ac.kr/master.php?pg_idx=23",
   site_id: boardTree.전공.의과대학.의학과.공지사항.id,
   site: "의학과",
   category: "공지사항",

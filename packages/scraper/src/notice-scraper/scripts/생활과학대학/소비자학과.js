@@ -1,7 +1,7 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
-  url: "http://consumer.cbnu.ac.kr/main/sub.html?pageCode=39",
+  url: "https://consumer.cbnu.ac.kr/main/sub.html?pageCode=39",
   site_id: boardTree.전공.생활과학대학.소비자학과.공지사항.id,
   site: "소비자학과",
   category: "학과공지사항",

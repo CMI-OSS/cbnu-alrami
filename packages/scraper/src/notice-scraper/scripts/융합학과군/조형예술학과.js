@@ -1,7 +1,7 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
-  url: "http://fineart.cbnu.ac.kr/bbs/bbs.php?db=notice&pgID=ID13971124002",
+  url: "https://fineart.cbnu.ac.kr/bbs/bbs.php?db=notice&pgID=ID13971124002",
   site_id: boardTree.전공.융합학과군.조형예술학과.공지사항.id,
   site: "조형예술학과",
   category: "공지사항",

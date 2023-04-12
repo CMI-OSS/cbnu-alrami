@@ -1,7 +1,7 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
-  url: "http://humanum.chungbuk.ac.kr/russian/selectBbsNttList.do?bbsNo=93&key=339",
+  url: "https://humanum.chungbuk.ac.kr/russian/selectBbsNttList.do?bbsNo=93&key=339",
   site_id: boardTree.전공.인문대학.러시아언어문화학과.공지사항.id,
   site: "러시아언어문화학과",
   category: "공지사항",

@@ -1,7 +1,7 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
-  url: "http://me.chungbuk.ac.kr/index.php?mid=me_sub04",
+  url: "https://me.chungbuk.ac.kr/index.php?mid=me_sub04",
   site_id: boardTree.전공.공과대학.기계공학부.공지사항.id,
   site: "기계공학부",
   category: "공지사항",

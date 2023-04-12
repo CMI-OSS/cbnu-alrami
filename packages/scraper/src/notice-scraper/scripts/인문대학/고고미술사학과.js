@@ -1,7 +1,7 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
-  url: "http://humanum.chungbuk.ac.kr/gomisa/selectBbsNttList.do?bbsNo=218&key=683",
+  url: "https://humanum.chungbuk.ac.kr/gomisa/selectBbsNttList.do?bbsNo=218&key=683",
   site_id: boardTree.전공.인문대학.고고미술사학과.공지사항.id,
   site: "고고미술사학과",
   category: "공지사항",

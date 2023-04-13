@@ -66,12 +66,8 @@ const getScraper = async () => {
 
   const [ page ] = await browser.pages();
 
-  // 페이지 기본설정
-  await page.setViewport({
-    width: 1920,
-    height: 1080,
-    deviceScaleFactor: 1,
-  });
+  // DNS 캐시 무시를 위한 코드
+  page.setCacheEnabled(false);
 
   // 다이어로그 메시지 무시
   page.on("dialog", async (dialog) => {
@@ -90,6 +86,13 @@ const getScraper = async () => {
       } else {
         request.continue();
       }
+    });
+  } else {
+    // 페이지 기본설정
+    await page.setViewport({
+      width: 1920,
+      height: 1080,
+      deviceScaleFactor: 1,
     });
   }
 

@@ -6,6 +6,7 @@ import { useSubscribeBoardsQuery } from "@hooks/api/board";
 import useSwipe from "@hooks/useSwipe";
 import ErrorFallback from "src/components/atoms/ErrorFallback";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
+import ReloadButton from "src/components/shared/ReloadButton";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
 import ArticleList from "src/page/Article/components/ArticleList";
 import Slider from "src/page/Article/components/Slider";
@@ -13,6 +14,7 @@ import { useAppDispatch } from "src/store";
 import { setOrigin } from "src/store/boardSlice";
 
 import $ from "./style.module.scss";
+import useReloadArticleQueries from "./useReloadArticleQueries";
 
 function Article() {
   const dispatch = useAppDispatch();
@@ -20,6 +22,7 @@ function Article() {
   const path = hasSubscribeBoard ? "/setting/board" : "/board";
   const origin = useLocation().pathname.split("/").at(-1) || "subscribe";
   const swipeRef = useSwipe();
+  const reloadArticleQueries = useReloadArticleQueries();
 
   const handleSettingClick = () => {
     dispatch(setOrigin({ origin }));
@@ -30,7 +33,17 @@ function Article() {
       <div className={$.header}>
         <div className={$.title}>
           <span>공지사항</span>
-          <Link to={path} onClick={handleSettingClick}>
+          <ReloadButton
+            buttonType="icon"
+            stroke="#5E5E5E"
+            onClick={reloadArticleQueries}
+            className={$["reload-button"]}
+          />
+          <Link
+            className={$["setting-link"]}
+            to={path}
+            onClick={handleSettingClick}
+          >
             <Setting size={20} />
           </Link>
         </div>

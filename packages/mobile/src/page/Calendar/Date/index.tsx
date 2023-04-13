@@ -39,8 +39,6 @@ function Date({
   });
 
   const handleSelect = () => {
-    const currentMonth = date.month();
-    if (currentMonth !== month) return;
     setSelectedDate(date);
   };
 

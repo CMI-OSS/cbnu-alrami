@@ -1,7 +1,7 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
-  url: "http://pharm.chungbuk.ac.kr/app/index.html?pg_idx=21",
+  url: "https://pharm.chungbuk.ac.kr/app/index.html?pg_idx=21",
   site_id: boardTree.전공.약학대학.약학과.공지사항.id,
   site: "약학과",
   category: "공지사항",

@@ -2,7 +2,7 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
-  url: "http://swapi.cbnu.ac.kr/v1/notice?page=1&limit=20&sort=-createdAt",
+  url: "https://swapi.cbnu.ac.kr/v1/notice?page=1&limit=20&sort=-createdAt",
   site_id: boardTree.공통.sw중심대학사업단.공지사항.id,
   site: "sw중심대학사업단",
   category: "공지사항",
@@ -22,7 +22,7 @@ const script = {
           category: this.category,
           site_id: this.site_id,
           title: row.title,
-          url: `http://sw7up.cbnu.ac.kr/community/notice/${row._id}`,
+          url: `https://sw7up.cbnu.ac.kr/community/notice/${row._id}`,
           date: `${date.getFullYear()}-${
             date.getMonth() + 1
           }-${date.getDate()}`,

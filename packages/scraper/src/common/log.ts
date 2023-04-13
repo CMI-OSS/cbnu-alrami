@@ -1,8 +1,10 @@
 import fs from "fs";
 
 export function log(data: string) {
-  console.log(data);
-  fs.appendFile("error.log", `\r\n${data}`, (err) => {
+  const dateWithTimeStamp = `[${new Date().toLocaleString()}] ${data}`;
+
+  console.log(dateWithTimeStamp);
+  fs.appendFile("error.log", `\r\n${dateWithTimeStamp}`, (err) => {
     if (err) throw err;
   });
 }

@@ -1,7 +1,7 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
-  url: "http://cbnuarchi.cbnu.ac.kr/bbs/board.php?bo_table=news&sca=%EB%89%B4%EC%8A%A4",
+  url: "https://cbnuarchi.cbnu.ac.kr/bbs/board.php?bo_table=news&sca=%EB%89%B4%EC%8A%A4",
   site_id: boardTree.전공.공과대학.건축학과.공지사항.id,
   site: "건축학과",
   category: "공지사항",

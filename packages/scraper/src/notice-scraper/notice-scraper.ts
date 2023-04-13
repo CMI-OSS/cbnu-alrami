@@ -49,7 +49,10 @@ export const scrapingNotices = async () => {
           error,
         })}`,
       );
+      // eslint-disable-next-line no-continue
+      continue;
     }
+
     try {
       for (const notice of noticeList) {
         if (

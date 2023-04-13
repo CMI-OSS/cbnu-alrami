@@ -36,20 +36,19 @@ function Article() {
       <div className={$.header}>
         <div className={$.title}>
           <span>공지사항</span>
-          <div className={$["icon-box"]}>
-            <ReloadButton
-              buttonType="icon"
-              stroke="#5E5E5E"
-              onClick={handleReloadClick}
-            />
-            <Link
-              className={$["setting-link"]}
-              to={path}
-              onClick={handleSettingClick}
-            >
-              <Setting size={20} />
-            </Link>
-          </div>
+          <ReloadButton
+            buttonType="icon"
+            stroke="#5E5E5E"
+            onClick={handleReloadClick}
+            className={$["reload-button"]}
+          />
+          <Link
+            className={$["setting-link"]}
+            to={path}
+            onClick={handleSettingClick}
+          >
+            <Setting size={20} />
+          </Link>
         </div>
         <Slider />
       </div>

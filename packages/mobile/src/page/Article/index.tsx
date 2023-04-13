@@ -13,8 +13,8 @@ import Slider from "src/page/Article/components/Slider";
 import { useAppDispatch } from "src/store";
 import { setOrigin } from "src/store/boardSlice";
 
-import reloadArticleQueries from "./reloadArticleQueries";
 import $ from "./style.module.scss";
+import useReloadArticleQueries from "./useReloadArticleQueries";
 
 function Article() {
   const dispatch = useAppDispatch();
@@ -22,13 +22,10 @@ function Article() {
   const path = hasSubscribeBoard ? "/setting/board" : "/board";
   const origin = useLocation().pathname.split("/").at(-1) || "subscribe";
   const swipeRef = useSwipe();
+  const reloadArticleQueries = useReloadArticleQueries();
 
   const handleSettingClick = () => {
     dispatch(setOrigin({ origin }));
-  };
-
-  const handleReloadClick = () => {
-    reloadArticleQueries();
   };
 
   return (
@@ -39,7 +36,7 @@ function Article() {
           <ReloadButton
             buttonType="icon"
             stroke="#5E5E5E"
-            onClick={handleReloadClick}
+            onClick={reloadArticleQueries}
             className={$["reload-button"]}
           />
           <Link

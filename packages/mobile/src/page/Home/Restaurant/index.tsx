@@ -1,5 +1,5 @@
 import { Dayjs } from "dayjs";
-import ErrorFallback from "src/components/atoms/ErrorFallback";
+import ErrorFallbackWithStyle from "src/components/atoms/ErrorFallbackWithStyle";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
 import getCafeteriaData from "src/utils/getCafeteriaData";
@@ -27,8 +27,6 @@ function Restaurant({ today }: Props) {
     handleCafeteriaSelect,
     handleFinalGuideCancel,
   } = useRestaurant();
-
-  const isHoliday = today.day() === 0 || today.day() === 6;
 
   const target = getCafeteriaData(cafeteriaName);
 
@@ -65,8 +63,7 @@ function Restaurant({ today }: Props) {
           style={{ marginBottom: HOME_MARGIN_BOTTOM }}
         />
       }
-      errorFallback={ErrorFallback}
-      fallBackHeight="159px"
+      errorFallback={ErrorFallbackWithStyle({ height: "159px" })}
       keys={[ cafeteriaName ]}
     >
       <Selected

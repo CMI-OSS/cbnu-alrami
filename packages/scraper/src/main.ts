@@ -11,7 +11,7 @@ schedule("0 */3 * * *", () => {
 });
 
 // 매일 오전 6시부터 오후 11시까지 30분 마다 한번씩 실행
-schedule("43 17 * * *", () => {
+schedule("54 17 * * *", () => {
   log(`[INFO] Start scrapingNotices`);
   scrapingNotices();
 });

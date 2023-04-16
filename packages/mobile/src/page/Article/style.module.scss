@@ -15,10 +15,19 @@
     padding: 0 24px;
     border-bottom: 1px solid $background-20;
     background: $black-0;
-    color:$black-100;
+    color: $black-100;
     font-weight: 500;
     font-size: 18px;
     line-height: 28px;
+
+    .reload-button {
+      margin-left: auto;
+    }
+
+    .setting-link {
+      line-height: 0;
+      margin-left: 33px;
+    }
 
     svg {
       stroke: $black-60;

@@ -61,7 +61,11 @@ const WINDOW_SIZE = {
 const getScraper = async () => {
   const browser = await puppeteer.launch({
     headless: configuration.headless,
-    args: [ `--window-size=${WINDOW_SIZE.WIDTH},${WINDOW_SIZE.HEIGHT}` ],
+    args: [
+      `--window-size=${WINDOW_SIZE.WIDTH},${WINDOW_SIZE.HEIGHT}`,
+      // SSL 관련 인증서 오류 무시
+      "--ignore-certificate-errors",
+    ],
   });
 
   const [ page ] = await browser.pages();

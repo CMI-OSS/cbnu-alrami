@@ -1,16 +1,15 @@
 import React, { ReactElement } from "react";
 
-type Props = {
+export type ErrorBoundaryProps = {
   resetQuery?: () => void;
-  errorFallback: (...args: any[]) => ReactElement;
-  fallBackHeight?: string;
+  errorFallback: (reset: () => void, error: Error | null) => JSX.Element;
   children: ReactElement;
   keys?: Array<unknown>;
 };
 
 type State = {
   hasError: boolean;
-  error?: Error | null;
+  error: Error | null;
 };
 const initialState = { hasError: false, error: null };
 
@@ -26,8 +25,11 @@ const changedArray = (
   );
 };
 
-export default class ErrorBoundary extends React.Component<Props, State> {
-  constructor(props: Props) {
+export default class ErrorBoundary extends React.Component<
+  ErrorBoundaryProps,
+  State
+> {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = initialState;
   }
@@ -36,7 +38,7 @@ export default class ErrorBoundary extends React.Component<Props, State> {
     return { hasError: true, error };
   }
 
-  componentDidUpdate(prevProps: Props, prevState: State) {
+  componentDidUpdate(prevProps: ErrorBoundaryProps, prevState: State) {
     const { error } = this.state;
     const { keys } = this.props;
 
@@ -57,17 +59,11 @@ export default class ErrorBoundary extends React.Component<Props, State> {
 
   render() {
     const { hasError, error } = this.state;
-    const { errorFallback: ErrorFallback, fallBackHeight } = this.props;
+    const { errorFallback } = this.props;
     const { children } = this.props;
 
     if (hasError) {
-      return (
-        <ErrorFallback
-          error={error}
-          reset={this.resetBoundary}
-          height={fallBackHeight}
-        />
-      );
+      return errorFallback(this.resetBoundary, error);
     }
 
     return children;

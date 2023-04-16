@@ -6,12 +6,19 @@ import Loading from "../Loading";
 import $ from "./style.module.scss";
 
 type Props = {
-  height: string;
+  height?: string;
   isRoundBox?: boolean;
 } & StyleProps;
 
 function SuspenseFallback(props: Props) {
   const { height, isRoundBox, style, className } = props;
+
+  if (!height && !style && !className) {
+    throw new Error(
+      "Either 'height' or 'style' or 'className' prop must be provided in SuspenseFallback component ",
+    );
+  }
+
   return (
     <div
       className={classnames($["suspense-fallback"], className, {

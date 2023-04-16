@@ -2,7 +2,7 @@ import { useReducer } from "react";
 
 import useSwipe from "@hooks/useSwipe";
 import dayjs, { Dayjs } from "dayjs";
-import ErrorFallback from "src/components/atoms/ErrorFallback";
+import ErrorFallbackWithStyle from "src/components/atoms/ErrorFallbackWithStyle";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
 import Footer from "src/components/molecules/Footer";
@@ -20,7 +20,7 @@ export type DateMap = {
   isHoliday: boolean;
 };
 
-const bodyHeight =
+const height =
   "calc(var(--vh, 1vh) * 100 - (env(safe-area-inset-top) + env(safe-area-inset-bottom)))";
 
 function Calendar() {
@@ -45,9 +45,8 @@ function Calendar() {
         />
       </div>
       <AsyncBoundary
-        suspenseFallback={<SuspenseFallback height={bodyHeight} />}
-        errorFallback={ErrorFallback}
-        fallBackHeight={bodyHeight}
+        suspenseFallback={<SuspenseFallback height={height} />}
+        errorFallback={ErrorFallbackWithStyle({ height })}
       >
         <CalendarBody {...{ today, month, year }} />
       </AsyncBoundary>

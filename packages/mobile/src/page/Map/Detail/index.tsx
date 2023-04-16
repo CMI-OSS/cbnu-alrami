@@ -1,6 +1,6 @@
 import { LeftArrow } from "@components/atoms/icon";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
-import ErrorFallback from "src/components/atoms/ErrorFallback";
+import ErrorFallbackWithStyle from "src/components/atoms/ErrorFallbackWithStyle";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
 import MapDetailBody from "src/page/Map/Detail/MapDetailBody";
@@ -27,8 +27,7 @@ function MapDetail() {
         </NavLink> */}
       <AsyncBoundary
         suspenseFallback={<SuspenseFallback height={bodyHeight} />}
-        errorFallback={ErrorFallback}
-        fallBackHeight={bodyHeight}
+        errorFallback={ErrorFallbackWithStyle({ height: bodyHeight })}
       >
         <MapDetailBody />
       </AsyncBoundary>

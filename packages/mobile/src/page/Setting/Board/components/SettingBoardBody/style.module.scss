@@ -1,0 +1,31 @@
+.empty-subscription {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    @include safe-area-100vh(height, 0px);
+}
+
+.subscription {
+    padding: 8px;
+
+    .item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 102px;
+        padding: 20px;
+        margin-bottom: 8px;
+        background: $black-0;
+        border-radius: 20px;
+
+        .buttons {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

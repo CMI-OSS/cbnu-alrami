@@ -39,6 +39,7 @@ export const useSubscribeBoardsQuery = () => {
       return BoardApiService.boardControllerFindSubscribeBoards({ uuid });
     },
     {
+      suspense: true,
       select: (data) => {
         const nextData = data.map((indiData) => {
           const { name, parent } = indiData;

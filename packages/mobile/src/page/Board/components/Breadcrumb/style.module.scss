@@ -5,6 +5,9 @@
   color: $black-40;
 
   .breadcrumb-item:not(:last-child)::after {
-    content: '\00a0 >\00a0 '
+    content: "\00a0 >\00a0 ";
+  }
+  .link {
+    padding: 10px 0;
   }
 }

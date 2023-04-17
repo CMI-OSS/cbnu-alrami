@@ -2,11 +2,16 @@
   .group {
     display: flex;
 
-    button:not(:last-child) {
-      margin-right: 28px;
+    .button {
+      padding: 10px 0 10px 10px;
+    }
+    .button:not(:last-child) {
+      margin-right: 18px;
     }
   }
-
+  .button-uncheck {
+    padding: 10px 0 10px 10px;
+  }
   svg {
     stroke: $black-60;
   }

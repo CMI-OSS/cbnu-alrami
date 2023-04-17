@@ -1,4 +1,3 @@
-import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import { Close, LeftArrow } from "@components/atoms/icon";
@@ -23,7 +22,7 @@ function Board() {
           />
         }
         right={
-          <Link to="/setting/board">
+          <Link className={$.link} to="/setting/board">
             <Close size={16} />
           </Link>
         }

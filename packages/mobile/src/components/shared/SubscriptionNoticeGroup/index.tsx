@@ -71,21 +71,37 @@ function SubscriptionNoticeGroup({
     >
       {isSubscribe ? (
         <div className={$.group}>
-          <button type="button" onClick={handleUnSubscriptionClick}>
+          <button
+            type="button"
+            className={$.button}
+            onClick={handleUnSubscriptionClick}
+          >
             <Subscription size={30} stroke="#D66D6E" />
           </button>
           {isNotice ? (
-            <button type="button" onClick={handleUnNoticeClick}>
+            <button
+              type="button"
+              className={$.button}
+              onClick={handleUnNoticeClick}
+            >
               <Alarm size={22} stroke="#D66D6E" />
             </button>
           ) : (
-            <button type="button" onClick={handleNoticeClick}>
+            <button
+              type="button"
+              className={$.button}
+              onClick={handleNoticeClick}
+            >
               <UnAlarm size={22} stroke="#5E5E5E" />
             </button>
           )}
         </div>
       ) : (
-        <button type="button" onClick={handleSubscriptionClick}>
+        <button
+          type="button"
+          className={$["button-uncheck"]}
+          onClick={handleSubscriptionClick}
+        >
           <UnSubscription size={30} stroke="#5E5E5E" />
         </button>
       )}

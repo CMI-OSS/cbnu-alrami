@@ -61,6 +61,7 @@ function Selected(props: Props) {
           <span className={$.title}>{`${cafeteriaName} ${mealType}`}</span>
           <button
             type="button"
+            className={$.button}
             aria-label="대표 식당 변경하기"
             onClick={onClick}
           >

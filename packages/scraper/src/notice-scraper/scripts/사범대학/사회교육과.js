@@ -3,7 +3,7 @@ import { boardTree } from "@shared/board-tree/board-tree.generated";
 import 교육학과 from "./교육학과";
 
 const script = {
-  url: "https://edu.chungbuk.ac.kr/soc/selectBbsNttList.do?key=297&bbsNo=40",
+  url: "http://edu.chungbuk.ac.kr/soc/selectBbsNttList.do?key=297&bbsNo=40",
   site_id: boardTree.전공.사범대학.사회교육과.공지사항.id,
   site: "사회교육과",
   category: "공지사항",

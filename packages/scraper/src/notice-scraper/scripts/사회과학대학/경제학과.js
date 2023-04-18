@@ -13,6 +13,11 @@ const script = {
       const td = item.querySelectorAll("td");
       const title = item.querySelector("a[href*='post']");
 
+      const rawDate = td[3].innerText.trim();
+      const date = rawDate.includes(":")
+        ? new Date().toLocaleDateString()
+        : rawDate;
+
       return {
         site: this.site,
         category: this.category,
@@ -20,7 +25,7 @@ const script = {
         title: title.innerText.trim(),
         url: title.href,
         // TODO 날짜에 년도가 없어서.. 직접 년도를 넣어주어야할듯
-        date: td[3].innerText.trim(),
+        date,
       };
     });
   },

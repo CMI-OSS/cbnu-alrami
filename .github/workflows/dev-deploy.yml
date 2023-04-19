@@ -45,6 +45,8 @@ jobs:
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}
           port: ${{ secrets.DEV_SERVER_SSH_PORT }}
           script: |
+            sudo npm install -g yarn
+            sudo npm install -g pm2
             cd cbnu_alrami_dev
             git pull
             sh ./deploy.sh

@@ -45,6 +45,13 @@ jobs:
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}
           port: ${{ secrets.DEV_SERVER_SSH_PORT }}
           script: |
+            export PATH="/usr/local/bin:$PATH"
+            cat ~/.zshrc
+            echo $PATH
+            ls
+            node -v 
+            npm -v
+            pm2 -v
             cd cbnu_alrami_dev
             git pull
             sh ./deploy.sh

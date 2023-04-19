@@ -19,7 +19,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: configuration.ts
-          remote: github-action-deploy/packages/server/src/config/configuration.ts
+          remote: cbnu_alrami_dev/packages/server/src/config/configuration.ts
           host: ${{ secrets.DEV_SERVER_SSH_HOST }}
           username: ${{ secrets.DEV_SERVER_SSH_USER }}
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}
@@ -32,7 +32,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: configuration.ts
-          remote: github-action-deploy/packages/scraper/src/config/configuration.ts
+          remote: cbnu_alrami_dev/packages/scraper/src/config/configuration.ts
           host: ${{ secrets.DEV_SERVER_SSH_HOST }}
           username: ${{ secrets.DEV_SERVER_SSH_USER }}
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}
@@ -45,6 +45,6 @@ jobs:
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}
           port: ${{ secrets.DEV_SERVER_SSH_PORT }}
           script: |
-            cd github-action-deploy
+            cd cbnu_alrami_dev
             git pull
             sh ./deploy.sh

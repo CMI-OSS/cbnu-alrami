@@ -46,6 +46,7 @@ jobs:
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}
           port: ${{ secrets.DEV_SERVER_SSH_PORT }}
           script: |
+            export PATH="/usr/local/bin:$PATH"
             cd cbnu_alrami_production
             git pull
             sh ./deploy_production.sh

@@ -1,7 +1,7 @@
 import { LeftArrow } from "@components/atoms/icon";
 import ChipGroup from "@components/molecules/ChipGroup";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
-import ErrorFallback from "src/components/atoms/ErrorFallback";
+import ErrorFallbackWithStyle from "src/components/atoms/ErrorFallbackWithStyle";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
 import ReloadButton from "src/components/shared/ReloadButton";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
@@ -45,7 +45,13 @@ function PlaceDetail() {
     <FullPageModalTemplate
       left={<LeftArrow stroke="#5e5e5e" size={16} />}
       title="캠퍼스맵"
-      right={<ReloadButton buttonType="icon" onClick={handleReloadClick} stroke="#5E5E5E" />}
+      right={
+        <ReloadButton
+          buttonType="icon"
+          onClick={handleReloadClick}
+          stroke="#5E5E5E"
+        />
+      }
     >
       <ChipGroup
         list={menuList}
@@ -58,8 +64,7 @@ function PlaceDetail() {
         </NavLink> */}
       <AsyncBoundary
         suspenseFallback={<SuspenseFallback height={bodyHeight} />}
-        errorFallback={ErrorFallback}
-        fallBackHeight={bodyHeight}
+        errorFallback={ErrorFallbackWithStyle({ height: bodyHeight })}
       >
         <PlaceDetailBody position={position} />
       </AsyncBoundary>

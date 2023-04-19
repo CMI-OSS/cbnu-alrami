@@ -1,5 +1,5 @@
 import useSwipe from "@hooks/useSwipe";
-import ErrorFallback from "src/components/atoms/ErrorFallback";
+import ErrorFallbackWithStyle from "src/components/atoms/ErrorFallbackWithStyle";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
 import CalendarHeader from "src/components/molecules/CalendarHeader";
 import Footer from "src/components/molecules/Footer";
@@ -10,6 +10,8 @@ import { CAFETERIA_LIST } from "src/consts";
 import CafeteriaBody from "./CafateriaBody";
 import { useCafeteria } from "./hooks";
 import $ from "./style.module.scss";
+
+const height = "calc(var(--vh, 1vh) * 100)";
 
 function Cafeteria() {
   const {
@@ -41,11 +43,8 @@ function Cafeteria() {
       </header>
 
       <AsyncBoundary
-        suspenseFallback={
-          <SuspenseFallback height="calc(var(--vh, 1vh) * 100)" />
-        }
-        errorFallback={ErrorFallback}
-        fallBackHeight="calc(var(--vh, 1vh) * 100)"
+        suspenseFallback={<SuspenseFallback height={height} />}
+        errorFallback={ErrorFallbackWithStyle({ height })}
         keys={[ fullDate, selectedMenu ]}
       >
         <CafeteriaBody {...{ fullDate, selectedMenu }} />

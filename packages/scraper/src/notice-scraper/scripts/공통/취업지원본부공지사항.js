@@ -1,7 +1,7 @@
 import { boardTree } from "@shared/board-tree/board-tree.generated";
 
 const script = {
-  url: "https://hrd.chungbuk.ac.kr/board/board_list.asp?groupno=1&listno=1",
+  url: "http://hrd.chungbuk.ac.kr/board/board_list.asp?groupno=1&listno=1",
   site_id: boardTree.공통.취업지원본부.공지사항.id,
   site: "취업지원본부",
   category: "공지사항",

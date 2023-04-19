@@ -2,7 +2,7 @@ import Footer from "@components/molecules/Footer";
 import useSwipe from "@hooks/useSwipe";
 import classNames from "classnames";
 import dayjs from "dayjs";
-import ErrorFallback from "src/components/atoms/ErrorFallback";
+import ErrorFallbackWithStyle from "src/components/atoms/ErrorFallbackWithStyle";
 import SuspenseFallback from "src/components/atoms/SuspenseFallback";
 import ReloadButton from "src/components/shared/ReloadButton";
 import AsyncBoundary from "src/components/templates/AsyncBoundary";
@@ -40,8 +40,7 @@ function Home() {
             style={{ marginBottom: HOME_MARGIN_BOTTOM }}
           />
         }
-        errorFallback={ErrorFallback}
-        fallBackHeight="156px"
+        errorFallback={ErrorFallbackWithStyle({ height: "156px" })}
       >
         <ScheduleContainer today={today} />
       </AsyncBoundary>
@@ -54,8 +53,7 @@ function Home() {
             style={{ marginBottom: HOME_MARGIN_BOTTOM }}
           />
         }
-        errorFallback={ErrorFallback}
-        fallBackHeight="156px"
+        errorFallback={ErrorFallbackWithStyle({ height: "156px" })}
       >
         <Weather
           {...{
@@ -76,8 +74,7 @@ function Home() {
             style={{ marginBottom: HOME_MARGIN_BOTTOM }}
           />
         }
-        errorFallback={ErrorFallback}
-        fallBackHeight="319px"
+        errorFallback={ErrorFallbackWithStyle({ height: "319px" })}
       >
         <Article />
       </AsyncBoundary>

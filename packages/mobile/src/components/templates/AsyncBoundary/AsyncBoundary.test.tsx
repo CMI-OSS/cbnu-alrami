@@ -7,21 +7,20 @@ const SuspenseFallback = () => {
   return <span data-testid="isLoading">로딩중</span>;
 };
 
-const ErrorFallback = ({
-  error,
-  reset,
-}: {
-  error: Error;
-  reset: () => void;
-}) => {
-  return (
-    <>
-      <span data-testid="errorMsg">{error.message}</span>
-      <button type="button" data-testid="retryButton" onClick={reset}>
-        다시 시도
-      </button>
-    </>
-  );
+const ErrorFallbackWithStyle = ({ height }: { height: string }) => {
+  return (reset: () => void, error: Error | null) => {
+    if (!error) throw new Error('no error');
+    const { message } = error;
+    const msg = error ? message : "unknown error";
+    return (
+      <div style={{ height }}>
+        <span data-testid="errorMsg">{msg}</span>
+        <button type="button" data-testid="retryButton" onClick={reset}>
+          다시 시도
+        </button>
+      </div>
+    );
+  };
 };
 
 const renderAsyncBoundary = (key: QueryKey, mock: jest.Mock<any, any>) => {
@@ -34,9 +33,8 @@ const renderAsyncBoundary = (key: QueryKey, mock: jest.Mock<any, any>) => {
 
   return (
     <AsyncBoundary
-      errorFallback={ErrorFallback}
+      errorFallback={ErrorFallbackWithStyle({ height: "100vh" })}
       suspenseFallback={<SuspenseFallback />}
-      fallBackHeight=""
     >
       <Component />
     </AsyncBoundary>

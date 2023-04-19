@@ -45,6 +45,7 @@ jobs:
           password: ${{ secrets.DEV_SERVER_SSH_PASSWORD }}
           port: ${{ secrets.DEV_SERVER_SSH_PORT }}
           script: |
+            ls
             node -v 
             npm -v
             pm2 -v

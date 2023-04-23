@@ -5,8 +5,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 6px;
     color: $black-100;
+
+    .button {
+      padding: 0 10px 10px 0;
+    }
 
     .cafeteria-name {
       @include typography(16);

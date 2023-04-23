@@ -43,6 +43,7 @@ function ArticleFooter({ articleId, isBookmark, url }: Props) {
   return (
     <div className={$["article-footer"]}>
       <ShareButton
+        className={$.button}
         size={24}
         stroke="#5e5e5e"
         successMsg={
@@ -52,7 +53,7 @@ function ArticleFooter({ articleId, isBookmark, url }: Props) {
         }
       />
       {isDevOrWebview && (
-        <button type="button" onClick={toggleBookmark}>
+        <button className={$.button} type="button" onClick={toggleBookmark}>
           <Star
             size={24}
             stroke={isBookmark ? "#D66D6E" : "#5e5e5e"}
@@ -61,7 +62,7 @@ function ArticleFooter({ articleId, isBookmark, url }: Props) {
         </button>
       )}
       {url && (
-        <button type="button" onClick={handleUrlClick}>
+        <button className={$.button} type="button" onClick={handleUrlClick}>
           <Internet size={24} stroke="#5e5e5e" />
         </button>
       )}

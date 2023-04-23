@@ -47,7 +47,6 @@ function ArticleDetail() {
     url,
   } = articleData;
 
-
   const handleToggleLikeClick = (articleId: number) => {
     if (isLike) {
       setIsLikeClick(false);
@@ -62,6 +61,7 @@ function ArticleDetail() {
       <FullPageModalTemplate
         left={<LeftArrow stroke="#5e5e5e" size={16} />}
         title={name}
+        style={{ borderBottom: "1px solid #eeeded" }}
       >
         <div className={$.children}>
           <div className={$.title}>{title || EMPTY_TITLE_GUIDE_MESSAGE}</div>

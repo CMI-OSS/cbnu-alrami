@@ -7,7 +7,7 @@ const isProduction = /www.mobile|www.admin|https:\/\/admin\.cmiteam\.kr/.test(
 );
 
 const setOpenApiBase = () => {
-  const baseURL = isProduction ? apiServer.production : apiServer.dev;
+  const baseURL = apiServer.local;
   OpenAPI.BASE = baseURL;
 };
 

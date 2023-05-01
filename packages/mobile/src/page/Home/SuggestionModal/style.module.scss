@@ -96,7 +96,9 @@ $total-margin-of-top-and-bottom: 130px;
   }
 
   .close-button {
-    @include position(absolute, top 25px right 27px);
+    @include position(absolute, top 15px right 17px);
+    padding: 10px;
+    line-height: 1px;
     z-index: 1;
   }
 }

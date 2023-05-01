@@ -1,7 +1,7 @@
 @import "../../../../styles/main.scss";
 
 .menu-box {
-  padding: 22px 24px 15px;
+  padding: 12px 24px 15px;
 
   .header {
     display: flex;
@@ -18,8 +18,9 @@
         color: $black-100;
       }
 
-      > button {
-        margin-left: 10px;
+      .button {
+        padding: 10px;
+        line-height: 1px;
       }
     }
 

@@ -16,7 +16,7 @@ function Board() {
       <SettingTemplate
         title="구독/알림"
         right={
-          <Link to="/board">
+          <Link className={$.link} to="/board">
             <Plus size={16} stroke="#AAAAAA" />
           </Link>
         }
@@ -36,7 +36,7 @@ function Board() {
     <SettingTemplate
       title="구독/알림"
       right={
-        <Link to="/board">
+        <Link className={$.link} to="/board">
           <Plus size={16} stroke="#AAAAAA" />
         </Link>
       }

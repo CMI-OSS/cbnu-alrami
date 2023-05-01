@@ -1,4 +1,3 @@
-import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import { Close, LeftArrow } from "@components/atoms/icon";
@@ -16,14 +15,9 @@ function Board() {
   return (
     <div className={$.board}>
       <FullPageModalTemplate
-        left={
-          <LeftArrow
-            size={16}
-            style={{ display: isFirst ? "none" : "block" }}
-          />
-        }
+        left={<LeftArrow size={16} />}
         right={
-          <Link to="/setting/board">
+          <Link className={$.link} to="/setting/board">
             <Close size={16} />
           </Link>
         }

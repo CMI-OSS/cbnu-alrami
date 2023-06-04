@@ -23,7 +23,7 @@ function EmptyCafeteria({ className, cafeteriaName, onClick }: Props) {
           className={$.button}
         >
           <span className={$["cafeteria-name"]}>{cafeteriaName}</span>
-          <Write stroke="#aaa" size={12} />
+          <Write stroke="#aaa" size={14} />
         </button>
         <span className={$.time}></span>
       </div>

@@ -1,4 +1,4 @@
-import { Calendar, Food, Home, Map, Speaker } from "../../atoms/icon";
+import { Calendar, Food, Home, Speaker } from "../../atoms/icon";
 import NavigationLink from "../../atoms/NavigationLink";
 import $ from "./style.module.scss";
 
@@ -28,12 +28,12 @@ function Footer() {
       label: "식단",
       to: "/cafeteria",
     },
-    {
-      id: 5,
-      icon: Map,
-      label: "캠퍼스맵",
-      to: "/map",
-    },
+    // {
+    //   id: 5,
+    //   icon: Map,
+    //   label: "캠퍼스맵",
+    //   to: "/map",
+    // },
   ];
 
   return (

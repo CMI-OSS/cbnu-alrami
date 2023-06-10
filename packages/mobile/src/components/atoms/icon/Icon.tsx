@@ -8,7 +8,13 @@ type Props = {
   color?: string;
 } & StyleProps;
 
-const Icon = ({ name, size = 16, color, style, className }: Props) => {
+const Icon = ({
+  name,
+  size = 16,
+  color = "#828282",
+  style,
+  className,
+}: Props) => {
   const SVGIcon = icons[name];
 
   return (

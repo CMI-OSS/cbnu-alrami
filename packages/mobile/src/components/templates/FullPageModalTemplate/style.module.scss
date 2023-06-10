@@ -28,8 +28,8 @@
   }
 
   .children {
-    overflow: auto;
     height: calc(100% - 60px);
+    overflow: auto;
     touch-action: pan-y !important;
   }
 }

@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import { Alarm, Subscription } from "@components/atoms/icon";
 import Icon from "@components/atoms/icon/Icon";
 import Toggle from "@components/atoms/Toggle";
 
@@ -12,8 +11,10 @@ function Drawer() {
   return (
     <div className={$.drawer}>
       <div className={$.item}>
-        <Subscription size={20} />
-        구독
+        <div className={$.title}>
+          <Icon name="subscribe" size={20} />
+          구독
+        </div>
         <Toggle
           checked={checked}
           onClick={() => {
@@ -22,8 +23,10 @@ function Drawer() {
         />
       </div>
       <div className={$.item}>
-        <Alarm size={20} />
-        알람
+        <div className={$.title}>
+          <Icon name="alarm" size={20} />
+          알람
+        </div>
         <Toggle
           checked
           onClick={() => {
@@ -32,8 +35,10 @@ function Drawer() {
         />
       </div>
       <div className={$.item}>
-        <Icon name="view" size={20} color="#828282" />
-        공지사항 보기
+        <div className={$.title}>
+          <Icon name="view" size={20} />
+          공지사항 보기
+        </div>
       </div>
     </div>
   );

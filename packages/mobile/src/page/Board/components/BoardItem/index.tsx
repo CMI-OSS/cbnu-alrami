@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
-import { Arrow } from "@components/atoms/icon";
 import SubscriptionNoticeGroup from "@components/shared/SubscriptionNoticeGroup";
 import classnames from "classnames";
 import { pushBreadcrumb } from "src/store/boardSlice";
@@ -34,11 +33,16 @@ function BoardItem({
 
   if (isLast) {
     return (
+      <div className={classnames($["board-item"], $.last)}>
+        <div className={$.title}>{title}</div>
+      </div>
+    );
+  }
+
+  if (isLast) {
+    return (
       <Link className={classnames($["board-item"], $.last)} to={to}>
-        <div className={$.title}>
-          {title}
-          <Arrow size={6} stroke="#AAAAAA" />
-        </div>
+        <div className={$.title}>{title}</div>
         <SubscriptionNoticeGroup
           id={id}
           isNotice={isNotice ?? false}

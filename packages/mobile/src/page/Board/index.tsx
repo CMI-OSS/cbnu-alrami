@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 
 import { Close, LeftArrow } from "@components/atoms/icon";
+import Drawer from "@components/molecules/Drawer";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import BoardList from "src/page/Board/components/BoardList";
 import Breadcrumb from "src/page/Board/components/Breadcrumb";
@@ -26,6 +27,7 @@ function Board() {
           <Breadcrumb />
           <Title />
           <BoardList />
+          <Drawer />
         </div>
       </FullPageModalTemplate>
     </div>

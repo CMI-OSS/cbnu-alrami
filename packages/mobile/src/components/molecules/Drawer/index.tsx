@@ -1,46 +1,111 @@
-import { useState } from "react";
+import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
+import { Link } from "react-router-dom";
 
 import Icon from "@components/atoms/icon/Icon";
 import Toggle from "@components/atoms/Toggle";
+import {
+  useNoticeBoardMutation,
+  useSubscribeBoardMutation,
+  useUnNoticeBoardMutation,
+  useUnSubscribeBoardMutation,
+} from "@hooks/api/board";
 
 import $ from "./style.module.scss";
 
-function Drawer() {
-  const [ checked, setChecked ] = useState(false);
+type Props = {
+  id: number;
+  to: string;
+  isSubscribe: boolean;
+  isNotice: boolean;
+  isOpen: boolean;
+  setIsOpen: (state: boolean) => void;
+};
 
-  return (
-    <div className={$.drawer}>
-      <div className={$.item}>
-        <div className={$.title}>
-          <Icon name="subscribe" size={20} />
-          구독
+function createDrawerPortal() {
+  const drawerRoot = document.createElement("div");
+  drawerRoot.setAttribute("id", "drawer-root");
+  return drawerRoot;
+}
+
+function Drawer({ id, to, isSubscribe, isNotice, isOpen, setIsOpen }: Props) {
+  const portalRootRef = useRef<HTMLDivElement>(
+    (document.getElementById("drawer-root") as HTMLDivElement) ||
+      createDrawerPortal(),
+  );
+  const bodyRef = useRef<HTMLBodyElement | null>(null);
+  const postSubscribeBoard = useSubscribeBoardMutation({ id });
+  const deleteSubscribeBoard = useUnSubscribeBoardMutation({ id });
+  const postNoticeBoard = useNoticeBoardMutation({ id });
+  const deleteNoticeBoard = useUnNoticeBoardMutation({ id });
+
+  const handleSubscribeClick = () => {
+    if (isSubscribe) {
+      deleteSubscribeBoard.mutate({ id });
+      return;
+    }
+
+    postSubscribeBoard.mutate({ id });
+  };
+
+  const handleNoticeClick = () => {
+    if (isNotice) {
+      deleteNoticeBoard.mutate({ id });
+      return;
+    }
+
+    postNoticeBoard.mutate({ id });
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    bodyRef.current = document.querySelector("body");
+
+    if (bodyRef.current) {
+      const portal = portalRootRef.current!;
+      bodyRef.current.appendChild(portal);
+    }
+  }, []);
+
+  if (!isOpen) {
+    return <></>;
+  }
+
+  return createPortal(
+    <div className={$["drawer-wrapper"]}>
+      <button
+        aria-label="background"
+        type="button"
+        className={$.background}
+        onClick={handleClose}
+      />
+      <div className={$.drawer}>
+        <div className={$.item}>
+          <div className={$.title}>
+            <Icon name="subscribe" size={20} />
+            구독
+          </div>
+          <Toggle checked={isSubscribe} onClick={handleSubscribeClick} />
         </div>
-        <Toggle
-          checked={checked}
-          onClick={() => {
-            return setChecked(!checked);
-          }}
-        />
-      </div>
-      <div className={$.item}>
-        <div className={$.title}>
-          <Icon name="alarm" size={20} />
-          알람
+        <div className={$.item}>
+          <div className={$.title}>
+            <Icon name="alarm" size={20} />
+            알람
+          </div>
+          <Toggle checked={isNotice} onClick={handleNoticeClick} />
         </div>
-        <Toggle
-          checked
-          onClick={() => {
-            return console.log("알림");
-          }}
-        />
+        <Link className={$.item} to={to}>
+          <div className={$.title}>
+            <Icon name="view" size={20} />
+            공지사항 보기
+          </div>
+        </Link>
       </div>
-      <div className={$.item}>
-        <div className={$.title}>
-          <Icon name="view" size={20} />
-          공지사항 보기
-        </div>
-      </div>
-    </div>
+    </div>,
+    portalRootRef.current,
   );
 }
 

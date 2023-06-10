@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
+import Drawer from "@components/molecules/Drawer";
 import SubscriptionNoticeGroup from "@components/shared/SubscriptionNoticeGroup";
 import classnames from "classnames";
 import { pushBreadcrumb } from "src/store/boardSlice";
@@ -24,6 +26,7 @@ function BoardItem({
   isSubscribe,
   isLast = false,
 }: Props) {
+  const [ isOpen, setIsOpen ] = useState(false);
   const { pathname } = useLocation();
   const to = isLast ? `/board/article/${id}` : `${pathname}/${id}`;
   const dispatch = useDispatch();
@@ -33,22 +36,26 @@ function BoardItem({
 
   if (isLast) {
     return (
-      <div className={classnames($["board-item"], $.last)}>
-        <div className={$.title}>{title}</div>
-      </div>
-    );
-  }
-
-  if (isLast) {
-    return (
-      <Link className={classnames($["board-item"], $.last)} to={to}>
-        <div className={$.title}>{title}</div>
-        <SubscriptionNoticeGroup
-          id={id}
-          isNotice={isNotice ?? false}
-          isSubscribe={isSubscribe ?? false}
+      <>
+        <button
+          type="button"
+          className={classnames($["board-item"], $.last)}
+          onClick={() => {
+            return setIsOpen(true);
+          }}
+        >
+          <div className={$.title}>{title}</div>
+          <SubscriptionNoticeGroup
+            isSubscribe={isSubscribe!}
+            isNotice={isNotice!}
+          />
+        </button>
+        <Drawer
+          {...{ id, isOpen, setIsOpen, to }}
+          isSubscribe={isSubscribe!}
+          isNotice={isNotice!}
         />
-      </Link>
+      </>
     );
   }
 

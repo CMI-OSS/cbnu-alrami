@@ -1,19 +1,7 @@
 .subscription-notice-group {
   .group {
     display: flex;
-
-    .button {
-      padding: 16px 0 15px 10px;
-    }
-    .button:not(:last-child) {
-      margin-right: 18px;
-    }
-  }
-  .button-uncheck {
-    padding: 20px 0 20px 10px;
-    line-height: 1px;
-  }
-  svg {
-    stroke: $black-60;
+    align-items: center;
+    gap: 28px;
   }
 }

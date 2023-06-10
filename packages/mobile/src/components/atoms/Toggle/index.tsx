@@ -5,7 +5,7 @@ import classNames from "classnames";
 import $ from "./style.module.scss";
 
 type Props = {
-  checked: boolean;
+  checked?: boolean;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 };
 

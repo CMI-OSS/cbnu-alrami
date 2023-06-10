@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 
-import { Close, LeftArrow } from "@components/atoms/icon";
+import Icon from "@components/atoms/icon/Icon";
 import Drawer from "@components/molecules/Drawer";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import BoardList from "src/page/Board/components/BoardList";
@@ -16,10 +16,10 @@ function Board() {
   return (
     <div className={$.board}>
       <FullPageModalTemplate
-        left={<LeftArrow size={16} />}
+        left={<Icon name="back" size={14} />}
         right={
           <Link className={$.link} to="/setting/board">
-            <Close size={16} />
+            <Icon name="x" size={14} />
           </Link>
         }
       >

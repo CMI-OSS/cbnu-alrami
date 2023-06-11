@@ -1,5 +1,4 @@
 export { Airplane } from "./Airplane";
-export { Alarm } from "./Alarm";
 export { AppVersion } from "./AppVersion";
 export { Arrow } from "./Arrow";
 export { CMIAppLogo } from "./CMIAppLogo";
@@ -29,11 +28,8 @@ export { Setting } from "./Setting";
 export { Share } from "./Share";
 export { Speaker } from "./Speaker";
 export { Star } from "./Star";
-export { Subscription } from "./Subscription";
 export { Theme } from "./Theme";
 export { Time } from "./Time";
-export { UnAlarm } from "./UnAlarm";
-export { UnSubscription } from "./UnSubscription";
 export { Write } from "./Write";
 export { 가끔눈_낮 } from "./가끔눈_낮";
 export { 가끔눈_밤 } from "./가끔눈_밤";

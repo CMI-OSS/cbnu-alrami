@@ -4,8 +4,6 @@ import {
   usePostBookmarkArticleMutation,
 } from "@hooks/api/article";
 import ShareButton from "src/components/atoms/ShareButton";
-import { useAppDispatch } from "src/store";
-import { setHasFooter } from "src/store/toastSlice";
 import { isDesktop, isDevOrWebview, isFromApp } from "src/utils/webview";
 
 import $ from "./style.module.scss";
@@ -21,10 +19,7 @@ function ArticleFooter({ articleId, isBookmark, url }: Props) {
   const deleteBookmark = useDeleteBookmarkArticleMutation({
     id: articleId,
   });
-  const dispatch = useAppDispatch();
-
   const toggleBookmark = () => {
-    dispatch(setHasFooter({ hasFooter: true }));
     if (isBookmark) {
       deleteBookmark.mutate({ id: articleId });
       return;

@@ -2,8 +2,6 @@ import React from "react";
 
 import Icon from "@components/atoms/icon/Icon";
 import classnames from "classnames";
-import { useAppDispatch } from "src/store";
-import { setHasFooter } from "src/store/toastSlice";
 import { DefaultProps } from "src/type/props";
 
 import $ from "./style.module.scss";
@@ -13,20 +11,11 @@ type Props = {
   isSubscribe: boolean;
 } & DefaultProps;
 
-// TODO: dispatch 왜 있나 확인하기
-// TODO: 이거 쓰는 부분 제거
 function SubscriptionNoticeGroup({ isNotice, isSubscribe, className }: Props) {
-  const dispatch = useAppDispatch();
-
-  const handleGroupClick = () => {
-    dispatch(setHasFooter({ hasFooter: false }));
-  };
-
   return (
     <button
       type="button"
       className={classnames($["subscription-notice-group"], className)}
-      onClick={handleGroupClick}
     >
       {isSubscribe && (
         <div className={$.group}>

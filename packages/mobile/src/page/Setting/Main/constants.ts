@@ -1,7 +1,12 @@
+import * as icons from "@components/atoms/icon/svg";
 import { CMI_BOARD_ID } from "src/consts";
 import { Restaurant } from "src/type";
 
-const settingMenuList = [
+const settingMenuList: {
+  icon: keyof typeof icons;
+  label: string;
+  to: string;
+}[] = [
   {
     icon: "alarm",
     label: "구독/알림",

@@ -9,7 +9,6 @@ import $ from "./style.module.scss";
 
 type Props = {
   route: {
-    id: number;
     icon: keyof typeof icons;
     label: string;
     to: string;
@@ -17,13 +16,13 @@ type Props = {
 } & DefaultProps;
 
 function NavigationLink({ className, route }: Props) {
-  const { id, to, icon, label } = route;
+  const { to, icon, label } = route;
   const { pathname } = useLocation();
   const isActive = pathname.includes(to);
 
   return (
     <NavLink
-      key={id}
+      key={icon}
       to={to}
       className={classNames($.link, { [$.active]: isActive }, className)}
     >

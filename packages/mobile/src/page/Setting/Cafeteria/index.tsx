@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 
+import Icon from "@components/atoms/icon/Icon";
 import BorderBox from "src/components/atoms/BorderBox";
-import { Food } from "src/components/atoms/icon";
 import RadioSelect from "src/components/molecules/RadioSelect";
 import SettingTemplate from "src/page/Setting/SettingTemplate";
 import { Restaurant } from "src/type";
@@ -22,7 +22,7 @@ function Cafeteria() {
   return (
     <SettingTemplate title="대표식당">
       <div className={$["setting-cafeteria"]}>
-        <Food size={32} stroke="#aaa" />
+        <Icon name="thinDiet" size={38} color="#aaa" />
         <span className={$.text}>
           홈화면에 표시할
           <br />

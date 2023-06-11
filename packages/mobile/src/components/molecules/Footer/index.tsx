@@ -1,4 +1,3 @@
-import { Calendar, Food, Home, Map, Speaker } from "../../atoms/icon";
 import NavigationLink from "../../atoms/NavigationLink";
 import $ from "./style.module.scss";
 
@@ -6,31 +5,31 @@ function Footer() {
   const routes = [
     {
       id: 1,
-      icon: Home,
+      icon: "home",
       label: "홈",
       to: "/home",
     },
     {
       id: 2,
-      icon: Calendar,
+      icon: "calendar",
       label: "일정",
       to: "/calendar",
     },
     {
       id: 3,
-      icon: Speaker,
+      icon: "notice",
       label: "공지사항",
       to: "/article",
     },
     {
       id: 4,
-      icon: Food,
+      icon: "diet",
       label: "식단",
       to: "/cafeteria",
     },
     {
       id: 5,
-      icon: Map,
+      icon: "map",
       label: "캠퍼스맵",
       to: "/map",
     },

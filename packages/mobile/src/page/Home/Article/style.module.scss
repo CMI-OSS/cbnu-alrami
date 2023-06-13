@@ -1,5 +1,5 @@
 .container {
-  padding: 10px 24px 25px;
+  padding: 13px 24px 25px;
   background: #fff;
   border-radius: 20px;
 
@@ -13,7 +13,7 @@
     }
 
     .title {
-      @include typography(18);
+      @include typography(16);
       display: inline-block;
       margin-top: 7px;
       font-weight: 500;
@@ -24,15 +24,16 @@
 
       .popular {
         padding: 10px;
-        color: $black-40;
+        color: $black-50;
       }
 
       .subscribe {
         padding: 10px 8px 10px 10px;
-        color: $black-40;
+        color: $black-50;
       }
 
       .active {
+        font-weight: 500;
         color: $red-50;
       }
     }
@@ -71,7 +72,7 @@
 }
 
 .trigger {
-  padding: 10px 10px 10px 8px;
+  padding: 8px 10px 10px 8px;
   line-height: 1px;
   vertical-align: top;
 }

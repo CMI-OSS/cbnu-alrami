@@ -1,5 +1,6 @@
 import { ArticleApiService } from "@shared/swagger-api/generated/services/ArticleApiService";
 import dayjs from "dayjs";
+import script from "src/cafeteria-scraper/scripts/별빛식당";
 import { log } from "src/common/log";
 import { login } from "src/common/login";
 import noticeScripts from "src/notice-scraper/scripts/index";
@@ -7,11 +8,16 @@ import noticeScripts from "src/notice-scraper/scripts/index";
 import { scraping } from "../scraper/scraper";
 import { excludeNotices, excludeSites } from "./constant";
 
+const MAX_CONTENTS_LENGTH = 5000;
+
 const getISODate = (date: string) => {
   const replacedDate = date.replace(/[년|일|월]/g, ".");
 
   return dayjs(replacedDate).toISOString();
 };
+
+const retryScriptMap = new Map<string, number>();
+const maxRetryCount = 3;
 
 export const scrapingNotices = async () => {
   await login();
@@ -53,82 +59,104 @@ export const scrapingNotices = async () => {
       continue;
     }
 
-    try {
-      for (const notice of noticeList) {
-        if (
-          excludeNotices.some((excludeNotice) => {
-            return excludeNotice.url === notice.url;
-          })
-        ) {
-          // eslint-disable-next-line no-continue
-          continue;
-        }
+    for (const notice of noticeList) {
+      const retryCount = retryScriptMap.get(script.url) ?? 0;
 
-        const duplicateResponse =
-          await ArticleApiService.articleControllerIsDuplicated({
-            url: notice.url,
-          });
+      // eslint-disable-next-line no-continue
+      if (retryCount >= maxRetryCount) {
+        log(
+          `[WARN] 스크립트 재실행 회수(${retryCount}) 초과 - ${JSON.stringify(
+            script,
+          )}`,
+        );
 
         // eslint-disable-next-line no-continue
-        if (duplicateResponse.isDuplicated) continue;
+        continue;
+      }
 
-        // 공지사항 내용가져오기
-        const content = await scraping({
+      if (
+        excludeNotices.some((excludeNotice) => {
+          return excludeNotice.url === notice.url;
+        })
+      ) {
+        // eslint-disable-next-line no-continue
+        continue;
+      }
+
+      const duplicateResponse =
+        await ArticleApiService.articleControllerIsDuplicated({
+          url: notice.url,
+        });
+
+      // eslint-disable-next-line no-continue
+      if (duplicateResponse.isDuplicated) continue;
+
+      // 공지사항 내용가져오기
+      const content = await scraping({
+        scenario: {
+          name: noticeScript.site,
+          jsScript: noticeScript,
+          scrapFunctionName: noticeScript.getContentsHtml.name,
+          url: notice.url,
+          waitSelector: noticeScript.noticeContentsSelector,
+        },
+      }).catch((error) => {
+        log(
+          `[ERROR] 공지사항 등록 - ${JSON.stringify({
+            noticeScript,
+            error,
+          })}`,
+        );
+
+        const retryCount = retryScriptMap.get(script.url) ?? 0;
+        retryScriptMap.set(script.url, retryCount + 1);
+      });
+
+      // eslint-disable-next-line no-extra-boolean-cast
+      if (!!(noticeScript as any).getContentDate) {
+        notice.date = await scraping({
           scenario: {
             name: noticeScript.site,
             jsScript: noticeScript,
-            scrapFunctionName: noticeScript.getContentsHtml.name,
+            scrapFunctionName: (noticeScript as any).getContentDate.name,
             url: notice.url,
             waitSelector: noticeScript.noticeContentsSelector,
           },
         });
-
-        // eslint-disable-next-line no-extra-boolean-cast
-        if (!!(noticeScript as any).getContentDate) {
-          notice.date = await scraping({
-            scenario: {
-              name: noticeScript.site,
-              jsScript: noticeScript,
-              scrapFunctionName: (noticeScript as any).getContentDate.name,
-              url: notice.url,
-              waitSelector: noticeScript.noticeContentsSelector,
-            },
-          });
-        }
-
-        try {
-          // 공지사항 등록
-          const reuslt = await ArticleApiService.articleControllerCreate({
-            requestBody: {
-              boardId: notice.site_id,
-              title: notice.title,
-              url: notice.url,
-              dateTime: getISODate(notice.date),
-              content,
-            },
-          });
-
-          if (reuslt.success) {
-            console.log("[INFO] 공지사항 등록 완료 - ", notice);
-          }
-        } catch (error) {
-          log(
-            `[ERROR] 공지사항 등록 - ${JSON.stringify({
-              notice,
-              error,
-            })}`,
-          );
-          console.error("[ERROR] 공지사항 등록 - ", error, notice);
-        }
       }
-    } catch (error) {
-      log(
-        `[ERROR] 공지사항 등록 - ${JSON.stringify({
-          noticeScript,
-          error,
-        })}`,
-      );
-      console.error("[ERROR] 공지사항 등록 - ", error, noticeScript);
+
+      try {
+        if (content.length >= MAX_CONTENTS_LENGTH) {
+          log(
+            `[WARN] 내용이 ${MAX_CONTENTS_LENGTH}을 넘었습니다 ${JSON.stringify(
+              notice,
+            )}`,
+          );
+        }
+
+        // 공지사항 등록
+        const reuslt = await ArticleApiService.articleControllerCreate({
+          requestBody: {
+            boardId: notice.site_id,
+            title: notice.title,
+            url: notice.url,
+            dateTime: getISODate(notice.date),
+            content: content.slice(0, MAX_CONTENTS_LENGTH),
+          },
+        });
+
+        if (reuslt.success) {
+          console.log("[INFO] 공지사항 등록 완료 - ", notice);
+        }
+      } catch (error) {
+        log(
+          `[ERROR] 공지사항 등록 - ${JSON.stringify({
+            notice,
+            error,
+          })}`,
+        );
+        console.error("[ERROR] 공지사항 등록 - ", error, notice);
+      }
     }
   }
 };

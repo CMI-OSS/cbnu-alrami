@@ -46,6 +46,7 @@ export const scraping = async ({ scenario }: scrapingProps) => {
     return data;
   } catch (error) {
     log(`[srapping - ${scenario.name}] ${error}`);
+    throw error;
   } finally {
     browser.close();
   }

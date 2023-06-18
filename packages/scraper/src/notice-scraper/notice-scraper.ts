@@ -58,15 +58,17 @@ export const scrapingNotices = async () => {
     }
 
     for (const notice of noticeList) {
-      const retryCount = retryScriptMap.get(script.url) ?? 0;
+      const retryCount = retryScriptMap.get(notice.url) ?? 0;
 
       // eslint-disable-next-line no-continue
       if (retryCount >= maxRetryCount) {
-        log(
-          `[WARN] 스크립트 재실행 회수(${retryCount}) 초과 - ${JSON.stringify(
-            script,
-          )}`,
-        );
+        if (retryCount === maxRetryCount) {
+          log(
+            `[WARN] 스크립트 재실행 회수(${retryCount}) 초과 - ${JSON.stringify(
+              script,
+            )}`,
+          );
+        }
 
         // eslint-disable-next-line no-continue
         continue;
@@ -106,8 +108,8 @@ export const scrapingNotices = async () => {
           })}`,
         );
 
-        const retryCount = retryScriptMap.get(script.url) ?? 0;
-        retryScriptMap.set(script.url, retryCount + 1);
+        const retryCount = retryScriptMap.get(notice.url) ?? 0;
+        retryScriptMap.set(notice.url, retryCount + 1);
       });
 
       // eslint-disable-next-line no-extra-boolean-cast

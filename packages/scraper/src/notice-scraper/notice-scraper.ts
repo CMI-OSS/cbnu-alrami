@@ -8,8 +8,6 @@ import noticeScripts from "src/notice-scraper/scripts/index";
 import { scraping } from "../scraper/scraper";
 import { excludeNotices, excludeSites } from "./constant";
 
-const MAX_CONTENTS_LENGTH = 5000;
-
 const getISODate = (date: string) => {
   const replacedDate = date.replace(/[년|일|월]/g, ".");
 
@@ -126,14 +124,6 @@ export const scrapingNotices = async () => {
       }
 
       try {
-        if (content.length >= MAX_CONTENTS_LENGTH) {
-          log(
-            `[WARN] 내용이 ${MAX_CONTENTS_LENGTH}을 넘었습니다 ${JSON.stringify(
-              notice,
-            )}`,
-          );
-        }
-
         // 공지사항 등록
         const reuslt = await ArticleApiService.articleControllerCreate({
           requestBody: {
@@ -141,7 +131,7 @@ export const scrapingNotices = async () => {
             title: notice.title,
             url: notice.url,
             dateTime: getISODate(notice.date),
-            content: content.slice(0, MAX_CONTENTS_LENGTH),
+            content,
           },
         });
 

@@ -8,8 +8,6 @@ import noticeScripts from "src/notice-scraper/scripts/index";
 import { scraping } from "../scraper/scraper";
 import { excludeNotices, excludeSites } from "./constant";
 
-const MAX_CONTENTS_LENGTH = 5000;
-
 const getISODate = (date: string) => {
   const replacedDate = date.replace(/[년|일|월]/g, ".");
 
@@ -60,15 +58,17 @@ export const scrapingNotices = async () => {
     }
 
     for (const notice of noticeList) {
-      const retryCount = retryScriptMap.get(script.url) ?? 0;
+      const retryCount = retryScriptMap.get(notice.url) ?? 0;
 
       // eslint-disable-next-line no-continue
       if (retryCount >= maxRetryCount) {
-        log(
-          `[WARN] 스크립트 재실행 회수(${retryCount}) 초과 - ${JSON.stringify(
-            script,
-          )}`,
-        );
+        if (retryCount === maxRetryCount) {
+          log(
+            `[WARN] 스크립트 재실행 회수(${retryCount}) 초과 - ${JSON.stringify(
+              script,
+            )}`,
+          );
+        }
 
         // eslint-disable-next-line no-continue
         continue;
@@ -108,8 +108,8 @@ export const scrapingNotices = async () => {
           })}`,
         );
 
-        const retryCount = retryScriptMap.get(script.url) ?? 0;
-        retryScriptMap.set(script.url, retryCount + 1);
+        const retryCount = retryScriptMap.get(notice.url) ?? 0;
+        retryScriptMap.set(notice.url, retryCount + 1);
       });
 
       // eslint-disable-next-line no-extra-boolean-cast
@@ -126,14 +126,6 @@ export const scrapingNotices = async () => {
       }
 
       try {
-        if (content.length >= MAX_CONTENTS_LENGTH) {
-          log(
-            `[WARN] 내용이 ${MAX_CONTENTS_LENGTH}을 넘었습니다 ${JSON.stringify(
-              notice,
-            )}`,
-          );
-        }
-
         // 공지사항 등록
         const reuslt = await ArticleApiService.articleControllerCreate({
           requestBody: {
@@ -141,7 +133,7 @@ export const scrapingNotices = async () => {
             title: notice.title,
             url: notice.url,
             dateTime: getISODate(notice.date),
-            content: content.slice(0, MAX_CONTENTS_LENGTH),
+            content,
           },
         });
 

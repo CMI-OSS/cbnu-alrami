@@ -1,5 +1,6 @@
 import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
+import * as compression from "compression";
 import { json, urlencoded } from "express";
 
 import { AppModule } from "./app.module";
@@ -12,6 +13,7 @@ async function bootstrap() {
 
   app.use(json({ limit: "1mb" }));
   app.use(urlencoded({ extended: true, limit: "1mb" }));
+  app.use(compression()); // Gzip 압축 적용
 
   app.useGlobalPipes(
     new ValidationPipe({

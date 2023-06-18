@@ -22,11 +22,13 @@
 
     .reload-button {
       margin-left: auto;
+      padding: 17px 13px;
     }
 
-    .setting-link {
-      line-height: 0;
-      margin-left: 33px;
+    .link {
+      height: 60px;
+      padding-left: 20px;
+      line-height: 1px;
     }
 
     svg {

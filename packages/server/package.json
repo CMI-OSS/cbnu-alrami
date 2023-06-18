@@ -35,6 +35,7 @@
     "aws-sdk": "^2.1338.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "compression": "^1.7.4",
     "crypto": "^1.0.1",
     "dayjs": "^1.11.7",
     "fcm-node": "^1.6.1",

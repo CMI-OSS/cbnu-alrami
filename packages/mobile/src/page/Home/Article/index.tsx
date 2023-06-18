@@ -46,9 +46,9 @@ function ArticleHeader({ kind, setKind }: Props) {
           }
           trigger="click"
         >
-          <div className={$.trigger}>
+          <button type="button" className={$.trigger}>
             <Question size={16} stroke="#aaa" />
-          </div>
+          </button>
         </Popover>
       </div>
       <div className={$["button-wrapper"]}>
@@ -99,6 +99,7 @@ function Article() {
           return (
             <div className={$.title} key={id}>
               <Link
+                className={$.link}
                 to={`/article/detail/${id}`}
                 onClick={() => {
                   return setRecentBoardId(articleData.board.id);

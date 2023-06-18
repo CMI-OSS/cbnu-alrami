@@ -16,9 +16,14 @@ function EmptyCafeteria({ className, cafeteriaName, onClick }: Props) {
   return (
     <BorderBox height="auto" className={classNames($["menu-box"], className)}>
       <div className={$["cafeteria-header"]}>
-        <button type="button" aria-label="대표 식당 변경하기" onClick={onClick}>
+        <button
+          type="button"
+          aria-label="대표 식당 변경하기"
+          onClick={onClick}
+          className={$.button}
+        >
           <span className={$["cafeteria-name"]}>{cafeteriaName}</span>
-          <Write stroke="#aaa" size={12} />
+          <Write stroke="#aaa" size={14} />
         </button>
         <span className={$.time}></span>
       </div>

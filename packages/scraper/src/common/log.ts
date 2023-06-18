@@ -1,10 +1,20 @@
 import fs from "fs";
 
+import dayjs from "dayjs";
+
 export function log(data: string) {
-  const dateWithTimeStamp = `[${new Date().toLocaleString()}] ${data}`;
+  const now = dayjs();
+  const dateWithTimeStamp = `[${new Date().toLocaleString()}] ${data}`.slice(
+    0,
+    5000,
+  );
 
   console.log(dateWithTimeStamp);
-  fs.appendFile("error.log", `\r\n${dateWithTimeStamp}`, (err) => {
-    if (err) throw err;
-  });
+  fs.appendFile(
+    `${now.format("YYYY-MM-DD")} error.log`,
+    `\r\n${dateWithTimeStamp}`,
+    (err) => {
+      if (err) throw err;
+    },
+  );
 }

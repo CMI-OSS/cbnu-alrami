@@ -1,6 +1,7 @@
 .board-article {
   .left {
     svg {
+      height: 16px;
       stroke: $black-60;
     }
     span {
@@ -11,7 +12,9 @@
       color: $black-100;
     }
   }
-
+  .right {
+    padding-right: 24px;
+  }
   .article-list-wrap {
     margin-top: 8px;
     height: calc(100% - 8px);

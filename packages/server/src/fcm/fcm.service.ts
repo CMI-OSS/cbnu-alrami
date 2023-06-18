@@ -4,6 +4,7 @@ import {
   Inject,
   Injectable,
 } from "@nestjs/common";
+import dayjs from "dayjs";
 import * as FCM from "fcm-node";
 import { Article } from "src/article/entities/article.entity";
 import { BoardService } from "src/board/board.service";
@@ -60,6 +61,11 @@ export class FcmService {
   public async sendNoticeArticle(article: Article): Promise<void> {
     if (!article.board?.id)
       throw new Error("[sendNoticeArticle] board가 존재하지 않음");
+
+    const today = dayjs();
+
+    // 공지사항 작성일이 오늘이 아니면 notification 보내지 않음
+    if (!today.isSame(dayjs(article.dateTime), "day")) return;
 
     const subscribers = await this.boardService.getNoticeUsers(
       article.board.id,

@@ -41,11 +41,7 @@ function Article() {
             onClick={reloadArticleQueries}
             className={$["reload-button"]}
           />
-          <Link
-            className={$["setting-link"]}
-            to={path}
-            onClick={handleSettingClick}
-          >
+          <Link to={path} className={$.link} onClick={handleSettingClick}>
             <Setting size={20} />
           </Link>
         </div>

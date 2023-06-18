@@ -14,7 +14,9 @@ function Breadcrumb() {
       {breadcrumb.map(({ name, path }) => {
         return (
           <div key={path} className={$["breadcrumb-item"]}>
-            <Link to={`${path}`}>{name}</Link>
+            <Link className={$.link} to={`${path}`}>
+              {name}
+            </Link>
           </div>
         );
       })}

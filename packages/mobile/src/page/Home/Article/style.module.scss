@@ -1,20 +1,21 @@
 .container {
-  padding: 20px 24px;
+  padding: 13px 24px 25px;
   background: #fff;
   border-radius: 20px;
 
   .header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 16px;
+    margin-bottom: 6px;
 
     .guide-wrapper {
-      display: flex;
       font-size: 16px;
     }
 
     .title {
-      @include typography(18);
+      @include typography(16);
+      display: inline-block;
+      margin-top: 7px;
       font-weight: 500;
     }
 
@@ -22,16 +23,17 @@
       display: flex;
 
       .popular {
-        margin-right: 20px;
-        color: $black-40;
+        padding: 10px;
+        color: $black-50;
       }
 
       .subscribe {
-        margin-right: 8px;
-        color: $black-40;
+        padding: 10px 8px 10px 10px;
+        color: $black-50;
       }
 
       .active {
+        font-weight: 500;
         color: $red-50;
       }
     }
@@ -48,6 +50,10 @@
       &:last-child {
         margin-bottom: 0;
       }
+    }
+
+    .link {
+      display: block;
     }
   }
 
@@ -66,5 +72,7 @@
 }
 
 .trigger {
-  margin-left: 8px;
+  padding: 8px 10px 10px 8px;
+  line-height: 1px;
+  vertical-align: top;
 }

@@ -6,12 +6,12 @@
     .weather-box {
         display: flex;
         justify-content: space-between;
-        padding: 0 30px;    
+        padding: 26px 30px;
 
         .first {
             display: flex;
             flex-direction: column;
-            margin-top: 30px;
+            margin-top: 4px;
 
             .amount {
                 margin-bottom: 11px;
@@ -37,16 +37,13 @@
             flex-direction: column;
             align-items: flex-end;
             justify-content: space-between;
-            margin-top: 26px;
 
             .more {
                 @include typography(12);
-                display: flex;
-                align-items: center;
-                margin-bottom: 24px;
+                padding: 10px 0 0 10px;
 
                 svg {
-                    margin-right: 5px;
+                    margin: 0 5px -3px 0;
                 }
                 color: $black-40;
             }

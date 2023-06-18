@@ -122,10 +122,11 @@ export class Article extends UpdatableCommonEntity {
   saveContentText() {
     const removeTags = (html: string): string => {
       const cleanr = /<[^>]*>/g;
-      return html.replace(cleanr, "");
+      return html
+        .replace(cleanr, "")
+        .replace(/&nbsp;/g, " ")
+        .replace(/\s+/g, " ");
     };
-
-    console.log("safasf");
 
     this.contentText = removeTags(this.content);
   }

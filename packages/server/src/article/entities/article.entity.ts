@@ -7,6 +7,7 @@ import { Image } from "src/image/entities/image.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 
 import { ArticleBookmark } from "../../article-bookmark/entities/article-bookmark";
+import { ContentTransformer } from "./content.transformer";
 
 @Entity()
 export class Article extends UpdatableCommonEntity {
@@ -19,12 +20,14 @@ export class Article extends UpdatableCommonEntity {
   title: string;
 
   @ApiProperty({
-    description: "게시물 내용(html)",
+    description: "게시물 내용",
+
     example:
       "<div>2022학년도 동계 글로벌프론티어 단기연수 참가자를 다음과 같이 안내드립니다.</div>",
   })
   @IsString()
-  @Column({ type: "mediumtext" })
+  // 문자열 압축을 통해 암/복호화해서 저장
+  @Column({ transformer: new ContentTransformer(), type: "text" })
   content: string;
 
   @ApiProperty({

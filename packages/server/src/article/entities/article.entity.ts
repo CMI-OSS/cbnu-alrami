@@ -4,7 +4,15 @@ import { Admin } from "src/admin/entities/admin.entity";
 import { Board } from "src/board/entities/board.entity";
 import { UpdatableCommonEntity } from "src/common/entity";
 import { Image } from "src/image/entities/image.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+} from "typeorm";
 
 import { ArticleBookmark } from "../../article-bookmark/entities/article-bookmark";
 import { ContentTransformer } from "./content.transformer";
@@ -26,9 +34,13 @@ export class Article extends UpdatableCommonEntity {
       "<div>2022학년도 동계 글로벌프론티어 단기연수 참가자를 다음과 같이 안내드립니다.</div>",
   })
   @IsString()
-  // 문자열 압축을 통해 암/복호화해서 저장
+  // 문자열 압축을 통해 암/복호화해서 내용을 저장
   @Column({ transformer: new ContentTransformer(), type: "text" })
   content: string;
+
+  // 내용에서 tag를 제거한 버전 / 나중에 검색용으로 사용하게 될 수 있음
+  @Column({ type: "text", select: false, nullable: true })
+  contentText?: string;
 
   @ApiProperty({
     description: "스크래핑한 공지사항의 실제 URL",
@@ -104,4 +116,17 @@ export class Article extends UpdatableCommonEntity {
     nullable: true,
   })
   bookmarkUsers?: ArticleBookmark[];
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  saveContentText() {
+    const removeTags = (html: string): string => {
+      const cleanr = /<[^>]*>/g;
+      return html.replace(cleanr, "");
+    };
+
+    console.log("safasf");
+
+    this.contentText = removeTags(this.content);
+  }
 }

@@ -1,4 +1,4 @@
-import { getUA, isMobile, isDesktop } from "react-device-detect";
+import { getUA, isDesktop } from "react-device-detect";
 
 import { isProduction } from "@shared/util";
 
@@ -10,7 +10,7 @@ const isFromAndroidApp = getUA.includes(CBNU_ALRAMI_ANDROID_USER_AGENT);
 
 const isFromApp = isFromIosApp || isFromAndroidApp;
 
-const isWebView = isMobile && isFromApp;
+const isWebView = isFromApp;
 const isDevOrWebview = !isProduction || isWebView;
 
 export { isFromApp, isWebView, isDesktop, isDevOrWebview };

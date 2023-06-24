@@ -35,7 +35,7 @@ export class Article extends UpdatableCommonEntity {
   })
   @IsString()
   // 문자열 압축을 통해 암/복호화해서 내용을 저장
-  @Column({ transformer: new ContentTransformer(), type: "text" })
+  @Column({ transformer: new ContentTransformer(), type: "mediumtext" })
   content: string;
 
   // 내용에서 tag를 제거한 버전 / 나중에 검색용으로 사용하게 될 수 있음

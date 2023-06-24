@@ -29,11 +29,6 @@ function Footer() {
       label: "식단",
       to: "/cafeteria",
     },
-    {
-      icon: "map",
-      label: "캠퍼스맵",
-      to: "/map",
-    },
   ];
 
   return (

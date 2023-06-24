@@ -6,7 +6,7 @@ export function log(data: string) {
   const now = dayjs();
   const dateWithTimeStamp = `[${new Date().toLocaleString()}] ${data}`.slice(
     0,
-    5000,
+    1000,
   );
 
   console.log(dateWithTimeStamp);

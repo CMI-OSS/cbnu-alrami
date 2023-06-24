@@ -1,14 +1,14 @@
 .board {
   .children {
-    background: $black-0;
+    height: 100%;
     padding: 32px 24px;
+    background: $black-0;
   }
+
   .link {
     display: inline-block;
     padding: 22px 24px;
     line-height: 1px;
   }
-  svg {
-    stroke: $black-60;
-  }
 }
+

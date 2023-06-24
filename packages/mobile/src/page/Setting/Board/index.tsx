@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { Plus } from "@components/atoms/icon";
+import Drawer from "@components/molecules/Drawer";
 import SubscriptionNoticeGroup from "@components/shared/SubscriptionNoticeGroup";
 import { useSubscribeBoardsQuery } from "@hooks/api/board";
 import guideEmptySubscriptionSetting from "src/assets/guide_empty_subscription_setting.svg";
@@ -10,6 +12,11 @@ import $ from "./style.module.scss";
 
 function Board() {
   const { data: subscribeBoardsData } = useSubscribeBoardsQuery();
+  const [ isOpen, setIsOpen ] = useState(false);
+  const [ clickedId, setClickedId ] = useState<number>();
+  const clickedBoard = subscribeBoardsData?.find((subscribeBoardData) => {
+    return subscribeBoardData.id === clickedId;
+  });
 
   if (!subscribeBoardsData?.length) {
     return (
@@ -46,18 +53,35 @@ function Board() {
           const { id, combinedName, isNotice, isSubscribe } =
             subscribeBoardData;
           return (
-            <Link key={id} className={$.item} to={`/board/article/${id}`}>
-              <span>{combinedName}</span>
-              <SubscriptionNoticeGroup
-                className={$.buttons}
-                id={id}
-                isNotice={isNotice ?? false}
-                isSubscribe={isSubscribe ?? false}
-              />
-            </Link>
+            <>
+              <button
+                type="button"
+                className={$.item}
+                onClick={() => {
+                  setClickedId(id);
+                  return setIsOpen(true);
+                }}
+              >
+                <span>{combinedName}</span>
+                <SubscriptionNoticeGroup
+                  className={$.buttons}
+                  isNotice={isNotice ?? false}
+                  isSubscribe={isSubscribe ?? false}
+                />
+              </button>
+            </>
           );
         })}
       </div>
+      {clickedId && (
+        <Drawer
+          {...{ isOpen, setIsOpen }}
+          to={`/board/article/${clickedId}`}
+          id={clickedId}
+          isSubscribe={clickedBoard?.isSubscribe ?? false}
+          isNotice={clickedBoard?.isNotice ?? false}
+        />
+      )}
     </SettingTemplate>
   );
 }

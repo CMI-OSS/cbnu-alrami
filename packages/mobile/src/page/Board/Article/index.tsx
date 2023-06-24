@@ -28,7 +28,6 @@ function BoardArticle() {
         right={
           <div className={$.right}>
             <SubscriptionNoticeGroup
-              id={id}
               isNotice={isNotice ?? false}
               isSubscribe={isSubscribe ?? false}
             />

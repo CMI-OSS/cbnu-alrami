@@ -9,7 +9,6 @@ import { staleTime } from "src/consts/react-query/staleTime";
 import { queryClient } from "src/main";
 import { GetParams } from "src/type/utils";
 import { getUuid } from "src/utils/storage";
-import { toastSuccess } from "src/utils/toast";
 
 const uuid = getUuid();
 
@@ -85,9 +84,6 @@ export const useSubscribeBoardMutation = (
           queryClient.invalidateQueries(queryKey.board({ ...params, uuid })),
           queryClient.invalidateQueries(queryKey.subscribeArticles({ uuid })),
         ]);
-        toastSuccess({
-          message: "구독이 추가되었습니다.",
-        });
       },
     },
   );
@@ -107,9 +103,6 @@ export const useUnSubscribeBoardMutation = (
           queryClient.invalidateQueries(queryKey.board({ ...params, uuid })),
           queryClient.invalidateQueries(queryKey.subscribeArticles({ uuid })),
         ]);
-        toastSuccess({
-          message: "구독이 해제되었습니다.",
-        });
       },
     },
   );
@@ -132,9 +125,6 @@ export const useNoticeBoardMutation = (
             queryKey: queryKey.board({ ...params, uuid }),
           }),
         ]);
-        toastSuccess({
-          message: "알림이 설정되었습니다.",
-        });
       },
     },
   );
@@ -157,9 +147,6 @@ export const useUnNoticeBoardMutation = (
             queryKey: queryKey.board({ ...params, uuid }),
           }),
         ]);
-        toastSuccess({
-          message: "알림이 해제되었습니다.",
-        });
       },
     },
   );

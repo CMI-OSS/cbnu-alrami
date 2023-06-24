@@ -1,5 +1,6 @@
+import Icon from "@components/atoms/icon/Icon";
 import BorderBox from "src/components/atoms/BorderBox";
-import { Call, Map } from "src/components/atoms/icon";
+import { Call } from "src/components/atoms/icon";
 
 import $ from "./style.module.scss";
 
@@ -10,6 +11,7 @@ type Props = {
   address: string;
   contact?: string;
 };
+
 function Info({
   buildingNumber,
   oldBuildingNumber,
@@ -27,7 +29,7 @@ function Info({
           <strong className={$.title}>{name}</strong>
           <ul className={$.list}>
             <li className={$.item}>
-              <Map size={14} stroke="#aaa" />
+              <Icon name="map" size={14} color="#aaa" />
               <span className={$["item-text"]}>{address}</span>
             </li>
             <li className={$.item}>

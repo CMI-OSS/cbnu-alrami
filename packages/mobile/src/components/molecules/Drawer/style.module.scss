@@ -1,0 +1,43 @@
+.drawer-wrapper {
+  .background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.2;
+    z-index: 1;
+    transition: opacity 500ms ease;
+    will-change: opacity;
+  }
+}
+
+.drawer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 24px 28px;
+  background: $white;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+  z-index: 9;
+
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+
+    .title {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+
+      svg {
+        margin-right: 16px;
+      }
+    }
+  }
+}

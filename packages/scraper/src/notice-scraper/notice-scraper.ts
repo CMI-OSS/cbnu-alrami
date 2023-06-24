@@ -1,6 +1,5 @@
 import { ArticleApiService } from "@shared/swagger-api/generated/services/ArticleApiService";
 import dayjs from "dayjs";
-import script from "src/cafeteria-scraper/scripts/별빛식당";
 import { log } from "src/common/log";
 import { login } from "src/common/login";
 import noticeScripts from "src/notice-scraper/scripts/index";
@@ -65,7 +64,7 @@ export const scrapingNotices = async () => {
         if (retryCount === maxRetryCount) {
           log(
             `[WARN] 스크립트 재실행 회수(${retryCount}) 초과 - ${JSON.stringify(
-              script,
+              notice,
             )}`,
           );
         }

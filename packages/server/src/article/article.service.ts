@@ -64,12 +64,14 @@ export class ArticleService {
 
     const images = await this.imageService.findImages(imageIds ?? []);
 
-    const article = await this.articleRepository.save({
+    const newArticle = this.articleRepository.create({
       ...createArticleDto,
       board,
       images,
       author: admin,
     });
+
+    const article = await this.articleRepository.save(newArticle);
 
     this.fcmService.sendNoticeArticle(article);
 
@@ -240,10 +242,10 @@ export class ArticleService {
 
     const board = boardId && (await this.boardService.findOne(boardId));
 
-    const article = {
+    const article = this.articleRepository.create({
       ...updateArticleDto,
       ...(board && { board }),
-    };
+    });
 
     if (imageIds) {
       const images = await this.imageService.findImages(imageIds);

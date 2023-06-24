@@ -13,6 +13,10 @@ import $ from "./style.module.scss";
 function Board() {
   const { data: subscribeBoardsData } = useSubscribeBoardsQuery();
   const [ isOpen, setIsOpen ] = useState(false);
+  const [ clickedId, setClickedId ] = useState<number>();
+  const clickedBoard = subscribeBoardsData?.find((subscribeBoardData) => {
+    return subscribeBoardData.id === clickedId;
+  });
 
   if (!subscribeBoardsData?.length) {
     return (
@@ -54,6 +58,7 @@ function Board() {
                 type="button"
                 className={$.item}
                 onClick={() => {
+                  setClickedId(id);
                   return setIsOpen(true);
                 }}
               >
@@ -64,16 +69,19 @@ function Board() {
                   isSubscribe={isSubscribe ?? false}
                 />
               </button>
-              <Drawer
-                {...{ id, isOpen, setIsOpen }}
-                to={`/board/article/${id}`}
-                isSubscribe={isSubscribe!}
-                isNotice={isNotice!}
-              />
             </>
           );
         })}
       </div>
+      {clickedId && (
+        <Drawer
+          {...{ isOpen, setIsOpen }}
+          to={`/board/article/${clickedId}`}
+          id={clickedId}
+          isSubscribe={clickedBoard?.isSubscribe ?? false}
+          isNotice={clickedBoard?.isNotice ?? false}
+        />
+      )}
     </SettingTemplate>
   );
 }

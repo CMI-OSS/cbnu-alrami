@@ -28,16 +28,16 @@ function createDrawerPortal() {
   return drawerRoot;
 }
 
-function Drawer({id, to, isSubscribe, isNotice, isOpen, setIsOpen}: Props) {
+function Drawer({ id, to, isSubscribe, isNotice, isOpen, setIsOpen }: Props) {
   const portalRootRef = useRef<HTMLDivElement>(
-      (document.getElementById("drawer-root") as HTMLDivElement) ||
+    (document.getElementById("drawer-root") as HTMLDivElement) ||
       createDrawerPortal(),
   );
   const bodyRef = useRef<HTMLBodyElement | null>(null);
-  const postSubscribeBoard = useSubscribeBoardMutation({id});
-  const deleteSubscribeBoard = useUnSubscribeBoardMutation({id});
-  const postNoticeBoard = useNoticeBoardMutation({id});
-  const deleteNoticeBoard = useUnNoticeBoardMutation({id});
+  const postSubscribeBoard = useSubscribeBoardMutation({ id });
+  const deleteSubscribeBoard = useUnSubscribeBoardMutation({ id });
+  const postNoticeBoard = useNoticeBoardMutation({ id });
+  const deleteNoticeBoard = useUnNoticeBoardMutation({ id });
 
   useEffect(() => {
     bodyRef.current = document.querySelector("body");
@@ -47,67 +47,69 @@ function Drawer({id, to, isSubscribe, isNotice, isOpen, setIsOpen}: Props) {
       bodyRef.current.appendChild(portal);
     }
   }, []);
-  
+
   const handleSubscribeClick = () => {
     if (isSubscribe) {
-      deleteSubscribeBoard.mutate({id});
+      deleteSubscribeBoard.mutate({ id });
+      setIsOpen(false);
       return;
     }
 
-    postSubscribeBoard.mutate({id});
+    postSubscribeBoard.mutate({ id });
   };
 
   const handleNoticeClick = () => {
     if (isNotice) {
-      deleteNoticeBoard.mutate({id});
+      deleteNoticeBoard.mutate({ id });
       return;
     }
 
-    postNoticeBoard.mutate({id});
+    postNoticeBoard.mutate({ id });
   };
 
   const handleClose = () => {
     setIsOpen(false);
   };
 
-
   if (!isOpen) {
     return <></>;
   }
-  // TODO: 알림 disabled 추가
 
   return createPortal(
-      <div className={$["drawer-wrapper"]}>
-        <button
-            aria-label="background"
-            type="button"
-            className={$.background}
-            onClick={handleClose}
-        />
-        <div className={$.drawer}>
-          <div className={$.item}>
-            <div className={$.title}>
-              <Icon name="subscribe" size={20} />
-              구독
-            </div>
-            <Toggle checked={isSubscribe} onClick={handleSubscribeClick} />
+    <div className={$["drawer-wrapper"]}>
+      <button
+        aria-label="background"
+        type="button"
+        className={$.background}
+        onClick={handleClose}
+      />
+      <div className={$.drawer}>
+        <div className={$.item}>
+          <div className={$.title}>
+            <Icon name="subscribe" size={20} />
+            구독
           </div>
+          <Toggle checked={isSubscribe} onClick={handleSubscribeClick} />
+        </div>
+        {isSubscribe && (
           <div className={$.item}>
             <div className={$.title}>
               <Icon name="alarm" size={20} />
-              알람
+              알림
             </div>
             <Toggle checked={isNotice} onClick={handleNoticeClick} />
           </div>
-          <Link className={$.item} to={to}>
-            <div className={$.title}>
-              <Icon name="view" size={20} />
-              공지사항 보기
-            </div>
-          </Link>
-        </div>
-      </div>,
-      portalRootRef.current,
+        )}
+
+        <Link className={$.item} to={to}>
+          <div className={$.title}>
+            <Icon name="view" size={20} />
+            공지사항 보기
+          </div>
+        </Link>
+      </div>
+    </div>,
+    portalRootRef.current,
   );
 }
 

@@ -49,8 +49,8 @@ export const scrapingNotices = async () => {
       console.error("[ERROR] 공지사항 목록 가져오기 - ", noticeScript, error);
       log(
         `[ERROR] 공지사항 목록 가져오기 - ${JSON.stringify({
-          noticeScript,
           error,
+          noticeScript,
         })}`,
       );
       // eslint-disable-next-line no-continue
@@ -103,8 +103,8 @@ export const scrapingNotices = async () => {
       }).catch((error) => {
         log(
           `[ERROR] 공지사항 등록 - ${JSON.stringify({
-            noticeScript,
             error,
+            noticeScript,
           })}`,
         );
 
@@ -143,8 +143,8 @@ export const scrapingNotices = async () => {
       } catch (error) {
         log(
           `[ERROR] 공지사항 등록 - ${JSON.stringify({
-            notice,
             error,
+            notice,
           })}`,
         );
         console.error("[ERROR] 공지사항 등록 - ", error, notice);

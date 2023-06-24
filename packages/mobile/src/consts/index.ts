@@ -34,7 +34,7 @@ export const BASE_HEAD_META = {
   siteName: "충림이",
   href: "/src/assets/favicon/favicon-16x16.png",
   type: "website",
-  image: "/src/assets/favicon/favicon-16x16.png",
+  image: "/src/assets/cbnu_alrami_og.png",
 };
 
 export const DEFFERRED_LOADING_TIME = 1000;

@@ -12,6 +12,7 @@
     flex-direction: column;
     justify-content: space-between;
     height: 102px;
+    width: 100%;
     padding: 20px;
     margin-bottom: 8px;
     background: $black-0;
@@ -20,6 +21,7 @@
     .buttons {
       display: flex;
       justify-content: flex-end;
+      width: 100%;
     }
 
     &:last-child {

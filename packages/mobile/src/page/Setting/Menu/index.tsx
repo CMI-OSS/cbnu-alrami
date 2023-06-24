@@ -1,5 +1,7 @@
 import { NavLink } from "react-router-dom";
 
+import Icon from "@components/atoms/icon/Icon";
+import * as icons from "@components/atoms/icon/svg";
 import { useAppDispatch } from "src/store";
 import { setOrigin } from "src/store/boardSlice";
 import { showSettingContact } from "src/store/settingSlice";
@@ -8,7 +10,7 @@ import $ from "./style.module.scss";
 
 type Props = {
   route: {
-    icon: any;
+    icon: keyof typeof icons;
     label: string;
     to: string;
   };
@@ -38,9 +40,7 @@ function Menu({ route, config }: Props) {
         className={$["setting-menu"]}
         onClick={handleClick}
       >
-        <div className={$["icon-box"]}>
-          <route.icon size={18} stroke="#5e5e5e" />
-        </div>
+        <Icon className={$.icon} name={route.icon} size={18} color="#5e5e5e" />
         <span className={$.label}>{label}</span>
         {config && <span className={$.config}>{config}</span>}
       </NavLink>

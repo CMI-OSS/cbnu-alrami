@@ -1,6 +1,5 @@
 import { ArticleApiService } from "@shared/swagger-api/generated/services/ArticleApiService";
 import dayjs from "dayjs";
-import script from "src/cafeteria-scraper/scripts/별빛식당";
 import { log } from "src/common/log";
 import { login } from "src/common/login";
 import noticeScripts from "src/notice-scraper/scripts/index";
@@ -49,8 +48,8 @@ export const scrapingNotices = async () => {
       console.error("[ERROR] 공지사항 목록 가져오기 - ", noticeScript, error);
       log(
         `[ERROR] 공지사항 목록 가져오기 - ${JSON.stringify({
-          noticeScript,
           error,
+          noticeScript,
         })}`,
       );
       // eslint-disable-next-line no-continue
@@ -65,7 +64,7 @@ export const scrapingNotices = async () => {
         if (retryCount === maxRetryCount) {
           log(
             `[WARN] 스크립트 재실행 회수(${retryCount}) 초과 - ${JSON.stringify(
-              script,
+              notice,
             )}`,
           );
         }
@@ -103,8 +102,8 @@ export const scrapingNotices = async () => {
       }).catch((error) => {
         log(
           `[ERROR] 공지사항 등록 - ${JSON.stringify({
-            noticeScript,
             error,
+            noticeScript,
           })}`,
         );
 
@@ -143,8 +142,8 @@ export const scrapingNotices = async () => {
       } catch (error) {
         log(
           `[ERROR] 공지사항 등록 - ${JSON.stringify({
-            notice,
             error,
+            notice,
           })}`,
         );
         console.error("[ERROR] 공지사항 등록 - ", error, notice);

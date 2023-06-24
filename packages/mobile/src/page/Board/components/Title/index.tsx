@@ -1,8 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-import { UnSubscription } from "@components/atoms/icon";
-
 import $ from "./style.module.scss";
 
 export const getBoardKind = () => {
@@ -26,7 +24,7 @@ export const getBoardKind = () => {
   if (id[0] === "3" && id.length === 1) {
     return { kind: "학생회" };
   }
-  if (id[0]==="5" && id.length===1) {
+  if (id[0] === "5" && id.length === 1) {
     return { kind: "동아리" };
   }
   return { kind: "공지사항" };
@@ -69,21 +67,11 @@ function Title() {
       </div>
     );
   }
-  if (kind === "학생회" || kind === "동아리" ) {
-    return (
-      <div className={$.title}>
-        어떤 {kind}의 공지사항을
-        <br />
-        받아볼까요?
-      </div>
-    );
-  }
   return (
     <div className={$.title}>
-      <div className={$["icon-message"]}>
-        <UnSubscription size={36} />를 터치하여
-      </div>
-      원하는 공지사항을 구독해요!
+      어떤 공지사항을
+      <br />
+      받아볼까요?
     </div>
   );
 }

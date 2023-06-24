@@ -28,7 +28,8 @@
     "react-scroll": "^1.8.7",
     "recoil": "^0.7.6",
     "rollup-plugin-visualizer": "^5.9.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "vite-plugin-svgr": "^3.2.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.18.10",

@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="600" alt="image" src="https://user-images.githubusercontent.com/38103082/100120789-b1b31e00-2ebb-11eb-93d7-6dc393d33949.png">
+  <img width="600" alt="image" src="https://cbnu-cmi.s3.ap-northeast-2.amazonaws.com/images/1687599898609.png">
 </div>
 <p align="center">
 <div align="center"><img src="https://img.shields.io/badge/license-MIT-brightgreen"/> <img src="https://img.shields.io/badge/version-2.0.0-brightgreen"/></div>

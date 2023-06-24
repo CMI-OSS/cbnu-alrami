@@ -1,42 +1,39 @@
-import {
-  Alarm,
-  AppVersion,
-  Email,
-  Food,
-  Person,
-  Speaker,
-} from "src/components/atoms/icon";
+import * as icons from "@components/atoms/icon/svg";
 import { CMI_BOARD_ID } from "src/consts";
 import { Restaurant } from "src/type";
 
-const settingMenuList = [
+const settingMenuList: {
+  icon: keyof typeof icons;
+  label: string;
+  to: string;
+}[] = [
   {
-    icon: Alarm,
+    icon: "alarm",
     label: "구독/알림",
     to: "./board",
   },
   {
-    icon: Food,
+    icon: "diet",
     label: "대표식당",
     to: "./cafeteria",
   },
   {
-    icon: Speaker,
+    icon: "notice",
     label: "공지사항",
     to: `/board/article/${CMI_BOARD_ID}`,
   },
   {
-    icon: AppVersion,
+    icon: "version",
     label: "앱 버전",
     to: "./",
   },
   {
-    icon: Email,
+    icon: "mail",
     label: "문의하기",
     to: "./contact",
   },
   {
-    icon: Person,
+    icon: "man",
     label: "만든이",
     to: "./creator",
   },

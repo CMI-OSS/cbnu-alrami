@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { forwardRef, Inject, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import * as dayjs from "dayjs";
-import * as timezone from "dayjs/plugin/timezone";
-import * as utc from "dayjs/plugin/utc";
+import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 import { Admin } from "src/admin/entities/admin.entity";
 import { ArticleBookmarkService } from "src/article-bookmark/article-bookmark.service";
 import { ArticleLikeService } from "src/article-like/article-like.service";

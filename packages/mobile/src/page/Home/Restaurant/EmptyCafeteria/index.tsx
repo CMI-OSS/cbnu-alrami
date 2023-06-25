@@ -25,7 +25,6 @@ function EmptyCafeteria({ className, cafeteriaName, onClick }: Props) {
           <span className={$["cafeteria-name"]}>{cafeteriaName}</span>
           <Write stroke="#aaa" size={14} />
         </button>
-        <span className={$.time}></span>
       </div>
       <Line />
       <div className={$["food-box"]}>

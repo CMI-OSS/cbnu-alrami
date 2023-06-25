@@ -1,6 +1,6 @@
 import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
-import * as compression from "compression";
+import compression from "compression";
 import { json, urlencoded } from "express";
 
 import { AppModule } from "./app.module";

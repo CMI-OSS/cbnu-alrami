@@ -58,13 +58,13 @@ function Selected(props: Props) {
     <BorderBox height="auto" className={classNames($["menu-box"], className)}>
       <div className={$.header}>
         <div className={$["title-box"]}>
-          <span className={$.title}>{`${cafeteriaName} ${mealType}`}</span>
           <button
             type="button"
             className={$.button}
             aria-label="대표 식당 변경하기"
             onClick={onClick}
           >
+            <span className={$.title}>{`${cafeteriaName} ${mealType}`}</span>
             <Write stroke="#5E5E5E" size={14} />
           </button>
         </div>

@@ -7,20 +7,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 17px;
+    margin-bottom: 7px;
     color: $black-100;
 
     .title-box {
+      .button {
+        line-height: 35px;
+      }
+
       .title {
-        @include typography(18);
+        @include typography(16);
+        margin-right: 10px;
         line-height: 25px;
         font-weight: 500;
         color: $black-100;
       }
 
-      .button {
-        padding: 10px;
+      .write {
+        display: inline-block;
         line-height: 1px;
+        vertical-align: top;
       }
     }
 

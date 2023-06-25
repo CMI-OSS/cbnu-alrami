@@ -5,7 +5,7 @@ import {
   Injectable,
 } from "@nestjs/common";
 import dayjs from "dayjs";
-import * as FCM from "fcm-node";
+import FCM from "fcm-node";
 import { Article } from "src/article/entities/article.entity";
 import { BoardService } from "src/board/board.service";
 import configuration from "src/config/configuration";

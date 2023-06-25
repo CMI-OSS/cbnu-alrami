@@ -1,0 +1,28 @@
+.deeplink {
+  position: fixed;
+  left: 50%;
+  bottom: 74px;
+  transform: translate(-50%, 0);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(100% - 24px);
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 4px;
+  background: $black-80;
+
+  .left {
+    display: flex;
+    align-items: center;
+    color: #fff;
+
+    svg {
+      margin-left: 4px;
+    }
+  }
+}
+
+.isHidden {
+  visibility: hidden;
+}

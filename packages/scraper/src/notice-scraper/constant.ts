@@ -27,4 +27,8 @@ export const excludeNotices = [
     url: "https://agecon.cbnu.ac.kr/?mod=view&pg_idx=119&pidx=319&page=1",
     reason: "내용이 너무 김",
   },
+  {
+    url: "https://www.plantmed.chungbuk.ac.kr/forum/gongjisahang/peurikal-peurogeuraem-ocanggo-hagsaengdeul-bangmun",
+    reason: "시간 이상함",
+  },
 ];

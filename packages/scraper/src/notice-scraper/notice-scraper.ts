@@ -145,6 +145,7 @@ export const scrapingNotices = async () => {
 
         log(
           `[ERROR] 공지사항 등록 - ${JSON.stringify({
+            contentLength: content.length,
             error,
             notice,
           })}`,

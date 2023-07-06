@@ -1,3 +1,4 @@
+import 농업경제학과 from "./scripts/농업생명환경대학/농업경제학과";
 import 산림학과 from "./scripts/농업생명환경대학/산림학과";
 import 지리교육과 from "./scripts/사범대학/지리교육과";
 import 약학과 from "./scripts/약학대학/약학과";
@@ -19,6 +20,10 @@ export const excludeSites = [
   {
     script: 제약학과,
     reason: "약학과와 동일한 게시판",
+  },
+  {
+    script: 농업경제학과,
+    reason: "접속안됨 & 게시물 URL 오매칭 이슈",
   },
 ];
 

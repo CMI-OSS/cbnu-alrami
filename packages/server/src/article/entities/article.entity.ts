@@ -122,7 +122,13 @@ export class Article extends UpdatableCommonEntity {
   saveContentText() {
     const removeTags = (html: string): string => {
       const cleanr = /<[^>]*>/g;
+
       return html
+        .replace(
+          /<script[^>]*>[\s\S]*?<\/script>|<style[^>]*>[\s\S]*?<\/style>/gi,
+          "",
+        ) // style & script 제거
+        .replace(/\{(?:[^{}]|(?:\{[^{}]*\}))*\}/g, "") // JSON 객체 제거 (예: {"key": "value"} 형태)
         .replace(cleanr, "")
         .replace(/&nbsp;/g, " ")
         .replace(/\s+/g, " ");

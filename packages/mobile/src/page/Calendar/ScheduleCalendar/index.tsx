@@ -1,5 +1,3 @@
-import { Dispatch } from "react";
-
 import { Dayjs } from "dayjs";
 import { DateMap } from "src/page/Calendar";
 import Date from "src/page/Calendar/Date";
@@ -12,17 +10,10 @@ type Props = {
   calendarMap: DateMap[];
   today: Dayjs;
   selectedDate: Dayjs;
-  setSelectedDate: Dispatch<Dayjs>;
   month: number;
 };
 
-function ScheduleCalendar({
-  calendarMap,
-  today,
-  month,
-  selectedDate,
-  setSelectedDate,
-}: Props) {
+function ScheduleCalendar({ calendarMap, today, month, selectedDate }: Props) {
   return (
     <section className={$.box}>
       <ul className={$.calendar}>
@@ -36,7 +27,7 @@ function ScheduleCalendar({
                 key={date.format()}
                 className={$.date}
                 {...{ date, isSchedule, isHoliday, today }}
-                {...{ month, index, selectedDate, setSelectedDate }}
+                {...{ month, index }}
               />
             );
           },

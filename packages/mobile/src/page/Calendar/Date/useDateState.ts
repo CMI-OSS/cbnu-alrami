@@ -5,21 +5,13 @@ import { DAY } from "src/utils/calendarTools";
 
 type Props = {
   today: Dayjs;
-  selectedDate: Dayjs;
   date: Dayjs;
   isHoliday: boolean;
   month: number;
   index: number;
 };
 
-function useDateState({
-  today,
-  selectedDate,
-  isHoliday,
-  date,
-  month,
-  index,
-}: Props) {
+function useDateState({ today, isHoliday, date, month, index }: Props) {
   const [ isSelected, setIsSelected ] = useState(false);
   const [ isToday, setIsToday ] = useState(false);
   const [ isRed, setIsRed ] = useState(false);
@@ -47,14 +39,6 @@ function useDateState({
     setIsRed(isSunday || isHoliday);
     setIsGray(currentMonth !== month);
   }, [ date, isSelected, month ]);
-
-  useEffect(() => {
-    if (selectedDate.isSame(date, "date")) {
-      setIsSelected(true);
-      return;
-    }
-    setIsSelected(false);
-  }, [ selectedDate ]);
 
   return { isSelected, isToday, isRed, isGray };
 }

@@ -23,7 +23,7 @@ const script = {
   },
   getContentDate() {
     return document
-      .querySelector("#view > div:nth-child(1) > span:nth-child(1)")
+      .querySelector("#view > div:nth-child(1) > span:nth-child(2)")
       .innerText.replace("작성일 : ", "");
   },
 };

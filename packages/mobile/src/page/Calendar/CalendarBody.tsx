@@ -36,8 +36,21 @@ export default function CalendarBody({ today, month, year }: Props) {
 
   if (!monthSchedules || !bookmarkSchedules) return null;
 
+  const filterdBookmarkSchedules =
+    bookmarkSchedules?.filter((schedule) => {
+      if (selectedDate.isSame(schedule.startDateTime, "month")) return true;
+      if (selectedDate.isBefore(schedule.startDateTime, "month")) return false;
+      if (
+        schedule.endDateTime &&
+        selectedDate.isAfter(schedule.endDateTime, "month")
+      )
+        return false;
+
+      return true;
+    }) ?? [];
+
   const schedules =
-    toggleSchedule === "all" ? monthSchedules : bookmarkSchedules;
+    toggleSchedule === "all" ? monthSchedules : filterdBookmarkSchedules;
   const calendarMap = getCalendarMap(year, month, schedules);
 
   const handleScheduleToggleChange: ChangeEventHandler<HTMLInputElement> = ({

@@ -57,7 +57,7 @@ function Date({
       >
         {date.date()}
       </button>
-      {isSchedule && <div className={$["schedule-dot"]} />}
+      {/* {isSchedule && <div className={$["schedule-dot"]} />} */}
     </li>
   );
 }

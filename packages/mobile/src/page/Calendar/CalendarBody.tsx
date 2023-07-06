@@ -3,14 +3,14 @@ import { ChangeEventHandler, useState } from "react";
 import dayjs from "dayjs";
 import {
   bookmarkScheduleQuery,
-  fullScheduleQuery,
   useBookmarkSchedulesQuery,
   useFullSchedulesQuery,
+  useMonthSchedulesQuery,
 } from "src/hooks/api/schedule";
 import { queryClient } from "src/main";
 import RadioBox from "src/page/Calendar/RadioBox";
 import ScheduleCalendar from "src/page/Calendar/ScheduleCalendar";
-import { filterTodaySchedules, getCalendarMap } from "src/utils/calendarTools";
+import { getCalendarMap } from "src/utils/calendarTools";
 
 import CardBox from "./CardBox";
 import useSelectedDate from "./useSelectedDate";
@@ -24,7 +24,6 @@ type Props = {
 };
 
 export default function CalendarBody({ today, month, year }: Props) {
-  queryClient.prefetchQuery(fullScheduleQuery(year));
   queryClient.prefetchQuery(bookmarkScheduleQuery);
   const { data: allSchedules } = useFullSchedulesQuery(year);
   const { data: bookmarkSchedules } = useBookmarkSchedulesQuery();
@@ -35,7 +34,11 @@ export default function CalendarBody({ today, month, year }: Props) {
 
   const schedules = toggleSchedule === "all" ? allSchedules : bookmarkSchedules;
   const calendarMap = getCalendarMap(year, month, schedules);
-  const todaysSchedules = filterTodaySchedules(selectedDate, schedules);
+
+  const { data: monthSchedules } = useMonthSchedulesQuery(
+    selectedDate.year(),
+    selectedDate.month() + 1,
+  );
 
   const handleScheduleToggleChange: ChangeEventHandler<HTMLInputElement> = ({
     target: { value },
@@ -55,7 +58,12 @@ export default function CalendarBody({ today, month, year }: Props) {
       />
       <CardBox
         scheduleType={toggleSchedule}
-        {...{ year, selectedDate, todaysSchedules, bookmarkSchedules }}
+        {...{
+          year,
+          selectedDate,
+          schedules: monthSchedules ?? [],
+          bookmarkSchedules,
+        }}
       />
     </>
   );

@@ -44,6 +44,19 @@ const script = {
     });
   },
   getContentsHtml() {
+    function removeParentElements() {
+      // 문서 전체에서 link_sns 클래스를 가진 엘리먼트들 찾기
+      const targetElements = document.getElementsByClassName("link_sns");
+
+      // 찾은 엘리먼트들의 부모를 제거하기
+      while (targetElements.length > 0) {
+        const parentElement = targetElements[0].parentNode;
+        parentElement.parentNode.removeChild(parentElement);
+      }
+    }
+
+    removeParentElements();
+
     return document.querySelector(this.noticeContentsSelector).outerHTML;
   },
 };

@@ -4,7 +4,6 @@ import dayjs from "dayjs";
 import {
   bookmarkScheduleQuery,
   useBookmarkSchedulesQuery,
-  useFullSchedulesQuery,
   useMonthSchedulesQuery,
 } from "src/hooks/api/schedule";
 import { queryClient } from "src/main";
@@ -25,20 +24,21 @@ type Props = {
 
 export default function CalendarBody({ today, month, year }: Props) {
   queryClient.prefetchQuery(bookmarkScheduleQuery);
-  const { data: allSchedules } = useFullSchedulesQuery(year);
+
   const { data: bookmarkSchedules } = useBookmarkSchedulesQuery();
   const [ toggleSchedule, setToggleSchedule ] = useState<ScheduleType>("all");
   const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
-
-  if (!allSchedules || !bookmarkSchedules) return null;
-
-  const schedules = toggleSchedule === "all" ? allSchedules : bookmarkSchedules;
-  const calendarMap = getCalendarMap(year, month, schedules);
 
   const { data: monthSchedules } = useMonthSchedulesQuery(
     selectedDate.year(),
     selectedDate.month() + 1,
   );
+
+  if (!monthSchedules || !bookmarkSchedules) return null;
+
+  const schedules =
+    toggleSchedule === "all" ? monthSchedules : bookmarkSchedules;
+  const calendarMap = getCalendarMap(year, month, schedules);
 
   const handleScheduleToggleChange: ChangeEventHandler<HTMLInputElement> = ({
     target: { value },
@@ -61,7 +61,7 @@ export default function CalendarBody({ today, month, year }: Props) {
         {...{
           year,
           selectedDate,
-          schedules: monthSchedules ?? [],
+          schedules: schedules ?? [],
           bookmarkSchedules,
         }}
       />

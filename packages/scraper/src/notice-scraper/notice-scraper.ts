@@ -14,7 +14,7 @@ const getISODate = (date: string) => {
 };
 
 const retryScriptMap = new Map<string, number>();
-const maxRetryCount = 3;
+const maxRetryCount = 2;
 
 export const scrapingNotices = async () => {
   await login();
@@ -140,8 +140,12 @@ export const scrapingNotices = async () => {
           console.log("[INFO] 공지사항 등록 완료 - ", notice);
         }
       } catch (error) {
+        const retryCount = retryScriptMap.get(notice.url) ?? 0;
+        retryScriptMap.set(notice.url, retryCount + 1);
+
         log(
           `[ERROR] 공지사항 등록 - ${JSON.stringify({
+            contentLength: content.length,
             error,
             notice,
           })}`,

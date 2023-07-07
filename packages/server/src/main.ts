@@ -11,8 +11,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
   SwaggerConfig(app);
 
-  app.use(json({ limit: "1mb" }));
-  app.use(urlencoded({ extended: true, limit: "1mb" }));
+  app.use(json({ limit: "3mb" }));
+  app.use(urlencoded({ extended: true, limit: "3mb" }));
   app.use(compression()); // Gzip 압축 적용
 
   app.useGlobalPipes(

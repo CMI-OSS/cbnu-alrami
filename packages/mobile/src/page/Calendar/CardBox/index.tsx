@@ -18,10 +18,10 @@ const CALENDAR_UNVISIBLE_POINT = 320;
 type Props = {
   bookmarkSchedules: FormattedSchedule[];
   scheduleType: ScheduleType;
-  todaysSchedules: FormattedSchedule[];
+  schedules: FormattedSchedule[];
 };
 
-function CardBox({ scheduleType, todaysSchedules, bookmarkSchedules }: Props) {
+function CardBox({ scheduleType, schedules, bookmarkSchedules }: Props) {
   const { y } = useScroll();
   const bookmarkedIDList = bookmarkSchedules.map(({ id }) => {
     return id;
@@ -39,12 +39,12 @@ function CardBox({ scheduleType, todaysSchedules, bookmarkSchedules }: Props) {
     );
   };
 
-  if (todaysSchedules.length === 0)
+  if (schedules.length === 0)
     return (
       <section className={$["empty-box"]}>
         {scheduleType === "all" ? (
           <>
-            <span className={$.description}>오늘은 일정이 없어요</span>
+            <span className={$.description}>이 달엔 일정이 없어요</span>
             <ReloadButtonForCalendar buttonType="text" />
           </>
         ) : (
@@ -63,7 +63,7 @@ function CardBox({ scheduleType, todaysSchedules, bookmarkSchedules }: Props) {
 
   return (
     <section className={$["card-box"]}>
-      {todaysSchedules.map(({ id, content, startDateTime, endDateTime }) => {
+      {schedules.map(({ id, content, startDateTime, endDateTime }) => {
         return (
           <CollegeCard
             key={id}

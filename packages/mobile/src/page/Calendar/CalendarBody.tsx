@@ -3,14 +3,13 @@ import { ChangeEventHandler, useState } from "react";
 import dayjs from "dayjs";
 import {
   bookmarkScheduleQuery,
-  fullScheduleQuery,
   useBookmarkSchedulesQuery,
-  useFullSchedulesQuery,
+  useMonthSchedulesQuery,
 } from "src/hooks/api/schedule";
 import { queryClient } from "src/main";
 import RadioBox from "src/page/Calendar/RadioBox";
 import ScheduleCalendar from "src/page/Calendar/ScheduleCalendar";
-import { filterTodaySchedules, getCalendarMap } from "src/utils/calendarTools";
+import { getCalendarMap } from "src/utils/calendarTools";
 
 import CardBox from "./CardBox";
 import useSelectedDate from "./useSelectedDate";
@@ -24,18 +23,35 @@ type Props = {
 };
 
 export default function CalendarBody({ today, month, year }: Props) {
-  queryClient.prefetchQuery(fullScheduleQuery(year));
   queryClient.prefetchQuery(bookmarkScheduleQuery);
-  const { data: allSchedules } = useFullSchedulesQuery(year);
+
   const { data: bookmarkSchedules } = useBookmarkSchedulesQuery();
   const [ toggleSchedule, setToggleSchedule ] = useState<ScheduleType>("all");
   const [ selectedDate, setSelectedDate ] = useSelectedDate(today, year, month);
 
-  if (!allSchedules || !bookmarkSchedules) return null;
+  const { data: monthSchedules } = useMonthSchedulesQuery(
+    selectedDate.year(),
+    selectedDate.month() + 1,
+  );
 
-  const schedules = toggleSchedule === "all" ? allSchedules : bookmarkSchedules;
+  if (!monthSchedules || !bookmarkSchedules) return null;
+
+  const filterdBookmarkSchedules =
+    bookmarkSchedules?.filter((schedule) => {
+      if (selectedDate.isSame(schedule.startDateTime, "month")) return true;
+      if (selectedDate.isBefore(schedule.startDateTime, "month")) return false;
+      if (
+        schedule.endDateTime &&
+        selectedDate.isAfter(schedule.endDateTime, "month")
+      )
+        return false;
+
+      return true;
+    }) ?? [];
+
+  const schedules =
+    toggleSchedule === "all" ? monthSchedules : filterdBookmarkSchedules;
   const calendarMap = getCalendarMap(year, month, schedules);
-  const todaysSchedules = filterTodaySchedules(selectedDate, schedules);
 
   const handleScheduleToggleChange: ChangeEventHandler<HTMLInputElement> = ({
     target: { value },
@@ -55,7 +71,12 @@ export default function CalendarBody({ today, month, year }: Props) {
       />
       <CardBox
         scheduleType={toggleSchedule}
-        {...{ year, selectedDate, todaysSchedules, bookmarkSchedules }}
+        {...{
+          year,
+          selectedDate,
+          schedules: schedules ?? [],
+          bookmarkSchedules,
+        }}
       />
     </>
   );

@@ -76,6 +76,40 @@ export const useTodaySchedulesQuery = (
   );
 };
 
+export const useMonthSchedulesQuery = (year: number, month: number) => {
+  const firstDayOfMonth = dayjs()
+    .year(year)
+    .month(month - 1)
+    .date(1);
+
+  const lastDayOfMonth = firstDayOfMonth.endOf("month");
+
+  return useCoreQuery<Schedule[], FormattedSchedule[]>(
+    [ ...queryKey.monthSchedules, year, month ],
+    () => {
+      return ScheduleApiService.scheduleControllerFindAll({
+        startDateTime: firstDayOfMonth.format("YYYY-MM-DD"),
+        endDateTime: lastDayOfMonth.format("YYYY-MM-DD"),
+      });
+    },
+    {
+      select: (data) => {
+        const schedules = data.map(
+          ({ startDateTime, endDateTime, ...last }) => {
+            return {
+              startDateTime: dayjs(startDateTime),
+              endDateTime: endDateTime ? dayjs(endDateTime) : null,
+              ...last,
+            };
+          },
+        );
+        return schedules;
+      },
+      suspense: true,
+    },
+  );
+};
+
 export const bookmarkScheduleQuery: CustomQueryOptions<
   Schedule[],
   FormattedSchedule[]

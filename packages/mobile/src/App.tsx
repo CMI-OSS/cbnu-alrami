@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
+import DeepLink from "@components/molecules/DeepLink";
 import { isMobileProduction } from "@shared/util";
 import Article from "src/page/Article";
 import ArticleDetail from "src/page/Article/Detail";
@@ -72,6 +73,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <DeepLink />
       <Routes>
         {routes.map((route) => {
           return (

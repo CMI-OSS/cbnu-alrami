@@ -1,5 +1,3 @@
-import { Dispatch } from "react";
-
 import classNames from "classnames";
 import { Dayjs } from "dayjs";
 import { StyleProps } from "src/type/props";
@@ -12,52 +10,30 @@ type Props = {
   today: Dayjs;
   index: number;
   month: number;
-  isSchedule: boolean;
   isHoliday: boolean;
-  selectedDate: Dayjs;
-  setSelectedDate: Dispatch<Dayjs>;
 } & StyleProps;
 
-function Date({
-  className,
-  date,
-  today,
-  index,
-  month,
-  isSchedule,
-  isHoliday,
-  selectedDate,
-  setSelectedDate,
-}: Props) {
+function Date({ className, date, today, index, month, isHoliday }: Props) {
   const { isSelected, isToday, isRed, isGray } = useDateState({
     today,
-    selectedDate,
     date,
     isHoliday,
     month,
     index,
   });
 
-  const handleSelect = () => {
-    setSelectedDate(date);
-  };
-
   return (
     <li className={classNames(className, $.container)}>
-      <button
-        type="button"
+      <div
         className={classNames($["date-button"], {
           [$["red-date"]]: isRed,
           [$["gray-date"]]: isGray,
           [$["selected-circle"]]: !isToday && isSelected,
           [$["today-circle"]]: isToday,
         })}
-        onClick={handleSelect}
-        aria-label={`${date.date()}일 선택하기`}
       >
         {date.date()}
-      </button>
-      {isSchedule && <div className={$["schedule-dot"]} />}
+      </div>
     </li>
   );
 }

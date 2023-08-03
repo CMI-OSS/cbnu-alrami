@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="600" alt="image" src="https://cbnu-cmi.s3.ap-northeast-2.amazonaws.com/images/1687599898609.png">
+  <img width="700" alt="image" src="https://cbnu-cmi.s3.ap-northeast-2.amazonaws.com/images/1687694255419.png">
 </div>
 <p align="center">
 <div align="center"><img src="https://img.shields.io/badge/license-MIT-brightgreen"/> <img src="https://img.shields.io/badge/version-2.0.0-brightgreen"/></div>

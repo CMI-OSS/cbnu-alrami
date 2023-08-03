@@ -5,10 +5,8 @@ const script = {
   site_id: boardTree.공통.linc사업단.공지사항.id,
   site: "linc사업단",
   category: "공지사항",
-  noticeListSelector:
-    "#section > div > div > div.boardListContainer > div.boardList > table > tbody > tr",
-  noticeContentsSelector:
-    "#section > div > div > div.boardViewContainer > div.boardViewContent",
+  noticeListSelector: ".board_table > tbody > tr",
+  noticeContentsSelector: ".board_table > tbody > tr > td ",
   getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);
     return Array.from(list)

@@ -44,6 +44,7 @@ export const queryKey = {
   weathers: [ "weathers" ],
   schedules: [ "schedules" ],
   todaysSchedules: [ "todaysSchedules" ],
+  monthSchedules: [ "monthSchedules" ],
   holiday: [ "holiday" ],
   // Cafeteria 도메인
   cafeteria: (

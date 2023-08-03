@@ -22,7 +22,10 @@ const script = {
     });
   },
   getContentsHtml() {
-    // FIXME: 첨부된 파일 지워야됨
+    // SNS 공유하기 부문 제거
+    document
+      .querySelector(`${this.noticeContentsSelector} > p:last-child`)
+      .remove();
     return document.querySelector(this.noticeContentsSelector).outerHTML;
   },
 };

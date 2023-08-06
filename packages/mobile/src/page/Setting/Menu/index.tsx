@@ -32,6 +32,16 @@ function Menu({ route, config }: Props) {
     }
   };
 
+  if (label === "앱 버전") {
+    return (
+      <div className={$["setting-menu"]}>
+        <Icon className={$.icon} name={route.icon} size={18} color="#5e5e5e" />
+        <span className={$.label}>{label}</span>
+        {config && <span className={$.config}>{config}</span>}
+      </div>
+    );
+  }
+
   return (
     <>
       <NavLink

@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import classnames from "classnames";
 import { LeftArrow } from "src/components/atoms/icon";
+import { useAppSelector } from "src/store";
 import { DefaultProps } from "src/type/props";
 
 import FullPageModalTemplate from "../../../components/templates/FullPageModalTemplate";
@@ -15,8 +16,14 @@ type Props = {
 function SettingTemplate({ className, title, children, right }: Props) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const origin = useAppSelector((state) => {
+    return state.boardReducer.origin;
+  });
 
   const handleBackClick = () => {
+    if (origin === "subscribe") {
+      return navigate("/article/subscribe");
+    }
     if (pathname === "/setting") {
       return navigate("/home");
     }

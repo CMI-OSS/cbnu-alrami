@@ -15,7 +15,7 @@ import $ from "./style.module.scss";
 
 type Props = {
   id: number;
-  to: string;
+  to?: string;
   isSubscribe: boolean;
   isNotice: boolean;
   isOpen: boolean;
@@ -101,12 +101,14 @@ function Drawer({ id, to, isSubscribe, isNotice, isOpen, setIsOpen }: Props) {
           </div>
         )}
 
-        <Link className={$.item} to={to}>
-          <div className={$.title}>
-            <Icon name="view" size={20} />
-            공지사항 보기
-          </div>
-        </Link>
+        {to && (
+          <Link className={$.item} to={to}>
+            <div className={$.title}>
+              <Icon name="view" size={20} />
+              공지사항 보기
+            </div>
+          </Link>
+        )}
       </div>
     </div>,
     portalRootRef.current,

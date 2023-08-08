@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { LeftArrow } from "@components/atoms/icon";
+import Drawer from "@components/molecules/Drawer";
 import SubscriptionNoticeGroup from "@components/shared/SubscriptionNoticeGroup";
 import FullPageModalTemplate from "@components/templates/FullPageModalTemplate";
 import { useBoardQuery } from "@hooks/api/board";
@@ -11,6 +13,7 @@ import $ from "./style.module.scss";
 function BoardArticle() {
   const id = Number(useLocation().pathname.split("/").at(-1));
   const { data: boardData } = useBoardQuery({ id });
+  const [ isOpen, setIsOpen ] = useState(false);
 
   if (!boardData) return <></>;
 
@@ -26,16 +29,28 @@ function BoardArticle() {
           </div>
         }
         right={
-          <div className={$.right}>
+          <button
+            type="button"
+            className={$.right}
+            onClick={() => {
+              return setIsOpen(true);
+            }}
+          >
             <SubscriptionNoticeGroup
+              isPreview
               isNotice={isNotice ?? false}
               isSubscribe={isSubscribe ?? false}
             />
-          </div>
+          </button>
         }
       >
         <ArticleList className={$["article-list-wrap"]} />
       </FullPageModalTemplate>
+      <Drawer
+        {...{ id, isOpen, setIsOpen }}
+        isSubscribe={isSubscribe!}
+        isNotice={isNotice!}
+      />
     </div>
   );
 }

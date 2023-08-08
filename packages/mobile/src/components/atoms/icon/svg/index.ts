@@ -8,6 +8,7 @@ export { ReactComponent as man } from "./man.svg";
 export { ReactComponent as map } from "./map.svg";
 export { ReactComponent as notice } from "./notice.svg";
 export { ReactComponent as subscribe } from "./subscribe.svg";
+export { ReactComponent as unSubscribe } from "./unSubscribe.svg";
 export { ReactComponent as thinDiet } from "./thin-diet.svg";
 export { ReactComponent as unalarm } from "./unalarm.svg";
 export { ReactComponent as version } from "./version.svg";

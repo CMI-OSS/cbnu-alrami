@@ -1,8 +1,9 @@
-import {useState} from "react";
+import { useState } from "react";
+import { isIOS, isSafari } from "react-device-detect";
 
-import {Close, LongArrow} from "@components/atoms/icon";
+import { Close, LongArrow } from "@components/atoms/icon";
 import classNames from "classnames";
-import {isWebView} from "src/utils/webview";
+import { isWebView } from "src/utils/webview";
 
 import $ from "./style.module.scss";
 
@@ -13,7 +14,22 @@ function DeepLink() {
 
   return (
     <div className={classNames($.deeplink, { [$.isHidden]: isHidden })}>
-      <button type="button" className={$.left}>
+      <button
+        type="button"
+        className={$.left}
+        onClick={() => {
+          if (isIOS || isSafari) {
+            window.open(
+              "https://play.google.com/store/apps/details?id=com.cbnu_alrami.app&hl=ko",
+            );
+
+            return;
+          }
+          window.open(
+            "https://apps.apple.com/kr/app/%EC%B6%A9%EB%A6%BC%EC%9D%B4/id6447121993",
+          );
+        }}
+      >
         충림이 앱으로 보기 <LongArrow size={6} stroke="#fff" />
       </button>
       <button

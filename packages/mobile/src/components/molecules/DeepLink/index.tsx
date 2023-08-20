@@ -20,17 +20,17 @@ function DeepLink() {
         onClick={() => {
           if (isIOS || isSafari) {
             window.open(
-              "https://play.google.com/store/apps/details?id=com.cbnu_alrami.app&hl=ko",
+              "https://apps.apple.com/kr/app/%EC%B6%A9%EB%A6%BC%EC%9D%B4/id6447121993",
             );
 
             return;
           }
           window.open(
-            "https://apps.apple.com/kr/app/%EC%B6%A9%EB%A6%BC%EC%9D%B4/id6447121993",
+            "https://play.google.com/store/apps/details?id=com.cbnu_alrami.app&hl=ko",
           );
         }}
       >
-        충림이 앱으로 보기 <LongArrow size={6} stroke="#fff" />
+        충림이 앱 다운받기 <LongArrow size={6} stroke="#fff" />
       </button>
       <button
         type="button"

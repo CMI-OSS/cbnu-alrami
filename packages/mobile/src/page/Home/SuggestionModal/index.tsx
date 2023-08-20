@@ -11,7 +11,7 @@ type Props = {
 const TEMPERATURE_LIST = [
   {
     minTemp: 28,
-    maxTemp: null,
+    maxTemp: 100,
     displayTemp: "28°C~",
     suggestionList: "민소매, 반팔, 반바지, 원피스",
   },
@@ -52,7 +52,7 @@ const TEMPERATURE_LIST = [
     suggestionList: "코트, 가죽자켓, 히트텍, 니트, 레깅스",
   },
   {
-    minTemp: null,
+    minTemp: -100,
     maxTemp: 4,
     displayTemp: "~4°C",
     suggestionList: "패딩, 두꺼운코트, 목도리, 기모제품",

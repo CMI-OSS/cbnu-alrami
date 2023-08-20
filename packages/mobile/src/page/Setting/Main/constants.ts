@@ -56,7 +56,7 @@ type Props = {
 const settingConfig = (cafeteria: string): Props => {
   return {
     대표식당: cafeteria,
-    "앱 버전": "최신버전(0.0.0)",
+    "앱 버전": "최신버전(1.0.0)",
   };
 };
 

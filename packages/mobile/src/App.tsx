@@ -7,9 +7,10 @@ import Article from "src/page/Article";
 import ArticleDetail from "src/page/Article/Detail";
 import Board from "src/page/Board";
 import BoardArticle from "src/page/Board/Article";
+import "src/polyfills";
 import { isWebView } from "src/utils/webview";
 
-import "src/polyfills";
+import GA from "./components/atoms/GA";
 import useFCMToken from "./hooks/useFCMToken";
 import useWindowSizeDetect from "./hooks/useWindowSizeDetect";
 import "./mobile.scss";
@@ -74,6 +75,7 @@ function App() {
   return (
     <BrowserRouter>
       <DeepLink />
+      <GA />
       <Routes>
         {routes.map((route) => {
           return (

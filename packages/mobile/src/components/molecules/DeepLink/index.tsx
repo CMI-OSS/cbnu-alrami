@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { isIOS, isSafari } from "react-device-detect";
+import { isIOS, isMacOs, isSafari } from "react-device-detect";
 
 import { Close, LongArrow } from "@components/atoms/icon";
 import classNames from "classnames";
@@ -18,7 +18,7 @@ function DeepLink() {
         type="button"
         className={$.left}
         onClick={() => {
-          if (isIOS || isSafari) {
+          if (isIOS || isSafari || isMacOs) {
             window.open(
               "https://apps.apple.com/kr/app/%EC%B6%A9%EB%A6%BC%EC%9D%B4/id6447121993",
             );

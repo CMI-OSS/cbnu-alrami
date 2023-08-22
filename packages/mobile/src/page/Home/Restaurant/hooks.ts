@@ -65,7 +65,11 @@ export const useRestaurant = () => {
 
   useEffect(() => {
     const isShowCafeteriaGuide = getShowCafeteriaSelectGuide();
-    if (isShowCafeteriaGuide === null) setShowCafeteriaSelectGuide();
+    if (isShowCafeteriaGuide === null) {
+      setShowCafeteriaSelectGuide();
+      setCardType("greeting");
+      return;
+    }
     if (getShowCafeteriaSelectFinalGuide() === null)
       setShowCafeteriaSelectFinalGuide();
     if (isShowCafeteriaGuide === "true") {

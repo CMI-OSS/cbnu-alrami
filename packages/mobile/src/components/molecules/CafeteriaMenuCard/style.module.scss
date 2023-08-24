@@ -1,6 +1,6 @@
 .cafeteria-menu-card {
   margin-bottom: 24px;
-  padding: 22px 24px 15px;
+  padding: 16px 24px 15px;
   &:last-of-type {
     margin: 0;
   }
@@ -8,8 +8,9 @@
     display: flex;
     margin-bottom: 17px;
     .meal-time {
+      margin-top: 3px;
       font-weight: 500;
-      @include typography(16);
+      @include typography(14);
       line-height: 25px;
       color: $black-100;
     }
@@ -23,8 +24,8 @@
   }
   .meal {
     margin-top: 15px;
-    font-size: 13px;
-    line-height: 35px;
+    font-size: 14px;
+    line-height: 34px;
     &-menu {
       color: $black-80;
     }

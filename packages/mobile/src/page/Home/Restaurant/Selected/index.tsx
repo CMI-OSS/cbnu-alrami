@@ -74,11 +74,7 @@ function Selected(props: Props) {
       </div>
       <Line />
       <Link to="/cafeteria" className={$["food-box"]}>
-        {menuData.menu ? (
-          <p className={$["cafeteria-content"]}>{menuData.menu}</p>
-        ) : (
-          <span className={$["empty-menu"]}>지금은 식단이 없어요</span>
-        )}
+        <p className={$["cafeteria-content"]}>{menuData.menu}</p>
       </Link>
     </BorderBox>
   );

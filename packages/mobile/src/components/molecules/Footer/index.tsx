@@ -22,7 +22,7 @@ function Footer() {
     {
       icon: "notice",
       label: "공지사항",
-      to: "/article",
+      to: "/article/subscribe",
     },
     {
       icon: "diet",

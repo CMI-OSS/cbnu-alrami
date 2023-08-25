@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { CafeteriaMenu } from "@shared/swagger-api/generated";
 import classNames from "classnames";
 import { Dayjs } from "dayjs";
@@ -71,13 +73,9 @@ function Selected(props: Props) {
         <span className={$.time}>{mealPeriod}</span>
       </div>
       <Line />
-      <div className={$["food-box"]}>
-        {menuData.menu ? (
-          <p className={$["cafeteria-content"]}>{menuData.menu}</p>
-        ) : (
-          <span className={$["empty-menu"]}>지금은 식단이 없어요</span>
-        )}
-      </div>
+      <Link to="/cafeteria" className={$["food-box"]}>
+        <p className={$["cafeteria-content"]}>{menuData.menu}</p>
+      </Link>
     </BorderBox>
   );
 }

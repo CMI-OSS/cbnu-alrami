@@ -20,7 +20,11 @@ const useSwipe = () => {
 
   useEffect(() => {
     if (!swipeRef || !swipeRef.current) return;
-    const swipeHandler = new Hammer(swipeRef.current);
+    const swipeHandler = new Hammer(swipeRef.current, {
+      cssProps: {
+        userSelect: "true",
+      },
+    });
 
     swipeHandler.on("swiperight", handleSwipe);
     swipeHandler.on("swipeleft", handleSwipe);

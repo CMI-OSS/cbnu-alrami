@@ -1,5 +1,3 @@
-import React from "react";
-
 import Icon from "@components/atoms/icon/Icon";
 import classnames from "classnames";
 import { DefaultProps } from "src/type/props";
@@ -28,13 +26,13 @@ function SubscriptionNoticeGroup({
           <Icon
             name={isSubscribe ? "subscribe" : "unSubscribe"}
             size={24}
-            color={isSubscribe ? "#828282" : "#D66D6E"}
+            color={isSubscribe ? "#D66D6E" : "#828282"}
           />
 
           <Icon
             name={isNotice ? "alarm" : "unalarm"}
             size={24}
-            color={isNotice ? "#828282" : "#D66D6E"}
+            color={isNotice ? "#D66D6E" : "#828282"}
           />
         </div>
       </button>

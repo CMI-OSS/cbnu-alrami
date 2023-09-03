@@ -14,7 +14,7 @@ function Board() {
       <FullPageModalTemplate
         left={<Icon name="back" size={14} />}
         right={
-          <Link className={$.link} to="/setting/board">
+          <Link className={$.link} to="/article">
             <Icon name="x" size={14} />
           </Link>
         }

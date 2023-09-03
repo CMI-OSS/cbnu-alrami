@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import classNames from "classnames";
 import BorderBox from "src/components/atoms/BorderBox";
 import { Write } from "src/components/atoms/icon";
@@ -27,9 +29,9 @@ function EmptyCafeteria({ className, cafeteriaName, onClick }: Props) {
         </button>
       </div>
       <Line />
-      <div className={$["food-box"]}>
+      <Link to="/cafeteria" className={$["food-box"]}>
         <span className={$["empty-menu"]}>지금은 식단이 없어요</span>
-      </div>
+      </Link>
     </BorderBox>
   );
 }

@@ -72,13 +72,12 @@ $total-margin-of-top-and-bottom: 220px;
     .cancel {
       @include typography(14);
       position: relative;
-      width: 96px;
-      height: 40px;
+      width: 120px;
+      height: 47px;
       margin-bottom: 27px;
-      color: $black-60;
-      background-color: $black-0;
-      border: 1px solid $black-50;
-      border-radius: 100px;
+      color: $black-80;
+      background-color: $black-10;
+      border-radius: 10px;
       line-height: 30px;
       z-index: 1;
     }

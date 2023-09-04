@@ -29,6 +29,12 @@ const getMealTime = (hour: number) => {
   return CafeteriaMenu.time.DINNER;
 };
 
+const Priority: Record<CafeteriaMenu.time, number> = {
+  [CafeteriaMenu.time.BREAKFAST]: 1,
+  [CafeteriaMenu.time.LUNCH]: 2,
+  [CafeteriaMenu.time.DINNER]: 3,
+};
+
 function Selected(props: Props) {
   const { today, cafeteriaData, cafeteriaName, onClick, className } = props;
   const fullDate = today.format("YYYY-MM-DD");
@@ -38,7 +44,7 @@ function Selected(props: Props) {
   const { data: isHoliday } = useHoliday(fullDate);
   const { data } = useCafeteriaQuery(cafeteriaData, fullDate);
   const menuData = data?.find(({ time }) => {
-    return time === getMealTime(today.hour());
+    return Priority[time] >= Priority[getMealTime(today.hour())];
   });
 
   if (!data || isHoliday === undefined) return null;

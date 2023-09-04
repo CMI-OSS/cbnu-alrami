@@ -21,6 +21,8 @@ const useSwipe = () => {
   useEffect(() => {
     if (!swipeRef || !swipeRef.current) return;
     const swipeHandler = new Hammer(swipeRef.current, {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       cssProps: {
         userSelect: "true",
       },

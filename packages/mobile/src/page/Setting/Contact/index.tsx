@@ -20,8 +20,7 @@ function Contact() {
       handleModalClose={handleModalClose}
     >
       <div className={$.list}>
-        <span className={$.name}>ynda11111@naver.com</span>
-        <span className={$.name}>jarycoco@gmail.com</span>
+        <span className={$.name}>cbnumuchinfo@gmail.com</span>
       </div>
     </Modal>
   );

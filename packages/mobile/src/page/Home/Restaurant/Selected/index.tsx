@@ -79,7 +79,7 @@ function Selected(props: Props) {
         <span className={$.time}>{mealPeriod}</span>
       </div>
       <Line />
-      <Link to="/cafeteria" className={$["food-box"]}>
+      <Link to={`/cafeteria?menu=${cafeteriaData}`} className={$["food-box"]}>
         <p className={$["cafeteria-content"]}>{menuData.menu}</p>
       </Link>
     </BorderBox>

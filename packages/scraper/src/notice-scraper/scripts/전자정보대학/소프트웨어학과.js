@@ -5,7 +5,7 @@ const script = {
   site_id: boardTree.전공.전자정보대학.소프트웨어학부.공지사항.id,
   site: "소프트웨어학과",
   category: "공지사항",
-  noticeListSelector: `tr.notice`,
+  noticeListSelector: `tbody tr`,
   noticeContentsSelector: ".rd_body",
   getNoticeList() {
     const list = document.querySelectorAll(this.noticeListSelector);

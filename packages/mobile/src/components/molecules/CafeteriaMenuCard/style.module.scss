@@ -10,8 +10,9 @@
     .meal-time {
       margin-top: 3px;
       font-weight: 500;
-      @include typography(14);
+      @include typography(16);
       line-height: 25px;
+      letter-spacing: 1.5;
       color: $black-100;
     }
     &-info {

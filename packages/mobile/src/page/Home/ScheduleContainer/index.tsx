@@ -15,10 +15,11 @@ export default function ScheduleContainer({ today }: Props) {
     data?.filter((schedule) => {
       const today = dayjs();
 
-      if (today.isSame(schedule.startDateTime, "date")) return true;
-      if (today.isBefore(schedule.startDateTime, "date")) return false;
-      if (schedule.endDateTime && today.isAfter(schedule.endDateTime, "date"))
-        return false;
+      const { startDateTime, endDateTime } = schedule;
+
+      if (endDateTime && today.isAfter(endDateTime, "date")) return false;
+      if (today.isBefore(startDateTime, "date")) return false;
+      if (!endDateTime && today.isAfter(startDateTime, "date")) return false;
 
       return true;
     }) ?? [];
